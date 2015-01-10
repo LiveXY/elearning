@@ -4,10 +4,10 @@ linux下载地址：http://mirrors.163.com/centos/6.5/isos/x86_64/CentOS-6.5-x86
 
 ## 目录介绍：
 * 配置目录：`/etc/`
-*  `/etc/nginx/conf.d/` nginx配置目录
-*  `/etc/php.d/` php组件配置目录
+  * `/etc/nginx/conf.d/` nginx配置目录
+  * `/etc/php.d/` php组件配置目录
 * 日志目录：`/var/log/`
-*  `/var/log/php-fpm/` php日志目录
+  * `/var/log/php-fpm/` php日志目录
 * 服务目录：`/usr/sbin/`、`/sbin/`
 * 程序目录：`/usr/bin/`、`/bin/`
 * mysql目录：`/var/lib/mysql/`
