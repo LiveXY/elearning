@@ -300,12 +300,13 @@ chkconfig --del mysqld [在服务清单中清除mysql服务]
 ```
 
 ## 添加普通用户并进行sudo授权管理
+```sh
 useradd test
 echo "123456" | passwd --stdin test
 vi /etc/sudoers
 root       ALL=(ALL)       ALL
 test       ALL=(ALL)       ALL
-
+```
 
 ## rkhunter安全工具安装：
 ```sh
@@ -404,10 +405,10 @@ vi /etc/php-fpm.conf #vi cat /etc/php-fpm.d/www.conf
 rlimit_files = 122880
 #limits
 vi /etc/security/limits.conf 加上：
-\* soft nproc 122880
-\* hard nproc 122880
-\* soft nofile 122880
-\* hard nofile 122880
+* soft nproc 122880
+* hard nproc 122880
+* soft nofile 122880
+* hard nofile 122880
 #sysctl
 vi /etc/sysctl.conf
 fs.file-max=122880
