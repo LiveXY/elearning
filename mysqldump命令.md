@@ -1,7 +1,7 @@
 mysqldump命令
 ==========
  
-参数
+mysqldump参数
 * `--all-databases`, `-A` 导出全部数据库。`mysqldump -uroot -p --all-databases`
 * `--all-tablespaces`, `-Y` 导出全部表空间。`mysqldump -uroot -p --all-databases --all-tablespaces`
 * `--no-tablespaces`, `-y` 不导出任何表空间信息。`mysqldump -uroot -p --all-databases --no-tablespaces`
@@ -81,8 +81,12 @@ mysqldump命令
 * `--plugin_dir` 客户端插件的目录，用于兼容不同的插件版本。`mysqldump -uroot -p --host=localhost --all-databases --plugin_dir=”/usr/local/lib/plugin”`
 * `--default_auth` 客户端插件默认使用权限。`mysqldump -uroot -p --host=localhost --all-databases --default-auth=”/usr/local/lib/plugin/<PLUGIN>”`
 
-实例一：
+实例一数据导入导出：
 * `mysqldump -h ip -uroot -p123456 --skip-add-drop-table --single-transaction db table --where=" pid<19703535" > temp.sql` 带where导出数据,不删除表
 * `find -name 'temp.sql' | xargs perl -pi -e 's|table|table2|g'` 修改表名
 * `mysql -h ip -uroot -p123456 db < temp.sql` 导入数据
+
+实例二备份还原：
+* `mysqldump -uroot -p123456 -R webgame>webgame.sql` 备份
+* `mysql -uroot -p123456 webgame<webgame.sql` 还原
 
