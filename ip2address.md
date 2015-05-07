@@ -1,0 +1,49 @@
+ip地址转区域
+=======
+###百度ip转区域接口：
+```
+http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&ip=222.73.202.202
+{"address":"CN|\u4e0a\u6d77|\u4e0a\u6d77|None|CHINANET|0|0","content":{"address_detail":{"province":"\u4e0a\u6d77\u5e02","city":"\u4e0a\u6d77\u5e02","district":"","street":"","street_number":"","city_code":289},"address":"\u4e0a\u6d77\u5e02","point":{"y":"3642780.37","x":"13524118.26"}},"status":0}
+```
+###百度经纬度转区域接口：
+```
+http://api.map.baidu.com/geocoder?output=json&location=39.983424,%20116.322987&key=37492c0ee6f924cb5e934fa08c6b1676
+{
+    "status":"OK",
+    "result":{
+        "location":{
+            "lng":116.322987,
+            "lat":39.983424
+        },
+        "formatted_address":"北京市海淀区中关村大街27号1101-08室",
+        "business":"中关村,人民大学,苏州街",
+        "addressComponent":{
+            "city":"北京市",
+            "direction":"附近",
+            "distance":"7",
+            "district":"海淀区",
+            "province":"北京市",
+            "street":"中关村大街",
+            "street_number":"27号1101-08室"
+        },
+        "cityCode":131
+    }
+}
+```
+###淘宝ip转区域接口：
+```
+http://ip.taobao.com/service/getIpInfo2.php?ip=222.73.202.202
+http://ip.taobao.com/service/getIpInfo.php?ip=222.73.202.202
+{"code":0,"data":{"country":"\u4e2d\u56fd","country_id":"CN","area":"\u534e\u4e1c","area_id":"300000","region":"\u4e0a\u6d77\u5e02","region_id":"310000","city":"\u4e0a\u6d77\u5e02","city_id":"310100","county":"","county_id":"-1","isp":"\u7535\u4fe1","isp_id":"100017","ip":"222.73.202.202"}}
+其中code的值的含义为，0：成功，1：失败。
+```
+###ipip.net网ip转区域接口：
+```
+http://freeapi.ipip.net/222.73.202.202
+["中国","上海","上海","","电信"]
+```
+###sina网ip转区域接口：
+```
+http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=222.73.202.202
+var remote_ip_info = {"ret":1,"start":-1,"end":-1,"country":"\u4e2d\u56fd","province":"\u4e0a\u6d77","city":"\u4e0a\u6d77","district":"","isp":"","type":"","desc":""};
+```
