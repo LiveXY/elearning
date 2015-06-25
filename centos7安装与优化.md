@@ -12,6 +12,11 @@ yum install wget curl
 vi /etc/sysconfig/network-scripts/ifcfg-eno16777736
 BOOTPROTO=dhcp
 ONBOOT=yes
+* 静态ip,VM网络适配器一定要使用桥接模式
+BOOTPROTO=static
+IPADDR=192.168.1.223
+NETMASK=255.255.255.0
+ONBOOT=yes
 * 重启network服务
 systemctl restart network.service
 ##更新系统
@@ -75,17 +80,17 @@ yum install git
 yum install -y subversion
 ##配置站点
 cd /home/
-git clone https://****/test.git
-mkdir /home/test/application/cache
-mkdir /home/test/application/logs
-chmod a+w /home/test/application/cache
-chmod a+w /home/test/application/logs
-vi /etc/nginx/conf.d/test.conf
+git clone https://git.upupgame.com/web/moodthermometer.git
+mkdir /home/moodthermometer/application/cache
+mkdir /home/moodthermometer/application/logs
+chmod a+w /home/moodthermometer/application/cache
+chmod a+w /home/moodthermometer/application/logs
+vi /etc/nginx/conf.d/moodthermometer.conf
 server {
 	listen 8011;
 	server_name localhost;
 	index index.php index.htm index.html;
-	set $htdocs /home/test;
+	set $htdocs /home/moodthermometer;
 	root $htdocs;
 	large_client_header_buffers 4 16k;
 	client_max_body_size 300m;
@@ -140,12 +145,12 @@ server {
 }
 systemctl reload nginx.service
 ##数据库配置
-mysql -uroot -p123456 -e "create schema test default character set utf8;"
-mysql -uroot -p123456 -e "show test;"
-mysqldump -uroot -p123456  -R --databases test > test20150528.sql
-wget http://****/test20150528.sql
-mysql --user=root -p123456 test < test20150528.sql
-mysql -uroot -p123456 -e "use test; show tables;"
+mysql -uroot -pnewlife -e "create schema mooddisorders default character set utf8;"
+mysql -uroot -pnewlife -e "show mooddisorders;"
+mysqldump -uroot -pnewlife  -R --databases mooddisorders > mooddisorders20150528.sql
+wget http://192.168.1.222:8011/mooddisorders20150528.sql
+mysql --user=root -pnewlife mooddisorders < mooddisorders20150528.sql
+mysql -uroot -pnewlife -e "use mooddisorders; show tables;"
 
 
 ##防火墙 Firewalld
@@ -161,5 +166,8 @@ firewall-cmd --get-service
 firewall-cmd --query-service service_name
 firewall-cmd --add-port=8080/tcp
 
-
+##关闭SELINUX
+setenforce 0
+vi /etc/sysconfig/selinux
+SELINUX=disabled
 
