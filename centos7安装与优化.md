@@ -94,6 +94,7 @@ systemctl status mariadb.service #状态
 ##配置LNMP
 安全配置 MariaDB
 ```sh
+systemctl start mariadb.service
 /usr/bin/mysql_secure_installation
 ```
 ##修改密码(ERROR 1045 (28000): Access denied for user 'mysql'@'localhost' (using password: NO))
@@ -108,23 +109,23 @@ mysql -uroot -p
 ```
 ##安装git/svn
 ```sh
-yum install git
+yum install git -y
 yum install -y subversion
 ```
 ##配置站点
 ```sh
 cd /home/
-git clone https://git.upupgame.com/web/moodthermometer.git
-mkdir /home/moodthermometer/application/cache
-mkdir /home/moodthermometer/application/logs
-chmod a+w /home/moodthermometer/application/cache
-chmod a+w /home/moodthermometer/application/logs
-vi /etc/nginx/conf.d/moodthermometer.conf
+git clone https://*****.git
+mkdir /home/test/application/cache
+mkdir /home/test/application/logs
+chmod a+w /home/test/application/cache
+chmod a+w /home/test/application/logs
+vi /etc/nginx/conf.d/test.conf
 server {
 	listen 8011;
 	server_name localhost;
 	index index.php index.htm index.html;
-	set $htdocs /home/moodthermometer;
+	set $htdocs /home/test;
 	root $htdocs;
 	large_client_header_buffers 4 16k;
 	client_max_body_size 300m;
@@ -242,7 +243,6 @@ systemctl restart rpcbind
 systemctl restart nfs-server
 systemctl restart nfs-lock
 systemctl restart nfs-idmap
-
 
 mount.nfs: Connection timed out
 服务器端防火墙设置（NFS 开启防墙配置）：
@@ -364,9 +364,11 @@ Slave_SQL_Running: Yes
 cat /var/log/mariadb/mariadb.log
 ```
 * 双主从 将上面的主从返过来配置
+```
 主my.cnf中加入，防止重复自增编号
 auto-increment-increment = 3
 auto-increment-offset = 1
+```
 * ERROR 1201 (HY000): Could not initialize master info structure; more error messages can be found in the MariaDB error log
 ```
 > slave stop;
@@ -634,6 +636,7 @@ http://172.16.180.139:8000/dbs/stats
 mysql -h 172.16.180.139 -uroot -ppass -e 'show status like "wsrep%";' | grep wsrep_gcomm_uuid
 #三读
 mysql -h 172.16.180.139 -P 4306 -uroot -ppass -e 'show status like "wsrep%";' | grep wsrep_gcomm_uuid
+#任何一台或二台死掉其它都能正常访问，除非所有数据库死掉。
 ```
 
 
