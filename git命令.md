@@ -142,44 +142,6 @@ mv _temp/ happipoker.com/
 
 git pull
 
-ssh-keygen -t rsa -f ~/.ssh/git.xionghc -C "xionghc@happi-inc.com"
-
-cat ~/.ssh/config
-# gitlab
-Host git.upupgame.com
-    HostName git.upupgame.com
-    PreferredAuthentications publickey
-    IdentityFile ~/.ssh/git.gaolei
-cat ~/.ssh/git.gaolei
------BEGIN RSA PRIVATE KEY-----
-MIIEoQIBAAKCAQEA59JvR+TBEoyiQAv+MX8V5M5qvPlT4HTfJy07et8BKMCLTynt
-XQoycDu+ELhaqInfrw9vStoeo8NmZ3e2rYO45E8W7mls1zMsnjqmDPq4OHDwsWbe
-j4l9CdI6KNQ1u9uOpSniBEP6XJL6WRNhmhsuHi8N+Thxq32/AI4WuIRBaQdWMWVJ
-4HEjLrdY/sHeunCpKx7hzxaoCGM9bHZBkhzNXFM4GAlGenRbmhM3NRoKziz0sWKr
-pjvMSSI1WEVe72VOTiU1zb9t3ewEbl45Sgp6u96mM8rlmfOuJaT+JRr5ZoiBO4fZ
-HhGDvx1mUy2vrl53JO7g4rjF1+8cWS9iYOen4QIBIwKCAQB92KLPQaqjq24Fgtpy
-pBMzEPgdcWgMIi//UxGpGflQownL4497pnMm+9w09l0Zqe50+cASsOwPwdiBT52u
-ppeR4cqerkJmMbkish+gpVyw7Npu7rNVPAIMpVLFtQc6GBo8ZzGNSXlIMofnNmgv
-FhG4nTN4qZzKzzvNGe8TtYKYGOQ0y2PdvfgG1PRSWl7zX1X3P0tj7dOG4G+osbLy
-VjdSvXCyj1JujzEWck+ZfCVn+91F6WTiiBYoULSe4o6+iRlUoeqH8YE+D4vP8t03
-NuAptT6+Y6sCcECIaTXsn6Udf4OFZQ4NRzAqMLC51At2vSM9NhlYGk2KBuAk4g3B
-5zXPAoGBAP663aEOUXlB39yA0FroQ2NwZPueSYNqXw55s7zDnUKqJ0EoLTvQxKrK
-26RHLJf6flC1XKDL4cNFZvcQOcUE/o4/xEAHJqHTZK7bxcWHvnYcGNB9/EP719o7
-ARZDGW3JH4wlOE/d++BBKN2Xg+L699Ivqs4pICiXDDBj20X6lorXAoGBAOj6VFyl
-cOEIrYSH7Ln26XF6Ae+GMf1HPlPJey2xxcZ4El07JN6ap+qYZQBMdIw8jdZ7PSiX
-X1l2GRn68P7BT0CNbJaWR7WKu4nrHHB3iJ2WT4qM/BXCCa3h4hjCVLnFYx3CRIpQ
-C8QH0Lxy0llEdgW6ZydoJMsMu08Ps7I3BYQHAoGBAOjlXOsFxtVDitg7Qic6wUT5
-C968mvvO99K4adEn4DzzVxcAKVtCh+ycNoeRh9torgCl0QgK3QpOFP8kxxqIOTGZ
-Yvi2FLE2TWyrrYFmKnqdWIQbakzI/913xnrBAU5uvcH2JNtOnSTN3DhQA42yQao6
-NcPN1EJeNwerwSoJrjXLAoGAd9Eys03FBgR2fqxN2/tTfDAeQKtqKnxpMmeeb0V7
-p+X60NyWnl4qeKYlUJxZMi3FSbu5DY+tYTVr/ruR4hpGA/D2BE1Jc06pl2L4rt5j
-hD6skGXDeOdysTJXBWtBhBxe3BrEKeAGDQtVaDsNF/dSo9w1DPO7JpjVW9wwh4oC
-1i8CgYAtHqAxFYRs1ak/5CshgqwrTGj300GJ4AgGYwdR363grYSnujntwTbxCvyv
-vnlFnn1jj3q5qZ7J/l3+z+KRi68BgPA1cpHZqLC9ixI2AsMTo2ufeVxw2op5xH2i
-Ofb1wiX+kACueE7pPpZo3nAnEXOB1lAB/B+2xRpTw+DI1jW5ig==
------END RSA PRIVATE KEY-----
-
-
 yum install git
 or
 yum install git --disablerepo=rpmforge
