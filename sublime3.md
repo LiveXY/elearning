@@ -4,7 +4,9 @@ sublime3
 ###下载地址：http://www.sublimetext.com/3
 
 ###安装install package ctrl+` 输入以下代码：
+```
 import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+```
 
 ###ctrl+shift+p输入install package回车后可搜索并安装如下插件：
 * PHPIntel
@@ -95,6 +97,7 @@ lua.sublime-build
 ctrl + b 运行
 
 ###key
+```
 —– BEGIN LICENSE —–
 K-20
 Single User License
@@ -108,6 +111,7 @@ C5605DE6 DAB003B4 D60CA4D0 77CB1533
 B094B9C0 FAA4B04C 06CC9AFC FD412671
 82E3AEE0 0F0FAAA7 8FA773C9 383A9E18
 —— END LICENSE ——
+```
 
 ###常用快捷键
 ```
