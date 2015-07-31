@@ -1,27 +1,43 @@
 mysql常用代码
 ==========
 
+* `show engine innodb status /G;` 当 MySQL 出现问题通常我们需要执行的第一个命令
 * `select @@datadir` 数据存放目录
 * `update mysql.proc set definer="root@%" where db='dbname';` 修改存贮过程权限
-* `check table tablename;`检查，`repair table tablename;`修复表
+* `check table tablename;` 检查会加只读锁，`repair table tablename;`修复表 参数quick只修复索引树|extended逐行重建索引|use_frm MYI文件丢失时
+* `optimize table tablename;` 优化表会加只读锁(在做过大量的更新或删除操作后操作，减少了文件碎片，又减少了表损坏的概率)
+* `analyze table tablename;` 分析表会加只读锁
 * `alter table db.tablename engine='InnoDB';` 修改表引擎
-* `optimize table tablename;` 优化表
+```
+#大数据热修改表引擎
+create table new_tablename like tablename;
+alter table new_tablename engine='InnoDB';
+mysqldump --single-transaction -uuser -ppass -t dbname tablename > mb.sql
+find -name 'mb.sql' | xargs perl -pi -e 's|tablename|new_tablename|g'
+mysql -uuser -ppass dbname < mb.sql
+#找到最大的主键记录，将新数据导入到new_tablename
+replace into new_tablename select * from tablename where ...;
+lock tables tablename write;
+rename table tablename to temp_tablename, new_tablename to tablename;
+unlock tables;
+```
 * `create index indexname on tablename (field1, field2);` 或 `alter table tablename add index indexname(field1, field2);` 创建(添加)索引
 * `alter table tablename drop index indexname;` 删除索引
 * `show create table tablename\G;` 显示建表完整表结构
 * `desc tablename;`,`show columns from tablename;` 显示表结构
-* `show table status like tablename\G;` 查看数据表类型
+* `show table status like 'tablename'\G;` 查看数据表类型
 * `show master status\G;` 查看master状态
 * `show slave status\G;` 查看slave状态
 * `show global variables like 'slow%';`, `show variables like 'long%';`, `show global status like 'table_locks%'`, `show status like 'innodb_row_lock%';` 查看变量，状态值
+* `set xxxx=value;`, `set global xxxx=value;` 修改配置
 * `create schema databasename default character set utf8;` 或 `create database databasename default charset utf8;` 新建数据库
 * `insert into report_churn(day,value) values(today, 0) on duplicate key update value=0;` #不存在添加，存在修改
-* `insert into table select * from oldtable;` #复制数据 ignore
+* `insert into table select * from oldtable;` #复制数据(锁select表) ignore
 * `create table newtable like oldtable;`, `create table if not exists newtable like oldtable;` 只复制结构、索引、约束、主键
-* `show create table tablename;` 复制代码 `copycode as (select * from tablename);` 只复制结构和数据、索引、约束、主键
+* `show create table tablename;` 复制代码 `copycode as (select * from tablename);` 复制结构和数据、索引、约束、主键
 * `create table tb2 select * from book;`,`create table if not exists tb2 select * from book;` 复制表结构和数据、不复制索引、约束、主键
 * `create temporary table if not exists users(uid int(11) primary key, golds bigint(20));` 建临时表
-* `create table tb3 (id int(10) primary key,name varchar(20));` 建表
+* `create table tb3 (id int(10) primary key, name varchar(20));` 建表
 * `create table tb3 (id int(10) not null auto_increment, name varchar(20) not null default '' comment '', primary key (id), name2 varchar(20) default null comment '', primary key (id)) engine=InnoDB auto_increment=1 default charset=utf8 comment='';` 建表
 * `set sql_safe_updates=0;` 安全更新
 * `update game as a inner join server as b on a.gid=b.gid set a.gname=b.sname;` 更新
@@ -31,7 +47,7 @@ mysql常用代码
 * `alert table tablename add column columnname int not null default 0 comment '' (after columnname);` 增加字段
 * `alter table tablename change column oldcolumnname newcolumnname int not null default 0 comment '';` 修改字段类型
 * `alter table tablename drop columnname;` 删除字段
-* `alter table tablename drip partition partitionname` 删除分拆表
+* `alter table tablename drop partition partitionname` 删除分拆表
 * `alter table tablename alter columnname drop default;` 删除默认值
 * `alter table tablename alter columnname set default value;` 修改默认值
 * `alter table oldname rename to newname;` 或 `rename table oldname to newname` 或 `rename table db1.oldname to db2.newname` 表重命名
@@ -39,48 +55,58 @@ mysql常用代码
 * `alter table tablename auto_increment=1;` 修改自增编号
 * `slave stop;`, `reset slave;`, `slave start;` 从机停止，重置，启动
 * `change master to master_host='ip', master_user='user', master_password='pass', master_port=3306, master_log_file='mariadb-bin.000002', master_log_pos=1179, master_connect_retry=30;` 修改主从复制
-* `set xxxx=value;`, `set global xxxx=value;` 修改配置
 * `set global server_id=2;` 修改主从复制的server_id
 * `grant replication slave on *.* to username identified by 'password' with grant option;flush privileges;` 新建主从复制用户，如果支持监控增加super
-* `flush tables with read lock;` 锁所有表, `lock tables tablename read, tablename2 write;`, `unlock tables;` #锁定数据库表只读，解锁
+* `flush tables with read lock;` 锁所有表, `lock tables tablename read, tablename2 write;`, `unlock tables;` 锁定数据库表只读，解锁
 * `show processlist;`, `show full processlist;` 当前的连接
 * `kill id` 关闭连接
 * `pager grep "lock(s)"` 和 `show engine innodb status;` 查看当前锁行数
 * `select @@global.tx_isolation,@@session.tx_isolation,@@tx_isolation;` 查看事务隔离级别
 * `set tx_isolation='repeatable-read';` 或 `set session transaction isolation level repeatable read` 修改事务隔离级别(http://www.cnblogs.com/zemliu/archive/2012/06/17/2552301.html) read-uncommitted读取未提交内容/read-committed读取提交内容/repeatable-read可重读(mysql默认)/serializable可串行化
-* innodb 对 update ... where pk=value 加行共享锁，`select .... for update;` 加排它锁
+* innodb 对 `update ... where pk=value` 加行共享锁，`select .... for update;` 加排它锁，`select .... lock in share mode;` 加共享锁
 * `select @@global.binlog_format, @@binlog_format;` 查看binlog format
 * 清理大表数据
 ```
 方法一有锁：
 create table log_user_golds2 like log_user_golds;
 insert into log_user_golds2 select * from log_user_golds where ltime > "2015-06-15";
+lock tables log_user_golds write;
 rename table log_user_golds to log_user_golds3,log_user_golds2 to log_user_golds;
+unlock tables;
 drop table log_user_golds3;
 方法二无锁：
 create table log_user_golds2 like log_user_golds;
 select * from log_user_golds where ltime > "2015-06-15" into outfile '/tmp/log_user_golds.csv'; -- fields terminated by ',' optionally enclosed by '"' lines terminated by '\n';
 load data infile '/tmp/log_user_golds.csv' into table log_user_golds2; -- fields terminated by ',' optionally enclosed by '"' lines terminated by '\n';
+lock tables log_user_golds write;
 rename table log_user_golds to log_user_golds3,log_user_golds2 to log_user_golds;
+unlock tables;
 drop table log_user_golds3;
 ```
 * 大表增加，修改字段
 ```
-alter table tablename drop index indexname;
+alter table tablename disable keys; -- 禁用索引
+lock tables tablename write;
 alert table tablename add column columnname int not null default 0 comment '' (after columnname);
 alter table tablename change column oldcolumnname newcolumnname int not null default 0 comment '';
-alter table tablename add index indexname(field1, field2);
+unlock tables;
+alter table tablename enable keys;
 ```
 * `start transaction;` 事务开始， `commit;` 提交事务， `rollback;` 回滚事务，`set session autocommit=1;` 设置当前会话自动提交事务，`start transaction with consistent snapshot;` 快速的全局读锁替代`start transaction;`
-* `analyze table tablename;` 分析表
 * `checksum table tablename, tablename2;` 校验表
 * `show tables like 'log%'` 查看批配表名
-* 
-* 
-* 
-* 
-* 
-* 
+* `select sql_no_cache ... from table use index(indexname);` sql_no_cache不缓存sql，use index指定索引，force index强制索引，ignore index忽略索引
+* high_priority可以使用在select和insert操作中，这个操作优先进行。low_priority可以使用在insert和update操作中，这个操作滞后。延时插入 insert delayed into。
+* `order by rand() limit 2;`， `先count记录数，count>2时 然后limit count-2,2` 随机取2条记录
+* 导入数据时提高速度
+```
+set unique_checks=0; -- 禁用唯一性检查
+set foreign_key_checks=0; -- 禁用外键约束
+set unique_checks=1;
+set foreign_key_checks=1;
+```
+* date_format(current_date,'%Y%m%d')
+* `alter table tablename discard tablespace;` 删除表空间, `alter table tablename import tablespace;` 重新导入表空间
 * 
 * 
 * 
@@ -94,17 +120,22 @@ mysql命令
 =========
 
 * `mysqlcheck -uroot -p123456 db -c;` 检查整个库那些表损坏
+* `mysqlcheck -uroot -p123456 db table1 table2 -c;` 检查整个库那些表损坏
 * `mysqlcheck -uroot -p123456 db -r;` 修复整个数据库表损坏
-* `mysqlcheck -uroot -p123456 db table -r;` 修复数据表
+* `mysqlcheck -uroot -p123456 db table1 table2 -r;` 修复数据表
+* `myisamchk --quick --check-only-changed --sort-index --analyze table.MYI;`
 * `myisamchk -e table.MYI;` 检查表
 * `myisamchk -r table.MYI;` 修复表
-* `mysqldump -uuser -ppass -R --databases dbname > dbname.sql` 导出数据库
+* `myisamchk -r /path/;` 修复表
+* `mysqldump --single-transaction -uuser -ppass -R --databases dbname > dbname.sql` 导出数据库
   * `--extended-insert=false` 默认生成insert时多条合并成一条，如果主健重复错误后就不执行后续的对应表的插入语句了，需要加上此参数
   * `-d` 只导结构不导数据
   * `-t` 只导数据不到结构
   * `--single-transaction` 不锁表
+* `mysqldump -h ip -uroot -p123456 --skip-add-drop-table --single-transaction db table --where=" pid<19703535" > temp.sql` 带where导出数据,不删除表
 * `mysql -uuser -ppass -e "create schema dbname default character set utf8;"` 和 `mysql -uuser -ppass dbname < dbname.sql` 导入数据
 * `mysql -uuser -ppass -e "sql code"` 执行SQL代码
+* `mysql -h 127.0.0.1 -uroot -p123456 -D db -e "select uid,username from member" > /home/member.txt` linux导出部分字段和数据
 * 重新修改密码：
   * service mysqld stop
   * mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
@@ -113,7 +144,7 @@ mysql命令
     * flush privileges;
     * quit
   * mysql -uroot -p
-* 
+* `/innochecksum /var/lib/mysql/ibdata1` 或 `innodb_space -f /var/lib/mysql/ibdata1 space-summary | grep UNDO_LOG | wc -l` 检查什么被存储到了 ibdata1 里
 * 
 * 
 * 
