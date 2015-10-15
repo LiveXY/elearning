@@ -1,9 +1,19 @@
 
-
-explain/explain extended -- 分析查询
+==========================================
+explain/explain extended -- 查询分析
 -- 实例：
 explain extended select * from aaa;
-
+-- 字符串匹配
+explain select count(uid) from yly_member where email like "%@hotmail.com"; -- 12.3/2.38 158688
+explain select count(uid) from yly_member where email REGEXP "@hotmail.com$"; -- 2.64/2.53 158689
+explain select count(uid) from yly_member where locate('@hotmail.com',email)>0; -- 2.23/2.01 161579
+Extra 列的结果:
+Using temporary，表示需要创建临时表以满足需求，通常是因为GROUP BY的列没有索引，或者GROUP BY和ORDER BY的列不一样，也需要创建临时表，建议添加适当的索引。
+Using filesort，表示无法利用索引完成排序，也有可能是因为多表连接时，排序字段不是驱动表中的字段，因此也没办法利用索引完成排序，建议添加适当的索引。
+Using where，通常是因为全表扫描或全索引扫描时（type 列显示为 ALL 或 index），又加上了WHERE条件，建议添加适当的索引。
+Using index、Using index condition、Using index for group-by 则都还好
+system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL
+==========================================
 profiling -- 分析查询
 select @@profiling; -- 查看是否开启profiling
 set profiling=1; -- 开启profiling 0关1开
@@ -15,12 +25,11 @@ select * from aaa;
 show profiles\G;
 show profile for query 1;
 set profiling=0;
-
-
+==========================================
 show status -- 显示状态信息（扩展show status like ‘XXX’）
 show variables -- 显示系统变量
 show innodb status -- 显示InnoDB存储引擎的状态
-
+==========================================
 -- 慢查询和没有使用索引
 vi /etc/my.ini
 [mysqld]
@@ -39,16 +48,20 @@ show variables like 'long%'; -- 慢查询时间
 set long_query_time=5
 show variables like 'log_output'
 show global variables like 'general%';
+mysql 慢查询日志分析工具:
 -- 查看访问次数最多的 20 个 sql 语句
 mysqldumpslow -s c -t 20 /var/lib/mysql/sg3-slow.log
 -- 查看返回记录集最多的 20 个 sql
 mysqldumpslow -s r -t 20 /var/lib/mysql/sg3-slow.log
 -- 按照时间返回前 10 条里面含有左连接的 sql 语句
 mysqldumpslow -t 10 -s t -g "LEFT JOIN" /var/lib/mysql/sg3-slow.log
-
+IO大的SQL(Rows exammine项)/未命中索引的SQL(Rows	examine和Rows Send的对比):
+--分析本地的慢查询文件
+pt-query-digest --user=root --password=test@123 /data/dbdata/localhost-slow.log
+==========================================
 show global status like 'table_locks%' -- Table_locks_immediate 表示立即释放MySQL表锁数，Table_locks_waited 表示需要等待的MySQL表锁数如果Table_locks_waited的值比较高，则说明存在着较严重的表级锁争用情况。这时，需要我们对应用做进一步的检查，来确定问题所在。
 show status like 'innodb_row_lock%'; -- 分析系统上的行锁的争夺情况
-
+==========================================
 show global status like 'threads_connected'; -- 当前的连接数
 show processlist; show full processlist; -- 当前的连接
 show global status like 'connections'; -- 试图连接到(不管是否成功)MySQL服务器的连接数。
@@ -59,7 +72,7 @@ show global status like 'max_used_connections'; -- 服务器启动后已经同�
 max_used_connections / max_connections * 100% ≈ 85% -- 最大连接数占上限连接数的85%左右，如果发现比例在10%以下，MySQL服务器连接上线就设置得过高了。
 set global max_connections = 2000; -- 修改最大连接数 一般来说 500 到 800 左右是一个比较合适的参考值
 set global max_connect_errors = 100000
-
+==========================================
 show variables like 'interactive_timeout'; -- 一个交互连接在被服务器在关闭前等待行动的秒数默认数值是28800，可调优为7200。
 
 show variables like 'key_buffer_size'; -- 只对myISAM生效指定索引缓冲区的大小，它决定索引处理的速度，尤其是索引读的速度。默认配置数值是8388600(8M)，主机有4GB内存，可以调优值为268435456(256MB)
@@ -122,26 +135,15 @@ set global max_heap_table_size=64*1024*1024;
 show variables like 'sort_buffer_size';
 -- 不要将 sort_buffer_size 的值设置的太高 — 可能导致连接很快耗尽所有内存。
 
--- 字符串匹配
-explain select count(uid) from yly_member where email like "%@hotmail.com"; -- 12.3/2.38 158688
-explain select count(uid) from yly_member where email REGEXP "@hotmail.com$"; -- 2.64/2.53 158689
-explain select count(uid) from yly_member where locate('@hotmail.com',email)>0; -- 2.23/2.01 161579
-Extra 列的结果:
-Using temporary，表示需要创建临时表以满足需求，通常是因为GROUP BY的列没有索引，或者GROUP BY和ORDER BY的列不一样，也需要创建临时表，建议添加适当的索引。
-Using filesort，表示无法利用索引完成排序，也有可能是因为多表连接时，排序字段不是驱动表中的字段，因此也没办法利用索引完成排序，建议添加适当的索引。
-Using where，通常是因为全表扫描或全索引扫描时（type 列显示为 ALL 或 index），又加上了WHERE条件，建议添加适当的索引。
-Using index、Using index condition、Using index for group-by 则都还好
-system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL
-
+==========================================
 优化Limit分页
 select film_id,actor,description from film where actor='WaterBin' order by title limit 100000,5
 优化 延迟关联
 select film.film_id,film.actor,film.description from film inner join (
 	select film_id from film where f.actor='WaterBin' order by title limit 100000,5
 ) as f using(film_id);
-
+==========================================
 innodb_data_file_path = ibdata1:1G:autoextend --千万不要用默认的10M，否则在有高并发事务时，会受到不小的影响；
-
 尽可能不使用TEXT/BLOB类型，确实需要的话，建议拆分到子表中，不要和主表放在一起，避免SELECT * 的时候读性能太差。
 
 /*
@@ -174,7 +176,7 @@ show global status like 'Questions';
 show global status like 'Uptime';
 QPS = Questions / Uptime
 
-
+==========================================
 net.ipv4.tcp_fin_timeout = 30
 -- TIME_WAIT超时时间，默认是60s
 net.ipv4.tcp_tw_reuse = 1
@@ -185,7 +187,7 @@ net.ipv4.tcp_max_tw_buckets = 4096
 -- 系统保持TIME_WAIT socket最大数量，如果超出这个数，系统将随机清除一些TIME_WAIT并打印警告信息
 net.ipv4.tcp_max_syn_backlog = 4096
 -- 进入SYN队列最大长度，加大队列长度可容纳更多的等待连接
-
+==========================================
 
 将 MySQL 数据库数据存储到独立分区上,此设置只在 MySQL 上有效, 在 MariaDB 上无效。
 fdisk /dev/sdb -- NP1
@@ -205,8 +207,7 @@ service mysqld start
 service httpd start
 service nginx start
 
-
-
+==========================================
 MySQL高可用性之Keepalived+Mysql（双主热备）http://lizhenliang.blog.51cto.com/7876557/1362313
 Mysql主从复制http://lizhenliang.blog.51cto.com/7876557/1290431
 MySQL-Proxy实现MySQL读写分离提高并发负载http://lizhenliang.blog.51cto.com/7876557/1305083
@@ -249,7 +250,7 @@ max_heap_table_size= 64M
 #配置临时表容量和内存表最大容量 每 GB 内存给 64M
 innodb_data_file_path = ibdata1:1G:autoextend
 #千万不要用默认的10M，否则在有高并发事务时，会受到不小的影响；
-
+==========================================
 
 #避免使用 Swappiness
 sysctl vm.swappiness
@@ -257,7 +258,7 @@ sysctl -w vm.swappiness=1 #在Centos7之前,这个值建议设置为0，但是�
 sysctl -w vm.dirty_background_ratio=5 #设置5-10 确保能持续将脏数据刷新到磁盘，避免瞬间I/O写，产生严重等待
 sysctl -w vm.dirty_ratio=10 #设置dirty_background_ratio*2
 sysctl -p
-
+==========================================
 -- 最大连接数
 set global max_connections = 300;
 
@@ -281,13 +282,13 @@ set global long_query_time = 2
 -- 检查 MySQL 的空闲连接
 mysqladmin processlist -uroot -pnewlife | grep "Sleep"
 PHP 调用 mysql_pconnect 可以打开这个连接修改 wait_timeout=60;
-
+==========================================
 -- 为 MySQL 选择正确的文件系统
 按照 MariaDB 的建议，最好的文件系统是XFS、ext4 和 Btrfs
 文件系统	XFS	Ext4	Btrfs
 文件系统最大容量	8EB	1EB	16EB
 最大文件大小	8EB	16TB	16EB
-
+==========================================
 -- 设置 MySQL 允许的最大数据包
 set global max_allowed_packet=最大包大小，此值设置得过低可能会导致查询速度变得非常慢
 
@@ -301,118 +302,37 @@ mysqlcheck -u root -p --auto-repair --check --optimize --all-databases
 mysqlcheck -u root -p --auto-repair --check --optimize databasename
 
 ===================================================================
-1、有足够的物理内存，能将整个InnoDB文件加载到内存里 —— 如果访问的文件在内存里，而不是在磁盘上，InnoDB会快很多。
-2、全力避免 Swap 操作 — 交换（swapping）是从磁盘读取数据，所以会很慢。
-3、使用电池供电的RAM（Battery-Backed RAM）。
-4、使用一个高级磁盘阵列 — 最好是 RAID10 或者更高。
-5、避免使用RAID5 — 和校验需要确保完整性，开销很高。
-6、将你的操作系统和数据分开，不仅仅是逻辑上要分开，物理上也要分开 — 操作系统的读写开销会影响数据库的性能。
-7、将临时文件和复制日志与数据文件分开 — 后台的写操作影响数据库从磁盘文件的读写操作。
-8、更多的磁盘空间等于更高的速度。
-9、磁盘速度越快越好。
-10、SAS优于SATA。
-11、小磁盘的速度比大磁盘的更快，尤其是在 RAID 中。
-12、使用电池供电的缓存 RAID（Battery-Backed Cache RAID）控制器。
-13、避免使用软磁盘阵列。
-14. 考虑使用固态IO卡（不是磁盘）来作为数据分区 — 几乎对所有量级数据，这种卡能够支持 2 GBps 的写操作。
-15、在 Linux 系统上，设置 swappiness 的值为0 — 没有理由在数据库服务器上缓存文件，这种方式在Web服务器或桌面应用中用的更多。
-16、尽可能使用 noatime 和 nodirtime 来挂载文件系统 — 没有必要为每次访问来更新文件的修改时间。
-17、使用 XFS 文件系统 — 一个比ext3更快的、更小的文件系统，拥有更多的日志选项，同时，MySQL在ext3上存在双缓冲区的问题。
-18、优化你的 XFS 文件系统日志和缓冲区参数 – -为了获取最大的性能基准。
-19、在Linux系统中，使用 NOOP 或 DEADLINE IO 调度器 — CFQ 和 ANTICIPATORY 调度器已经被证明比 NOOP 和 DEADLINE 慢。
-20、使用 64 位操作系统 — 有更多的内存能用于寻址和 MySQL 使用。
-21、将不用的包和后台程序从服务器上删除 — 减少资源占用。
-22、将使用 MySQL 的 host 和 MySQL自身的 host 都配置在一个 host 文件中 — 这样没有 DNS 查找。
-23、永远不要强制杀死一个MySQL进程 — 你将损坏数据库，并运行备份。
-24、让你的服务器只服务于MySQL — 后台处理程序和其他服务会占用数据库的 CPU 时间。
-MySQL 配置：
-25、使用 innodb_flush_method=O_DIRECT 来避免写的时候出现双缓冲区。
-26、避免使用 O_DIRECT 和 EXT3 文件系统 — 这会把所有写入的东西序列化。
-27、分配足够 innodb_buffer_pool_size ，来将整个InnoDB 文件加载到内存 — 减少从磁盘上读。
-28、不要让 innodb_log_file_size 太大，这样能够更快，也有更多的磁盘空间 — 经常刷新有利降低发生故障时的恢复时间。
-29、不要同时使用 innodb_thread_concurrency 和 thread_concurrency 变量 — 这两个值不能兼容。
-30、为 max_connections 指定一个小的值 — 太多的连接将耗尽你的RAM，导致整个MySQL服务器被锁定。
-31、保持 thread_cache 在一个相对较高的数值，大约是 16 — 防止打开连接时候速度下降。
-32、使用 skip-name-resolve — 移除 DNS 查找。
-33、如果你的查询重复率比较高，并且你的数据不是经常改变，请使用查询缓存 — 但是，在经常改变的数据上使用查询缓存会对性能有负面影响。
-34、增加 temp_table_size — 防止磁盘写。
-35、增加 max_heap_table_size — 防止磁盘写。
-36、不要将 sort_buffer_size 的值设置的太高 — 可能导致连接很快耗尽所有内存。
-37、监控 key_read_requests 和 key_reads，以便确定 key_buffer 的值 — key 的读需求应该比 key_reads 的值更高，否则使用 key_buffer 就没有效率了。
-38、设置 innodb_flush_log_at_trx_commit = 0 可以提高性能，但是保持默认值（1）的话，能保证数据的完整性，也能保证复制不会滞后。
-39、有一个测试环境，便于测试你的配置，可以经常重启，不会影响生产环境。
-MySQL Schema 优化：
-40、保证你的数据库的整洁性。
-41、归档老数据 — 删除查询中检索或返回的多余的行
-42、在数据上加上索引。
-43、不要过度使用索引，评估你的查询。
-44、压缩 text 和 blob 数据类型 — 为了节省空间，减少从磁盘读数据。
-45、UTF 8 和 UTF16 比 latin1 慢。
-46、有节制的使用触发器。
-47、保持数据最小量的冗余 — 不要复制没必要的数据.
-48、使用链接表，而不是扩展行。
-49、注意你的数据类型，尽可能的使用最小的。
-50、如果其他数据需要经常需要查询，而 blob/text 不需要，则将 blob/text 数据域其他数据分离。
-51、经常检查和优化表。
-52、经常做重写 InnoDB 表的优化。
-53、有时，增加列时，先删除索引，之后在加上索引会更快。
-54、为不同的需求选择不同的存储引擎。
-55、日志表或审计表使用ARCHIVE存储引擎 — 写的效率更高。
-56、将 session 数据存储在 memcache 中，而不是 MySQL 中 — memcache 可以设置自动过期，防止MySQL对临时数据高成本的读写操作。
-57、如果字符串的长度是可变的，则使用VARCHAR代替CHAR — 节约空间，因为CHAR是固定长度，而VARCHAR不是（utf8 不受这个影响）。
-58、逐步对 schema 做修改 — 一个小的变化将产生的巨大的影响。
-59、在开发环境测试所有 schema 变动，而不是在生产环境的镜像上去做。
-60、不要随意改变你的配置文件，这可能产生非常大的影响。
-61、有时候，少量的配置会更好。
-62、质疑使用通用的MySQL配置文件。
-查询优化：
-63、使用慢查询日志，找出执行慢的查询。
-64、使用 EXPLAIN 来决定查询功能是否合适。
-65、经常测试你的查询，看是否需要做性能优化 — 性能可能会随着时间的变化而变化。
-66、避免在整个表上使用count(*) ，它可能会将整个表锁住。
-67、保持查询一致，这样后续类似的查询就能使用查询缓存了。
-68、如果合适，用 GROUP BY 代替 DISTINCT。
-69、在 WHERE、GROUP BY 和 ORDER BY 的列上加上索引。
-70、保证索引简单，不要在同一列上加多个索引。
-71、有时，MySQL 会选择错误的索引，这种情况使用 USE INDEX。
-72、使用 SQL_MODE=STRICT 来检查问题。
-73、索引字段少于5个时，UNION 操作用 LIMIT，而不是 OR。
-74、使用 INSERT ON DUPLICATE KEY 或 INSERT IGNORE 来代替 UPDATE，避免 UPDATE 前需要先 SELECT。
-75、使用索引字段和 ORDER BY 来代替 MAX。
-76、避免使用 ORDER BY RAND()。
-77、LIMIT M,N 在特定场景下会降低查询效率，有节制使用。
-78、使用 UNION 来代替 WHERE 子句中的子查询。
-79、对 UPDATE 来说，使用 SHARE MODE 来防止排他锁。
-80、重启 MySQL 时，记得预热数据库，确保将数据加载到内存，提高查询效率。
-81、使用 DROP TABLE ，然后再 CREATE TABLE ，而不是 DELETE FROM ，以删除表中所有数据。
-82、最小化你要查询的数据，只获取你需要的数据，通常来说不要使用 *。
-83、考虑持久连接，而不是多次建立连接，已减少资源的消耗。
-84、基准查询，包括服务器的负载，有时一个简单的查询会影响其他的查询。
-85、当服务器的负载增加时，使用SHOW PROCESSLIST来查看慢的/有问题的查询。
-86、在存有生产环境数据副本的开发环境中，测试所有可疑的查询。
-MySQL备份过程：
-87、在二级复制服务器上进行备份。
-88、备份过程中停止数据的复制，以防止出现数据依赖和外键约束的不一致。
-89、彻底停止MySQL之后，再从数据文件进行备份。
-90、如果使用MySQL dump进行备份，请同时备份二进制日志 — 确保复制过程不被中断。
-91、不要信任 LVM 快照的备份 — 可能会创建不一致的数据，将来会因此产生问题。
-92、为每个表做一个备份，这样更容易实现单表的恢复 — 如果数据与其他表是相互独立的。
-93、使用 mysqldump 时，指定 -opt 参数。
-94、备份前检测和优化表。
-95、临时禁用外键约束，来提高导入的速度。
-96、临时禁用唯一性检查，来提高导入的速度。
-97、每次备份完后，计算数据库/表数据和索引的大小，监控其增长。
-98、使用定时任务（cron）脚本，来监控从库复制的错误和延迟。
-99、定期备份数据。
-100、定期测试备份的数据。
-1、通常地，单表物理大小不超过10GB，单表行数不超过1亿条，行平均长度不超过8KB，如果机器性能足够，这些数据量MySQL是完全能处理的过来的，不用担心性能问题，这么建议主要是考虑ONLINE DDL的代价较高；
-2、不用太担心mysqld进程占用太多内存，只要不发生OOM kill和用到大量的SWAP都还好；
-3、在以往，单机上跑多实例的目的是能最大化利用计算资源，如果单实例已经能耗尽大部分计算资源的话，就没必要再跑多实例了；
-4、定期使用pt-duplicate-key-checker检查并删除重复的索引。定期使用pt-index-usage工具检查并删除使用频率很低的索引；
-5、定期采集slow query log，用pt-query-digest工具进行分析，可结合Anemometer系统进行slow query管理以便分析slow query并进行后续优化工作；
-6、可使用pt-kill杀掉超长时间的SQL请求，Percona版本中有个选项 innodb_kill_idle_transaction 也可实现该功能；
-7、使用pt-online-schema-change来完成大表的ONLINE DDL需求；
-8、定期使用pt-table-checksum、pt-table-sync来检查并修复mysql主从复制的数据差异；
+当只要一行数据时使用 LIMIT 1
+为搜索字段建索引
+千万不要 ORDER BY RAND()
+避免 SELECT *
+永远为每张表设置一个主键
+尽可能的使用 NOT NULL
+越小的列会越快，字符串比较慢
+选择正确的存储引擎
+不要使用“永久链接”
+select/where时不要对列做函数运算
+排序／where字段要有索引
+尽量用 join 代替子查询
+避免类型转换
+优先优化高并发的SQL
+insert多数据时不要单条insert应使用,()多条合并成一条insert
+查找重复及冗余索引
+SELECT a.TABLE_SCHEMA AS '数据库名',a.table_name as '表名',a.index_name AS '索引1',b.INDEX_NAME AS '索引2',a.COLUMN_NAME AS '重复列名' FROM STATISTICS a JOIN STATISTICS b ON a.TABLE_SCHEMA=b.TABLE_SCHEMA AND a.TABLE_NAME=b.TABLE_NAME AND a.SEQ_IN_INDEX=b.SEQ_IN_INDEX AND a.COLUMN_NAME=b.COLUMN_NAME WHERE a.SEQ_IN_INDEX = 1 AND a.INDEX_NAME <> b.INDEX_NAME;
+工具：使用pt-duplicate-key-checker工具
+删除不用的索引，目前mysql中只能使用慢查询日志配合pt-index-usage工具来进行索引使用情况的分析。
+尽量少用text类型，非用不可是最好考虑分表
+表的垂直拆分：
+a)把不常用的字段单独存放到一个表中。
+b)把大字段独立存放到一个表中。
+c)把经常一起使用的字段放到一起。
+表的水平拆分：按纬度拆分（时间／区域）
+分表分库
+定期使用pt-duplicate-key-checker检查并删除重复的索引。定期使用pt-index-usage工具检查并删除使用频率很低的索引；
+定期采集slow query log，用pt-query-digest工具进行分析，可结合Anemometer系统进行slow query管理以便分析slow query并进行后续优化工作；
+可使用pt-kill杀掉超长时间的SQL请求，Percona版本中有个选项 innodb_kill_idle_transaction 也可实现该功能；
+使用pt-online-schema-change来完成大表的ONLINE DDL需求；
+定期使用pt-table-checksum、pt-table-sync来检查并修复mysql主从复制的数据差异；
 ===============================================================
 
 3、自动修复mysql 表脚本
