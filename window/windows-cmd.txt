@@ -1,0 +1,47 @@
+win cmd
+
+tasklist /fi "ImageName eq KKV.exe"
+tasklist /fi "PID eq 7164"
+Tasklist /s 218.22.123.26 /u jtdd /p 12345678
+tasklist /fi "windowtitle eq D:\server\runtime\fg_gameloader_bacc\FG_MiniGameLoader.exe"
+
+taskkill /IM notepad.exe
+taskkill /f /pid processID
+taskkill /fi "windowtitle eq D:\server\runtime\fg_gameloader_bacc\FG_MiniGameLoader.exe"
+
+ntsd -c q -p 1332
+ntsd -c q -pn aa.exe
+
+
+windows 下的端口映射
+netsh interface portproxy add v4tov4 listenaddress=119.81.8.235 listenport=80 connectaddress=119.81.27.72 connectport=8802
+如果是2008，必须要以管理员身份启动命令行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

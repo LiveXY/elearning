@@ -1,0 +1,180 @@
+mac command
+
+隐藏/显示 OS X所有桌面图标的BASH命令
+defaults write com.apple.finder CreateDesktop false
+defaults write com.apple.finder CreateDesktop true
+killall Finder
+OS X重启蓝牙BASH命令
+sudo kextunload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport
+sudo kextload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport
+一条命令可以显示你使用过的命令的top10
+history | awk '{CMD[$2]++;count++;}END { for (a in CMD)\
+print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" \
+| column -c3 -s " " -t | sort -nr | nl | head -n10
+
+
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --allow-file-access-from-files
+
+Mac外接显示器时，除非接的是Apple自家的显示器“ACD”，不然一般会遇到字体模糊发虚的问题。在终端中执行命令:
+defaults -currentHost write -globalDomain AppleFontSmoothing -int 2
+可以使用1到3作为该命令的最后一个参数，表示字体平滑渲染的强度。如果要恢复默认设置：
+defaults -currentHost delete -globalDomain AppleFontSmoothing
+
+chflags nohidden ~/Library/
+chflags hidden ~/Library/
+pkill -kill -t tty
+pkill -int -t tty
+sudo su
+nmap 192.168.1.222
+
+同时分析 TCP/UDP 协议
+
+nmap -sTU localhost
+
+获取工作环境中存活的主机
+
+nmap -sP 192.168.1.*
+
+vim ~/.bash_profile
+
+# nginx
+alias nginx_start='sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias nginx_stop='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias nginx_restart='nginx_stop; nginx_start;'
+
+#php-fpm
+alias fpm_start='sudo launchctl load -w /Library/LaunchDaemons/org.macports.php55-fpm.plist'
+alias fpm_stop='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php55-fpm.plist'
+alias fpm_restart='fpm_stop; fpm_start'
+
+#mysql
+alias mysql='sudo /usr/local/mysql/bin/mysql'
+alias mysqladmin='sudo usr/local/mysql/bin/mysqladmin'
+
+#web
+alias web_start='nginx_start;fpm_start'
+alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
+
+#port
+alias port='sudo /opt/local/bin/port'
+alias ll='ls -l’
+
+#server
+alias 168='~/168.sh'
+alias data-server='~/data-server.sh'
+alias haproxy-server='~/haproxy-server.sh'
+alias proxy-server='~/proxy-server.sh'
+alias qqddz-server='~/qqddz-server.sh'
+alias qqmj2p-server='~/qqmj2p-server.sh'
+alias qqtexas-server='~/qqtexas-server.sh'
+alias relaxlife-server='~/relaxlife-server.sh’
+alias iftop='/usr/local/Cellar/iftop/1.0pre4/sbin/iftop'
+
+export PATH=$PATH:/opt/local/bin
+export PATH=$PATH:/opt/local/sbin
+export ANDROID_HOME=~/android-sdk
+export PATH=${PATH}:~/android-sdk/tools
+export PATH=${PATH}:~/android-sdk/platform-tools
+
+export CLICOLOR=1
+
+export LSCOLORS=gxfxaxdxcxegedabagacad
+
+
+
+alias ll='ls -lG'
+
+source ~/.bash_profile
+
+-------------------------------------------------
+
+dtrace: failed to initialize dtrace: DTrace requires additional privileges
+
+sudo chmod u+s /usr/sbin/dtrace
+
+mac Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+
+sudo /usr/local/mysql/bin/mysqld_safe &
+
+brew install proxychains-ng
+proxychains4 php composer.phar update
+
+vi ~/.proxychains/proxychains.conf
+strict_chain
+proxy_dns
+remote_dns_subnet 224
+tcp_read_time_out 15000
+tcp_connect_time_out 8000
+localnet 127.0.0.0/255.0.0.0
+quiet_mode
+
+[ProxyList]
+socks5  127.0.0.1 7070
+proxychains4 curl https://www.twitter.com/
+proxychains4 git push origin master
+proxychains4 npm install
+defaults write -g ApplePressAndHoldEnabled -bool false 打开长按输入相同字符
+
+显示文件：defaults write com.apple.finder AppleShowAllFiles -bool true
+隐藏文件：defaults write com.apple.finder AppleShowAllFiles -bool false
+打开Automator，找到“运行Shell脚本”，将其拖动到右侧区域，输入以下脚本。
+STATUS=defaults read com.apple.finder AppleShowAllFiles
+if [ $STATUS == YES ];
+then
+defaults write com.apple.finder AppleShowAllFiles NO
+else
+defaults write com.apple.finder AppleShowAllFiles YES
+fi
+killall Finder
+
+--------------------------
+export MONO_LOG_LEVEL=debug
+export MONO_LOG_MASK=dll
+export LD_LIBRARY_PATH=/usr/lib/:$LD_LIBRARY_PATH
+
+Mac OS X Yosemite中清除DNS缓存的命令是什么？
+sudo killall -HUP mDNSResponder
+sudo discoveryutil mdnsflushcache;sudo discoveryutil udnsflushcaches
+
+修改一下就可以了：find 源目录 -name *.dll -exec sh -c 'fn=`basename $1 .dll`; if [ -e 目标目录/$fn ]; then cp $1 目标目录/$fn; fi' - {} \;
+如：find ./file -name *.dll -exec sh -c 'fn=`basename $1 .dll`; if [ -e ./dll/$fn ]; then cp $1 ./dll/$fn; fi' - {} \;
+.
+├── dll
+│   ├── System.Data
+│   │   └── System.Data.dll
+│   └── System.Text
+│       └── System.Text.dll
+└── file
+    ├── System.Data.dll
+    └── System.Text.dll
+
+cloc .计算代码行数
+
+启动memcached
+brew install memcached
+memcached –d –m 128 –p 11211
+=====================================================
+irc 聊天(f-irc/irssi)
+brew install irssi
+irssi
+/SERVER irc.freenode.org
+/JOIN #megaglest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

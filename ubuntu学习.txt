@@ -1,0 +1,64 @@
+ubuntu
+
+sudo gedit ~/.profile
+cvt 1440 900
+xrandr --newmode 1440x900 106.50 1440 1528 1672 1904 900 903 909 934 -hsync +vsync
+xrandr --addmode VGA1 1440x900
+#xrandr --output VGA1 --mode 1440x900
+
+#MitchellChu'Blog:使用xrandr 创建新的mode，--newmode后面跟刚刚cvt产生的modeline信息。
+sudo xrandr --newmode "1920x1080_60.0"  173.00 1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+#MitchellChu'Blog:添加新的mode，--addmode后面第一个参数是xrandr显示出来的列表中，你要更改目标输出的设备名称，在我这里是Virtual1.如果是直接接显示器的，可能是VGA1.
+sudo xrandr --addmode Virtual1 "1920x1080_60.00"  #MitchellChu'Blog:添加完之后，需要做的就是将分辨率应用到指定的输出设备。
+sudo xrandr --output Virtual1 --mode "1920x1080_60.00"  #MitchellChu'Blog: 至此，你可以看到你的显示器分辨率已经按照定制的分辨率来显示了。
+
+sudo apt-get install mysql-server
+sudo apt-get install php5
+sudo apt-get install apache2
+
+sudo apt-get install openssh-server
+sudo /etc/init.d/ssh start
+
+sudo apt-get install memcached php5-memcache
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

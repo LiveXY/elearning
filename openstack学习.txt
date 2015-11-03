@@ -1,0 +1,84 @@
+openstack
+
+http://blog.csdn.net/user_friendly/article/details/8822399
+
+OpenStack项目列表：
+OpenStack Compute(代码名称：Nova)
+OpenStack Networking(代码名称:Quantum)
+OpenStack Object Storage(代码名称:Swift)
+OpenStack Block Storage(代码名称:Cinder)
+OpenStack Identity(代码名称:Keystone)
+OpenStack Image Service(代码名称:Glance)
+OpenStack Dashboard(代码名称:Horizon)
+
+https://software.mirantis.com/quick-start/
+http://www.openstack.cn/p692.html
+http://openstack-on-centos6.readthedocs.org/en/latest/
+http://www.openstack.cn/p128.html
+
+
+rdo源 allinone单节点---------------------------------------------------------------------------------------
+https://openstack.redhat.com/Quickstart
+http://zh888.blog.51cto.com/1684752/1431689
+http://www.cnblogs.com/biangbiang/p/3273427.html
+http://www.chenshake.com/centos6-4-single-card-all-in-one-install-havana/
+yum install -y https://rdo.fedorapeople.org/rdo-release.rpm
+yum install -y openstack-packstack
+setenforce permissive
+packstack --allinone
+
+http://10.211.55.19/dashboard
+admin/demo
+cat /root/keystonerc_admin
+1ac0481f09ae437b/63d809606c4d4bf1
+http://10.211.55.19/nagios username: nagiosadmin, password: 77e0716712b54616
+https://openstack.redhat.com/Running_an_instance
+https://openstack.redhat.com/Image_resources
+项目->Compute->访问&安全->安全组->管理default规则->添加规则->定制ICMP规则、入口、-1、-1->添加->添加规则->定制TCP规则、入口、22->添加
+项目->Compute->访问&安全->密钥对->创建密钥对->输入hcxiong->创建密钥对
+项目->Compute->镜像->创建镜像->名称(Fedora19)、镜像地址(http://cloud.fedoraproject.org/fedora-19.x86_64.qcow2)、选择公有->创建镜像
+项目->网络->网络->创建网络->外网选中外部网络、子网
+项目->网络->网络->创建网络->内网、子网
+项目->网络->路由->创建路由->路由器1->设置网关(外网)->添加接口->内网和IP
+项目->网络->网络拓扑图
+项目->Compute->镜像->启动云主机->实例、网络选择内网->启动
+项目->Compute->访问&安全->浮动IP->外网->分配IP
+项目->Compute->实例->绑定浮动IP
+
+cd /usr/share/openstack-dashboard/openstack_dashboard/dashboards/
+scp CentOS-7-x86_64-GenericCloud.qcow2 root@10.211.55.19:/usr/share/openstack-dashboard/openstack_dashboard/dashboards/
+http://10.211.55.19/dashboard/CentOS-7-x86_64-GenericCloud.qcow2
+centos7:http://cloud.centos.org/centos/7/devel/CentOS-7-x86_64-GenericCloud.qcow2
+win2012:http://www.cloudbase.it/euladownload.php?h=kvm
+
+https://openstack.redhat.com/Floating_IP_range
+https://openstack.redhat.com/Adding_a_compute_node
+
+多节点---------------------------------------------------------------------------------------
+http://traits.blog.163.com/blog/static/1951873902013330103249417/
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

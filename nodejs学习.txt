@@ -1,0 +1,261 @@
+node js
+
+$ git clone https://github.com/creationix/nvm.git ~/.nvm
+$ source ~/.nvm/nvm.sh
+
+查看已安装的版本：
+
+$ nvm ls
+查看可以安装的版本：
+
+$ nvm ls-remote
+安装指定的版本：
+
+$ nvm install <version>
+指定的版本将会直接安装在 nvm 程序所在的目录下。
+
+删除指定的版本：
+
+$ nvm uninstall <version>
+使用选定的版本：
+
+$ nvm use <version>
+-----------------------------------------------
+
+npm config set proxy=sock5://127.0.0.1:7070
+npm config delete http-proxy
+npm config delete https-proxy
+
+使用国内镜像
+npm install -g cnpm --registry=https://r.cnpmjs.org
+
+http://nodejs.cn/api
+
+http://expressjs.jser.us/3x_zh-cn/api.html
+http://express.jsbin.cn/api.html
+http://koajs.cn/
+
+http://mongoosejs.com/docs/guide.html
+http://cnodejs.org/topic/504b4924e2b84515770103dd
+
+http://doc.imbugs.com/nodejs/
+http://cnodejs.org/
+
+npm：NodeJs包管理器
+
+https://github.com/joyent/node/wiki/Projects,-Applications,-and-Companies-Using-Node
+------nodejs install-------------------------------------------------------------------
+yum repolist
+
+if you don't see epel, install it via RPM (At the time of this writing, the last version is 6.8.).
+sudo rpm --import https://fedoraproject.org/static/0608B895.txt
+sudo rpm -Uvh http://download-i2.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
+sudo yum install nodejs npm --enablerepo=epel
+or
+sudo yum install npm --enablerepo=epel
+---------------------------------------------------------------------------------------------
+
+npm install async
+https://github.com/caolan/async
+
+A simple WebRTC demo
+git clone https://github.com/jesup/nightly-gupshup.git
+cd nightly-gupshup && npm install
+AUDIENCE="http://localhost:5000" node app.js
+firefox http://localhost:5000
+--------------------------------------------------------------------------------------------
+nodejs-emberjs-mongodb
+git clone https://github.com/abelaska/nodejs-emberjs-mongodb.git
+cd nodejs-emberjs-mongodb && npm install
+npm start
+http://localhost:3000
+--------------------------------------------------------------------------------------------
+Node.js+express.js+mongoose+ejs+monogdb知识库管理系统
+git clone https://github.com/wchaowu/nodejs.git
+using node.js, coffeescript and mongodb blog
+git clone https://github.com/jamescarr/nodejs-mongodb-blog.git
+MVC CMS
+git clone https://github.com/dpirek/nodejs-mvc-cms.git
+git clone https://github.com/cubuzoa/expressSimpleBlog.git
+git clone https://github.com/edwardhotchkiss/short.git
+git clone https://github.com/cnodejs/nodeclub.git
+git clone https://github.com/aaronchen2k/apppress.git
+
+git clone https://github.com/edwardhotchkiss/mongo-view.git
+npm install mongo-view -g
+mongoview/mongoview run --port 9001
+
+多人聊天
+git clone https://github.com/gravityonmars/Balloons.IO.git
+cd Balloons.IO && npm install
+mv config/config.sample.json config/config.json
+twitter/facebook key -> config/config.json
+callback url:http://127.0.0.1:6789/auth/facebook/callback
+node balloons
+
+https://github.com/cultofmetatron/koa-todo.git
+
+MEAN
+git clone https://github.com/linnovate/mean.git
+  > sudo npm install -g meanio@latest  // Get the mean cmdline
+  > mean init myApp                    // create your first app
+  > cd myApp && npm install            // Install dependencies
+  > grunt                              // Launch mean
+
+npm install -g bower
+npm install -g grunt
+npm install -g grunt-cli
+git clone https://github.com/meanjs/mean.git
+cd mean && npm install
+grunt
+--------------------------------------------------------------------------------------------
+
+npm list
+which npm
+which node
+echo $NODE_PATH
+export NODE_PATH=/usr/local/lib/node_modules
+npm install --global --verbose promised-io
+npm install -g
+
+npm install socket.io //安装包
+npm install mongoose
+
+npm install mongodb
+npm install path/to/node-mongodb-native
+https://runnable.com/node-mongodb-native
+
+var mongoose = require('mongoose') ; // 导入组件
+var models = require('./models') ; // 导入自定义组件
+
+----------------------------------------------------------------
+http/assert/buffer/url
+express/socket.io/mongoose/threads_a_gogo
+http----------------------------------------------------------------------
+An example.js of a web server:
+var http = require('http');
+
+http.createServer(function (request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end('Hello World\n');
+}).listen(8124);
+
+console.log('Server running at http://127.0.0.1:8124/');
+
+run:
+node example.js
+assert----------------------------------------------------------------
+assert.fail(actual, expected, message, operator)
+assert(value, message)
+assert.ok(value, [message])
+assert.equal(true, !!value, message);
+assert.equal(actual, expected, [message])
+assert.notEqual(actual, expected, [message])
+assert.deepEqual(actual, expected, [message])
+assert.notDeepEqual(actual, expected, [message])
+assert.strictEqual(actual, expected, [message])
+assert.notStrictEqual(actual, expected, [message])
+assert.throws(block, [error], [message])
+assert.doesNotThrow(block, [message])
+assert.ifError(value)
+
+
+npm install pm2-interface
+npm install -g pm2-web
+pm2-web
+lsof -i:9000
+vim /usr/lib/node_modules/pm2-web/server/components/../../config.json
+nohup pm2-web &
+pm2 start 21app.js
+pm2 stop 21app.js
+pm2 start g28app.js
+pm2 web
+pm2 list
+lsof -i:9002
+pm2 logs|pm2bunyan|bunyan
+cat ~/.pm2/logs/21app-err-0.log
+npm install memwatch
+tail -f ~/.pm2/logs/21app-out-0.log |bunyan
+node g28app.js|bunyan
+pmap 9100
+forever list
+top -p 25812 25822
+top -d 1 -p 9100 9185
+
+node list
+npm install profiler
+npm install tick -g
+forever -h
+nohup node --prof 21app.js>out.log&
+pm2-web stop
+node-tick-processor v8.log
+ps -ef|grep node
+yum update
+npm -g update
+npm update
+
+npm install pm2 -g --unsafe-perm
+pm2 stop all
+pm2 start all
+npm install pm2-http-interface
+npm install pm2-web
+npm install -g pm2-interface pm2-web
+pm2-web restart
+ps -ef|grep pm2-web
+pm2 list
+npm install -g pm2
+pm2 monit
+
+http://my.oschina.net/u/750011/blog/332846
+
+mac:
+sudo npm install forever -g
+sudo npm install bunyan -g
+sudo npm install heapdump
+sudo npm install mysql
+sudo npm install cron
+sudo npm install time
+ 
+/usr/local/lib/node_modules
+node --trace_gc --trace_gc_verbose test.js
+
+forever list
+forever start -l /root/.forever/foreversc.log /home/nodestarcloud/hall-server/app.js
+forever restart 0
+
+pm2 start app.js
+pm2 list
+pm2 delete 0
+
+node --prof test.js
+sudo npm install tick -g
+node-tick-processor v8.log
+
+node --debug app.js
+node-inspector
+
+npm install nodemailer
+npm install mailparser
+npm install smtp-protocol
+
+npm install -g rrestjs
+npm install ccap
+https://github.com/DoubleSpout/wujb
+npm install ifile
+npm install iroute
+npm install hvalidator
+https://github.com/DoubleSpout/ClusterPlus
+
+https://github.com/olado/doT
+https://github.com/yangjiePro/tppl
+
+https://github.com/jysperm/china-id-card-validator
+
+
+
+
+
+
+
+

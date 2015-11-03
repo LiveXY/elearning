@@ -1,0 +1,159 @@
+io net cpu
+
+yum install sysstat
+http://sebastien.godard.pagesperso-orange.fr/documentation.html
+
+iostat -xdm 1
+iostat -x 1 10x
+
+iotop
+pidstat -u -r -d -t 1
+vmstat 3 5
+mpstat -P ALL 查看所有ＣＰＵ使用率
+pmap -d PID 进程的内存使用
+iptraf – 网络实时信息
+
+看进程/线程的负载: htop
+看IO的负载: iotop sar
+看网络的负载: iftop iptraf
+
+sar -dp 5 2
+sar -u 3 5 #CPU信息
+sar -P 1 3 5
+sar -r 5 2 #输出物理内存和虚拟内存的统计信息
+sar -n DEV 5 3 #网络IO DEV, EDEV, NFS, NFSD, SOCK, IP, EIP, ICMP, EICMP, TCP, ETCP, UDP, SOCK6, IP6, EIP6, ICMP6, EICMP6 和 UDP6
+sar -B 5 5 #分页统计
+sar -b 3 5 #IO信息
+tps：每秒磁盘的 I/O 传输总量
+rtps：每秒从磁盘读出的数据总量
+wtps：每秒向磁盘写入的数据总量
+bread/s：每秒从磁盘读出的数据量，单位为 块/s
+bwrtn/s：每秒向磁盘写入的数据量，单位为 块/s
+
+[root@obe11g ~]# sar -r 5 4
+Linux 2.6.9-42.0.0.0.1.EL (obe11g.us.oracle.com)        07/24/2013
+05:11:21 AM kbmemfree kbmemused  %memused kbbuffers  kbcached kbswpfree kbswpused  %swpused  kbswpcad
+05:11:26 AM    291880   1645960     84.94     47836   1309352   4192956         0      0.00         0
+05:11:31 AM    291832   1646008     84.94     47836   1309352   4192956         0      0.00         0
+05:11:36 AM    291816   1646024     84.94     47836   1309352   4192956         0      0.00         0
+05:11:41 AM    293608   1644232     84.85     47836   1309372   4192956         0      0.00         0
+Average:       292284   1645556     84.92     47836   1309357   4192956         0      0.00         0
+
+参数解释：
+kbmemfree：剩余可用内存、单位K
+kbmemused：已用内存、以K 为单位、该值不考虑内核自身所使用的内存
+%memused：已用内存百分比
+kbbuffers：已用buffer(内核所用)、单位K
+kbcached：已用cache（内核所用）、单位K
+kbswpfree：剩余Swap、单位K
+kbswpused：已用Swap、单位K
+%swpused：已用Swap百分比
+kbswpcad：被缓存的Swap、单位K
+
+lsof +d /home/happiplay.com/
+lsof +D /home/happiplay.com/
+lsof -g 3013
+lsof -i :22
+lsof -i@10.65.64.23
+lsof +L1
+lsof | grep log
+lsof -c apache
+
+dstat
+
+mysql管理工具
+http://www.percona.com/redir/downloads/percona-toolkit/LATEST/RPM/percona-toolkit-2.2.8-1.noarch.rpm
+
+net
+yum install nmon
+
+工具    简单介绍
+top    查看进程活动状态以及一些系统状况
+vmstat    查看系统状态、硬件和系统信息等
+iostat    查看CPU 负载，硬盘状况
+sar    综合工具，查看系统状况
+mpstat    查看多处理器状况
+iptraf    实时网络状况监测
+tcpdump    抓取网络数据包，详细分析
+tcptrace    数据包分析工具
+netperf    网络带宽工具
+dstat    综合工具，综合了 vmstat, iostat, ifstat 等多个信息
+本系列将按照CPU、内存、磁盘IO、网络这几个方面分别介绍。
+
+tsar
+$git clone git://github.com/kongjian/tsar.git
+$cd tsar
+$make
+$make install
+
+tsar -l
+Tsar的配置主要都在/etc/tsar/tsar.conf中，常用的有：
+增加一个模块,添加 mod_<yourmodname> on 到配置文件中
+打开或者关闭一个模块,修改mod_<yourmodname> on/off
+output_stdio_mod 能够配置执行tsar时的输出模块
+output_file_path 采集到的数据默认保存到的文件（如果修改的话需要对应修改轮转的配置/etc/logrotate.d/tsar）
+output_interface 指定tsar的数据输出目的，默认file保存本地，nagios/db输出到监控中心/数据库中，这两个功能还需要结合其它配置，具体见后面
+Tsar使用
+查看历史数据，tsar
+-l/--list 查看可用的模块列表
+-l/--live 查看实时数据,tsar -l --cpu
+-i/--interval 指定间隔，历史,tsar -i 1 --cpu
+--modname 指定模块,tsar --cpu
+-s/--spec 指定字段,tsar --cpu -s sys,util
+-d/--date 指定日期,YYYYMMDD或者n代表n天前
+-C/--check 查看最后一次的采集数据
+-d/--detail 能够指定查看主要字段还是模块的所有字段
+-h/--help 帮助功能
+
+下表是包含在sysstat包中的工具
+iostat: 输出CPU的统计信息和所有I/O设备的输入输出（I/O）统计信息。
+mpstat: 关于CPU的详细信息（单独输出或者分组输出）。
+pidstat: 关于运行中的进程/任务、CPU、内存等的统计信息。
+sar: 保存并输出不同系统资源（CPU、内存、IO、网络、内核等。。。）的详细信息。
+sadc: 系统活动数据收集器，用于收集sar工具的后端数据。
+sa1: 系统收集并存储sadc数据文件的二进制数据，与sadc工具配合使用
+sa2: 配合sar工具使用，产生每日的摘要报告。
+sadf: 用于以不同的数据格式（CVS或者XML）来格式化sar工具的输出。
+Sysstat: sysstat工具的man帮助页面。
+nfsiostat: NFS（Network File System）的I/O统计信息。
+cifsiostat: CIFS(Common Internet File System)的统计信息。
+
+vmstat
+
+1）procs
+　　a.r列表示运行和等待CPU时间片的进程数，这个值如果长期大于系统CPU个数，就说明CPU资源不足，可以考虑增加CPU；
+　　b.b列表示在等待资源的进程数，比如正在等待I/O或者内存交换等。
+　　2）memory
+　　a、swpd列表示切换到内存交换区的内存数量（以KB为单位）。如果swpd的值不为0或者比较大，而且si、so的值长期为0，那么这种情况一般不用担心，不会影响系统性能；
+　　b、free列表示当前空闲的物理内存数量（以KB为单位）；
+　　c、buff列表示buffers cache的内存数量，一般对块设备的读写才需要缓冲；
+　　d、cache列表示page cached的内存数量，一般作文件系统的cached，频繁访问的文件都会被cached。如果cached值较大，就说明cached文件数较多。如果此时IO中的bi比较小，就说明文件系统效率比较好。
+　　3）swap
+　　a、si列表示由磁盘调入内存，也就是内存进入内存交换区的数量；
+　　b、so列表示由内存调入磁盘，也就是内存交换区进入内存的数量
+　　c、一般情况下，si、so的值都为0，如果si、so的值长期不为0，则表示系统内存不足，需要考虑是否增加系统内存。
+　　4）IO
+　　a、bi列表示从块设备读入的数据总量（即读磁盘，单位KB/秒）
+　　b、bo列表示写入到块设备的数据总量（即写磁盘，单位KB/秒）
+　　这里设置的bi+bo参考值为1000，如果超过1000，而且wa值比较大，则表示系统磁盘IO性能瓶颈。
+　　5）system
+　　a、in列表示在某一时间间隔中观察到的每秒设备中断数；
+　　b、cs列表示每秒产生的上下文切换次数。
+　　上面这两个值越大，会看到内核消耗的CPU时间就越多。
+　　6）CPU
+　　a、us列显示了用户进程消耗CPU的时间百分比。us的值比较高时，说明用户进程消耗的CPU时间多，如果长期大于50%，需要考虑优化程序啥的。
+　　b、sy列显示了内核进程消耗CPU的时间百分比。sy的值比较高时，就说明内核消耗的CPU时间多；如果us+sy超过80%，就说明CPU的资源存在不足。
+　　c、id列显示了CPU处在空闲状态的时间百分比；
+　　d、wa列表示IO等待所占的CPU时间百分比。wa值越高，说明IO等待越严重。如果wa值超过20%，说明IO等待严重。
+　　e、st列一般不关注，虚拟机占用的时间百分比。 （Linux 2.6.11）
+
+
+
+
+
+
+
+
+
+
+

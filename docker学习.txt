@@ -1,0 +1,547 @@
+docker
+http://www.widuu.com/chinese_docker/examples/running_redis_service.html
+
+centos6
+yum install http://mirrors.yun-idc.com/epel/6/i386/epel-release-6-8.noarch.rpm
+yum install docker-io
+centos7
+yum install docker
+
+service docker start
+chkconfig docker on
+
+获取最新的centos镜像
+docker pull centos:latest
+docker pull microbox/redis:latest
+mongo/node
+查看镜像
+docker images
+docker images centos
+删除镜像
+docker rmi dade6cb4530a
+bash shell来测试这个镜像
+docker run -i -t centos /bin/bash
+docker run -t -i ubuntu:14.04 /bin/bash
+-t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上，
+-i 则让容器的标准输入保持打开。
+-d 参数时，容器启动后会进入后台。
+docker run centos /bin/echo 'Hello world'
+守护进程
+sudo docker run -d centos /bin/sh -c "while true; do echo hello world; sleep 1; done"
+列出容器
+docker ps #查看当前运行的container
+docker ps -a #查看所有的container
+docker ps -l
+显示容器的标准输出
+docker logs insane_babbage/docker logs -f nostalgic_morse
+docker start nostalgic_morse
+停止正在运行的容器
+docker stop insane_babbage
+docker rm nostalgic_morse
+docker login
+docker version
+docker images --help
+docker run -d -P training/webapp python app.py
+docker run -d -p 5000:5000 training/webapp python app.py
+docker port nostalgic_morse 5000
+docker top
+来查看Docker的底层信息docker inspect nostalgic_morse/docker inspect -f '{{ .NetworkSettings.IPAddress }}' nostalgic_morse
+
+删除所有容器
+docker rm `docker ps -aq`
+
+主机上列出镜像
+docker images
+docker search sinatra
+sudo docker commit -m="Added json gem" -a="xionghc" \
+0b2616b0e5a8 xionghc/sinatra:v2
+4f177bd27a9ff0f6dc2a830403925b5360bfe0b93d476f7fc3231110e7f71b1c
+
+使用Dockerfile创建镜像
+$ mkdir sinatra
+$ cd sinatra
+$ touch Dockerfile
+
+# This is a comment
+FROM centos6
+MAINTAINER xionghc <cexo255@163.com>
+RUN yum update
+RUN yum install nginx
+
+
+#INSTRUCTION statement
+生成新的镜像
+docker build -t="xionghc/sinatra:v2" .
+
+推送镜像到Docker Hub
+docker push xionghc/newimage
+
+镜像ＴＡＧ
+docker tag 5db5f8471261 ouruser/sinatra:devel
+删除镜像
+docker rmi training/sinatra
+连接容器
+docker run -d -P training/webapp python app.py
+docker run -d -p 127.0.0.1:5000:5000 training/webapp python app.py
+docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py ＵＤＰ
+docker run -d -P --name web training/webapp python app.py 取个ＮＡＭＥ
+docker run -d -P --name web --link db:db training/webapp python app.py 指定别名
+docker run --rm --name web2 --link db:db training/webapp env 环境变量
+添加一个数据卷
+docker run -d -P --name web -v /webapp training/webapp python app.py
+挂载一个主机目录作为卷 挂载本地目录/src/webapp到容器的/ot/webapp
+docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py
+docker run -d -P --name web -v /src/webapp:/opt/webapp:ro training/webapp python app.py 只读权限
+创建一个挂在数据卷的容器 一个数据共享命名的容器
+docker run -d -v /dbdata --name dbdata training/postgres
+docker run -d --volumes-from dbdata --name db1 training/postgres
+docker run -d --volumes-from dbdata --name db2 training/postgres
+docker run -d --name db3 --volumes-from db1 training/postgres
+备份、恢复或者迁移数据卷
+docker run --volumes-from dbdata -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata
+然后，你可以在同一容器中恢复，或者另一个你所在的容器内进行。创建一个新的容器
+docker run -v /dbdata --name dbdata2 ubuntu /bin/bash
+在新的容器的卷标中解压备份文件。
+docker run --volumes-from dbdata2 -v $(pwd):/backup busybox tar xvf /backup/backup.tar
+先下载了一个 ubuntu-14.04 的镜像，之后使用以下命令导入：
+cat ubuntu-14.04-x86_64-minimal.tar.gz | docker import - ubuntu:14.04
+Remove all images
+docker rmi $(docker images -q)
+Kill containers and remove them:
+docker rm $(docker kill $(docker ps -q))
+Note: Replace kill with stop for graceful shutdown
+Remove all images except "my-image"
+You could use grep to remove all except my-image and ubuntu
+docker rmi $(docker images | grep -v 'ubuntu\|my-image' | awk {'print $3'})
+上传镜像
+docker push ouruser/sinatra
+存出和载入镜像
+docker save -o ubuntu_14.04.tar ubuntu:14.04
+docker load --input ubuntu_14.04.tar
+docker load < ubuntu_14.04.tar
+查看环境变量
+docker run -it --rm --name web1 281 env
+--------------------------------------------------
+docker pull microbox/redis:latest
+docker images
+docker run -d -i -p 6379:6379 --name redis -v /home/redis/:/data microbox/redis:latest
+docker ps -a
+ss -nat | grep 6379
+mysql:latest/mariadb:latest--------------------------------------------------
+docker pull mysql:latest
+查看环境变量
+docker run --rm -it mysql:latest env
+外网可以访问
+docker pull mysql:latest
+docker run -d -p 3306:3306 --name db001 -e MYSQL_ROOT_PASSWORD=newlife mysql:latest
+docker pull mariadb:latest
+docker run -d -p 3307:3306 --name db002 -e MYSQL_ROOT_PASSWORD=newlife mariadb:latest
+docker pull redis:latest
+docker run -d -p 6379:6379 --name redis001 redis:latest
+docker pull mongo:latest
+docker run -d -p 27017:27017 --name mongo001 mongo:latest
+
+vi Dockerfile
+FROM node:latest
+EXPOSE 1337
+docker build -t nodeapp /home/app/
+docker run -d -p 1337:1337 --name app -v /home/app:/home/app nodeapp:latest node /home/app/app.js
+
+#docker run -d -p 6379:6379 --name redis -v /home/redis/:/data redis:latest
+
+docker run -d --name db001 -e MYSQL_ROOT_PASSWORD=newlife mysql:latest
+docker run -d --name db002 -e MYSQL_ROOT_PASSWORD=newlife mariadb:latest
+docker run -d --name redis redis:latest
+docker run -d --name mongo001 mongo:latest
+
+docker run --name some-app --link db001:mysql -d application-that-uses-mysql
+
+docker stop 488 && docker rm 488
+
+-d 后台模式
+-rm 在容器运行完之后自动删除容器及其文件系统
+-m 设置容器所能使用的内存大小
+-c 指定容器的优先级
+---------------------------------------------------
+node demo
+vi app.js
+var http = require('http');
+http.createServer(function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.end('Hello World\n');
+}).listen(1337); //注意这边不能和官网示例那样监听127.0.0.1
+console.log('Server running at http://0.0.0.0:1337/');
+
+docker run -d -i -p 1337:1337 --name=nodeapp -v /home/test:/home/test imageid node /home/test/app.js
+-------------------------------------------------
+挂载一个主机目录作为数据卷
+sudo docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py
+上面的命令加载主机的 /src/webapp 目录到容器的 /opt/webapp 目录。这个功能在进行测试的时候十分方便，比如用户可以放置一些程序到本地目录中，来查看容器是否正常工作。本地目录的路径必须是绝对路径，如果目录不存在 Docker 会自动为你创建它。
+Docker 挂载数据卷的默认权限是读写，用户也可以通过 :ro 指定为只读。
+sudo docker run -d -P --name web -v /src/webapp:/opt/webapp:ro
+training/webapp python app.py
+挂载一个本地主机文件作为数据卷
+sudo docker run --rm -it -v ~/.bash_history:/.bash_history ubuntu /bin/bash
+这样就可以记录在容器输入过的命令了。
+-------------------------------------------------
+nsenter/attach
+
+docker run -idt ubuntu
+docker ps
+PID=$(docker-pid 243c32535da7)
+nsenter --target PID --mount --uts --ipc --net --pid
+
+.bashrc_docker
+wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker;
+echo "[ -f ~/.bashrc_docker ] && . ~/.bashrc_docker" >> ~/.bashrc; source ~/.bashrc
+echo $(docker-pid <container>)
+docker-enter <container> ls
+--------------------------------------------------
+将一个安装过软件的container提交为一个image
+docker run -t -i IMAGEID /bin/bash
+yum install -y wget
+docker commit CONTAINERID wget-centos7
+docker run -t -i --rm=true IMAGEID wget http://www.baidu.com
+方法2:
+vi Dockerfile
+FROM centos7
+RUN yum install -y wget
+
+docker build -t="doublespout/wget" .
+--------------------------------------------------
+
+container 和 host 文件互相拷贝：
+1、从container往host拷贝文件：
+docker cp <container_id>:/root/hello.txt .
+2、从host往container里拷贝文件，执行完成之后就能看到Contaitner里有这个文件拉
+#执行命令找到程序pid
+ContainerID=$(docker inspect --format {{.Id}} <container_name_or_ID>)
+cp /tmp/tmp.txt /var/lib/docker/aufs/mnt/<ContainerID>/tmp/
+--------------------------------------------------
+
+将多个 container 连接起来
+我现在先下载一个redis数据库image，这也是以后做项目的常规用法，数据库单独用一个image，程序一个image，利用docker的link属性将他们连接起来。
+docker pull redis #下载官方的redis镜像，耐心等待一段时间
+接着我们执行命令启动redis镜像到一个container，开启redis-server持久化服务
+docker run --name redis-server -d redis redis-server --appendonly yes
+然后我们再启动一个redis镜像的container作为客户端连接它
+docker run -it --link redis-server:redis --rm redis /bin/bash
+env
+redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"
+---------------------------------------------------
+文件卷标加载
+比如我们想要一个日志文件保存目录，如果直接写入container，那样image升级之后，日志文件处理就比较麻烦了，所以就需要将主机的文件卷标挂载到container中去，挂载方法如下：docker run --rm=true -i -t --name=ls-volume -v /etc/:/opt/etc/ centos ls /opt/etc
+如果想要挂载后的文件是只读，需要在这样挂载：
+-v /etc/:/opt/etc/:ro #read only
+我们也可以挂载其他container中的文件系统，需要用到 -volumes-from 参数，我们先创建一个container，他共享/var/目录给其他container。
+docker run -d -i -t -p 1337:1337 --name nodedev -v /var/ fa node /var/nodejs/app.js
+然后我们启动一个ls-var的container来挂载nodedev共享的目录：
+docker run --rm=true -i -t --volumes-from nodedev --name=aaa1 centos ls /var
+我们打印var目录，会发现多了一个nodejs的目录，就是从nodedev中的container挂载过来的。其实我们挂载其他container的路径都是在根目录上的。
+--------------------------------------------------
+
+如何像使用linux虚拟机那样运行一个container，比如我我们想要直接登录container执行多个任务，又不想直接借助 docker run 命令，以后我们还想登录到这个container来查看运行情况，比如执行top，ps -aux命令等等。
+docker run -d -i -t -p 1337:1337 fa /bin/bash
+docker attach 58
+--------------------------------------------------
+
+
+helloworld---------------------------------------------------
+
+mkdir helloworld
+cd helloworld
+vi package.json
+{
+  "name": "docker-centos-hello",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Node.js Hello world app on CentOS using docker",
+  "author": "Daniel Gasienica <daniel@gasienica.ch>",
+  "dependencies": {
+    "express": "3.2.4"
+  }
+}
+vi index.js
+var express = require('express');
+
+// Constants
+var PORT = 8080;
+
+// App
+var app = express();
+app.get('/', function (req, res) {
+  res.send('Hello world\n');
+});
+
+app.listen(PORT);
+console.log('Running on http://localhost:' + PORT);
+
+touch Dockerfile
+vi Dockerfile
+# DOCKER-VERSION 0.3.4
+FROM    centos6
+# Enable EPEL for Node.js
+RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+# Install Node.js and npm
+RUN     yum install -y npm
+# Bundle app source
+ADD . /home/hcxiong/helloworld
+# Install app dependencies
+RUN cd /home/hcxiong/helloworld; npm install
+EXPOSE  8080
+CMD ["node", "/home/hcxiong/helloworld/index.js"]
+
+docker build -t xionghc/centos-node-hello .
+docker ps
+docker run -p 49160:8080 -d xionghc/centos-node-hello
+curl -i localhost:49160
+---------------------------------------------------
+
+DNSCrypt for Docker.
+
+git clone https://github.com/mengbo/docker-dnscrypt.git
+cd docker-dnscrypt
+docker build -t="mengbo/docker-dnscrypt" .
+make
+或
+docker pull mengbo/docker-dnscrypt
+
+docker run --name docker-dnscrypt -d -p 53:53 -p 53:53/udp mengbo/docker-dnscrypt
+
+Goagent for Docker.
+git clone https://github.com/mengbo/docker-goagent.git
+cd docker-goagent
+docker build -t="mengbo/docker-goagent" .
+make
+wget https://raw.githubusercontent.com/mengbo/docker-goagent/master/deploy.sh; sh ./deploy.sh
+
+docker pull mengbo/docker-goagent
+--------------------------------------------------
+docker pull dockerfile/mongodb
+
+Run mongod
+docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb
+
+Run mongod w/ persistent/shared directory
+docker run -d -p 27017:27017 -v <db-dir>:/data/db --name mongodb dockerfile/mongodb
+
+Run mongod w/ HTTP support
+docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
+
+Run mongod w/ Smaller default file size
+docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb mongod --smallfiles
+
+Run mongo
+docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'
+--------------------------------------------------
+
+--------------------------------------------------
+
+dockerui---------------------------------------------------
+docker build -t crosbymichael/dockerui github.com/crosbymichael/dockerui
+docker run -d -p 9000:9000 -v /var/run/docker.sock:/docker.sock crosbymichael/dockerui -e /docker.sock
+http://<dockerd host ip>:9000
+cadvisor 监控-----------------------------------------------------
+docker pull google/cadvisor
+
+docker run --volume=/var/run:/var/run:rw --volume=/sys/fs/cgroup/:/sys/fs/cgroup:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8080:8080 --detach=true --name=cadvisor google/cadvisor
+
+sudo docker run \
+  --volume=/var/run:/var/run:rw \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/cgroup:/cgroup:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest
+
+dock--------------------------------------------------------
+curl https://raw.githubusercontent.com/bripkens/dock/master/dock -so ~/bin/dock && \
+     chmod +x ~/bin/dock && \
+     dock -u && \
+     echo "dock installation successful. Try running 'dock'"
+
+dock redis jenkins mongodb rabbitmq
+dock -l
+
+google/golang-----------------------------------------------
+docker pull google/golang
+
+GOROOT is set to /goroot
+GOPATH is set to /gopath
+Create a Dockerfile in your golang application directory with the following content:
+FROM google/golang
+
+WORKDIR /gopath/src/app
+ADD . /gopath/src/app/
+RUN go get app
+
+CMD []
+ENTRYPOINT ["/gopath/bin/app"]
+
+Run the following command in your application directory:
+docker build -t my/app .
+--------------------------------------------------------------
+将 DOCKER IMAGE 放在其他的分区
+
+sudo cp /etc/fstab /etc/fstab.$(date +%Y-%m-%d)
+sudo mkdir /usr/local/docker
+sudo rsync -aXS /var/lib/docker/. /usr/local/docker/
+diff -ruN /var/lib/docker/ /usr/local/docker/
+创建新的挂载点并使其在 fstab 中长期存在也很关键。下面是我的 fstab 的配置。
+/etc/fstab #/usr/local/docker /var/lib/docker none bind 0 0
+mount -a
+
+---------------------------------------------------------------
+创建一个运行 PHP 、NGINX 和 HIP HOP VM(HHVM) 的 DOCKER 容器
+
+添加一个 shell 脚本 /run.sh ，在 Docker 容器运行时启动。
+vi /run.sh
+#!/bin/bash
+
+set -e -x
+echo "starting supervisor in foreground"
+supervisord -n
+
+vi /Dockerfile
+
+FROM    centos:centos6
+MAINTAINER xionghc, cexo255@163.com
+#安装所有最新版本的包更新，并且把 Red Hat EPEL 的仓库加入可用的仓库列表。
+RUN yum update -y >/dev/null && yum install -y http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm  && curl -L -o /etc/yum.repos.d/hop5.repo "http://www.hop5.in/yum/el6/hop5.repo"
+#安装 supervisord —— 我们将使用这个配置和控制运行在容器中的进程 - 、 nginx 、 php 、一些 PHP 的开发包以及 Facebook 的 hhvm 。
+RUN yum install -y python-meld3 http://dl.fedoraproject.org/pub/epel/6/i386/supervisor-2.1-8.el6.noarch.rpm
+RUN ["yum", "-y", "install", "nginx", "php", "php-mysql", "php-devel", "php-gd", "php-pecl-memcache", "php-pspell", "php-snmp", "php-xmlrpc", "php-xml","hhvm"]
+#为 nginx 创建目录，并且把 index.php 文件加入 nginx 来展现。
+RUN mkdir -p /var/www/html && chmod a+r /var/www/html && echo "<?php phpinfo(); ?>" > /var/www/html/index.php
+#为 HHVM 添加一个配置文件，然后重启我们的 HHVM 服务
+#为 Supervisord 添加一个配置文件，然后启动 Nginx 和 HHVM
+ADD config.hdf /etc/hhvm/config.hdf
+RUN service hhvm restart
+ADD nginx.conf /etc/nginx/conf.d/default.conf
+ADD supervisord.conf /etc/supervisord.conf
+RUN chkconfig supervisord on && chkconfig nginx on
+ADD scripts/run.sh /run.sh
+RUN chmod a+x /run.sh
+EXPOSE 22 80
+ENTRYPOINT ["/run.sh"]
+
+git clone https://github.com/mebinum/dockerfiles.git
+cd dockerfiles/centos-nginx-php-hhvm/
+构建容器，并且打 tag
+docker build -t centos-nginx-php5-hhvm .
+现在我们有一个全功能的容器，我们可以像下面这样运行：
+docker run -d -p 80:80 centos-nginx-php5-hhvm
+
+---------------------------------------------------------------
+Starting cgconfig service: Error: cannot mount memory to /cgroup/memory: No such file or directory
+vi /etc/cgconfig.conf
+#memory  = /cgroup/memory;
+删除此行
+docker -d #显示出错信息
+----------------------------------------------------
+
+二.安装docker
+[root@iZ2893wjzgyZ ~]# yum install http://mirrors.yun-idc.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+[root@iZ2893wjzgyZ ~]# yum install docker-io
+
+三.启动docker
+[root@iZ2893wjzgyZ ~]# service docker start
+Starting cgconfig service: [ OK ]
+Starting docker: [ OK ]
+
+四.获取镜像
+由于镜像仓库在国内，国内慢的令人发指，推荐有import方式使用镜像(此例采用的此种镜像方案可以很容易安装ssh服务)，在http://openvz.org/Download/templates/precreated中有很多压缩的镜像文件，可以将这些文件下载后采用import方式使用镜像
+# wget http://download.openvz.org/template/precreated/ubuntu-14.04-x86_64-minimal.tar.gz
+# cat ubuntu-14.04-x86_64-minimal.tar.gz  |docker import - ubuntu:14.04
+# docker images
+REPOSITORY TAG IMAGE ID CREATED VIRTUAL SIZE
+ubuntu 14.04        05ac7c0b9383        17 seconds ago         215.5 MB
+这样我们就可以使用这个镜像作为自己的Base镜像
+
+五.实现sshd，在Base镜像基础上生成一个新镜像
+#docker run -t -i ubuntu:base /bin/bash
+root@050f6efc5ed6:/# vim  /etc/apt/sources.list
+deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+root@050f6efc5ed6:/# apt-get update
+安装supervisor服务
+
+root@050f6efc5ed6:/# apt-get supervisor
+
+root@050f6efc5ed6:/# cp supervisord.conf conf.d/
+
+root@050f6efc5ed6:/# cd conf.d/
+
+root@050f6efc5ed6:/# vi supervisord.conf
+
+; supervisor config file
+
+[unix_http_server]
+file=/var/run/supervisor.sock   ; (the path to the socket file)
+chmod=0700                       ; sockef file mode (default 0700)
+
+[supervisord]
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+nodaemon=true                         ；（修改该软件的启动模式为非daemon，否则docker 在执行的时候会直接退出）
+[include]
+files = /etc/supervisor/conf.d/*.conf
+
+[program:sshd]
+command = /usr/sbin/sshd -D        ；
+
+root@050f6efc5ed6:/# mkdir /var/run/sshd
+
+root@050f6efc5ed6:/# passwd root
+
+root@050f6efc5ed6:/# vi /etc/ssh/sshd_config
+root@050f6efc5ed6:/# exit
+退出之后自动生成一个容器，接下来把容器commit生成封装了sshd的镜像
+# docker commit f3c8  ubuntu
+5c21b6cf7ab3f60693f9b6746a5ec0d173fd484462b2eb0b23ecd2692b1aff6b
+
+[root@iZ2893wjzgyZ tmp]# docker images
+
+REPOSITORY                TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+
+ubuntu                           sshd                02c4391d40a0        47 minutes ago      661.4 MB
+
+六.开始分配容器
+[root@iZ2893wjzgyZ tmp]# docker run -p 301:22 -d --name test ubuntu /usr/bin/supervisord
+[root@iZ2893wjzgyZ tmp]# docker run -p 302:22 -d --name dev ubuntu /usr/bin/supervisord
+[root@iZ2893wjzgyZ tmp]# docker run -p 301:22 -d --name client1 ubuntu /usr/bin/supervisord
+.......
+[root@iZ2893wjzgyZ tmp]# docker run -p 301:22 -d --name clientN ubuntu /usr/bin/supervisord
+
+让我们进入容器看一看，瞧一瞧(114.215.86.228是宿主机的IP)
+通过Xshell即可进入。
+
+这样就顺利隔离了N个容器，且每一个都是以党中央centos领导下的纯净的ubuntu系统，按这种分配方式，所有容器性能和宿主机一样，让我们看一看：
+Centos：
+容器：test
+
+七.搭建自己的私有仓库
+      老板现在用这台闲置的主机赚了很多钱，于是公司快速发展，老板尝到甜头，又买来了几十台服务器，这时候，抠门老板想了想，每台主机这么搞一次，我岂不是要多给几天工钱？
+      服务的封装才是Docker的杀手锏，怎么可能让这种工作重复数十次？我们可以搭建自己的私有仓库。有点类似github的方式，将封装好的镜像push到仓库，其他主机装好docker后，pull下来即可，在这里不做说明。
+
+八.扩展
+       不同人群需要的主机性能不同，总不能所有的人都分配一样的主机吧？这就涉及到容器的管理了，老板意识到这个问题，有一天对开发说，你看看人家openstack管理界面那么高大上，还能将不同主机切割不同的性能，我们为什么不可以？然后老板很快得到满意的方案：Kubernetes(有很多其他方案可以实现)
+       Kubernetes是Google开源的容器集群管理系统。它构建于docker技术之上，为容器化的应用提供资源调度、部署运行、服务发现、扩 容缩容等整一套功能，本质上可看作是基于容器技术的mini-PaaS平台.
+
+总结：经过这八个步骤，大概就已经实现了私有云的基本功能，其实Docker能做的事情远不如此，本人才疏学浅，使用不久，这里只阐述想到的这一种方案。
+
+
+
+
+

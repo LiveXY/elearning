@@ -1,0 +1,686 @@
+开发环境安装：
+
+先下载安装nodejs:
+https://nodejs.org/
+安装ionic cordova：
+sudo npm install -g ionic cordova -d
+
+cordova -v
+ionic -v
+npm info cordova
+npm info ionic
+sudo npm update -g cordova -d
+
+sudo ionic platform update android
+sudo ionic platform update ios
+====================================================
+
+安装android运行环境：
+下载安装androidSDK：
+https://developer.android.com/sdk/index.html
+windows环境变量配置：
+ANDROID_HOME=C:\Program Files (x86)\Android\android-sdk
+ANDROID_PLATFORM_TOOLS=C:\Program Files (x86)\Android\android-sdk\platform-tools
+ANDROID_SDK_HOME=C:\Program Files (x86)\Android\android-sdk
+ANDROID_TOOLS=C:\Program Files (x86)\Android\android-sdk\tools
+下载解压ANT:
+https://ant.apache.org/bindownload.cgi
+ANT环境变量:
+ANT_HOME=C:\apache-ant-1.9.4
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_20
+PATH=C:\ProgramData\Oracle\Java\javapath;C:\nodejs\;%ANDROID_HOME%;%JAVA_HOME%\bin;%ANT_HOME%\bin;%ANDROID_PLATFORM_TOOLS%;
+
+mac环境变量配置：
+vi ~/.bash_profile
+export ANDROID_HOME=~/android-sdk
+export PATH=${PATH}:~/android-sdk/tools
+export PATH=${PATH}:~/android-sdk/platform-tools
+source ~/.bash_profile
+====================================================
+
+创建心情温度计项目：
+sudo ionic start -a 心情温度计 -i cn.org.smhc.moodthermo NerveApp3 blank
+cd NerveApp3
+增加平台支持：
+sudo ionic platform add android
+sudo ionic platform add ios
+编译项目
+sudo ionic build android
+sudo ionic build ios
+====================================================
+安装插件：
+
+sudo cordova plugin remove xu.li.cordova.wechat
+sudo cordova plugin add https://github.com/xu-li/cordova-plugin-wechat --variable wechatappid=wx*******
+如果IOS报错增加TARGETS(心情温度计)->General->Linked Frameworks and Libraries：
+SystemConfiguration.framework/libsqlite3.0.dylib/Security.framework
+如果IOS找不到Wechat插件增加TARGETS(心情温度计)->Build Phases->Compile Sources：
+Plugins/CDVWechat.m
+
+sudo cordova plugin remove cordova-plugin-qqsdk
+sudo cordova plugin add https://github.com/iVanPan/Cordova_QQ.git --variable QQ_APP_ID=******
+sudo cordova plugin add ./Cordova_QQ-master --variable QQ_APP_ID=1104581905
+
+weibo-不要了
+sudo cordova plugin remove org.zy.yuancheng.weibo
+sudo cordova plugin add https://github.com/iVanPan/cordova_weibo.git --variable WEIBO_APP_ID=******
+Add <preference name="REDIRECTURI" value="YOUR_WEIBO_REDIRECTURI" /> in your config.xml
+https://github.com/sinaweibosdk/weibo_ios_sdk/tree/master/libWeiboSDK 下载最新ＳＤＫ
+
+sudo cordova plugin add org.apache.cordova.network-information
+sudo cordova plugin add org.apache.cordova.camera
+sudo cordova plugin add org.apache.cordova.file
+sudo cordova plugin add org.apache.cordova.file-transfer
+sudo cordova plugin add cordova-plugin-zip
+sudo cordova plugin add org.apache.cordova.inappbrowser
+sudo cordova plugin add cordova-plugin-datepicker
+sudo cordova plugin add cordova-plugin-statusbar
+sudo cordova plugin add mobi.roshka.cordova.callphone
+
+com.happi.nerveapp 公司自主开发插件安装
+sudo ionic plugin add plugins_code/com.happi.nerveapp
+
+cordova-plugin-device 插件代码有修改增加唯一ID和设备名称
+sudo ionic plugin remove cordova-plugin-device
+sudo ionic plugin add plugins_code/cordova-plugin-device
+
+ios增加多语言支持：
+multi-lang.sh
+
+git clone https://github.com/jpush/jpush-phonegap-plugin.git
+1,将plugin.xml文件中的AppKey替换为在Portal上注册该应用的的Key,例如（3efe578254623010b4e4119a）
+2,打开src/ios/PushConfig.plist文件将文件中的7d431e42dfa6a6d693ac2d04替换为在Portal上注册该应用的的Key,例如（3efe578254623010b4e4119a）
+3,在src/android/JPushPlugin.java 文件import your.package.name.R替换为在Portal上注册该应用的包名，例如(cn.org.smhc.moodthermo)
+4,本地安装：sudo ionic plugin add plugins_code/jpush-phonegap-plugin
+5,手动修改：
+在AppDelegate.h中包含头文件
+#import "APService.h"
+#import "JPushPlugin.h"
+在AppDelegate.m调用代码,监听系统事件，相应地调用 JPush SDK 提供的 API 来实现功能
+删除掉代码#ifndef DISABLE_PUSH_NOTIFICATIONS
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+	//原内容保持不变
+	// Required add
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+	if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+		//可以添加自定义categories
+		[APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
+	} else {
+		//categories 必须为nil
+		[APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+	}
+#else
+	//categories 必须为nil
+	[APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+#endif
+	// Required
+	[APService setupWithOption:launchOptions];
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+	[APService setBadge:0];
+
+	//[JPushPlugin setLaunchOptions:launchOptions];
+	return YES;
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken   {
+	//原内容保持不变
+	// Required add
+	[APService registerDeviceToken:deviceToken];
+	[APService setDebugMode];
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	//原内容保持不变
+	// Required
+	[APService handleRemoteNotification:userInfo];
+	BOOL isActive = application.applicationState == UIApplicationStateActive;
+	NSDictionary *dict=[[NSMutableDictionary alloc] initWithDictionary:userInfo];
+	[dict setValue: [[NSNumber alloc] initWithBool:isActive] forKey:@"isActive" ];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kJPushPluginReceiveNotification object:dict];
+
+	//[APService handleRemoteNotification:userInfo];
+	//[[NSNotificationCenter defaultCenter] postNotificationName:kJPushPluginReceiveNotification object:userInfo];
+}
+出错解决：
+You've implemented -[ application:didReceiveRemoteNotification:fetchCompletionHandler:], but you still need to add "remote-notification" to the list of your supported UIBackgroundModes in your Info.plist.
+TARGETS[心情温度计]->Capabilities->Background Modes(OPEN)->select Remote Notification
+android jpush 缺少统计代码 修改文件: platforms/android/src/cn/org/smhc/moodthermo/MainActiovity.java
+@Override
+protected void onResume() {
+	super.onResume();
+	JPushInterface.onResume(this);
+}
+@Override
+protected void onPause() {
+	super.onPause();
+	JPushInterface.onPause(this);
+}
+====================================================
+
+创建一个新插件方法：
+cordova create com.happi.nerveapp com.happi.nerveapp Nerve
+====================================================
+android生成私钥（platforms/android/nerve-android.keystore文件不能丢失）
+keytool -genkey -keystore platforms/android/nerve-android.keystore -alias nerve -keyalg RSA -keysize 2048 -storepass 123456 -validity 10000
+happi/happi/happi/sh/sh/cn/y/123456/123456
+====================================================
+压缩js/css并编译各平台
+./nerve.sh #只压缩复制文件到各平台
+./nerve.sh b #只压缩复制文件到各平台并编译
+
+android生成签名APK
+./android-release.sh #安装到手机
+./android-release.sh b #编译并安装到手机
+./android-release.sh b 渠道名 #编译各渠道并安装到手机
+如：
+./android-release.sh b qq #编译QQ渠道安装包并安装到手机 #要上传到平台
+./android-release.sh b weixin
+./android-release.sh b qrcode
+./android-release.sh b weibo
+./android-release.sh b wandoujia
+./android-release.sh b baidu、baidu91、baiduapk
+./android-release.sh b 360
+./android-release.sh b appchina #要上传到平台
+./android-release.sh b gfan
+./android-release.sh b anzhi
+
+IOS9:
+TARGETS[心情温度计]->ENABLE_BITCODE = NO;
+
+生成MAC和Window版本：
+./nwjs.sh
+
+常用：
+<ion-content data-tap-disabled="true"
+<ion-content has-bouncing="false"> 阻止回弹
+<ion-content scroll="false"> 禁止滚动
+<video> 如果真的想做到跨平台， 必须要mp4格式， 而且是h.264编码的MP4， 可以使用ffmpeg做格式转换
+<ion-content class="has-footer has-header has-subheader"> 阻止footer盖住ion-content中的内容 阻止header盖住ion-content中的内容
+background-image: url();width: 100%;height: 100%;background-repeat: no-repeat;background-position: center;background-size: cover; 背景图片全屏显示，自动缩放
+$ionicConfigProvider.navBar.transition('none')/$ionicConfigProvider.views.transition('none');
+.scroll-content{
+    background: url("../media/images/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+-webkit-box-shadow: 0 0 0 1997px rgba(35,24,21,.8);box-shadow: 0 0 0 1997px rgba(35,24,21,.8);-webkit-appearance: none;
+毛玻璃效果其实是半透明+模糊
+.blur {
+    -webkit-filter: blur(10px); /* Chrome, Opera */
+       -moz-filter: blur(10px);
+        -ms-filter: blur(10px);
+            filter: blur(10px);
+            filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+}
+
+<ion-view hide-back-button="false" has-navbar="true"
+<div class="list">
+	<a class="item item-thumbnail-left" href="#">
+		<img src="cover.jpg">
+		<h2>Pretty Hate Machine</h2>
+		<p>Nine Inch Nails</p>
+	</a>
+</div>
+<div class="list list-inset">
+	<div class="item">
+	Raiders of the Lost Ark
+	</div>
+</div>
+<div class="card">
+	<div class="item item-text-wrap">
+	This is a basic Card which contains an item that has wrapping text.
+	</div>
+</div>
+<div class="card">
+	<div class="item item-divider">I'm a Header in a Card!</div>
+	<div class="item item-text-wrap">This is a basic Card with some text.</div>
+	<div class="item item-divider">I'm a Footer in a Card!</div>
+</div>
+<div class="list card">
+	<a href="#" class="item item-icon-left"><i class="icon ion-home"></i>Enter home address</a>
+	<a href="#" class="item item-icon-left"><i class="icon ion-ios-telephone"></i>Enter phone number</a>
+	<a href="#" class="item item-icon-left"><i class="icon ion-wifi"></i>Enter wireless password</a>
+	<a href="#" class="item item-icon-left"><i class="icon ion-card"></i>Enter card information</a>
+</div>
+向下渐变透明背景：
+.grid aside.bottom {
+    bottom: 0;
+    text-align: left;
+    background: -moz-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(16,27,30,0)),color-stop(90%,rgba(12,2,2,1)));
+    background: -webkit-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: -o-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: -ms-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: linear-gradient(to bottom,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00101b1e',endColorstr='#0c0202',GradientType=0);
+}
+.page-header {
+    color: #fff;
+    text-align: center;
+    background-color: #159957;
+    background-image: linear-gradient(120deg, #155799, #159957);
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3rem;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+-webkit-font-smoothing: antialiased;
+.grad_top {
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(rgba(255, 255, 255, 0)));
+	background: -moz-linear-gradient(top, #fff, rgba(255, 255, 255, 0));
+	background: -o-linear-gradient(top, #fff, rgba(255, 255, 255, 0));
+	background: linear-gradient(top, #fff, rgba(255, 255, 255, 0));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#00ffffff, GradientType=0);
+}
+.grad_bottom {
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0)), to(#fff));
+	background:-moz-linear-gradient(top, rgba(255, 255, 255, 0), #fff);
+	background:-o-linear-gradient(top, rgba(255, 255, 255, 0), #fff);
+	background: linear-gradient(top, rgba(255, 255, 255, 0), #fff);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffffff, endColorstr=#ffffff, GradientType=0);
+	bottom: 0;
+}
+pointer-events:none
+background-image: linear-gradient(135deg, #f35 0%, #f93 100%);
+===================================
+vi nerve.sh
+#!/bin/sh
+
+param=$1
+pf=$2
+
+currPath=$(pwd)
+sourcePath="$currPath/www_code"
+wwwPath="$currPath/www"
+
+# 增加操作权限
+sudo chmod -R a+rw "$currPath/platforms/android/assets/www/"
+sudo chmod -R a+rw "$currPath/platforms/ios/www/"
+
+# 安装uglifyjs
+cmd=`which uglifyjs 2>&1`
+ret=$?
+if [ $ret -eq 0 ] && [ -x "$cmd" ]; then
+	echo 'uglifyjs 已安装！'
+else
+	npm install uglify-js -g
+	echo 'uglifyjs 安装成功！'
+fi
+
+# 安装uglifycss
+cmd=`which uglifycss 2>&1`
+ret=$?
+if [ $ret -eq 0 ] && [ -x "$cmd" ]; then
+	echo 'uglifycss 已安装！'
+else
+	npm install uglifycss -g
+	echo 'uglifycss 安装成功！'
+fi
+
+# 合并所有js文件
+rm -rf $wwwPath
+mkdir $wwwPath
+cp "$sourcePath/index_www.html" "$wwwPath/index.html"
+cp -R "$sourcePath/lib" "$wwwPath/"
+cp -R "$sourcePath/img" "$wwwPath/"
+cp "$sourcePath/js/extend.js" "$wwwPath/ionic.app.js"
+cat "$sourcePath/js/ionic.app.js" >> "$wwwPath/ionic.app.js"
+cat "$sourcePath/js/filters.js" >> "$wwwPath/ionic.app.js"
+cat "$sourcePath/js/services.js" >> "$wwwPath/ionic.app.js"
+find $sourcePath/js/templates/* | xargs cat >> "$wwwPath/ionic.app.js"
+find $sourcePath/js/services/* | xargs cat >> "$wwwPath/ionic.app.js"
+find $sourcePath/js/factorys/* | xargs cat >> "$wwwPath/ionic.app.js"
+find $sourcePath/js/directives/* | xargs cat >> "$wwwPath/ionic.app.js"
+find $sourcePath/js/controllers/* | xargs cat >> "$wwwPath/ionic.app.js"
+find $wwwPath/ionic.app.js | xargs perl -pi -e "s|'use strict';||g"
+if [ "$pf" != '' ]; then
+	pf="-$pf"
+	find $wwwPath/ionic.app.js | xargs perl -pi -e "s|'cn.org.smhc.moodthermo'|'cn.org.smhc.moodthermo$pf'|g"
+fi
+echo '生成文件成功！'
+
+# 压缩js文件
+uglifyjs "$wwwPath/ionic.app.js" -m -o "$wwwPath/ionic.app.min.js"
+rm -f $wwwPath/ionic.app.js
+
+# 压缩css文件
+cat "$sourcePath/css/ionic.app.css" >> "$wwwPath/ionic.app.css"
+find $wwwPath/ionic.app.css | xargs perl -pi -e "s|../img/|img/|g"
+uglifycss "$wwwPath/ionic.app.css" > "$wwwPath/ionic.app.min.css"
+rm -f $wwwPath/ionic.app.css
+echo '压缩文件成功！'
+
+# 复制到各平台
+cp -Rf "$wwwPath/lib" "$currPath/platforms/ios/www/"
+cp -Rf "$wwwPath/img" "$currPath/platforms/ios/www/"
+cp -f "$wwwPath/index.html" "$currPath/platforms/ios/www/"
+cp -f "$wwwPath/ionic.app.min.js" "$currPath/platforms/ios/www/"
+cp -f "$wwwPath/ionic.app.min.css" "$currPath/platforms/ios/www/"
+
+cp -Rf "$wwwPath/lib" "$currPath/platforms/android/assets/www/"
+cp -Rf "$wwwPath/img" "$currPath/platforms/android/assets/www/"
+cp -f "$wwwPath/index.html" "$currPath/platforms/android/assets/www/"
+cp -f "$wwwPath/ionic.app.min.js" "$currPath/platforms/android/assets/www/"
+cp -f "$wwwPath/ionic.app.min.css" "$currPath/platforms/android/assets/www/"
+rm -f "$currPath/platforms/android/assets/www.zip"
+cd "$currPath/platforms/android/assets/"
+zip -r www.zip www/
+echo '文件已复制到各平台！'
+cd "$currPath"
+
+if [ "$param" == 'b' ] && [ "$pf" == '' ]; then
+	# 编译各平台
+	sudo ionic build android
+	sudo ionic build ios
+
+	# 增加操作权限
+	sudo chmod -R a+rw "$currPath/platforms/android/assets/www/"
+	sudo chmod -R a+rw "$currPath/platforms/ios/www/"
+fi
+
+if [ "$param" == 'r' ] && [ "$pf" == '' ]; then
+	# 编译各平台
+	sudo ionic build android
+	sudo ionic build ios
+
+	# 增加操作权限
+	sudo chmod -R a+rw "$currPath/platforms/android/assets/www/"
+	sudo chmod -R a+rw "$currPath/platforms/ios/www/"
+	"$currPath/platforms/ios/cordova/run"
+fi
+===================================
+vi android-release.sh
+#!/bin/sh
+
+param=$1
+pf=$2
+
+if [ "$pf" != '' ]; then
+	./nerve.sh "$param" "$pf"
+	pf=".$pf"
+fi
+
+currPath=$(pwd)
+androidPath="$currPath/platforms/android"
+apkFile="nerve$pf.apk"
+
+if [ "$param" == 'b' ]; then
+	# 请理文件
+	sudo rm -f "$androidPath/build/outputs/apk/android-release-signed.apk"
+	sudo rm -f "$androidPath/build/outputs/apk/android-release-unsigned.apk"
+	sudo rm -f "$androidPath/build/outputs/apk/$apkFile"
+
+	# 生成android apk文件
+	sudo ionic build --release android
+
+	# 签名，使用 tsa 保证时间
+	sudo jarsigner -tsa http://timestamp.digicert.com -sigalg SHA1withRSA -digestalg SHA1 -keystore "$androidPath/nerve-android.keystore" -storepass 123456 -signedjar "$androidPath/build/outputs/apk/android-release-signed.apk" "$androidPath/build/outputs/apk/android-release-unsigned.apk" nerve
+
+	echo "正在优化apk文件..."
+	# 对齐，减小内存使用，必须在签名后完成
+	# 使用 google 提供的高压缩比 zlib
+	sudo "$ANDROID_HOME/build-tools/22.0.1/zipalign" -z 4 "$androidPath/build/outputs/apk/android-release-signed.apk" "$androidPath/build/outputs/apk/$apkFile"
+fi
+
+echo "安装包已生成：$androidPath/build/outputs/apk/$apkFile"
+
+# 安装到设备
+adb install "$androidPath/build/outputs/apk/$apkFile"
+===============================
+vi check-plugins.sh
+#!/bin/sh
+
+pluginXml='/blob/master/plugin.xml'
+currPath=$(pwd)
+output="$currPath/output.log"
+pluginFile="$currPath/plugin.xml"
+
+if [ -f "$output" ]; then
+	rm -f "$output"
+fi
+
+cordova plugins | while read line
+do
+	id=$(echo $line | grep -Eo '^[^ ]+')
+	version=$(echo $line | grep -Eo ' ([\.0-9]+) ' | grep -o '[^ ]\+\( \+[^ ]\+\)*')
+	name=$(echo $id | sed 's/[\.-]//g')
+
+if [ -f "$pluginFile" ]; then
+	rm -f "$pluginFile"
+fi
+
+if [ "$id" == 'cn.jpush.phonegap.JPushPlugin' ]; then
+	addPlugin="sudo ionic plugin add plugins_code/jpush-phonegap-plugin"
+	git="https://github.com/jpush/jpush-phonegap-plugin$pluginXml"
+	wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'cordova-plugin-qqsdk' ]; then
+	addPlugin="sudo cordova plugin add https://github.com/iVanPan/Cordova_QQ.git --variable QQ_APP_ID=1104581905"
+	git="https://github.com/iVanPan/Cordova_QQ$pluginXml"
+	wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'xu.li.cordova.wechat' ]; then
+	addPlugin="sudo cordova plugin add https://github.com/xu-li/cordova-plugin-wechat --variable wechatappid=wxc7e7bb2a3a530af7"
+	git="https://github.com/xu-li/cordova-plugin-wechat$pluginXml"
+	wget -c -t 0 "$git" -O "$pluginFile"
+#elif [ "$id" == 'org.zy.yuancheng.weibo' ]; then
+#	addPlugin="sudo cordova plugin add https://github.com/iVanPan/cordova_weibo.git --variable WEIBO_APP_ID=2889845021"
+#	git="https://github.com/iVanPan/cordova_weibo$pluginXml"
+#	wget -c -t 0 "$git" -O "$pluginFile"
+
+elif [ "$id" == 'cordova-plugin-zip' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-zip"
+	git="https://github.com/MobileChromeApps/cordova-plugin-zip$pluginXml"
+	wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'cordova-plugin-datepicker' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-datepicker"
+	git="https://github.com/VitaliiBlagodir/cordova-plugin-datepicker$pluginXml"
+	wget -c -t 0 "$git" -O "$pluginFile"
+
+elif [ "$id" == 'org.apache.cordova.network-information' ]; then
+	addPlugin="sudo cordova plugin add org.apache.cordova.network-information"
+	url='http://plugins.cordova.io/api/org.apache.cordova.network-information'
+	wget -c -t 0 "$url" -O "$pluginFile"
+elif [ "$id" == 'org.apache.cordova.inappbrowser' ]; then
+	addPlugin="sudo cordova plugin add org.apache.cordova.inappbrowser"
+	url='http://plugins.cordova.io/api/org.apache.cordova.inappbrowser'
+	wget -c -t 0 "$url" -O "$pluginFile"
+elif [ "$id" == 'org.apache.cordova.file-transfer' ]; then
+	addPlugin="sudo cordova plugin add org.apache.cordova.file-transfer"
+	url='http://plugins.cordova.io/api/org.apache.cordova.file-transfer'
+	wget -c -t 0 "$url" -O "$pluginFile"
+elif [ "$id" == 'org.apache.cordova.file' ]; then
+	addPlugin="sudo cordova plugin add org.apache.cordova.file"
+	url='http://plugins.cordova.io/api/org.apache.cordova.file'
+	wget -c -t 0 "$url" -O "$pluginFile"
+elif [ "$id" == 'org.apache.cordova.camera' ]; then
+	addPlugin="sudo cordova plugin add org.apache.cordova.camera"
+	url='http://plugins.cordova.io/api/org.apache.cordova.camera'
+	wget -c -t 0 "$url" -O "$pluginFile"
+elif [ "$id" == 'mobi.roshka.cordova.callphone' ]; then
+	addPlugin="sudo cordova plugin add mobi.roshka.cordova.callphone"
+	url='http://plugins.cordova.io/api/mobi.roshka.cordova.callphone'
+	wget -c -t 0 "$url" -O "$pluginFile"
+elif [ "$id" == 'com.ionic.keyboard' ]; then
+	addPlugin="sudo cordova plugin add com.ionic.keyboard"
+	url='http://plugins.cordova.io/api/com.ionic.keyboard'
+	wget -c -t 0 "$url" -O "$pluginFile"
+
+elif [ "$id" == 'com.happi.nerveapp' ]; then
+	addPlugin="sudo ionic plugin add plugins_code/com.happi.nerveapp"
+	#git='http://plugins.cordova.io/api/com.happi.nerveapp'
+	#wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'cordova-plugin-whitelist' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-whitelist"
+	#git='http://plugins.cordova.io/api/cordova-plugin-whitelist'
+	#wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'cordova-plugin-console' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-console"
+	#git='http://plugins.cordova.io/api/cordova-plugin-console'
+	#wget -c -t 0 "$git"
+elif [ "$id" == 'cordova-plugin-device' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-device"
+	#git='http://plugins.cordova.io/api/cordova-plugin-device'
+	#wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'cordova-plugin-splashscreen' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-splashscreen"
+	#git='http://plugins.cordova.io/api/cordova-plugin-splashscreen'
+	#wget -c -t 0 "$git" -O "$pluginFile"
+elif [ "$id" == 'cordova-plugin-statusbar' ]; then
+	addPlugin="sudo cordova plugin add cordova-plugin-statusbar"
+	#git='http://plugins.cordova.io/api/cordova-plugin-statusbar'
+	#wget -c -t 0 "$git" -O "$pluginFile"
+fi
+
+if [ -f "$pluginFile" ]; then
+
+	newversion=$(cat "$pluginFile" | grep -Eo '<span class="pl-e">version</span>=<span class="pl-s"><span class="pl-pds">&quot;</span>([\.0-9]+)<span' | sed 's/<span class="pl-e">version<\/span>=<span class="pl-s"><span class="pl-pds">&quot;<\/span>//g' | sed 's/<span//g')
+
+	if [ "$newversion" == "" ]; then
+		newversion=$(cat "$pluginFile" | grep -Eo '"latest":"([\.0-9]+)"' | sed 's/"latest":"//g' | sed 's/"//g')
+	fi
+
+	if [ "$newversion" != "" ] && [ "$version" != "$newversion" ]; then
+		echo "--------------------------------------------------------" >> $output;
+		echo "$id $version => $newversion" >> $output;
+		echo "sudo cordova plugin remove $id" >> $output;
+		echo "$addPlugin" >> $output;
+		echo "" >> $output;
+	fi
+
+fi
+
+echo "--------------------------------------------------------";
+echo "$id $version => $newversion";
+echo "sudo cordova plugin remove $id";
+echo "$addPlugin";
+echo "--------------------------------------------------------";
+echo "";
+
+done
+
+clear
+if [ ! -f "$output" ]; then
+	echo "--------------------------------------------------------";
+	echo "暂无更新！";
+else
+	cat "$output"
+fi
+echo "--------------------------------------------------------";
+
+if [ -f "$pluginFile" ]; then
+	rm -f "$pluginFile"
+fi
+if [ -f "$output" ]; then
+	rm -f "$output"
+fi
+===============================================
+vi nwjs.sh
+#!/bin/sh
+
+currPath=$(pwd)
+sourcePath="$currPath/www_code"
+wwwPath="$currPath/www"
+
+./nerve.sh
+cp "$sourcePath/package.json" "$wwwPath/package.json"
+
+cmd=`which nwbuild 2>&1`
+ret=$?
+if [ $ret -eq 0 ] && [ -x "$cmd" ]; then
+	echo 'nwbuild 已安装！'
+else
+	npm install nwbuild -g
+	echo 'nwbuild 安装成功！'
+fi
+
+mkdir "$currPath/platforms/nwjs/"
+mkdir "$currPath/platforms/nwjs/心情温度计/"
+sudo nwbuild -v "0.12.3" -p "osx64,win64" -o "$currPath/platforms/nwjs/" "$currPath/www/"
+sudo chown hcxiong "$currPath/platforms/nwjs/心情温度计/osx64/"
+sudo chown hcxiong "$currPath/platforms/nwjs/心情温度计/osx64/心情温度计.app"
+sudo chmod -R a+rw "$currPath/platforms/nwjs/心情温度计/osx64/心情温度计.app"
+cp -f "$currPath/resources/icon.icns" "$currPath/platforms/nwjs/心情温度计/osx64/心情温度计.app/Contents/Resources/nw.icns"
+#	--macIcns "$currPath/resources/icon.icns" --winIco "$currPath/resources/icon.ico" \
+=================================================
+mkdir multi-lang
+mkdir multi-lang/en.lproj
+mkdir multi-lang/zh-Hans.lproj
+mkdir multi-lang/zh-Hant.lproj
+vi multi-lang/en.lproj/Localizable.strings
+/* 
+  Localizable.strings
+  心情温度计
+
+  Created by happi on 15/8/25.
+
+*/
+vi multi-lang.sh
+#!/bin/sh
+
+currPath=$(pwd)
+sourceFile="$currPath/platforms/ios/心情温度计.xcodeproj/project.pbxproj"
+
+cp -R "$currPath/plugins_code/multi-lang/en.lproj" "$currPath/platforms/ios/"
+cp -R "$currPath/plugins_code/multi-lang/zh-Hans.lproj" "$currPath/platforms/ios/"
+cp -R "$currPath/plugins_code/multi-lang/zh-Hant.lproj" "$currPath/platforms/ios/"
+
+enCode='		3CADE2381B95522F000132BF /\* en \*/ = \{isa = PBXFileReference; lastKnownFileType = text\.plist\.strings; name = en; path = en\.lproj/Localizable\.strings; sourceTree = "<group>"; \};\n'
+zhCode='		3CADE23A1B95523B000132BF /\* zh-Hans \*/ = \{isa = PBXFileReference; lastKnownFileType = text\.plist\.strings; name = "zh-Hans"; path = "zh-Hans\.lproj/Localizable\.strings"; sourceTree = "<group>"; \};\n'
+twCode='		64AD6F961B958FEF00E5560C /\* zh-Hant \*/ = \{isa = PBXFileReference; lastKnownFileType = text\.plist\.strings; name = "zh-Hant"; path = "zh-Hant\.lproj/Localizable\.strings"; sourceTree = "<group>"; \};\n'
+
+langs='knownRegions = \(
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+				es,
+				de,
+				se,
+			\);'
+langsZH='knownRegions = \(
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+				es,
+				de,
+				se,
+				"zh-Hans",
+				"zh-Hant",
+			\);'
+groupCode='/\* Begin PBXVariantGroup section \*/
+		3CADE2391B95522F000132BF /\* Localizable\.strings \*/ = \{
+			isa = PBXVariantGroup;
+			children = \(
+				3CADE2381B95522F000132BF /\* en \*/,
+				3CADE23A1B95523B000132BF /\* zh-Hans \*/,
+				64AD6F961B958FEF00E5560C /\* zh-Hant \*/,
+			\);
+			name = Localizable\.strings;
+			sourceTree = "<group>";
+		\};
+/\* End PBXVariantGroup section \*/\n\n'
+find "$sourceFile" | xargs perl -pi -e "s|$enCode||g"
+find "$sourceFile" | xargs perl -pi -e "s|$zhCode||g"
+find "$sourceFile" | xargs perl -pi -e "s|$twCode||g"
+find "$sourceFile" | xargs perl -pi -0e "s|$langsZH|$langs|igs"
+find "$sourceFile" | xargs perl -pi -0e "s|$groupCode||igs"
+
+findPos='/\* End PBXFileReference section \*/\n'
+find "$sourceFile" | xargs perl -pi -e "s|$findPos|$enCode$findPos|g"
+find "$sourceFile" | xargs perl -pi -e "s|$findPos|$zhCode$findPos|g"
+find "$sourceFile" | xargs perl -pi -e "s|$findPos|$twCode$findPos|g"
+find "$sourceFile" | xargs perl -pi -0e "s|$langs|$langsZH|igs"
+find "$sourceFile" | xargs perl -pi -e "s|$findPos|$findPos\n$groupCode|g"
+
+
+
+
+

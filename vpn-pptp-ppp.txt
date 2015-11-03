@@ -1,0 +1,86 @@
+vpn pptp ppp
+
+cat /etc/issue 检查内核是否包含mppe
+modprobe ppp-compress-18 && echo ok
+
+再次确认开通了TUN和PPP Xen用户请忽略这一步！
+cat /dev/ppp
+结果输出为： cat: /dev/ppp: No such device or address
+cat /dev/net/tun
+结果输出为： cat: /dev/net/tun: File descriptor in bad state
+如果这两项输出的和我给出的不一样，但只要不是“Permission denied”就都没问题，否则是一定不能装的
+
+yum install -y ppp pptpd
+
+vi /etc/ppp/options.pptpd
+# require-mppe-128
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+
+vi /etc/pptpd.conf
+localip 192.168.0.1
+remoteip 192.168.0.234-238,192.168.0.245
+
+vi /etc/ppp/chap-secrets
+xiong pptpd 123456 *
+
+vi /etc/sysctl.conf
+net.ipv4.ip_forward = 1
+
+sysctl -p
+
+service pptpd start
+chkconfig pptpd on
+
+iptables -A INPUT -p tcp --dport 1723 -j ACCEPT
+iptables -A INPUT -p tcp --dport 47 -j ACCEPT
+iptables -A INPUT -p gre -j ACCEPT
+OpenVZ:
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source 199.231.184.180
+iptables -t nat -A POSTROUTING -j SNAT --to-source 11.22.33.44
+Xen:
+iptables -t nat -A POSTROUTING -s 192.168.8.0/24 -o eth0 -j MASQUERADE
+
+iptables -P FORWARD ACCEPT
+iptables --table nat -A POSTROUTING -o venet0 -j MASQUERADE
+
+
+service iptables start
+chkconfig iptables on
+
+
+iptables-save
+iptables restart
+
+
+
+wget http://www.laozuo.org/download/scripts/openvz_centos_vpn.sh
+chmod a+x openvz_centos_vpn.sh
+bash openvz_centos_vpn.sh
+
+
+wget http://www.laozuo.org/download/scripts/openvps_vpn_centos-5-6.sh
+chmod a+x openvps_vpn_centos-5-6.sh
+bash openvps_vpn_centos-5-6.sh
+
+curl使用sock5：
+vi ~/.curlrc
+socks5 = 127.0.0.1:7070
+git使用sock5：
+git config --global http.proxy 'socks5://127.0.0.1:7070'
+git config --global https.proxy 'socks5://127.0.0.1:7070'
+取消代理
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+git config http.config socks5://127.0.0.1:7070
+export HTTPS_PROXY=socks5://127.0.0.1:7070
+
+vi ~/git_proxy.sh
+#!/bin/sh
+nc -X 5 -x 127.0.0.1:7070 "$@"
+
+git config core.gitproxy ~/git_proxy.sh
+git config core.gitproxy '~/git_proxy.sh for bitbucket.org'
+
+

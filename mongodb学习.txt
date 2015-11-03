@@ -1,0 +1,177 @@
+mongodb
+
+vi /etc/yum.repos.d/mongodb.repo
+[mongodb]
+name=MongoDB Repository
+baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
+gpgcheck=0
+enabled=1
+sudo yum install mongodb-org
+
+sudo rm /home/mongodb/db/mongod.lock
+mongod --dbpath /home/mongodb/db/ &
+service mongod start #启动服务
+mongo #连接mongodb
+mongo localhost:27017/admin
+mongo --nodb 启用shell 不连接数据库
+grep -E ‘([0-9])+ms’ mongod.log
+
+it#向下查询
+.explain()#查询优化
+
+show dbs#查看所有数据库
+show tables#查看所有表
+use test#打开数据库test
+db#显示当前数据库名称db.getName()
+db.dropDatabase()#删除当前的数据库
+db.repairDatabase() 修复当前数据库
+
+db.cloneDataBase(fromhost) 从目标服务器克隆一个数据库
+db.copyDatabase(fromdb,todb,fromhost) 复制数据库fromdb---源数据库名称，todb---目标数据库名称，fromhost---源数据库服务器地址
+db.createCollection(name,{size:3333,capped:333,max:88888}) 创建一个数据集，相当于一个表
+db.currentOp() 取消当前库的当前操作
+db.eval(func,args) run code server-side
+db.getCollection(cname) 取得一个数据集合，同用法：db['cname'] or
+db.getCollenctionNames() 取得所有数据集合的名称列表
+db.getLastError() 返回最后一个错误的提示消息
+db.getLastErrorObj() 返回最后一个错误的对象
+db.getPrevError() 返回上一个错误对象
+db.resetError() 清除错误记录
+db.getMongo() 取得当前服务器的连接对象get the server
+db.getMondo().setSlaveOk() allow this connection to read from then nonmaster membr of a replica pair
+db.getReplicationInfo() 获得重复的数据
+db.getSisterDB(name) 返回当前连接的另一个数据库。它允许跨数据库查询，例如：db.getSisterDB('production').getCollectionNames()
+db.getCollectionNames() 获得所有聚集的列表。
+db.killOp() 停止（杀死）在当前库的当前操作
+db.runCommand(cmdObj) run a database command. if cmdObj is a string, turns it into {cmdObj:1}
+db.shutdownServer() 关闭当前服务程序
+db.version() 返回当前程序的版本信息
+db.fsyncLock()/db.fsyncUnlock()
+db.getMongo()
+db.isMaster()/db.killOp()/db.logout()
+
+show collections#查看所有表
+db.printCollectionStats()#查看各表的状态
+db.printReplicationInfo()#查看主从复制状态
+db.printSlaveReplicationInfo
+db.printShardingStatus() 返回当前数据库是否为共享数据库
+db.user.dataSize()#查看表数据的大小
+db.user.totalIndexSize()#查询所有索引的大小
+db.stats()#查看数据库状态
+db.user.stats()#查看user表状态
+db.repairDatabase()#修复数据库
+db.setProfilingLevel(1)#设置记录profiling，0=off 1=slow 2=all
+show profile#打印最近耗时大于1ms的profiling操作
+db.copyDatabase('mail_addr','mail_addr_tmp')#拷贝数据库
+
+db.addUser('admin','pwd’)#增加或修改用户密码
+db.system.users.find()#查看用户列表
+show users/show roles/show profile/show databases
+db.auth('admin','pwd’)#用户认证
+db.removeUser('mongodb')#删除用户
+
+db.user.insert({uid:1, uname:'test’})#添加并插入表数据
+db.user.save()#添加数据
+db.user.find()#查所有数据
+db.user.findOne()#查找一条记录
+db.user.find({uid:1}).limit(10)#根据条件检索10条记录
+db.inventory.find({$or:[{price:1.99}, {sale:true}]}).sort({item:1}) #or操作
+db.user.find({uname:/^Ba/})#正则查
+db.user.find({uid:{$exists:true}}) #查存在uid字段的所有数据
+db.user.find({'order.oid':1}); #查订单＝1的用户信息
+{tags:{$all:["ssl","security"]}}
+＝{$and:[{tags:"ssl"},{tags:"security"}]}
+={$and:[{tags:["ssl","security"]}]}＝{tags:["ssl","security"]}
+＃all操作 表示数组全部都存在集合
+
+.count/.sort({'uid',-1})/.distinct('uid’)/.limit(2).skip(8)从2到8条数据
+.bsonsize() 打印一个数据库对象的bson大小
+.hint({close:1}) 强制使用索引
+
+$gt/$lt/$gte/$lte/$ne/$in/$nin/$set/$inc/$unset/
+$not/$or/$and/$exists/$elemMatch/$size/$where
+$regex/$options/$mod/$slice/$rename/
+$push/$pushAll/$addToSet/$each/$pop/$pull/$pullAll/$all/
+
+$type=Double(1)/String(2)/Object(3)/Array(4)/Binary data(5)/Object id(7)/Boolean(8)/Date(9)/Null(10)/Regular expression(11)/JavaScript code(13)/Symbol(14)/JavaScript code with scope(15)/32-bit integer(16)/Timestamp(17)/64-bit integer(18)/Min key(255)/Max key(127)
+
+db.user.update({uid:1},{uname:'test1'},true,true)
+#根据uid=1条件修改，如果不存在则插入，允许修改多条记录 修改全结点
+db.user.update({uid:1},{'$set':{uname:'test2'}},true,true)
+#只修改uname结点
+db.test0.update({"count":{$gt:5}},{$set:{"test5":"OK"}},true,true );
+db.test0.update({"count":{$gt:15}},{$inc:{"count":1}},false,true );
+db.user.remove({'uid':1})#删除表数据
+db.user.drop()#删除表
+db.test.renameCollection(newName) 重命名些数据集名称
+
+db.orders.aggregate([ { $match: { status: "A" } }, { $group: { _id: "$cust_id", total: { $sum: "$amount" } } }, { $sort: { total: -1 } } ])
+db.source.copyTo(target)
+
+db.test.group({key:{'name':true},cond:{'name':'foo'},reduce:function(obj,prev){prev.msum+=obj.marks;},initial:{msum:0}}) <==> select name,sum(marks) from test group by name
+db.test.find('this.ID<20',{name:1}) <==> select name from test where ID<20
+db.collection.createIndex(keys, options)
+db.collection.getIndexStats()
+db.collection.indexStats()
+db.collection.dataSize()
+db.collection.dropIndex()
+db.collection.dropIndexes()
+db.collection.findAndModify()
+db.collection.mapReduce()
+db.collection.totalSize()
+
+db.test.getDB() 返回此数据集所属的数据库名称
+db.test.group({key:...,initial:...,reduce:...[,cond:...]})
+db.test.mapReduce(mayFunction,reduceFunction,<optional params>)
+db.test.stats() 返回此数据集的状态
+db.test.storageSize() 返回此数据集的存储大小
+db.test.totalIndexSize() 返回此数据集的索引文件大小
+db.test.totalSize() 返回些数据集的总大小
+db.test.validate() 验证此数据集
+db.test.getShardVersion() 返回数据集共享版本号
+
+db.things.ensureIndex({firstname: 1, lastname: 1}, {unique: true});
+#增加排序索引：1(ascending),-1(descending)
+db.user.ensureIndex({uname: 1})#索引子对象
+db.user.getIndexes()#查看索引信息
+db.user.getIndexKeys()
+db.user.dropIndex('uname_1')#根据索引名删除索引
+db.user.reIndex()#重建索引
+unique唯一索引/dropDups删除重复键/sparse稀疏索引/background后台
+db.setProfilingLevel(2)#打开剖析器 了解慢查询
+db.setProfilingLevel(1, 100)＃只记录100ms+慢查询
+db.setProfilingLevel(0)#关闭
+.explain(true)#查询优化 显示详细计划
+
+var bulk = db.items.initializeUnorderedBulkOp();
+bulk.insert( { item: "abc123", defaultQty: 100, status: "A", points: 100 } ); bulk.insert( { item: "ijk123", defaultQty: 200, status: "A", points: 200 } ); bulk.insert( { item: "mop123", defaultQty: 0, status: "P", points: 0 } ); bulk.execute();
+
+emit()/.forEach()/.getMonth()/.getFullYear()/
+
+复制：主从复制和副本集
+
+副本集配置：一个主节点、一个从节点、一仲裁节点
+1,建数据目录
+mkdir /data/node1
+mkdir /data/node2
+mkdir /data/arbiter
+2,分别启动独立的mongod，分别在不同的终端窗口操作。
+mongod --replSet myapp --oplogSize 1024 设置oplog大小1G
+mongod --replSet myapp --dbpath /data/node1 --port 40000
+mongod --replSet myapp --dbpath /data/node2 --port 40001
+mongod --replSet myapp --dbpath /data/arbiter --port 40002
+3,节点终端执行rs.initiate() 生成单成员的副本集
+4,添加其它成员
+rs.add('localhost:40001')
+rs.add('localhost:40002', {arbiterOnly:true})
+5,查看副本集摘要db.isMaster()/db.status()
+6,操作
+mongo arete:40000连接主节点
+添加修改删除数据后可自动复制到其它节点
+
+
+mongostat详解
+http://tech.lezi.com/archives/290
+Mongodb启动命令mongod参数说明
+http://blog.darkmi.com/2012/11/15/2470.html
+http://docs.mongodb.org/manual/reference/method/
