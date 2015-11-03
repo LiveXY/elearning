@@ -14,6 +14,201 @@ sudo npm update -g cordova -d
 sudo ionic platform update android
 sudo ionic platform update ios
 ====================================================
+ionic-----------------------------------------------------------------------
+sudo npm install -g ionic cordova
+sudo ionic start -a HappiplayMobile -i com.happiplay.mobile HappiplayMobile blank
+cd HappiplayMobile
+sudo ionic platform add android
+sudo ionic platform add ios
+
+sudo ionic build android
+adb install path
+sudo ionic build ios
+sudo ionic emulate ios
+
+游戏监控
+sudo ionic start -a GameMonitorMobile -i com.happiplay.gamemonitor GameMonitorMobile blank
+cd GameMonitorMobile
+sudo ionic platform add android
+sudo ionic platform add ios
+sudo ionic plugin add ../jpush-phonegap-plugin
+
+https://github.com/jpush/jpush-phonegap-plugin
+打开插件目录下 plugin.xml 文件，修改appkey
+打开插件目录\src\android\JPushPlugin.java 文件，找到import your.package.name.R，将其替换为：com.happiplay.gamemonitor.R。
+在AppDelegate.m中包含头文件
+#import "APService.h"
+#import "JPushPlugin.h"
+
+最后在www/js/app.js文件中添加启动推送服务代码
+//启动极光推送服务
+window.plugins.jPushPlugin.init();
+//调试模式
+window.plugins.jPushPlugin.setDebugMode(true);
+
+sudo ionic build android
+sudo ionic build ios
+ionic emulate ios
+
+cordova-----------------------------------------------------------------------
+sudo sudo npm install -g cordova
+sudo cordova create hello com.example.hello HelloWorld
+
+cd hello
+
+mac sdk
+$ sudo cordova platform add ios
+$ sudo cordova platform add amazon-fireos
+$ sudo cordova platform add android
+$ sudo cordova platform add blackberry10
+$ sudo cordova platform add firefoxos
+
+ANDROID_HOME is not set and "android" command not in your PATH. You must fulfill at least one of these conditions.
+sudo chown -R hcxiong /usr/local/lib/node_modules/cordova
+
+vi ~/.bash_profile
+
+export ANDROID_HOME=~/android-sdk
+export PATH=${PATH}:~/android-sdk/tools
+export PATH=${PATH}:~/android-sdk/platform-tools
+
+source ~/.bash_profile
+
+sudo cordova platform add android -d
+
+sudo apt-get install lib32stdc++6
+
+windows sdk
+$ cordova platform add wp8
+$ cordova platform add windows
+$ cordova platform add amazon-fireos
+$ cordova platform add android
+$ cordova platform add blackberry10
+$ cordova platform add firefoxos
+
+Run this to check your current set of platforms:
+cordova platforms ls
+
+remove a platform:
+$ cordova platform remove blackberry10
+$ cordova platform rm amazon-fireos
+$ cordova platform rm android
+
+Build the App
+sudo cordova build
+sudo cordova build ios
+
+cordova prepare ios
+cordova compile ios
+
+Test the App on an Emulator or Device
+cordova emulate android
+sudo cordova emulate ios
+cordova run android
+
+sudo cordova emulate ios
+sudo ios-sim launch HelloWorld.app
+sudo platforms/ios/cordova/run --emulator
+
+sudo brew install ant
+android list targets
+android list avd
+android create avd --name <name> --target <targetID>
+android create avd --name avd442 --target 5
+
+Add Plugin
+cordova plugin search bar code
+cordova plugin add org.apache.cordova.device
+Network Connection and Battery Events:
+cordova plugin add org.apache.cordova.network-information
+cordova plugin add org.apache.cordova.battery-status
+Accelerometer, Compass, and Geolocation:
+$ cordova plugin add org.apache.cordova.device-motion
+$ cordova plugin add org.apache.cordova.device-orientation
+$ cordova plugin add org.apache.cordova.geolocation
+Camera, Media playback and Capture:
+$ cordova plugin add org.apache.cordova.camera
+$ cordova plugin add org.apache.cordova.media-capture
+$ cordova plugin add org.apache.cordova.media
+Access files on device or network (File API):
+$ cordova plugin add org.apache.cordova.file
+$ cordova plugin add org.apache.cordova.file-transfer
+Notification via dialog box or vibration:
+$ cordova plugin add org.apache.cordova.dialogs
+$ cordova plugin add org.apache.cordova.vibration
+Contacts:
+$ cordova plugin add org.apache.cordova.contacts
+Globalization:
+$ cordova plugin add org.apache.cordova.globalization
+Splashscreen:
+$ cordova plugin add org.apache.cordova.splashscreen
+Open new browser windows (InAppBrowser):
+$ cordova plugin add org.apache.cordova.inappbrowser
+Debug console:
+$ cordova plugin add org.apache.cordova.console
+
+cordova plugin ls
+cordova plugin rm org.apache.cordova.console
+cordova plugin remove org.apache.cordova.console
+cordova plugin add org.apache.cordova.console org.apache.cordova.device
+cordova plugin add com.ionic.keyboard
+
+sudo npm install -g ionic
+ionic start myProject tabs
+
+cd ionic-app-base
+sudo npm install -g cordova ionic gulp
+npm install
+gulp init
+
+npm install -g ionic
+ionic start myApp
+cd myApp
+ionic platform ios
+ionic emulate ios
+ionic run ios
+
+git clone https://github.com/driftyco/ionic-weather.git
+cd ionic-weather
+$ cordova platform add ios
+$ cordova plugin add org.apache.cordova.device
+$ cordova plugin add org.apache.cordova.statusbar
+$ cordova plugin add org.apache.cordova.geolocation
+$ cordova build ios
+$ cordova emulate ios
+
+sudo npm install -g ionic cordova
+$ sudo ionic start myApp sidemenu
+cd myApp
+$ sudo ionic platform add ios
+$ sudo ionic build ios
+$ sudo ionic emulate ios
+
+sudo npm install -g ios-sim
+
+基于ionic framework/angularjs/cordova的ToDo管理应用 good
+git clone https://github.com/rensanning/ToDo-ionic.git
+cd ToDo-ionic
+sudo cordova plugin add org.apache.cordova.console
+sudo cordova plugin add org.apache.cordova.statusbar
+sudo cordova plugin add org.apache.cordova.device
+sudo cordova plugin add org.apache.cordova.splashscreen
+sudo cordova plugin add https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git
+
+> git clone https://github.com/calendee/ionicPickContact
+> cd ionicPickContact`
+> ionic platform add ios
+> cordova plugin add org.apache.cordova.contacts
+> ionic run ios
+
+git clone https://github.com/pbernasconi/ionic-theme-editor.git
+cd .../ionic-theme-editor
+npm install
+bower install
+grunt build
+grunt serve
+
+===================================================
 
 安装android运行环境：
 下载安装androidSDK：

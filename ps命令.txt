@@ -1,0 +1,132 @@
+ps 命令
+==========
+
+功能说明：报告程序状况。
+语法：ps [-aAcdefHjlmNVwy][acefghLnrsSTuvxX][-C <指令名称>][-g <群组名称>][-G <群组识别码>][-p <程序识别码>][p <程序识别码>][-s <阶段作业>][-t <终端机编号>][t <终端机编号>][-u <用户识别码>][-U <用户识别码>][U <用户名称>][-<程序识别码>][--cols <每列字符数>][--columns <每列字符数>][--cumulative][--deselect][--forest][--headers][--help][--info][--lines <显示列数>][--no-headers][--group <群组名称>][-Group <群组识别码>][--pid <程序识别码>][--rows <显示列数>][--sid <阶段作业>][--tty <终端机编号>][--user <用户名称>][--User <用户识别码>][--version][--width <每列字符数>]
+补充说明：ps是用来报告程序执行状况的指令，您可以搭配kill指令随时中断，删除不必要的程序。
+参数：
+-a 显示所有终端机下执行的程序，除了阶段作业领导者之外。
+a 显示现行终端机下的所有程序，包括其他用户的程序。
+-A 显示所有程序。
+-c 显示CLS和PRI栏位。
+c 列出程序时，显示每个程序真正的指令名称，而不包含路径，参数或常驻服务的标示。
+-C<指令名称> 指定执行指令的名称，并列出该指令的程序的状况。
+-d 显示所有程序，但不包括阶段作业领导者的程序。
+-e 此参数的效果和指定"A"参数相同。
+e 列出程序时，显示每个程序所使用的环境变量。
+-f 显示UID,PPIP,C与STIME栏位。
+f 用ASCII字符显示树状结构，表达程序间的相互关系。
+-g<群组名称> 此参数的效果和指定"-G"参数相同，当亦能使用阶段作业领导者的名称来指定。
+g 显示现行终端机下的所有程序，包括群组领导者的程序。
+-G<群组识别码> 列出属于该群组的程序的状况，也可使用群组名称来指定。
+h 不显示标题列。
+-H 显示树状结构，表示程序间的相互关系。
+-j或j 采用工作控制的格式显示程序状况。
+-l或l 采用详细的格式来显示程序状况。
+L 列出栏位的相关信息。
+-m或m 显示所有的执行绪。
+n 以数字来表示USER和WCHAN栏位。
+-N 显示所有的程序，除了执行ps指令终端机下的程序之外。
+-p<程序识别码> 指定程序识别码，并列出该程序的状况。
+p<程序识别码> 此参数的效果和指定"-p"参数相同，只在列表格式方面稍有差异。
+r 只列出现行终端机正在执行中的程序。
+-s<阶段作业> 指定阶段作业的程序识别码，并列出隶属该阶段作业的程序的状况。
+s 采用程序信号的格式显示程序状况。
+S 列出程序时，包括已中断的子程序资料。
+-t<终端机编号> 指定终端机编号，并列出属于该终端机的程序的状况。
+t<终端机编号> 此参数的效果和指定"-t"参数相同，只在列表格式方面稍有差异。
+-T 显示现行终端机下的所有程序。
+-u<用户识别码> 此参数的效果和指定"-U"参数相同。
+u 以用户为主的格式来显示程序状况。
+-U<用户识别码> 列出属于该用户的程序的状况，也可使用用户名称来指定。
+U<用户名称> 列出属于该用户的程序的状况。
+v 采用虚拟内存的格式显示程序状况。
+-V或V 显示版本信息。
+-w或w 采用宽阔的格式来显示程序状况。
+x 显示所有程序，不以终端机来区分。
+X 采用旧式的Linux i386登陆格式显示程序状况。
+-y 配合参数"-l"使用时，不显示F(flag)栏位，并以RSS栏位取代ADDR栏位。
+-<程序识别码> 此参数的效果和指定"p"参数相同。
+--cols<每列字符数> 设置每列的最大字符数。
+--columns<每列字符数> 此参数的效果和指定"--cols"参数相同。
+--cumulative 此参数的效果和指定"S"参数相同。
+--deselect 此参数的效果和指定"-N"参数相同。
+--forest 此参数的效果和指定"f"参数相同。
+--headers 重复显示标题列。
+--help 在线帮助。
+--info 显示排错信息。
+--lines<显示列数> 设置显示画面的列数。
+--no-headers 此参数的效果和指定"h"参数相同，只在列表格式方面稍有差异。
+--group<群组名称> 此参数的效果和指定"-G"参数相同。
+--Group<群组识别码> 此参数的效果和指定"-G"参数相同。
+--pid<程序识别码> 此参数的效果和指定"-p"参数相同。
+--rows<显示列数> 此参数的效果和指定"--lines"参数相同。
+--sid<阶段作业> 此参数的效果和指定"-s"参数相同。
+--tty<终端机编号> 此参数的效果和指定"-t"参数相同。
+--user<用户名称> 此参数的效果和指定"-U"参数相同。
+--User<用户识别码> 此参数的效果和指定"-U"参数相同。
+--version 此参数的效果和指定"-V"参数相同。
+--widty<每列字符数> 此参数的效果和指定"-cols"参数相同
+常用方式及使用技巧：ps–ef |grep 12345\
+
+实例：
+ps -C node -O rss | grep hall
+
+显示10个消耗cpu最多的进程
+ps aux |head -1 ;ps aux |sort -rn +2 |head -10
+显示10个消耗内存最多的进程
+ps vx |head -1 ;ps vx |grep -v PID |sort -rn +6 |head -10
+显示10个换页最多的进程
+ps vx |head -1 ;ps vx |grep -v PID |sort -rn +4 |head -10
+显示10个消耗存储空间最多的进程
+ps aux |head -1 ;ps aux |sort -rn +3 |head -10
+
+ps -ef  #看完整的进程信息
+ps -eLf  #如果每个进程不显示其中的线程，则L参数可以显示每个线程
+ps -eo ppid,pid,user,args,%mem,vsz,rss --sort rss   #显示进程名，内存占用，虚拟内存，物理内存，并按照物理内存使用量排序
+ps -eo ppid,pid,user,args,%mem,vsz,rss --sort vsz   #显示进程名，内存占用，虚拟内存，物理内存，并按照虚拟内存使用量排序(虚拟内存和物理内存使用很大都可能产生大量碎片)
+ps -eo pid,user,wchan=WIDE-WCHAN-COLUMN -o s,cmd|awk ' $4 ~ /D/ {print $0}' 查看哪个进程在iowait中
+
+ps -ef|grep php/ps -ef|grep nginx/ps aux | grep mysqld/ps aux/du -sh
+ps -eo %mem,pid,user,args | awk 'NR>1' | sort -k 1 -n -r | head -10
+ps -eo %cpu,pid,user,args | awk 'NR>1' | sort -k 1 -n -r | head -10
+ps -ef|grep top
+ps -xj|grep 481/ps -xj|grep top 显示哪些用户在使用进程ＩＤ
+ps -ef # 查看所有进程
+不是由你运行的程序 ps aux | grep -v `whoami`
+内存最多的10个进程 ps -aux | sort -k4nr | head -n 10
+CPU最多的10个进程  ps -aux | sort -k3nr | head -n 10
+最占用时间的前十个程序 ps aux--sort=-%cpu | grep -m 11 -v `whoami`
+检查当前僵尸进程信息
+ps -ef | grep defunct
+ps -ef | grep defunct | grep -v grep | wc -l
+ps -ef | grep defunct | grep -v grep
+ps -ef | grep defunct | grep -v grep | awk '{print "kill -9 " $2,$3}'
+ps -ef | grep defunct | grep -v grep | awk '{print "kill -18 " $3}'
+杀死僵尸进程
+ps -e -o ppid,stat | grep Z | cut -d" " -f2 | xargs kill -9
+kill -HUP `ps -A -ostat,ppid | grep -e '^[Zz]' | awk '{print $2}'`
+清除僵死进程。
+ps -eal | awk '{ if ($2 == "Z") {print $4}}' | kill -9
+寻找所有在你的用户名下运行的进程 ps -ef | grep $USER
+查看指定用户打开的文件数量 for x in `ps -u 500 u | grep java | awk '{ print $2 }'`;do ls /proc/$x/fd|wc -l;done
+统计httpd协议连接数进程数
+ps -ef|grep httpd|wc -l
+ps aux|grep httpd|wc -l
+查看进程占用内存
+ps aux |awk '($1 ~apache) && ($6>50) {print $0}'
+ps xH 这样可以查看所有存在的线程。
+ps -mp <PID> 这样可以查看一个进程起的线程数。
+查看进程，按内存从大到小排列 ps -e -o “%C : %p : %z : %a”|sort -k5 -nr
+按cpu利用率从大到小排列 ps -e -o “%C : %p : %z : %a”|sort -nr
+如何杀掉mysql进程
+ps aux |grep mysql |grep -v grep |awk '{print $2}' |xargs kill -9
+pgrep mysql |xargs kill -9
+killall -TERM mysqld
+kill -9 `cat /usr/local/apache2/logs/httpd.pid`
+进程总数 ps aux | wc -l
+查看进程树 ps aufx
+按内存从大到小排列 ps -e  -o "%C  : %p : %z : %a"|sort -k5 -nr
+按cpu利用率从大到小排列 ps -e  -o "%C  : %p : %z : %a"|sort  -nr
+怎样知道某个进程在哪个CPU上运行？ps -eo pid,args,psr
+查看PHP-CGI占用的内存总数：total=0; for i in `ps -C php-cgi -o rss=`; do total=$(($total+$i)); done; echo "PHP-CGI Memory usage: $total kb"

@@ -1,0 +1,47 @@
+mysql-utilities工具
+
+http://yueliangdao0608.blog.51cto.com/397025/1199960
+
+安装mysql-utilities-------------------------------------------------
+http://dev.mysql.com/downloads/utilities/
+wget http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-utilities-1.4.4.zip
+unzip mysql-utilities-1.4.4.zip
+cd mysql-utilities-1.4.4
+python ./setup.py build
+sudo python ./setup.py install
+
+搭建主从的脚本，这里我搭建了两台从机
+mysqlreplicate --master=root:root@192.168.1.131:3306 --slave=root:root@192.168.1.132:3306 --slave=root:root@192.168.1.133:3306
+
+检查主从的运行情况
+mysqlrplcheck --master=root:root@192.168.1.131:3306 --slave=root:root@192.168.1.132:3306 -s
+
+显示主从的架构
+mysqlrplshow --master=root:root@192.168.1.131:3306 --discover-slaves-login=root:root -v
+
+监视主从健康状态
+mysqlfailover --master=root:root@192.168.1.131:3306 --discover-slaves-login=root:root
+
+对主从进行管理
+停止从机服务mysqlrpladmin --master=root:root@192.168.1.131:3306 --slaves=root:root@192.168.1.132:3306,root:root@192.168.1.133:3306 stop
+开启从机服务mysqlrpladmin --master=root:root@192.168.1.131:3306 --slaves=root:root@192.168.1.132:3306,root:root@192.168.1.133:3306 stop
+选择最好的备机准备以后切换用mysqlrpladmin --master=root:root@192.168.1.131:3306 --slaves=root:root@192.168.1.132:3306,root:root@192.168.1.133:3306 elect
+进行主从切换mysqlrpladmin --master=root:root@192.168.1.131:3306 --slaves=root:root@192.168.1.132:3306,root:root@192.168.1.133:3306 --new-master=root:root@192.168.1.132:3306 --demote-master switchover
+显示下新的主从架构mysqlrplshow --master=root:root@192.168.1.132:3306 --discover-slaves-login=root:root -v
+
+对比数据库表结构
+mysqldbcompare --server1=scripts:scripts999@192.168.1.2 --server2=scripts:scripts999@192.168.1.122 cbgc:cbgc --run-all-tests --changes-for=server2 --difftype=sql
+mysqldbcompare --server1=root:root@192.168.1.168 --server2=root:root@192.168.1.168 webgame_new:webgame --run-all-tests --changes-for=server2 --difftype=sql
+
+比较表结构
+mysqldiff --server1=root:root@192.168.1.168 --server2=root:root@192.168.1.168 --difftype=context webgame_new.web_game:webgame.web_game
+
+檢查是否有多餘的索引
+mysqlindexcheck --server=root:root@192.168.1.168 webgame_new
+
+
+
+
+
+
+

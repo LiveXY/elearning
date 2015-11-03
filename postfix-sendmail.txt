@@ -1,0 +1,222 @@
+postfix  sendmail 配置与安装
+http://www.centospub.com/make/postfix_smtp.html
+http://www.centospub.com/make/dovecot_pop3.html
+http://www.centospub.com/make/postfix_ssl.html
+http://www.centospub.com/make/postfix_vd.html
+http://tuxgraphics.org/toolbox/network_address_calculator_add.html
+Network and IP address calculator
+
+killall sendmail
+rpm -e sendmail sendmail-cf sendmail-doc --nodeps
+
+添加ＤＮＳ解析：
+mail A 199.231.184.180 --
+@ MX mail.test.net. 10
+@ TXT v=spf1 mx -all --
+
+host -t mx test.net
+
+killall postfix
+yum remove postfix
+yum -y install postfix
+
+更改默认MTA为Postfix
+alternatives --set mta /usr/sbin/sendmail.postfix
+alternatives --config mta
+alternatives --display mta
+
+配置postfix------------------------------------------------------
+vi /etc/postfix/main.cf
+myhostname = mail.test.net
+mydomain = test.net
+myorigin = $mydomain
+inet_interfaces = all
+inet_protocols = ipv4
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+relay_domains = $mydestination
+mynetworks_style = host
+mynetworks = 127.0.0.0/8, 199.231.184.180
+local_recipient_maps =
+home_mailbox = Maildir/
+smtpd_banner = $myhostname ESMTP unknow
+
+#smtp
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_local_domain = $mydomain
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+broken_sasl_auth_clients = yes
+smtpd_client_restrictions = permit_sasl_authenticated
+smtpd_sasl_security_options = noanonymous
+
+#tls ------------------------------------------------------------------------
+disable_vrfy_command = yes
+smtpd_use_tls = yes
+smtpd_tls_auth_only = yes
+tls_random_source = dev:/dev/urandom
+smtpd_tls_cert_file = /etc/postfix/cert.pem
+smtpd_tls_key_file = /etc/postfix/key.pem
+smtpd_sasl_auth_enable =  yes
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+
+cd /etc/postfix
+openssl req -new -x509  -nodes -out cert.pem -keyout key.pem -days 3650
+chmod 600 *.pem
+
+------------------------------------------------------
+
+vim /etc/sasl2/smtpd.conf
+pwcheck_method: auxprop ← 不使用系统用户密码作为用户的SMTP认证密码
+
+vi /etc/sysconfig/saslauthd
+#MECH=shadow ← 不使用MECH机制
+FLAGS=sasldb ← 定义认证方式为sasldb2
+
+saslpasswd2 -u mail.test.net -c test ← 为test用户设置SMTP认证密码
+sasldblistusers2
+
+chgrp postfix /etc/sasldb2 ← 将数据库归属改为postfix，
+chmod 640 /etc/sasldb2 ← 将数据库属性改为640
+
+service postfix restart
+chkconfig postfix on
+
+service saslauthd restart
+chkconfig saslauthd on
+
+telnet 127.0.0.1 25
+ehlo mail
+MAIL FROM:<xiong@test.net>
+RCPT TO:test@qq.com
+DATA
+Subject: test message
+test body
+.
+
+250 2.0.0 Ok: queued as 88D6D32A94
+
+echo hello word | mailx -v -s "demo title"  test@qq.com
+mail -s "hosts" test@qq.com < /etc/hosts
+
+
+postconf -n
+doveconf -n
+
+sasldblistusers2
+saslpasswd2 -c -u test.net xhc
+testsaslauthd -u xhc -p 123456
+testsaslauthd -u root -p 123456
+
+
+POP/IMAP -------------------------------------------------------------------------------------
+yum -y install dovecot
+
+vi /etc/postfix/main.cf
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+broken_sasl_auth_clients = yes
+smtpd_sasl_local_domain = $mydomain
+smtpd_client_restrictions = permit_sasl_authenticated
+
+
+service postfix restart
+
+vi /etc/dovecot/dovecot.conf
+protocols = imap pop3
+listen = *
+
+vi /etc/dovecot/conf.d/10-auth.conf
+disable_plaintext_auth = no
+auth_mechanisms = plain login
+
+vi /etc/dovecot/conf.d/10-mail.conf
+mail_location = maildir:~/Maildir
+
+vi /etc/dovecot/conf.d/10-master.conf
+  # Postfix smtp-auth
+  unix_listener /var/spool/postfix/private/auth {
+        mode = 0666
+        user = postfix
+        group = postfix
+  }
+
+vi /etc/dovecot/conf.d/20-pop3.conf
+pop3_uidl_format = %08Xu%08Xv
+pop3_client_workarounds = outlook-no-nuls oe-ns-eoh
+
+service dovecot restart
+
+groupadd mailuser
+adduser -g mailuser -s /sbin/nologin test1
+passwd  test1
+adduser -g mailuser -s /sbin/nologin test2
+passwd  test2
+
+iptables -A INPUT -p tcp --dport 110 -j ACCEPT
+iptables -A INPUT -p tcp --dport 143 -j ACCEPT
+service iptables save
+service iptables restart
+
+sendmail 配置与安装-----------------------------------------------------------------------------------------
+
+yum install -y sendmail sendmail-cf m4
+
+vi /etc/mail/sendmail.mc
+DAEMON_OPTIONS(`Port=smtp,Addr=0.0.0.0, Name=MTA')dnl
+或
+DAEMON_OPTIONS(`Port=smtp,Addr=192.168.1.0/24, Name=MTA')dnl
+
+m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
+
+service sendmail restart
+chkconfig sendmail on
+
+echo ""  >> /etc/hosts
+echo "127.0.0.1      $HOSTNAME"  >> /etc/hosts
+
+iptables -A INPUT -p tcp --dport 25 -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+service iptables save
+service iptables restart
+
+mail -s "hosts" test@qq.com < /etc/hosts
+
+netstat -tnlp | grep :25
+mailstats
+ls -l /var/spool/mail |more
+
+vi /etc/mail/local-host-names
+mail.test.net
+
+vi /etc/mail/access
+中继文件
+
+---------------------------------------------------------------
+include_once '/Users/hcxiong/happi_pro/game_web/happiplay/application/classes/PHPMailer/class.phpmailer.php';
+$mail = new PHPMailer();
+//$mail->IsSMTP();
+$mail->From = 'xiong@test.net';
+$mail->FromName = 'Test';
+$mail->Host = 'test.net';
+$mail->Port = 25;
+$mail->Username = 'test@test.net';
+$mail->Password = '123456';
+$mail->SMTPAuth = true;
+$mail->Mailer = 'smtp';
+//$mail->SMTPSecure = 'tls';
+$mail->AuthType = 'LOGIN';
+$mail->SMTPDebug  = 1;
+
+$mail->AddAddress('test@qq.com');
+$mail->ContentType = 'text/html';
+$mail->Subject = 'test';
+$mail->CharSet = 'utf-8';
+$mail->Body = 'test';
+var_dump($mail->Send());
+var_dump($mail->ErrorInfo);
+exit;
+
+

@@ -1,0 +1,56 @@
+yum check-update 检查可更新的所有软件包
+yum update 下载更新系统已安装的所有软件包
+yum upgrade 大规模的版本升级,与yum update不同的是,连旧的淘汰的包也升级
+yum install <packages> 安装新软件包
+yum update <packages> 更新指定的软件包
+yum remove <packages> 卸载指定的软件包
+yum groupinstall <groupnames> 安装指定软件组中的软件包
+yum groupupdate <groupnames> 更新指定软件组中的软件包
+yum groupremove <groupnames> 卸载指定软件组中的软件包
+yum grouplist 查看系统中已经安装的和可用的软件组
+yum list 列出资源库中所有可以安装或更新以及已经安装的rpm包
+yum list <regex> 列出资源库中与正则表达式匹配的可以安装或更新以及已经安装的rpm包
+yum list available 列出资源库中所有可以安装的rpm包
+yum list available <regex> 列出资源库中与正则表达式匹配的所有可以安装的rpm包
+yum list updates 列出资源库中所有可以更新的rpm包
+yum list updates <regex> 列出资源库中与正则表达式匹配的所有可以更新的rpm包
+yum list installed 列出资源库中所有已经安装的rpm包
+yum list installed <regex> 列出资源库中与正则表达式匹配的所有已经安装的rpm包
+yum list extras 列出已经安装的但是不包含在资源库中的rpm包
+yum list extras <regex> 列出与正则表达式匹配的已经安装的但是不包含在资源库中的rpm包
+yum list recent 列出最近被添加到资源库中的软件包
+yum search <regex> 检测所有可用的软件的名称、描述、概述和已列出的维护者，查找与正则表达式匹配的值
+yum provides <regex> 检测软件包中包含的文件以及软件提供的功能，查找与正则表达式匹配的值
+yum clean headers 清除缓存中的rpm头文件
+yum clean packages 清除缓存中rpm包文件
+yum clean all 清除缓存中的rpm头文件和包文件
+yum deplist <packages> 显示软件包的依赖信息
+yum info 列出包信息
+当第一次使用 yum 或 yum 资源库有更新时，yum会自动下载所有所需的 headers 放置于 /var/cache/yum 目录下，所需时间可能较长。
+yum 命令可以使用 -y 参数用于用 yes 回答命令运行时所提出的问题。
+ 
+yum --enablerepo=updates install bash
+rpm -qa subversion是否安装
+yum info subversion查看信息
+yum remove subversion删除
+yum install subversion安装
+列出所有可更新的软件清单yum check-update
+安装所有更新软件yum update
+仅安装指定的软件yum install
+仅更新指定的软件yum update
+列出所有可安裝的软件清单yum list
+列出所有可更新的软件包yum list updates
+删除yum remove
+获取信息yum info
+使用YUM查找软件包yum search
+列出所有已安装的软件包yum list installed
+列出所有已安装但不在yum Repository內的软件包yum list extras
+列出所有可更新的软件包信息yum info updates
+列出软件包提供哪些文件yum provides
+清除缓存目录yum clean/yum clean headers/yum clean oldheaders
+清除YUM缓存yum clean all
+yum upgrade -y #更新系统内核到最新
+
+yum [Errno 256] No more mirrors to try 解决方法
+yum clean all
+yum makecache

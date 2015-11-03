@@ -1,0 +1,13 @@
+SSH限制ip登陆
+
+vi /etc/hosts.allow
+sshd:192.168.10.88:allow
+vi /etc/hosts.deny
+sshd:ALL
+vi /etc/ssh/sshd_config
+port 13333
+PermitRootLogin no
+AllowUsers admin@123.123.123.10 admin@10.88.88.* yurisk
+
+service sshd restart
+

@@ -1,0 +1,28 @@
+parallel
+
+wc -l qqddz-server.sh
+cat qqddz-server.sh | parallel  --pipe wc -l | awk '{s+=$1} END {print s}'
+
+想在一个巨大的文件里使用sed命令做大量的替换操作
+sed s^old^new^g bigfile.txt
+cat bigfile.txt | parallel --pipe sed s^old^new^g
+
+下面是一个用awk命令计算一个非常大的数据文件的例子
+cat rands20M.txt | awk '{s+=$1} END {print s}'
+cat rands20M.txt | parallel --pipe awk \'{s+=\$1} END {print s}\' | awk '{s+=$1} END {print s}'
+
+grep pattern bigfile.txt
+cat bigfile.txt | parallel --pipe grep 'pattern'
+cat bigfile.txt | parallel --block 10M --pipe grep 'pattern'
+
+cat bigfile.bin | bzip2 --best > compressedfile.bz2
+cat bigfile.bin | parallel --pipe --recend '' -k bzip2 --best > compressedfile.bz2
+
+
+
+
+
+
+
+
+

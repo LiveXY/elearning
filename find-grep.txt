@@ -1,0 +1,33 @@
+find grep
+
+find ./ -name *.log
+find ./ -size +204800 = 100M
+find /home -user file
+find ./ -mmin -120
+cmin/amin/mmin 分钟为单位
+ctime/atime/mtime 天为单位
+c修改 a访问 m修改
+在/etc下查找24小时内被修改过属性的文件和目录
+find /etc -size +163840 -a -size -204800
+
+在/etc下查找大于80mb小于100mb的文件
+find /etc -name inittab -exec ls -l{} \
+
+
+grep php /home/happiplay.com/static/ -r
+
+grep -RPnDskip "(php|passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|fopen|fclose|readfile) *\(" /home/happiplay.com/static/
+
+
+从根目录查找大于50MB的文件，并按大小列表显示前10个：
+find / -printf "%k %p\n"|sort -g -k 1,1|\awk '{if($1>50000) print $1/1024 "MB" " " $2}'|tail -n 10
+
+从当前目录开始, 查找本目录下大于10M的文件并显示详细信息：
+find . -size +10000000c -exec ls -lh {} \;
+
+grep -Hrv ";" /etc/php.ini | grep "extension="
+
+
+
+
+

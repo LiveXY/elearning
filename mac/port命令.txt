@@ -1,0 +1,40 @@
+www.macports.org
+
+echo "$PATH"
+vi ~/.bash_profile
+export PATH=$PATH:/opt/local/bin
+export PATH=$PATH:/opt/local/sbin
+source ~/.bash_profile or . ~/.bash_profile
+echo "$PATH”
+
+sudo /opt/local/bin/port -v selfupdate
+sudo port upgrade outdated
+port search name
+sudo port uninstall name
+
+sudo /opt/local/bin/port install aircrack-ng
+
+sudo /opt/local/bin/port install corkscrew
+
+sudo /opt/local/bin/port install php55 php55-curl php55-gd php55-iconv php55-mbstring php55-mcrypt php55-memcache  php55-mysql php55-openssl php55-sockets php55-xhprof php55-xmlrpc
+
+sudo port install php55-yaf
+sudo port install php55-phalcon
+
+sudo /opt/local/bin/port selfupdate
+sudo /opt/local/bin/port install php55-gd
+
+sudo /opt/local/bin/port install mysql5 +server
+
+sudo /opt/local/bin/port install php55-mcrypt
+
+sudo port install php55 +fastcgi fcgi apache-ant php55-cgi php55-mbstring php55-curl php55-mcrypt php55-imagick php55-xdebug php55-iconv php55-mongo php55-oauth php55-openssl php55-esmtp php55-pop3 php55-tidy php55-uploadprogress php55-pcntl php55-sockets php55-soap php55-ssh2 php55-big_int php55-gd php55-svm php55-html_parse php55-http php55-mysql php55-pdflib php55-pear php55-peb php55-posix php55-pspell php55-rar php55-redis php55-snmp php55-stomp php55-svn php55-wddx php55-xmlrpc php55-yaml php55-zip php55-dbase php55-excel php55-gdchart php55-imap php55-xsl php55-redis
+
+sudo /opt/local/bin/port install mysql55
+sudo /opt/local/bin/port install mysql55-server
+sudo /opt/local/lib/mysql55/bin/mysql_install_db --user=mysql
+sudo /opt/local/share/mysql55/support-files/mysql.server start
+sudo /opt/local/lib/mysql55/bin/mysqladmin -u root password ’newlife’
+sudo /opt/local/bin/port load mysql55-server
+sudo port uninstall mysql55-server cd /opt/local/var/db/ sudo rm -rf mysql55/
+sudo port contents <package_name>

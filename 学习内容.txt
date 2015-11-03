@@ -1,0 +1,182 @@
+学习内容
+
+Cubieboard 小型服务器
+
+linux的世界真的很精彩，还没入门的朋友赶紧进来吧！
+操作系统：Centos※,Ubuntu,Redhat※,suse，Freebsd
+网站服务：nginx※,apache※,lighttpd,php※,tomcat※,resin※
+数据  库：MySQL※,Mysql-proxy,MariaDB，PostgreSQL
+代理相关：lvs,keepalived,haproxy,nginx,apache,heartbeat（此行都是※）
+网站缓存：squid※,nginx※,varnish
+NOSQL库：memcached※,memcachedb,TokyoTyrant※,MongoDB※,Cassandra※,redis※,CouchDB
+存储相关：Nfs※,Moosefs(mfs)※,Hadoop※,glusterfs※,lustre,FastDFS
+版本管理：svn※,git※
+监控报警：nagios※,cacti※,zabbix※,munin,hyperic,mrtg
+域名解析：bind※,powerdns,dnsmasq※
+同步软件：rsync※,inotify※,sersync※,drbd※,csync2,union,lsyncd,scp※
+批量管理：ssh+rsync+sersync※,Saltstack※,expect※,puppet※,cfengine
+虚拟  化：kvm※,xen※
+云计  算：openstack※,cloudstack
+内网软件：iptables※,zebra※,iftraf,ntop※,tc※,iftop
+邮件软件：qmail※,posfix※,sendmail
+远程拨号：openvpn※,pptp,openswan※,ipip※
+统一认证：openldap(可结合微软活动目录)※
+队列工具：ActiveMQ,RabbitMQ※,Metaq,MemcacheQ,Zeromq
+打包发布：mvn※,ants※,jenkins※,svn
+测试软件：ab,smokeping,siege,JMeter,Webbench,LoadRunner,http_load（都是※）
+日志相关：syslog,rsyslog,Awstats,flume logstash scribe kafka,storm
+DB 代理：mysql-proxy,amoeba（更多还是程序实现读写分离）
+搜索软件：Sphinx,Xapian（大公司会自己开发类似百度的小规模内部搜索引擎）
+
+Linux硬件信息命令大全
+1,lscpu命令可以用来查询处理器cpu的详细信息，只需要简单地输入lscpu即可，如下所示，它本身也没有提供更多选项和功能可供选择。
+2,lshw - 显示硬件信息列表
+这个命令用途广泛，它可以根据你的需求以详细或概要的形式列出许多个不同硬件的参数信息，其中包括cpu，内存，磁盘，usb控制器，网卡等等，lshw实质上是从/proc文件目录下的不同文件中提取对应的硬件信息。
+3,hwinfo同样是一个使用非常广泛的硬件信息查询命令，类似于lshw，它同样可以详细或概要地报告多个部件的硬件信息，但不同的是，它有时可以给出比lshw更多的信息。
+4,lscpi命令可以列出pci总线上信息，以及所有连接到pci总线上的设备信息，比如VGA适配器，显卡，网卡，usb端口，sata控制器等等。
+5,lsscsi - 列出scsi设备信息
+列出scsi/sata设备信息，比如硬盘驱动器，光盘驱动器。
+6. lsusb - 列出usb总线信息，及设备信息
+该命令可以显示USB控制器及连接到控制的设备信息。默认情况下，只显示概要信息，可以通过-v选项指示其显示更多的硬件信息。
+7,inxi命令是一个大的bash脚本文件，其通过从不同的信息来源和命令中获取硬件信息，最后能给出一个颜色高亮的，适合于非专业人员阅读的硬件信息报告。
+8. lsblk - 列出块设备信息
+列出所有块设备信息，其中包括硬盘分区信息，以及其他存储设备，如光盘，闪存等。
+9. df - 显示文件系统的磁盘空间信息
+报告各种挂载的文件系统信息，其中包括挂载点，已用的，可用的磁盘空间。
+10. pydf - python版本的df
+一个增强型的python版的df命令，可以以不同的颜色显示所查询的信息，看起来比df更好看。
+11,fdisk
+fdisk命令可以用来修改硬盘分区表信息，也可以用来显示硬盘分区表信息
+fdisk -l
+12,mount命令可以用来挂载设备，当然也可以用来查看系统中设备的挂载情况。
+mount | column -t
+mount | column -t | grep ext
+13,free - 查看RAM信息
+查看系统中RAM的使用情况，包括已使用空间，未使用空间，以及总空间。
+14,dmidecode
+dmidecode命令不同于其他的命令，它是通过读取SMBOIS数据结构（也称为DMI表）中数据来提取硬件信息。
+dmidecode -t processor
+dmidecode -t memory
+dmidecode -t bios
+15. /proc 文件系统
+cat /proc/cpuinfo cpu信息
+cat /proc/meminfo 内存信息
+cat /proc/versionLinux内核信息
+cat /proc/scsi/scsi SCSI/Sata设备信息
+cat /proc/partitions分区信息
+16,hdparm命令可以获取sata设备如硬盘等设备信息。
+hdparm -i /dev/sda
+还有一个便于使用的图形界面的工具，比如Hardinfo、I-nex就是其中非常流行的工具，他们可以提供多个硬件部件的详细信息。
+
+
+gdb 调试利器
+ldd 查看程序依赖库
+lsof 一切皆文件
+ps 进程查看器
+pstack 跟踪进程栈
+strace 跟踪进程中的系统调用
+ipcs 查询进程间通信状态
+top linux下的任务管理器
+free 查询可用内存
+vmstat 监视内存使用情况
+iostat 监视I/O子系统
+sar 找出系统瓶颈的利器
+readelf elf文件格式分析
+objdump 二进制文件分析
+nm 目标文件格式分析
+size 查看程序内存映像大小
+wget 文件下载
+scp 跨机远程拷贝
+crontab 定时任务
+
+
+process & file
+
+amd：自动安装NFS守护进程
+apmd:高级电源管理守护进程
+arpwatch：记录日志并构建一个在LAN接口上看到的以太网地址和IP地址对数据库
+autofs：自动安装管理进程automount，与NFS相关，依赖于NIS
+crond：Linux下的计划任务的守护进程
+named：DNS服务器
+netfs：安装NFS、Samba和NetWare网络文件系统
+network：激活已配置网络接口的脚本程序
+nfs：打开NFS服务
+portmap：RPC portmap管理器，它管理基于RPC服务的连接
+sendmail：邮件服务器sendmail
+smb：Samba文件共享/打印服务
+syslog：一个让系统引导时起动syslog和klogd系统日志守候进程的脚本
+xfs：X Window字型服务器，为本地和远程X服务器提供字型集
+Xinetd：支持多种网络服务的核心守护进程，可以管理wtp、sshd、telnet等服务
+/sbin/mingetty tty1 mingetty程序能打开终端、设置模式
+
+
+/etc/passwd
+/etc/shadow
+/etc/group
+/etc/gshadow
+/etc/skel
+/etc/default/useradd
+/etc/login.defs
+
+
+xargs or parallel: 并行运行一些程序，命令有很多的选项
+sed and awk: 广为人知并且非常有用的处理文本文件的命令，比Python和Ruby还快
+m4: 简单的宏处理命令
+screen: 功能强大的终端复用和会话持久工具，详见http://www.ibm.com/developerworks/cn/linux/l-cn-screen/
+yes: 重复输出字符串 详见 http://codingstandards.iteye.com/blog/826940
+cal: 非常漂亮的日历
+env: 运行一个命令，在脚本中非常有用
+look: 查找以字符串开头英文单词
+cut and paste and join:   数据操作命令
+fmt: 格式化一个文本段
+pr: 以页/列为单位格式化一串文本或一个较大文件，详见 http://hi.baidu.com/mchina_tang/item/1ce11d5d317dfc05aaf6d70d
+fold: 使文本换行
+column: 格式化文本成列或表格
+expand and unexpand: 在制表符和空格之间转换
+nl: 添加行号
+seq: 打印行号
+bc: 计算器
+factor: 输出整数的因数，factor输出的为整数的质因数
+nc: 网络调试和数据传输
+dd: 在文件和设备间移动数据
+file: 判断一个文件的类型
+stat: 查看文件状态
+tac: 从最后一行输出文件内容，和cat输出是相反的
+shuf: 对一个文件按行随机选择数据
+comm: 按行比较一个有序文件
+hd and bvi: 输出或编辑二进制文件
+strings: 查看二进制文件中的内容
+tr: 字符翻译或操作字符
+iconv or uconv: 转换编码的字符串
+split and csplit: 划分文件
+7z: 高压缩率压缩文件
+ldd: 查看动态库信息
+nm: 查看目标文件中的符号表
+ab: 网站服务器压力测试工具
+strace: 调试系统调用
+mtr: 网络调试时能够更好的进行路由跟踪工具
+cssh: 可视的并发shell
+wireshark and tshark: 数据包捕获和网络调试
+host and dig: 查找DNS
+lsof: 查看进程文件描述符和socket信息
+dstat: 很有用的系统数据统计工具
+iostat: CPU和磁盘使用统计
+htop: top的改进版本
+last: 登录历史
+w: 当前登录用户
+id: 查看用户/组 表示信息
+sar: 查看历史系统统计数据工具
+iftop or nethogs: 查看socket或者进程的网络利用率
+ss: 查看统计信息
+dmesg: 启动或者系统错误信息
+(Linux) hdparm: 显示或设定磁盘参数
+(Linux) lsb_release: 查看linux系统发行版本信息
+(Linux) lshw: 查看硬件信息
+fortune, ddate, and sl: 这取决于你是否觉得蒸汽机或者比比语录有用。
+
+
+
+
+
+
+

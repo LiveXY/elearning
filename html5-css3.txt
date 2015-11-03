@@ -1,0 +1,12 @@
+html5 css3
+
+解决UIWebView旋转成横屏后字体会放大的策略
+-webkit-text-size-adjust: none;
+-webkit-font-smoothing: none;
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0”>
+
+html,body{-webkit-touch-callout: none;}
+禁用、禁止 UIWebView 里面的链接长按弹出效果
+
+Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' http://www.baidu.com
+现在html5出了个 Contnt-Security-Policy特性，只要在response里加上该header，任何外来域名的资源（css、image、js）等都被屏蔽掉

@@ -1,0 +1,478 @@
+iptables
+
+cat /etc/sysconfig/iptables
+
+#!/bin/sh
+#
+modprobe ipt_MASQUERADE
+modprobe ip_conntrack_ftp
+modprobe ip_nat_ftp
+iptables -F
+iptables -t nat -F
+iptables -X
+iptables -t nat -X
+###########################INPUT键###################################
+
+
+iptables -P INPUT DROP
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp -m multiport --dports 110,80,25 -j ACCEPT
+iptables -A INPUT -p tcp -s 192.168.0.0/24 --dport 139 -j ACCEPT
+#允许内网samba,smtp,pop3,连接
+iptables -A INPUT -i eth1 -p udp -m multiport --dports 53 -j ACCEPT
+#允许dns连接
+iptables -A INPUT -p tcp --dport 1723 -j ACCEPT
+iptables -A INPUT -p gre -j ACCEPT
+#允许外网vpn连接
+iptables -A INPUT -s 192.186.0.0/24 -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -i ppp0 -p tcp --syn -m connlimit --connlimit-above 15 -j DROP
+#为了防止DOS太多连接进来,那么可以允许最多15个初始连接,超过的丢弃
+iptables -A INPUT -s 192.186.0.0/24 -p tcp --syn -m connlimit --connlimit-above 15 -j DROP
+#为了防止DOS太多连接进来,那么可以允许最多15个初始连接,超过的丢弃
+iptables -A INPUT -p icmp -m limit --limit 3/s -j LOG --log-level INFO --log-prefix "ICMP packet IN: "
+iptables -A INPUT -p icmp -j DROP
+#禁止icmp通信-ping 不通
+iptables -t nat -A POSTROUTING -o ppp0 -s 192.168.0.0/24 -j MASQUERADE
+#内网转发
+iptables -N syn-flood
+iptables -A INPUT -p tcp --syn -j syn-flood
+iptables -I syn-flood -p tcp -m limit --limit 3/s --limit-burst 6 -j RETURN
+iptables -A syn-flood -j REJECT
+#防止SYN攻击 轻量
+#######################FORWARD链###########################
+iptables -P FORWARD DROP
+iptables -A FORWARD -p tcp -s 192.168.0.0/24 -m multiport --dports 80,110,21,25,1723 -j ACCEPT
+iptables -A FORWARD -p udp -s 192.168.0.0/24 --dport 53 -j ACCEPT
+iptables -A FORWARD -p gre -s 192.168.0.0/24 -j ACCEPT
+iptables -A FORWARD -p icmp -s 192.168.0.0/24 -j ACCEPT
+#允许 vpn客户走vpn网络连接外网
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -I FORWARD -p udp --dport 53 -m string --string "tencent" -m time --timestart 8:15 --timestop 12:30 --days Mon,Tue,Wed,Thu,Fri,Sat  -j DROP
+#星期一到星期六的8:00-12:30禁止qq通信
+iptables -I FORWARD -p udp --dport 53 -m string --string "TENCENT" -m time --timestart 8:15 --timestop 12:30 --days Mon,Tue,Wed,Thu,Fri,Sat  -j DROP
+#星期一到星期六的8:00-12:30禁止qq通信
+iptables -I FORWARD -p udp --dport 53 -m string --string "tencent" -m time --timestart 13:30 --timestop 20:30 --days Mon,Tue,Wed,Thu,Fri,Sat  -j DROP
+iptables -I FORWARD -p udp --dport 53 -m string --string "TENCENT" -m time --timestart 13:30 --timestop 20:30 --days Mon,Tue,Wed,Thu,Fri,Sat  -j DROP
+#星期一到星期六的13:30-20:30禁止QQ通信
+iptables -I FORWARD -s 192.168.0.0/24 -m string --string "qq.com" -m time --timestart 8:15 --timestop 12:30 --days Mon,Tue,Wed,Thu,Fri,Sat  -j DROP
+#星期一到星期六的8:00-12:30禁止qq网页
+iptables -I FORWARD -s 192.168.0.0/24 -m string --string "qq.com" -m time --timestart 13:00 --timestop 20:30 --days Mon,Tue,Wed,Thu,Fri,Sat  -j DROP
+#星期一到星期六的13:30-20:30禁止QQ网页
+iptables -I FORWARD -s 192.168.0.0/24 -m string --string "ay2000.net" -j DROP
+iptables -I FORWARD -d 192.168.0.0/24 -m string --string "宽频影院" -j DROP
+iptables -I FORWARD -s 192.168.0.0/24 -m string --string "色情" -j DROP
+iptables -I FORWARD -p tcp --sport 80 -m string --string "广告" -j DROP
+#禁止ay2000.net，宽频影院，色情，广告网页连接 ！但中文 不是很理想
+iptables -A FORWARD -m ipp2p --edk --kazaa --bit -j DROP
+iptables -A FORWARD -p tcp -m ipp2p --ares -j DROP
+iptables -A FORWARD -p udp -m ipp2p --kazaa -j DROP
+#禁止BT连接
+iptables -A FORWARD -p tcp --syn --dport 80 -m connlimit --connlimit-above 15 --connlimit-mask 24
+#######################################################################
+sysctl -w net.ipv4.ip_forward=1 &>/dev/null
+#打开转发
+#######################################################################
+sysctl -w net.ipv4.tcp_syncookies=1 &>/dev/null
+#打开 syncookie （轻量级预防 DOS 攻击）
+sysctl -w net.ipv4.netfilter.ip_conntrack_tcp_timeout_established=3800 &>/dev/null
+#设置默认 TCP 连接痴呆时长为 3800 秒（此选项可以大大降低连接数）
+sysctl -w net.ipv4.ip_conntrack_max=300000 &>/dev/null
+#设置支持最大连接树为 30W（这个根据你的内存和 iptables 版本来，每个 connection 需要 300 多个字节）
+#######################################################################
+iptables -I INPUT -s 192.168.1.140 -j ACCEPT
+iptables -I FORWARD -s 192.168.1.140 -j ACCEPT
+#192.168.1.140是我的机子，全部放行！
+############################完#########################################
+#####这个脚本不错，很实用，根据实际应用改一下就可以自己用。分享出来，供大家来参考#####
+
+防简单攻击iptables策略
+
+vi iptables_rule.sh
+
+#!/bin/sh
+IPTABLES=/sbin/iptables
+
+# clear
+$IPTABLES -F
+
+# if pkg type is allow, then accept
+#$IPTABLES -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# 如果同时在80端口的连接数大于10，就Drop掉这个ip
+netstat -an | grep :80 | awk -F: '{ print $8 }' | sort | uniq -c | awk -F\   '$1>10 && $2!="" { print $2 }' >> /etc/fw.list
+less /etc/fw.list | sort | uniq -c | awk -F\   '$2!="" { print $2 }' > /etc/fw.list2
+less /etc/fw.list2 > /etc/fw.list
+while read line
+       do
+       t=`echo "$line"`
+       $IPTABLES -A INPUT -p tcp -s $t -j DROP
+done < /etc/fw.list2
+
+# IP转发
+$IPTABLES -A INPUT -p tcp --dport 20002 -j ACCEPT
+$IPTABLES -A INPUT -d 172.16.204.7 -p tcp -m tcp --dport 20002 -i eth0 -j ACCEPT
+$IPTABLES -t nat -A PREROUTING -d 211.100.39.44 -p tcp -m tcp --dport 20002 -j DNAT --to-destination 172.16.204.7:20002
+$IPTABLES -t nat -A POSTROUTING -d 172.16.204.7 -p tcp -m tcp --dport 20002 -j SNAT --to-source 10.6.39.44
+
+# if pkg visit 80,7710 port then accept
+$IPTABLES -A INPUT -p tcp --dport 80 -j ACCEPT
+$IPTABLES -A INPUT -p tcp --dport 8080 -j ACCEPT
+$IPTABLES -A INPUT -p tcp --dport 22 -j ACCEPT
+$IPTABLES -A INPUT -p tcp --dport 873 -j ACCEPT
+# $IPTABLES -A INPUT -i eth0 -m limit --limit 1/sec --limit-burst 5 -j ACCEPT
+$IPTABLES -A INPUT -p tcp --tcp-flags SYN,ACK,FIN,RST SYN -m limit --limit 30/m --limit-burst 2 -j ACCEPT
+$IPTABLES -A FORWARD -p tcp --syn -m limit --limit 10/s -j ACCEPT
+$IPTABLES -A FORWARD -f -m limit --limit 100/s --limit-burst 100 -j ACCEPT
+
+# if pkg from allow ip then accept
+$IPTABLES -A INPUT -p tcp -s 127.0.0.1   -j ACCEPT
+
+# if pkg not above then deny
+$IPTABLES -A INPUT -p tcp --syn -j DROP
+下面这个防火墙测试结果更正确，能起到一定的防攻击的功能
+
+#!/bin/sh
+IPTABLES="/sbin/iptables"
+echo "1" > /proc/sys/net/ipv4/ip_forward
+$IPTABLES -P INPUT DROP
+$IPTABLES -P FORWARD DROP
+$IPTABLES -P OUTPUT DROP
+$IPTABLES -F
+$IPTABLES -X
+
+$IPTABLES -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPTABLES -A INPUT -p tcp --dport 22 -j ACCEPT
+$IPTABLES -A INPUT -p tcp --dport 80 --tcp-flags SYN,ACK,FIN,RST SYN -m limit --limit 30/m --limit-burst 2 -j ACCEPT
+
+$IPTABLES -A OUTPUT -p tcp -s 127.0.0.1 -j ACCEPT
+$IPTABLES -A OUTPUT -p tcp -s 192.168.1.102 -j ACCEPT
+$IPTABLES -A OUTPUT -p udp -s 127.0.0.1 -j ACCEPT
+$IPTABLES -A OUTPUT -p udp -s 192.168.1.102 -j ACCEPT
+
+$IPTABLES -A INPUT -p tcp --syn -j DROP
+
+
+例如：禁止访问http://192.168.137.254:10000/managersns 这个路径,只允许192.168.137.101访问
+/sbin/iptables -A INPUT -i eth0 -p tcp --dport 10000 -s 192.168.137.101 -m string --string "/managersns" --algo bm -j ACCEPT /sbin/iptables -A INPUT -i eth0 -p tcp --dport 10000 -m string --string "/managersns" --algo bm -j DROP
+/sbin/iptables -A INPUT -i eth0 -p tcp --dport 10000 -s 192.168.137.101 -m string --string "/managersns" --algo bm -j ACCEPT
+/sbin/iptables -A INPUT -i eth0 -p tcp --dport 10000 -m string --string "/managersns" --algo bm -j DROP
+以上规则是正对eth0网卡，可以跟踪自己需求修改。
+参数说明：
+-m string
+使用string功能，string是iptables的一个module，也就是做字符串匹配的。
+–string “xxxx”
+定义字符串内容，可以是URL里任意字符，如果是需要block下载某些类型的文件或请求，这个有很大的发挥空间，可自由想象喔。
+–algo bm
+设置字符匹配的查询算法，一般默认使用bm算法效果就可以了，另外还可以设置kmp算法，那是一种更复杂的算法，详细内容可自行参见高等数学里的资料。（bm = Boyer-Moore, kmp = Knuth-Pratt-Morris）
+-j DROP
+这在公司网络禁用视频网站是非常有效的，在网关服务器上设置：
+iptables -A FORWARD -m string –-string “ku6.com” --algo bm -j DROP iptables -A FORWARD -m string –-string “tudou.com” –-algo bm -j DROP iptables -A FORWARD -m string –-string “ouou.com” –-algo bm -j DROP
+iptables -A FORWARD -m string –-string “ku6.com” --algo bm -j DROP
+iptables -A FORWARD -m string –-string “tudou.com” –-algo bm -j DROP
+iptables -A FORWARD -m string –-string “ouou.com” –-algo bm -j DROP
+其中各项参数的意义如下：
+-A FORWARD
+增加FORWARD链的规则，以上规则是针对启用了路由功能（即：echo 1 &gt; /proc/sys/net/ipv4/ip_forward）
+如果是直接访问，可使用的INPUT或OUTPUT。
+设置符合此条件的包的处理方式，DROP即是丢弃，也是reject的意思。
+iptables -A INPUT -m string --string "stringname" --algo bm -j DROP
+
+vi fws.sh
+#!/bin/bash
+#Set the variable
+IPT=/sbin/iptables
+WAN="eth0"
+#IPADDR=61.134.1.4
+LOOPBACK_INTERFACE="lo"
+#Remove any existing rules
+$IPT -F
+$IPT -X
+#setting default firewall policy
+$IPT --policy OUTPUT ACCEPT
+$IPT --policy FORWARD DROP
+$IPT -P INPUT DROP
+#setting for loopback interface
+$IPT -A INPUT -i lo -j ACCEPT
+$IPT -A OUTPUT -o lo -j ACCEPT
+#Stealth Scans and TCP State Flags
+#All of the bits are cleared
+$IPT -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+#SYN and FIN are both set
+$IPT -A INPUT -p tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
+#SYN and RST are both set
+$IPT -A INPUT -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+#FIN and RST are both set
+$IPT -A INPUT -p tcp --tcp-flags FIN,RST FIN,RST -j DROP
+#FIN is the only bit set, without the expected accompanying ACK
+$IPT -A INPUT -p tcp --tcp-flags ACK,FIN FIN -j DROP
+#PSH is the only bit set, without the expected accompanying ACK
+$IPT -A INPUT -p tcp --tcp-flags ACK,PSH PSH -j DROP
+#URG is the only bit set, without the expected accompanying ACK
+$IPT -A INPUT -p tcp --tcp-flags ACK,URG URG -j DROP
+#$IPT -A INPUT  -i $WAN -s $IPADDR -j DROP
+###################################################################
+##setting wan access rules##
+#wan enable dns connect out
+$IPT -A INPUT  -i $WAN -p udp --sport 53 -j ACCEPT
+#wan enable http connect out and in
+$IPT -A INPUT  -i $WAN -p tcp --sport 80 -j ACCEPT
+$IPT -A INPUT  -i $WAN -p tcp --dport 80 -j ACCEPT
+#enable ftp connect out and in
+$IPT -A INPUT  -i $WAN -p tcp --dport 20 -s 1.1.1.1 -j ACCEPT
+$IPT -A INPUT  -i $WAN -p tcp --dport 21 -s 1.1.1.1 -j ACCEPT
+$IPT -A INPUT  -i $WAN -p tcp --sport 20 -j ACCEPT
+$IPT -A INPUT  -i $WAN -p tcp --sport 21 -j ACCEPT
+#wan enable icmp connect
+$IPT -A INPUT -p icmp  -j ACCEPT
+$IPT -A OUTPUT -p icmp  -j ACCEPT
+#wan enable ntp connect out
+$IPT -A INPUT  -i $WAN -p udp --sport 123 -j ACCEPT
+#enable ssh connect out and in
+$IPT -A INPUT -i $WAN -p tcp --dport 22 -j ACCEPT
+$IPT -A INPUT -i $WAN -p tcp --sport 22 -j ACCEPT
+wq保存退出
+ 
+chmod +x fws.sh
+./fws.sh
+
+---------------------------------------------------------------
+iptables
+
+iptables是linux中的一款强大的防火墙工具，它通过设置定义规则来实现控制网页通信的作用。由其访问控制的实现，主要是依靠filter表、nat表和mangle表配合五条netfilter链的协同作用，下面简单介绍一下他们作用以及对应关系：
+filter用于一般的ip数据包过滤，包含input链、output链和forward链；
+nat表的作用转发ip数据包，包含prerouting链、postrouting链和output链。
+forward：通过防火墙转发数据；
+input：外部访问本机应用程序；
+output：本机应用程序向外部发起的访问；
+prerouting：定义数据包在进入防火墙且在控制规则生效之前；
+postrouting:定义数据包进入防火墙在向外转发之前。
+
+iptables -t {filter|nat} -L -n
+#查看当前{filter|nat}表
+iptables -t {filter|nat}t -L  -n
+#查看当前{filter|nat}表；若后跟--line-number可以查看行号
+iptables -t {filter|nat} -F
+#清空所有{filter|nat}表规则
+iptables -t {filter|nat} -D num
+#删除{filter|nat}表中的第num条规则
+
+iptables -P {INPUT|OUTPUT|FORWARD|PREROUTING|POSTROUING}  {DROP|REJECT|ACCEPT}
+#设置5种链的的3中策略
+
+service iptables save
+#保存当前iptables，保存路径为/etc/sysconfig/iptables
+
+一、访问控制简单实例分析
+首先开启防火墙的路由功能
+方法1：
+echo 1 > /pro/sys/net/ipv4/ip_forward
+#此法重启后失效
+方法2：
+vim /etc/sysctl
+net.ipv4.ip_forward = 1
+#将此项值设置成1
+service network restart
+#此法永久生效
+实例1：允许192.168.0.0/24访问防火墙的SSH服务
+iptables -t filter -A INPUT    -s 192.168.0.0/24 -d 192.168.0.71 -p tcp --dport 22 -j ACCEPT
+#filter表，INPUT链，从192.168.0.0/24网段，到192.168.0.71主机，基于tcp协议，目标端口22，采取动作ACCEPT
+iptables -t filter -A OUTPUT -s 192.168.0.71 -d 192.168.0.0/24 -p tcp --sport 22 -j ACCEPT
+#filter表，OUTPUT链，从192.168.0.70主机，到192.168.0.0/24网段，基于tcp协议，源端口22，采取动作ACCEPT
+iptables -P INPUT DROP
+#设置INPUT策略：DROP
+iptables -P OUTPUT DROP
+#设置OUTPUT策略：DROP
+实例2：允许状态是new和established的访问web服务
+iptables -R INPUT 2 -s 192.168.0.0/24 -d 192.168.0.70 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+#此时改写链使用-R（replace）设置状态为established的响应请求全部放行
+intables -R OUTPUT 1 -p tcp -m state --state ESTABLISHED -j ACCEPT
+#响应状态 -s源地址 -d目的地址 不做限定（即只要是established状态的包output一律放行）
+实例3：拒绝所有192.168.0.0/16网段client来访问DNS解析服务的用户
+iptables -t filter -A INPUT -s 172.16.0.0/16 -p udp --dprot 53 -j DROP
+#filter表，INPUT链，来自172.160.0.0/16网段，使用UDP协议，目标端口号53，采取动作 DROP
+实例4：让内网用户可以相互发邮件
+iptables -A  PREROUTING –p tcp --dport 110 –j ACCEPT
+iptebles -A  PREROUTING –p tcp --dport 25 –j ACCEPT
+iptables -A  FORWARD –p tcp --dport 110 –j ACCEPT
+iptables -A  FORWARD –p tcp --sport 110 –j ACCEPT
+iptables -A  FORWARD –p tcp --dport 25 –j ACCEPT
+iptables -A  FORWARD –p tcp --sport 25 –j ACCEPT
+#邮件接收使用TCP110接口；邮件发送使用TCP25，放行数据转发。
+二、iptables实现源地址转换以及目的地址转换
+源地址转换：
+作用：实现多个内网主机共同使用一个公网IP地址与公网通信。
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source 123.1.1.123
+#将192.168.0.0/24网段的地址作为源地址转换成123.1.1.123
+地址伪装源地址转换：
+作用：使用ADSL拨号上网用户的IP都是由ISP随即分配，所以上述固定外网IP的情况就不在适用了，使用地址伪装能够自动匹配外网ip并实现源地址转换。
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j MASQUERADE
+#将192.168.0.0/24 网段的所有地址作为源地址转换成公网地址
+目的地址转换：
+作用：实现公网用户通过公网地址，访问内网服务器。
+iptables -t nat -A PREROUTING -d 123.1.1.123 -p tcp --dport 80 -j DNAT --to-destination 192.168.0.72
+#将外网的web访问请求（80端口）通过DNAT转发至内网web服务器192.168.0.72
+iptables -t nat -A PREROUTING -d 123.1.1.123 -p tcp --dport 22 -j DNAT --to-destination 192.168.0.73
+#将外网的ssh访问请求（22端口）通过DNAT转发至内网ssh服务器192.168.0.73
+iptables -t nat -A PREROUTING -d 123.1.1.123 -p udp --dport 53 -j DNAT --to-destination 192.168.0.74
+#将外网的DNS解析请求（53端口）通过DNAT转发至内网DNS服务器192.168.0.74
+iptables -A FORWARD -m state --state ESTABLISHED -j ACCEPT
+#转发所有状态为ESTABLISHED的数据包
+三、常用模块扩展
+iprange：地址范围匹配
+iptables -A FORWARD -m iprange --src-range 162.168.0.1-192.168.0.100 --dst-range 172.16.0.1-172.16.0.100 -j ACCEPT
+#限制源地址与目的地址的区间
+multipoint：多端口匹配
+iptables -A FORWARD -p tcp -m multipoint --destination-ports 22,25,80,110 -m state --state NEW,ESTABLISHED -j ACCEPT
+#凡是目的端口匹配，状态匹配的就允许传输
+string：传输内容中字符串匹配
+iptableis -A FORWARD -m string --string "xxxx.com" --algo bm -j REJECT
+#屏蔽含有xxxx.com的内容
+传输日志功能启用：日志的向磁盘的写入会大大消耗系统资源，建议生产环境中关闭此功能。
+iptables -A INPUT -d 192.168.0.1 -p tcp --dport 22 -j LOG --log-prefix "SSH LOG:"
+#开启日志功能，并在每条日志前加上关机字符串
+iptables -A INPUT -d 192.168.0.1 -p tcp --dport 22 -m limit 6/minute -j LOG --log-prefix "SSH LOG:"
+#限制写入日志的频率每分钟6个
+四、使用l7-filter模块控制特定的应用程序访问网络
+下面的内容旨在通过编译内核加入l7-filter模块，从而使iptables按照应用程序的特征来实现控制功能。
+1.解压内核并创建软连接
+tar xvf linux-2.6.28.10.tar.gz -C /usr/src
+cd /usr/src
+ln -vs linux-2.6.28.10 linux
+cd linux
+2.给内核打入netfilter补丁
+tar xvf netfilter-layer7-v2.22.tar.gz  -C /usr/src
+cd /usr/src/linux
+patch -p1 < /usr/src/netfilter-layer7-v2.22/kernel-2.6.25-2.6.28-layer7-2.22.patch
+3.配置内核编译选项
+若您不清楚内核的基本配置选择策略，建议复制当前系统配置文件，并以此为蓝本完成本次内核编译。
+cp /boot/config-您当前内核版本  /usr/src/linux/.config
+make menuconfig
+#打开配置界面
+重启服务
+service iptables restart
+添加控制
+iptables -A FORWARD -s 192.168.10.0/24 -m layerl7 --l7proto qq -j REJECT
+#禁止内网用户使用qq通信
+iptables -A FORWARD -s 192.168.10.0/24 -m layerl7 --l7proto edonkey -j REJECT
+#禁止内网用户使用电驴
+iptables -A FORWARD -s 192.168.10.0/24 -m layerl7 --l7proto bittorrent -j REJECT
+#禁止内网用户使用bt
+iptables -A FORWARD -s 192.168.10.0/24 -m layerl7 --l7proto xunlei -j REJECT
+#禁止内网用户使用迅雷
+iptables -A FORWARD -s 192.168.10.0/24 -m layerl7 --l7proto msnmessenger -j REJECT
+#禁止内网用户使用MSN
+iptables -A FORWARD -s 192.168.10.0/24 -m layerl7 --l7proto pplive -j REJECT
+#禁止内网用户使用pplive
+---------------------------------------------
+# 服务器禁止ping
+iptables -A INPUT -p icmp -j DROP
+# 禁止192.168.113.2 ping服务器
+iptables -A INPUT -p icmp -s 192.168.113.2 -j DROP
+# 只允许192.168.113.1 IP ping 服务器
+iptables -I INPUT -p icmp -s 192.168.113.1 -j ACCEPT
+
+iptables -L
+
+# iptables增加规则马上生效，下面是删除或清除规则的命令
+# 清空filter表所有规则
+iptables -F
+iptables -D INPUT -p icmp -s 192.168.113.1 -j ACCEPT
+# 或者可以用序号删除
+iptables -L --line
+# 禁止192.168.113.1访问80端口的WEB页面
+iptables -A INPUT -p tcp --dport 80 -s 192.168.113.1 -j DROP
+# 禁止192.168.113.0/24 这个网段访问WEB页面
+iptables -A INPUT -p tcp --dport 80 -s 192.168.113.0/24 -j DROP
+# 禁止192.168.113.1 SSH登录服务器
+iptables -A INPUT -p tcp --dport 22 -s 192.168.113.1 -j DROP
+# 禁止192.168.113.0/24 SSH登录服务器
+iptables -A INPUT -p tcp --dport 22 -s 192.168.113.0/24 -j DROP
+
+----------------------------------------------------
+先关闭所有的80端口
+开启ip段192.168.1.0/24端的80口
+开启ip段211.123.16.123/24端ip段的80口
+# iptables -I INPUT -p tcp --dport 80 -j DROP 
+# iptables -I INPUT -s 192.168.1.0/24 -p tcp --dport 80 -j ACCEPT
+# iptables -I INPUT -s 211.123.16.123/24 -p tcp --dport 80 -j ACCEPT
+只允许访问指定网址
+iptables -A Filter -p udp --dport 53 -j ACCEPT
+iptables -A Filter -p tcp --dport 53 -j ACCEPT
+iptables -A Filter -d www.ctohome.com -j ACCEPT
+iptables -A Filter -d www.guowaivps.com -j ACCEPT
+iptables -A Filter -j DROP
+开放一个IP的一些端口，其它都封闭
+iptables -A Filter -p tcp --dport 80 -s 192.168.1.22 -d www.pconline.com.cn -j ACCEPT
+iptables -A Filter -p tcp --dport 25 -s 192.168.1.22 -j ACCEPT
+iptables -A Filter -p tcp --dport 109 -s 192.168.1.22 -j ACCEPT
+iptables -A Filter -p tcp --dport 110 -s 192.168.1.22 -j ACCEPT
+iptables -A Filter -p tcp --dport 53 -j ACCEPT
+iptables -A Filter -p udp --dport 53 -j ACCEPT
+iptables -A Filter -j DROP
+指定时间上网
+iptables -A Filter -s 10.10.10.253 -m time --timestart 6:00 --timestop 11:00 --days Mon,Tue,Wed,Thu,Fri,Sat,Sun -j DROP
+iptables -A Filter -m time --timestart 12:00 --timestop 13:00 --days Mon,Tue,Wed,Thu,Fri,Sat,Sun -j ACCEPT
+iptables -A Filter -m time --timestart 17:30 --timestop 8:30 --days Mon,Tue,Wed,Thu,Fri,Sat,Sun -j ACCEPT
+禁止多个端口服务
+iptables -A Filter -m multiport -p tcp --dport 21,23,80 -j ACCEPT
+将WAN 口NAT到PC
+iptables -t nat -A PREROUTING -i $INTERNET_IF -d $INTERNET_ADDR -j DNAT --to-destination 192.168.0.1
+将WAN口8000端口NAT到192。168。100。200的80端口
+iptables -t nat -A PREROUTING -p tcp --dport 8000 -d $INTERNET_ADDR -j DNAT --to-destination 192.168.1.22:80
+MAIL服务器要转的端口
+iptables -t nat -A PREROUTING -p tcp --dport 110 -d $INTERNET_ADDR -j DNAT --to-destination 192.168.1.22:110
+iptables -t nat -A PREROUTING -p tcp --dport 25 -d $INTERNET_ADDR -j DNAT --to-destination 192.168.1.22:25
+只允许PING 202。96。134。133,别的服务都禁止
+iptables -A Filter -p icmp -s 192.168.1.22 -d 202.96.134.133 -j ACCEPT
+iptables -A Filter -j DROP
+禁用BT配置
+iptables –A Filter –p tcp –dport 6000:20000 –j DROP
+禁用QQ防火墙配置
+iptables -A Filter -p udp --dport ! 53 -j DROP
+iptables -A Filter -d 218.17.209.0/24 -j DROP
+iptables -A Filter -d 218.18.95.0/24 -j DROP
+iptables -A Filter -d 219.133.40.177 -j DROP
+基于MAC，只能收发邮件，其它都拒绝
+iptables -I Filter -m mac --mac-source 00:0A:EB:97:79:A1 -j DROP
+iptables -I Filter -m mac --mac-source 00:0A:EB:97:79:A1 -p tcp --dport 25 -j ACCEPT
+iptables -I Filter -m mac --mac-source 00:0A:EB:97:79:A1 -p tcp --dport 110 -j ACCEPT
+禁用MSN配置
+iptables -A Filter -p udp --dport 9 -j DROP
+iptables -A Filter -p tcp --dport 1863 -j DROP
+iptables -A Filter -p tcp --dport 80 -d 207.68.178.238 -j DROP
+iptables -A Filter -p tcp --dport 80 -d 207.46.110.0/24 -j DROP
+只允许PING 202。96。134。133 其它公网IP都不许PING
+iptables -A Filter -p icmp -s 192.168.1.22 -d 202.96.134.133 -j ACCEPT
+iptables -A Filter -p icmp -j DROP
+禁止某个MAC地址访问internet:
+iptables -I Filter -m mac --mac-source 00:20:18:8F:72:F8 -j DROP
+禁止某个IP地址的PING:
+iptables –A Filter –p icmp –s 192.168.0.1 –j DROP
+禁止某个IP地址服务：
+iptables –A Filter -p tcp -s 192.168.0.1 --dport 80 -j DROP
+iptables –A Filter -p udp -s 192.168.0.1 --dport 53 -j DROP
+只允许某些服务，其他都拒绝(2条规则)
+iptables -A Filter -p tcp -s 192.168.0.1 --dport 1000 -j ACCEPT
+iptables -A Filter -j DROP
+禁止某个IP地址的某个端口服务
+iptables -A Filter -p tcp -s 10.10.10.253 --dport 80 -j ACCEPT
+iptables -A Filter -p tcp -s 10.10.10.253 --dport 80 -j DROP
+禁止某个MAC地址的某个端口服务
+iptables -I Filter -p tcp -m mac --mac-source 00:20:18:8F:72:F8 --dport 80 -j DROP
+禁止某个MAC地址访问internet:
+iptables -I Filter -m mac --mac-source 00:11:22:33:44:55 -j DROP
+禁止某个IP地址的PING:
+iptables –A Filter –p icmp –s 192.168.0.1 –j DROP
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

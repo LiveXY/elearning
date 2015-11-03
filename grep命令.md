@@ -44,14 +44,14 @@ grep实例
 * `grep man * 会匹配` ‘Batman’、’manic’、’man’等，
 * `grep '\<man' *` 匹配’manic’和’man’，但不是’Batman’，
 * `grep '\<man\>'` 只匹配’man’，而不是’Batman’或’manic’等其他的字符串。
-* `more size.txt | grep '[a-b]'` 范围 ；如[A-Z]即A，B，C一直到Z都符合要求 
-* `more size.txt | grep 'b'` 单个字符；如[A] 即A符合要求 
+* `more size.txt | grep '[a-b]'` 范围 ；如[A-Z]即A，B，C一直到Z都符合要求
+* `more size.txt | grep 'b'` 单个字符；如[A] 即A符合要求
 * `grep 'root' /etc/group `
 * `grep '^root' /etc/group` 匹配正则表达式的开始行
 * `grep 'uucp' /etc/group `, `grep '\<uucp' /etc/group`
-* `grep 'root$' /etc/group` 匹配正则表达式的结束行 
-* `more size.txt | grep -i 'b1..*3'` -i ：忽略大小写 
-* `more size.txt | grep -iv 'b1..*3'` -v ：查找不包含匹配项的行 
+* `grep 'root$' /etc/group` 匹配正则表达式的结束行
+* `more size.txt | grep -i 'b1..*3'` -i ：忽略大小写
+* `more size.txt | grep -iv 'b1..*3'` -v ：查找不包含匹配项的行
 * `more size.txt | grep -in 'b1..*3' `
 * `grep '5[[:upper:]][[:upper:]]' data.doc`     #查询以5开头以两个大写字母结尾的行
 

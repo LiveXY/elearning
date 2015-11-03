@@ -1,0 +1,11 @@
+ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)”
+rm -rf /usr/local/Cellar /usr/local/.git && brew cleanup
+
+brew tap homebrew/php
+brew tap josegonzalez/homebrew-php
+brew update
+brew install php55-yaf
+
+brew search php55-
+
+brew install php55-imagick php55-igbinary php55-ev php55-gmagick php55-geoip php55-memcache php55-memcached php55-thrift php55-xdebug php55-sphinx composer

@@ -1,0 +1,1563 @@
+linux-command
+
+http://www.cnblogs.com/afxcn/archive/2013/06/02/3113934.html
+make:http://www.yayu.org/book/gnu_make/index.html#content
+
+lsof -n | grep php-fpm | grep /home/ | grep -v grep 进程操作哪个文件
+
+lsof -i:80/lsof -i/lsof -Pi | grep LISTEN
+vim ~/.bash_profile
+free/top/vmstat
+cat /proc/meminfo
+cat /proc/cpuinfo  Intel(AVX)=AMD(XOP)
+cat /etc/passwd
+which nginx可查看nginx安装位置
+ls -ld /proc/ 查目录信息
+w – 找出哪些用户在访问系统，在干什么
+w/ps -eLf | grep 'test'/kill -9 3276/pkill -kill -t tty/userdel -r test/skill -KILL -v pts/3
+shutdown -h now/shutdown now/shutdown +5 分钟后关机/shutdown 10:30 ← 在10:30时关机/shutdown -r now ← 立刻关闭系统并重启/reboot/logout
+
+nohup  ./pso > pso.file 2>&1 &
+
+sudo killall mysqld/sudo kill -9 id
+pkill -int -t pts/0  注销用户 who
+
+
+cd /var/log/php-fpm/
+tail -f /var/log/php-fpm/www-error.log 显示文件新增内容
+tail -f /var/lib/mysql/
+
+web_start/web_restart
+fpm_stop/fpm_start
+nginx_start/nginx_stop
+
+service php-fpm reload 重新加载PHP配置文件
+service php-fpm restart
+service nginx reload
+service redis restart
+
+killall nginx
+
+chmod g+w logs #+w写权限 +x写权限 以后不要用777 666
+chmod 777 logs
+chmod 666 /home/happipoker/static/upload/avatar/ -R
+sudo su 提权
+chflags nohidden ~/Library
+chflags nohidden ~/Library
+
+free;cat /proc/meminfo
+
+echo "$PATH"
+vi ~/.bash_profile
+export PATH=$PATH:/opt/local/bin
+export PATH=$PATH:/opt/local/sbin
+source ~/.bash_profile or . ~/.bash_profile
+echo "$PATH"
+
+launchctl setenv PATH /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/opt/local/bin:/opt/local/sbin
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/go/bin:/opt/local/bin:/opt/local/sbin
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+cat /proc/cpuinfo |grep "physical id"|sort |uniq|wc -l
+查看物理ＣＰＵ个数
+cat /proc/cpuinfo |grep "processor"|wc -l
+查看逻辑CPU的个数
+cat /proc/cpuinfo |grep 'cores'|uniq
+查看CPU是几核
+
+find /home/aa ! -regex "^/home/aa/bb.*"   -type f -name "*.log*" >>a.txt
+find ./ -type f | xargs du -sh 当前目录下的所有文件包含hide文件ls -a
+
+ 
+cp/mv/rm/rmdir/mkdir/rm -rf删除不提示
+
+rm删除破折号开头的文件或目录
+解决这个问题的一个方法就是在要删除的文件的前边加上"./"
+如：
+# rm ./-slow_query_130103.txt.gz
+rm: remove regular file `./-slow_query_130103.txt.gz'?
+另一种解决的方法是 在文件名前边加上 " -- ".
+如
+# rm -- -slow_query_130102.txt.gz
+rm: remove regular file `-slow_query_130102.txt.gz'?
+
+在Linux下生成随机密码 cat /dev/urandom|tr -dc "a-zA-Z0-9-_\$\?\*\%\$\@\(\)\_\+"|fold -w 13|head
+
+cat /etc/redhat-release os版本号
+lsb_release -a
+cat /proc/version
+uname -a 发行版本号/内核
+rpm -q centos-release
+
+查看CPU信息：cat /proc/cpuinfo
+查看板卡信息：cat /proc/pci
+查看PCI信息：lspci (相比cat /proc/pci更直观）
+例子： lspci |grep Ethernet 查看网卡型号
+查看内存信息：cat /proc/meminfo
+查看USB设备：cat /proc/bus/usb/devices
+查看键盘和鼠标:cat /proc/bus/input/devices
+查看系统硬盘信息和使用情况：fdisk & disk - l & df
+查看各设备的中断请求(IRQ):cat /proc/interrupts
+查看系统体系结构：uname -a
+
+安装和登录命令：login、 shutdown、 halt、 reboot 、mount、umount 、chsh
+文件处理命令：file、 mkdir、 grep、dd、 find、 mv 、ls 、diff、 cat、 ln
+系统管理相关命令： df、 top、 free、 quota 、at、 lp、 adduser、 groupadd kill、 crontab、 tar、 unzip、 gunzip 、last
+网络操作命令：ifconfig、 ip 、ping 、 netstat 、telnet、 ftp、 route、 rlogin rcp 、finger 、mail 、nslookup
+系统安全相关命令： passwd 、su、 umask 、chgrp、 chmod、chown、chattr、sudo、 pswho
+
+sudo fastcgi-mono-server2 /socket=tcp:9002 /address=127.0.0.1 /applications=/:/Users/hcxiong/xiong/net_pro/LiveXY.CMS/LiveXY.CMS/LiveXY.CMS.PageWeb >/dev/null 2>&1 &
+
+fastcgi-mono-server2 /applications=/:/Users/hcxiong/xiong/net_pro/LiveXY.CMS/LiveXY.CMS/LiveXY.CMS.PageWeb /socket=tcp:127.0.0.1:9002 &
+
+
+telnet 192.168.1.168 11211
+ 
+get username
+gets username
+set/add/replace key flags exptime bytes
+append/prepend
+set username 0 0 4
+test
+cas(check and set)
+delete username
+stats
+flush_all/incr/decr
+ 
+ 
+useradd netseek 添加一个netseek用户
+passwd netseek 给netseek这个用户设置密码.
+(/etc/passwd /etc/group)
+userdel netseek 删除账号
+userdel -r netseek 删除账号连同自家目录.
+dd if=/etc/password of=/tmp/passwd.bak 备份
+ 
+上次开机启动时间：
+date -d "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S"
+运行时间：
+cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("系统已运行：%d天%d时%d分%d秒",run_days,run_hour,run_minute,run_second)}'
+查看磁盘空间：df -lh
+查看数据盘相关信息：fdisk -l
+ 
+cat /etc/passwd 查看用户列表 cat /etc/group  查看用户组列表
+ 
+useradd 选项 用户名//添加新用户
+usermod 选项 用户名//修改已经存在的用户
+userdel -r 用户名//删除用户表示自家目录一起删除。
+groupadd 选项 组名// 添加新组
+groupmod 选项 组名//修改已经存在的组
+groupdel 组名 //删除已经存在的特定组。
+ 
+useradd zhh888 //添加一个用户zh888
+groupadd blog //新建一个blog组
+useradd -G blog zh //表示创建一个新用户zh，同时加入blog附加组中。
+useradd -d /var/ftp/pub -M ftpadmin //创建一个新用户ftpadmin,指定目录是/var/ftp/pub,不创建自家目录（-M)
+usermod -G blog zh888 //表示将zh888添加到附加组blog中去
+userdel ftpadmin //表示删除ftpadmin用户
+userdel -r zhh888 //表示删除zh888和/home中的目录一起删除。
+groupdel blog //表示删除blog组
+ 
+passwd -l 用户名账号名//禁止用户账户口令
+passwd -S 用户名//表示查看用户账户口令状态
+passwd -u 用户名//表示恢复用户账号
+passwd -d 用户名//表示删除用户账户口令
+统计这个文件中出现次数最多的前10个单词。 cat words.txt | sort | uniq -c | sort -k1,1nr | head -10
+ 
+sestatus 查看Selinux状态
+ 
+CentOS 防火墙配置 开启80端口
+/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+查看iptables状态：service iptables status
+iptables开机自动启动：
+开启： chkconfig iptables on
+关闭： chkconfig iptables off
+iptables关闭服务：
+开启： service iptables start
+关闭： service iptables stop
+重启： service iptables restart
+查看cpu:
+more /proc/cpuinfo | grep "model name"
+grep "model name" /proc/cpuinfo
+grep "CPU" /proc/cpuinfo
+查看内存
+grep MemTotal /proc/meminfo
+grep Mem /proc/meminfo
+查看目录大小
+du /etc -sh
+查看硬盘和分区
+df -h / du -sh
+fdisk -l
+查看现在已经安装了那些软件包
+rpm -qa
+rpm -qa | wc -l
+yum list installed | wc -l
+查看主机名：hostname
+查看开机运行时间：uptime
+系统资源使用情况：vmstat 1 -S m
+网络配置
+设置网卡 IP地址： ifconfig eth0 10.60.56.90
+设置网关： route add default gw 10.60.56.254
+不显示中文时要安装中文包：
+yum -y install fontforge
+yum install fonts-chinese-3.02-12.el5.noarch.rpm
+yum install fonts-ISO8859-2-75dpi-1.0-17.1.noarch.rpm
+find
+直接磁盘查询；
+(1)-name x：根据文件名找；
+(2)-type x：根据文件类型找，文件类型可以是：f（一般文件），d（目录），l（链接文件），s（socket文件），p（pipe文件）；
+(3)-size x：根据文件大小找；
+(4)-exec：执行完find后如果想对结果再处理，则可以使用此参数，如果使用此参数，则一定要与 “\;” 结尾； {} 表示find找到的结果；
+
+实例：
+(1)find /home/xiazdong -name 'filename'：从 /home/xiazdong 开始找文件名为filename的文件；
+(2)find  /home/xiazdong  -size +50k：从/home/xiazdong中查找容量大于50K的文件；
+(3)find /home/xiazdong -size -50k从/home/xiazdong中查找容量小于50K的文件；
+(4)find /home/xiazdong -type s：从/home/xiazdong 开始找文件类型为socket的文件；
+(5)find /home/xiazdong -name 'abc' -exec  ls -l {} \;   ：从/home/xiazdong中查找 文件名为abc的文件，并通过ls将结果列出，{}表示find的结果，-exec .... \; 为追加命令；
+(6)find / -type p -exec ls -l {} \; ：从根目录开始寻找pipe类型文件，并详细打印；
+ 
+locate查找文件提示没找到数据库文件的解决方法
+locate connlimit
+updatedb
+ 
+Linux修改DNS地址方法
+vi /etc/resolv.conf
+nameserver 8.8.4.4
+nameserver 8.8.8.8
+ClamAV 杀毒
+nmap 安全检查工具
+# uname -a
+# 查看内核/操作系统/CPU信息
+# head -n 1 /etc/issue   # 查看操作系统版本
+# cat /proc/cpuinfo      # 查看CPU信息
+# hostname               # 查看计算机名
+# lspci -tv              # 列出所有PCI设备
+# lsusb -tv              # 列出所有USB设备
+# lsmod                  # 列出加载的内核模块
+# env                    # 查看环境变量
+资源
+# free -m                # 查看内存使用量和交换区使用量
+# df -h                  # 查看各分区使用情况
+# du -sh <目录名>        # 查看指定目录的大小
+# grep MemTotal /proc/meminfo   # 查看内存总量
+# grep MemFree /proc/meminfo    # 查看空闲内存量
+# uptime                 # 查看系统运行时间、用户数、负载
+# cat /proc/loadavg      # 查看系统负载
+磁盘和分区
+# mount | column -t      # 查看挂接的分区状态
+# fdisk -l               # 查看所有分区
+# swapon -s              # 查看所有交换分区
+# hdparm -i /dev/hda     # 查看磁盘参数(仅适用于IDE设备)
+# dmesg | grep IDE       # 查看启动时IDE设备检测状况
+网络
+# ifconfig               # 查看所有网络接口的属性
+# iptables -L            # 查看防火墙设置
+# route -n               # 查看路由表
+进程
+# top                    # 实时显示进程状态
+用户
+# w                      # 查看活动用户
+# id <用户名>            # 查看指定用户信息
+# last                   # 查看用户登录日志
+# cut -d: -f1 /etc/passwd   # 查看系统所有用户
+# cut -d: -f1 /etc/group    # 查看系统所有组
+# crontab -l             # 查看当前用户的计划任务
+服务
+# chkconfig --list       # 列出所有系统服务
+# chkconfig --list | grep on    # 列出所有启动的系统服务
+程序
+# rpm -qa                # 查看所有安装的软件包
+最大的那个文件 ls -lSrh
+最大的目录 du -kx | egrep -v "./.+/" | sort -n
+查看ROOT和admin在最近20天内是否有登录：lastlog -t 20|egrep "root|admin"
+CPU统计 sar -u 3 5
+iostat -c 1 10 #查看cpu状态
+iostat -d -k 1 10 #查看TPS和吞吐量信息
+iostat -d -x -k 1 10 #查看设备使用率（%util）、响应时间（await）
+安装nmap,并测试172.24.40.5是否开放80端口 nmap -p 1-200 目标主机 IP
+
+采用autobench ，模拟300至1000个并发，每次并发持续2分钟，之后并发递增100，每个连接5次请求。
+autobench --single_host --host1 192.168.1.101 --port1 80 --uri1 /phpinfo.php --low_rate 300 --high_rate 1000 --rate_step 100 --num_call 5 --const_test_time 120 --timeout 2 --file result.tsv
+
+# top | head -2
+# kill -18 PPID
+# kill -15 PID1 PID2
+
+1.释放page cahce
+    # echo 1 > /proc/sys/vm/drop_cache
+2.释放dentry和inode
+    # echo 2 > /proc/sys/vm/drop_cache
+3.释放page cache,dentry,inode
+    # echo 3 > /proc/sys/vm/drop_cache
+
+删除?号文件：
+ls -i ＃找到文件前的ＩＤ为91547
+find ./ -inum 91547 -print ＃查看文件名
+find ./ -inum 91547 -print -exec rm {} \; #删除?号文件
+ 
+dd if=/dev/urandom bs=16 count=1 2>/dev/null | base64
+echo $(( $RANDOM % 10 + 1 )) #1-10 Rand
+dd if=/dev/cdrom of=~/cdrom_image.iso
+mount /path/to/file.iso /mnt/cdrom -oloop 挂载iso
+history | awk '{a[$'$(echo "1 2 $HISTTIMEFORMAT" | wc -w)']++}END{for(i in a){print a[i] " " i}}' | sort -rn | head #使用最多的命令
+diff <(ssh user@host cat /path/to/remotefile) /path/to/localfile 比较远程和本地文件
+mysql -u root -p -N -e"show processlist\G;" | egrep "Host\:" | awk -F: '{ print $2 }' | sort | uniq -c 显示MySQL的链接数
+寻找大于100M的文件 tree -ah --du . | ack '\[(\d{3,}M|\d+.*G)\]'
+列出没有主人的文件 find / -nouser -o -nogroup -print
+查找不同的文件类型 find . -maxdepth 1 -type f -name '*.sh' -o -name '*.txt'列出当前目录下前10个最大的文件(head默认显示前10个) find -type f | xargs -I{} du -s "{}" | sort -rn | head | cut -f2 | xargs -I{} du -sh "{}”
+找出删除的文件但是还有进程在使用的（有救） find -L /proc/*/fd -links 0 2>/dev/null
+列出.开头的文件 printf "%s\n" .*
+寻找最大的10个文件夹 find . -type d -print0 | xargs -0 du -s | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {} | sort -rn
+快速的将目录中所有的.html扩展名修改为.htm for i in *.html ; do mv $i ${i%.html}.htm ; done
+释放swap free -m | awk '/Swap/ {print $4}'
+复制DB mysqldump --host=[remote host] --user=[remote user] --password=[remote password] -C db_name | mysql --host=localhost --user=[local user] --password=[local password] db_name
+列出大文件和目录 du -h |grep -P "^\S*G”
+在screen内运行命令 screen -d -m command &
+删除所有 .DS_Store find . -name .DS_Store -exec rm {} \;
+批量重命名 rename .txt .md *.txt
+寻找最大的20个文件 find . -mount -type f -printf "%k %p\n" | sort -rg | cut -d \ -f 2- | xargs -I {} du -sh {} | less
+从Postfix邮件队列移除所有邮件 postsuper -d ALL
+使用dd备份硬盘 sudo dd if=/dev/sda of=/media/disk/backup/sda.backup
+替换文件名中的字符串 rename 's/foo/bar/g' foobar
+查找某些特定帐户是否被锁住 awk -F":" '{ print $1 }' /etc/passwd | while read UU ; do STATUS=$(passwd -S ${UU} | grep locked 2>/dev/null) ; if [[ ! -z ${STATUS} ]] ; then echo "Account ${UU} is locked." ; fi ; done
+通过email发送一个本地文件 cat filename | uuencode filename | mail -s "Email subject" user@example.com
+删除所有 .DS_Store find . -name .DS_Store -exec rm {} \;
+硬盘的详细信息 hdparm --verbose /dev/sda1
+递归的重命名文件为小写 find . -depth -print -execdir rename -f 'y/A-Z/a-z/' '{}' \;
+清理 Thumbs.db find ./ -name Thumbs.db -delete
+带有进度条的dd dd if=/path/inputfile | pv | dd of=/path/outpufile
+批量下载有序的文件 curl --silent -O "http://www.somewebsite.com/imagedir/image_[00-99].jpg"
+如何快速从多级目录中逃走 alias ..="cd .." ...="cd ../.." ....="cd ../../.."
+弹出cdrom while true; do eject /dev/cdrom && eject -t /dev/cdrom; done
+递归目录，移除0kb大小的文件 find . -empty -type f -execdir rm -f {} +
+awk '/vmguarpages/ {print "\n-- vpsee.com --\n" "Dedicated RAM: " $4*4/1024,"MB"}' /proc/user_beancounters; awk '/privvmpages/ {print "Burstable RAM: " $4*4/1024,"MB\n" "Failure Count:  ", $6,"\n"}' /proc/user_beancounters;
+wget https://click-and-run.googlecode.com/files/vz_checker.py
+python vz_checker.py /proc/user_beancounters
+ 
+$ vi ~/.inputrc 或 .bashrc
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set show-all-if-ambiguous on
+set completion-ignore-case on
+ 
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+“\e[5~”: history-search-backward
+“\e[6~”: history-search-forward
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+set completion-ignore-case On
+set show-all-if-ambiguous on
+set expand-tilde on
+set convert-meta off
+set input-meta on
+set output-meta on
+set show-all-if-ambiguous on
+set visible-stats on
+set -o vi
+ 
+# this makes the "delete" key work rather than
+# just entering a ~
+"\e[3~": delete-char
+ 
+# these allow you to use ctrl+left/right arrow keys
+# to jump the cursor over words
+"\e[5C": forward-word
+"\e[5D": backward-word
+ 
+# these allow you to start typing a command and
+# use the up/down arrow to auto complete from
+# commands in your history
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+ 
+# this lets you hit tab to auto-complete a file or
+# directory name ignoring case
+set completion-ignore-case On
+ 
+# I'm not sure what keys these are!
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[2~": quoted-insert
+ 
+删除某目录下小于10b的文件
+#Delete the files smaller than 10B
+for i in `ls -l ../new/$serve/properties/ | sed -e '1d' | awk '$5 < 10 {print$NF}'`
+do
+    rm -rf ../new/$serve/properties/$i
+done
+删除某目录下空文件 find ../new/$serve/properties -type f -size 0 -exec rm -f {} \;
+Linux通过alias设置快捷命令
+command(){
+list1=(`cat ~/.bashrc | grep custom`)
+for((i=0;i<=${#list1[@]};i++));
+do
+        if [[ "${list1[i]}" = "#custom" ]]
+        then
+                echo "[warn] The command has already been initialized,there's no need to repeat the operation, thank you!"
+                break
+        else
+                path=`pwd`
+                #初始命令
+                #Initialization commands.
+                echo "#custom" >> ~/.bashrc
+                echo "alias l='ll -al'" >> ~/.bashrc
+                echo "alias conf='cd `echo $path`/../conf'" >> ~/.bashrc
+                echo "alias bin='cd `echo $path`/../bin'" >> ~/.bashrc
+                echo "alias new='cd `echo $path`/../new'" >> ~/.bashrc
+                echo "alias too='cd `echo $path`/../tools'" >> ~/.bashrc
+                echo "alias hostlist='cat `echo $path`/../tools/.hostlist'" >> ~/.bashrc
+                echo "alias un='cd `echo $path`/../'" >> ~/.bashrc
+                echo "alias bak='cd `echo $path`/../bak'" >> ~/.bashrc
+                echo "alias app='cd `echo $path`/../workapp'" >> ~/.bashrc
+                echo "alias ..='cd ../'" >> ~/.bashrc
+                source ~/.bashrc
+        fi
+done
+}
+统计脚本执行时间
+st=`date +"%Y-%m-%d %H:%M:%S"`
+#执行方法
+start
+en=`date +"%Y-%m-%d %H:%M:%S"`
+st_c=`date -d  "$st" +%s`
+en_c=`date -d  "$en" +%s`
+interval=`expr $en_c - $st_c`
+echo "Start start-up time   ：${st}"
+echo "Start end time        ：${en}"
+echo "total consuming time  ：${interval} 秒"
+记录脚本执行者用户与IP
+#Perform operation
+echo "operator:"
+read me
+a=`tty | awk -F "/dev/" '{print $2}'`
+date "+%Y-%m-%d %H:%M:%S" >> ../logs/operation.log
+echo `w | grep $a | awk '{print $3}'` "${me} > Perform operation: one" >> ../logs/operation.log
+某目录下所有文件统一批量修改ip
+sed -i  "s/10.0.0.1/10.0.1.2/g" `grep "10.0.0.1" -rl /opt/uer/wy`
+#句柄数
+lsof -n|awk '{print $2}'|sort|uniq -c|sort -nr|more
+1、top -H
+手册中说：-H : Threads toggle
+加上这个选项启动top，top一行显示一个线程。否则，它一行显示一个进程。
+ 
+37条常用Linux Shell命令组合
+序号	任务	命令组合
+1	删除0字节文件	find . -type f -size 0 -exec rm -rf {} \;
+find . type f -size 0 -delete
+4	打印说cache里的URL	grep -r -a jpg /data/cache/* | strings | grep “http:” | awk -F’http:’ ‘{print “http:”$2;}’
+6	sed在这个文里Root的一行，匹配Root一行，将no替换成yes。	sed -i ‘/Root/s/no/yes/’ /etc/ssh/sshd_config
+8	显示运行3级别开启的服务(从中了解到cut的用途，截取数据)	ls /etc/rc3.d/S* |cut -c 15-
+9	如何在编写SHELL显示多个信息，用EOF	cat << EOF
++————————————————————–+
+|   === Welcome to Tunoff services ===                         |
++————————————————————–+
+EOF
+10	for的用法(如给mysql建软链接)	cd /usr/local/mysql/bin
+for i in *
+do ln /usr/local/mysql/bin/$i /usr/bin/$i
+done
+11	取IP地址	ifconfig eth0 |grep “inet addr:” |awk ‘{print $2}’|cut -c 6-
+ifconfig | grep ‘inet addr:’| grep -v ’127.0.0.1′ |cut -d: -f2 | awk ‘{ print $1}’
+12	内存的大小	free -m |grep “Mem” | awk ‘{print $2}’
+15	统计一下服务器下面所有的jpg的文件的大小	find / -name *.jpg -exec wc -c {} \;|awk ‘{print $1}’|awk ‘{a+=$1}END{print a}’
+16	CPU的数量	cat /proc/cpuinfo |grep -c processor
+17	CPU负载	cat /proc/loadavg
+18	CPU负载	mpstat 1 1
+19	内存空间	free
+20	磁盘空间	df -h
+21	如发现某个分区空间接近用尽，可以进入该分区的挂载点，用以下命令找出占用空间最多的文件或目录	du -cks * | sort -rn | head -n 10
+22	磁盘I/O负载	iostat -x 1 2
+23	网络负载	sar -n DEV
+cat /proc/net/dev
+28	可运行进程数目	vmwtat 1 5
+29	检查DNS Server工作是否正常，这里以61.139.2.69为例	dig www.baidu.com @61.139.2.69
+30	检查当前登录的用户个数	who | wc -l
+31	日志查看、搜索	cat /var/log/rflogview/*errors
+grep -i error /var/log/messages
+grep -i fail /var/log/messages
+tail -f -n 2000 /var/log/messages
+32	内核日志	dmesg
+33	时间	date
+34	已经打开的句柄数	lsof | wc -l
+35	网络抓包，直接输出摘要信息到文件。	tcpdump -c 10000 -i eth0 -n dst port 80 > /root/pkts
+36	然后检查IP的重复数 并从小到大排序 注意 “-t\  +0″ 中间是两个空格，less命令的用法。	less pkts | awk {‘printf $3″\n”‘} | cut -d. -f 1-4 | sort | uniq -c | awk {‘printf $1″ “$2″\n”‘} | sort -n -t\  +0
+37 kudzu查看网卡型号 kudzu –probe –class=network
+cat /root/checkRsync.sh
+#!/bin/bash
+ssh_d_process_num=`ps aux|grep -E 'rsync' |grep -v grep |wc -l`
+if [ "$ssh_d_process_num" == "0" ]; then
+/root/inotify_rsync.sh
+fi
+du -S | sort -n 可以迅速发现那个目录是最大的。
+linux下文件分割与合并
+====================================
+　　$dd if=source of=target.1 bs=1M count=10
+　　$dd if=source of=target.2 bs=1M skip=10
+　　source被分为target.1和target.2两个文件，其中target.1为source的前10M部分；target.2为source的减去10M后的部分。
+　　$cat target.1 target.2 > othersource
+　　source与othersource是同一个文件。
+如何修改网卡MAC地址
+====================================
+首先必须关闭网卡设备，否则会报告系统忙，无法更改。
+命令是： /sbin/ifconfig eth0 down
+修改 MAC 地址，这一步较 Windows 中的修改要简单。
+命令是：/sbin/ifconfig eth0 hw ether 00:AA:BB:CC:DD:EE
+重新启用网卡 /sbin/ifconfig eht0 up
+网卡的 MAC 地址更改就完成了
+如何临时增加交换空间
+====================================
+产生一个64M的空文件
+#dd if=/dev/zero of=/swapfile bs=1024 count=65536
+初始化该文件为交换文件：
+mkswap /swapfile 65536
+sync
+激活这个交换文件：
+swapon /swapfile
+如何禁用Ctrl+Alt+Del键重启系统
+====================================
+有时候为了防止误操作导致系统重新启动(如机房里面新来了个习惯用Window$系统的管理员:-D)，或者出于安全的原因，需要禁用Ctrl+Alt+Del组合键。
+只需要注释掉/etc/inittab文件内的
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+这一行即可。如何注释？在这一行的行首放一个“#”号即可。
+怎么样格式化磁盘
+====================================
+Linux下有一条mkfs命令，相当于format，可以对磁盘进行文件系统制作操作(或者说格式化)。命令的语法为：
+mkfs -t 文件系统类型 /dev/设备名
+如要把/dev/sda1格式为reiserfs格式，使用以下命令：
+mkfs -t reiserfs /dev/sda1
+当然，也可以使用mkfs.fstype命令来格式化磁盘，其中的fstype为文件系统名，如reiserfs文件系统的格式化命令为mkfs.reiserfs。上面那条命令的相应版本为：
+mkfs.reiserfs /dev/sda1
+如何取消root命令历史记录以增加安全性
+====================================
+　　为了设置系统不记录每个人执行过的命令，就在/etc/profile里设置：
+　　HISTFILESIZE=0
+　　HISTSIZE=0
+　　或者：
+　　ln -s /dev/null ~/.bash_history
+　　这样就可以了。
+如何使用iso文件？
+====================================
+　　许多Linux发行版本都有.iso的光盘镜像文件，可以用来刻录光盘。我们也可以在Linux系统下直接使用。
+　　#mount -t iso9660 -o loop xxxxx.iso /any/path/if/u/like
+如何连续执行一个命令
+====================================
+　　使用watch命令，可以反复执行命令，如果和ls配合，可以达到观察某文件大小变化的效果。例如：
+　　$watch ls －l file.name
+如何防止某个关键文件被修改
+====================================
+　　在linux下，有些配置文件是不允许任何人包括root修改的，为了防止被误删除或修改，可以设定该文件的"不可修改位(immutable)"。
+　　例如：
+　　chattr +i /etc/fstab
+　　如果需要修改文件则：
+　　chattr -i /etc/fstab
+　　以后再修改文件。
+如何找出磁盘中某个大小范围内的文件
+====================================
+　　比如要查找磁盘中大于3M的文件：
+　　find . -size +3000k -exec ls -ld {} ;
+如何快速查找文件
+====================================
+　　查找文件可以用find，但最好是用locate，速度快，参数少。
+　　$locate filename
+　　它是在一个数据库里面查找，所以，要记得经常用updatedb命令更新数据库。一般地，在crontab中的cron.daily脚本会执行/usr/sbin/logrotate /etc/logrotate.conf命令，让机子在每天深夜更新数据库。
+1.删除0字节文件
+find -type f -size 0 -exec rm -rf {} \;
+复制代码
+2.查看进程
+复制代码
+4.打印说cache里的URL
+grep -r -a  jpg /data/cache/* | strings | grep "http:" | awk -F'http:' '{print "http:"$2;}'
+复制代码
+6.
+sed -i '/Root/s/no/yes/' /etc/ssh/sshd_config  sed在这个文里Root的一行，匹配Root一行，将no替换成yes.
+复制代码
+7.1.
+复制代码
+(从中了解到awk的用途)
+pgrep mysql |xargs kill -9
+复制代码
+[网友:&FROST]
+killall -TERM mysqld
+复制代码
+kill -9 `cat /usr/local/apache2/logs/httpd.pid`
+复制代码
+试试查杀进程PID
+
+8.显示运行3级别开启的服务:
+ls /etc/rc3.d/S* |cut -c 15-
+复制代码
+(从中了解到cut的用途，截取数据)
+9.如何在编写SHELL显示多个信息，用EOF
+cat << EOF
++--------------------------------------------------------------+
+|         === Welcome to Tunoff services ===                   |
++--------------------------------------------------------------+
+EOF
+复制代码
+10. for 的巧用(如给mysql建软链接)
+cd /usr/local/mysql/bin
+for i in *
+do ln /usr/local/mysql/bin/$i /usr/bin/$i
+done
+复制代码
+11. 取IP地址：
+ifconfig eth0|sed -n '2p'|awk '{print $2}'|cut -c 6-30
+复制代码
+或者:
+ifconfig eth0 |grep "inet addr:" |awk '{print $2}'|cut -c 6-
+复制代码
+或者
+ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'
+复制代码
+或者：
+ifconfig eth0 | sed -n '/inet /{s/.*addr://;s/ .*//;p}'
+复制代码
+Perl实现获取IP的方法:
+ifconfig -a | perl -ne 'if ( m/^\s*inet (?:addr:)?([\d.]+).*?cast/ ) { print qq($1\n); exit 0; }'
+复制代码
+12.内存的大小:
+free -m |grep "Mem" | awk '{print $2}'
+复制代码
+15.因为同事要统计一下服务器下面所有的jpg的文件的大小,写了个shell给他来统计.原来用xargs实现,但他一次处理一部分,搞的有多个总和....,下面的命令就能解决啦.
+find / -name *.jpg -exec wc -c {} \;|awk '{print $1}'|awk '{a+=$1}END{print a}'
+复制代码
+CPU的数量（多核算多个CPU，
+cat /proc/cpuinfo |grep -c processor
+复制代码
+）越多，系统负载越低，每秒能处理的请求数也越多。
+--------------------------------------------------------------------------------------------------------------------
+16  CPU负载  # cat /proc/loadavg
+检查前三个输出值是否超过了系统逻辑CPU的4倍。
+18  CPU负载  #mpstat 1 1
+检查%idle是否过低(比如小于5%)
+19  内存空间  # free
+检查free值是否过低  也可以用 # cat /proc/meminfo
+20  swap空间  # free
+检查swap used值是否过高  如果swap used值过高，进一步检查swap动作是否频繁：
+# vmstat 1 5
+观察si和so值是否较大
+21  磁盘空间  # df -h
+检查是否有分区使用率(Use%)过高(比如超过90%)  如发现某个分区空间接近用尽，可以进入该分区的挂载点，用以下命令找出占用空间最多的文件或目录：
+# du -cks * | sort -rn | head -n 10
+22  磁盘I/O负载  # iostat -x 1 2
+检查I/O使用率(%util)是否超过100%
+23  网络负载  # sar -n DEV
+检查网络流量(rxbyt/s, txbyt/s)是否过高
+27  可运行进程数目  # vmwtat 1 5
+    列给出的是可运行进程的数目，检查其是否超过系统逻辑CPU的4倍
+
+28  进程  # top -id 1
+观察是否有异常进程出现
+29  网络状态  检查DNS, 网关等是否可以正常连通
+30  用户  # who | wc -l
+检查登录用户是否过多 (比如超过50个)  也可以用命令：# uptime
+31  系统日志  # cat /var/log/rflogview/*errors
+检查是否有异常错误记录  也可以搜寻一些异常关键字，例如：
+# grep -i error /var/log/messages
+# grep -i fail /var/log/messages
+# egrep -i 'error|warn' /var/log/messages 查看系统异常
+32  核心日志  # dmesg
+检查是否有异常错误记录
+33  系统时间  # date
+检查系统时间是否正确
+34  打开文件数目  # lsof | wc -l
+检查打开文件总数是否过多
+35  日志  # logwatch ?print  配置/etc/log.d/logwatch.conf，将 Mailto 设置为自己的email 地址，启动mail服务 (sendmail或者postfix)，这样就可以每天收到日志报告了。
+缺省logwatch只报告昨天的日志，可以用# logwatch ?print ?range all 获得所有的日志分析结果。
+可以用# logwatch ?print ?detail high 获得更具体的日志分析结果(而不仅仅是出错日志)。
+36.杀掉80端口相关的进程
+lsof -i :80|grep -v "PID"|awk '{print "kill -9",$2}'|sh
+复制代码
+复制代码
+38.tcpdump 抓包 ，用来防止80端口被人攻击时可以分析数据
+# tcpdump -c 10000 -i eth0 -n dst port 80 > /root/pkts
+复制代码
+39.然后检查IP的重复数 并从小到大排序 注意 "-t\ +0"  中间是两个空格
+# less pkts | awk {'printf $3"\n"'} | cut -d. -f 1-4 | sort | uniq -c | awk {'printf $1" "$2"\n"'} | sort -n -t\ +0
+复制代码
+
+42.
+复制代码
+43. 查看硬件制造商
+dmidecode -s system-product-name
+复制代码
+
+44.perl如何编译成字节码，这样在处理复杂项目的时候会更快一点？
+perlcc -B -o webseek webseek.pl
+复制代码
+
+45. 统计var目录下文件以M为大小,以列表形式列出来。
+find /var -type f | xargs ls -s | sort -rn | awk '{size=$1/1024; printf("%dMb %s\n", size,$2);}' | head
+查找var目录下文件大于100M的文件，并统计文件的个数
+find /var -size +100M -type f | tee file_list | wc -l
+46. sed 查找并替换内容
+sed -i "s/varnish/LTCache/g"   `grep "Via" -rl /usr/local/src/varnish-2.0.4`
+sed -i "s/X-Varnish/X-LTCache/g"     `grep "X-Varnish" -rl /usr/local/src/varnish-2.0.4`
+复制代码
+47. 查看服务器制造商
+      dmidecode -s system-product-name
+复制代码
+48. wget 模拟user-agent抓取网页
+wget -m -e robots=off -U "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6" http://www.example.com/
+复制代码
+50. 统计目录下文件的大小（按M打印显示）
+du $1 --max-depth=1 | sort -n|awk '{printf "%7.2fM ----> %s\n",$1/1024,$2}'|sed 's:/.*/\([^/]\{1,\}\)$:\1:g'
+复制代码
+51.关于CND实施几个相关的统计
+   统计一个目录中的目录个数
+    ls -l | awk '/^d/' | wc -l
+复制代码
+
+   统计一个目录中的文件个数
+    ls -l | awk '/^-/' | wc -l
+复制代码
+
+   统计一个目录中的全部文件数
+    find ./ -type f -print | wc -l
+复制代码
+
+   统计一个目录中的全部子目录数
+    find ./ -type d -print | wc -l
+复制代码
+
+  统计某类文件的大小:
+   find ./ -name "*.jpg" -exec wc -c {} \;|awk '{print $1}'|awk '{a+=$1}END{print a}'
+复制代码
+53. 查找占用磁盘IO最多的进程
+wget -c http://linux.web.psi.ch/dist/scientific/5/gfa/all/dstat-0.6.7-1.rf.noarch.rpm
+dstat -M topio -d -M topbio
+复制代码
+54. 去掉第一列（如行号代码）
+awk '{for(i=2;i<=NF;i++) if(i!=NF){printf $i" "}else{print $i} }' list
+复制代码
+55.输出256中色彩
+for
+  i in {0..255}; do echo -e "\e[38;05;${i}m${i}"; done | column -c 80 -s '
+   '; echo -e "\e[m"
+复制代码
+56.查看机器支持内存
+机器插内存情况：
+dmidecode |grep -P "Maximum\s+Capacity"
+复制代码
+机器最大支持内存：
+dmidecode |grep -P "Maximum\s+Capacity"
+复制代码
+57.
+新的内核有所改变,因为IPV6模块被默认编译进了内核
+从2.6.30开始
+需要加入/etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6=1
+
+/etc/resolv.conf
+
+该文件是DNS域名解析的配置文件，它的格式很简单，每行以一个关键字开头，后接配置参数。resolv.conf的关键字主要有四个，分别是：
+nameserver   #定义DNS服务器的IP地址
+domain       #定义本地域名
+search       #定义域名的搜索列表
+sortlist     #对返回的域名进行排序
+
+/etc/resolv.conf的一个示例：
+domain ringkee.com
+search www.ringkee.com ringkee.com
+nameserver 202.96.128.86
+nameserver 202.96.128.166
+
+最主要是nameserver关键字，如果没指定nameserver就找不到DNS服务器，其它关键字是可选的。
+
+1  删除0字节文件
+find-type f -size 0 -exec rm -rf {} \;
+2  查看进程
+
+4  打印说cache里的URL
+grep -r -a  jpg /data/cache/* | strings | grep "http:" |awk-F'http:' '{print "http:"$2;}'
+6  sed-i '/Root/s/no/yes/' /etc/ssh/sshd_config  sed在这个文里Root的一行，匹配Root一行，将no替换成yes.
+7
+8  显示运行3级别开启的服务:
+ls /etc/rc3.d/S* |cut -c 15-  (从中了解到cut的用途，截取数据)
+9  如何在编写SHELL显示多个信息，用EOF
+cat << EOF
++--------------------------------------------------------------+
+|         === Welcome to Tunoff services ===                   |
++--------------------------------------------------------------+
+EOF
+10  for 的巧用(如给mysql建软链接)
+cd /usr/local/mysql/bin
+for i in *
+do ln /usr/local/mysql/bin/$i /usr/bin/$i
+done
+11  取IP地址：
+ifconfig eth0 |grep "inet addr:" |awk '{print $2}'|cut -c 6-  或者
+ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'
+12  内存的大小:
+free -m |grep "Mem" | awk '{print $2}'
+15  因为同事要统计一下服务器下面所有的jpg的文件的大小,写了个shell给他来统计.原来用xargs实现,但他一次处理一部分,搞的有多个总和....,下面的命令就能解决啦.
+find / -name *.jpg -exec wc -c {} \;|awk '{print $1}'|awk '{a+=$1}END{print a}'
+CPU的数量（多核算多个CPU，cat /proc/cpuinfo |grep -c processor）越多，系统负载越低，每秒能处理的请求数也越多。
+-------------------------------------------------------------------------------
+16  CPU负载  # cat /proc/loadavg
+检查前三个输出值是否超过了系统逻辑CPU的4倍。
+18  CPU负载  #mpstat 1 1
+检查%idle是否过低(比如小于5%)
+19  内存空间  # free
+检查free值是否过低  也可以用 # cat /proc/meminfo
+20  swap空间  # free
+检查swap used值是否过高  如果swap used值过高，进一步检查swap动作是否频繁：
+# vmstat 1 5
+观察si和so值是否较大
+21  磁盘空间  # df -h
+检查是否有分区使用率(Use%)过高(比如超过90%)  如发现某个分区空间接近用尽，可以进入该分区的挂载点，用以下命令找出占用空间最多的文件或目录：
+# du -cks * | sort -rn | head -n 10
+22  磁盘I/O负载  # iostat -x 1 2
+检查I/O使用率(%util)是否超过100%
+23  网络负载  # sar -n DEV
+检查网络流量(rxbyt/s, txbyt/s)是否过高
+27  可运行进程数目  # vmwtat 1 5
+    列给出的是可运行进程的数目，检查其是否超过系统逻辑CPU的4倍
+28  进程  # top -id 1
+观察是否有异常进程出现
+29  网络状态  检查DNS, 网关等是否可以正常连通
+30  用户  # who | wc -l
+检查登录用户是否过多 (比如超过50个)  也可以用命令：# uptime
+31  系统日志  # cat /var/log/rflogview/*errors
+检查是否有异常错误记录  也可以搜寻一些异常关键字，例如：
+# grep -i error /var/log/messages
+# grep -i fail /var/log/messages
+# egrep -i 'error|warn' /var/log/messages 查看系统异常
+32  核心日志  # dmesg
+检查是否有异常错误记录
+33  系统时间  # date
+检查系统时间是否正确
+34  打开文件数目  # lsof | wc -l
+检查打开文件总数是否过多
+35  日志  # logwatch –print  配置/etc/log.d/logwatch.conf，将 Mailto 设置为自己的email 地址，启动mail服务 (sendmail或者postfix)，这样就可以每天收到日志报告了。
+缺省logwatch只报告昨天的日志，可以用# logwatch –print –range all 获得所有的日志分析结果。
+可以用# logwatch –print –detail high 获得更具体的日志分析结果(而不仅仅是出错日志)。
+36  杀掉80端口相关的进程
+lsof -i :80|grep -v "PID"|awk '{print "kill -9",$2}'|sh
+37
+38  tcpdump 抓包 ，用来防止80端口被人攻击时可以分析数据
+# tcpdump -c 10000 -i eth0 -n dst port 80 > /root/pkts
+39  然后检查IP的重复数 并从小到大排序 注意 "-t\ +0"  中间是两个空格
+# less pkts | awk {'printf $3"\n"'} | cut -d. -f 1-4 | sort | uniq -c | awk {'printf $1" "$2"\n"'} | sort -n -t\ +0
+ # 删除所有空白行 （类似于 "grep '.' "）
+ awk NF
+ awk '/./'
+# 删除重复连续的行 （模拟 "uniq"）
+ awk 'a !~ $0; {a=$0}'
+# 删除重复的、非连续的行
+ awk '! a[$0]++'                     # 最简练
+ awk '!($0 in a) {a[$0];print}'      # 最有效
+查询系统状态的指令集：
+cat 文件名        一屏查看文件内容
+more 文件名        分页查看文件内容
+less 文件名        可控分页查看文件内容
+grep -l -r 字符串 路径    显示包含字符串的文件名
+grep -L -r 字符串 路径    显示不包含字符串的文件名
+lsof  -p           进程号（例如：lsof  -p  2428）查看进程打开的文件
+lsof abc.txt       显示开启文件abc.txt的进程
+lsof -i :22        显示22端口现在运行什么程序
+lsof -c nsd        显示nsd进程现在打开的文件
+nohup 程序 &    在后台运行程序，退出登录后，并不结束程序
+strace -f -F -o outfile <cmd>    详细显示程序的运行信息
+arping IP地址        根据IP查网卡地址
+nmblookup -A IP地址    根据IP查电脑名
+linux删除特殊文件名的文件
+   假设Linux系统中有一个文件名叫“-ee”，如果我们想对它进行操作，例如要删除它，按照一般的删除方法在命令行中输入rm -ee命令，界面会提示我们是“无效选项”(invalid option)，原来由于文件名的第一个字符为“-”，Linux把文件名当作选项了，我们可以使用“–”符号来解决这个问题，输入“rm — -ee”命令便可顺利删除名为“-ee”的文件。如果是其他特殊字符的话可以在特殊字符前加一个“”符号，或者用双引号把整个文件名括起来。
+    如，/usr/lcoal/目录下有个--exclude 文件，通过命令
+       rm -- --exclude
+       删除此文件
+一句话快速查找PHP木马的方法
+find ./ -name "*.php" -type f -print0|xargs -0 egrep "(phpspy|c99sh|milw0rm|eval\(base64_decode|eval\(gzinflate\(base64_decode|eval\(gzinflate\(str_rot13\(base64_decode|spider_bc)"|awk -F: '{print $1}'|sort|uniq
+如何删去重复行并保持顺序不变？
+awk '{ if (!seen[$0]++) { print $0; } }' $file_path
+perl -lne 'print unless $seen{$_}++ ' $file_path
+
+快速输出00-99 seq -f %02.0f 99/seq -f %02.0f 100 200
+
+在Linux中文件的编码及对文件进行编码转换
+如果你需要在Linux中操作windows下的文件，那么你可能会经常遇到文件编码转换的问题。Windows中默认的文件格式是GBK(gb2312)，而Linux一般都是UTF-8。下面介绍一下，在Linux中如何查看文件的编码及如何进行对文件进行编码转换。
+一，查看文件编码：
+在Linux中查看文件编码可以通过以下几种方式：
+1.在Vim中可以直接查看文件编码
+:set fileencoding
+即可显示文件编码格式。
+如果你只是想查看其它编码格式的文件或者想解决用Vim查看文件乱码的问题，那么你可以在
+~/.vimrc 文件中添加以下内容：
+set encoding=utf-8
+fileencodings=ucs-bom,utf-8,cp936
+这样，就可以让vim自动识别文件编码（可以自动识别UTF-8或者GBK编码的文件），其实就是依照 fileencodings提供的编码列表尝试，如果没有找到合适的编码，就用latin-1(ASCII)编码打开。
+2. enca (如果你的系统中没有安装这个命令，可以用sudo yum install -y enca 安装 )查看文件编码
+$ enca filename
+filename: Universal transformation format 8 bits; UTF-8
+CRLF line terminators
+需要说明一点的是，enca对某些GBK编码的文件识别的不是很好，识别时会出现：
+Unrecognized encoding
+二，文件编码转换
+1.在Vim中直接进行转换文件编码,比如将一个文件转换成utf-8格式
+:set fileencoding=utf-8
+2. iconv 转换，iconv的命令格式如下：
+iconv -f encoding -t encoding inputfile
+比如将一个UTF-8 编码的文件转换成GBK编码
+iconv -f GBK -t UTF-8 file1 -o file2
+3. enconv 转换文件编码
+比如要将一个GBK编码的文件转换成UTF-8编码，操作如下
+enconv -L zh_CN -x UTF-8 filename
+三，文件名编码转换:
+从 Linux往 windows拷贝文件或者从windows往Linux拷贝文件，有时会出现中文文件名乱码的情况，出现这种问题的原因是因为，windows的文件名 中文编码默认为GBK,而Linux中默认文件名编码为UTF8,由于编码不一致，所以导致了文件名乱码的问题，解决这个问题需要对文件名进行转码。
+在Linux中专门提供了一种工具convmv进行文件名编码的转换，可以将文件名从GBK转换成UTF-8编码，或者从UTF-8转换到GBK。
+首先看一下你的系统上是否安装了convmv，如果没安装的话用:
+yum -y install convmv 安装。
+下面看一下convmv的具体用法：
+convmv -f 源编码 -t 新编码 [选项] 文件名
+常用参数：
+-r 递归处理子文件夹
+–notest 真正进行操作，请注意在默认情况下是不对文件进行真实操作的，而只是试验。
+–list 显示所有支持的编码
+–unescap 可以做一下转义，比如把%20变成空格
+比如我们有一个utf8编码的文件名，转换成GBK编码，命令如下：
+convmv -f UTF-8 -t GBK –notest utf8编码的文件名
+这样转换以后”utf8编码的文件名”会被转换成GBK编码（只是文件名编码的转换，文件内容不会发生变化）
+四，vim 编码方式的设置
+和所有的流行文本编辑器一样，Vim 可以很好的编辑各种字符编码的文件，这当然包括UCS-2、UTF-8 等流行的Unicode 编码方式。然而不幸的是，和很多来自 Linux 世界的软件一样，这需要你自己动手设置。
+Vim 有四个跟字符编码方式有关的选项，encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值请参考 Vim 在线帮助 :help encoding-names)，它们的意义如下:
+* encoding: Vim 内部使用的字符编码方式，包括 Vim 的 buffer (缓冲区)、菜单文本、消息文本等。默认是根据你的locale选择.用户手册上建议只在 .vimrc 中改变它的值，事实上似乎也只有在.vimrc 中改变它的值才有意义。你可以用另外一种编码来编辑和保存文件，如你的vim的encoding为utf-8,所编辑的文件采用cp936编码,vim会 自动将读入的文件转成utf-8(vim的能读懂的方式），而当你写入文件时,又会自动转回成cp936（文件的保存编码).
+* fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+* fileencodings: Vim自动探测fileencoding的顺序列表，启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+* termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。如果vim所在的term与vim编码相同，则无需设置。如其不然，你可以用vim的termencoding选项将自动转换成term 的编码.这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的Vim 而言就是 Windows 控制台的代码页，并且通常我们不需要改变它。
+五，Vim 的多字符编码工作方式
+1. Vim 启动，根据 .vimrc 中设置的 encoding 的值来设置 buffer、菜单文本、消息文的字符编码方式。
+2. 读取需要编辑的文件，根据 fileencodings 中列出的字符编码方式逐一探测该文件编码方式。并设置 fileencoding 为探测到的，看起来是正确的 (注1) 字符编码方式。
+3. 对比 fileencoding 和 encoding 的值，若不同则调用 iconv 将文件内容转换为encoding 所描述的字符编码方式，并且把转换后的内容放到为此文件开辟的 buffer 里，此时我们就可以开始编辑这个文件了。注意，完成这一步动作需要调用外部的 iconv.dll(注2)，你需要保证这个文件存在于 $VIMRUNTIME 或者其他列在 PATH 环境变量中的目录里。
+4. 编辑完成后保存文件时，再次对比 fileencoding 和 encoding 的值。若不同，再次调用 iconv 将即将保存的 buffer 中的文本转换为 fileencoding 所描述的字符编码方式，并保存到指定的文件中。同样，这需要调用 iconv.dll由于 Unicode 能够包含几乎所有的语言的字符，而且 Unicode 的 UTF-8 编码方式又是非常具有性价比的编码方式 (空间消耗比 UCS-2 小)，因此建议 encoding 的值设置为utf-8。这么做的另一个理由是 encoding 设置为 utf-8 时，Vim 自动探测文件的编码方式会更准确 (或许这个理由才是主要的 ;) 。我们在中文 Windows 里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为 GB2312/GBK 比较合适，因此 fileencoding 建议设置为 chinese (chinese 是个别名，在 Unix 里表示 gb2312，在 Windows 里表示cp936，也就是 GBK 的代码页)。
+
+/bin/rm: Argument list too long解決方法
+rm、cp、mv是unix下面常用到的檔案處理指令，當我們需要刪除大量的log檔案，如果檔案數太多就會出現此訊息【/bin/rm: Argument list too long】
+解決方式如下：
+例如要刪除 /tmp/*.log
+則執行【ls /tmp/*.log | xargs rm -f】這樣就可以囉^__^，其他cp,mv同理!
+
+查看默认允许的连接数：
+[root@mem1 ~]# cat /etc/rc.local
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+touch /var/lock/subsys/local
+/usr/local/bin/memcached -d -m 15360 -u root -l 172.20.1.54 -p 11211 -c 40960
+/usr/local/bin/memcached -d -m 512 -u root -l 172.20.1.54 -p 11212 -c 10000
+这里设置的11211端口默认连接数是40960
+
+ sysctl.conf文件常用参数说明 2012-07-14 14:51:40
+分类： LINUX
+$ /proc/sys/net/core/wmem_max
+最大socket写buffer,可参考的优化值:873200
+$ /proc/sys/net/core/rmem_max
+最大socket读buffer,可参考的优化值:873200
+$ /proc/sys/net/ipv4/tcp_wmem
+TCP写buffer,可参考的优化值: 8192 436600 873200
+$ /proc/sys/net/ipv4/tcp_rmem
+TCP读buffer,可参考的优化值: 32768 436600 873200
+$ /proc/sys/net/ipv4/tcp_mem
+同样有3个值,意思是:
+net.ipv4.tcp_mem[0]:低于此值,TCP没有内存压力.
+net.ipv4.tcp_mem[1]:在此值下,进入内存压力阶段.
+net.ipv4.tcp_mem[2]:高于此值,TCP拒绝分配socket.
+上述内存单位是页,而不是字节.可参考的优化值是:786432 1048576 1572864
+$ /proc/sys/net/core/netdev_max_backlog
+进入包的最大设备队列.默认是300,对重负载服务器而言,该值太低,可调整到1000.
+$ /proc/sys/net/core/somaxconn
+listen()的默认参数,挂起请求的最大数量.默认是128.对繁忙的服务器,增加该值有助于网络性能.可调整到256.
+$ /proc/sys/net/core/optmem_max
+socket buffer的最大初始化值,默认10K.
+$ /proc/sys/net/ipv4/tcp_max_syn_backlog
+进入SYN包的最大请求队列.默认1024.对重负载服务器,增加该值显然有好处.可调整到2048.
+$ /proc/sys/net/ipv4/tcp_retries2
+TCP失败重传次数,默认值15,意味着重传15次才彻底放弃.可减少到5,以尽早释放内核资源.
+$ /proc/sys/net/ipv4/tcp_keepalive_time
+$ /proc/sys/net/ipv4/tcp_keepalive_intvl
+$ /proc/sys/net/ipv4/tcp_keepalive_probes
+这3个参数与TCP KeepAlive有关.默认值是:
+tcp_keepalive_time = 7200 seconds (2 hours)
+tcp_keepalive_probes = 9
+tcp_keepalive_intvl = 75 seconds
+意思是如果某个TCP连接在idle 2个小时后,内核才发起probe.如果probe 9次(每次75秒)不成功,内核才彻底放弃,认为该连接已失效.对服务器而言,显然上述值太大. 可调整到:
+/proc/sys/net/ipv4/tcp_keepalive_time 1800
+/proc/sys/net/ipv4/tcp_keepalive_intvl 30
+/proc/sys/net/ipv4/tcp_keepalive_probes 3
+$ proc/sys/net/ipv4/ip_local_port_range
+指定端口范围的一个配置,默认是32768 61000,已够大.
+
+net.ipv4.tcp_syncookies = 1
+表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；
+net.ipv4.tcp_tw_reuse = 1
+表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；
+net.ipv4.tcp_tw_recycle = 1
+表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。
+net.ipv4.tcp_fin_timeout = 30
+表示如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间。
+net.ipv4.tcp_keepalive_time = 1200
+表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。
+net.ipv4.ip_local_port_range = 1024 65000
+表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。
+net.ipv4.tcp_max_syn_backlog = 8192
+表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。
+net.ipv4.tcp_max_tw_buckets = 5000
+表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。默认为180000，改为 5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于Squid，效果却不大。此项参数可以控制TIME_WAIT套接字的最大数量，避免Squid服务器被大量的TIME_WAIT套接字拖死。
+
+1、linux启动过程
+开启电源 --> BIOS开机自检 --> 引导程序lilo或grub --> 内核的引导（kernel boot）--> 执行init（rc.sysinit、rc）--> mingetty(建立终端) --> shell
+2、网卡绑定多IP
+ifconfig eth0:1 192.168.1.99 netmask 255.255.255.0
+3、设置DNS、网关
+echo "nameserver 202.16.53.68" >> /etc/resolv.conf
+route add default gw 192.168.1.1
+4、弹出、收回光驱
+eject
+eject -t
+5、用date查询昨天的日期
+date --date=yesterday
+6、查询file1里面空行的所在行号
+grep ^$ file
+7、查询file1以abc结尾的行
+grep abc$ file1
+8、打印出file1文件第1到第三行
+sed -n '1,3p' file1
+head -3 file1
+9、清空文件
+true > 1.txt
+echo "" > 1.txt
+> 1.txt
+cat /dev/null > 1.txt
+10、删除所有空目录
+find /data -type d -empty -exec rm -rf {} \;
+11、linux下批量删除空文件（大小等于0的文件）的方法
+find /data -type f -size 0c -exec rm -rf {} \;
+find /data -type f -size 0c|xargs rm –f
+12、删除五天前的文件
+find /data -mtime +5 -type f -exec rm -rf {} \;
+13、删除两个文件重复的部份，打印其它
+cat 1.txt 3.txt |sort |uniq
+14、攻取远程服务器主机名
+echo `ssh $IP cat /etc/sysconfig/network|awk -F = '/HOSTNAME/ {print $2}'`
+15、实时监控网卡流量（安装iftop）
+/usr/local/iftop/sbin/iftop -i eth1 -n
+16、查看系统版本
+lsb_release -a
+17、强制踢出登陆用户
+pkill -KILL -t pts/1
+18、tar增理备份、还原
+tar -g king -zcvf kerry_full.tar.gz kerry
+tar -g king -zcvf kerry_diff_1.tar.gz kerry
+tar -g king -zcvf kerry_diff_2.tar.gz kerry
+tar -zxvf kerry_full.tar.gz
+tar -zxvf kerry_diff_1.tar.gz
+tar -zxvf kerry_diff_2.tar.gz
+19、将本地80端口的请求转发到8080端口，当前主机外网IP为202.96.85.46
+-A PREROUTING -d 202.96.85.46 -p tcp -m tcp --dport 80 -j DNAT --to-destination 192.168.9.10:8080
+20、在11月份内，每天的早上6点到12点中，每隔2小时执行一次/usr/bin/httpd.sh
+crontab -e
+0 6-12/2 * 11 * /usr/bin/httpd.sh
+22、在Shell环境下,如何查看远程Linux系统运行了多少时间?
+ssh user@被监控主机ip "uptime"
+23、查看CPU使用情况的命令
+""每5秒刷新一次，最右侧有CPU的占用率的数据
+vmstat 5
+""top 然后按Shift+P，按照进程处理器占用率排序
+top
+24、查看内存使用情况的命令
+""用free命令查看内存使用情况
+free -m
+""top 然后按Shift+M, 按照进程内存占用率排序
+top
+25、查看磁盘i/o
+""用iostat查看磁盘/dev/sdc3的磁盘i/o情况，每两秒刷新一次
+iostat -d -x /dev/sdc3 2
+26、修复文件系统
+fsck –yt ext3 /
+-t 指定文件系统
+-y 对发现的问题自动回答yes
+27、read 命令5秒后自动退出
+read -t 5
+28、grep -E -P 是什么意思
+-E, --extended-regexp 采用扩展正规表达式。
+-P，--perl-regexp 采用perl正规表达式
+29、vi编辑器(涉及到修改，添加，查找)
+插入(insert)模式
+i　　　　光标前插入
+I　　　　光标行首插入
+a　　　　光标后插入
+A　　　　光标行尾插入
+o　　　　光标所在行下插入一行，行首插入
+O　　　　光标所在行上插入一行，行首插入
+G　　　　移至最后一行行首
+nG　　　　移至第n行行首
+n+　　　　下移n行，行首
+n-　　　　上移n行，行首
+:/str/　　　　　　　　　　从当前往右移动到有str的地方
+:?str?　　　　　　　　　　从当前往左移动到有str的地方
+:s/str1/str2/　　　　　　将找到的第一个str1替换为str2　　
+:s/str2/str2/g　　　　　　将当前行找到的所有str1替换为str2
+:n1,n2s/str1/str2/g　　　　将从n1行至n2行找到的所有的str1替换为str2
+:1,.s/str1/str2/g　　　　　　将从第1行至当前行的所有str1替换为str2
+:.,$s/str1/str2/g　　　　　　将从当前行至最后一行的所有str1替换为str2
+30、linux服务器之间相互复制文件
+copy 本地文件1.sh到远程192.168.9.10服务器的/data/目录下
+scp /etc/1.sh king@192.168.9.10:/data/
+copy远程192.168.9.10服务器/data/2.sh文件到本地/data/目录
+scp king@192.168.9.10:/data/2.sh /data/
+31、使用sed命令把test.txt文件的第23行的TEST换成TSET.
+sed -i '23s/TEST/TSET/' test.txt
+sed -i '23 s/TEST/TSET/' test.txt
+32、使history命令能显示时间
+export HISTTIMEFORMAT="%F %T "
+33、如何查看目标主机192.168.0.1开放那些端口
+nmap -PS 192.168.0.1
+35、如何查看当前系统使用了那些库文件
+ldconfig -v
+36、如何查看网卡的驱动版本
+ethtool -i eth0
+37、使用tcpdump来监视主机192.168.0.1的tcp的80端口
+tcpdump tcp port 80 host 192.168.0.1
+38、 如何看其它用户的邮件列表
+mial -u king
+39、对大文件进行切割
+按每个文件1000行来分割
+split -l 1000 httperr8007.log httperr
+按照每个文件5m来分割
+split -b 5m httperr8007.log httperr
+40、合并文件
+取出两个文件的并集(重复的行只保留一份)
+cat file1 file2 | sort | uniq
+取出两个文件的交集(只留下同时存在于两个文件中的文件)
+cat file1 file2 | sort | uniq -d
+删除交集，留下其他的行
+cat file1 file2 | sort | uniq –u
+41、打印文本模式下运行的服务
+chkconfig --list|awk '$5~/on/{print $1,$5}'
+
+锁定可疑用户
+一旦发现可疑用户，就要马上将其锁定，例如上面执行“w”命令后发现nobody用户应该是个可疑用户（因为nobody默认情况下是没有登录权限的），于是首先锁定此用户，执行如下操作：
+[root@server ~]# passwd -l nobody
+锁定之后，有可能此用户还处于登录状态，于是还要将此用户踢下线，根据上面“w”命令的输出，即可获得此用户登录进行的pid值，操作如下：
+[root@server ~]# ps -ef|grep @pts/3
+531   6051  6049  0 19:23 ?  00:00:00 sshd: nobody@pts/3
+[root@server ~]# kill -9 6051
+这样就将可疑用户nobody从线上踢下去了。如果此用户再次试图登录它已经无法登录了。
+
+通过last命令查看用户登录事件
+last命令记录着所有用户登录系统的日志，可以用来查找非授权用户的登录事件，而last命令的输出结果来源于/var/log/wtmp文件，稍有经验的入侵者都会删掉/var/log/wtmp以清除自己行踪，但是还是会露出蛛丝马迹在此文件中的。
+
+可查的系统日志有/var/log/messages、/var/log/secure等，这两个日志文件可以记录软件的运行状态以及远程用户的登录状态，还可以查看每个用户目录下的.bash_history文件，特别是/root目录下的.bash_history文件，这个文件中记录着用户执行的所有历史命令。
+
+# 立即重新启动计算机
+echo "b" > /proc/sysrq-trigger
+# 立即关闭计算机
+echo "o" > /proc/sysrq-trigger
+# 导出内存分配的信息 （可以用/var/log/message 查看）
+echo "m" > /proc/sysrq-trigger
+# 导出当前CPU寄存器信息和标志位的信息
+echo "p" > /proc/sysrq-trigger
+# 导出线程状态信息
+echo "t" > /proc/sysrq-trigger
+# 故意让系统崩溃
+echo "c" > /proc/sysrq-trigger
+# 立即重新挂载所有的文件系统
+echo "s" > /proc/sysrq-trigger
+# 立即重新挂载所有的文件系统为只读
+echo "u" > /proc/sysrq-trigger
+
+系统信息
+arch 显示机器的处理器架构(1)
+uname -m 显示机器的处理器架构(2)
+uname -r 显示正在使用的内核版本
+dmidecode -q 显示硬件系统部件 - (SMBIOS / DMI)
+hdparm -i /dev/hda 罗列一个磁盘的架构特性
+hdparm -tT /dev/sda 在磁盘上执行测试性读取操作
+cat /proc/cpuinfo 显示CPU info的信息
+cat /proc/interrupts 显示中断
+cat /proc/meminfo 校验内存使用
+cat /proc/swaps 显示哪些swap被使用
+cat /proc/version 显示内核的版本
+cat /proc/net/dev 显示网络适配器及统计
+cat /proc/mounts 显示已加载的文件系统
+lspci -tv 罗列 PCI 设备
+lsusb -tv 显示 USB 设备
+date 显示系统日期
+cal 2007 显示2007年的日历表
+date 041217002007.00 设置日期和时间 - 月日时分年.秒
+clock -w 将时间修改保存到 BIOS
+
+关机 (系统的关机、重启以及登出 )
+shutdown -h now 关闭系统(1)
+init 0 关闭系统(2)
+telinit 0 关闭系统(3)
+shutdown -h hours:minutes & 按预定时间关闭系统
+shutdown -c 取消按预定时间关闭系统
+shutdown -r now 重启(1)
+reboot 重启(2)
+logout 注销
+
+文件和目录
+cd /home 进入 '/ home' 目录'
+cd .. 返回上一级目录
+cd ../.. 返回上两级目录
+cd 进入个人的主目录
+cd ~user1 进入个人的主目录
+cd - 返回上次所在的目录
+pwd 显示工作路径
+ls 查看目录中的文件
+ls -F 查看目录中的文件
+ls -l 显示文件和目录的详细资料
+ls -a 显示隐藏文件
+ls *[0-9]* 显示包含数字的文件名和目录名
+tree 显示文件和目录由根目录开始的树形结构(1)
+lstree 显示文件和目录由根目录开始的树形结构(2)
+mkdir dir1 创建一个叫做 'dir1' 的目录'
+mkdir dir1 dir2 同时创建两个目录
+mkdir -p /tmp/dir1/dir2 创建一个目录树
+rm -f file1 删除一个叫做 'file1' 的文件'
+rmdir dir1 删除一个叫做 'dir1' 的目录'
+rm -rf dir1 删除一个叫做 'dir1' 的目录并同时删除其内容
+rm -rf dir1 dir2 同时删除两个目录及它们的内容
+mv dir1 new_dir 重命名/移动 一个目录
+cp file1 file2 复制一个文件
+cp dir/* . 复制一个目录下的所有文件到当前工作目录
+cp -a /tmp/dir1 . 复制一个目录到当前工作目录
+cp -a dir1 dir2 复制一个目录
+ln -s file1 lnk1 创建一个指向文件或目录的软链接
+ln file1 lnk1 创建一个指向文件或目录的物理链接
+touch -t 0712250000 file1 修改一个文件或目录的时间戳 - (YYMMDDhhmm)
+file file1 outputs the mime type of the file as text
+iconv -l 列出已知的编码
+iconv -f fromEncoding -t toEncoding inputFile > outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding.
+find . -maxdepth 1 -name *.jpg -print -exec convert "{}" -resize 80x60 "thumbs/{}" \; batch resize files in the current directory and send them to a thumbnails directory (requires convert from Imagemagick)
+
+
+文件搜索
+find / -name file1 从 '/' 开始进入根文件系统搜索文件和目录
+find / -user user1 搜索属于用户 'user1' 的文件和目录
+find /home/user1 -name \*.bin 在目录 '/ home/user1' 中搜索带有'.bin' 结尾的文件
+find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件
+find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件
+find / -name \*.rpm -exec chmod 755 '{}' \; 搜索以 '.rpm' 结尾的文件并定义其权限
+find / -xdev -name \*.rpm 搜索以 '.rpm' 结尾的文件，忽略光驱、捷盘等可移动设备
+locate \*.ps 寻找以 '.ps' 结尾的文件 - 先运行 'updatedb' 命令
+whereis halt 显示一个二进制文件、源码或man的位置
+which halt 显示一个二进制文件或可执行文件的完整路径
+
+挂载一个文件系统
+mount /dev/hda2 /mnt/hda2 挂载一个叫做hda2的盘 - 确定目录 '/ mnt/hda2' 已经存在
+umount /dev/hda2 卸载一个叫做hda2的盘 - 先从挂载点 '/ mnt/hda2' 退出
+fuser -km /mnt/hda2 当设备繁忙时强制卸载
+umount -n /mnt/hda2 运行卸载操作而不写入 /etc/mtab 文件- 当文件为只读或当磁盘写满时非常有用
+mount /dev/fd0 /mnt/floppy 挂载一个软盘
+mount /dev/cdrom /mnt/cdrom 挂载一个cdrom或dvdrom
+mount /dev/hdc /mnt/cdrecorder 挂载一个cdrw或dvdrom
+mount /dev/hdb /mnt/cdrecorder 挂载一个cdrw或dvdrom
+mount -o loop file.iso /mnt/cdrom 挂载一个文件或ISO镜像文件
+mount -t vfat /dev/hda5 /mnt/hda5 挂载一个Windows FAT32文件系统
+mount /dev/sda1 /mnt/usbdisk 挂载一个usb 捷盘或闪存设备
+mount -t smbfs -o username=user,password=pass //WinClient/share /mnt/share 挂载一个windows网络共享
+
+磁盘空间
+df -h 显示已经挂载的分区列表
+ls -lSr |more 以尺寸大小排列文件和目录
+du -sh dir1 估算目录 'dir1' 已经使用的磁盘空间'
+du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小
+rpm -q -a --qf '%10{SIZE}t%{NAME}n' | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统)
+dpkg-query -W -f='${Installed-Size;10}t${Package}n' | sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 (ubuntu, debian类系统)
+
+用户和群组
+groupadd group_name 创建一个新用户组
+groupdel group_name 删除一个用户组
+groupmod -n new_group_name old_group_name 重命名一个用户组
+useradd -c "Name Surname " -g admin -d /home/user1 -s /bin/bash user1 创建一个属于 "admin" 用户组的用户
+useradd user1 创建一个新用户
+userdel -r user1 删除一个用户 ( '-r' 排除主目录)
+usermod -c "User FTP" -g system -d /ftp/user1 -s /bin/nologin user1 修改用户属性
+passwd 修改口令
+passwd user1 修改一个用户的口令 (只允许root执行)
+chage -E 2005-12-31 user1 设置用户口令的失效期限
+pwck 检查 '/etc/passwd' 的文件格式和语法修正以及存在的用户
+grpck 检查 '/etc/passwd' 的文件格式和语法修正以及存在的群组
+newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组
+
+文件的权限 - 使用 "+" 设置权限，使用 "-" 用于取消
+ls -lh 显示权限
+ls /tmp | pr -T5 -W$COLUMNS 将终端划分成5栏显示
+chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r ）、写(w)和执行(x)的权限
+chmod go-rwx directory1 删除群组(g)与其他人(o)对目录的读写执行权限
+chown user1 file1 改变一个文件的所有人属性
+chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性
+chgrp group1 file1 改变文件的群组
+chown user1:group1 file1 改变一个文件的所有人和群组属性
+find / -perm -u+s 罗列一个系统中所有使用了SUID控制的文件
+chmod u+s /bin/file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限
+chmod u-s /bin/file1 禁用一个二进制文件的 SUID位
+chmod g+s /home/public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的
+chmod g-s /home/public 禁用一个目录的 SGID 位
+chmod o+t /home/public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件
+chmod o-t /home/public 禁用一个目录的 STIKY 位
+
+文件的特殊属性 - 使用 "+" 设置权限，使用 "-" 用于取消
+chattr +a file1 只允许以追加方式读写文件
+chattr +c file1 允许这个文件能被内核自动压缩/解压
+chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件
+chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接
+chattr +s file1 允许一个文件被安全地删除
+chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘
+chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件
+lsattr 显示特殊的属性
+
+打包和压缩文件
+bunzip2 file1.bz2 解压一个叫做 'file1.bz2'的文件
+bzip2 file1 压缩一个叫做 'file1' 的文件
+gunzip file1.gz 解压一个叫做 'file1.gz'的文件
+gzip file1 压缩一个叫做 'file1'的文件
+gzip -9 file1 最大程度压缩
+rar a file1.rar test_file 创建一个叫做 'file1.rar' 的包
+rar a file1.rar file1 file2 dir1 同时压缩 'file1', 'file2' 以及目录 'dir1'
+rar x file1.rar 解压rar包
+unrar x file1.rar 解压rar包
+tar -cvf archive.tar file1 创建一个非压缩的 tarball
+tar -cvf archive.tar file1 file2 dir1 创建一个包含了 'file1', 'file2' 以及 'dir1'的档案文件
+tar -tf archive.tar 显示一个包中的内容
+tar -xvf archive.tar 释放一个包
+tar -xvf archive.tar -C /tmp 将压缩包释放到 /tmp目录下
+tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包
+tar -xvfj archive.tar.bz2 解压一个bzip2格式的压缩包
+tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包
+tar -xvfz archive.tar.gz 解压一个gzip格式的压缩包
+zip file1.zip file1 创建一个zip格式的压缩包
+zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包
+unzip file1.zip 解压一个zip格式压缩包
+
+RPM 包 - （Fedora, Redhat及类似系统）
+rpm -ivh package.rpm 安装一个rpm包
+rpm -ivh --nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告
+rpm -U package.rpm 更新一个rpm包但不改变其配置文件
+rpm -F package.rpm 更新一个确定已经安装的rpm包
+rpm -e package_name.rpm 删除一个rpm包
+rpm -qa 显示系统中所有已经安装的rpm包
+rpm -qa | grep httpd 显示所有名称中包含 "httpd" 字样的rpm包
+rpm -qi package_name 获取一个已安装包的特殊信息
+rpm -qg "System Environment/Daemons" 显示一个组件的rpm包
+rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表
+rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表
+rpm -q package_name --whatrequires 显示与一个rpm包存在依赖关系的列表
+rpm -q package_name --whatprovides 显示一个rpm包所占的体积
+rpm -q package_name --scripts 显示在安装/删除期间所执行的脚本l
+rpm -q package_name --changelog 显示一个rpm包的修改历史
+rpm -qf /etc/httpd/conf/httpd.conf 确认所给的文件由哪个rpm包所提供
+rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表
+rpm --import /media/cdrom/RPM-GPG-KEY 导入公钥数字证书
+rpm --checksig package.rpm 确认一个rpm包的完整性
+rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性
+rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间
+rpm -Va 检查系统中所有已安装的rpm包- 小心使用
+rpm -Vp package.rpm 确认一个rpm包还未安装
+rpm2cpio package.rpm | cpio --extract --make-directories *bin* 从一个rpm包运行可执行文件
+rpm -ivh /usr/src/redhat/RPMS/`arch`/package.rpm 从一个rpm源码安装一个构建好的包
+rpmbuild --rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包
+
+YUM 软件包升级器 - （Fedora, RedHat及类似系统）
+yum install package_name 下载并安装一个rpm包
+yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系
+yum update package_name.rpm 更新当前系统中所有安装的rpm包
+yum update package_name 更新一个rpm包
+yum remove package_name 删除一个rpm包
+yum list 列出当前系统中安装的所有包
+yum search package_name 在rpm仓库中搜寻软件包
+yum clean packages 清理rpm缓存删除下载的包
+yum clean headers 删除所有头文件
+yum clean all 删除所有缓存的包和头文件
+
+DEB 包 (Debian, Ubuntu 以及类似系统)
+dpkg -i package.deb 安装/更新一个 deb 包
+dpkg -r package_name 从系统删除一个 deb 包
+dpkg -l 显示系统中所有已经安装的 deb 包
+dpkg -l | grep httpd 显示所有名称中包含 "httpd" 字样的deb包
+dpkg -s package_name 获得已经安装在系统中一个特殊包的信息
+dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表
+dpkg --contents package.deb 显示尚未安装的一个包所提供的文件列表
+dpkg -S /bin/ping 确认所给的文件由哪个deb包提供
+
+
+APT 软件工具 (Debian, Ubuntu 以及类似系统)
+apt-get install package_name 安装/更新一个 deb 包
+apt-cdrom install package_name 从光盘安装/更新一个 deb 包
+apt-get update 升级列表中的软件包
+apt-get upgrade 升级所有已安装的软件
+apt-get remove package_name 从系统删除一个deb包
+apt-get check 确认依赖的软件仓库正确
+apt-get clean 从下载的软件包中清理缓存
+apt-cache search searched-package 返回包含所要搜索字符串的软件包名称
+
+
+查看文件内容
+cat file1 从第一个字节开始正向查看文件的内容
+tac file1 从最后一行开始反向查看一个文件的内容
+more file1 查看一个长文件的内容
+less file1 类似于 'more' 命令，但是它允许在文件中和正向操作一样的反向操作
+head -2 file1 查看一个文件的前两行
+tail -2 file1 查看一个文件的最后两行
+tail -f /var/log/messages 实时查看被添加到一个文件中的内容
+
+
+文本处理
+cat file1 file2 ... | command <> file1_in.txt_or_file1_out.txt general syntax for text manipulation using PIPE, STDIN and STDOUT
+cat file1 | command( sed, grep, awk, grep, etc...) > result.txt 合并一个文件的详细说明文本，并将简介写入一个新文件中
+cat file1 | command( sed, grep, awk, grep, etc...) >> result.txt 合并一个文件的详细说明文本，并将简介写入一个已有的文件中
+grep Aug /var/log/messages 在文件 '/var/log/messages'中查找关键词"Aug"
+grep ^Aug /var/log/messages 在文件 '/var/log/messages'中查找以"Aug"开始的词汇
+grep [0-9] /var/log/messages 选择 '/var/log/messages' 文件中所有包含数字的行
+grep Aug -R /var/log/* 在目录 '/var/log' 及随后的目录中搜索字符串"Aug"
+sed 's/stringa1/stringa2/g' example.txt 将example.txt文件中的 "string1" 替换成 "string2"
+sed '/^$/d' example.txt 从example.txt文件中删除所有空白行
+sed '/ *#/d; /^$/d' example.txt 从example.txt文件中删除所有注释和空白行
+echo 'esempio' | tr '[:lower:]' '[:upper:]' 合并上下单元格内容
+sed -e '1d' result.txt 从文件example.txt 中排除第一行
+sed -n '/stringa1/p' 查看只包含词汇 "string1"的行
+sed -e 's/ *$//' example.txt 删除每一行最后的空白字符
+sed -e 's/stringa1//g' example.txt 从文档中只删除词汇 "string1" 并保留剩余全部
+sed -n '1,5p;5q' example.txt 查看从第一行到第5行内容
+sed -n '5p;5q' example.txt 查看第5行
+sed -e 's/00*/0/g' example.txt 用单个零替换多个零
+cat -n file1 标示文件的行数
+cat example.txt | awk 'NR%2==1' 删除example.txt文件中的所有偶数行
+echo a b c | awk '{print $1}' 查看一行第一栏
+echo a b c | awk '{print $1,$3}' 查看一行的第一和第三栏
+paste file1 file2 合并两个文件或两栏的内容
+paste -d '+' file1 file2 合并两个文件或两栏的内容，中间用"+"区分
+sort file1 file2 排序两个文件的内容
+sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份)
+sort file1 file2 | uniq -u 删除交集，留下其他的行
+sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件)
+comm -1 file1 file2 比较两个文件的内容只删除 'file1' 所包含的内容
+comm -2 file1 file2 比较两个文件的内容只删除 'file2' 所包含的内容
+comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分
+
+
+字符设置和文件格式转换
+dos2unix filedos.txt fileunix.txt 将一个文本文件的格式从MSDOS转换成UNIX
+unix2dos fileunix.txt filedos.txt 将一个文本文件的格式从UNIX转换成MSDOS
+recode ..HTML < page.txt > page.html 将一个文本文件转换成html
+recode -l | more 显示所有允许的转换格式
+
+
+文件系统分析
+badblocks -v /dev/hda1 检查磁盘hda1上的坏磁块
+fsck /dev/hda1 修复/检查hda1磁盘上linux文件系统的完整性
+fsck.ext2 /dev/hda1 修复/检查hda1磁盘上ext2文件系统的完整性
+e2fsck /dev/hda1 修复/检查hda1磁盘上ext2文件系统的完整性
+e2fsck -j /dev/hda1 修复/检查hda1磁盘上ext3文件系统的完整性
+fsck.ext3 /dev/hda1 修复/检查hda1磁盘上ext3文件系统的完整性
+fsck.vfat /dev/hda1 修复/检查hda1磁盘上fat文件系统的完整性
+fsck.msdos /dev/hda1 修复/检查hda1磁盘上dos文件系统的完整性
+dosfsck /dev/hda1 修复/检查hda1磁盘上dos文件系统的完整性
+
+
+初始化一个文件系统
+mkfs /dev/hda1 在hda1分区创建一个文件系统
+mke2fs /dev/hda1 在hda1分区创建一个linux ext2的文件系统
+mke2fs -j /dev/hda1 在hda1分区创建一个linux ext3(日志型)的文件系统
+mkfs -t vfat 32 -F /dev/hda1 创建一个 FAT32 文件系统
+fdformat -n /dev/fd0 格式化一个软盘
+mkswap /dev/hda3 创建一个swap文件系统
+
+SWAP文件系统
+mkswap /dev/hda3 创建一个swap文件系统
+swapon /dev/hda3 启用一个新的swap文件系统
+swapon /dev/hda2 /dev/hdb3 启用两个swap分区
+
+备份
+dump -0aj -f /tmp/home0.bak /home 制作一个 '/home' 目录的完整备份
+dump -1aj -f /tmp/home0.bak /home 制作一个 '/home' 目录的交互式备份
+restore -if /tmp/home0.bak 还原一个交互式备份
+rsync -rogpav --delete /home /tmp 同步两边的目录
+rsync -rogpav -e ssh --delete /home ip_address:/tmp 通过SSH通道rsync
+rsync -az -e ssh --delete ip_addr:/home/public /home/local 通过ssh和压缩将一个远程目录同步到本地目录
+rsync -az -e ssh --delete /home/local ip_addr:/home/public 通过ssh和压缩将本地目录同步到远程目录
+dd bs=1M if=/dev/hda | gzip | ssh user@ip_addr 'dd of=hda.gz' 通过ssh在远程主机上执行一次备份本地磁盘的操作
+dd if=/dev/sda of=/tmp/file1 备份磁盘内容到一个文件
+tar -Puf backup.tar /home/user 执行一次对 '/home/user' 目录的交互式备份操作
+( cd /tmp/local/ && tar c . ) | ssh -C user@ip_addr 'cd /home/share/ && tar x -p' 通过ssh在远程目录中复制一个目录内容
+( tar c /home ) | ssh -C user@ip_addr 'cd /home/backup-home && tar x -p' 通过ssh在远程目录中复制一个本地目录
+tar cf - . | (cd /tmp/backup ; tar xf - ) 本地将一个目录复制到另一个地方，保留原有权限及链接
+find /home/user1 -name '*.txt' | xargs cp -av --target-directory=/home/backup/ --parents 从一个目录查找并复制所有以 '.txt' 结尾的文件到另一个目录
+find /var/log -name '*.log' | tar cv --files-from=- | bzip2 > log.tar.bz2 查找所有以 '.log' 结尾的文件并做成一个bzip包
+dd if=/dev/hda of=/dev/fd0 bs=512 count=1 做一个将 MBR (Master Boot Record)内容复制到软盘的动作
+dd if=/dev/fd0 of=/dev/hda bs=512 count=1 从已经保存到软盘的备份中恢复MBR内容
+
+光盘
+cdrecord -v gracetime=2 dev=/dev/cdrom -eject blank=fast -force 清空一个可复写的光盘内容
+mkisofs /dev/cdrom > cd.iso 在磁盘上创建一个光盘的iso镜像文件
+mkisofs /dev/cdrom | gzip > cd_iso.gz 在磁盘上创建一个压缩了的光盘iso镜像文件
+mkisofs -J -allow-leading-dots -R -V "Label CD" -iso-level 4 -o ./cd.iso data_cd 创建一个目录的iso镜像文件
+cdrecord -v dev=/dev/cdrom cd.iso 刻录一个ISO镜像文件
+gzip -dc cd_iso.gz | cdrecord dev=/dev/cdrom - 刻录一个压缩了的ISO镜像文件
+mount -o loop cd.iso /mnt/iso 挂载一个ISO镜像文件
+cd-paranoia -B 从一个CD光盘转录音轨到 wav 文件中
+cd-paranoia -- "-3" 从一个CD光盘转录音轨到 wav 文件中（参数-3）
+cdrecord --scanbus 扫描总线以识别scsi通道
+dd if=/dev/hdc | md5sum 校验一个设备的md5sum编码，例如一张 CD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
