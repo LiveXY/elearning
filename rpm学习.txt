@@ -1,0 +1,49 @@
+RPM包管理的配置文件是rpmrc，可以使用如下命令进行查找
+# locate rpmrc
+可以通过如下命令进行查看
+rpm --showrc
+1、初始化rpm 数据库功能；
+通过rpm 命令查询一个rpm 包是否安装了，也是要通过rpm 数据库来完成的；所以我们要经常用下面的两个命令来初始化rpm 数据库；
+[root@localhost beinan]# rpm --initdb
+[root@localhost beinan]# rpm --rebuilddb 注：这个要花好长时间；
+注：以上两个参数是极为有用，有时rpm 系统出了问题，不能安装和查询，大多是这里出了问题；
+[root@localhost beinan]# updatedb
+[root@localhost beinan]# locate 软件名或文件名
+提示：通过updatedb，我们可以用 locate来查询一些软件安装到哪里了；系统初次安装时要执行updatedb ，每隔一段时间也要执行一次；以保持已安装软件库最新；updatedb 是slocate软件包所有；如果您没有这个命令，就得安装slocate ；
+2、RPM软件包管理功能
+1）查询功能：
+rpm {-q|--query} [select-options] [query-options]
+使用实例
+1）查询一个已经安装的文件属于哪个软件包
+rpm -qf 文件名
+2）查询已安装软件包都安装到何处
+rpm -ql 软件名
+或
+rpm rpmquery -ql 软件名
+3）查看一下已安装软件的配置文件
+rpm -qc 软件名
+4）查看一个已经安装软件的文档安装位置
+rpm -qd 软件名
+5）查看一下已安装软件所依赖的软件包及文件
+rpm -qR 软件名
+6）查看一件软件包所包含的文件
+rpm -qpl 文件名
+2）软件包的安装、升级、删除
+1）常规包安装
+-ivh：安装显示安装进度--install--verbose--hash
+-Uvh：升级软件包--Update；
+-Va：校验所有的RPM软件包，查找丢失的文件[View Lost]；
+-e：删除包
+2）源码包安装
+rpm　--recompile　vim-4.6-4.src.rpm   ＃这个命令会把源代码解包并编译、安装它，如果用户使用命令：
+rpm　--rebuild　vim-4.6-4.src.rpm　　 ＃在安装完成后，还会把编译生成的可执行文件重新包装成i386.rpm的RPM软件包。
+详细用法请参考：http://ftp.tsingpost.com/index.php/archives/379/
+3）网络包安装
+# rpm -qpi http://mirrors.kernel.org/fedora/core/4/i386/os/ Fedora/RPMS/gaim-1.3.0-1.fc4.i386.rpm
+# rpm -ivh http://mirrors.kernel.org/fedora/core/4/i386/os/ Fedora/RPMS/gaim-1.3.0-1.fc4.i386.rpm
+4）指定安装目录：要加 -relocate 参数
+rpm -ivh --relocate /=/opt/gaim gaim-1.3.0-1.fc4.i386.rpm  #gaim-1.3.0-1.fc4.i386.rpm指定安装在目录： /opt/gaim 中
+3、导入签名功能
+rpm --import 签名文件
+4、rpm软件包抽取文件功能
+rpm2cpio file.rpm |cpio -div

@@ -1,0 +1,12 @@
+git记住密码
+
+生成key
+ssh-keygen -t rsa -f ~/.ssh/git.key -C "test@test.com"
+
+cat ~/.ssh/config
+# gitlab
+Host git.server.com
+    HostName git.server.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/git.key
+

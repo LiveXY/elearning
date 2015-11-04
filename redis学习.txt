@@ -1,0 +1,56 @@
+redis 安装与升级
+
+http://www.cnblogs.com/stephen-liu74/archive/2012/02/18/2356951.html
+https://redis.readthedocs.org/en/latest/
+
+redis-cli 连接
+redis-cli -h 127.0.0.1 -p 6389 -a pass1234
+telnet 10.25.30.143 6389
+
+set key value
+get key
+keys pattern
+del key
+exists key
+move key db
+rename key newkey
+renamed key newkey
+persist key 持久化存储
+expire key seconds
+expireat key timestamp
+ttl key
+randomkey
+type key
+sort key [by pattern]
+
+flushdb
+sadd key 1 2 3
+hset key username “test”
+keys key*
+del key1 key2
+
+select 0 打开默认为0的数据库
+
+
+redis 安装
+yum install redis
+
+
+redis 升级
+
+wget http://download.redis.io/releases/redis-2.8.9.tar.gz
+tar zxvf redis-2.8.9.tar.gz
+cd redis-2.8.9
+make
+
+跟原本的 redis 2.0 裝在同一個目錄
+sudo make PREFIX=/usr install
+
+再把新的 config 檔蓋過去
+sudo cp redis.conf /etc/
+
+為了讓原本的 init script 正常運作 redis.conf 要稍微修改
+daemonize yes
+
+原本 redis-server 是裝在 /usr/sbin 新的是裝在 /usr/bin 把 /usr/sbin/redis-server 覆蓋過去
+sudo mv /usr/bin/redis-server /usr/sbin/

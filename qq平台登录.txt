@@ -1,0 +1,150 @@
+qq平台登录
+
+ＱＱ云平台： http://open.qq.com/
+文档：	http://wiki.open.qq.com/wiki/API%E5%88%97%E8%A1%A8
+
+QQ互联：http://connect.qq.com
+securecrt 登录服务器--------------------------------------------------------------------
+Firewall:
+Name:Tencent
+Type:HTTP(no authentication)
+Hostname:cvm-proxy.opencloud.qq.com
+Port:80
+
+linux 登录服务器----------------------------------------------------------------------------
+命令行：
+vim ~/.ssh/config
+Host qq-server-ip
+ProxyCommand /opt/local/bin/corkscrew cvm-proxy.opencloud.qq.com 80 %h  %p
+
+vim server.sh
+#!/bin/sh
+ssh -q -l appid -p 36000 qq-server-ip
+
+chmod u+x server.sh
+./server.sh
+---------------------------------------------------------------------------------------
+sudo su 提权
+
+更新QQ平台代码文件----------------------------------------------------------------------------
+1,先将文件上传到ＦＴＰ
+ftp-cvmgz00.opencloud.qq.com:53000
+被动传输
+2,登陆web服务器
+sudo su 提权后才能更新文件
+3,web服务器上使用lftp登陆更新代码
+lftp -uappid,apppass cvmftp.tencentyun.com:53000
+
+mirror -v 目录 下载目录
+mirror -R 目录 上传目录
+get  下载文件
+put 上传文件
+rm -r 删除目录
+lcd 目录 进入本地目录
+
+set xfer:clobber on
+
+db 服务器登陆----------------------------------------------------------------------------
+远程管理工具mstsc：
+代理服务器
+gz.cvm-win.opencloud.qq.com:30000
+打开桌面“Default”再次登陆数据库服务器
+linux下登陆：
+先进入网站服务器
+mysql -h ip -P 3309 -uroot -p123456
+-------------------------------------------------------------------------------
+qq 平台数据库外连打通
+外部：
+vi outer.js
+var ignore = [ 'ECONNREFUSED', 'ECONNRESET', 'ETIMEDOUT', 'EHOSTUNREACH', 'ENETUNREACH', 'ENETDOWN', 'EPIPE', 'ENOENT'];
+var proxys = net.createServer(function(socket) {
+   new Proxy(socket);
+});
+function Proxy(client){
+    console.log('>> server:client connected');
+    var server=null;
+    server=net.createConnection( 8000,"appid.qzoneapp.com");
+    server.on('connect',function(){
+        server.write("\r\nHost: appid.qzoneapp.com\r\n");
+    });
+    server.on('data', function(data) {
+        client.write(data);
+    });//有客户端连入时
+    server.on('error',function (err) {
+        if (!~ignore.indexOf(err.code)) {
+            console.error('socket error');
+            console.error(err);
+
+            if(client.writable){
+                server.reconnect();
+            }
+        }
+    });
+    client.on('data', function(data) {
+        server.write(data);
+    });
+    client.on('error',function (err) {
+        if (!~ignore.indexOf(err.code)) {
+            console.error('socket error');
+            console.error(err);
+            socket.end();
+            socket.destroy();
+        }
+    });
+}
+proxys.on('error',function (err) {
+    console.error(err);
+});
+proxys.listen(8000);
+
+node outer.js
+内部：
+vi inner.js
+
+var ignore = [ 'ECONNREFUSED', 'ECONNRESET', 'ETIMEDOUT', 'EHOSTUNREACH', 'ENETUNREACH', 'ENETDOWN', 'EPIPE', 'ENOENT'];
+var proxys = net.createServer(function(socket) {
+   new Proxy(socket);
+});
+function Proxy(client){
+    console.log('>> server:client connected');
+    var firstmsg=true;
+    var server=null;
+    client.on('data', function(data) {
+        if(firstmsg&&data.slice(0,6).toString()=="\r\nHost"){
+            firstmsg=false;
+            server=net.createConnection( 3309,"db server ip");
+            server.on('data', function(dt) {
+                client.write(dt);
+            });//有客户端连入时
+            server.on('error',function (err) {
+                if (!~ignore.indexOf(err.code)) {
+                    console.error('socket error');
+                    console.error(err);
+                    if(client.writable){
+                        server.reconnect();
+                    }
+                }
+            });
+            return;
+        }
+        if(!firstmsg&&server!=null){
+            server.write(data);
+        }
+    });
+    client.on('error',function (err) {
+        if (!~ignore.indexOf(err.code)) {
+            console.error('socket error');
+            console.error(err);
+            socket.end();
+            socket.destroy();
+        }
+    });
+}
+proxys.on('error',function (err) {
+    console.error(err);
+});
+proxys.listen(8000);
+
+node inner.js
+
+

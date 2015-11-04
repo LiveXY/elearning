@@ -1,0 +1,241 @@
+rsync 主从配置
+
+主：：：：：：：：
+
+yum install rsync
+cd /tmp
+wget --no-check-certificate http://github.com/downloads/rvoicilas/inotify-tools/inotify-tools-3.14.tar.gz
+tar -zxvf inotify-tools-3.14.tar.gz
+cd inotify-tools-3.14
+./configure
+make
+make install
+
+echo "rsyncpass">/root/rsyncpass
+chmod 600 /root/rsyncpass
+
+;编辑主服务器同步监测脚本监测目录是/home
+vim /root/inotify_rsync.sh
+i
+
+#!/bin/sh
+#date:2014-3-26
+#function:rysnc 10.232.48.106  to  10.232.48.109
+if [ ! -f /root/rsyncpass ];then
+        echo "rsyncpass">/root/rsyncpass
+        /bin/chmod 600 /root/rsyncpass
+fi
+log=/var/log/rsync.log
+src="/home/"
+host="10.232.48.109"
+module="web"
+
+/usr/local/bin/inotifywait -mr --timefmt '%d/%m/%y %H:%M' --format '%T %w %f' -e close_write,modify,delete,create,attrib $src |  while read DATE TIME DIR FILE; do
+
+       FILECHANGE=${DIR}${FILE}
+
+       /usr/bin/rsync -avH --delete  --progress --password-file=/root/rsyncpass $src backup@$host::$module &>/dev/null
+ echo "At ${TIME} on ${DATE}, file $FILECHANGE was backed up via rsync" >> $log
+done
+
+
+
+chmod +x /root/inotify_rsync.sh
+echo "/root/inotify_rsync.sh">>/etc/rc.local
+
+./inotify_rsync.sh &
+
+
+
+
+
+
+
+
+从：：：
+
+
+yum install rsync
+
+echo -e "uid = root
+gid = root
+use chroot = no
+max connections = 10
+pid file = /var/run/rsyncd.pid
+lock file = /var/run/rsync.lock
+log file = /var/log/rsyncd.log
+hosts allow = 10.232.48.106
+
+[web]
+path = /home/
+read only = no
+list = no
+auth users = backup
+secrets file = /root/rsyncpass”
+
+echo -e '#!/bin/bash
+#
+# rsyncd   This shell script takes care of starting and stopping standalone rsync.
+#
+# chkconfig: - 99 50
+# description: rsync is a file transport daemon
+# processname: rsync
+# config: /etc/rsyncd.conf
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+prog="rsync"
+
+PPATH="/usr/bin/"
+
+# Your rsync config file path
+CFILE="/etc/rsyncd.conf"
+
+OPTIONS="--daemon -4 --config $CFILE"
+
+start() {
+        # Start daemons.
+        [ -x $PPATH$prog ] || { echo "FATAL: No such programme"; exit 4; }
+        [ -f $CFILE ] || { echo "FATAL: config file does not exist"; exit 6; }
+        echo -n $"Starting $prog: "
+        daemon $PPATH$prog $OPTIONS
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
+        echo
+        return $RETVAL
+}
+
+stop() {
+        # Stop daemons.
+        echo -n $"Shutting down $prog: "
+        killproc $prog
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$prog
+       return $RETVAL
+}
+
+# call the function we defined
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  status)
+        status $prog
+        RETVAL=$?
+       ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 2
+esac
+
+exit $RETVAL’ >/etc/init.d/rsyncd
+
+chmod +x /etc/init.d/rsyncd
+
+service rsyncd start
+
+
+
+/usr/bin/rsync -rvu /www/home homezz@remoter.server.com:/home/homezz/backup 这个命令就是将 /www/home 同步到 remoter.server.com 服务器上的/home/homezz/backup目录下，命令中 homezz表示远程服务器的ssh登陆名，如果您设置了免密码登陆，这个命令就不会弹出密码，直接开始同步了
+0 */2 * * * /root/backup.php >/dev/null 2>&1
+0 */3 * * * /usr/bin/rsync -rvu /backup/mysql homezz@remoter.server.com:/home/homezz/mysql >/dev/null 2>&1
+0 */5 * * * /usr/bin/rsync -rvu /www/home homezz@remoter.server.com:/home/homezz/backup >/dev/null 2>&1
+
+
+
+文件同步rsync scp 管道
+
+rsync options source destination
+
+镜像同步备份文件
+rsync -avzrtopg --progress --delete /src  /dst
+--delete选项指定以rsync服务器端为基础进行数据镜像同步，也就是要保持rsync服务器端目录与客户端目录的完全一致；
+--exclude选项用于排除不需要传输的文件类型；
+
+如果文件比较大，可使用nohup将进程放到后台执行。
+nohup rsync -avzrtopgL  --progress /data/opt /data2/  >/var/log/$(date +%Y%m%d).mail.log &
+
+增量备份本地文件
+rsync -avzrtopgL  --progress /src /dst
+-v是“--verbose”,即详细模式输出； -z表示“--compress”，即传输时对数据进行压缩处理；
+-r表示“--recursive”，即对子目录以递归的模式处理；-t是“--time”，即保持文件时间信息；
+-o表示“owner”，用来保持文件属主信息；-p是“perms”，用来保持文件权限；
+-g是“group”，用来保持文件的属组信息；
+--progress用于显示数据镜像同步的过程；
+
+镜像目录与内容
+rsync  -av duying  /tmp/test
+
+
+两个目录间完成文件拷贝：
+rsync -zvr /var/opt/lx/ /root/temp/
+-z 传输前进行压缩
+-v 显示命令执行详细信息
+-r 递归拷贝目录
+若要保留原文件时间戳、属主/属组、权限属性，我们可以使用 -a 选项：
+rsync -azv /var/opt/lx/ /root/temp/
+
+本地与远程主机间完成数据同步
+rsync -avz /root/temp/ lx@192.168.1.103:/home/lx/tmp/
+
+使用ssh通道进行数据同步
+rsync -avz -e ssh /root/temp/ lx@192.168.1.103:/home/lx/tmp/
+
+经常出现这样的场景，我们对源文件和目的地文件均作了修改，同时想将源文件作的修改同步到目的地，但又保留对目的地文件的更改，此时可以使用 -u 选项：
+rsync -avzu /var/opt/lx/ /root/temp/
+
+对于不存在于源目录，但存在于目的地的文件，有时我们想在做文件同步时删除它们，--delete 选项可以满足要求：
+rsync -avz --delete /var/opt/lx/ /root/temp/
+
+有时我们只想对目的地已经有的文件进行同步，而不理会源目录新增的文件，此时可以使用 --existing 选项：
+rsync -avz --existing /var/opt/lx/ /root/temp/
+
+显示执行进度
+rsync -avz --progress /var/opt/lx/ /root/temp/
+
+source 与 destination 有两处不同，一处为 a.c 的文件大小，第二处为 b.c 的属主，此时添加 -i 选项进行数据同步，有以下输出：
+rsync -avzi /var/opt/lx/ /root/temp/
+> 指示传输到本地
+f  指示所传为文件
+s  指示文件大小不一致
+t  指示时间戳不一致
+o  指示属主不一致
+
+按指定模式进行同步
+使用 --include 和 --exclude 选项，可以帮助我们完成只同步特定文件的目的，例如以下只同步以 'a' 开头的文件：
+rsync -avz --include 'a*' --exclude '*' /var/opt/lx/ /root/temp/
+
+限制传输文件的大小
+rsync -avz --max-size='100K' /var/opt/lx/ /root/temp/
+以上命令限制传输的文件大小只能小于或等于100K，另可以使用 M 和 G 作为大小单位。
+
+默认情况下 rsync 采用增量拷贝，这样能节省带宽，在所同步文件不大的情况下，我们可以通过 -W 选项实现全拷贝：
+rsync -avzW /var/opt/lx/ /root/temp/
+
+二进制差异同步
+rsync -av /backup/ -e ssh root@192.168.1.110:/bak
+管道同步
+gzip -c cdio_bak.sql | ssh root@192.168.1.110 "gunzip -c - > /bak/cdio.sql”
+
+删除大文件：
+rsync --delete-before -avH --progress --stats DEST SRC
+解释：
+当SRC和DEST性质都为文件【f】时，意思是清空文件内容而不是删除文件
+当SRC和DEST性质都为目录【d】时，意思是删除该目录下的所有文件，使其变为空目录
+eg:
+mkdir empty
+rsync --delete-before -avH --progress --stats /root/empty/ /tmp/test/log/
+
+
+

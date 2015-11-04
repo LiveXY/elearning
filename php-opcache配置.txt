@@ -1,0 +1,185 @@
+php opcache 配置
+
+[opcache]
+zend_extension = "G:/PHP/php-5.5.6-Win32-VC11-x64/ext/php_opcache.dll"
+
+; Zend Optimizer + 的开关, 关闭时代码不再优化.
+opcache.enable=1
+
+; Determines if Zend OPCache is enabled for the CLI version of PHP
+opcache.enable_cli=1
+; Zend Optimizer + 共享内存的大小, 总共能够存储多少预编译的 PHP 代码(单位:MB)
+; 推荐 128
+opcache.memory_consumption=64
+
+; Zend Optimizer + 暂存池中字符串的占内存总量.(单位:MB)
+; 推荐 8
+opcache.interned_strings_buffer=4
+; 最大缓存的文件数目 200  到 100000 之间
+; 推荐 4000
+opcache.max_accelerated_files=2000
+
+; 内存“浪费”达到此值对应的百分比,就会发起一个重启调度.
+opcache.max_wasted_percentage=5
+
+; 开启这条指令, Zend Optimizer + 会自动将当前工作目录的名字追加到脚本键上,
+; 以此消除同名文件间的键值命名冲突.关闭这条指令会提升性能,
+; 但是会对已存在的应用造成破坏.
+opcache.use_cwd=0
+; 开启文件时间戳验证
+opcache.validate_timestamps=1
+; 2s检查一次文件更新 注意:0是一直检查不是关闭
+; 推荐 60
+opcache.revalidate_freq=2
+
+; 允许或禁止在 include_path 中进行文件搜索的优化
+;opcache.revalidate_path=0
+; 是否保存文件/函数的注释   如果apigen、Doctrine、 ZF2、 PHPUnit需要文件注释
+; 推荐 0
+opcache.save_comments=1
+
+; 是否加载文件/函数的注释
+;opcache.load_comments=1
+; 打开快速关闭, 打开这个在PHP Request Shutdown的时候会收内存的速度会提高
+; 推荐 1
+opcache.fast_shutdown=1
+
+;允许覆盖文件存在（file_exists等）的优化特性。
+;opcache.enable_file_override=0
+; 定义启动多少个优化过程
+;opcache.optimization_level=0xffffffff
+; 启用此Hack可以暂时性的解决”can’t redeclare class”错误.
+;opcache.inherited_hack=1
+
+; 启用此Hack可以暂时性的解决”can’t redeclare class”错误.
+;opcache.dups_fix=0
+
+; 设置不缓存的黑名单
+; 不缓存指定目录下cache_开头的PHP文件. /png/www/example.com/public_html/cache/cache_
+;opcache.blacklist_filename=
+; 通过文件大小屏除大文件的缓存.默认情况下所有的文件都会被缓存.
+;opcache.max_file_size=0
+
+; 每 N 次请求检查一次缓存校验.默认值0表示检查被禁用了.
+; 由于计算校验值有损性能,这个指令应当紧紧在开发调试的时候开启.
+;opcache.consistency_checks=0
+
+; 从缓存不被访问后,等待多久后(单位为秒)调度重启
+;opcache.force_restart_timeout=180
+
+; 错误日志文件名.留空表示使用标准错误输出(stderr).
+;opcache.error_log=
+; 将错误信息写入到服务器(Apache等)日志
+;opcache.log_verbosity_level=1
+
+; 内存共享的首选后台.留空则是让系统选择.
+;opcache.preferred_memory_model=
+
+; 防止共享内存在脚本执行期间被意外写入, 仅用于内部调试.
+;opcache.protect_memory=0
+opcache.enable(默认值:1)
+Zend Optimizer + 的开关, 关闭时代码不再优化.
+
+opcache.memory_consumption(默认值:64)
+Zend Optimizer + 共享内存的大小, 总共能够存储多少预编译的 PHP 代码(单位:MB).
+
+opcache.interned_strings_buffer(默认值:4)
+Zend Optimizer + 中interned字符串的占内存总量.(单位:MB)
+
+opcache.max_accelerated_files(默认值:2000)
+Zend Optimizer + 哈希表中键数量的最大值(一个脚本文件应当是对应一个key的,所以应当就是允许缓存的文件最大数量).
+这个值实际上是素数列表{ 223, 463, 983, 1979, 3907, 7963, 16229, 32531, 65407, 130987 }中第一个大于设定值的数字.
+值设定范围: 200 – 100000
+
+opcache.max_wasted_percentage(默认值:5)
+“浪费”的内存达到此值对应的百分比,就会发起一个重启调度.
+
+opcache.use_cwd(默认值:1)
+开启这条指令, Zend Optimizer + 会自动将当前工作目录的名字追加到脚本键上, 以此消除同名文件间的键值命名冲突。
+关闭这条指令会提升性能,但是会对已存在的应用造成破坏.
+
+opcache.validate_timestamps(默认值:1)
+禁用时, 您必须手动重置Zend Optimizer +或重新启动Web服务器,以使文件系统的更改生效.
+检查的频率是由指令 “opcache.revalidate_freq” 控制.
+
+opcache.revalidate_freq(默认值:2)
+多久(以秒为单位)检查文件时间戳以改变共享内存的分配.”1″ 表示一秒校验一次, 但是是每个请求一次. “0″ 表示总是在校验.
+
+opcache.revalidate_path(默认值:0)
+允许或禁止在 include_path 中进行文件搜索的优化. 如果文件搜索被禁用而且可以在相同的 include_path 中找到这个缓存的文件,
+文件搜索就不会再进行下去了. 因此,如果 include_path 其它地方有一个同名文件的话, 那就找不到了.
+如果这个优化对您的应用有影响,那么应当允许它搜索. 默认情况下,指令是禁止的,这就意味着,优化是处于激活状态的.
+
+opcache.save_comments(默认值:1)
+如果禁用,所有的文档注释都从代码中剔除以此减少优化过的代码的大小.
+禁用 “文档注释” 可能会破坏一些现有的应用和框架(例如: Doctrine, ZF2, PHPUnit).
+
+opcache.load_comments(默认值:1)
+如果禁用, PHP文档注释将不会从 SHM(共享内存) 中读取. 尽管”文档注释”还是会被存储(save_comments=1),
+但是那些无论如何都用不上的注释就不必被应用读取了.
+
+opcache.fast_shutdown(默认值:0)
+如果开启, 一个快速关闭队列用以提速代码. 快速关闭队列并不释放每个已分配的块, 而是让 Zend 引擎内存管理器来干这个活.
+
+opcache.enable_file_override(默认值:0)
+允许覆盖文件存在（file_exists等）的优化特性。
+
+opcache.optimization_level(默认值:0xffffffff)
+一个位掩码,其中每个位允许或禁用相应的缓存通过.
+
+opcache.inherited_hack(默认值:1)
+启用此Hack可以暂时性的解决”can’t redeclare class”错误. Zend Optimizer + 存储着 DECLARE_CLASS 操作码使用继承的地方
+(这些是唯一可以被PHP执行的操作码,但是也可能因为优化引起的父类找不到而无法执行).
+当文件被读取时, Optimizer 会试着通过当前环境绑定被继承的类.
+这样做的问题是. DECLARE_CLASS 的操作码可能不被当前脚本所需要, 如果脚本需要操作码至少完成类的定义操作, 那么它就会无法执行.
+这指令的默认是禁用的, 这就表示优化是有效的. 该在 php 5.3 以及以上的版中不再被需要, 而且这个设置也不会生效.
+
+opcache.dups_fix(默认值:0)
+启用此Hack可以暂时性的解决”can’t redeclare class”错误.
+
+opcache.blacklist_filename(默认值:无)
+Zend Optimizer + 黑名单文件的位置.
+Zend Optimizer + 黑名单是一个文本文件包含了那些不能被加速的文件名.文件格式为每行一个文件名.
+文件名须为一个完整的路径或者紧紧一个文件前缀
+(如:/var/www/x 屏蔽了 /var/www 文件和目录中所有以 ‘x’ 开始的文件或者目录). 需要屏蔽的文件通常符合下面三个原因中的一个:
+1) 目录包含了自动生成的代码, 如 Smarty 或者 ZFW 的缓存.
+2) 执行加速时代码无法很好的运行, 从而耽误了编译时评估.
+3) 代码触发了一个 Zend Optimizer + 的 Bug
+
+opcache.max_file_size(默认值:0)
+通过文件大小屏除大文件的缓存.默认情况下所有的文件都会被缓存.
+
+opcache.consistency_checks(默认值:0)
+每 N 次请求检查一次缓存校验.默认值0表示检查被禁用了.由于计算校验值有损性能,这个指令应当紧紧在开发调试的时候开启.
+
+opcache.force_restart_timeout(默认值:180)
+从缓存不被访问后,等待多久后(单位为秒)调度重启.Zend Optimizer + 依托此指令来确定一个进程可能在处理过程中出现问题的情况.
+这段时间(等待时间)过后, 假设 Zend Optimizer + 发生了一些问题, 并开始干掉那些仍然持有预防重启锁的进程.
+当这些发生时, 如果日志的级别是3级或以上, 一个 “killed locker” 的错误就会被记录到 Apache 的日志中.
+
+opcache.error_log(默认值:无)
+Zend Optimizer + 的错误日志文件名.留空表示使用标准错误输出(stderr).
+
+opcache.log_verbosity_level(默认值:1)
+将错误信息都导向 Web 服务器日志.默认的只有致命错误(level 0) 或者错误(level 1)才会被记录.
+你也可以允许警告(level 2),提示消息(level 3) 或者 调试消息(level 4)被记录下来.
+
+opcache.preferred_memory_model(默认值:无)
+内存共享的首选后台.留空则是让系统选择.
+
+opcache.protect_memory(默认值:0)
+防止共享内存在脚本执行期间被意外写入, 仅用于内部调试.
+
+opcache.mmap_base(默认值:无)
+共享内存段映射基础(仅适用于Windows).所有的PHP进程必须映射到相同的共享内存地址空间.
+该指令用于手动修复 “Unable to reattach to base address” 错误.
+
+zend_extension = opcached.so
+opcache.memory_consumption=128
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=4096
+opcache.revalidate_freq=60
+opcache.fast_shutdown=1
+opcache.enable=1
+opcache.enable_cli=1
+opcache.save_comments=0
