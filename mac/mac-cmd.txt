@@ -1,5 +1,15 @@
 mac command
 
+
+##设置存历史命令纪录数
+```sh
+vi .bashrc
+HISTSIZE=50000
+HISTFILESIZE=500000
+source ~/.bashrc
+echo "$HISTSIZE $HISTFILESIZE"
+```
+
 隐藏/显示 OS X所有桌面图标的BASH命令
 defaults write com.apple.finder CreateDesktop false
 defaults write com.apple.finder CreateDesktop true

