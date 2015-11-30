@@ -10,7 +10,7 @@ mysql参数
 * `--character-sets-dir=name` 字体集的安装目录
 * `--default-character-set=name` 设置数据库的默认字符集
 * `--column-type-info` 结果集返回时，同时显示字段的类型等相关信息
-* `-c`, `--comments` Preserve comments. Send comments to the server. The default is `--skip-comments` (discard comments), enable with `--comments`                                    
+* `-c`, `--comments` Preserve comments. Send comments to the server. The default is `--skip-comments` (discard comments), enable with `--comments`
 * `-C`, `--compress` 在客户端和服务器端传递信息时使用压缩
 * `-#`, `--debug[=#]` bug调用功能
 * `-D`, `--database=name` 使用哪个数据库
@@ -19,8 +19,8 @@ mysql参数
 * `-e`, `--execute=name` 执行mysql的sql语句
 * `-E`, `--vertical` 垂直打印查询输出
 * `-f`, `--force` 如果有错误跳过去，继续执行下面的
-* `-G`, `--named-commands` Enable named commands. Named commands mean this program's internal commands; see mysql> help . When enabled, the named commands can be used from any line of the query, otherwise only from the first line, before an enter. Disable with `--disable-named-commands`. This option is disabled by default.                                    
-* `-g`, `--no-named-commands` Named commands are disabled. Use \* form only, or use named commands only in the beginning of a line ending with a semicolon (;) Since version 10.9 the client now starts with this option ENABLED by default! Disable with `-G`. Long format commands still work from the first line. WARNING: option deprecated; use `--disable-named-commands` instead.                      
+* `-G`, `--named-commands` Enable named commands. Named commands mean this program's internal commands; see mysql> help . When enabled, the named commands can be used from any line of the query, otherwise only from the first line, before an enter. Disable with `--disable-named-commands`. This option is disabled by default.
+* `-g`, `--no-named-commands` Named commands are disabled. Use \* form only, or use named commands only in the beginning of a line ending with a semicolon (;) Since version 10.9 the client now starts with this option ENABLED by default! Disable with `-G`. Long format commands still work from the first line. WARNING: option deprecated; use `--disable-named-commands` instead.
 * `-i`, `--ignore-spaces` 忽视函数名后面的空格.
 * `--local-infile` 启动/禁用LOAD DATA LOCAL INFILE.
 * `-b`, `--no-beep` sql错误时，禁止嘟的一声
@@ -45,10 +45,10 @@ mysql参数
 * `-q`, `--quick` 不缓存查询的结果，顺序打印每一行。如果输出被挂起，服务器会慢下来，mysql不使用历史文件。
 * `-r`, `--raw` 写列的值而不转义转换。通常结合`--batch`选项使用。
 * `--reconnect` 如果与服务器之间的连接断开，自动尝试重新连接。禁止重新连接，使用`--disable-reconnect`。
-* `-s`, `--silent` 一行一行输出，中间有tab分隔 
+* `-s`, `--silent` 一行一行输出，中间有tab分隔
 * `-S`, `--socket=name` 连接服务器的sockey文件
 * `--ssl` 激活ssl连接，不激活`--skip-ssl`
-* `--ssl-ca=name` CA file in PEM format (check OpenSSL docs, implies `--ssl`).                                          
+* `--ssl-ca=name` CA file in PEM format (check OpenSSL docs, implies `--ssl`).
 * `--ssl-capath=name` CA directory (check OpenSSL docs, implies `--ssl`).
 * `--ssl-cert=name` X509 cert in PEM format (implies `--ssl`).
 * `--ssl-cipher=name` SSL cipher to use (implies `--ssl`).
@@ -59,7 +59,7 @@ mysql参数
 * `--no-tee` 根`--disable-tee`功能一样
 * `-u`, `--user=name` 用户名
 * `-U`, `--safe-updates` Only allow UPDATE and DELETE that uses keys.
-* `-U`, `--i-am-a-dummy` Synonym for option `--safe-updates`, `-U`. 
+* `-U`, `--i-am-a-dummy` Synonym for option `--safe-updates`, `-U`.
 * `-v`, `--verbose` 输出mysql执行的语句
 * `-V`, `--version` 版本信息
 * `-w`, `--wait` 服务器down后，等待到重起的时间

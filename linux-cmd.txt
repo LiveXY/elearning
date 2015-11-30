@@ -5,6 +5,8 @@ make:http://www.yayu.org/book/gnu_make/index.html#content
 
 lsof -n | grep php-fpm | grep /home/ | grep -v grep 进程操作哪个文件
 
+ls -t *.log | tail -n +3 | xargs rm -f #删除所有文件只保留最新的3个文件
+
 lsof -i:80/lsof -i/lsof -Pi | grep LISTEN
 vim ~/.bash_profile
 free/top/vmstat
