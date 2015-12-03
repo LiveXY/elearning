@@ -19,6 +19,7 @@ zip -r file.zip dir/ 压缩
 unzip file.tar -d dir/ 解压
 zip ../file.zip dir/file1.txt -d 删除内部文件
 zip -m file.zip ./file.txt 向压缩文件中file.zip中添加file.txt文件
+zip -r -P password mytest.zip mytest/
 ```
 
 .gz
