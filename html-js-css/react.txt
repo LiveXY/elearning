@@ -1,0 +1,9 @@
+npm install -g react-native-cli
+cnpm install -g react-native-cli
+或
+git clone https://github.com/facebook/react-native.git
+cd react-native && npm install
+
+react-native init projectname
+open projectname/ios/MahbIOSProject.xcodeproj
+cd projectname; react-native run-android;
