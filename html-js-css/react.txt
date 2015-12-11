@@ -1,3 +1,7 @@
+brew install node
+brew install watchman
+brew install flow
+
 npm install -g react-native-cli
 cnpm install -g react-native-cli
 或
@@ -6,4 +10,155 @@ cd react-native && npm install
 
 react-native init projectname
 open projectname/ios/MahbIOSProject.xcodeproj
-cd projectname; react-native run-android;
+cd projectname;
+react-native run-android;
+react-native android
+react-native bundle
+
+
+
+https://github.com/hcxiong/react-native-guide
+demo
+https://github.com/race604/ZhiHuDaily-React-Native
+https://github.com/bigsui/shopping-react-native
+https://github.com/7kfpun/FinanceReactNative
+https://github.com/iSimar/HackerNews-React-Native
+https://github.com/FaridSafi/react-native-gifted-messenger
+https://github.com/FaridSafi/react-native-google-places-autocomplete
+https://github.com/chandu0101/sri
+https://github.com/martijnboland/reverb-dealfinder
+https://github.com/AndrewJack/react-native-weather
+https://github.com/xuxubin/Movies_React-Native
+https://github.com/catalinmiron/react-native-dribbble-app
+https://github.com/qddegtya/A-ReactNative-TesterHome
+https://github.com/Johnqing/miumiu
+https://github.com/shevawen/react-native-weather-app
+组件：
+https://react.parts/native
+https://github.com/ide/react-native-button
+https://github.com/lwansbrough/react-native-camera
+npm install react-native-camera@latest --save
+https://github.com/corymsmith/react-native-icons
+npm install react-native-icons@latest --save
+https://github.com/johanneslumpe/react-native-keyboardevents
+https://github.com/brentvatne/react-native-modal
+npm install react-native-modal --save
+https://github.com/brentvatne/react-native-login
+https://github.com/brentvatne/react-native-video
+https://github.com/brentvatne/react-native-linear-gradient
+https://github.com/facebook/react-native-fbsdk
+https://github.com/brentvatne/react-native-overlay
+npm install react-native-overlay --save
+https://github.com/react-native-fellowship/react-native-blur
+https://github.com/brentvatne/react-native-scrollable-tab-view
+https://github.com/react-native-fellowship/react-native-navbar
+npm i react-native-navbar --save
+https://github.com/jsdf/react-native-refreshable-listview
+https://github.com/jasonmerino/react-native-simple-store
+https://github.com/race604/react-native-viewpager
+npm install react-native-viewpager --save
+https://github.com/brentvatne/react-native-svg
+npm i react-native-svg --save
+https://github.com/brentvatne/react-native-keyboard-spacer
+npm install --save react-native-keyboard-spacer
+https://github.com/jeanregisser/react-native-slider
+npm i --save react-native-slider
+https://github.com/exponentjs/react-native-infinite-scroll-view
+npm install react-native-infinite-scroll-view --save
+https://github.com/exponentjs/react-native-refreshable-scroll-view
+https://github.com/exponentjs/react-native-tab-navigator
+https://github.com/react-native-fellowship/react-native-side-menu
+npm install react-native-side-menu --save
+https://github.com/veddermatic/react-native-multipicker
+npm install react-native-multipicker --save
+https://github.com/silentcloud/react-native-page-control
+$ npm install react-native-page-control --save
+https://github.com/leecade/react-native-swiper
+$ npm i react-native-swiper --save
+https://github.com/t4t5/react-native-router
+npm install react-native-router --save
+https://github.com/appintheair/react-native-looped-carousel
+$ npm install react-native-looped-carousel --save
+https://github.com/nick/react-native-carousel
+npm install react-native-carousel
+https://github.com/jsdf/react-native-htmlview
+https://github.com/siuying/react-native-htmltext
+https://github.com/appintheair/react-native-buyscreen
+https://github.com/lazaronixon/react-native-qrcode-reader
+https://github.com/exponentjs/react-native-invertible-scroll-view
+https://github.com/gcanti/tcomb-form-native
+npm install tcomb-form-native
+
+https://github.com/NishanthShankar/react-native-android-statusbar
+npm i --save react-native-android-statusbar
+https://github.com/GertjanReynaert/react-native-device
+npm install react-native-device --save
+
+
+$ npm install react-native-swiper --save
+$ npm i react-timer-mixin --save
+$ npm install react-native-store --save
+$ npm install react-native-simple-store
+$ npm install react-native-camera@latest --save//扫码
+npm install react-native-drawer --save
+npm install react-native-refresher --save
+npm install react-native-store --save
+
+tools
+https://github.com/roman01la/react-native-babel
+https://github.com/Shrugs/react-native-snippets
+https://github.com/almost/react-native-sqlite
+https://github.com/soliury/gulp-react-native-css
+
+
+https://github.com/Lobos/react-ui
+http://amazeui.org/react/components
+https://facebook.github.io/react-native/docs/animations.html
+
+http://react.rocks/
+http://www.infoq.com/cn/articles/react-and-webpack?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global
+http://www.wytiny.me/2015/09/29/Webpack-Gulp%E6%9E%84%E5%BB%BA%E5%BC%80%E5%8F%91%E7%BB%93%E6%9E%84/
+https://github.com/walmartreact
+https://facebook.github.io/react-native/showcase.html
+
+https://github.com/Tinysymphony/workflow-starter
+git clone https://github.com/Tinysymphony/workflow-starter
+cd workflow-starter
+#get the workflow-starter command
+read a < starter.sh && eval $a
+#find a place to locate your project
+mkdir yourApp && cd yourApp
+workflow-starter
+#about 120+M
+npm install -ddd
+#make sure you have installed Gulp globally
+npm install -g gulp -ddd
+#checkout available Gulp commands
+gulp help
+#get all the files
+gulp build
+#clean the files in build and prebuild
+gulp clean
+#ues a terminal to watch your src directory
+gulp watch
+#open anthor one to start your server, default is at 3000 port
+gulp server
+需要打包发布时，一定要gulp build，然后使用build文件夹的内容。
+实际的开发流程应该是：gulp webpack ---> gulp watch ---> gulp server ---> 开启PC端，移动端浏览器 ---> 编辑src文件夹内容 ---> 直接查看各个浏览器效果 ---> gulp build ---> 发布build文件夹内容
+
+https://github.com/kriasoft/react-starter-kit
+$ git clone -o react-starter-kit -b master --single-branch \
+      https://github.com/kriasoft/react-starter-kit.git MyApp
+$ cd MyApp
+$ npm install                   # Install Node.js components listed in ./package.json
+$ npm start                     # Compile and launch
+$ npm run build                 # or, `npm run build -- --release`
+$ npm start                     # or, `npm start -- --release`
+$ npm run deploy                # or, `npm run deploy -- --production`
+How to Update
+You can always fetch and merge recent changes from this repo back into your own project:
+$ git checkout master
+$ git fetch react-starter-kit
+$ git merge react-starter-kit/master
+$ npm install
+
