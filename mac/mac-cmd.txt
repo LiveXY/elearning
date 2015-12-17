@@ -10,6 +10,11 @@ source ~/.bashrc
 echo "$HISTSIZE $HISTFILESIZE"
 ```
 
+mac 模拟器
+cmd+左右箭头 切换横竖屏
+cmd+shift+h HOME键
+cmd+alt+鼠标 放大缩小
+
 隐藏/显示 OS X所有桌面图标的BASH命令
 defaults write com.apple.finder CreateDesktop false
 defaults write com.apple.finder CreateDesktop true
