@@ -35,3 +35,22 @@ btn_el.onclick = function(){
 	re_el.innerHTML = 'Waiting...';
 	get_status();
 }
+
+==========================================================
+function serialnum() { this.$n = 0;}
+serialnum.prototype.__defineSetter__("next", function(n){
+	this.$n = n;
+});
+serialnum.prototype.__defineGetter__("next", function(){
+	return this.$n;
+});
+function serialnum() {
+	var $n = 0;
+	this.__defineSetter__("next", function(n){
+		$n = n;
+	});
+	this.__defineGetter__("next", function(){
+		return $n;
+	});
+}
+==========================================================
