@@ -195,3 +195,56 @@ a:focus { outline:none; -moz-outline:none; }
 20. placeholder占位符颜色自定义
 input:-moz-placeholder { color: #369; }
 ::-webkit-input-placeholder { color:#369; }
+
+.grid aside.bottom {
+    bottom: 0;
+    text-align: left;
+    background: -moz-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(16,27,30,0)),color-stop(90%,rgba(12,2,2,1)));
+    background: -webkit-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: -o-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: -ms-linear-gradient(top,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    background: linear-gradient(to bottom,rgba(16,27,30,0) 0,rgba(12,2,2,1) 90%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00101b1e',endColorstr='#0c0202',GradientType=0);
+}
+.page-header {
+    color: #fff;
+    text-align: center;
+    background-color: #159957;
+    background-image: linear-gradient(120deg, #155799, #159957);
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3rem;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+-webkit-font-smoothing: antialiased;
+.grad_top {
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(rgba(255, 255, 255, 0)));
+    background: -moz-linear-gradient(top, #fff, rgba(255, 255, 255, 0));
+    background: -o-linear-gradient(top, #fff, rgba(255, 255, 255, 0));
+    background: linear-gradient(top, #fff, rgba(255, 255, 255, 0));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#00ffffff, GradientType=0);
+}
+.grad_bottom {
+    background:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0)), to(#fff));
+    background:-moz-linear-gradient(top, rgba(255, 255, 255, 0), #fff);
+    background:-o-linear-gradient(top, rgba(255, 255, 255, 0), #fff);
+    background: linear-gradient(top, rgba(255, 255, 255, 0), #fff);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffffff, endColorstr=#ffffff, GradientType=0);
+    bottom: 0;
+}
+pointer-events:none;
+background-image: linear-gradient(135deg, #f35 0%, #f93 100%);
+background: -webkit-linear-gradient(top,#f4f4f4 50%,#fff 50%);
+    background: -o-linear-gradient(top,#f4f4f4 50%,#fff 50%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f4f4f4,endColorstr=#ffffff,gradientType=0);
+background: -webkit-linear-gradient(left,#f4f4f4 50%,#fff 50%);
+    background: -o-linear-gradient(left,#f4f4f4 50%,#fff 50%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f4f4f4,endColorstr=#ffffff,gradientType=1);
