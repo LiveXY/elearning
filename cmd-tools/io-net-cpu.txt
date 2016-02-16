@@ -150,6 +150,162 @@ vmstat
 
 
 
+1.Top-Linux进程监控
+2. VmStat – 虚拟内存统计
+3.Lsof-列出打开的文件
+4.Tcpdump-网络包分析器
+5.Netstat/ss-网络状态统计
+6. Htop – Linux进程监控
+7.Iotop-监控Linux磁盘I/O
+8.Iostat-输入/输出统计
+9.IPTraf-实时局域网IP监控
+10. psacct 或者 acct - 监视用户活动
+11.Monit - Linux进程和服务监控工具
+12.NetHogs-监视每个进程使用的网络带宽
+13.iftop-监视网络带宽
+14 Monitorix-系统和网络监控
+15. Arpwatch – 以太网活动监视器
+16. Suricata – 网络安全监控
+17. VnStat PHP – 网络流量监控
+18. Nagios – 网络/服务器监控
+19. atop-Linux进程监控
+20. apachetop 会监控 apache 网络服务器的整体性能。它主要是基于 mytop。它会显示当前的读取进程、写入进程的数量以及请求进程的总数。
+21. ftptop 给你提供了当前所有连接到 ftp 服务器的基本信息，如会话总数，正在上传和下载的客户端数量以及客户端是谁。
+22. mytop 是一个很简洁的工具，用于监控 mysql 的线程和性能。它能让你实时查看数据库以及正在处理哪些查询。
+23. powertop 可以帮助你诊断与电量消耗和电源管理相关的问题。它也可以帮你进行电源管理设置，以实现对你服务器最有效的配置。你可以使用 tab 键切换选项卡。
+24. ntopng 是 ntop 的升级版，它提供了一个能通过浏览器进行网络监控的图形用户界面。它还有其他用途，如：地理定位主机，显示网络流量和 ip 流量分布并能进行分析。
+25. jnettop 以相同的方式来监测网络流量但比 iftop 更形象。它还支持自定义的文本输出，并能以友好的交互方式来深度分析日志。
+26. BandwidthD 可以跟踪 TCP/IP 网络子网的使用情况，并能在浏览器中通过 png 图片形象化地构建一个 HTML 页面。它有一个数据库系统，支持搜索、过滤，多传感器和自定义报表。
+27. EtherApe 以图形化显示网络流量，可以支持更多的节点。它可以捕获实时流量信息，也可以从 tcpdump 进行读取。也可以使用 pcap 格式的网络过滤器来显示特定信息。
+28. ethtool 用于显示和修改网络接口控制器的一些参数。它也可以用来诊断以太网设备，并获得更多的统计数据。
+29. ngrep 就是网络层的 grep。它使用 pcap ，允许通过指定扩展正则表达式或十六进制表达式来匹配数据包。
+30. MRTG 最初被开发来监控路由器的流量，但现在它也能够监控网络相关的东西。它每五分钟收集一次，然后产生一个 HTML 页面。它还具有发送邮件报警的能力。
+31. bmon 能监控并帮助你调试网络。它能捕获网络相关的统计数据，并以友好的方式进行展示。你还可以与 bmon 通过脚本进行交互。
+32. traceroute 是一个内置工具，能显示路由和测量数据包在网络中的延迟。
+33. IPTState 可以让你观察流量是如何通过 iptables，并通过你指定的条件来进行排序。该工具还允许你从 iptables 的表中删除状态信息。
+34. darkstat 能捕获网络流量并计算使用情况的统计数据。该报告保存在一个简单的 HTTP 服务器中，它为你提供了一个非常棒的图形用户界面。
+35. Nmap 可以扫描你服务器开放的端口并且可以检测正在使用哪个操作系统。但你也可以将其用于 SQL 注入漏洞、网络发现和渗透测试相关的其他用途。
+36. MTR 将 traceroute 和 ping 的功能结合到了一个网络诊断工具上。当使用该工具时，它会限制单个数据包的跳数，然后监视它们的到期时到达的位置。然后每秒进行重复。
+37. Tcpdump 将按照你在命令行中指定的表达式输出匹配捕获到的数据包的信息。你还可以将此数据保存并进一步分析。
+38. Justniffer 是 tcp 数据包嗅探器。使用此嗅探器你可以选择收集低级别的数据还是高级别的数据。它也可以让你以自定义方式生成日志。比如模仿 Apache 的访问日志。
+39. nmon 将数据输出到屏幕上的，或将其保存在一个以逗号分隔的文件中。你可以查看 CPU，内存，网络，文件系统，前列 进程。数据也可以被添加到 RRD 数据库中用于进一步分析。
+40.Conky 能监视很多的操作系统数据。它支持 IMAP 和 POP3， 甚至许多流行的音乐播放器！出于方便不同的人，你可以使用自己的 Lua 脚本或程序来进行扩展。
+41.使用 Glances 监控你的系统，其旨在使用最小的空间为你呈现最多的信息。它可以在客户端/服务器端模式下运行，也有远程监控的能力。它也有一个 Web 界面。
+42.Saidar 是一个非常小的工具，为你提供有关系统资源的基础信息。它将系统资源在全屏进行显示。重点是 saidar 会尽可能的简化。
+43.RRDtool 是用来处理 RRD 数据库的工具。RRDtool 旨在处理时间序列数据，如 CPU 负载，温度等。该工具提供了一种方法来提取 RRD 数据并以图形界面显示。
+44.如果出现故障时，monit 有发送警报以及重新启动服务的功能。它可以对各种数据进行检查，你可以为 monit 写一个脚本，它有一个 Web 用户界面来分担你眼睛的压力。
+45.df 是 disk free 的缩写，它是所有 UNIX 系统预装的程序，用来显示用户有访问权限的文件系统的可用磁盘空间。
+46.discus 类似于 df，它的目的是通过使用更吸引人的特性，如颜色，图形和数字来对 df 进行改进。
+47.xosview 是一款经典的系统监控工具，它给你提供包括 IRQ 在内的各个不同部分的简单总览。
+48.dstat 旨在替代 vmstat，iostat，netstat 和 ifstat。它可以让你查实时查看所有的系统资源。这些数据可以导出为 CSV。最重要的是 dstat 允许使用插件，因此其可以扩展到更多领域。
+49.incron 允许你监控一个目录树，然后对这些变化采取措施。如果你想在目录‘a’中出现新文件时，将其复制到目录‘b’，这正是 incron 能做的。
+50.Monitorix 是轻量级的系统监控工具。它可以帮助你监控单独一台机器，并为你提供丰富的指标。它也有一个内置的 HTTP 服务器，来查看图表和所有指标的报告。
+51.mpstat 是一个内置的工具，能监视 cpu 的使用情况。最常见的使用方法是 mpstat -P ALL，它给你提供 cpu 的使用情况。你也可以间歇性地更新 cpu 的使用情况。
+52.pmap 是一个内置的工具，报告一个进程的内存映射。你可以使用这个命令来找出导致内存瓶颈的原因。
+53.sar 是 sysstat 包的一部分，可以帮助你收集、报告和保存不同系统的指标。使用不同的参数，它会给你提供 CPU、 内存和 I/O 使用情况及其他东西。
+54.类似于 sar，collectl 收集你机器的性能指标。默认情况下，显示 cpu、网络和磁盘统计数据，但它实际收集了很多信息。与 sar 不同的是，collectl 能够处理比秒更小的单位，它可以被直接送入绘图工具并且 collectl 的监控过程更广泛。
+55.iostat 也是 sysstat 包的一部分。此命令用于监控系统的输入/输出。其报告可以用来进行系统调优，以更好地调节你机器上硬盘的输入/输出负载。
+https://linux.cn/article-6987-1.html?utm_source=weixin#rd&sukey=014c68f407f2d3e19492b28fefc32115a484ced24b2d9cd4f59144eb13ab6cd2a8c2acdd2284a5b43c2495ec5fe9daa0
+
+运维精简工具箱
+Bootstrapping： 
+
+Kickstart、Cobbler、rpmbuild/xen、kvm、lxc、
+Openstack、 Cloudstack、Opennebula、Eucalyplus、RHEV
+配置类工具: 
+
+Capistrano、Chef、puppet、func、salstack、Ansible、
+rundeck、CFengine、Rudder
+自动化构建和测试: 
+
+Ant、Maven、Selenium、PyUnit、QUnit、JMeter、Gradle、
+PHPUnit
+监控类工具: 
+
+Cacti、Nagios(Icinga)、Zabbix、基于时间监控前端Grafana、
+Mtop、MRTG(网络流量监控图形工具)、Monit 、
+Diamond+Graphite+Grafana
+微服务平台: 
+
+OpenShift、Cloud Foundry、Kubernetes、Mesosphere
+性能监控工具: 
+
+dstat(多类型资源统计)、atop(htop/top)、
+nmon(类Unix系统性能监控)、slabtop(内核slab缓存信息)、
+sar(性能监控和瓶颈检查)、sysdig(系统进程高级视图)、
+tcpdump(网络抓包)、iftop(类似top的网络连接工具)、
+iperf(网络性能工具)、smem)(高级内存报表工具)、
+collectl(性能监控工具)、TCP优化监控工具tcpdive
+免费APM工具:  
+
+mmtrix(见过的最全面的分析工具)、alibench、
+JAVA性能监控pinpoint
+进程监控:  
+
+mmonit、Supervisor、frigga、 
+StrongLoop Process Manager
+日志系统:  
+
+Logstash、Scribe
+绘图工具:  
+
+RRDtool、Gnuplot
+流控系统:  
+
+Panabit、在线数据包分析工具Pcap Analyzer
+安全检查:  
+
+chrootkit、rkhunter
+PaaS：   
+
+Cloudify、Cloudfoundry、Openshift、
+Deis （Docker、CoreOS、Atomic、ubuntu core/Snappy、
+RancherOS）
+Troubleshooting:
+
+Sysdig 、Systemtap、Perf
+服务发现：   
+
+SmartStack、etcd
+持续集成:  
+
+Go、Jenkins、Gitlab、facebook代码审查工具phabricator、
+spinnaker
+APP CD:  
+
+fastlane
+磁盘压测:  
+
+fio、iozone、IOMeter(win)
+Memcache  
+
+Mcrouter(scaling memcached)
+Redis  
+
+Dynomite、Twemproxy、codis/SSDB/Aerospike、
+Redis Cluster
+MySQL 监控: 
+
+mytop、orzdba、Percona-toolkit、Maatkit、innotop、
+myawr、SQL级监控mysqlpcap、拓扑可视化工具
+MySQL基准测试: 
+
+mysqlsla、sql-bench、Super Smack、
+Percona's TPCC-MYSQL Tool、sysbench
+MySQL Proxy: 
+
+SOHU-DBProxy、Mycat、Altas、cobar、58同城Oceanus、
+kingshard
+MySQL逻辑备份工具: 
+
+mysqldump、mysqlhotcopy、mydumper、MySQLDumper 、
+mk-parallel-dump/mk-parallel-restore
+MySQL物理备份工具: 
+
+Xtrabackup、LVM Snapshot
+MongoDB压测: 
+
+iibench&sysbench
 
 
 

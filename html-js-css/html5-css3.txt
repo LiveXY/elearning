@@ -10,3 +10,24 @@ html,body{-webkit-touch-callout: none;}
 
 Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' http://www.baidu.com
 现在html5出了个 Contnt-Security-Policy特性，只要在response里加上该header，任何外来域名的资源（css、image、js）等都被屏蔽掉
+
+.section:after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    top: 100%;
+    left: 0;
+    border-right: 100vw solid currentColor;
+    border-bottom: 4vw solid transparent;
+    border-top: 0;
+    z-index: 1;
+}
+http://kushagragour.in/lab/hint/
+
+对于网站字体设置，本文给出以下意见：
+移动端项目：
+font-family:Tahoma,Arial,Roboto,”Droid Sans”,”Helvetica Neue”,”Droid Sans Fallback”,”Heiti SC”,sans-self;
+pc端(含Mac)项目：
+font-family:Tahoma,Arial,”Helvetica Neue“,”Hiragino Sans GB”,Simsun,sans-self;
+移动和pc端项目：
+font-family:Tahoma,Arial,Roboto,”Droid Sans”,”Helvetica Neue”,”Droid Sans Fallback”,”Heiti SC”,”Hiragino Sans GB”,Simsun,sans-self;

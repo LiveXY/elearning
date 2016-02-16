@@ -70,6 +70,32 @@ cat /proc/cpuinfo |grep 'cores'|uniq
 find /home/aa ! -regex "^/home/aa/bb.*"   -type f -name "*.log*" >>a.txt
 find ./ -type f | xargs du -sh 当前目录下的所有文件包含hide文件ls -a
 
+‘who -r’ 和 ‘runlevel’ 命令可以用来查看当前的Linux服务器的运行级别。
+用 “route -n” 和 “netstat -nr” 命令，我们可以查看默认网关。除了默认的网关信息，这两个命令还可以显示当前的路由表。
+在CentOS 5.X / RHEL 5.X中，可以用mkinitrd命令来创建初始化内存盘文件，举例如下：
+# mkinitrd -f -v /boot/initrd-$(uname -r).img $(uname -r)
+如果你想要给特定的内核版本创建初始化内存盘，你就用所需的内核名替换掉 ‘uname -r’ 。
+在CentOS 6.X / RHEL 6.X中，则用dracut命令来创建初始化内存盘文件，举例如下：
+# dracut -f
+以上命令能给当前的系统版本创建初始化内存盘，给特定的内核版本重建初始化内存盘文件则使用以下命令：
+# dracut -f initramfs-2.x.xx-xx.el6.x86_64.img 2.x.xx-xx.el6.x86_64
+
+patch命令就是用来将修改（或补丁）写进文本文件里。patch命令通常是接收diff的输出并把文件的旧版本转换为新版本。举个例子，Linux内核源代码由百万行代码文件构成，所以无论何时，任何代码贡献者贡献出代码，只需发送改动的部分而不是整个源代码，然后接收者用patch命令将改动写进原始的源代码里。
+
+创建一个diff文件给patch使用，
+# diff -Naur old_file new_file > diff_file
+旧文件和新文件要么都是单个的文件要么都是包含文件的目录，-r参数支持目录树递归。
+一旦diff文件创建好，我们就能在旧的文件上打上补丁，把它变成新文件：
+# patch < diff_file
+
+我们可以用dig命令来查看域SPF记录。举例如下：dig -t TXT google.com
+rpm -qf /etc/fstab 以上命令能列出提供“/etc/fstab”这个文件的包。
+cat /proc/net/bonding/bond0 来查看bond0的状态
+find /usr -size +10M /usr目录下找出大小超过10MB的文件
+find /home -mtime +120 /home目录下找出120天之前被修改过的文件
+find /var \! -atime -90 /var目录下找出90天之内未被访问过的文件
+find / -name core -exec rm {} \; 整个目录树下查找文件“core”，如发现则无需提示直接删除它们
+
  
 cp/mv/rm/rmdir/mkdir/rm -rf删除不提示
 

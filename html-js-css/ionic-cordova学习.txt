@@ -13,6 +13,8 @@ sudo npm update -g cordova -d
 
 sudo ionic platform update android
 sudo ionic platform update ios
+
+ionic browser add crosswalk
 ====================================================
 ionic-----------------------------------------------------------------------
 sudo npm install -g ionic cordova

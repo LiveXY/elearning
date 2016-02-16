@@ -1,0 +1,40 @@
+curl -sS https://getcomposer.org/installer | php
+php ~/composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
+php ~/composer.phar create-project yiisoft/yii2-app-basic basic 2.0.6
+php ~/composer.phar create-project yiisoft/yii2-app-basic basic 2.0.6
+php ~/composer.phar create-project yiisoft/yii2-app-advanced advanced 2.0.6
+
+php ~/composer.phar self-update
+
+http://easyiicms.com/docs/install
+php ~/composer.phar create-project noumo/easyii-shop shop dev-master
+php ~/composer.phar create-project noumo/easyii-start start dev-master
+
+http://www.golaravel.com/laravel/docs/5.1/installation/
+http://laravel-china.org/docs/5.1/installation
+php ~/composer.phar global require "laravel/installer=~1.1"
+php ~/composer.phar create-project laravel/laravel laravel --prefer-dist
+laravel new blog
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+port install php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcache php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+
+port select php php55
+port select php php70
+port select --list php
+
+sudo port install php70
+sudo port install php70-cgi php70-gd php70-curl php70-intl php70-iconv php70-gettext php70-mbstring php70-imap php70-mcrypt php70-xmlrpc php70-mysql php70-openssl php70-sockets php70-zip php70-tidy php70-opcache php70-xsl php70-sqlite
+
+
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
+brew unlink php56
+brew install php70
+
+brew update
+brew install homebrew/php/php70
+export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"

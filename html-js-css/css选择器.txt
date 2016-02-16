@@ -1,0 +1,416 @@
+一、基本选择器
+
+ 1. 通配选择器 「*」
+
+*{margin: 0;padding: 0} //选择页面中的所有元素并设置margin和padding值为0
+ .demo *{background:#000} //选择类名为demo的元素下面的所有元素并设置背景为黑色
+
+
+2.元素选择器 「Element」
+
+body{background:#ccc} //选择body元素
+ ul{background:#fff} //选择列表ul元素
+
+3.ID选择器 「#id」
+
+html:
+ <div id="demo"></div>
+ css:
+ #demo{do something}
+
+4.类选择器 「.class」
+
+html:
+  <ul class="demo"></ul>
+  css:
+  .demo{do something}
+  ul.demo{do something} //这样只会选择有demo类名的ul元素
+
+5.群组选择器 「selector1，…，selectorN」
+
+html:
+<div class="section-1"></div>
+<div class="section-2"></div>
+<div class="section-3"></div>
+ccss:
+.section-1,.section-2,.section-3{do something} //给三个页面元素定义公用的样式
+
+二、层次选择器
+
+6.后代选择器「E F」
+
+选择匹配E的元素内的所有匹配F的元素。
+
+html：
+<div class="parent">
+        <div class="child"></div>
+        <div class="child">
+             <div class="c-child">
+                  <div class="c-c-child"></div>
+            </div>
+        </div>
+</div>
+
+css:
+
+.parent div{do something} //会选择parent里面的所有div，不管是子元素.child还是孙元素.c-child和.c-c-child
+
+7.子选择器「E > F」
+
+选择配配E的元素的匹配F的直系子元素。
+
+html：
+  <div class="parent">
+          <div class="child"></div>
+          <div class="child">
+               <div class="c-child">
+                    <div class="c-c-child"></div>
+              </div>
+          </div>
+  </div>
+
+ css:
+ .parent > div{do something} //只会选择.parent元素的直系子元素，也就是只会选择到 .child元素
+
+8.相邻兄弟元素选择器「E + F」
+
+E和F是同辈元素，具有相同的父元素，并且F元素紧邻在E元素的后面，此时可以使用相邻兄弟选择器。
+
+html:
+<div>
+    <div class="demo">1</div>
+    <div>2</div>
+    <div>3</div>
+</div>
+
+css:
+
+.demo + div {do something}//会选中内容为2的div
+
+9.通用兄弟选择器「E ~ F」
+
+E和F是同辈元素，具有相同的父元素，并且F元素在E元素之后，E ~ F将选中E元素后面的所有F元素。
+
+html:
+  <div>
+      <div class="demo">1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+  </div>
+
+  css:
+
+ .demo ~ div {do something}//会选中内容为2,3,4的div
+
+三、伪类选择器
+
+10.动态伪类选择器「E:link,E:visited,E:active,E:hover,E:focus」
+
+E:link{do something} //选择定义了超链接但链接还未被访问过的元素
+ E:visited{do something} //选择定义了超链接并且链接已经被访问过的元素
+ E:active{do something} //选择匹配的E元素，且元素被激活，常用在锚点和按钮上
+ E:hover{do something} //选择鼠标停留的匹配的E元素
+ E:focus{do something} //选择匹配的E元素，且元素获得焦点
+
+11.目标伪类选择器「E:target」
+
+选择匹配E的所有元素，且匹配元素被相关URL指向。
+
+通俗点说，页面的url如果带有#something这样的字样(https://rawgit.com/zhangmengxue/Practice/master/demo.html#section-1)那么:target就是用来匹配页面中id为#something(section-1)的元素的。
+
+12.语言伪类选择器「E:lang(language)」
+
+用来选择指定了lang属性的元素，其值为language。
+
+html:
+ <html lang="en-US"></html>
+
+ css:
+ :lang(en-US) {do something}
+
+13.状态伪类选择器「E:checked,E:enabled,E:disabled」
+
+E:checked{do something} //匹配表单中被选中的单选按钮或复选按钮
+ E:enabled{do something} //匹配所有起用的表单元素
+ E:disabled{do something} //匹配所有禁用的表单元素
+
+14.结构伪类选择器「E:first-child,E:last-child,E:root,E:nth-child(n),E:nth-last-child(n),E:nth-of-type(n),E:nth-last-of-type(n),E:first-of-type,E:last-of-type,E:only-child,E:only-of-type,E:empty」
+
+14.1 [E:first-child]
+
+用来选取特定元素的第一个子元素。
+
+html:
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+css:
+
+ul > li:first-child {do something} //用来选取ul中的第一个li元素
+
+14.2 [E:last-child]
+
+用来选取特定元素的最后一个子元素。
+
+html:
+  <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+  </ul>
+  css:
+  ul > li:last-child {do something} //用来选取ul中的最后一个li元素
+
+14.3 [E:nth-child()],[E:nth-last-child()]
+
+用来选取某个父元素的一个或多个特定的子元素，其中的n可以是数值(从1开始)，也可以是包含n的表达式，也可以是odd(奇数)，even(偶数)。
+
+E:nth-last-child()选择器的使用方法于E:nth-child()是相同的，不同的是E:nth-last-child()选择的元素是从父元素的最后一个子元素开始算起。
+
+html:
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+  css:
+   ul > li:nth-child(2n+1) {do something} //用来选取ul中的第2n+1(奇数)个li元素
+
+14.4  [E:root]
+
+用来匹配元素E所在的文档中的根元素，在html文档中根元素就始终是html。
+
+14.5 [E:nth-of-type(),E:nth-last-of-type()]
+
+E:nth-of-type()只计算父元素中指定的某种类型的子元素，当某个元素的子元素类型不只是一种时，使用nth-of-type来选择会比较有用。
+
+E:nth-last-of-type()的用法同E:nth-of-type()相同，不同的是:nth-last-of-type()也是从父元素的最后一个子元素开始算起。
+
+li:nth-of-type(3)的话就会标识它只会选择第三个li元素，别的元素会忽略掉，如：
+
+html:
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <div>3</div>
+    <div>4</div>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+</ul>
+
+ul > li:nth-of-type(3){do something} //会选中内容为5的li元素
+
+但是使用nth-child就会是这样：
+
+html:
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <div>3</div>
+    <div>4</div>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+</ul>
+
+ul > li:nth-child(3){do something} //会选中内容为3的div元素
+
+14.6 [E:first-of-type,E:last-of-type]
+
+:first-of-type和:last-of-type这两个选择器类似于:first-child和:last-child，不同的就是指定了元素的类型。
+
+html:
+  <ul>
+      <div>1</div>
+      <div>2</div>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+ </ul>
+ CSS：
+ ul > li:first-of-type{do something} //会选中内容为3的li元素
+
+14.7 [E:only-child]
+
+匹配的元素E是其父元素的唯一子元素，也就是说匹配元素的父元素只有一个子元素。
+
+html:
+<div class="demo">
+   <p>1-1</p>
+   <p>1-2</p>
+</div>
+<div class="demo">
+   <p>2-1</p>
+</div>
+
+css:
+.demo > p:only-child{do something}//会选取到内容为2-1的p元素
+
+14.8 [E:only-of-type]
+
+:only-of-type用来选择一个元素，他的类型在他父元素的所有子元素中是唯一的。也就是说，一个父元素有很多子元素，而其中只有一个子元素的类型是唯一的，那么就可以使用:only-of-type来选取这个元素。
+
+14.9 [E:empty]
+
+:empty用来选择没有任何内容的元素，哪怕是一个空格都没有的元素。
+
+15 否定伪类选择器「E:not(F)」
+
+可以用来选取所有除了F外的所有元素。
+
+ input:not([type=submit]){do something} //可以用来给表单的所有input元素定义样式，除了submit按钮之外
+
+四、伪元素
+
+以前我们使用的伪元素是:first-letter,:first-line,:before,:after,这样的。但css3定义的伪元素变成了双冒号，主要用来区分伪类和伪元素。对于IE6-8,仅支持单冒号表示方法，但是其他现代浏览器两种表示方法是都可以的，也就是说在现代浏览器中伪元素使用双冒号和单冒号都是会识别的。
+
+16. 「::first-letter」
+
+::first-letter用来选择文本块的第一个字母,常用于文本排版方面。
+
+html：
+ <div>
+     <p>this is test line.....</p>
+ </div>
+
+css:
+
+div p::first-letter{do something} //将会选中<p>中的第一个字母t
+
+17. 「::first-line」
+
+::first-line用于匹配元素的第一行文本，也是常用于文本排版。
+
+html：
+  <div>
+      <p>
+         this is first line..........省略.......
+         this is the second line ...省略....
+     </p>
+  </div>
+
+ css:
+
+ div p::first-line{do something} //将会选中<p>中的第一行文字
+
+18. 「::before,::after」
+
+::before,::after同我们之前熟用的:before和:after使用方法相同，它们不是指存于标记中的内容，是配合使用content属性可以插入额外内容的位置，尽管生成的内容不会成为DOM的一部分，但它同样可以设置样式。
+
+19. 「::selection」
+
+css3新定义的伪元素::selection用来匹配突出显示的文本。但是使用前需要确认浏览器对它的支持程度。
+
+浏览器默认的情况下，我们选中的文本背景是蓝色，字体是白色。通过使用::selection，我们可以改变它的效果。
+
+ ::selection{background:#ccc;color:red} //这样改写后我们选中的文本背景颜色和文字颜色就可以自定义了
+
+但是需要注意的是，::selection仅接受两个属性，一个是background，一个是color。
+
+五、属性选择器
+
+在html中，通过给元素添加属性，给以给元素添加一些附加的信息，属性选择器就可以通过定位属性来选取特定的元素。
+
+20. 「 E[attr] 」
+
+用来选择有某个属性的元素，不论这个属性的值是什么。
+
+html:
+<div id="demo">
+  <a href="" id="test"></a>
+  <a href="www.taobao.com" class="taobao"></a>
+  <a href="#"  id="show">
+</div>
+css:
+a[id]{do something} //将会选择具有id属性的a标签
+
+21. 「 E[attr=val] 」
+
+用来选取具有属性attr并且属性值为val的元素。
+
+html:
+ <div id="demo">
+   <a href="" id="test" title="test"></a>
+   <a href="www.taobao.com" class="taobao"></a>
+   <a href="#"  id="show" title="test">
+</div>
+ css:
+ a[id=test][title]{do something} //将会选择具有id属性值为test且具有title属性的a标签
+
+22. 「 E[attr|=val] 」
+
+E[attr|=val]用来选择具有属性attr且属性的值为val或以val-开头的元素(其中-是不可或缺的)。
+
+html:
+  <div id="demo">
+    <a href="" id="test" title="test" lang="zh"></a>
+    <a href="www.taobao.com" class="taobao" lang="zh-cn"></a>
+    <a href="#"  id="show" title="test">
+ </div>
+ css:
+  a[lang|=zh]{do something} //将会选择具有lang属性值为zh或属性值以zh开头的a标签
+
+23. 「 E[attr~=val] 」
+
+当某个元素的某个属性具有多个用空格隔开的属性值，此时使用E[attr~=val]只要attr属性多个属性值中有一个于val匹配元素就会被选中。
+
+html:
+  <div id="demo">
+    <a href="" id="test" title="test first"></a>
+    <a href="www.taobao.com" class="taobao web" title="second test"></a>
+    <a href="#"  id="show" title="test">
+ </div>
+  css:
+  a[title~=test]{do something} //将会选择具有title属性且其中一个属性值为test的a标签
+
+24. 「 E[attr*=val] 」
+
+这个属性选择器使用了通配符，用来选择具有属性attr并且只要属性值中包含val字符串的元素。也就是说只要所选属性中有val字符串，不管是不是多个用空格分隔的属性值，都将被选中。
+
+html:
+    <div id="demo">
+      <a href="" id="test" title="test first"></a>
+      <a href="www.taobao.com" class="taobao web" title="secondtest"></a>
+      <a href="#"  id="show" title="testlink">
+   </div>
+  css:
+    a[title*=test]{do something} //将会选择具有title属性且其属性值包含test字符串的a标签
+
+25. 「 E[attr^=val] 」
+
+用来选择属性attr的属性值是以val开头的所有元素，注意它与E[attr|=val]的区别，attr|=val中-是必不可少的，也就是说以val-开头。
+
+html:
+     <div id="demo">
+       <a href="http://zhangmengxue.com" id="test" title="test first"></a>
+       <a href="www.taobao.com" class="taobao web" title="secondtest"></a>
+       <a href="#"  id="show" title="testlink">
+    </div>
+  css:
+     a[href^=http]{do something} //将会选择href属性以http开头的a标签
+
+26. 「 E[attr$=val] 」
+
+这个选择器刚好跟E[attr^=val]相反，用来选择具有attr属性且属性值以val结尾的元素。
+
+html:
+     <div id="demo">
+        <a href="http://zhangmengxue.com/header.png" id="test" title="test first"></a>
+        <a href="www.taobao.com/title.jpg" class="taobao web" title="secondtest"></a>
+        <a href="#"  id="show" title="testlink">
+     </div>
+ css:
+      a[href$=png]{do something} //将会选择href属性以png结尾的a标签
