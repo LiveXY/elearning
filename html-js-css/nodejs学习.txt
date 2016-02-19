@@ -254,6 +254,13 @@ https://github.com/yangjiePro/tppl
 
 https://github.com/jysperm/china-id-card-validator
 
+==========================================================
+pm2 start app.js -i 4
+-i <number of workers>参数用来告诉PM2以cluster_mode的形式运行你的app（对应的叫fork_mode），后面的数字表示要启动的工作线程的数量。如果给定的数字为0，PM2则会根据你CPU核心的数量来生成对应的工作线程。
+pm2 scale app +3
+实时扩展集群
+　　任何时候，如果你需要增加工作线程的数量，可以通过pm2 scale <app name> <n>来对集群进行扩展。参数<n>指定工作线程的数量，被用来增加或减少集群数。你也可以通过pm2 scale app +3的方式来指定要增加多少工作线程。
+
 
 
 

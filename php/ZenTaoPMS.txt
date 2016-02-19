@@ -1,0 +1,4 @@
+wget http://dl.cnezsoft.com/zentao/8.0.1/zentaopms-8.0.1-1.noarch.rpm
+yum localinstall zentaopms-8.0.1-1.noarch.rpm
+
+wget http://dl.cnezsoft.com/zentao/8.0.1/ZenTaoPMS.8.0.1.zbox_64.tar.gz
