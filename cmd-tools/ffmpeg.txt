@@ -2,3 +2,66 @@
 ffmpeg -i in.mov -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > out.gif
 
 
+Linux下使用FFmpeg进行屏幕录制相对比较方便，可以使用x11grab，使用如下的命令：
+ffmpeg -f x11grab -s 1600x900 -r 50 -vcodec libx264 –preset:v ultrafast –tune:v zerolatency -crf 18 -f mpegts udp://localhost:1234
+详细时使用方式可以参考这篇文章：DesktopStreaming With FFmpeg for Lower Latency
+http://www.waitwut.info/blog/2013/06/09/desktop-streaming-with-ffmpeg-for-lower-latency/
+
+window 下
+Windows下屏幕录制的设备：gdigrab。
+gdigrab是基于GDI的抓屏设备，可以用于抓取屏幕的特定区域。在这里记录一下gdigrab的用法。
+gdigrab通过设定不同的输入URL，支持两种方式的屏幕抓取：
+（1）“desktop”：抓取整张桌面。或者抓取桌面中的一个特定的区域。
+（2）“title={窗口名称}”：抓取屏幕中特定的一个窗口。
+下面举几个例子。
+最简单的抓屏：
+
+ffmpeg -f gdigrab -i desktop out.mpg
+从屏幕的（10,20）点处开始，抓取640x480的屏幕，设定帧率为5
+ffmpeg -f gdigrab -framerate 5 -offset_x 10 -offset_y 20 -video_size 640x480 -i desktop out.mpg
+
+这样的确很简单..
+ffmpeg 屏幕录制 so easy....
+
+
+http://www.oschina.net/p/paint.net
+http://www.oschina.net/p/screentogif
+http://www.oschina.net/p/greenshot
+http://www.oschina.net/p/zscreen
+http://www.cnblogs.com/zhuweisky/p/3593917.html
+http://www.jb51.net/article/37082.htm
+http://blog.csdn.net/xiehuan_uestc/article/details/7034516
+http://bbs.csdn.net/topics/391821439
+http://bbs.csdn.net/topics/300112687
+http://www.cnblogs.com/stg609/archive/2008/03/19/1113694.html
+https://msdn.microsoft.com/en-us/library/h34kh0x2(v=vs.110).aspx
+http://www.cnblogs.com/yufun/archive/2009/01/20/1378812.html
+
+http://blog.csdn.net/crystal_lz/article/details/8274277
+http://download.csdn.net/download/crystal_lz/4889763
+http://download.csdn.net/detail/crystal_lz/4863320
+
+
+private void panel1_MouseDown(object sender, MouseEventArgs e) {
+    using (Graphics g = this.panel1.CreateGraphics()) {
+        Pen pen = new Pen(Color.Black, 2);
+        Brush brush = new SolidBrush(this.panel1.BackColor);
+
+        g.FillRectangle(brush, this.panel1.Bounds);  // redraws background
+        g.DrawRectangle(pen, e.X, e.Y, 20, 20);
+
+        pen.Dispose();
+        brush.Dispose();
+    }
+}
+
+private void panel1_Click(object sender, EventArgs e) {
+    using (Graphics g = this.panel1.CreateGraphics()) {
+        Pen pen = new Pen(Color.Black, 2);
+        Brush brush = new SolidBrush(this.panel1.BackgroundColor);
+
+        g.DrawRectangle(pen, 100,100, 100, 200);
+
+        pen.Dispose();
+    }
+}

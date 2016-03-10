@@ -16,6 +16,12 @@ sudo ionic platform update ios
 
 ionic browser add crosswalk
 ====================================================
+sudo npm install -g ionic cordova -d
+sudo cnpm install -g ionic to update -ddd
+sudo npm install -g ionic -d
+
+sudo cnpm install -g ionic@beta
+
 ionic-----------------------------------------------------------------------
 sudo npm install -g ionic cordova
 sudo ionic start -a HappiplayMobile -i com.happiplay.mobile HappiplayMobile blank
