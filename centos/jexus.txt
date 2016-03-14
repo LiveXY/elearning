@@ -1,0 +1,41 @@
+nginx+mono
+
+server {
+	server_name profarius.com;
+	root /var/www/webapp;
+	index index.html index.htm index.aspx default.aspx;
+	location / {
+		try_files $uri $uri/ /index.aspx;
+	}
+	location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+		expires max;
+		log_not_found off;
+	}
+	location ~ \.(aspx|asmx|ashx|asax|ascx|soap|rem|axd|cs|config|dll)$ {
+		fastcgi_pass   127.0.0.1:9000;
+		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+		include        fastcgi_params;
+	}
+}
+fastcgi-mono-server4 /applications=/:/home/mono/ /socket=tcp:127.0.0.1:9000
+
+fastcgi-mono-server4 /applications=www.domain1.xyz:/:/var/www/www.domain1.xyz/ /socket=tcp:127.0.0.1:9000
+fastcgi-mono-server4 /applications=/:/var/www/www.domain1.xyz/ /socket=tcp:127.0.0.1:9000
+fastcgi-mono-server2 /applications=/:/data0/web /socket=tcp:127.0.0.1:9000 &
+fastcgi-mono-server4 /applications=/:/usr/local/nginx/html/end/MvcTest/ /socket=tcp:127.0.0.1:9900 /printlog=True
+nohup fastcgi-mono-server4 /applications=/:/usr/local/nginx/html/end/MvcTest/ /socket=tcp:127.0.0.1:9900 /printlog=True &
+
+http://www.cnblogs.com/wander1129/archive/2011/12/16/mono.html
+http://www.cnblogs.com/bboy/archive/2012/10/08/2714626.html
+https://www.nginx.com/resources/wiki/start/topics/examples/mono/
+
+
+jexus
+wget http://www.linuxdot.net/down/jexus-5.4.3.tar.gz
+tar -zvxf jexus-5.4.tar.gz
+cd jexus-5.4
+sudo ./install
+
+cd /usr/jexus
+sudo ./jws start
+

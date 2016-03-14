@@ -174,6 +174,13 @@ brew install irssi
 irssi
 /SERVER irc.freenode.org
 /JOIN #megaglest
+====================================================
+#把当前用户图片文件夹下的所有JPG图片宽度缩小为800px，高度按比例缩放
+sips -Z 800 ~/Pictures/*.JPG
+#顺时针旋转90˚
+sips -r 90 ~/Pictures/*.JPG
+#垂直反转
+sips -f vertical ~/Pictures/*.JPG
 
 
 
