@@ -26,6 +26,7 @@ BEGIN
 	set @oldTable := concat(sdb, '.', stable);
 
 	call crontab_exec(concat('create table if not exists ', @newTable, ' like ', @oldTable, ';'));
+	-- call crontab_exec(concat('alter table ', @newTable, ' engine=MyISAM;'));
 	call crontab_exec(concat('insert into ', @newTable, ' select * from ', @oldTable, ' where ', swhere, ';'));
 	set @backup_count := row_count();
 

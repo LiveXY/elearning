@@ -40,7 +40,7 @@ unlock tables;
 * `create table tb3 (id int(10) primary key, name varchar(20));` 建表
 * `create table tb3 (id int(10) not null auto_increment, name varchar(20) not null default '' comment '', primary key (id), name2 varchar(20) default null comment '', primary key (id)) engine=InnoDB auto_increment=1 default charset=utf8 comment='';` 建表
 * `set sql_safe_updates=0;` 安全更新
-* `update game as a inner join server as b on a.gid=b.gid set a.gname=b.sname;` 更新
+* `update game as a inner join server as b on a.gid=b.gid set a.gname=b.sname;` 更新 或 `update game as a inner join server b using(gid) set a.gname=b.sname;`
 * `delete b from tablename1 as b inner join tablename1 as a on b.uid=a.uid;` 删除
 * `drop table if exists tablename;` 或 `drop temporary table tablename;` 删除表
 * `truncate db.tablename;` 清空表数据
