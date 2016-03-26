@@ -1,0 +1,92 @@
+mac command
+
+#商店安装：Go2Shell/Google Chrome/New File Free/PDF Reader X/QQ/QQ音乐/RAR Extractor Free/Thunder/Xcode/Dr. Cleaner/MPlayerX/Color Picker/iHex/Base64Anywhere/App2Dmg/微信/
+#下载安装：sublime3/SSH Proxy/MacPorts/nodejs/office/sequel/mysql-workbench/sourcetree/SQLite Professional/Unity/
+
+##设置存历史命令纪录数
+```sh
+vi ~/.bashrc
+HISTSIZE=50000
+HISTFILESIZE=500000
+source ~/.bashrc
+echo "$HISTSIZE $HISTFILESIZE"
+```
+
+vi ~/.bash_profile
+```
+# nginx
+alias nginx_start='sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias nginx_stop='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias nginx_restart='nginx_stop; nginx_start;'
+
+#php-fpm
+alias fpm_start='sudo launchctl load -w /Library/LaunchDaemons/org.macports.php55-fpm.plist'
+alias fpm_stop='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php55-fpm.plist'
+alias fpm_restart='fpm_stop; fpm_start'
+
+#mysql
+alias mysql='sudo /usr/local/mysql/bin/mysql'
+alias mysqladmin='sudo usr/local/mysql/bin/mysqladmin'
+
+#web
+alias web_start='nginx_start;fpm_start'
+alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
+
+#port
+alias port='sudo /opt/local/bin/port'
+alias ll='ls -lG'
+
+#server
+alias 168='~/168.sh'
+alias data-server='~/data-server.sh'
+alias haproxy-server='~/haproxy-server.sh'
+alias proxy-server='~/proxy-server.sh'
+alias qqddz-server='~/qqddz-server.sh'
+alias qqmj2p-server='~/qqmj2p-server.sh'
+alias qqtexas-server='~/qqtexas-server.sh'
+alias relaxlife-server='~/relaxlife-server.sh'
+
+export PATH=$PATH:/opt/local/bin
+export PATH=$PATH:/opt/local/sbin
+export ANDROID_HOME=~/android-sdk
+export PATH=${PATH}:~/android-sdk/tools
+export PATH=${PATH}:~/android-sdk/platform-tools
+
+export CLICOLOR=1
+export LSCOLORS=gxfxaxdxcxegedabagacad
+```
+source ~/.bash_profile
+
+#homebrew(http://brew.sh/index_zh-cn.html)
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+#port
+port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcache php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+
+#npm
+sudo npm install cnpm -g -ddd
+sudo npm install -g cordova -ddd
+sudo npm install -g ionic -ddd
+sudo npm install uglify-js uglifycss -g
+
+#brew
+brew install webkit2png
+brew install ImageMagick
+brew install nmap wget
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
