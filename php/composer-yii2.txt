@@ -19,7 +19,11 @@ location / {
     try_files $uri $uri/ /index.php?$query_string;
 }
 
-port install php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcache php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+port install php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+
+port -f uninstall php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+
+ php-memcache
 
 port select php php55
 port select php php70

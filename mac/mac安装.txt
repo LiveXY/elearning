@@ -1,7 +1,21 @@
-mac command
+mac备份
+1，备份工具：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015
+2，备份配置文件目录：
+/opt/local/etc/nginx/conf.d/
+/Library/Services/
+/etc/hosts
+~/.ssh/
+~/.bash_profile
+~/.bashrc
+~/.inputrc
+~/Library/MonoDevelop-Unity-5.0/
 
+
+
+
+mac安装
 #商店安装：Go2Shell/Google Chrome/New File Free/PDF Reader X/QQ/QQ音乐/RAR Extractor Free/Thunder/Xcode/Dr. Cleaner/MPlayerX/Color Picker/iHex/Base64Anywhere/App2Dmg/微信/
-#下载安装：sublime3/SSH Proxy/MacPorts/nodejs/office/sequel/mysql-workbench/sourcetree/SQLite Professional/Unity/
+#下载安装：Sublime Text3/SSH Proxy/MacPorts/nodejs/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015
 
 ##设置存历史命令纪录数
 ```sh
@@ -14,14 +28,14 @@ echo "$HISTSIZE $HISTFILESIZE"
 
 vi ~/.bash_profile
 ```
-# nginx
-alias nginx_start='sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
-alias nginx_stop='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist'
+#nginx
+alias nginx_start='sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist'
+alias nginx_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist'
 alias nginx_restart='nginx_stop; nginx_start;'
 
 #php-fpm
-alias fpm_start='sudo launchctl load -w /Library/LaunchDaemons/org.macports.php55-fpm.plist'
-alias fpm_stop='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php55-fpm.plist'
+alias fpm_start='sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.php70-fpm/org.macports.php70-fpm.plist'
+alias fpm_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macports.php70-fpm/org.macports.php70-fpm.plist'
 alias fpm_restart='fpm_stop; fpm_start'
 
 #mysql
@@ -32,19 +46,19 @@ alias mysqladmin='sudo usr/local/mysql/bin/mysqladmin'
 alias web_start='nginx_start;fpm_start'
 alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
 
-#port
+#alias
 alias port='sudo /opt/local/bin/port'
 alias ll='ls -lG'
+alias php='/opt/local/bin/php70'
 
 #server
-alias 168='~/168.sh'
-alias data-server='~/data-server.sh'
-alias haproxy-server='~/haproxy-server.sh'
-alias proxy-server='~/proxy-server.sh'
-alias qqddz-server='~/qqddz-server.sh'
-alias qqmj2p-server='~/qqmj2p-server.sh'
-alias qqtexas-server='~/qqtexas-server.sh'
-alias relaxlife-server='~/relaxlife-server.sh'
+alias 168='~/git_pro/server/168.sh'
+alias data-server='~/git_pro/server/data-server.sh'
+alias haproxy-server='~/git_pro/server/haproxy-server.sh'
+alias proxy-server='~/git_pro/server/proxy-server.sh'
+alias qqddz-server='~/git_pro/server/qqddz-server.sh'
+alias qqmj2p-server='~/git_pro/server/qqmj2p-server.sh'
+alias relaxlife-server='~/git_pro/server/relaxlife-server.sh'
 
 export PATH=$PATH:/opt/local/bin
 export PATH=$PATH:/opt/local/sbin
@@ -62,6 +76,14 @@ source ~/.bash_profile
 
 #port
 port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcache php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+port select --list php
+port select php php70
+
+
+cp /opt/local/etc/php70/php.ini-development /opt/local/etc/php70/php.ini
+cp /opt/local/etc/php70/php-fpm.conf.default /opt/local/etc/php70/php-fpm.conf
+cp /opt/local/etc/php70/php-fpm.d/www.conf.default /opt/local/etc/php70/php-fpm.d/www.conf
+fpm_restart
 
 #npm
 sudo npm install cnpm -g -ddd
@@ -73,7 +95,35 @@ sudo npm install uglify-js uglifycss -g
 brew install webkit2png
 brew install ImageMagick
 brew install nmap wget
+brew install mono
+brew install python
 
+
+#~/.ssh/目录权限
+chmod a-rwx ~/.ssh/*
+chmod u+rw ~/.ssh/*
+chmod a+r ~/.ssh/config
+chmod a+r ~/.ssh/known_hosts
+
+#安装JDK：http://www.oracle.com/technetwork/java/javase/downloads/index.html
+#安装mysql-workbench：http://dev.mysql.com/downloads/workbench/
+
+#laravel
+curl -sS https://getcomposer.org/installer | php
+php ~/composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
+
+http://down.golaravel.com/laravel/laravel-v5.2.15.zip
+php ~/composer.phar install
+
+php artisan key:generate #生成秘钥
+php artisan serve #启动server
+php artisan make:middleware OldMiddleware #创建中间件
+php artisan app:name SocialNet #设置命名空间
+php artisan make:provider RiakServiceProvider #服务提供者
+
+
+https://phpunit.de/
+php ~/phpunit.phar  --bootstrap bootstrap/autoload.php tests/TestCase.php
 
 
 
