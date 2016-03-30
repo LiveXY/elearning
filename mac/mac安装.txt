@@ -34,8 +34,8 @@ alias nginx_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macp
 alias nginx_restart='nginx_stop; nginx_start;'
 
 #php-fpm
-alias fpm_start='sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.php70-fpm/org.macports.php70-fpm.plist'
-alias fpm_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macports.php70-fpm/org.macports.php70-fpm.plist'
+alias fpm_start='sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist'
+alias fpm_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist'
 alias fpm_restart='fpm_stop; fpm_start'
 
 #mysql
@@ -49,7 +49,7 @@ alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
 #alias
 alias port='sudo /opt/local/bin/port'
 alias ll='ls -lG'
-alias php='/opt/local/bin/php70'
+alias php='/opt/local/bin/php56'
 
 #server
 alias 168='~/git_pro/server/168.sh'
@@ -78,6 +78,8 @@ source ~/.bash_profile
 port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcache php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
 port select --list php
 port select php php70
+
+port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php56-memcache php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
 
 
 cp /opt/local/etc/php70/php.ini-development /opt/local/etc/php70/php.ini

@@ -639,6 +639,9 @@ mysql -h 172.16.180.139 -P 4306 -uroot -ppass -e 'show status like "wsrep%";' | 
 #任何一台或二台死掉其它都能正常访问，除非所有数据库死掉。
 ```
 
-
-
+#nodejs
+```
+rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+yum install nodejs
+```
 

@@ -587,7 +587,15 @@ Deny from all
 </FilesMatch>
 </Directory>
 ```
-
+###php7
+```
+yum remove php*
+yum install php70-php php70-php-pear php70-php-bcmath php70-php-pecl-jsond-devel php70-php-mysqlnd php70-php-gd php70-php-common php70-php-fpm php70-php-intl php70-php-cli php70-php php70-php-xml php70-php-opcache php70-php-pecl-apcu php70-php-pecl-jsond php70-php-pdo php70-php-gmp php70-php-process php70-php-pecl-imagick php70-php-devel php70-php-mbstring php70-php-memcache
+ln -s /usr/bin/php70 /usr/bin/php
+cp /etc/php.ini.rpmsave /etc/php.ini
+service php-fpm stop
+service php70-php-fpm start
+```
 
 
 
