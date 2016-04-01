@@ -42,3 +42,12 @@ brew install php70
 brew update
 brew install homebrew/php/php70
 export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
+
+Laravel:https://phphub.org/topics/1211
+Cookie::queue('cookie_for_js', 'can you read me?', 99999999);
+Cookie::queue('cookie_for_js', 'can you read me?', $minutes = 99999999, $path = null, $domain = null, $secure = false, $httpOnly = false);
+Session::put()
+Cache::
+DB::table('settings')->where('key', $key)->update(['value' => $value]);
+
+Log.info('test');

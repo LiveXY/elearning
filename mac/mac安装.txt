@@ -122,7 +122,8 @@ php artisan serve #启动server
 php artisan make:middleware OldMiddleware #创建中间件
 php artisan app:name SocialNet #设置命名空间
 php artisan make:provider RiakServiceProvider #服务提供者
-
+php artisan make:migration create_users_table
+php artisan migrate --seed
 
 https://phpunit.de/
 php ~/phpunit.phar  --bootstrap bootstrap/autoload.php tests/TestCase.php
