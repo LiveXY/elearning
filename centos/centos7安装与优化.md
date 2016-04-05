@@ -56,7 +56,7 @@ yum update
 ##安装LNMP
 ```sh
 yum install nginx -y
-yum install --enablerepo=remi --enablerepo=remi-php56 php php-mysql php-gd php-mbstring php-mcrypt php-memcache php-openssl php-xml php-xmlrpc php-fpm php-opcache php-pdo -y
+yum install --enablerepo=remi --enablerepo=remi-php70 php php-mysql php-gd php-mbstring php-mcrypt php-memcache php-openssl php-xml php-xmlrpc php-fpm php-opcache php-pdo -y
 yum install mariadb-server mariadb -y
 ```
 ##升级LNMP
