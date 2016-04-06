@@ -6,6 +6,11 @@ php ~/composer.phar create-project yiisoft/yii2-app-advanced advanced 2.0.6
 
 php ~/composer.phar self-update
 
+php ~/composer.phar install
+php ~/composer.phar update
+php ~/composer.phar require sammyk/laravel-facebook-sdk
+
+
 http://easyiicms.com/docs/install
 php ~/composer.phar create-project noumo/easyii-shop shop dev-master
 php ~/composer.phar create-project noumo/easyii-start start dev-master
@@ -46,6 +51,9 @@ export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 Laravel:https://phphub.org/topics/1211
 Cookie::queue('cookie_for_js', 'can you read me?', 99999999);
 Cookie::queue('cookie_for_js', 'can you read me?', $minutes = 99999999, $path = null, $domain = null, $secure = false, $httpOnly = false);
+Cookie::queued('user_id', 0)
+Cookie::unqueue('user_id');
+
 Session::put()
 Cache::
 DB::table('settings')->where('key', $key)->update(['value' => $value]);
