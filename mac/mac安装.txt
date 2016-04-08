@@ -75,12 +75,11 @@ source ~/.bash_profile
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 #port
-port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcache php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcached php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
 port select --list php
 port select php php70
 
-port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php56-memcache php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
-
+port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php-memcached php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
 
 cp /opt/local/etc/php70/php.ini-development /opt/local/etc/php70/php.ini
 cp /opt/local/etc/php70/php-fpm.conf.default /opt/local/etc/php70/php-fpm.conf
