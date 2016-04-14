@@ -1,0 +1,20 @@
+mac
+```
+brew install speedtest_cli
+```
+centos
+```
+yum install python
+wget -O speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest_cli.py
+chmod +x speedtest-cli
+pip install speedtest-cli
+```
+test
+```
+speedtest-cli
+speedtest-cli --list
+speedtest-cli --server 5083
+
+./speedtest-cli
+```
+
