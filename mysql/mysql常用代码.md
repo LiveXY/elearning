@@ -145,7 +145,12 @@ mysql命令
     * quit
   * mysql -uroot -p
 * `/innochecksum /var/lib/mysql/ibdata1` 或 `innodb_space -f /var/lib/mysql/ibdata1 space-summary | grep UNDO_LOG | wc -l` 检查什么被存储到了 ibdata1 里
-* 
+* db备份还原:
+```
+mysqldump -h 192.168.6.153 -uroot -pnewlife -R qcloud>qcloud.sql
+mysql -uroot -p123456 -e "create schema qcloud default character set utf8;"
+mysql -uroot -pnewlife qcloud<qcloud.sql
+```
 * 
 * 
 * 

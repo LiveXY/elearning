@@ -30,6 +30,7 @@ IPADDR=192.168.1.223
 NETMASK=255.255.255.0
 GATEWAY=192.168.1.1
 ONBOOT=yes
+DNS1=***********
 ```
 * 重启network服务
 ```sh
@@ -56,7 +57,7 @@ yum update
 ##安装LNMP
 ```sh
 yum install nginx -y
-yum install --enablerepo=remi --enablerepo=remi-php70 php php-mysql php-gd php-mbstring php-mcrypt php-memcache php-openssl php-xml php-xmlrpc php-fpm php-opcache php-pdo -y
+yum install --enablerepo=remi --enablerepo=remi-php70 php php-mysql php-gd php-mbstring php-mcrypt php-memcached php-openssl php-xml php-xmlrpc php-fpm php-opcache php-pdo -y
 yum install mariadb-server mariadb -y
 ```
 ##升级LNMP
@@ -643,5 +644,9 @@ mysql -h 172.16.180.139 -P 4306 -uroot -ppass -e 'show status like "wsrep%";' | 
 ```
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 yum install nodejs
+
+rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
+rpm -qa | grep node
+yum clean all
 ```
 
