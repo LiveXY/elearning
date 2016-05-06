@@ -9,7 +9,7 @@ centos7安装与优化
 
 ##设置上下键选择历史命令
 ```sh
-vi .inputrc
+vi ~/.inputrc
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 ```
@@ -18,13 +18,13 @@ vi .inputrc
 固定或自动分配IP
 * 自动分配ip:
 ```sh
-vi /etc/sysconfig/network-scripts/ifcfg-eno16777736
+vi /etc/sysconfig/network-scripts/ifcfg-eno16777736 或 vi ifcfg-eno16777736
 BOOTPROTO=dhcp
 ONBOOT=yes
 ```
 * 静态ip,VM网络适配器一定要使用桥接模式
 ```sh
-vi /etc/sysconfig/network-scripts/ifcfg-eno16777736
+vi /etc/sysconfig/network-scripts/ifcfg-eno16777736 或 vi ifcfg-eno16777736
 BOOTPROTO=static
 IPADDR=192.168.1.223
 NETMASK=255.255.255.0

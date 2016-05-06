@@ -5,8 +5,8 @@ mysql执行计划
 show variables like 'event_scheduler';
 set global event_scheduler = 1;
 
-alert event event_report_minute_online on completion preserve enable; -- 开启事件
-alert event event_report_minute_online on completion preserve disable; -- 关闭事件
+alter event event_report_minute_online on completion preserve enable; -- 开启事件
+alter event event_report_minute_online on completion preserve disable; -- 关闭事件
 
 drop event if exists event_report_minute_online;
 create event event_report_minute_online
