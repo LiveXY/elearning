@@ -6,7 +6,7 @@ centos
 ```
 yum install python
 wget -O speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest_cli.py
-chmod +x speedtest-cli
+chmod u+x speedtest-cli
 pip install speedtest-cli
 ```
 test

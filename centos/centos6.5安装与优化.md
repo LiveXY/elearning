@@ -174,7 +174,7 @@ cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 * 设置任务计划每天零点同步一次
 ```sh
 crontab –e
-0 * * * * /usr/sbin/ntpdate cn.pool.ntp.org ; hwclock -w 
+0 * * * * /usr/sbin/ntpdate cn.pool.ntp.org ; hwclock -w
 ```
 * 修改系统时间
 ```sh
@@ -372,30 +372,51 @@ echo "Welcome to Server" >/etc/redhat-release
 ```
 * 内核参数优化
 ```sh
-vi /etc/sysctl.conf    #末尾添加如下参数 
-net.ipv4.tcp_syncookies = 1            #1是开启SYN Cookies，当出现SYN等待队列溢出时，启用Cookies来处，理，可防范少量SYN攻击，默认是0关闭 
-net.ipv4.tcp_tw_reuse = 1             #1是开启重用，允许讲TIME_AIT sockets重新用于新的TCP连接，默认是0关闭 
-net.ipv4.tcp_tw_recycle = 1            #TCP失败重传次数，默认是15，减少次数可释放内核资源 
+vi /etc/sysctl.conf    #末尾添加如下参数
+fs.file-max=122880
+net.ipv4.tcp_syncookies = 1            #1是开启SYN Cookies，当出现SYN等待队列溢出时，启用Cookies来处，理，可防范少量SYN攻击，默认是0关闭
+net.ipv4.tcp_tw_reuse = 1             #1是开启重用，允许讲TIME_AIT sockets重新用于新的TCP连接，默认是0关闭
+net.ipv4.tcp_tw_recycle = 1            #TCP失败重传次数，默认是15，减少次数可释放内核资源
 net.ipv4.tcp_fin_timeout = 30
-net.ipv4.ip_local_port_range = 1024 65535  #应用程序可使用的端口范围 
-net.ipv4.tcp_max_tw_buckets = 5000     #系统同时保持TIME_WAIT套接字的最大数量，如果超出这个数字，TIME_WATI套接字将立刻被清除并打印警告信息，默认180000 
-net.ipv4.tcp_max_syn_backlog = 262144    #进入SYN宝的最大请求队列，默认是1024 
-net.core.netdev_max_backlog =  262144  #允许送到队列的数据包最大设备队列，默认300 
-net.core.somaxconn = 262144              #listen挂起请求的最大数量，默认128 
-net.core.wmem_default = 8388608        #发送缓存区大小的缺省值 
-net.core.rmem_default = 8388608        #接受套接字缓冲区大小的缺省值（以字节为单位） 
-net.core.rmem_max = 16777216           #最大接收缓冲区大小的最大值 
-net.core.wmem_max = 16777216           #发送缓冲区大小的最大值 
-net.ipv4.tcp_synack_retries = 2        #SYN-ACK握手状态重试次数，默认5 
-net.ipv4.tcp_syn_retries = 2           #向外SYN握手重试次数，默认4 
-#net.ipv4.tcp_tw_recycle = 1            #开启TCP连接中TIME_WAIT sockets的快速回收，默认是0关闭 
-net.ipv4.tcp_max_orphans = 3276800     #系统中最多有多少个TCP套接字不被关联到任何一个用户文件句柄上，如果超出这个数字，孤儿连接将立即复位并打印警告信息 
+net.ipv4.ip_local_port_range = 1024 65535  #应用程序可使用的端口范围
+net.ipv4.tcp_max_tw_buckets = 5000     #系统同时保持TIME_WAIT套接字的最大数量，如果超出这个数字，TIME_WATI套接字将立刻被清除并打印警告信息，默认180000
+net.ipv4.tcp_max_syn_backlog = 262144    #进入SYN宝的最大请求队列，默认是1024
+net.core.netdev_max_backlog =  262144  #允许送到队列的数据包最大设备队列，默认300
+net.core.somaxconn = 262144              #listen挂起请求的最大数量，默认128
+net.core.wmem_default = 8388608        #发送缓存区大小的缺省值
+net.core.rmem_default = 8388608        #接受套接字缓冲区大小的缺省值（以字节为单位）
+net.core.rmem_max = 16777216           #最大接收缓冲区大小的最大值
+net.core.wmem_max = 16777216           #发送缓冲区大小的最大值
+net.ipv4.tcp_synack_retries = 2        #SYN-ACK握手状态重试次数，默认5
+net.ipv4.tcp_syn_retries = 2           #向外SYN握手重试次数，默认4
+#net.ipv4.tcp_tw_recycle = 1            #开启TCP连接中TIME_WAIT sockets的快速回收，默认是0关闭
+net.ipv4.tcp_max_orphans = 3276800     #系统中最多有多少个TCP套接字不被关联到任何一个用户文件句柄上，如果超出这个数字，孤儿连接将立即复位并打印警告信息
 net.ipv4.tcp_timestamps = 0
-net.ipv4.tcp_mem = 94500000 915000000 927000000 
-#net.ipv4.tcp_mem[0]:低于此值，TCP没有内存压力； 
-#net.ipv4.tcp_mem[1]:在此值下，进入内存压力阶段； 
-#net.ipv4.tcp_mem[2]:高于此值，TCP拒绝分配socket。内存单位是页，可根据物理内存大小进行调整，如果内存足够大的话，可适当往上调。上述内存单位是页，而不是字节。 
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+#net.ipv4.tcp_mem[0]:低于此值，TCP没有内存压力；
+#net.ipv4.tcp_mem[1]:在此值下，进入内存压力阶段；
+#net.ipv4.tcp_mem[2]:高于此值，TCP拒绝分配socket。内存单位是页，可根据物理内存大小进行调整，如果内存足够大的话，可适当往上调。上述内存单位是页，而不是字节。
 sysctl -p 让参数生效。
+fs.file-max=122880
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.ip_local_port_range = 1024 65535
+net.ipv4.tcp_max_tw_buckets = 5000
+net.ipv4.tcp_max_syn_backlog = 262144
+net.core.netdev_max_backlog =  262144
+net.core.somaxconn = 262144
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_syn_retries = 2
+#net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_max_orphans = 3276800
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_mem = 94500000 915000000 927000000
 ```
 * 打开文件数的限制
 ```sh
@@ -453,10 +474,10 @@ chmod +x mysqltuner.pl
 默认profile是关闭的，通过profiling参数控制，为session级
 开启：SET profiling=1
 关闭：set profiling=0
-查询：select @@profiling 
-show profiles;  
-show profile cpu,block io for query 2;  
-SELECT STATE, FORMAT(DURATION, 6) AS DURATION FROM INFORMATION_SCHEMA.PROFILING WHERE QUERY_ID = 2 ORDER BY DURATION DESC;  
+查询：select @@profiling
+show profiles;
+show profile cpu,block io for query 2;
+SELECT STATE, FORMAT(DURATION, 6) AS DURATION FROM INFORMATION_SCHEMA.PROFILING WHERE QUERY_ID = 2 ORDER BY DURATION DESC;
 ```
 * nginx 优化
 ```nginx
@@ -464,8 +485,8 @@ grep processor /proc/cpuinfo | wc -l
 vi /etc/nginx/nginx.conf
 worker_processes 4; #上面得到的
 worker_rlimit_nofile 122880;
-events { 
-	worker_connections 102400; 
+events {
+	worker_connections 102400;
 	# use [ kqueue | rtsig | epoll | /dev/poll | select | poll ] ;
 	use epoll;
 }
@@ -481,11 +502,11 @@ http {
 	client_header_buffer_size 128k; #getconf PAGESIZE取得
 	large_client_header_buffers 4 128k;
 	client_max_body_size 8m; #上传文件大小
-	
+
 	open_file_cache max= 122880 inactive=20s; #20s过期
 	open_file_cache_valid 30s; #这个是指多长时间检查一次缓存的有效信息。
 	open_file_cache_min_uses 1; #open_file_cache指令中的inactive参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive时间内一次没被使用，它将被移除。
-	
+
 	fastcgi_cache_path /usr/local/nginx/fastcgi_cache levels=1:2 keys_zone=TEST:10m inactive=5m;
 	fastcgi_connect_timeout 300;
 	fastcgi_send_timeout 300;
@@ -536,7 +557,7 @@ server {
 	}
 	location ~ /\. {
 		access_log off;
-		log_not_found off; 
+		log_not_found off;
 		deny all;
 	}
 }
@@ -549,8 +570,8 @@ pm.max_children = (total RAM - RAM used by other process) / (average amount of R
 vi cat /etc/php-fpm.d/www.conf
 pm = dynamic
 pm.max_children = 24
-pm.start_servers = 16 
-pm.min_spare_servers = 12 
+pm.start_servers = 16
+pm.min_spare_servers = 12
 pm.max_spare_servers = 24
 pm.max_requests = 200
 

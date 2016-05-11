@@ -238,7 +238,12 @@ port install memcached
 memecached -d
 memecached -vv
 
-
+#zookeeper
+brew install zookeeper
+zkServer start
+zkServer
+zkServer status
+zkCli
 
 
 
