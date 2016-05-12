@@ -35,7 +35,7 @@ unlock tables;
 * `insert into table select * from oldtable;` #复制数据(锁select表) ignore
 * `create table newtable like oldtable;`, `create table if not exists newtable like oldtable;` 只复制结构、索引、约束、主键
 * `show create table tablename;` 复制代码 `copycode as (select * from tablename);` 复制结构和数据、索引、约束、主键
-* `create table tb2 select * from book;`,`create table if not exists tb2 select * from book;` 复制表结构和数据、不复制索引、约束、主键
+* `create table tb2 select * from book;`,`create table if not exists tb2 select * from book;` 复制表结构和数据、不复制索引、约束、主键 或替换为 `create table if not exists tmp_tamenabe(uid int(11) not null default 0); insert into tmp_tamenabe(uid) select uid from tablename`;
 * `create temporary table if not exists users(uid int(11) primary key, golds bigint(20));` 建临时表
 * `create table tb3 (id int(10) primary key, name varchar(20));` 建表
 * `create table tb3 (id int(10) not null auto_increment, name varchar(20) not null default '' comment '', primary key (id), name2 varchar(20) default null comment '', primary key (id)) engine=InnoDB auto_increment=1 default charset=utf8 comment='';` 建表
@@ -140,7 +140,7 @@ mysql命令
   * service mysqld stop
   * mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
   * mysql -u root mysql
-    * update user set Password=PASSWORD('123456') where User='root';
+    * update user set Password=PASSWORD('123456') where User='root'; 或 update user set Password=PASSWORD('123456') where User='root' and Host='%';
     * flush privileges;
     * quit
   * mysql -uroot -p
@@ -148,8 +148,9 @@ mysql命令
 * db备份还原:
 ```
 mysqldump -h 192.168.6.153 -uroot -pnewlife -R qcloud>qcloud.sql
-mysql -uroot -p123456 -e "create schema qcloud default character set utf8;"
-mysql -uroot -pnewlife qcloud<qcloud.sql
+mysql -h 192.168.6.153 -uroot -p123456 -e "create schema qcloud default character set utf8;"
+`mysql -h 192.168.6.153 -uroot -pnewlife qcloud<qcloud.sql` 或 `mysql -h 192.168.6.153 -uroot -p123456 -e "use qcloud;source /root/qcloud.sql;"`
+
 ```
 * 
 * 
