@@ -245,6 +245,23 @@ zkServer
 zkServer status
 zkCli
 
+#luadec
+port install gcc47 +universal
+port select --set gcc mp-gcc47
+
+git clone https://github.com/viruscamp/luadec
+cd luadec
+git submodule update --init lua-5.3
+cd lua-5.3
+make linux
+cd ../luadec
+make LUAVER=5.3
+
+luadec abc.lua
+luadec -pn test.lua
+
+
+
 
 
 
