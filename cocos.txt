@@ -1,0 +1,31 @@
+
+luac64位的解决方案：
+cocos luacompile -s src/ -d out/ -e -k testKey123456 -b testSign123456 --disable-compile
+jsc字节码
+cocos jscompile -s src/ -d out/
+cocos2d jscompile -d out/ -s src1/ -s src2/ -o game.min.js -j compiler_config_sample.json -c
+
+在指定目录创建一个工程
+cocos new projectName -l lua -d ./Projects
+cocos new projectName -l js
+
+cd directory/to/project
+cocos compile -p ios|mac|android|linux
+cocos run -p ios|mac|android| linux
+cocos run -p web
+
+
+cocos compile -p web -m release
+cocos run -p android
+打包命令
+cocos compile -p ios -m release
+cocos compile -p android -m debug
+cocos compile -p android -m release
+参数：
+-p : 指定打包平台(Android, iOS, Mac, Web, Win32,Linux)
+-m : 可选参数，指定打包模式 debug|release(默认debug)
+如果要支持android x86打包，需修改CocosJSGame/frameworks/runtime-src/proj.android/jni/Application.mk文件，加入APP_ABI定义，告诉NDK这个APK支持多少芯片架构。 如下声明表明可以在arm或x86架构的设备上安装。
+APP_ABI := armeabi x86
+
+export ANT_ROOT=/usr/local/ant/bin
+export JAVA_HOME=/usr/local/jdk1.7.0_51

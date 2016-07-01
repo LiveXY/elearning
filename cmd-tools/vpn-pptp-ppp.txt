@@ -83,4 +83,9 @@ nc -X 5 -x 127.0.0.1:7070 "$@"
 git config core.gitproxy ~/git_proxy.sh
 git config core.gitproxy '~/git_proxy.sh for bitbucket.org'
 
+vpn 重启
+service iptables restart
+service pptpd restart-kill
+service pptpd restart
+
 

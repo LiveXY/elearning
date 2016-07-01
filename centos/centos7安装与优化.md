@@ -4,7 +4,7 @@ centos7安装与优化
 * ip add #查看当前IP
 * rpm -q centos-release #查看系统版本
 * yum repolist #查看已有源
-* yum install wget curl
+* yum install wget curl psmisc
 * sudo yum install update -y && sudo yum install upgrade -y
 
 ##设置上下键选择历史命令
