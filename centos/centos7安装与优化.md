@@ -80,6 +80,8 @@ yum update
 systemctl start nginx.service
 systemctl start mariadb.service
 systemctl start php-fpm.service
+systemctl start memcached.service
+
 systemctl enable nginx.service
 systemctl enable mariadb.service
 systemctl enable php-fpm.service
@@ -112,6 +114,11 @@ mysql -uroot -p
 ```sh
 yum install git -y
 yum install -y subversion
+```
+##安装memcache
+```sh
+yum install memcached -y
+systemctl start memcached.service
 ```
 ##配置站点
 ```sh

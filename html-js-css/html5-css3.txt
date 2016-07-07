@@ -102,3 +102,23 @@ background: -webkit-linear-gradient(left,#f4f4f4 50%,#fff 50%);
     background: -o-linear-gradient(left,#f4f4f4 50%,#fff 50%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f4f4f4,endColorstr=#ffffff,gradientType=1);
 
+
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 31px rgba(255, 255, 255, 1);
+    border-radius: 3px;
+    background-color: #D2D0D0;
+    cursor:pointer;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0 0 6px rgba(1, 7, 7, 1);
+    background-color: #fff;
+    cursor:pointer;
+}
+
+

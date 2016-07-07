@@ -55,3 +55,5 @@ du [OPTION]... [PATH]...
 * `du -a`
 * `du -h /etc` -h 参数来显示 human-readable 的格式
 * `du -sh /etc` -s 参数来省略指定目录下的子目录，而只显示该目录的总合
+* `du -h --max-depth=1` 快速的了解哪些目录变得比较大
+* `du -hm --max-depth=2 | sort -nr | head -12`

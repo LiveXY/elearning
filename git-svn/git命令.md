@@ -516,3 +516,4 @@ $ git reset <commit>
 将HEAD重置到上一次提交的版本，并保留未提交的本地修改：
 $ git reset --keep <commit>
 
+git log --oneline --abbrev-commit --branches=* --graph --decorate --color

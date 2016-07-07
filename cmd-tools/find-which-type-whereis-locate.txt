@@ -36,6 +36,13 @@ find [PATH] [option] [action]
 -user name   ：寻找用户者名称为name的文件
 -name file   ：寻找文件名为file的文件（可以使用通配符）
 
+find . -type f -size +800M
+find / -size +10M -exec du -h {} \;
+du -h
+du -h --max-depth=1 快速的了解哪些目录变得比较大
+du -hm --max-depth=2 | sort -nr | head -12
+df
+
 locate命令其实是"find -name"的另一种写法，但是要比后者快得多，原因在于它不搜索具体目录，而是搜索一个数据库（/var/lib/locatedb），这个数据库中含有本地所有文件信息。Linux系统自动创建这个数据库，并且每天自动更新一次，所以使用locate命令查不到最新变动过的文件。为了避免这种情况，可以在使用locate之前，先使用updatedb命令，手动更新数据库。
 locate命令的使用实例：
 $ locate /etc/sh

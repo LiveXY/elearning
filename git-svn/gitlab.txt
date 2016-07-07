@@ -32,3 +32,16 @@ vi /var/opt/gitlab/.gitconfig
 
 vi /etc/gitlab/gitlab.rb
     external_url 'http://gitlab.example.com'
+
+
+=====================================
+gitlab-ctl status
+gitlab-rake gitlab:check
+gitlab-ctl restart unicorn
+gitlab-ctl tail unicorn
+====================================
+vi /opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/git_access.rb
+The project you were looking for could not be found.
+修改为：
+return build_status_object(true)
+gitlab-ctl restart
