@@ -176,6 +176,24 @@ ionic platform ios
 ionic emulate ios
 ionic run ios
 
+cordova plugin add cordova-hot-code-push-plugin
+cordova plugin add cordova-hot-code-push-local-dev-addon
+npm install -g cordova-hot-code-push-cli
+cordova-hcp server
+cordova run
+cordova plugin add https://github.com/nordnet/cordova-hot-code-push.git
+cordova plugin add https://github.com/nordnet/cordova-hot-code-push-local-dev-addon.git
+http://blog.csdn.net/lovelyelfpop/article/details/50848524
+https://www.npmjs.com/package/cordova-hot-code-push-local-dev-addon
+
+npm install ionic-native-transitions --save
+ionic plugin add https://github.com/Telerik-Verified-Plugins/NativePageTransitions#0.6.5
+ionic plugin add cordova-plugin-wkwebview
+https://www.npmjs.com/package/ionic-native-transitions
+
+cordova plugin add cordova-plugin-screen-orientation
+https://www.npmjs.com/package/cordova-plugin-screen-orientation
+
 git clone https://github.com/driftyco/ionic-weather.git
 cd ionic-weather
 $ cordova platform add ios

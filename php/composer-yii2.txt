@@ -9,6 +9,9 @@ php ~/composer.phar self-update
 php ~/composer.phar install
 php ~/composer.phar update
 php ~/composer.phar require sammyk/laravel-facebook-sdk
+php ~/composer.phar require maatwebsite/excel
+php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
+config/excel.php 生成配置文件
 
 
 http://easyiicms.com/docs/install
