@@ -12,6 +12,7 @@ php ~/composer.phar require sammyk/laravel-facebook-sdk
 php ~/composer.phar require maatwebsite/excel
 php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
 config/excel.php 生成配置文件
+php ~/composer.phar require jpush/jpush
 
 
 http://easyiicms.com/docs/install

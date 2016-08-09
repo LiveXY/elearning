@@ -150,7 +150,19 @@ mysql命令
 mysqldump -h 192.168.6.153 -uroot -pnewlife -R qcloud>qcloud.sql
 mysql -h 192.168.6.153 -uroot -p123456 -e "create schema qcloud default character set utf8;"
 `mysql -h 192.168.6.153 -uroot -pnewlife qcloud<qcloud.sql` 或 `mysql -h 192.168.6.153 -uroot -p123456 -e "use qcloud;source /root/qcloud.sql;"`
-
+```
+* db备份还原2:
+```
+#1，只导出表结构和存储过程
+mysqldump -h 192.168.6.168 -uroot -pnewlife --skip-add-drop-table --single-transaction -R -d qcloud>qcloud_nodata.sql
+#2，只导出表数据
+mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud activity_config game_activity_pool game_audit game_channel game_config game_lang game_mobilepay game_pay_currency game_props game_room_stat game_rooms game_tables game_type game_vip_level gm_question_type report_currency sys_app sys_app_function sys_role sys_role_function yly_area yly_city yly_province > qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud yly_member --where=" uid in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud game_userfield --where=" uid in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud user_achievement --where=" uid in (0,10000012) " >> qcloud_data.sql
+#3，导入表结构和数据
+mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud_nodata.sql
+mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud_data.sql
 ```
 * 
 * 

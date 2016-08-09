@@ -651,6 +651,7 @@ mysql -h 172.16.180.139 -P 4306 -uroot -ppass -e 'show status like "wsrep%";' | 
 ```
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 yum install nodejs
+yum install "gcc-c++.x86_64"
 
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
 rpm -qa | grep node
