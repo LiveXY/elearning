@@ -251,16 +251,29 @@ port select --set gcc mp-gcc47
 
 git clone https://github.com/viruscamp/luadec
 cd luadec
-git submodule update --init lua-5.3
-cd lua-5.3
+git submodule update --init lua-5.2
+cd lua-5.2
+make macosx
+cd ../luadec
+make LUAVER=5.2
+
+git clone https://github.com/viruscamp/luadec
+cd luadec
+git submodule update --init lua-5.1
+cd lua-5.1
 make linux
 cd ../luadec
-make LUAVER=5.3
+make LUAVER=5.1
 
 luadec abc.lua
 luadec -pn test.lua
 
+luadec filename.luac > filename.lua
+luadec -d test.lua > test_src.lua
+luadec -dis filename.luac
 
+luadec.exe test.lua > test-dec.lua
+luadec5.1.exe Hall.lua > Hall-dec.lua
 
 
 
