@@ -397,6 +397,7 @@ net.ipv4.tcp_mem = 94500000 915000000 927000000
 #net.ipv4.tcp_mem[1]:在此值下，进入内存压力阶段；
 #net.ipv4.tcp_mem[2]:高于此值，TCP拒绝分配socket。内存单位是页，可根据物理内存大小进行调整，如果内存足够大的话，可适当往上调。上述内存单位是页，而不是字节。
 sysctl -p 让参数生效。
+vi /etc/sysctl.conf
 fs.file-max=122880
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_tw_reuse = 1
@@ -417,6 +418,7 @@ net.ipv4.tcp_syn_retries = 2
 net.ipv4.tcp_max_orphans = 3276800
 net.ipv4.tcp_timestamps = 0
 net.ipv4.tcp_mem = 94500000 915000000 927000000
+sysctl -p
 ```
 * 打开文件数的限制
 ```sh

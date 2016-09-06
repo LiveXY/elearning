@@ -1,0 +1,175 @@
+2台分布式部署：要配置每台server之间ssh不需要输入密码
+======
+1，一台全功能：包含connector/hall/db/master，内部IP：10.0.0.20。
+```
+vi config/master.json #master的host都指向10.0.0.20
+{
+	"development": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 },
+	"production": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 }
+}
+vi config/services.json #connector/hall/db的host都指向10.0.0.20
+{
+	"development": {
+		"connector": [
+			{ "id": "connector-server-2", "host": "10.0.0.20", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	},
+	"production": {
+		"connector": [
+			{ "id": "connector-server-2", "host": "10.0.0.20", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	}
+}
+```
+2，一台只启动connector，内部IP：10.0.0.22。
+```
+vi config/master.json #master的host都指向10.0.0.20
+{
+	"development": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 },
+	"production": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 }
+}
+vi config/services.json #connector的host都指向10.0.0.22，hall/db的host都指向10.0.0.20
+{
+	"development": {
+		"connector": [
+			{ "id": "connector-server-1", "host": "10.0.0.22", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	},
+	"production": {
+		"connector": [
+			{ "id": "connector-server-1", "host": "10.0.0.22", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	}
+}
+```
+
+3台分布式部署：要配置每台server之间ssh不需要输入密码
+======
+1，一台全功能：包含connector/hall/db/master，内部IP：10.0.0.20。
+```
+vi config/master.json #master的host都指向10.0.0.20
+{
+	"development": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 },
+	"production": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 }
+}
+vi config/services.json #connector/hall/db的host都指向10.0.0.20
+{
+	"development": {
+		"connector": [
+			{ "id": "connector-server-0", "host": "10.0.0.20", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	},
+	"production": {
+		"connector": [
+			{ "id": "connector-server-0", "host": "10.0.0.20", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	}
+}
+```
+2，第2台只启动connector，内部IP：10.0.0.22
+```
+vi config/master.json #master的host都指向10.0.0.20
+{
+	"development": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 },
+	"production": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 }
+}
+vi config/services.json #connector的host都指向10.0.0.22，hall/db的host都指向10.0.0.20
+{
+	"development": {
+		"connector": [
+			{ "id": "connector-server-1", "host": "10.0.0.22", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	},
+	"production": {
+		"connector": [
+			{ "id": "connector-server-1", "host": "10.0.0.22", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	}
+}
+```
+3，第3台只启动connector，内部IP：10.0.0.23
+```
+vi config/master.json #master的host都指向10.0.0.20
+{
+	"development": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 },
+	"production": { "id": "master-server-1", "host": "10.0.0.20", "port": 1005 }
+}
+vi config/services.json #connector的host都指向10.0.0.23，hall/db的host都指向10.0.0.20
+{
+	"development": {
+		"connector": [
+			{ "id": "connector-server-2", "host": "10.0.0.23", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	},
+	"production": {
+		"connector": [
+			{ "id": "connector-server-2", "host": "10.0.0.23", "port": 7550, "clientPort": 7510, "frontend": true }
+		],
+		"hall": [
+			{ "id": "hall-server-1", "host": "10.0.0.20", "port": 7850 }
+		],
+		"db": [
+			{ "id": "db-server-1", "host": "10.0.0.20", "port": 7860 }
+		]
+	}
+}
+```
+4，轮询时不启动全功能的connector
+
+
+
+
