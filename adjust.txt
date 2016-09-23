@@ -83,6 +83,7 @@ CREATE TABLE `report_adjust_summary2` (
   PRIMARY KEY (`day`,`ad`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='渠道总表报表';
 
+DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `crontab_report_adjust`(iday int)
 BEGIN
 	declare beg_date int(11) default 0;
@@ -228,8 +229,10 @@ BEGIN
 	select iday, ad, users, new_users, pays, pay_users, pay_money, pay_golds, fpays_all, fpay_users_all, fpay_money_all, fpay_golds_all,month_money,month_pays
 	from tmp_adjust;
 
-END
+END$$
+DELIMITER ;
 
+DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `crontab_report_adjust2`(iday int)
 BEGIN
 	declare beg_date int(11) default 0;
@@ -406,4 +409,5 @@ BEGIN
 	select iday, ad, users, new_users, pays, pay_users, pay_money, pay_golds, fpays_all, fpay_users_all, fpay_money_all, fpay_golds_all,month_money,month_pays
 	from tmp_adjust;
 
-END
+END$$
+DELIMITER ;

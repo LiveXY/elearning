@@ -13,6 +13,22 @@ CREATE TABLE `report_user_retention` (
   PRIMARY KEY (`day`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='留存报表';
 
+CREATE TABLE `report_register_pay` (
+  `day` int(11) NOT NULL DEFAULT '0' COMMENT '天',
+  `registers` int(11) NOT NULL DEFAULT '0' COMMENT '注册用户数',
+  `pay0` int(11) NOT NULL DEFAULT '0' COMMENT '当日付费人数',
+  `pay1` int(11) NOT NULL DEFAULT '0' COMMENT '1日付费人数',
+  `pay2` int(11) NOT NULL DEFAULT '0' COMMENT '2日付费人数',
+  `pay3` int(11) NOT NULL DEFAULT '0' COMMENT '3日付费人数',
+  `pay4` int(11) NOT NULL DEFAULT '0' COMMENT '4日付费人数',
+  `pay5` int(11) NOT NULL DEFAULT '0' COMMENT '5日付费人数',
+  `pay6` int(11) NOT NULL DEFAULT '0' COMMENT '6日付费人数',
+  `pay7` int(11) NOT NULL DEFAULT '0' COMMENT '7日付费人数',
+  `pay14` int(11) NOT NULL DEFAULT '0' COMMENT '14日付费人数',
+  `pay30` int(11) NOT NULL DEFAULT '0' COMMENT '30日付费人数',
+  PRIMARY KEY (`day`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='新用户付费';
+
 DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `crontab_report_retention`(inday INT)
 BEGIN
@@ -25,8 +41,10 @@ BEGIN
   do
     set @day = substring_index(substring_index(@array_content,' ',@i), ' ', -1);
     call crontab_report_user_retention(@day, @end_date);
+    call crontab_report_register_pay(@day, @end_date);
     set @i=@i+1;
   end while;
+  call crontab_pay(0, @end_date);
 END$$
 DELIMITER ;
 
@@ -65,3 +83,36 @@ BEGIN
   execute stmt;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `crontab_report_register_pay`(IN iday INT, idate INT)
+BEGIN
+  DECLARE beg_date1 INT(11) DEFAULT 0;
+  DECLARE end_date1 INT(11) DEFAULT 0;
+  DECLARE beg_date2 INT(11) DEFAULT 0;
+  DECLARE end_date2 INT(11) DEFAULT 0;
+  DECLARE iretention INT(11) DEFAULT 0;
+  DECLARE retention_field CHAR(50) DEFAULT '';
+  DECLARE today INT(11) DEFAULT 0;
+
+  SET end_date2 = UNIX_TIMESTAMP(idate);
+  SET beg_date2 = end_date2 - 86400;
+  SET end_date1 = UNIX_TIMESTAMP(DATE_SUB(idate,INTERVAL iday DAY));
+  SET beg_date1 = end_date1 - 86400;
+  SET retention_field = CONCAT('pay',iday);
+  SET today = DATE_FORMAT(FROM_UNIXTIME(beg_date1),'%Y%m%d');
+
+  CREATE TEMPORARY TABLE IF NOT EXISTS tmp_userid (
+    user_id INT(11) PRIMARY KEY
+  );
+  TRUNCATE TABLE tmp_userid;
+  INSERT INTO tmp_userid(user_id) SELECT uid FROM yly_member WHERE reg_date>=beg_date1 AND reg_date<end_date1;
+  SELECT COUNT(distinct a.user_id) INTO iretention FROM tmp_userid AS a INNER JOIN (
+    SELECT uid FROM yly_member_order WHERE timeline>=beg_date2 AND timeline<end_date2 and state=1
+  ) AS b ON a.user_id=b.uid;
+  SET @STMT := CONCAT("UPDATE report_register_pay SET ",retention_field,"=",iretention," WHERE DAY = ",today) ;
+  PREPARE STMT FROM @STMT;
+  EXECUTE STMT;
+END$$
+DELIMITER ;
+
