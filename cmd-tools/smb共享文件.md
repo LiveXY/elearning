@@ -24,7 +24,8 @@ chkconfig smb on
 
 无密码共享
 [global]
-security = share
+security = user
+map to guest = Bad User
 [share]
 comment = share
 path = /home/share

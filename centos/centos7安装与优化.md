@@ -209,6 +209,7 @@ firewall-cmd --add-port=8080/tcp
 ```
 ##关闭SELINUX
 ```sh
+getenforce #查看状态
 setenforce 0
 vi /etc/sysconfig/selinux
 SELINUX=disabled

@@ -1,0 +1,409 @@
+增加 event -> adjustmsg -> aduid(UID),adduid(DUID),adadid(ADID)
+
+设置GLOBAL CALLBACK：
+http://***********.com/mobile/ad?adid={adid}&idfa={idfa}&android_id={android_id}&app_id={app_id}&app_name={app_name}&network_name={network_name}&campaign_name={campaign_name}&is_organic={is_organic}&device_name={device_name}&device_type={device_type}&ip_address={ip_address}&activity_kind={activity_kind}&fb_campaign_group_id={fb_campaign_group_id}&fb_campaign_id={fb_campaign_id}&created_at={created_at}&store={store}
+
+建表：
+CREATE TABLE `adjust_log` (
+  `aid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自动ID',
+  `adid` varchar(32) DEFAULT NULL COMMENT 'adjust ID',
+  `idfa` varchar(64) DEFAULT NULL COMMENT 'IDFA',
+  `android_id` varchar(64) DEFAULT NULL,
+  `app_id` varchar(100) DEFAULT NULL,
+  `app_name` varchar(100) DEFAULT NULL,
+  `network_name` varchar(50) DEFAULT NULL COMMENT '一级渠道',
+  `campaign_name` varchar(100) DEFAULT NULL COMMENT '二级渠道',
+  `is_organic` tinyint(3) DEFAULT NULL COMMENT '自然流量',
+  `device_name` varchar(100) DEFAULT NULL COMMENT '设备名称',
+  `device_type` varchar(32) DEFAULT NULL COMMENT '设备类型',
+  `ip_address` varchar(20) DEFAULT NULL COMMENT 'IP',
+  `activity_kind` varchar(32) DEFAULT NULL,
+  `fb_campaign_group_id` varchar(64) DEFAULT NULL,
+  `fb_campaign_id` varchar(64) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL COMMENT '创建时间',
+  `store` varchar(20) DEFAULT NULL COMMENT '商店',
+  `aduid` int(11) DEFAULT NULL COMMENT '用户UID',
+  `ltime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`aid`),
+  KEY `adid` (`adid`),
+  KEY `created_at` (`created_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=46089 DEFAULT CHARSET=utf8;
+CREATE TABLE `adjust_user` (
+  `aduid` int(11) NOT NULL COMMENT 'UID',
+  `adduid` varchar(64) NOT NULL DEFAULT '' COMMENT 'DUID',
+  `adadid` varchar(64) DEFAULT NULL COMMENT 'IDFA',
+  `adid` varchar(32) NOT NULL DEFAULT '' COMMENT 'adjust ID',
+  `network_name` varchar(50) DEFAULT NULL,
+  `campaign_name` varchar(100) DEFAULT NULL,
+  `fb_campaign_group_id` varchar(64) DEFAULT NULL,
+  `ltime` int(11) DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  PRIMARY KEY (`aduid`),
+  KEY `campaign_name` (`campaign_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `adjust_ad` (
+  `ad` varchar(20) NOT NULL COMMENT '代号',
+  `name` varchar(45) DEFAULT NULL COMMENT '名字',
+  `orderby` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ad`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `report_adjust_summary` (
+  `day` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '天',
+  `ad` char(100) NOT NULL DEFAULT '' COMMENT '渠道',
+  `users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '进入游戏用户数',
+  `new_users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '新增用户数',
+  `pay_golds` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '充值金',
+  `pay_users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '充值用户数',
+  `pay_money` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '充值总额',
+  `pays` int(11) NOT NULL DEFAULT '0' COMMENT '充值次数',
+  `fpay_golds_all` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '首次充值金',
+  `fpay_users_all` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '首次充值用户数',
+  `fpay_money_all` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '首次充值总额',
+  `fpays_all` int(11) NOT NULL DEFAULT '0' COMMENT '首次充值次数',
+  `month_money` decimal(18,4) NOT NULL DEFAULT '0.0000' COMMENT '月收入',
+  `month_pays` int(11) NOT NULL DEFAULT '0' COMMENT '月付费用户数',
+  PRIMARY KEY (`day`,`ad`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='adjust渠道总表报表';
+CREATE TABLE `report_adjust_summary2` (
+  `day` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '天',
+  `ad` char(100) NOT NULL DEFAULT '' COMMENT '渠道',
+  `users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '进入游戏用户数',
+  `new_users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '新增用户数',
+  `pay_golds` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '充值金',
+  `pay_users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '充值用户数',
+  `pay_money` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '充值总额',
+  `pays` int(11) NOT NULL DEFAULT '0' COMMENT '充值次数',
+  `fpay_golds_all` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '首次充值金',
+  `fpay_users_all` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '首次充值用户数',
+  `fpay_money_all` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '首次充值总额',
+  `fpays_all` int(11) NOT NULL DEFAULT '0' COMMENT '首次充值次数',
+  `month_money` decimal(18,4) NOT NULL DEFAULT '0.0000' COMMENT '月收入',
+  `month_pays` int(11) NOT NULL DEFAULT '0' COMMENT '月付费用户数',
+  PRIMARY KEY (`day`,`ad`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='渠道总表报表';
+
+CREATE DEFINER=`root`@`%` PROCEDURE `crontab_report_adjust`(iday int)
+BEGIN
+	declare beg_date int(11) default 0;
+	declare end_date int(11) default 0;
+
+    set beg_date = unix_timestamp(iday);
+	set end_date = beg_date + 86400;
+
+	set SQL_SAFE_UPDATES=0;
+
+	create temporary table if not exists tmp_adjust (
+        ad char(100) default '' primary key,
+		users int(11) default 0,
+        new_users int(11) default 0,
+		pay_golds bigint default 0,
+		pay_users int(11) default 0,
+		pay_money decimal(18,2) default 0,
+		pays int(11) default 0,
+        fpay_golds_all bigint default 0,
+		fpay_users_all int(11) default 0,
+		fpay_money_all decimal(18,2) default 0,
+		fpays_all int(11) default 0,
+		month_money decimal(18,2) default 0,
+		month_pays int(11) default 0
+	);
+	truncate table tmp_adjust;
+
+
+	create temporary table if not exists tmp_users (
+        ad char(100) default '' primary key,
+		users int(11) default 0
+	);
+	truncate table tmp_users;
+
+	-- 活跃用户
+	insert into tmp_users(ad, users)
+	select ifnull(ifnull(campaign_name, network_name), 'SYS') as ad2, count(uid)
+    from yly_member as a left join adjust_user2 as b on a.uid=b.aduid where login_date>=beg_date and login_date<end_date group by ad2;
+    -- select * from tmp_users;
+
+	create temporary table if not exists tmp_new_users (
+        ad char(100) default '' primary key,
+		new_users int(11) default 0
+	);
+	truncate table tmp_new_users;
+
+	-- 注册用户
+	insert into tmp_new_users(ad, new_users)
+	select ifnull(ifnull(campaign_name, network_name), 'SYS') as ad2, count(uid)
+    from yly_member as a left join adjust_user2 as b on a.uid=b.aduid where reg_date>=beg_date and reg_date<end_date group by ad2;
+    -- select * from tmp_new_users;
+
+    create temporary table if not exists tmp_pay (
+        ad char(100) default '' primary key,
+		pay_golds bigint default 0,
+		pay_users int(11) default 0,
+		pay_money decimal(18,2) default 0,
+		pays int(11) default 0
+	);
+	truncate table tmp_pay;
+
+	-- 支付
+	insert into tmp_pay(ad, pays, pay_users, pay_money, pay_golds)
+	select ifnull(ifnull(campaign_name, network_name), 'SYS') as ad2,
+		count(a.uid) pays, count(distinct a.uid) pay_users, sum(amount*usd_rate) pay_money, sum(golds)
+	from (
+		select uid,currency,amount,golds from yly_member_order
+		where state=1 and timeline>=beg_date and timeline<end_date
+	) as a -- inner join yly_member as b on a.uid=b.uid
+    left join adjust_user2 as d on a.uid=d.aduid
+	left join game_pay_currency as c on c.currency_code=a.currency
+	group by ad2;
+    -- select * from tmp_pay;
+
+	-- +活跃用户
+	insert into tmp_adjust(ad, users)
+	select ad, users from tmp_users;
+
+	-- 不存在+新用户
+	insert into tmp_adjust(ad, new_users)
+	select ad, new_users from tmp_new_users as a
+	where not exists(select 1 from tmp_users where ad=a.ad);
+
+	-- 存在 更新 新用户
+	update tmp_adjust as a inner join tmp_new_users as b on a.ad=b.ad
+	set a.new_users = b.new_users;
+
+	-- 不存在+支付
+	insert into tmp_adjust(ad, pays, pay_users, pay_money, pay_golds)
+	select ad, pays, pay_users, pay_money, pay_golds from tmp_pay as a
+	where not exists(select 1 from tmp_users where ad=a.ad);
+
+	-- 存在 更新 支付
+    update tmp_adjust as a inner join tmp_pay as b on a.ad=b.ad
+	set a.pays = b.pays, a.pay_users=b.pay_users, a.pay_money = b.pay_money, a.pay_golds = b.pay_golds;
+
+	truncate table tmp_pay;
+
+    insert into tmp_pay(ad, pays, pay_users, pay_money, pay_golds)
+    select ifnull(ifnull(campaign_name, network_name), 'SYS') as ad2,
+		count(o.uid) pays, count(distinct o.uid) pay_users,sum(o.amount * usd_rate) pay_money, sum(golds) as golds
+	from yly_member_order as o
+    -- inner join yly_member as b on b.uid=o.uid
+    left join adjust_user2 as d on o.uid=d.aduid
+	left join game_pay_currency as c on c.currency_code = o.currency
+	where timeline>=beg_date and timeline<end_date and state = 1
+	and o.uid in (
+		select uid from (select distinct uid from yly_member_order where timeline>=beg_date and timeline<end_date and state = 1) as a
+        where uid not in (select distinct uid from yly_member_order where timeline<beg_date and state = 1)
+	)
+	group by ad2;
+    -- select * from tmp_pay;
+
+    -- 更新首充
+    update tmp_adjust as a inner join tmp_pay as b on a.ad=b.ad
+	set a.fpays_all = b.pays, a.fpay_users_all=b.pay_users, a.fpay_money_all = b.pay_money, a.fpay_golds_all = b.pay_golds;
+
+    -- 月支付
+	create temporary table if not exists tmp_month_pay (
+        ad char(100) default '' primary key,
+		month_money decimal(18,2) default 0,
+		month_pays int(11) default 0
+	);
+	truncate table tmp_month_pay;
+
+    insert into tmp_month_pay(ad,month_money,month_pays)
+    select ifnull(ifnull(campaign_name, network_name), 'SYS') as ad2,
+		sum(o.amount * usd_rate) as money, count(distinct o.uid) pay_users
+	from yly_member_order as o -- inner join yly_member as b on b.uid=o.uid
+    left join adjust_user2 as d on o.uid=d.aduid
+	left join game_pay_currency as c on c.currency_code = o.currency
+	where timeline>=beg_date-30*86400 and timeline<end_date and state = 1
+	group by ad2;
+	-- select * from tmp_month_pay;
+
+    update tmp_adjust as a inner join tmp_month_pay as b on a.ad=b.ad
+	set a.month_money = b.month_money, a.month_pays=b.month_pays;
+
+	-- select * from tmp_adjust;
+	delete from report_adjust_summary where day=iday;
+
+	insert into report_adjust_summary(day, ad, users, new_users, pays, pay_users, pay_money, pay_golds, fpays_all, fpay_users_all, fpay_money_all, fpay_golds_all,month_money,month_pays)
+	select iday, ad, users, new_users, pays, pay_users, pay_money, pay_golds, fpays_all, fpay_users_all, fpay_money_all, fpay_golds_all,month_money,month_pays
+	from tmp_adjust;
+
+END
+
+CREATE DEFINER=`root`@`%` PROCEDURE `crontab_report_adjust2`(iday int)
+BEGIN
+	declare beg_date int(11) default 0;
+	declare end_date int(11) default 0;
+
+    set beg_date = unix_timestamp(iday);
+	set end_date = beg_date + 86400;
+
+	set SQL_SAFE_UPDATES=0;
+
+	create temporary table if not exists tmp_adjust (
+        ad char(100) default '' primary key,
+		users int(11) default 0,
+        new_users int(11) default 0,
+		pay_golds bigint default 0,
+		pay_users int(11) default 0,
+		pay_money decimal(18,2) default 0,
+		pays int(11) default 0,
+        fpay_golds_all bigint default 0,
+		fpay_users_all int(11) default 0,
+		fpay_money_all decimal(18,2) default 0,
+		fpays_all int(11) default 0,
+		month_money decimal(18,2) default 0,
+		month_pays int(11) default 0
+	);
+	truncate table tmp_adjust;
+
+	create temporary table if not exists tmp_users (
+        ad char(100) default '' primary key,
+		users int(11) default 0
+	);
+	truncate table tmp_users;
+
+	-- 活跃用户
+	insert into tmp_users(ad, users)
+	select ifnull(c.ad,'Other'), count(uid)
+	from yly_member as a left join adjust_user2 as b on a.uid=b.aduid
+	left join adjust_ad as c on ifnull(ifnull(campaign_name, network_name), 'SYS') like concat(c.ad, '%')
+	where login_date>=beg_date and login_date<end_date group by c.ad;
+
+	insert into tmp_users(ad, users)
+	select 'ALL', count(uid) from yly_member where login_date>=beg_date and login_date<end_date;
+
+	create temporary table if not exists tmp_new_users (
+        ad char(100) default '' primary key,
+		new_users int(11) default 0
+	);
+	truncate table tmp_new_users;
+
+	-- 注册用户
+	insert into tmp_new_users(ad, new_users)
+    select ifnull(c.ad,'Other'), count(uid)
+	from yly_member as a left join adjust_user2 as b on a.uid=b.aduid
+	left join adjust_ad as c on ifnull(ifnull(campaign_name, network_name), 'SYS') like concat(c.ad, '%')
+	where reg_date>=beg_date and reg_date<end_date group by c.ad;
+
+	insert into tmp_new_users(ad, new_users)
+	select 'ALL', count(uid) from yly_member where reg_date>=beg_date and reg_date<end_date;
+
+    create temporary table if not exists tmp_pay (
+        ad char(100) default '' primary key,
+		pay_golds bigint default 0,
+		pay_users int(11) default 0,
+		pay_money decimal(18,2) default 0,
+		pays int(11) default 0
+	);
+	truncate table tmp_pay;
+
+	-- 支付
+	insert into tmp_pay(ad, pays, pay_users, pay_money, pay_golds)
+	select ifnull(e.ad, 'Other') as ad2, count(a.uid) pays, count(distinct a.uid) pay_users, sum(amount*usd_rate) pay_money, sum(golds)
+	from (
+		select oid,uid,currency,amount,golds from yly_member_order
+		where state=1 and timeline>=beg_date and timeline<end_date
+	) as a -- inner join yly_member as b on a.uid=b.uid
+	inner join adjust_user2 as d on a.uid=d.aduid
+	left join adjust_ad as e on ifnull(ifnull(campaign_name, network_name), 'SYS') like concat(e.ad, '%')
+	left join game_pay_currency as c on c.currency_code=a.currency
+	group by ad2;
+
+	insert into tmp_pay(ad, pays, pay_users, pay_money, pay_golds)
+    select 'ALL', count(a.uid) pays, count(distinct a.uid) pay_users, sum(amount*usd_rate) pay_money, sum(golds)
+	from (
+		select uid,currency,amount,golds from yly_member_order
+		where state=1 and timeline>=beg_date and timeline<end_date
+	) as a -- inner join yly_member as b on a.uid=b.uid
+	left join game_pay_currency as c on c.currency_code=a.currency;
+
+	-- +活跃用户
+	insert into tmp_adjust(ad, users)
+	select ad, users from tmp_users;
+
+	-- 不存在+新用户
+	insert into tmp_adjust(ad, new_users)
+	select ad, new_users from tmp_new_users as a
+	where not exists(select 1 from tmp_users where ad=a.ad);
+
+	-- 存在 更新 新用户
+	update tmp_adjust as a inner join tmp_new_users as b on a.ad=b.ad
+	set a.new_users = b.new_users;
+
+	-- 不存在+支付
+	insert into tmp_adjust(ad, pays, pay_users, pay_money, pay_golds)
+	select ad, pays, pay_users, pay_money, pay_golds from tmp_pay as a
+	where not exists(select 1 from tmp_users where ad=a.ad);
+
+	-- 存在 更新 支付
+    update tmp_adjust as a inner join tmp_pay as b on a.ad=b.ad
+	set a.pays = b.pays, a.pay_users=b.pay_users, a.pay_money = b.pay_money, a.pay_golds = b.pay_golds;
+
+	truncate table tmp_pay;
+
+    insert into tmp_pay(ad, pays, pay_users, pay_money, pay_golds)
+    select ifnull(e.ad, 'Other') as ad2, count(o.uid) pays, count(distinct o.uid) pay_users, sum(amount*usd_rate) pay_money, sum(golds)
+	from yly_member_order as o
+	-- inner join yly_member as b on b.uid=o.uid
+	left join adjust_user2 as d on o.uid=d.aduid
+	left join adjust_ad as e on ifnull(ifnull(campaign_name, network_name), 'SYS') like concat(e.ad, '%')
+	left join game_pay_currency as c on c.currency_code = o.currency
+	where timeline>=beg_date and timeline<end_date and state = 1
+	and o.uid in (
+		select uid from (select distinct uid from yly_member_order where timeline>=beg_date and timeline<end_date and state = 1) as a
+        where uid not in (select distinct uid from yly_member_order where timeline<beg_date and state = 1)
+	)
+	group by ad2;
+
+    insert into tmp_pay(ad, pays, pay_users, pay_money, pay_golds)
+    select 'ALL' as ad2, count(o.uid) pays, count(distinct o.uid) pay_users,sum(o.amount * usd_rate) pay_money, sum(golds) as golds
+	from yly_member_order as o
+    -- inner join yly_member as b on b.uid=o.uid
+	left join game_pay_currency as c on c.currency_code = o.currency
+	where timeline>=beg_date and timeline<end_date and state = 1
+	and o.uid in (
+		select uid from (select distinct uid from yly_member_order where timeline>=beg_date and timeline<end_date and state = 1) as a
+        where uid not in (select distinct uid from yly_member_order where timeline<beg_date and state = 1)
+	);
+
+    -- 更新首充
+    update tmp_adjust as a inner join tmp_pay as b on a.ad=b.ad
+	set a.fpays_all = b.pays, a.fpay_users_all=b.pay_users, a.fpay_money_all = b.pay_money, a.fpay_golds_all = b.pay_golds;
+
+    -- 月支付
+	create temporary table if not exists tmp_month_pay (
+        ad char(100) default '' primary key,
+		month_money decimal(18,2) default 0,
+		month_pays int(11) default 0
+	);
+	truncate table tmp_month_pay;
+
+    insert into tmp_month_pay(ad,month_money,month_pays)
+    select ifnull(e.ad, 'Other') as ad2,
+		sum(o.amount * usd_rate) as money, count(distinct o.uid) pay_users
+	from yly_member_order as o -- inner join yly_member as b on b.uid=o.uid
+    left join adjust_user2 as d on o.uid=d.aduid
+	left join adjust_ad as e on ifnull(ifnull(campaign_name, network_name), 'SYS') like concat(e.ad, '%')
+	left join game_pay_currency as c on c.currency_code = o.currency
+	where timeline>=beg_date-30*86400 and timeline<end_date and state = 1
+	group by ad2;
+
+    insert into tmp_month_pay(ad,month_money,month_pays)
+	select 'ALL' as ad2,
+		sum(o.amount * usd_rate) as money, count(distinct o.uid) pay_users
+	from yly_member_order as o -- inner join yly_member as b on b.uid=o.uid
+	left join game_pay_currency as c on c.currency_code = o.currency
+	where timeline>=beg_date-30*86400 and timeline<end_date and state = 1;
+
+    update tmp_adjust as a inner join tmp_month_pay as b on a.ad=b.ad
+	set a.month_money = b.month_money, a.month_pays=b.month_pays;
+
+	-- select * from tmp_adjust;
+	delete from report_adjust_summary2 where day=iday;
+
+	insert into report_adjust_summary2(day, ad, users, new_users, pays, pay_users, pay_money, pay_golds, fpays_all, fpay_users_all, fpay_money_all, fpay_golds_all,month_money,month_pays)
+	select iday, ad, users, new_users, pays, pay_users, pay_money, pay_golds, fpays_all, fpay_users_all, fpay_money_all, fpay_golds_all,month_money,month_pays
+	from tmp_adjust;
+
+END

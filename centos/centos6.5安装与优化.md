@@ -261,8 +261,12 @@ $ make
 # make install
 分析：
 goaccess -f /var/log/nginx/access.log
+tab切换，s弹小窗口显示详细内容
 选择 NCSA Combined Log Format
 goaccess -f /var/log/nginx/access.log -a > report.html
+goaccess -f /var/log/nginx/access.log -a -o report.html
+grep ^123.123.123.123 /var/log/httpd/access_log | goaccess #只统计来自某IP的记录
+grep " 403 " /var/log/httpd/access_log | goaccess #只统计来自某IP的记录
 ```
 
 ## 磁盘连续读写性能测试
@@ -424,6 +428,8 @@ sysctl -p
 ```sh
 ulimit -a 来显示当前的各种用户进程限制
 #php
+cat /etc/php-fpm.conf | grep rlimit_files
+cat /etc/php-fpm.d/www.conf | grep rlimit_files
 vi /etc/php-fpm.conf #vi cat /etc/php-fpm.d/www.conf
 rlimit_files = 122880
 #limits
