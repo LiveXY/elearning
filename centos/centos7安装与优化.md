@@ -662,3 +662,66 @@ yum clean all
 #安全策略
 禁止所有可连接端口后开启外网的22;80;443端口，开启内网可访问的所有端口。
 
+#CentOS性能分析
+yum install sysstat
+* `uptime` #分析1，5，15分钟平均负载
+* `dmesg | tail` #该命令会输出系统日志的最后10行
+* `vmstat 1` #每一秒输出一些系统核心指标
+r：等待在CPU资源的进程数，如果这个数值大于机器CPU核数，那么机器的CPU资源已经饱和
+free：系统可用内存数
+si，so：交换区写入和读取的数量。如果这个数据不为0，说明系统已经在使用交换区（swap），机器物理内存已经不足。
+us, sy, id, wa, st：这些都代表了CPU时间的消耗，它们分别表示用户时间（user）、系统（内核）时间（sys）、空闲时间（idle）、IO等待时间（wait）和被偷走的时间（stolen，一般被其他虚拟机消耗）
+* `mpstat -P ALL 1` 显示每个CPU的占用情况，如果有一个CPU占用率特别高，那么有可能是一个单线程应用程序引起的
+* `pidstat 1` pidstat命令输出进程的CPU占用率
+* `iostat -xz 1` iostat命令主要用于查看机器磁盘IO情况
+r/s, w/s, rkB/s, wkB/s：分别表示每秒读写次数和每秒读写数据量（千字节）。读写量过大，可能会引起性能问题。
+await：IO操作的平均等待时间，单位是毫秒。这是应用程序在和磁盘交互时，需要消耗的时间，包括IO等待和实际操作的耗时。如果这个数值过大，可能是硬件设备遇到了瓶颈或者出现故障。
+avgqu-sz：向设备发出的请求平均数量。如果这个数值大于1，可能是硬件设备已经饱和（部分前端硬件设备支持并行写入）。
+%util：设备利用率。这个数值表示设备的繁忙程度，经验值是如果超过60，可能会影响IO性能（可以参照IO操作平均等待时间）。如果到达100%，说明硬件设备已经饱和。
+* `free -m` free命令可以查看系统内存的使用情况，-m参数表示按照兆字节展示
+* `sar -n DEV 1` sar命令在这里可以查看网络设备的吞吐率
+* `sar -n TCP,ETCP 1` sar命令在这里用于查看TCP连接状态，其中包括：
+active/s：每秒本地发起的TCP连接数，既通过connect调用创建的TCP连接；
+passive/s：每秒远程发起的TCP连接数，即通过accept调用创建的TCP连接；
+retrans/s：每秒TCP重传数量；
+* `pmap -d pid` 查看进程占内存详情
+* `ps auxw|head -1;ps auxw|sort -rn -k3|head -10` 或 `ps auxw --sort=%cpu` CPU占用最多的前10个进程
+* `ps auxw|head -1;ps auxw|sort -rn -k4|head -10` 或 `ps auxw --sort=rss` 内存消耗最多的前10个进程
+* `ps auxw|head -1;ps auxw|sort -rn -k5|head -10` 虚拟内存使用最多的前10个进程
+* `ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' | grep node |  sort -nrk5` 查看node内存
+
+
+#CentOS安全分析
+* `lastb` 检查系统错误登陆日志，统计IP重试次数
+* 查看是否存在空口令帐户
+`cat /etc/passwd` 查看是否有异常的系统用户
+`grep '0' /etc/passwd` 查看是否产生了新用户，UID和GID为0的用户
+`ls -l /etc/passwd` 查看passwd的修改时间，判断是否在不知的情况下添加用户
+`awk -F: "$3= =0 {print $1}" /etc/passwd` 查看是否存在特权用户
+`awk -F: 'length($2)= =0 {print $1}' /etc/shadow` 查看是否存在空口令帐户
+* 检查异常进程
+`ps -ef` 注意UID为0的进程使用
+`lsof -p pid` 察看该进程所打开的端口和文件
+检查隐藏进程:
+ps -ef | awk '{print }' | sort -n | uniq >1
+ls /porc |sort -n|uniq >2
+diff 1 2
+* 检查网络
+ip link | grep PROMISC（正常网卡不该在promisc模式，可能存在sniffer）
+lsof -i:80
+netstat -nap（察看不正常打开的TCP/UDP端口)
+arp -a
+* 检查系统后门
+cat /etc/crontab
+ls /var/spool/cron/
+cat /etc/rc.d/rc.local
+ls /etc/rc.d
+ls /etc/rc3.d
+* 检查系统服务
+chkconfig -list
+rpcinfo -p（查看RPC服务）
+* 检查rootkit
+rkhunter -c
+chkrootkit -q
+
+

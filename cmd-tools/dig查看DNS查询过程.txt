@@ -1,0 +1,26 @@
+dig math.stackexchange.com
+dig +short math.stackexchange.com
+
+dig命令的+trace参数可以显示DNS的整个分级查询过程。
+$ dig +trace math.stackexchange.com
+
+dig命令可以单独查看每一级域名的NS记录。
+$ dig ns com
+$ dig ns stackexchange.com
+
++short参数可以显示简化的结果。
+$ dig +short ns com
+$ dig +short ns stackexchange.com
+
+PTR记录用于从IP地址反查域名。dig命令的-x参数用于查询PTR记录。
+$ dig -x 192.30.252.153
+
+host命令可以看作dig命令的简化版本，返回当前请求域名的各种记录。
+$ host github.com
+$ host 192.30.252.153
+
+nslookup命令用于互动式地查询域名记录
+$ host github.com
+
+whois命令用来查看域名的注册情况。
+$ whois github.com
