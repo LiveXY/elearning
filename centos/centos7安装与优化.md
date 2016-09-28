@@ -295,6 +295,12 @@ firewall-cmd --reload
 客户端挂载：
 showmount -e 192.168.1.65
 rpcinfo -p 192.168.1.65
+
+yum install rpcbind nfs-utils -y
+mount -t nfs 10.0.0.10:/home /home
+vi /etc/fstab
+10.0.0.10:/home    /home   nfs  defaults  0 0
+
 mount -t nfs 192.168.1.65:/home/test/ /home/test/
 mount
 如果显示：rpc mount export: RPC: Unable to receive; errno = No route to host，则需要在服务端关闭防火墙
@@ -646,6 +652,163 @@ mysql -h 172.16.180.139 -uroot -ppass -e 'show status like "wsrep%";' | grep wsr
 #三读
 mysql -h 172.16.180.139 -P 4306 -uroot -ppass -e 'show status like "wsrep%";' | grep wsrep_gcomm_uuid
 #任何一台或二台死掉其它都能正常访问，除非所有数据库死掉。
+```
+#haproxy php
+```
+vi /etc/haproxy/haproxy.cfg
+global
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     40000
+    user         haproxy
+    group       haproxy
+    daemon # 以后台程序运行；
+
+defaults
+    mode                   http # 选择HTTP模式，即可进行7层过滤；
+    log                     global
+    option                  httplog # 可以得到更加丰富的日志输出；
+    option                  dontlognull
+    option http-server-close # server端可关闭HTTP连接的功能；
+    option forwardfor except 127.0.0.0/8 # 传递client端的IP地址给server端，并写入“X-Forward_for”首部中；
+    option originalto
+    option                  redispatch
+    retries                 3
+    timeout http-request    30s
+    timeout queue           1m
+    timeout connect         30s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 30s
+    timeout check           30s
+    maxconn                 30000
+
+listen stats
+    mode http
+    bind 0.0.0.0:1080 # 统计页面绑定1080端口；
+    stats enable # 开启统计页面功能；
+    #stats hide-version # 隐藏Haproxy版本号；
+    stats uri     /stats # 自定义统计页面的访问uri；
+    stats realm   Haproxy\ Statistics # 统计页面密码验证时的提示信息；
+    stats auth    admin:Happ123 # 为统计页面开启登录验证功能；
+    stats admin if TRUE # 若登录用户验证通过，则赋予管理功能；
+
+frontend jggame
+    bind *:80
+    mode http
+    log global
+#    option httpclose
+    option logasap
+    option dontlognull
+#    capture request  header Host len 20
+#    capture request  header Referer len 60
+    #acl url_static       path_beg       -i /static /images /javascript /stylesheets
+    #acl url_static       path_end       -i .jpg .jpeg .gif .png .css .js .html
+    #use_backend static_servers if url_static # 符合ACL规则的，请求转入后端静态服务器
+    default_backend jgnode # 默认请求转入后端动态服务器
+
+backend jgnode
+    balance roundrobin
+        option httpchk  GET / HTTP/1.1\r\nHost:\ SCSC
+        server php1 10.0.0.11:80 cookie php1 check port 333 inter 5000 rise 3 fall 2
+        server php2 10.0.0.12:80 cookie php2 check port 333 inter 5000 rise 3 fall 2
+
+vi /home/nginx/conf.d/server333.conf
+server
+{
+        listen  333;
+#		listen 80;
+#		listen 443;
+#		ssl_certificate      /home/ssl/upupgame.crt;
+#               ssl_certificate_key  /home/ssl/upupgame.key;
+
+#                ssl_ciphers RC4:HIGH:!aNULL:!MD5;
+#		ssl_prefer_server_ciphers   on;
+
+		server_name _ SCSC;
+        index index.php index.htm index.html;
+		set $htdoc /home/ssl;
+        root  $htdoc;
+        large_client_header_buffers 4 16k;
+        client_max_body_size 300m;
+        client_body_buffer_size 128k;
+        proxy_connect_timeout 600;
+        proxy_read_timeout 600;
+        proxy_send_timeout 600;
+        proxy_buffer_size 64k;
+        proxy_buffers   4 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_temp_file_write_size 64k;
+
+		location ~ .*\.(php|php5)?$
+		{
+                    #limit_rate 20k;
+	            #limit_conn one 2;
+		    root $htdoc;
+		    fastcgi_pass   127.0.0.1:9000;
+		    fastcgi_index  index.php;
+		    fastcgi_param  SCRIPT_FILENAME  $htdoc$fastcgi_script_name;
+		    include        fastcgi_params;
+		}
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+        {
+                expires      30d;
+        }
+
+        location ~ .*\.(js|css)?$
+	    {
+	            expires      12h;
+	    }
+}
+vi /home/ssl/index.php
+<?php
+$timestamp=time();
+//$url=" google-public-dns-a.google.com";
+$url="www.baidu.com";
+$file="/tmp/".$url;
+
+$mem=new Memcached();
+//$mem->connect( "10.0.0.10",11211 );
+$mem->addServer("10.0.0.10",11211);
+if(empty($_SERVER["SERVER_ADDR"]))$_SERVER["SERVER_ADDR"]="127";
+$key=implode("_", explode(".",$_SERVER["SERVER_ADDR"].$url));
+
+$res=$mem->get($key);
+
+if(!empty($res)){
+	$res=json_decode($res,true);
+}else{
+	$res=['time'=>0,'ping'=>0];
+}
+
+if($timestamp>($res['time']+5)){
+	$ping=pingAddress($url);
+	if($ping!=0){
+		$ping=pingAddress("www.qq.com");
+	}
+	$res['time']=$timestamp;
+	$res['ping']=$ping;
+	$mem->set($key,json_encode($res),0);
+}
+if (0 == $res['ping']) {
+    header("HTTP/1.1 200 OK");
+	header("Content-Type: text/plain");
+	header("Connection: close");
+	header("Content-Length: 15");
+	echo "PUB NETWORK OK.";
+} else {
+    header("HTTP/1.1 503 Service Unavailable");
+	header("Content-Type: text/plain");
+	header("Connection: close");
+	header("Content-Length: 27");
+	echo "Out Network Is Unavailable!";
+}
+function pingAddress($ip) {
+    $pingresult = exec("/bin/ping -c 2 $ip", $outcome, $status);
+    return $status;
+}
+php /home/ssl/index.php
 ```
 
 #nodejs
