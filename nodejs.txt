@@ -1,0 +1,5 @@
+
+npm install profiler tick -g
+node --prof test.js
+node-tick-processor v8.log
+

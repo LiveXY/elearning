@@ -1,0 +1,143 @@
+firewall-cmd
+zone
+Firewall 能将不同的网络连接归类到不同的信任级别，Zone 提供了以下几个级别
+drop: 丢弃所有进入的包，而不给出任何响应
+block: 拒绝所有外部发起的连接，允许内部发起的连接
+public: 允许指定的进入连接
+external: 同上，对伪装的进入连接，一般用于路由转发
+dmz: 允许受限制的进入连接
+work: 允许受信任的计算机被限制的进入连接，类似 workgroup
+home: 同上，类似 homegroup
+internal: 同上，范围针对所有互联网用户
+trusted: 信任所有连接
+
+过滤规则
+source: 根据源地址过滤
+interface: 根据网卡过滤
+service: 根据服务名过滤
+port: 根据端口过滤
+icmp-block: icmp 报文过滤，按照 icmp 类型配置
+masquerade: ip 地址伪装
+forward-port: 端口转发
+rule: 自定义规则
+其中，过滤规则的优先级遵循如下顺序
+
+source
+interface
+firewalld.conf
+
+# systemctl start firewalld         # 启动,
+# systemctl enable firewalld        # 开机启动
+# systemctl stop firewalld          # 关闭
+# systemctl disable firewalld       # 取消开机启动
+
+实例：
+firewall-cmd --list-all
+firewall-cmd --list-all --permanent
+
+firewall-cmd --reload
+
+
+firewall-cmd --add-port=8080/tcp --permanent
+
+ssh 允许192.168.1.88访问
+firewall-cmd --add-rich-rule="rule family="ipv4" source address="192.168.1.88" service name="ssh" accept"
+firewall-cmd --add-rich-rule="rule family="ipv4" source address="192.168.1.0/24" service name="ssh" accept"
+
+限制某 port 只能從哪IP連入
+# sudo firewall-cmd --add-rich-rule="rule family="ipv4" source address="192.168.12.9" port port="8080" protocol="tcp" accept"
+
+從 zone 移除某項服務 ★★★
+# sudo firewall-cmd --zone=public --add-service=http --permanent 
+# sudo firewall-cmd --zone=public --remove-service=http --permanent
+# sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent 
+# sudo firewall-cmd --zone=public --remove-port=8080/tcp --permanent
+
+port forward 將從某 port number 的封包轉送另外的 port 或其他主機 ★★★
+# 將 80 port 收到的訊息轉往 port 8080
+# sudo firewall-cmd --zone="public" --add-forward-port=port=80:proto=tcp:toport=8080
+# 將 80 port 收到的訊息轉往其他台主機的 port 8080
+# sudo firewall-cmd --zone="public" --add-forward-port=port=80:proto=tcp:toport=8080:toaddr=140.113.1.1
+
+查看运行状态
+$ firewall-cmd --state
+查看已被激活的 Zone 信息
+$ firewall-cmd --get-active-zones
+查看指定接口的 Zone 信息
+$ firewall-cmd --get-zone-of-interface=eth0
+查看指定级别的接口
+$ firewall-cmd --zone=public --list-interfaces
+查看指定级别的所有信息，譬如 public
+$ firewall-cmd --zone=public --list-all
+查看所有级别被允许的信息
+$ firewall-cmd --get-service
+查看重启后所有 Zones 级别中被允许的服务，即永久放行的服务
+$ firewall-cmd --get-service --permanent
+# firewall-cmd --panic-on           # 丢弃
+# firewall-cmd --panic-off          # 取消丢弃
+# firewall-cmd --query-panic        # 查看丢弃状态
+# firewall-cmd --reload             # 更新规则，不重启服务
+# firewall-cmd --complete-reload    # 更新规则，重启服务
+列出 dmz 级别的被允许的进入端口
+# firewall-cmd --zone=dmz --list-ports
+允许 tcp 端口 8080 至 dmz 级别
+# firewall-cmd --zone=dmz --add-port=8080/tcp
+允许某范围的 udp 端口至 public 级别，并永久生效
+# firewall-cmd --zone=public --add-port=5060-5059/udp --permanent
+列出 public zone 所有网卡
+# firewall-cmd --zone=public --list-interfaces
+将 eth0 添加至 public zone，永久
+# firewall-cmd --zone=public --permanent --add-interface=eth0
+eth0 存在与 public zone，将该网卡添加至 work zone，并将之从 public zone 中删除
+# firewall-cmd --zone=work --permanent --change-interface=eth0
+删除 public zone 中的 eth0，永久
+# firewall-cmd --zone=public --permanent --remove-interface=eth0
+添加 smtp 服务至 work zone
+# firewall-cmd --zone=work --add-service=smtp
+移除 work zone 中的 smtp 服务
+# firewall-cmd --zone=work --remove-service=smtp
+要打开端口转发，则需要先
+# firewall-cmd --zone=public --add-masquerade
+然后转发 tcp 22 端口至 3753
+# firewall-cmd --zone=public --add-forward-port=port=22:proto=tcp:toport=3753
+转发 22 端口数据至另一个 ip 的相同端口上
+# firewall-cmd --zone=public --add-forward-port=port=22:proto=tcp:toaddr=192.168.1.100
+转发 22 端口数据至另一 ip 的 2055 端口上
+# firewall-cmd --zone=public --add-forward-port=port=22:proto=tcp:toport=2055:toaddr=192.168.1.100
+查看所有支持的 icmp 类型
+# firewall-cmd --get-icmptypes
+destination-unreachable echo-reply echo-request parameter-problem redirect router-advertisement router-solicitation source-quench time-exceeded
+列出
+# firewall-cmd --zone=public --list-icmp-blocks
+添加 echo-request 屏蔽
+# firewall-cmd --zone=public --add-icmp-block=echo-request [--timeout=seconds]
+移除 echo-reply 屏蔽
+# firewall-cmd --zone=public --remove-icmp-block=echo-reply
+g. IP 封禁
+# firewall-cmd --permanent --add-rich-rule="rule family='ipv4' source address='222.222.222.222' reject"
+
+
+firewall-cmd --get-services
+允许 ssh 服务通过
+# firewall-cmd --enable service=ssh
+禁止 ssh 服务通过
+# firewall-cmd --disable service=ssh
+临时允许 samba 服务通过 600 秒
+# firewall-cmd --enable service=samba --timeout=600
+显示当前服务
+ # firewall-cmd --list-services 
+ dhcpv6-client ssh
+添加 http 服务到内部区域（internal）
+# firewall-cmd --permanent --zone=internal --add-service=http 
+ # firewall-cmd – reload
+将一个服务加入到分区
+要把一个服务加入到分区，例如允许 SMTP 接入工作区：
+# firewall-cmd --zone=work --add-service=smtp 
+ # firewall-cmd --reload 
+从一个分区移除服务
+要从分区移除服务，比如从工作区移除 SMTP：
+# firewall-cmd --zone=work --remove-service=smtp 
+ # firewall-cmd --reload
+
+
+

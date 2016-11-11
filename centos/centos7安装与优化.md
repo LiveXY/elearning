@@ -852,6 +852,17 @@ retrans/s：每秒TCP重传数量；
 * `ps auxw|head -1;ps auxw|sort -rn -k4|head -10` 或 `ps auxw --sort=rss` 内存消耗最多的前10个进程
 * `ps auxw|head -1;ps auxw|sort -rn -k5|head -10` 虚拟内存使用最多的前10个进程
 * `ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' | grep node |  sort -nrk5` 查看node内存
+* `strace -p $(pgrep php-fpm |head -1)` `strace -T -tt -F -e trace=all -p $(pgrep php-fpm |head -1)` 跟踪php-fpm进程执行时的系统调用和所接收的信号
+file_get_contents 会导致：select(7, [6], [6], [], {15, 0}) = 1 (out [6], left {15, 0}) poll([{fd=6, events=POLLIN}], 1, 0) = 0 (Timeout) CPU100%
+vi /etc/php-fpm.d/www.conf 修改 request_terminate_timeout=30s
+* `pmap -p $(pgrep php-fpm |head -1)` 查看php-fpm进程使用内存
+* 分析进程占用 cpu过高 方法
+```
+1.进程 里线程cpu排序: ps H -e -o pid,tid,pcpu,cmd --sort=pcpu |grep php-fpm
+2. gdb  attach 到进程号码
+3. gdb  info threads 找到线程号码对应的thread,thread 线程号码切换到线程
+bt 查看线程调用。
+```
 
 
 #CentOS安全分析

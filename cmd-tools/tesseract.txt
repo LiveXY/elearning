@@ -1,0 +1,11 @@
+brew install tesseract
+wget https://tesseract-ocr.googlecode.com/files/eng.traineddata.gz
+wget https://github.com/tesseract-ocr/tessdata/raw/master/chi_sim.traineddata
+
+https://github.com/tesseract-ocr/tessdata to your /usr/local/Cellar/tesseract/3.04.01_2/share/tessdata
+
+tesseract -v
+which tesseract
+tesseract --list-langs
+
+tesseract chi_sim.png -l chi_sim result

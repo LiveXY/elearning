@@ -267,6 +267,7 @@ goaccess -f /var/log/nginx/access.log -a > report.html
 goaccess -f /var/log/nginx/access.log -a -o report.html
 grep ^123.123.123.123 /var/log/httpd/access_log | goaccess #只统计来自某IP的记录
 grep " 403 " /var/log/httpd/access_log | goaccess #只统计来自某IP的记录
+grep " 500 " /var/log/nginx/access.log
 ```
 
 ## 磁盘连续读写性能测试
@@ -422,6 +423,10 @@ net.ipv4.tcp_syn_retries = 2
 net.ipv4.tcp_max_orphans = 3276800
 net.ipv4.tcp_timestamps = 0
 net.ipv4.tcp_mem = 94500000 915000000 927000000
+#net.ipv4.tcp_keepalive_time = 1800
+#net.ipv4.tcp_orphan_retries = 3
+#net.ipv4.tcp_keepalive_probes = 5
+#net.ipv4.tcp_keepalive_intvl = 15
 sysctl -p
 ```
 * 打开文件数的限制
