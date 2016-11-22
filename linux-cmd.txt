@@ -1539,14 +1539,34 @@ cd-paranoia -- "-3" 从一个CD光盘转录音轨到 wav 文件中（参数-3）
 cdrecord --scanbus 扫描总线以识别scsi通道
 dd if=/dev/hdc | md5sum 校验一个设备的md5sum编码，例如一张 CD
 
-
-
-
-
-
-
-
-
+=========================================
+下来列出了不同的扩展模式匹配操作符，这些模式列表是一个用 | 分割包含一个或者多个文件名的列表：
+*(模式列表) – 匹配 0 个或者多个出现的指定模式
+?(模式列表) – 匹配 0 个或者 1 个出现的指定模式
+@(模式列表) – 匹配 1 个或者多个出现的指定模式
+!(模式列表) – 匹配除了一个指定模式之外的任何内容
+为了使用它们，需要像下面一样打开 extglob shell 选项：
+# shopt -s extglob
+1. 输入以下命令，删除一个目录下除了 filename 之外的所有文件
+$ rm -v !("filename")
+2. 删除除了 filename1 和 filename2 之外的所有文件
+$ rm -v !("filename1"|"filename2")
+3. 下面的例子显示如何通过交互模式删除除了 .zip 之外的所有文件
+$ rm -i !(*.zip)
+4. 接下来，通过如下的方式你可以删除一个目录下除了所有的.zip 和 .odt 文件的所有文件，并且在删除的时候，显示正在删除的文件：
+$ rm -v !(*.zip|*.odt)
+一旦你已经执行了所有需要的命令，你还可以使用如下的方式关闭 extglob shell 选项。
+$ shopt -u extglob
+在这种方法下，我们可以只使用 find 命令的适当的选项或者采用管道配合 xargs 命令，如下所示：
+$ find /directory/ -type f -not -name 'PATTERN' -delete
+$ find /directory/ -type f -not -name 'PATTERN' -print0 | xargs -0 -I {} rm {}
+$ find /directory/ -type f -not -name 'PATTERN' -print0 | xargs -0 -I {} rm [options] {}
+5. 下面的命令将会删除当前目录下除了 .gz 之外的所有文件
+$ find . -type f -not -name '*.gz' -delete
+6. 使用管道和 xargs，你可以通过如下的方式修改上面的例子：
+$ find . -type f -not -name '*gz' -print0 | xargs -0 -I {} rm -v {}
+7. 让我们看一个额外的例子，下面的命令行将会删除掉当前目录下除了 .gz、 .odt 和 .jpg 之外的所有文件：
+$ find . -type f -not \(-name '*gz' -or -name '*odt' -or -name '*.jpg' \) -delete
 
 
 

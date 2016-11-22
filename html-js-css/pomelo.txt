@@ -1,0 +1,84 @@
+安装pomelo pomelo-cli 管理工具
+```
+npm install pomelo pomelo-cli -g -ddd
+```
+
+启动Pomelo应用
+```
+10.0.0.20
+pomelo start -e production -D -d /home/mj_node0/hall-server/
+
+10.0.0.21
+pomelo start -e production -D -d /home/mj_node1/hall-server/
+
+10.0.0.22
+pomelo start -e production -D -d /home/mj_node2/hall-server/
+
+10.0.0.23
+pomelo start -e production -D -d /home/mj_node3/hall-server/
+
+10.0.0.24
+pomelo start -e production -D -d /home/mj_node4/hall-server/
+```
+
+列出所有服务器信息
+```
+pomelo list -P 1005 -u admin -p 123456
+```
+
+停止应用，stop和kill命令不同，这种关闭首先会切断客户端与服务器的连接，然后逐一关闭所有服务器
+```
+pomelo stop -P 1005 -u admin -p 123456
+pomelo stop -P 1005 -u admin -p 123456 connector-server-0
+pomelo stop -P 1005 -u admin -p 123456 connector-server-1
+pomelo stop -P 1005 -u admin -p 123456 connector-server-2
+pomelo stop -P 1005 -u admin -p 123456 connector-server-3
+pomelo stop -P 1005 -u admin -p 123456 connector-server-4
+
+pomelo stop -P 1005 -u admin -p 123456 connector-server-1 connector-server-2
+
+pomelo kill -P 1005 -u admin -p 123456 -f
+```
+
+重新启动
+```
+pomelo restart -P 1005 -u admin -p 123456
+pomelo restart -P 1005 -u admin -p 123456 connector-server-0
+pomelo restart -P 1005 -u admin -p 123456 hall-server-1 db-server-1
+```
+
+动态增加服务器
+```
+10.0.0.20
+pomelo add -P 1005 -u admin -p 123456 -h 10.0.0.20 host=10.0.0.20 port=7550 clientPort=7510 frontend=true serverType=connector id=connector-server-0
+pomelo add -P 1005 -u admin -p 123456 -h 10.0.0.20 host=10.0.0.20 port=7850 serverType=hall id=hall-server-1
+10.0.0.21
+pomelo add -P 1005 -u admin -p 123456 -h 10.0.0.21 host=10.0.0.21 port=7550 clientPort=7510 frontend=true serverType=connector id=connector-server-1
+10.0.0.22
+pomelo add -P 1005 -u admin -p 123456 -h 10.0.0.22 host=10.0.0.22 port=7550 clientPort=7510 frontend=true serverType=connector id=connector-server-2
+10.0.0.23
+pomelo add -P 1005 -u admin -p 123456 -h 10.0.0.23 host=10.0.0.23 port=7550 clientPort=7510 frontend=true serverType=connector id=connector-server-3
+10.0.0.24
+pomelo add -P 1005 -u admin -p 123456 -h 10.0.0.24 host=10.0.0.24 port=7550 clientPort=7510 frontend=true serverType=connector id=connector-server-4
+```
+
+pomelo-cli -h 127.0.0.1 -P 1005 -u admin -p 123456
+use area-server-1
+use all
+quit
+kill
+add host=127.0.0.1 port=3451 serverType=chat id=chat-server-2
+add host=127.0.0.1 port=3152 serverType=connector id=connector-server-3 clientPort=3012 frontend=true
+stop area-server-1
+show servers
+show connections
+show proxy
+show handler
+show logins
+enable module systemInfo
+enable app systemMonitor
+disable module systemInfo
+disable app systemMonitor
+dump cpu /home/xxx/test 5 --force
+dump memory /home/xxx/test --force
+

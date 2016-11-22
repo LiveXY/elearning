@@ -16,7 +16,7 @@ mysql -uroot -pnewlife -e "grant reload,lock tables,replication client on *.* to
 安装：
 ```
 rpm -ivh http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm
-yum install percona-xtrabackup
+yum install percona-xtrabackup -y
 ```
 xtrabackup参数：
 * --user=     #指定数据库备份用户

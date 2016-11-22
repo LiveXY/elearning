@@ -16,9 +16,9 @@ linux下载地址：http://mirrors.163.com/centos/6.5/isos/x86_64/CentOS-6.5-x86
 ## 准备：
 * `su root` 切换root
 * `passwd root` 修改root密码
-* `yum install perl` mini版本不带perl 需要安装perl
-* `yum install yum-fastestmirror` 解决loaded plugins:fastestmirror错误
-* `yum install wget` 安装wget
+* `yum install perl -y` mini版本不带perl 需要安装perl
+* `yum install yum-fastestmirror -y` 解决loaded plugins:fastestmirror错误
+* `yum install wget -y` 安装wget
 * `yum remove httpd` 使用nginx就不需要httpd了 或 `chkconfig httpd off && service httpd stop` 关闭httpd
 * `wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm && rpm -ivh epel-release-6-8.noarch.rpm` 导入epel源
 * `wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm && rpm -ivh remi-release-6.rpm` 导入remi源
@@ -29,7 +29,7 @@ linux下载地址：http://mirrors.163.com/centos/6.5/isos/x86_64/CentOS-6.5-x86
 ## nginx安装与配置
 * nginx安装：
 ```sh
-yum install nginx
+yum install nginx -y
 chkconfig nginx on
 service nginx start
 ```
@@ -55,7 +55,7 @@ service nginx restart
 ## mysql安装与配置
 * mysql安装：
 ```sh
-yum install mysql mysql-server
+yum install mysql mysql-server -y
 chkconfig mysqld on
 service mysqld start
 ```
@@ -70,11 +70,11 @@ service mysqld restart
 ## php安装与配置
 * php安装：
 ```sh
-yum install php php-mysql php-gd php-mbstring php-mcrypt php-memcache php-openssl php-xml php-xmlrpc php-fpm php-opcache
+yum install php php-mysql php-gd php-mbstring php-mcrypt php-memcache php-openssl php-xml php-xmlrpc php-fpm php-opcache -y
 chkconfig php-fpm on
 service php-fpm start
 yum install libmemcached -y
-yum install php-pear php-pecl-memcache
+yum install php-pear php-pecl-memcache -y
 ```
 * php配置：
 ```sh
@@ -118,7 +118,7 @@ svn checkout url
 
 ## memcached安装：
 ```sh
-yum install memcached
+yum install memcached -y
 chkconfig memcached on
 service memcached start
 telnet 127.0.0.1 11211
@@ -127,7 +127,7 @@ telnet 127.0.0.1 11211
 ## redis安装与配置
 * redis安装：
 ```sh
-yum install redis
+yum install redis -y
 service redis restart
 redis-server /etc/redis.conf
 redis-cli
@@ -162,7 +162,7 @@ config set stop-writes-on-bgsave-error no
 ## ntp ntpd更新系统时间安装与配置
 * ntp安装：
 ```sh
-yum install ntp ntpd
+yum install ntp ntpd -y
 chkconfig ntpd on
 ```
 * ntp配置：
@@ -184,21 +184,21 @@ hwclock -w
 
 ## nethogs查询网络带宽占用安装
 ```sh
-yum install nethogs
+yum install nethogs -y
 ifconfig -a
 nethogs venet0:0
 ```
 
 ## iftop网络带宽安装
 ```sh
-yum install iftop
+yum install iftop -y
 iftop
 ```
 
 ## nmon监控安装与配置
 * nmon安装：
 ```sh
-yum install nmon
+yum install nmon -y
 nmon
 输入c可显示CPU的信息,“m”对应内存、“n”对应网络,“d”可以查看磁盘信息；“t”可以查看系统的进程信息；“
 ```
@@ -251,7 +251,7 @@ iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 ## goaccess网站日志分析安装：
 ```sh
 方法一：
-yum install goaccess
+yum install goaccess -y
 方法二：
 $ wget http://tar.goaccess.io/goaccess-0.8.3.tar.gz
 $ tar -xzvf goaccess-0.8.3.tar.gz
@@ -315,7 +315,7 @@ test       ALL=(ALL)       ALL
 
 ## rkhunter安全工具安装：
 ```sh
-yum install rkhunter
+yum install rkhunter -y
 rkhunter -c
 ```
 
@@ -624,7 +624,7 @@ Deny from all
 ###php7
 ```
 yum remove php*
-yum install php70-php php70-php-pear php70-php-bcmath php70-php-pecl-jsond-devel php70-php-mysqlnd php70-php-gd php70-php-common php70-php-fpm php70-php-intl php70-php-cli php70-php php70-php-xml php70-php-opcache php70-php-pecl-apcu php70-php-pecl-jsond php70-php-pdo php70-php-gmp php70-php-process php70-php-pecl-imagick php70-php-devel php70-php-mbstring php70-php-memcache
+yum install php70-php php70-php-pear php70-php-bcmath php70-php-pecl-jsond-devel php70-php-mysqlnd php70-php-gd php70-php-common php70-php-fpm php70-php-intl php70-php-cli php70-php php70-php-xml php70-php-opcache php70-php-pecl-apcu php70-php-pecl-jsond php70-php-pdo php70-php-gmp php70-php-process php70-php-pecl-imagick php70-php-devel php70-php-mbstring php70-php-memcache -y
 ln -s /usr/bin/php70 /usr/bin/php
 cp /etc/php.ini.rpmsave /etc/php.ini
 service php-fpm stop

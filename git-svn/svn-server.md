@@ -2,7 +2,7 @@ SVN Server
 ==========
 
 ```sh
-yum install subversion mod_dav_svn
+yum install subversion mod_dav_svn -y
 svnserve --version
 
 mkdir /home/svn

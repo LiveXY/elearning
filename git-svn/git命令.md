@@ -142,9 +142,9 @@ mv _temp/ happipoker.com/
 
 git pull
 
-yum install git
+yum install git -y
 or
-yum install git --disablerepo=rpmforge
+yum install git -y --disablerepo=rpmforge
 
 git clone https://github.com/mono/mwf-designer.git
 git pull/git fetch

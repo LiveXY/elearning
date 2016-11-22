@@ -33,7 +33,7 @@ select 0 打开默认为0的数据库
 
 
 redis 安装
-yum install redis
+yum install redis -y
 
 
 redis 升级

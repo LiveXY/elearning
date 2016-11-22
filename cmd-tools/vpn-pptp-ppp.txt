@@ -88,4 +88,5 @@ service iptables restart
 service pptpd restart-kill
 service pptpd restart
 
-
+git SSL certificate problem: Invalid certificate chain
+git config --global http.sslVerify false

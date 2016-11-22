@@ -9,7 +9,7 @@ cd ntfs-3g_ntfsprogs-2014.2.15
 make
 make install
 或
-yum install ntfs-3g
+yum install ntfs-3g -y
 
 mount -t ntfs-3g /dev/sda1 /mnt/windows
 

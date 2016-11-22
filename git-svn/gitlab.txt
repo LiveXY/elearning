@@ -2,17 +2,17 @@
 https://about.gitlab.com/downloads/#centos7
 
 ```
-sudo yum install curl policycoreutils openssh-server openssh-clients firewall
+sudo yum install curl policycoreutils openssh-server openssh-clients firewall -y
 sudo systemctl enable sshd
 sudo systemctl start sshd
-sudo yum install postfix
+sudo yum install postfix -y
 sudo systemctl enable postfix
 sudo systemctl start postfix
 sudo firewall-cmd --permanent --add-service=http
 sudo systemctl reload firewalld
 
 curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
-sudo yum install gitlab-ce
+sudo yum install gitlab-ce -y
 
 curl -LJO https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-XXX.rpm/download
 rpm -i gitlab-ce-XXX.rpm

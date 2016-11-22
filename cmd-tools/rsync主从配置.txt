@@ -2,7 +2,7 @@ rsync 主从配置
 
 主：：：：：：：：
 
-yum install rsync
+yum install rsync -y
 cd /tmp
 wget --no-check-certificate http://github.com/downloads/rvoicilas/inotify-tools/inotify-tools-3.14.tar.gz
 tar -zxvf inotify-tools-3.14.tar.gz
@@ -55,7 +55,7 @@ echo "/root/inotify_rsync.sh">>/etc/rc.local
 从：：：
 
 
-yum install rsync
+yum install rsync -y
 
 echo -e "uid = root
 gid = root

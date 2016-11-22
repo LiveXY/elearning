@@ -181,6 +181,10 @@ sips -Z 800 ~/Pictures/*.JPG
 sips -r 90 ~/Pictures/*.JPG
 #垂直反转
 sips -f vertical ~/Pictures/*.JPG
+=====================================================
+设置打开文件数
+$sudo launchctl limit maxfiles 100000 500000
+$sudo ulimit -n 100000
 
 
 

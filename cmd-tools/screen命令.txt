@@ -63,7 +63,7 @@ C-a ] -> Paste，把刚刚在 copy mode 选定的内容贴上
 
 5.1 安装screen
 流行的Linux发行版（例如Red Hat Enterprise Linux）通常会自带screen实用程序，如果没有的话，可以从GNU screen的官方网站下载。
-yum install screen
+yum install screen -y
 rpm -qa|grep screen
 screen-4.0.3-4.el5
 

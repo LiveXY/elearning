@@ -1,6 +1,6 @@
 io net cpu
 
-yum install sysstat
+yum install sysstat -y
 http://sebastien.godard.pagesperso-orange.fr/documentation.html
 
 iostat -xdm 1
@@ -65,7 +65,7 @@ mysql管理工具
 http://www.percona.com/redir/downloads/percona-toolkit/LATEST/RPM/percona-toolkit-2.2.8-1.noarch.rpm
 
 net
-yum install nmon
+yum install nmon -y
 
 工具    简单介绍
 top    查看进程活动状态以及一些系统状况

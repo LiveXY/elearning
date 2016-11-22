@@ -17,7 +17,7 @@ hydra安装：
 ```
 apt-get install apt-get install libssl-dev libssh-dev libidn11-dev libpcre3-dev libgtk2.0-dev libmysqlclient-dev libpq-dev libsvn-dev firebird2.1-dev libncp-dev libncurses5-dev hydra
 brew install hydra
-yum install openssl-devel pcre-devel ncpfs-devel postgresql-devel libssh-devel subversion-devel libncurses-devel
+yum install openssl-devel pcre-devel ncpfs-devel postgresql-devel libssh-devel subversion-devel libncurses-devel -y
 zypper install libopenssl-devel pcre-devel libidn-devel ncpfs-devel libssh-devel postgresql-devel subversion-devel libncurses-devel
 # wget http://www.thc.org/releases/hydra-7.4.1.tar.gz
 # tar zxvf hydra-7.4.1.tar.gz

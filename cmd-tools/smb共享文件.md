@@ -4,7 +4,7 @@ smb 共享文件
 http://www.cnblogs.com/mchina/archive/2012/12/18/2816717.html
 
 ```sh
-yum install samba samba-client samba-swat
+yum install samba samba-client samba-swat -y
 
 vi /etc/samba/smb.conf
 [share]

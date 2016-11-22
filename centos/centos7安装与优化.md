@@ -4,7 +4,7 @@ centos7安装与优化
 * ip add #查看当前IP
 * rpm -q centos-release #查看系统版本
 * yum repolist #查看已有源
-* yum install wget curl psmisc
+* yum install wget curl psmisc -y
 * sudo yum install update -y && sudo yum install upgrade -y
 
 ##设置上下键选择历史命令
@@ -38,7 +38,7 @@ systemctl restart network.service
 ```
 ##安装第三方源
 ```sh
-yum install epel-release
+yum install epel-release -y
 #yum install yum-axelget yum-fastestmirror -y
 yum install axel -y
 下载配置文件axelget.conf与axelget.py到yum里：
@@ -217,7 +217,7 @@ SELINUX=disabled
 ##nfs文件共享系统
 ```sh
 服务器端配置：
-yum install nfs-utils nfs-utils-lib
+yum install nfs-utils nfs-utils-lib -y
 
 vi /etc/exports
 /home/test/ 192.168.1.0/24(rw,no_root_squash,no_all_squash,sync)
@@ -814,7 +814,7 @@ php /home/ssl/index.php
 #nodejs
 ```
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
-yum install nodejs
+yum install nodejs -y
 yum install "gcc-c++.x86_64"
 
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
@@ -826,7 +826,7 @@ yum clean all
 禁止所有可连接端口后开启外网的22;80;443端口，开启内网可访问的所有端口。
 
 #CentOS性能分析
-yum install sysstat
+yum install sysstat -y
 * `uptime` #分析1，5，15分钟平均负载
 * `dmesg | tail` #该命令会输出系统日志的最后10行
 * `vmstat 1` #每一秒输出一些系统核心指标

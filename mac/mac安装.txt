@@ -26,6 +26,10 @@ source ~/.bashrc
 echo "$HISTSIZE $HISTFILESIZE"
 ```
 
+vi ~/.inputrc
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
 vi ~/.bash_profile
 ```
 #nginx
@@ -79,12 +83,108 @@ port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd 
 port select --list php
 port select php php70
 
-port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php-memcached php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
-
 cp /opt/local/etc/php70/php.ini-development /opt/local/etc/php70/php.ini
 cp /opt/local/etc/php70/php-fpm.conf.default /opt/local/etc/php70/php-fpm.conf
 cp /opt/local/etc/php70/php-fpm.d/www.conf.default /opt/local/etc/php70/php-fpm.d/www.conf
 fpm_restart
+
+port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php-memcached php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
+
+cp /opt/local/etc/php56/php.ini-development /opt/local/etc/php56/php.ini
+cp /opt/local/etc/php56/php-fpm.conf.default /opt/local/etc/php56/php-fpm.conf
+fpm_restart
+
+vi /opt/local/etc/nginx/nginx.conf
+```
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    gzip  on;
+
+    include conf.d/*.conf;
+
+}
+```
+vi /opt/local/etc/nginx/conf.d/default.conf
+```
+server {
+	listen 80;
+	server_name test.starcloudcasino.com;
+	root /Users/hcxiong/git_pro/starcloud;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary off;
+    gzip_disable "MSIE [1-6]\.";
+
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Headers X-Requested-With;
+    add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+
+    rewrite  ^/mobile/shareapp21?(.*)$  /index.html last;
+    rewrite  ^/mobile/shareApp21?(.*)$  /index.html last;
+
+    if ($http_user_agent ~ MSIE) {
+        rewrite  ^/mobile  /index.html last;
+    }
+
+	location / {
+		index index.html index.htm index.php;
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	error_page 500 502 503 504 /50x.html;
+	location = /50x.html {
+		root html;
+	}
+
+	location ~ ^(.+.php)(.*)$ {
+		fastcgi_split_path_info ^(.+.php)(.*)$;
+		fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+		fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+		include fastcgi.conf;
+		fastcgi_pass 127.0.0.1:9000;
+		fastcgi_index index.php;
+	}
+}
+```
 
 #npm
 sudo npm install cnpm -g -ddd

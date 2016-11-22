@@ -53,9 +53,9 @@ if you don't see epel, install it via RPM (At the time of this writing, the last
 sudo rpm --import https://fedoraproject.org/static/0608B895.txt
 sudo rpm -Uvh http://download-i2.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 
-sudo yum install nodejs npm --enablerepo=epel
+sudo yum install -y nodejs npm --enablerepo=epel
 or
-sudo yum install npm --enablerepo=epel
+sudo yum install -y npm --enablerepo=epel
 ---------------------------------------------------------------------------------------------
 
 npm install async
