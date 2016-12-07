@@ -898,4 +898,9 @@ rpcinfo -p（查看RPC服务）
 rkhunter -c
 chkrootkit -q
 
+列出 Linux 系统下所有的设备
+ls /dev/sda*
+df -h
+lsblk
+fdisk -l
 

@@ -1,3 +1,23 @@
+修复全局模块的权限:sudo 来执行 npm 危险性高
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+使用适当的文本编辑器将下面的一行添加到 ~/.bashrc 或者 ~/.zshrc 文件中：
+export PATH="$HOME/.npm-global/bin:$PATH"
+source ~/.bashrc
+
+npm init -y #并创建一个 package.json 文件
+npm config set init.author.name <name>
+npm config set init.author.email <email>
+
+npm list
+npm list --depth=0
+
+npm outdated #找出过时的模块
+npm outdated -g
+npm view pm2 versions
+npm list -g --depth=0 #查看模块引用
+
+
 node js
 
 https://nodejs.org/

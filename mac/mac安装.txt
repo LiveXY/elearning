@@ -30,6 +30,10 @@ vi ~/.inputrc
 "\e[B": history-search-forward
 "\e[A": history-search-backward
 
+npm修复全局模块的权限:
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+
 vi ~/.bash_profile
 ```
 #nginx
@@ -54,6 +58,7 @@ alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
 alias port='sudo /opt/local/bin/port'
 alias ll='ls -lG'
 alias php='/opt/local/bin/php56'
+alias rm='rm -i'
 
 #server
 alias 168='~/git_pro/server/168.sh'
@@ -69,6 +74,7 @@ export PATH=$PATH:/opt/local/sbin
 export ANDROID_HOME=~/android-sdk
 export PATH=${PATH}:~/android-sdk/tools
 export PATH=${PATH}:~/android-sdk/platform-tools
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 export CLICOLOR=1
 export LSCOLORS=gxfxaxdxcxegedabagacad
@@ -375,7 +381,44 @@ luadec -dis filename.luac
 luadec.exe test.lua > test-dec.lua
 luadec5.1.exe Hall.lua > Hall-dec.lua
 
+======================================
+brew install php70 php70-ast phan
+phan -h
 
+----------- 从 PNG 转换到 JPG -----------
+$ ls -1 *.png | xargs -n 1 bash -c 'convert "$0" "${0%.png}.jpg"'
+----------- 从 JPG 转换到 PNG -----------
+$ ls -1 *.jpg | xargs -n 1 bash -c 'convert "$0" "${0%.jpg}.png"'
+brew install parallel
+----------- 从 PNG 转换到 JPG -----------
+$ parallel convert '{}' '{.}.jpg' ::: *.png
+----------- 从 JPG 转换到 PNG -----------
+$ parallel convert '{}' '{.}.png' ::: *.jpg
+----------- 从 PNG 转换到 JPG -----------
+$ ls -1 *.png | parallel convert '{}' '{.}.jpg'
+----------- 从 JPG 转换到 PNG -----------
+$ ls -1 *.jpg | parallel convert '{}' '{.}.png'
+----------- 从 PNG 转换到 JPG -----------
+$ bash -c 'for image in *.png; do convert "$image" "${image%.png}.jpg"; echo “image $image converted to ${image%.png}.jpg ”; done'
+----------- 从 JPG 转换到 PNG -----------
+$ bash -c 'for image in *.jpg; do convert "$image" "${image%.jpg}.png"; echo “image $image converted to ${image%.jpg}.png ”; done'
+vi convert.sh
+#!/bin/bash
+#convert
+for image in *.png; do
+        convert  "$image"  "${image%.png}.jpg"
+        echo “image $image converted to ${image%.png}.jpg ”
+done
+exit 0
+
+===============================================
+foremost恢复文件
+rm test.jpg
+brew install foremost
+foremost -t jpg -i /dev/sda1 -o /home/gacanepa/rescued
+df | grep boot => /dev/sda1
+avi bmp dll doc docx exe gif htm jar jpg mbd mov mp4 mpg ole pdf
+png ppt pptx rar rif sdw sx sxc sxi sxw vis wav wmv xls xlsx zip
 
 
 
