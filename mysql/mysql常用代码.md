@@ -162,13 +162,102 @@ mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-d
 mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud user_achievement --where=" uid in (0,10000012) " >> qcloud_data.sql
 mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud sys_admin_user --where=" user_id in (0,10000012) " >> qcloud_data.sql
 mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud sys_admin_user_game --where=" user_id in (0,10000012) " >> qcloud_data.sql
+#过滤
+sed -ie 's/ROW_FORMAT=FIXED//g' qcloud_nodata.sql
+sed -ie 's/CHECKSUM=1//g' qcloud_nodata.sql
 #3，导入表结构和数据
 mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud_nodata.sql
 mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud_data.sql
 ```
-* 
-* 
-* 
+* 转移mysql数据目录
+```
+#关闭服务
+service nginx stop
+service php-fpm stop
+service mysqld stop
+service mariadb stop
+#转移数据
+mv /var/lib/mysql /home/ 或者 cp -a /var/lib/mysql /home/mysql
+#创建软连接:
+ln -s /home/mysql /var/lib/mysql
+#完成
+#修改/etc/my.cnf配置
+cat /etc/my.cnf | grep '/var/lib/'
+vi /etc/my.cnf
+datadir=/home/mysql
+socket=/home/mysql/mysql.sock
+其它：
+[mysqld_safe]
+socket=/home/mysql/mysql.sock
+[client]
+socket=/home/mysql/mysql.sock
+[mysql.server]
+socket=/home/mysql/mysql.sock
+#启动服务
+service nginx start
+service php-fpm start
+service mysqld start
+service mariadb start
+```
+* 对比2数据库差异
+```
+mysqldump -h 10.66.187.161 -uroot -pnewlife -d qcloud>qcloud1.sql
+mysqldump -h 10.66.187.161 -uroot -pnewlife -d qcloud2>qcloud2.sql
+sed -i 's/AUTO_INCREMENT=.* //' qcloud1.sql
+sed -i 's/AUTO_INCREMENT=.* //' qcloud2.sql
+sed -i '/^\/\*!/d' qcloud1.sql
+sed -i '/^\/\*!/d' qcloud2.sql
+sed -i '/^--/d' qcloud1.sql
+sed -i '/^--/d' qcloud2.sql
+sed -i "s/COMMENT '.*'//" qcloud1.sql
+sed -i "s/COMMENT '.*'//" qcloud2.sql
+sed -i "s/COMMENT='.*'//" qcloud1.sql
+sed -i "s/COMMENT='.*'//" qcloud2.sql
+sed -i "s/ ,$/,/" qcloud1.sql
+sed -i "s/ ,$/,/" qcloud2.sql
+sed -i "s/ CHECKSUM=1//" qcloud1.sql
+sed -i "s/ CHECKSUM=1//" qcloud2.sql
+sed -i "s/ DELAY_KEY_WRITE=1//" qcloud1.sql
+sed -i "s/ DELAY_KEY_WRITE=1//" qcloud2.sql
+sed -i "s/ ROW_FORMAT=DYNAMIC//" qcloud1.sql
+sed -i "s/ ROW_FORMAT=DYNAMIC//" qcloud2.sql
+sed -i "s/ DEFAULT//" qcloud1.sql
+sed -i "s/ DEFAULT//" qcloud2.sql
+sed -i "s/ ;$/;/" qcloud1.sql
+sed -i "s/ ;$/;/" qcloud2.sql
+tr "\n" " " < qcloud1.sql > qcloud3.sql
+tr ";" "\n" < qcloud3.sql > qcloud1.sql
+tr "\n" " " < qcloud2.sql > qcloud4.sql
+tr ";" "\n" < qcloud4.sql > qcloud2.sql
+sed -i "s/^   DROP/DROP/" qcloud1.sql
+sed -i "s/^   DROP/DROP/" qcloud2.sql
+sed -i "s/^ CREATE/CREATE/" qcloud1.sql
+sed -i "s/^ CREATE/CREATE/" qcloud2.sql
+sed -i "s/(   /(/g" qcloud1.sql
+sed -i "s/(   /(/g" qcloud2.sql
+sed -i "s/,   /, /g" qcloud1.sql
+sed -i "s/,   /, /g" qcloud2.sql
+diff qcloud1.sql qcloud2.sql
+或
+yum install mysql-utilities.noarch
+mysqldiff --server1=root:newlife@192.168.6.168 --server2=root:newlife@192.168.6.168 --difftype=differ qcloud:qfortune
+mysqldiff --server1=root:newlife@192.168.6.168 --server2=root:newlife@192.168.6.168 --difftype=sql qcloud:qfortune
+```
+* 表结构
+```
+select table_name tabName from information_schema.tables where table_schema='qcloud'
+select distinct specific_name proName from information_schema.parameters where specific_schema='qcloud'
+SELECT COLUMN_NAME, DATA_TYPE, COLUMN_DEFAULT, IS_NULLABLE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, EXTRA, COLUMN_COMMENT
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'activity'
+AND table_schema = 'qcloud'
+describe activity
+show columns from activity
+desc activity
+show create table activity
+show create procedure crontab_report_day
+show create function func_split
+```
 * 
 * 
 * 

@@ -339,7 +339,7 @@ mysql -u root -p -N -e"show processlist\G;" | egrep "Host\:" | awk -F: '{ print 
 快速的将目录中所有的.html扩展名修改为.htm for i in *.html ; do mv $i ${i%.html}.htm ; done
 释放swap free -m | awk '/Swap/ {print $4}'
 复制DB mysqldump --host=[remote host] --user=[remote user] --password=[remote password] -C db_name | mysql --host=localhost --user=[local user] --password=[local password] db_name
-列出大文件和目录 du -h |grep -P "^\S*G”
+列出大文件和目录 `du -h |grep -P "^\S*G"` `find . -type f -size +10M`
 在screen内运行命令 screen -d -m command &
 删除所有 .DS_Store find . -name .DS_Store -exec rm {} \;
 批量重命名 rename .txt .md *.txt

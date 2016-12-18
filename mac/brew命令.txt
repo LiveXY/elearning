@@ -9,3 +9,17 @@ brew install php55-yaf
 brew search php55-
 
 brew install php55-imagick php55-igbinary php55-ev php55-gmagick php55-geoip php55-memcache php55-memcached php55-thrift php55-xdebug php55-sphinx composer
+
+
+brew install mysql
+#start
+launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+#stop
+launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+brew remove mysql
+brew cleanup --force
+launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+sudo rm -rf /usr/local/var/mysql
+
+brew install percona-server
