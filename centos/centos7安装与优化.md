@@ -863,7 +863,11 @@ vi /etc/php-fpm.d/www.conf 修改 request_terminate_timeout=30s
 3. gdb  info threads 找到线程号码对应的thread,thread 线程号码切换到线程
 bt 查看线程调用。
 ```
-
+* 按状态查看连接连接数量：`ss -ant | awk '{++s[$1]} END {for(k in s) print k,s[k]}'`
+* 列出大文件和目录 `du -h | grep -P "^\S*G"` 或 `find . -type f -size +10M`
+* 显示下2行 `cat test.log | grep test -A 2`
+* 显示上2行 `cat test.log | grep test -B 2`
+* 显示上下2行 `cat test.log | grep test -C 2`
 
 #CentOS安全分析
 * `lastb` 检查系统错误登陆日志，统计IP重试次数
@@ -904,3 +908,5 @@ df -h
 lsblk
 fdisk -l
 
+buff/cache占有太高
+通过echo 3 > /proc/sys/vm/drop_caches，即可清空buff/cache

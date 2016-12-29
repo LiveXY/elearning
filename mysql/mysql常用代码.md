@@ -107,7 +107,7 @@ set foreign_key_checks=1;
 ```
 * date_format(current_date,'%Y%m%d')
 * `alter table tablename discard tablespace;` 删除表空间, `alter table tablename import tablespace;` 重新导入表空间
-* 
+* 查看时区：`show variables like '%time_zone%';`，`select CURTIME();`
 * 
 * 
 * 
