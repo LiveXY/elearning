@@ -868,6 +868,8 @@ bt 查看线程调用。
 * 显示下2行 `cat test.log | grep test -A 2`
 * 显示上2行 `cat test.log | grep test -B 2`
 * 显示上下2行 `cat test.log | grep test -C 2`
+* 查看所有监听端口 `netstat -tulpn`
+
 
 #CentOS安全分析
 * `lastb` 检查系统错误登陆日志，统计IP重试次数

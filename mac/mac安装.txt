@@ -420,8 +420,17 @@ df | grep boot => /dev/sda1
 avi bmp dll doc docx exe gif htm jar jpg mbd mov mp4 mpg ole pdf
 png ppt pptx rar rif sdw sx sxc sxi sxw vis wav wmv xls xlsx zip
 
-
-
+===============================================
+npm install 权限问题：EACCES: permission denied
+sudo chown -R $USER ~/.npm
+sudo chown -R $USER /usr/lib/node_modules
+sudo chown -R $USER /usr/local/lib/node_modules
+或
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+~/.bash_profile
+export PATH=~/.npm-global/bin:$PATH
+source ~/.bash_profile
 
 
 

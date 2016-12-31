@@ -36,4 +36,12 @@ order by t.table_schema,t.table_name;
 vi /usr/bin/mysql_convert_table_format
 $opt_engine = "InnoDB";
 mysql_convert_table_format db --user='root' --password='123456' --socket='/var/lib/mysql/mysql.sock' --verbose
+
+#表数据大小
+select
+     table_schema as `Database`,
+     table_name AS `Table`,
+     round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB`
+from information_schema.TABLES
+order by (data_length + index_length) desc;
 ```

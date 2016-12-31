@@ -162,3 +162,10 @@ $ git fetch react-starter-kit
 $ git merge react-starter-kit/master
 $ npm install
 
+
+npm install -g create-react-app
+create-react-app my-app
+cd my-app/
+npm start
+npm test
+npm run build

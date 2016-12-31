@@ -169,9 +169,21 @@ chown -R mysql:mysql /var/lib/mysql/dbname/
 chmod 755 /var/lib/mysql/dbname/
 chmod 644 /var/lib/mysql/dbname/*
 chmod 644 /var/lib/mysql/ib*
-
 ```
 
+binlog2sql
+======
+git clone https://github.com/danfengcao/binlog2sql.git && cd binlog2sql
+pip install -r requirements.txt
+```
+查看目前的binlog文件
+show master status;
+根据大致时间过滤数据。
+python binlog2sql/binlog2sql.py -h127.0.0.1 -P3306 -uadmin -p'admin' -dtest -ttbl --start-file='mysql-bin.000052' --start-datetime='2016-12-13 20:25:00' --stop-datetime='2016-12-13 20:30:00'
+找到误操作sql的准确位置，使用flashback模式生成回滚sql
+python binlog2sql/binlog2sql.py -h127.0.0.1 -P3306 -uadmin -p'admin' -dtest -ttbl --start-file='mysql-bin.000052' --start-position=3346 --stop-position=3556 -B > rollback.sql | cat
+mysql -h127.0.0.1 -P3306 -uadmin -p'admin' < rollback.sql
+```
 
 
 
