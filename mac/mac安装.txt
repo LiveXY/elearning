@@ -432,7 +432,9 @@ npm config set prefix '~/.npm-global'
 export PATH=~/.npm-global/bin:$PATH
 source ~/.bash_profile
 
-
+==============================================
+sourcetree 显示提交信息面板
+defaults delete com.torusknot.SourceTreeNotMAS "NSSplitView Subview Frames repowindow_LogViewDescSplitter"
 
 
 

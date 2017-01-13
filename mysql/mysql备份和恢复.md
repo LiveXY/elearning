@@ -185,5 +185,10 @@ python binlog2sql/binlog2sql.py -h127.0.0.1 -P3306 -uadmin -p'admin' -dtest -ttb
 mysql -h127.0.0.1 -P3306 -uadmin -p'admin' < rollback.sql
 ```
 
+mysqlbinlog恢复数据
+======
+show master status;
+mysqlbinlog --start-datetime='2017-01-10 14:00:00' --stop-datetime='2017-01-10 14:00:00' cdb70405_binmysqlbin.000297 > test.sql
+
 
 

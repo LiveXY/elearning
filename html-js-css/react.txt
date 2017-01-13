@@ -16,6 +16,10 @@ react-native android
 react-native bundle
 
 
+https://github.com/fbsamples/f8app
+https://github.com/attentiveness/reading
+https://github.com/stage88/react-weather
+https://github.com/wwayne/react-native-nba-app
 
 https://github.com/hcxiong/react-native-guide
 demo
