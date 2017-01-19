@@ -350,6 +350,11 @@ zkServer start
 zkServer
 zkServer status
 zkCli
+vi /usr/local/etc/zookeeper/zoo.cfg
+
+#redis
+brew install redis
+redis-server /usr/local/etc/redis.conf
 
 #luadec
 port install gcc47 +universal

@@ -912,3 +912,16 @@ fdisk -l
 
 buff/cache占有太高
 通过echo 3 > /proc/sys/vm/drop_caches，即可清空buff/cache
+
+永久删除文件
+shred -zvu test.log
+-z – 最后一次使用 0 进行覆盖以隐藏覆写动作。
+-u – 覆写后截断并移除文件。
+-v – 显示详细过程。
+
+以下命令会将所有 .pdf 文件重命名为 .doc 文件，使用的规则为 's/\.pdf$/\.doc/'：
+rename -v 's/\.pdf$/\.doc/' *.pdf
+所有匹配 "*.bak" 的文件来移除其拓展名
+rename -v 's/\e.bak$//' *.bak
+
+检查单词拼写 look docum
