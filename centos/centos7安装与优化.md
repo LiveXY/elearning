@@ -914,10 +914,26 @@ buff/cache占有太高
 通过echo 3 > /proc/sys/vm/drop_caches，即可清空buff/cache
 
 永久删除文件
-shred -zvu test.log
+1，shred -zvu test.log
 -z – 最后一次使用 0 进行覆盖以隐藏覆写动作。
 -u – 覆写后截断并移除文件。
 -v – 显示详细过程。
+2，yum install wipe
+wipe -rfi private/*
+-r - 告诉 wipe 递归地擦除子目录
+-f - 启用强制删除并禁用确认查询
+-i - 显示擦除进度
+3，yum install secure-delete
+srm -vz private/*
+-v – 启用 verbose 模式
+-z – 用0而不是随机数据来擦除最后的写入
+4，sfill -v /home/username
+5，cat /proc/swaps
+swapon
+swapoff /dev/sda6
+sswap /dev/sda6
+6，sdmem -f -v
+
 
 以下命令会将所有 .pdf 文件重命名为 .doc 文件，使用的规则为 's/\.pdf$/\.doc/'：
 rename -v 's/\.pdf$/\.doc/' *.pdf
