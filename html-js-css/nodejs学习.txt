@@ -1,3 +1,5 @@
+export NODE_ENV=production
+
 修复全局模块的权限:sudo 来执行 npm 危险性高
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'

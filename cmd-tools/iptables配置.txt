@@ -464,6 +464,73 @@ iptables -I Filter -m mac --mac-source 00:11:22:33:44:55 -j DROP
 禁止某个IP地址的PING:
 iptables –A Filter –p icmp –s 192.168.0.1 –j DROP
 ----------------------------------------------------
+防范DDOS攻击脚本
+http://sookk8.blog.51cto.com/455855/321242/
+http://blog.csdn.net/zqtsx/article/details/9405515
+http://www.111cn.net/sys/linux/51412.htm
+
+#防止SYN攻击 轻量级预防 
+iptables -N syn-flood 
+iptables -A INPUT -p tcp --syn -j syn-flood 
+iptables -I syn-flood -p tcp -m limit --limit 3/s --limit-burst 6 -j RETURN 
+iptables -A syn-flood -j REJECT
+#防止DOS太多连接进来,可以允许外网网卡每个IP最多15个初始连接,超过的丢弃 
+iptables -A INPUT -i eth0 -p tcp --syn -m connlimit --connlimit-above 15 -j DROP 
+iptables -A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#用Iptables抵御DDOS (参数与上相同)
+iptables -A INPUT  -p tcp --syn -m limit --limit 12/s --limit-burst 24 -j ACCEPT
+iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+##########################################################
+防范CC攻击
+当apache站点受到严重的cc攻击，我们可以用iptables来防止web服务器被CC攻击，实现自动屏蔽IP的功能。
+1．系统要求
+(1)LINUX 内核版本：2.6.9-42ELsmp或2.6.9-55ELsmp（其它内核版本需要重新编译内核，比较麻烦，但是也是可以实现的）。
+(2)iptables版本：1.3.7
+2. 安装
+安装iptables1.3.7和系统内核版本对应的内核模块kernel-smp-modules-connlimit
+3. 配置相应的iptables规则
+示例如下：
+(1)控制单个IP的最大并发连接数
+iptables -I INPUT -p tcp --dport 80 -m connlimit  --connlimit-above 50 -j REJECT #允许单个IP的最大连接数为 30
+#默认iptables模块不包含connlimit,需要自己单独编译加载，请参考该地址
+http://sookk8.blog.51cto.com/455855/280372不编译内核加载connlimit模块
+
+(2)控制单个IP在一定的时间（比如60秒）内允许新建立的连接数
+iptables -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --update --seconds 60 --hitcount 30 -j REJECT iptables -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --set -j ACCEPT
+#单个IP在60秒内只允许最多新建30个连接
+
+4. 验证
+（1）工具：flood_connect.c（用来模拟攻击)
+（2）查看效果：
+使用
+watch 'netstat -an | grep:21 | grep<模拟攻击客户机的IP>| wc -l'
+
+实时查看模拟攻击客户机建立起来的连接数，
+使用
+watch 'iptables -L -n -v | \grep<模拟攻击客户机的IP>'
+
+查看模拟攻击客户机被 DROP 的数据包数。
+5．注意
+为了增强iptables防止CC攻击的能力，最好调整一下ipt_recent的参数如下：
+#cat/etc/modprobe.conf options ipt_recent ip_list_tot=1000 ip_pkt_list_tot=60
+#记录1000个IP地址，每个地址记录60个数据包 #modprobe ipt_recent
+
+#防御太多DOS攻击连接,可以允许外网每个IP最多15个初始连接,超过的丢弃，第二条是在第一条的基础上允许已经建立的连接和子连接允许
+iptables -A INPUT -i eth0 -p tcp --syn -m connlimit --connlimit-above 15 --connlimit-mask 32 -j DROP  （--connlimit-mask 32为主机掩码，32即为一个主机ip，也可以是网段）
+iptables -A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#抵御DDOS ，允许外网最多24个初始连接,然后服务器每秒新增12个，访问太多超过的丢弃，第二条是允许服务器内部每秒1个初始连接进行转发
+iptables -A INPUT  -p tcp --syn -m limit --limit 12/s --limit-burst 24 -j ACCEPT
+iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+
+#允许单个IP访问服务器的80端口的最大连接数为 20
+iptables -I INPUT -p tcp --dport 80 -m connlimit  --connlimit-above 20 -j REJECT 
+
+#对访问本机的22端口进行限制，每个ip每小时只能连接5次，超过的拒接，1小时候重新计算次数
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --name SSHPOOL --rcheck --seconds 3600 --hitcount 5 -j DROP
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --name SSHPOOL --set -j ACCEPT
+---------------------------------------------------------------
 
 
 

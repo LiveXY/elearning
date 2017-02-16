@@ -869,6 +869,7 @@ bt 查看线程调用。
 * 显示上2行 `cat test.log | grep test -B 2`
 * 显示上下2行 `cat test.log | grep test -C 2`
 * 查看所有监听端口 `netstat -tulpn`
+* 抓取访问服务器80的IP数 `tcpdump -tnn dst port 80 -c 100 | awk -F"." '{print $1"."$2"."$3"."$4}' | sort | uniq -c | sort -n -r |head -20`
 
 
 #CentOS安全分析

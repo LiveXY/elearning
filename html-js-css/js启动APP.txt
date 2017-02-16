@@ -1,0 +1,150 @@
+https://www.zhihu.com/question/19907735
+
+微信中判断是否安装app
+在微信中如果想通过Schema方式打开应用，貌似除腾讯以外的是不行了。
+// 判断是否安装
+WeixinJSBridge.invoke("getInstallState", {packageName: "com.tencent.WBlog",packageUrl: "TencentWeibo://"}, function(e) {
+    var n = e.err_msg;
+    if(n.indexOf("get_install_state:yes") > -1){
+      alert("已经安装");
+    }
+})
+// 安装
+WeixinJSBridge.invoke("addDownloadTask", {task_name: "腾讯微博",task_url: "http://softfile.3g.qq.com/msoft/180/2104/2104/WBlog_4.2.1_100000024_131210163458a.apk",file_md5: "31C49560B20057ECBB4C7C52D35B00DB"}, function(t) {
+
+})
+
+
+safari ios 6.0 以上app推荐
+<meta name="apple-itunes-app" content="app-id=432274380">
+
+
+/**
+ * 移动浏览器上app下载
+ *
+ */
+var mobileAppInstall = (function(){
+var ua = navigator.userAgent,
+        loadIframe,
+        win = window;
+
+function getIntentIframe(){
+    if(!loadIframe){
+        var iframe = document.createElement("iframe");
+        iframe.style.cssText = "display:none;width:0px;height:0px;";
+        document.body.appendChild(iframe);
+        loadIframe = iframe;
+    }
+    return loadIframe;
+}
+
+function getChromeIntent(url){
+// 根据自己的产品修改吧
+    return  "intent://t.qq.com/#Intent;scheme="+url+";package=com.tencent.WBlog;end";
+}
+var appInstall = {
+    isChrome:ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
+    isAndroid:ua.match(/(Android);?[\s\/]+([\d.]+)?/),
+    timeout:500,
+    /**
+     * 尝试跳转appurl,如果跳转失败，进入h5url
+     * @param {Object} appurl 应用地址
+     * @param {Object} h5url  http地址
+     */
+    open:function(appurl,h5url){
+        var t = Date.now();
+        appInstall.openApp(appurl);
+        setTimeout(function(){
+            if(Date.now() - t < appInstall.timeout+100){
+                h5url && appInstall.openH5(h5url);
+            }
+        },appInstall.timeout)
+    },
+    openApp:function(appurl){
+        if(appInstall.isChrome){
+            if(appInstall.isAndroid){
+                win.location.href = getChromeIntent(appurl);
+            }else{
+                win.location.href = appurl;
+            }
+        }else{
+            getIntentIframe().src = appurl;
+        }
+    },
+    openH5:function(h5url){
+        win.location.href = h5url;
+    }
+}
+
+return appInstall;
+})();
+
+
+<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>
+scheme：判别启动的App。 ※详细后述
+host：适当记述
+path：传值时必须的key     ※没有也可以
+query：获取值的Key和Value  ※没有也可以
+<a href="myapp://jp.app/openwith?name=zhangsan&age=26">启动应用程序</a>
+
+<a href="intent://scan/#Intent;scheme=zxing;package=com.google.zxing.client.android;end"> Take a QR code </a>
+<a href="intent://scan/#Intent;scheme=zxing;package=com.google.zxing.client.android;S.browser_fallback_url=http%3A%2F%2Fzxing.org;end"> Take a QR code </a>
+
+
+<a href="market://search?q=pname:com.nytimes.android">click me!</a>
+
+if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i) ||
+    navigator.userAgent.match(/android/i)) {
+  var store_loc = "itms://itunes.com/apps/raditaz";
+  var href = "/iphone/";
+  var is_android = false;
+  if (navigator.userAgent.match(/android/i)) {
+    store_loc = "https://play.google.com/store/apps/details?id=com.raditaz";
+    href = "/android/";
+    is_android = true;
+  }
+  if (location.hash) {
+    var app_loc = "raditaz://" + location.hash.substring(2);
+    if (is_android) {
+      var w = null;
+      try {
+        w = window.open(app_loc, '_blank');
+      } catch (e) {
+        // no exception
+      }
+      if (w) { window.close(); }
+      else { window.location = store_loc; }
+    } else {
+      var loadDateTime = new Date();
+      window.setTimeout(function() {
+        var timeOutDateTime = new Date();
+        if (timeOutDateTime - loadDateTime < 5000) {
+          window.location = store_loc;
+        } else { window.close(); }
+      },
+      25);
+      window.location = app_loc;
+    }
+  } else {
+    location.href = href;
+  }
+}
+
+<a href="mailto:foo@example.com?cc=bar@example.com&subject=Greetings%20from%20Cupertino!&body=Wish%20you%20were%20here!">John Frank</a>
+<a href="tel:1-408-555-5555">1-408-555-5555</a>
+<meta name="format-detection" content="telephone=no">
+HTML links for FaceTime video calls:
+<a href="facetime:14085551234">Connect using FaceTime</a>
+<a href="facetime:user@example.com">Connect using FaceTime</a>
+HTML links for FaceTime audio calls (iOS only):
+<a href="facetime-audio:14085551234">Connect using FaceTime</a>
+<a href="facetime-audio:user@example.com">Connect using FaceTime</a>
+<a href="sms:">Launch Messages App</a>
+<a href="sms:1-408-555-1212">New SMS Message</a>
+http://maps.apple.com/?q=Mexican+Restaurant
+http://maps.apple.com/?q=Mexican+Restaurant&sll=50.894967,4.341626&z=10&t=s
+http://maps.apple.com/?ll=50.894967,4.341626
+http://maps.apple.com/?address=1,Infinite+Loop,Cupertino,California
+
+
+
