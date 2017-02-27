@@ -13,6 +13,9 @@ php ~/composer.phar require maatwebsite/excel
 php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"
 config/excel.php 生成配置文件
 php ~/composer.phar require jpush/jpush
+php ~/composer.phar require simplesoftwareio/simple-qrcode
+
+https://www.simplesoftware.io/docs/simple-qrcode/zh
 
 
 http://easyiicms.com/docs/install

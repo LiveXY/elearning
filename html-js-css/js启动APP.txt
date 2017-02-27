@@ -146,5 +146,108 @@ http://maps.apple.com/?q=Mexican+Restaurant&sll=50.894967,4.341626&z=10&t=s
 http://maps.apple.com/?ll=50.894967,4.341626
 http://maps.apple.com/?address=1,Infinite+Loop,Cupertino,California
 
+http://www.yx518.com/ddziosjump.html
+<meta charset="UTF-8" name="apple-itunes-app" content="app-id=1193872261, affiliate-data=myAffiliateData, app-argument=comsaiyunfriendshddz://123">
+<a class="btn_download pvLog" href="http://interfacehlddz.pook.com/index.html">立即打开</a>
+<a class="btn_download pvLog" href="javascript:void(0)">立即打开</a>
+if(Webkit.isWenxin()) {
+  $(".btn_download").attr("href", "javascript:showHint();");
+  if(document.referrer.match('iosjump.html')) showHint();
+} else {
+  if(Webkit.isIos() || Webkit.isPad()) {
+    $(".btn_download").attr("href", "javascript:iosJump();");
+  } else {
+    $(".btn_download").attr("href", "javascript:window.open('http://dlm.pook.com/mobile/android/v1.05ddzfriend.apk');");
+  }
+}
+var iosJump = function() {
+  var ifr2 = document.createElement('iframe');
+  ifr2.src = 'comsaiyunfriendshddz:://';
+  ifr2.style.display = 'none';
+  document.body.appendChild(ifr2);
+  setTimeout(function(){
+    document.body.removeChild(ifr2);
+    $(".btn_download").attr("href", "https://itunes.apple.com/cn/app/id1193872261");
+  }, 2000);
+}
 
-
+<script type="text/javascript">
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var browser = {
+            versions: function() {
+                return {//移动终端浏览器版本信息
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                };
+            }()
+        }
+        function is_IOS() {
+            if(browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function isWeixin() {
+            var shareImg = document.getElementById('shareImg')
+            if (u.toLowerCase().match(/MicroMessenger/i)=='micromessenger') {
+                if(u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1)
+        {
+        shareImg.setAttribute('src',  'img/iosdownloadtips.jpg');
+        }
+        else if(u.indexOf('iPad') > -1)
+        {
+        shareImg.setAttribute('src',  'img/iosdownloadtips.jpg');
+        }
+        else{
+        shareImg.setAttribute('src',  'img/androiddownloadtips.jpg');
+        }
+        
+        
+            } else {                
+                shareImg.setAttribute('src',  'img/defaultdownloadtips.jpg');
+                shareImg.onload = function() {
+                    do_check();                    
+                }
+            }
+        }
+        function is_Android() {
+            return browser.versions.android;
+        }
+        function do_check() {            
+            var openUrl = window.location.search;
+            try {
+                openUrl = openUrl.substring(1, openUrl.length);
+            } catch (e) {}
+            if(openUrl.length > 0) {
+                if (is_IOS()) {
+                    //window.setTimeout(function() {
+                    //    window.location="https://itunes.apple.com/cn/app/bao-bao-tai-zhou-you-xi/id1129876811?mt=8";
+                    //}, 500);
+                    window.location="baobaogameLinhai://baobaogame.app?" + openUrl;
+                } else  {
+                    //window.setTimeout(function() {
+                    //    window.location="http://download.xqddz.cn/baobaogame.apk";
+                    //}, 5000);    
+                    window.location="baobaogameLinhai://baobaogame.app?" + openUrl;
+                }
+            } else {                
+                if (is_IOS()) {
+                    window.location="https://itunes.apple.com/us/app/bao-bao-xian-ju-you-xi-zheng/id1171328038?mt=8";
+                    return;
+                } else {
+                    window.location = 'http://download.xqddz.cn/baobaogamelh.apk';
+                    return;
+                }
+            }
+        }
+      
+    </script>

@@ -107,3 +107,4 @@ url="url" 后者代表当前PC页所对应的手机页URL，两者必须是一�
 -->
 转码申明：用百度打开网页可能会对其进行转码（比如贴广告），避免转码可添加如下meta
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no"/>

@@ -440,6 +440,9 @@ source ~/.bash_profile
 ==============================================
 sourcetree 显示提交信息面板
 defaults delete com.torusknot.SourceTreeNotMAS "NSSplitView Subview Frames repowindow_LogViewDescSplitter"
+==============================================
+“Shimo.app”已损坏，打不开。 您应该将它移到废纸篓。
+sudo spctl --master-disable
 
 
 
