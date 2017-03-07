@@ -3,6 +3,7 @@ mysql常用代码
 
 * `show engine innodb status /G;` 当 MySQL 出现问题通常我们需要执行的第一个命令
 * `select @@datadir` 数据存放目录
+* `select db, name, type, definer from mysql.proc where db='db';` 查看存贮过程权限
 * `update mysql.proc set definer="root@%" where db='dbname';` 修改存贮过程权限
 * `check table tablename;` 检查会加只读锁，`repair table tablename;`修复表 参数quick只修复索引树|extended逐行重建索引|use_frm MYI文件丢失时
 * `optimize table tablename;` 优化表会加只读锁(在做过大量的更新或删除操作后操作，减少了文件碎片，又减少了表损坏的概率)
