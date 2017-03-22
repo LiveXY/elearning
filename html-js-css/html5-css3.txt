@@ -121,4 +121,41 @@ background: -webkit-linear-gradient(left,#f4f4f4 50%,#fff 50%);
     cursor:pointer;
 }
 
+font: 400 14px/1.5 Arial,"Lucida Grande",Verdana,"Microsoft YaHei",hei;
+
+.blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    -webkit-filter: blur(10px) brightness(90%);
+    z-index: -1;
+    -webkit-transform: scale(1.14,1.14);
+    transform: scale(1.14,1.14);
+}
+.bg-blur {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    height: 0;
+    width: 100%;
+    -webkit-filter: blur(15px);
+    overflow: hidden;
+}
+
+
+border05::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 15px;
+    top: 0;
+    right: 0;
+    border-width: 0;
+    border-bottom: 1px solid #c8c8c8;
+    -webkit-border-image: url(https://pages.c-ctrip.com/you/common/icon_border_half_lightgray.png?v=20170309_17_58) 2 stretch;
+    border-image: url(https://pages.c-ctrip.com/you/common/icon_border_half_lightgray.png?v=20170309_17_58) 2 stretch;
+}
 
