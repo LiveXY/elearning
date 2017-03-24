@@ -717,3 +717,21 @@ Windows 8 磁贴图标
 	<link rel="apple-touch-startup-image" sizes="640x960" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="<?=CDNRESOURCE?>images/splash-screen-640x960.png"/>
 	<link rel="apple-touch-startup-image" sizes="320x480" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="<?=CDNRESOURCE?>images/splash-screen-320x480.png"/>
 
+<!-- QQ浏览器锁定竖屏、全屏、应用模式 -->
+<meta name="x5-orientation" content="portrait"/>
+<!--<meta name="x5-fullscreen" content="true"/>-->
+<!--<meta name="x5-pagetype" content="webapp"/>-->
+<!-- UC浏览器锁定竖屏、全屏、应用模式 -->
+<meta name="screen-orientation" content="portrait"/>
+<!--<meta name="full-screen" content="yes"/>-->
+<!--<meta name="browsermode" content="application"/>-->
+<!-- 分享信息 -->
+<meta itemprop="image" content="https://gtimg.ac.qq.com/h5/public/images/share-icon.png?v=7ee367fb9d2965dc"/>
+<meta itemprop="name" content="腾讯动漫"/>
+<meta name="description" itemprop="description" content="中国最大最权威的正版动漫网站，连载众多原创国漫，原创动画，正版日漫等海内外最热正版动漫内容"/>
+<!--运营商限制-->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src *.qq.com *.gtimg.com *.gtimg.cn *.qpic.cn *.qlogo.cn *.idqqimg.com 'self' data: callclient: txcomic: mtt: jsbridge: TcsJSBridge: 'unsafe-inline' 'unsafe-eval' https:; img-src *.qq.com *.gtimg.com *.gtimg.cn *.qpic.cn *.qlogo.cn *.idqqimg.com 'self' data: callclient: txcomic: mtt: jsbridge: TcsJSBridge: 'unsafe-inline' 'unsafe-eval' https:; media-src http: https:"/>
+meta name="applicable-device" content="pc,mobile"
+
+
