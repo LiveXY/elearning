@@ -7,6 +7,14 @@ http://p.m.jd.com/norder/selectCity.action?idProvince=7
 http://p.m.jd.com/norder/selectArea.action?idCity=549
 http://p.m.jd.com/norder/selectTown.action?idArea=557
 
+lazyload
+http://vm.gtimg.cn/tencentvideo_v1/script/film/weixin/v2/common/lazyload.js
+http://dev.film.qq.com/tencentvideo_v1/script/film/weixin/v2/common/lazyload.js
+http://jiehe0205.github.io/2016/08/06/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/
+
+http://qzs.qq.com/tencentwap/js/txmv.base.banner.min.js?v=20150721
+http://pingjs.qq.com/ping_video.js?max_age=31104000
+
 js获取联网类型
 var connection = navigator.connection||navigator.mozConnection||navigator.webkitConnection||{tyep:'unknown'};
 var type_text = ['unknown','ethernet','wifi','2g','3g','4g','none'];
@@ -62,3 +70,38 @@ function serialnum() {
 	});
 }
 ==========================================================
+(function() {
+    //页面降域名
+    try {
+        document.domain = 'qq.com';
+    } catch (ex) {}
+
+    function insertScript(id, url, callback) {
+        if (document.getElementById(id) || !url) {
+            callback && callback();
+            return;
+        }
+        var node = document.createElement('script'),
+            script = document.getElementsByTagName('script')[0];
+        node.src = url;
+        node.type = 'text/javascript';
+        node.charset = "UTF-8";
+        node.onload = node.onerror = node.onreadystatechange = function() {
+            /loaded|complete|undefined/.test(node.readyState) && function() {
+                node.onload = node.onerror = node.onreadystatechange = null;
+                node.parentNode.removeChild(node);
+                node = undefined;
+                callback && callback();
+            }();
+        };
+        script.parentNode.insertBefore(node, script);
+    }
+    // 调用一把pgvMain()才会把pgv_pvid种到cookie里
+    insertScript('js_tcss', '//pingjs.qq.com/ping_video.js?max_age=31104000', function() {
+        window.pgvMain && window.pgvMain();
+    });
+    // 页面的pv、uv boss上报
+    insertScript('js_hlwstats', '//vm.gtimg.cn/tencentvideo_v1/script/film/open/hlwstats.js?v=20170306&max_age=31104000', function() {
+        window.HLWSTATE && window.HLWSTATE.pgvMain();
+    });
+})();

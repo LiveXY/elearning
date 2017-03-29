@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<style>
+* { padding:0; margin:0; }
+.g_container_loading {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+@-webkit-keyframes loading{from{background-position:0 0}
+to{background-position:0 -300px}}
+@keyframes loading{from{background-position:0 0}
+to{background-position:0 -300px}}
+.g_container_loading .loading_con {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    display: -webkit-flex;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+    -webkit-flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #333;
+    font-size: 14px;
+}
+.icon_loading {
+    display: block;
+    width: 27px;
+    height: 10px;
+    margin: 0 auto 10px;
+    width: 27px;
+    height: 10px;
+    background: url(loading.png) 0 0 no-repeat;
+    background-size: 27px 300px;
+    -webkit-animation: loading 1s steps(30) infinite;
+    animation: loading 1s steps(30) infinite;
+    animation-name: loading;
+    animation-duration: 1s;
+    animation-timing-function: steps(30, end);
+    animation-delay: initial;
+    animation-iteration-count: infinite;
+    animation-direction: initial;
+    animation-fill-mode: initial;
+    animation-play-state: initial;
+}
+</style>
+</head>
+<body>
+<div class="g_container_loading" id="pageLoading">
+        <div class="loading_con">
+            <i class="icon_loading"></i>
+            <div class="loading_text">努力加载中</div>
+        </div>
+    </div>
+</body>
+</html>

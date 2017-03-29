@@ -1,0 +1,228 @@
+<style type="text/css">
+.mod_red_get {
+    position: relative;
+    width: 100%;
+    background-size: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-image:linear-gradient(0deg, #2391D3, #68B3E0);
+}
+.mod_red_get .btn_crown {
+    position: absolute;
+    z-index: 26;
+    top:50px;
+    left: 50px;
+    width: 50px;
+    height: 50px;
+    background-size: 2rem;
+    background-position: -0.6rem 0;
+    text-indent: -9999px;
+}
+@-webkit-keyframes scaleout{0%{-webkit-backface-visibility:hidden;-webkit-transform:perspective(2200px) translate3d(0,0,0) scale(1.0)}
+100%{-webkit-backface-visibility:hidden;-webkit-transform:perspective(2200px) translate3d(0,0,0) scale(2);opacity:0}}
+.mod_red_get .btn_crown .dot_1 {
+    z-index: 1;
+    -webkit-animation: scaleout 1.2s infinite linear;
+}
+.mod_red_get .btn_crown .dot_2 {
+    z-index: 2;
+    -webkit-animation: scaleout .6s 1.2s infinite linear;
+}
+.mod_red_get .btn_crown .dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: ' ';
+    width: 100%;
+    height: 100%;
+    background: rgba(249,230,183,.3);
+    border-radius: 50%;
+}
+</style>
+<div class="mod_red_get">
+<a class="btn_crown js_btn_crown" href="javascript:;">
+    <span class="dot dot_1"></span>
+    <span class="dot dot_2"></span>
+    <span class="txt">拆红包</span>
+</a>
+</div>
+
+<style type="text/css">
+.section_phone .img_box { position: relative; width: 100%; height:600px; }
+.section_phone .img_box img { position: absolute;}
+.section_phone .img_box .img_01{left:-14px;top:-4px}
+.section_phone .img_box .img_02{top:40px;left:58px}
+.section_phone .img_box .img_03{top:-4px;left:69px;-webkit-transform:rotate(-6deg);transform:rotate(-6deg);-webkit-transform-origin:96% 69%;transform-origin:96% 69%}
+.section_phone .img_box .img_04{top:-38px;left:97px;-webkit-transform:rotate(-12deg);transform:rotate(-12deg);-webkit-transform-origin:96% 75%;transform-origin:96% 75%}
+.section_phone .img_box .img_05{top:-69px;left:131px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);-webkit-transform-origin:97% 80%;transform-origin:97% 80%}
+.section_phone .img_box .img_06{top:-94px;left:168px;-webkit-transform:rotate(-24deg);transform:rotate(-24deg);-webkit-transform-origin:97% 84%;transform-origin:97% 84%}
+.section_phone .img_box .img_07{top:-115px;left:241px;-webkit-transform:rotate(-30deg);transform:rotate(-30deg);-webkit-transform-origin:88% 99%;transform-origin:88% 99%}
+
+.section_phone.active .img_box .img_03{-webkit-animation:tr_img_03 1.8s 1.2s forwards;animation:tr_img_03 1.8s 1.2s forwards}
+.section_phone.active .img_box .img_04{-webkit-animation:tr_img_04 1.8s .9s forwards;animation:tr_img_04 1.8s .9s forwards}
+.section_phone.active .img_box .img_05{-webkit-animation:tr_img_05 1.8s .6s forwards;animation:tr_img_05 1.8s .6s forwards}
+.section_phone.active .img_box .img_06{-webkit-animation:tr_img_06 1.8s .3s forwards;animation:tr_img_06 1.8s .3s forwards}
+.section_phone.active .img_box .img_07{-webkit-animation:tr_img_07 1.8s 0s forwards;animation:tr_img_07 1.8s 0s forwards}
+
+@-webkit-keyframes tr_img_03{0%{-webkit-transform:rotate(-6deg) translate(0px,0px)}
+100%{-webkit-transform:rotate(0deg) translate(3px,0px)}}
+@-webkit-keyframes tr_img_04{0%{-webkit-transform:rotate(-12deg) translate(0px,0px)}
+100%{-webkit-transform:rotate(0deg) translate(3px,2px)}}
+@-webkit-keyframes tr_img_05{0%{-webkit-transform:rotate(-18deg) translate(0px,0px)}
+100%{-webkit-transform:rotate(0deg) translate(6px,5px)}}
+@-webkit-keyframes tr_img_06{0%{-webkit-transform:rotate(-24deg) translate(0px,0px)}
+100%{-webkit-transform:rotate(0deg) translate(19px,5px)}}
+@-webkit-keyframes tr_img_07{0%{-webkit-transform:rotate(-30deg) translate(0px,0px)}
+100%{-webkit-transform:rotate(0deg) translate(-5px,6px)}}
+@keyframes tr_img_03{0%{transform:rotate(-6deg) translate(0px,0px)}
+100%{transform:rotate(0deg) translate(3px,0px)}}
+@keyframes tr_img_04{0%{transform:rotate(-12deg) translate(0px,0px)}
+100%{transform:rotate(0deg) translate(3px,2px)}}
+@keyframes tr_img_05{0%{transform:rotate(-18deg) translate(0px,0px)}
+100%{transform:rotate(0deg) translate(6px,5px)}}
+@keyframes tr_img_06{0%{transform:rotate(-24deg) translate(0px,0px)}
+100%{transform:rotate(0deg) translate(19px,5px)}}
+@keyframes tr_img_07{0%{transform:rotate(-30deg) translate(0px,0px)}
+100%{transform:rotate(0deg) translate(-5px,6px)}}
+</style>
+<div class="section_phone active">
+    <div class="img_box">
+        <img class="img_01" src="http://i.gtimg.cn/qqlive/images/20160919_1/phone_img_01.png">
+        <img class="img_02" src="http://i.gtimg.cn/qqlive/images/20160919/phone_img_02.png">
+        <img class="img_03" src="http://i.gtimg.cn/qqlive/images/20160919/phone_img_03.png">
+        <img class="img_04" src="http://i.gtimg.cn/qqlive/images/20160919/phone_img_04.png">
+        <img class="img_05" src="http://i.gtimg.cn/qqlive/images/20160919/phone_img_05.png">
+        <img class="img_06" src="http://i.gtimg.cn/qqlive/images/20160919/phone_img_06.png">
+        <img class="img_07" src="http://i.gtimg.cn/qqlive/images/20160919/phone_img_07.png">
+    </div>
+</div>
+
+<style type="text/css">
+.section_inner {
+    position: relative;
+    width: 1460px;
+    margin: 0 auto;
+    -webkit-transition: width .2s ease-in-out;
+    transition: width .2s ease-in-out;
+}
+.section_live .section_inner{height:647px}
+.section_live .img_box { position: relative; }
+.section_live .img_box img { position: absolute; left:0; top:0; }
+
+.section_live .img_box .img_01{z-index:2}
+.section_live .img_box .img_02{z-index:1;top:-109px;left:-49px}
+.section_live .img_box .img_03{z-index:3;top:-73px;left:-10px}
+.section_live .img_box .img_04{left:-262px;top:30px;opacity:.4;-webkit-transform:scale(0.9) rotate(15deg);transform:scale(0.9) rotate(15deg)}
+.section_live.active .img_box .img_04{-webkit-animation:bg_rotate 1s linear forwards;animation:bg_rotate 1s linear forwards;-webkit-transform-origin:50% 50%;transform-origin:50% 50%}
+@-webkit-keyframes bg_rotate{0%{opacity:.4;-webkit-transform:scale(0.9) rotate(15deg)}
+100%{opacity:.8;-webkit-transform:scale(1) rotate(0deg)}}
+@keyframes bg_rotate{0%{opacity:.4;transform:scale(0.9) rotate(15deg)}
+100%{opacity:.8;transform:scale(1) rotate(0deg)}}
+.section_live .img_box .img_05{position:absolute;z-index:4;left:215px;top:385px;width:57px;height:70px}
+.section_live .img_box .img_05 img{position:absolute;opacity:0}
+.section_live .img_box .img_06{z-index:4;top:156px;left:177px;display:none}
+.section_live .img_box .img_05 .zan_01{left:1px;top:auto;bottom:0}
+.section_live .img_box .img_05 .zan_02{left:0;top:auto;bottom:0}
+.section_live .img_box .img_05 .zan_03{left:1px;top:auto;bottom:0}
+.section_live .img_box .img_05 .zan_04{left:6px;top:auto;bottom:0}
+.section_live .img_box .img_05 .zan_05{left:0;top:auto;bottom:0}
+.section_live .img_box .img_05 .zan_06{left:1px;top:auto;bottom:0}
+.section_live .img_box .img_05 .zan_07{left:6px;top:auto;bottom:0}
+.section_live .live_logo{position:absolute;right:172px;top:-117px;width:90px;height:90px}
+.section_live.active .img_box .img_05 .zan_01{-webkit-animation:zan_01 4.9s linear infinite;animation:zan_01 4.9s linear infinite}
+.section_live.active .img_box .img_05 .zan_02{-webkit-animation:zan_04 4.9s linear .7s infinite;animation:zan_04 4.9s linear .7s infinite}
+.section_live.active .img_box .img_05 .zan_03{-webkit-animation:zan_01 4.9s linear 1.4s infinite;animation:zan_01 4.9s linear 1.4s infinite}
+.section_live.active .img_box .img_05 .zan_04{-webkit-animation:zan_02 4.9s linear 2.1s infinite;animation:zan_02 4.9s linear 2.1s infinite}
+.section_live.active .img_box .img_05 .zan_05{-webkit-animation:zan_03 4.9s linear 2.8s infinite;animation:zan_03 4.9s linear 2.8s infinite}
+.section_live.active .img_box .img_05 .zan_06{-webkit-animation:zan_02 4.9s linear 3.5s infinite;animation:zan_02 4.9s linear 3.5s infinite}
+.section_live.active .img_box .img_05 .zan_07{-webkit-animation:zan_04 4.9s linear 4.2s infinite;animation:zan_04 4.9s linear 4.2s infinite}
+@-webkit-keyframes zan_01{0%{opacity:0;-webkit-transform:rotate(-5deg) scale(0) translate(0,0)}
+25%{opacity:1;-webkit-transform:rotate(5deg) scale(0.5) translate(-35px,-50px)}
+50%{opacity:1;-webkit-transform:rotate(-5deg) scale(0.5) translate(20px,-160px)}
+75%{-webkit-transform:rotate(5deg) scale(0.5) translate(-30px,-300px)}
+100%{opacity:0;-webkit-transform:rotate(-5deg) scale(0.5) translate(10px,-400px)}}
+@-webkit-keyframes zan_02{0%{opacity:0;-webkit-transform:scale(0) translate(0,0)}
+30%{opacity:1;-webkit-transform:scale(0.7) translate(35px,-50px)}
+60%{opacity:1;-webkit-transform:scale(0.7) translate(-20px,-130px)}
+80%{-webkit-transform:scale(0.7) translate(30px,-200px)}
+100%{opacity:0;-webkit-transform:scale(0.7) translate(-10px,-270px)}}
+@-webkit-keyframes zan_03{0%{opacity:0;-webkit-transform:rotate(-5deg) scale(0) translate(0,0)}
+25%{opacity:.8;-webkit-transform:rotate(5deg) scale(0.5) translate(-35px,-50px)}
+50%{-webkit-transform:rotate(-5deg) scale(0.5) translate(20px,-160px)}
+75%{opacity:.8;-webkit-transform:rotate(5deg) scale(0.5) translate(-30px,-300px)}
+100%{opacity:0;-webkit-transform:rotate(-5deg) scale(0.5) translate(10px,-400px)}}
+@-webkit-keyframes zan_04{0%{opacity:0;-webkit-transform:scale(0) translate(0,0)}
+30%{opacity:.8;-webkit-transform:scale(0.7) translate(35px,-50px)}
+60%{-webkit-transform:scale(0.7) translate(-20px,-130px)}
+80%{opacity:.8;-webkit-transform:scale(0.7) translate(30px,-200px)}
+100%{opacity:0;-webkit-transform:scale(0.7) translate(-10px,-270px)}}
+@keyframes zan_01{0%{opacity:0;transform:rotate(-5deg) scale(0) translate(0,0)}
+25%{opacity:1;transform:rotate(5deg) scale(0.5) translate(-35px,-50px)}
+50%{opacity:1;transform:rotate(-5deg) scale(0.5) translate(20px,-160px)}
+75%{transform:rotate(5deg) scale(0.5) translate(-30px,-300px)}
+100%{opacity:0;transform:rotate(-5deg) scale(0.5) translate(10px,-400px)}}
+@keyframes zan_02{0%{opacity:0;transform:scale(0) translate(0,0)}
+30%{opacity:1;transform:scale(0.7) translate(35px,-50px)}
+60%{opacity:1;transform:scale(0.7) translate(-20px,-130px)}
+80%{transform:scale(0.7) translate(30px,-200px)}
+100%{opacity:0;transform:scale(0.7) translate(-10px,-270px)}}
+@keyframes zan_03{0%{opacity:0;transform:rotate(-5deg) scale(0) translate(0,0)}
+25%{opacity:.8;transform:rotate(5deg) scale(0.5) translate(-35px,-50px)}
+50%{transform:rotate(-5deg) scale(0.5) translate(20px,-160px)}
+75%{opacity:.8;transform:rotate(5deg) scale(0.5) translate(-30px,-300px)}
+100%{opacity:0;transform:rotate(-5deg) scale(0.5) translate(10px,-400px)}}
+@keyframes zan_04{0%{opacity:0;transform:scale(0) translate(0,0)}
+30%{opacity:.8;transform:scale(0.7) translate(35px,-50px)}
+60%{transform:scale(0.7) translate(-20px,-130px)}
+80%{opacity:.8;transform:scale(0.7) translate(30px,-200px)}
+100%{opacity:0;transform:scale(0.7) translate(-10px,-270px)}}
+
+</style>
+<div class="section_live active" id="sec_nav_4" r-notemplate="true">
+    <div class="section_inner">
+        <div class="img_box">
+            <img class="img_01" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_01.jpg">
+            <img class="img_02" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_02.png">
+            <img class="img_03" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_03.png">
+            <img class="img_04" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_04.png">
+            <div class="img_05">
+                <img class="zan_01" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_heart.png">
+                <img class="zan_02" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_bear.png">
+                <img class="zan_03" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_heart.png">
+                <img class="zan_04" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_drink.png">
+                <img class="zan_05" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_fish.png">
+                <img class="zan_06" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_heart.png">
+                <img class="zan_07" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_05_icecream.png">
+            </div>
+            <img class="img_06" src="http://i.gtimg.cn/qqlive/images/20160919_1/live_img_06.png">
+        </div>
+    </div>
+</div>
+
+<style>
+.ele_cloud_01 {
+    position: absolute;
+    left: 0;
+    top: 23px;
+    width: 100%;
+    height: 70px;
+    background: url(http://imgcache.gtimg.cn/tencentvideo_v1/vstyle/mobile/app/style/img/fan/cloud_01.png) repeat-x 0 0;
+    background-size: 375px 70px;
+    -webkit-animation: cloudMove 25s infinite linear;
+}
+.ele_cloud_02 {
+    position: absolute;
+    left: 0;
+    top: 139px;
+    width: 100%;
+    height: 63px;
+    background: url(http://imgcache.gtimg.cn/tencentvideo_v1/vstyle/mobile/app/style/img/fan/cloud_02.png) repeat-x 0 0;
+    background-size: 375px 63px;
+    -webkit-animation: cloudMove 30s infinite linear;
+}
+@-webkit-keyframes cloudMove{0%{background-position-x:0}
+100%{background-position-x:-340px}}
+
+</style>
+<span class="ele_cloud_01"></span>
+<span class="ele_cloud_02"></span>

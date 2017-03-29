@@ -2,7 +2,10 @@ http://zeptojs.com/
 
 http://photoswipe.com/
 http://www.swiper.com.cn/download/index.html
+https://github.com/kenwheeler/slick/
 
 https://github.com/chokcoco/httphijack
 https://github.com/jeromeetienne/jquery-qrcode
 https://github.com/lrsjng/jquery-qrcode
+
+https://github.com/seajs/seajs
