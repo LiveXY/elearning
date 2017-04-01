@@ -140,6 +140,14 @@ privilege::debug
 sekurlsa::logonpasswords
 ```
 
+hashcat安装：
+```sh
+brew install hashcat
+hashcat -t 32 -a 7 example0.hash ?a?a?a?a example.dict
+cat example.dict | ./hashcat -m 400 example400.hash
+hashcat -m 500 example500.hash example.dict
+```
+
 win7 win8.1 win10 office2013 key
 ```
 友情提示：次数为0的适用于电话激活，有次数的在线联网激活

@@ -226,6 +226,38 @@ button {
     word-wrap: normal;
 }
 
+parent { position: relative }
+.sticky {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position:sticky;
+  top: 0px;
+}
+
+.green-btn {
+    background-color: #20bc22;
+    height: .4rem;
+    width: 1.2rem;
+    text-align: center;
+    color: #fff;
+    font-size: .15rem;
+    border-radius: .25rem;
+    display: inline-block;
+    line-height: .4rem;
+}
+write-btn {
+    background-color: #fbfbfb;
+    height: .4rem;
+    width: 1.2rem;
+    text-align: center;
+    font-size: .15rem;
+    border-radius: .25rem;
+    display: inline-block;
+    line-height: .4rem;
+}
+
 页面预显示
 <div id="holder" style="">
     <svg style="width: 100%; height: 240" viewBox="0, 0, 417, 235"><rect stroke="#fff" id="svg_2" height="40" width="40" y="15" x="20" rx="5" ry="5" stroke-width="0.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_6" y2="35" x2="160" y1="35" x1="80" stroke-width="7.5" stroke="#eaeaea" fill="none"></line><rect id="svg_9" height="40" width="40" y="75.171054" x="21" rx="5" ry="5" stroke-width="0.5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_11" y2="85.333332" x2="300" y1="85.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_12" y2="105" x2="300" y1="105.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_13" height="29" width="58" y="81" x="340" stroke-width="7.5" rx="5" ry="5" fill="#eaeaea"></rect><rect id="svg_15" height="40" width="40" y="139.171054" x="20" stroke-width="0.5" rx="5" ry="5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_16" y2="149.333332" x2="300" y1="149.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_17" y2="170" x2="300" y1="170.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_18" height="29" width="58" y="145" x="340" rx="5" ry="5" stroke-width="7.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_20" y2="214.333332" x2="130.519229" y1="214.333332" x1="20" stroke-width="7.5" stroke="#eaeaea" fill="none"></line></svg>
