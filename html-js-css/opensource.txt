@@ -3,6 +3,26 @@ http://zeptojs.com/
 http://photoswipe.com/
 http://www.swiper.com.cn/download/index.html
 https://github.com/kenwheeler/slick/
+https://github.com/peachananr/onepage-scroll
+https://github.com/peachananr/zepto-onepage-scroll
+https://github.com/peachananr/parallax-scroller
+https://github.com/peachananr/zoom-scroller
+https://github.com/peachananr/interactive_bg
+https://github.com/peachananr/planetarium
+https://github.com/peachananr/tiltedpage_scroll
+https://github.com/peachananr/panorama_viewer
+https://github.com/peachananr/flipping_gallery
+https://github.com/peachananr/fly_sidemenu
+https://github.com/peachananr/label_better
+https://github.com/peachananr/interactive_3d
+https://github.com/peachananr/autofix_anything
+https://github.com/peachananr/immersive-slider
+https://github.com/peachananr/endpage-box
+https://github.com/peachananr/loading-bar
+https://github.com/peachananr/wheel-menu
+https://github.com/peachananr/flat-shadow
+
+https://github.com/flesler/jquery.scrollTo
 
 https://github.com/chokcoco/httphijack
 https://github.com/jeromeetienne/jquery-qrcode
