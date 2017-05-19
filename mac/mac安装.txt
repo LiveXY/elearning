@@ -96,8 +96,8 @@ fpm_restart
 
 port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php-memcached php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
 
-cp /opt/local/etc/php56/php.ini-development /opt/local/etc/php56/php.ini
-cp /opt/local/etc/php56/php-fpm.conf.default /opt/local/etc/php56/php-fpm.conf
+sudo cp /opt/local/etc/php56/php.ini-development /opt/local/etc/php56/php.ini
+sudo cp /opt/local/etc/php56/php-fpm.conf.default /opt/local/etc/php56/php-fpm.conf
 fpm_restart
 
 vi /opt/local/etc/nginx/nginx.conf
@@ -443,6 +443,14 @@ defaults delete com.torusknot.SourceTreeNotMAS "NSSplitView Subview Frames repow
 ==============================================
 “Shimo.app”已损坏，打不开。 您应该将它移到废纸篓。
 sudo spctl --master-disable
+
+=============================================
+Can't open index file for source: rsync://rsync.macports.org/macports/release/tarballs/ports.tar
+vi /opt/local/etc/macports/sources.conf
+http://www.macports.org/files/ports.tar.gz [default]
+sudo port -v selfupdate
+
+
 
 
 
