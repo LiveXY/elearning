@@ -1,0 +1,150 @@
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+
+php artisan make:console Crontab --command=crontab
+php artisan schedule:run
+
+php artisan crontab --online
+php artisan crontab --day 0
+php artisan crontab --day 1
+php artisan crontab --vip
+php artisan crontab --month 1
+php artisan crontab --invite 1
+
+$schedule->command('crontab --online')->everyMinute(); //每分钟
+$schedule->command('crontab --day 0')->cron("10 */1 * * *"); //每小时10分钟
+$schedule->command('crontab --day 1')->daily(); //每天0点
+$schedule->command('crontab --vip')->daily(); //每天0点
+$schedule->command('crontab --month 1')->cron("5 0 1 * *"); //每月1号0:05
+$schedule->command('crontab --invite 1')->cron("9 0 1 * *"); //每月1号0:09
+$schedule->exec('node /home/forge/script.js')->daily();
+
+
+->cron('* * * * *');	在自定义Cron调度上运行任务
+->everyMinute();	每分钟运行一次任务
+->everyFiveMinutes();	每五分钟运行一次任务
+->everyTenMinutes();	每十分钟运行一次任务
+->everyThirtyMinutes();	每三十分钟运行一次任务
+->hourly();	每小时运行一次任务
+->daily();	每天凌晨零点运行任务
+->dailyAt('13:00');	每天13:00运行任务
+->twiceDaily(1, 13);	每天1:00 & 13:00运行任务
+->weekly();	每周运行一次任务
+->monthly();	每月运行一次任务
+->quarterly();	每个季度运行一次
+->yearly();	每年运行一次
+如果需要某天的那个时间：
+->at('13:00')　　//13点才会执行
+
+->weekdays();	只在工作日运行任务
+->sundays();	每个星期天运行任务
+->mondays();	每个星期一运行任务
+->tuesdays();	每个星期二运行任务
+->wednesdays();	每个星期三运行任务
+->thursdays();	每个星期四运行任务
+->fridays();	每个星期五运行任务
+->saturdays();	每个星期六运行任务
+->when(Closure);	基于特定测试运行任务
+
+$schedule->call(function () {
+    // 每周星期一13:00运行一次...
+})->weekly()->mondays()->at('13:00');
+
+基于测试的约束条件
+when方法用于限制任务在通过给定测试之后运行。换句话说，如果给定闭包返回true，只要没有其它约束条件阻止任务运行，该任务就会执行：
+$schedule->command('emails:send')->daily()->when(function () {
+    return true;
+});
+
+避免任务重叠
+默认情况下，即使前一个任务仍然在运行调度任务也会运行，要避免这样的情况，可使用withoutOverlapping方法：
+$schedule->command('emails:send')->withoutOverlapping();
+
+Laravel调度器为处理调度任务输出提供了多个方便的方法。首先，使用sendOutputTo方法，你可以发送输出到文件以便稍后检查：
+$schedule->command('emails:send')
+         ->daily()
+         ->sendOutputTo($filePath);
+使用emailOutputTo方法，你可以将输出发送到电子邮件，注意输出必须首先通过sendOutputTo方法发送到文件。还有，使用电子邮件发送任务输出之前，应该配置Laravel的电子邮件服务：
+$schedule->command('foo')
+         ->daily()
+         ->sendOutputTo($filePath)
+         ->emailOutputTo('foo@example.com');
+
+使用before和after方法，你可以指定在调度任务完成之前和之后要执行的代码：
+
+$schedule->command('emails:send')
+         ->daily()
+         ->before(function () {
+             // Task is about to start...
+         })
+         ->after(function () {
+             // Task is complete...
+         });
+
+使用pingBefore和thenPing方法，调度器可以在任务完成之前和之后自动ping给定的URL。该方法在通知外部服务时很有用，例如Laravel Envoyer，在调度任务开始或完成的时候：
+$schedule->command('emails:send')
+         ->daily()
+         ->pingBefore($url)
+         ->thenPing($url);
+使用pingBefore($url)或thenPing($url)特性需要安装HTTP库Guzzle，可以在composer.json 文件中添加如下行来安装Guzzle到项目：
+"guzzlehttp/guzzle": "~5.3|~6.0"
+
+你可以通过 command() 来调用 artisan 命令, call 来调用方法或函数， 或者 terminal() 来执行单行命令脚本：
+$schedule->call('YourClass@someMethod')->twiceDaily();
+$schedule->call(function() {
+    // Do stuff
+})->everyFiveMinutes();
+$schedule
+    ->call('Mailer@BusinessDayMailer') // 执行类方法
+    ->weekdays() // 周一到周五执行
+    ->skip(function(TypeHintedDeciderClass $decider) { // 如果是节假日则跳过
+        return $decider->isHoliday();
+    });
+
+if ($this->confirm('Do you wish to continue? [y|N]')) {
+    //
+}
+$name = $this->anticipate('What is your name?', ['Taylor', 'Dayle']);
+$name = $this->choice('What is your name?', ['Taylor', 'Dayle'], false);
+$name = $this->ask('What is your name?');
+$password = $this->secret('What is the password?');
+
+$this->info('Display this on the screen');
+$this->error('Something went wrong!');
+$this->line('Display this on the screen');
+
+表格布局
+$headers = ['Name', 'Email'];
+$users = App\User::all(['name', 'email'])->toArray();
+$this->table($headers, $users);
+
+进度条
+$users = App\User::all();
+$bar = $this->output->createProgressBar(count($users));
+foreach ($users as $user) {
+    $this->performTask($user);
+    $bar->advance();
+}
+$bar->finish();
+
+通过代码调用命令
+Route::get('/foo', function () {
+    $exitCode = Artisan::call('email:send', [
+        'user' => 1, '--queue' => 'default'
+    ]);
+});
+Artisan命令放到队列中
+Route::get('/foo', function () {
+    Artisan::queue('email:send', [
+        'user' => 1, '--queue' => 'default'
+    ]);
+});
+
+$this->callSilent('email:send', [
+   'user' => 1, '--queue' => 'default'
+]);
+
+
+
+
+
+

@@ -95,7 +95,9 @@ tool->build system->new build system
 }
 lua.sublime-build
 ctrl + b 运行
-
+* Java​Script & Node​JS Snippets
+* AdvancedNewFile
+* TypeScript/Babel/React
 ###key
 ```
 —– BEGIN LICENSE —–
