@@ -449,8 +449,35 @@ Can't open index file for source: rsync://rsync.macports.org/macports/release/ta
 vi /opt/local/etc/macports/sources.conf
 http://www.macports.org/files/ports.tar.gz [default]
 sudo port -v selfupdate
+=============================================
+/opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist: Path had bad ownership/permissions
+sudo chown root /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist
+sudo chown root /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist
+sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist
+sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist
 
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -license
+=============================================
+brew install nginx
+brew services start nginx
+brew services stop nginx
+nginx
+nginx -s reload
+nginx -s stop
+brew uninstall nginx
+vi /usr/local/etc/nginx/nginx.conf
 
+brew update
+brew tap homebrew/dupes
+brew tap josegonzalez/homebrew-php
+brew install php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php70-memcached php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
+
+brew install php70 --with-imap --with-tidy --with-debug --with-mysql --with-fpm
+
+export PATH="$(brew --prefix php70)/bin:$PATH"
+
+vi /usr/local/etc/php/7.0/php-fpm.conf
 
 
 

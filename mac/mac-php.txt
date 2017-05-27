@@ -1,0 +1,24 @@
+brew untap josegonzalez/homebrew-php
+https://yq.aliyun.com/ziliao/1071
+http://www.jianshu.com/p/ae3f88d52e21
+
+http://www.cnblogs.com/argb/p/3604340.html
+http://www.tuicool.com/articles/YB7veia
+用户组，soket
+
+sudo -s 
+killall -9 php-fpm 
+php-fpm
+
+http://www.111cn.net/phper/linux-php/116804.htm
+
+http://blog.csdn.net/u010412301/article/details/52808419
+
+http://blog.csdn.net/yicixing7/article/details/65934467?locationNum=3&fps=1
+
+
+多版本 http://blog.csdn.net/geyuezhen/article/details/50716780
+
+fpm 开启
+/usr/local/Cellar/php70/7.0.19_11/sbin
+sudo sh php70-fpm start
