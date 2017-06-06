@@ -1,0 +1,37 @@
+$('.login_title').append('<input type="file" class="input_file" id="file" name="file" style="width:390px" />');
+
+var formData = new FormData();
+formData.append("file", $("#file")[0].files[0]);
+formData.append("name", 'test');
+formData.append("province", 110000);
+formData.append("city", 20000);
+formData.append('area', 3000);
+formData.append('address', 'test');
+formData.append('phone', 13712345678);
+formData.append('weixin', 'test');
+formData.append('status', 1);
+formData.append('card', 1212121212);
+formData.append('_token', '62odQr4tzKedRN0c2n57rfBpdMdPWQXEfMM5WzSf');
+
+$.ajax({
+	url: 'http://test.com',
+	type: 'POST',
+	data: formData,
+	processData: false,
+	contentType: false,
+	beforeSend: function(){
+		console.log("正在进行，请稍候");
+	},
+	success: function(responseStr) {
+		if (responseStr.status===0) {
+			console.log("成功"+responseStr);
+		} else {
+			console.log("失败");
+		}
+	},
+	error: function(responseStr) {
+		console.log("error");
+	}
+});
+
+
