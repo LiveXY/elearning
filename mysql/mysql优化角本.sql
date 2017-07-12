@@ -280,7 +280,7 @@ set global slow-query-log-file = /var/lib/mysql/mysql-slow.log
 set global long_query_time = 2
 
 -- 检查 MySQL 的空闲连接
-mysqladmin processlist -uroot -pnewlife | grep "Sleep"
+mysqladmin processlist -uroot -ppass | grep "Sleep"
 PHP 调用 mysql_pconnect 可以打开这个连接修改 wait_timeout=60;
 ==========================================
 -- 为 MySQL 选择正确的文件系统

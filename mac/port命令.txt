@@ -34,7 +34,7 @@ sudo /opt/local/bin/port install mysql55
 sudo /opt/local/bin/port install mysql55-server
 sudo /opt/local/lib/mysql55/bin/mysql_install_db --user=mysql
 sudo /opt/local/share/mysql55/support-files/mysql.server start
-sudo /opt/local/lib/mysql55/bin/mysqladmin -u root password ’newlife’
+sudo /opt/local/lib/mysql55/bin/mysqladmin -u root password 'pass'
 sudo /opt/local/bin/port load mysql55-server
 sudo port uninstall mysql55-server cd /opt/local/var/db/ sudo rm -rf mysql55/
 sudo port contents <package_name>

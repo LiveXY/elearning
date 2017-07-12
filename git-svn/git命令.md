@@ -30,9 +30,9 @@ git checkout file.txt 更新到工作目录
 git push origin master 提交到远程仓库
 6,转换svn代码到git
 -s 等于 -T trunk -b branches -t tags
-git svn clone http://svn.upupgame.com:3680/svn/slots/web/ -T trunk -b branches -t tags -A user.txt --no-metadata slotshz/ #用ＧＩＴ克隆ＳＶＮ项目并保留ＳＶＮ提交日志
+git svn clone http://svn.web.com:3680/svn/slots/web/ -T trunk -b branches -t tags -A user.txt --no-metadata slotshz/ #用ＧＩＴ克隆ＳＶＮ项目并保留ＳＶＮ提交日志
 git gc #进行垃圾搜集和压缩
-git remote add origin https://git.upupgame.com/web/slotshz.git
+git remote add origin https://git.web.com/web/shz.git
 git push origin --all #提交所有
 git push origin --tags
 提交到ＳＶＮ：git svn rebase / git svn dcommit
@@ -42,7 +42,7 @@ sit svn fetch #拉取最新修改，不更新本地数据
 git svn dcommit #提交到SVN
 
 7,常用命令
-git remote set-url origin git@git.upupgame.com:web/happi-inc.com.git 更换新的仓库地址
+git remote set-url origin git@git.web.com:web/web.com.git 更换新的仓库地址
 git push #将本地修改推送到远程
 git pull #将远程合并到当前分支 = git fetch & git merge(此方法更安全一些)
 git fetch #从远程获取最新版本到本地，不会自动合并
@@ -76,9 +76,9 @@ git merge tmp #合并到本地
 git pull origin master #从远程获取origin的master最新版本并merge到本地
 
 要更新本地仓库的远程地址请运行(使用ssh):
-git remote set-url origin git@git.upupgame.com:xionghc/happi-ios.git
+git remote set-url origin git@git.web.com:user/ios.git
 或使用http(s):
-git remote set-url origin https://git.upupgame.com/xionghc/happi-ios.git
+git remote set-url origin https://git.web.com/user/ios.git
 
 git checkout path/file #还原(等同svn revert)
 
@@ -119,26 +119,26 @@ fi
 
 
 cd /home/
-git clone git@git.upupgame.com:web/starcloud.git _temp/
-git clone git@git.upupgame.com:web/happiplay.com.git _temp/
+git clone git@git.web.com:web/tt.git _temp/
+git clone git@git.web.com:web/tt.com.git _temp/
 mkdir _temp/application/logs/
 mkdir _temp/application/cache/
 chmod 777 _temp/application/logs/
 chmod 777 _temp/application/cache/
 
-rm happipoker.com/application/cache/*.txt -f
-rm happipoker.com/application/logs/*.html -f
-rm happipoker.com/application/logs/2014/ -rf
-rm happipoker.com/application/logs/2015/ -rf
+rm web.com/application/cache/*.txt -f
+rm web.com/application/logs/*.html -f
+rm web.com/application/logs/2014/ -rf
+rm web.com/application/logs/2015/ -rf
 
-svn status happipoker.com/
-cp -R happipoker.com/static/upload/avatar/ _temp/static/upload/
-cp happipoker.com/application/bootstrap.php _temp/application/
+svn status web.com/
+cp -R web.com/static/upload/avatar/ _temp/static/upload/
+cp web.com/application/bootstrap.php _temp/application/
 mkdir _temp/static/upload/water
 mkdir _temp/static/upload/delete
 
-mv happipoker.com/ _happipoker.com/
-mv _temp/ happipoker.com/
+mv web.com/ _web.com/
+mv _temp/ web.com/
 
 git pull
 

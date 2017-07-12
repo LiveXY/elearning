@@ -14,7 +14,7 @@ find /etc -size +163840 -a -size -204800
 find /etc -name inittab -exec ls -l{} \
 
 
-grep php /home/happiplay.com/static/ -r
+grep php /home/web.com/static/ -r
 
 grep -RPnDskip "(php|passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|fopen|fclose|readfile) *\(" /home/happiplay.com/static/
 

@@ -133,9 +133,9 @@ docker pull mysql:latest
 docker run --rm -it mysql:latest env
 外网可以访问
 docker pull mysql:latest
-docker run -d -p 3306:3306 --name db001 -e MYSQL_ROOT_PASSWORD=newlife mysql:latest
+docker run -d -p 3306:3306 --name db001 -e MYSQL_ROOT_PASSWORD=pass mysql:latest
 docker pull mariadb:latest
-docker run -d -p 3307:3306 --name db002 -e MYSQL_ROOT_PASSWORD=newlife mariadb:latest
+docker run -d -p 3307:3306 --name db002 -e MYSQL_ROOT_PASSWORD=pass mariadb:latest
 docker pull redis:latest
 docker run -d -p 6379:6379 --name redis001 redis:latest
 docker pull mongo:latest
@@ -149,8 +149,8 @@ docker run -d -p 1337:1337 --name app -v /home/app:/home/app nodeapp:latest node
 
 #docker run -d -p 6379:6379 --name redis -v /home/redis/:/data redis:latest
 
-docker run -d --name db001 -e MYSQL_ROOT_PASSWORD=newlife mysql:latest
-docker run -d --name db002 -e MYSQL_ROOT_PASSWORD=newlife mariadb:latest
+docker run -d --name db001 -e MYSQL_ROOT_PASSWORD=pass mysql:latest
+docker run -d --name db002 -e MYSQL_ROOT_PASSWORD=pass mariadb:latest
 docker run -d --name redis redis:latest
 docker run -d --name mongo001 mongo:latest
 

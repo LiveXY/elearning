@@ -109,7 +109,7 @@ set foreign_key_checks=1;
 * date_format(current_date,'%Y%m%d')
 * `alter table tablename discard tablespace;` 删除表空间, `alter table tablename import tablespace;` 重新导入表空间
 * 查看时区：`show variables like '%time_zone%';`，`select CURTIME();`
-* 
+* 查询排名：`select *, @rank:=@rank+1 as rank from table, (select @rank:=0) as r`
 * 
 * 
 * 
@@ -148,27 +148,27 @@ mysql命令
 * `/innochecksum /var/lib/mysql/ibdata1` 或 `innodb_space -f /var/lib/mysql/ibdata1 space-summary | grep UNDO_LOG | wc -l` 检查什么被存储到了 ibdata1 里
 * db备份还原:
 ```
-mysqldump -h 192.168.6.153 -uroot -pnewlife -R qcloud>qcloud.sql
-mysql -h 192.168.6.168 -uroot -pnewlife -e "create schema qcloud default character set utf8;"
-`mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud.sql` 或 `mysql -h 192.168.6.153 -uroot -p123456 -e "use qcloud;source /root/qcloud.sql;"`
+mysqldump -h 192.168.6.153 -uroot -ppass -R qcloud>qcloud.sql
+mysql -h 192.168.6.168 -uroot -ppass -e "create schema qcloud default character set utf8;"
+`mysql -h 192.168.6.168 -uroot -ppass qcloud<qcloud.sql` 或 `mysql -h 192.168.6.153 -uroot -p123456 -e "use qcloud;source /root/qcloud.sql;"`
 ```
 * db备份还原2:
 ```
 #1，只导出表结构和存储过程
-mysqldump -h 192.168.6.168 -uroot -pnewlife --skip-add-drop-table --single-transaction -R -d qcloud>qcloud_nodata.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --skip-add-drop-table --single-transaction -R -d qcloud>qcloud_nodata.sql
 #2，只导出表数据
-mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud activity_config game_activity_pool game_audit game_channel game_config game_lang game_mobilepay game_pay_currency game_props game_room_stat game_rooms game_tables game_type game_vip_level gm_question_type report_currency sys_app sys_app_function sys_role sys_role_function yly_area yly_city yly_province yly_gift_sort yly_gift yly_post_template > qcloud_data.sql
-mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud yly_member --where=" uid in (0,10000012) " >> qcloud_data.sql
-mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud game_userfield --where=" uid in (0,10000012) " >> qcloud_data.sql
-mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud user_achievement --where=" uid in (0,10000012) " >> qcloud_data.sql
-mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud sys_admin_user --where=" user_id in (0,10000012) " >> qcloud_data.sql
-mysqldump -h 192.168.6.168 -uroot -pnewlife --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud sys_admin_user_game --where=" user_id in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud activity_config game_activity_pool game_audit game_channel game_config game_lang game_mobilepay game_pay_currency game_props game_room_stat game_rooms game_tables game_type game_vip_level gm_question_type report_currency sys_app sys_app_function sys_role sys_role_function yly_area yly_city yly_province yly_gift_sort yly_gift yly_post_template > qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud yly_member --where=" uid in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud game_userfield --where=" uid in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud user_achievement --where=" uid in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud sys_admin_user --where=" user_id in (0,10000012) " >> qcloud_data.sql
+mysqldump -h 192.168.6.168 -uroot -ppass --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks qcloud sys_admin_user_game --where=" user_id in (0,10000012) " >> qcloud_data.sql
 #过滤
 sed -ie 's/ROW_FORMAT=FIXED//g' qcloud_nodata.sql
 sed -ie 's/CHECKSUM=1//g' qcloud_nodata.sql
 #3，导入表结构和数据
-mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud_nodata.sql
-mysql -h 192.168.6.168 -uroot -pnewlife qcloud<qcloud_data.sql
+mysql -h 192.168.6.168 -uroot -ppass qcloud<qcloud_nodata.sql
+mysql -h 192.168.6.168 -uroot -ppass qcloud<qcloud_data.sql
 ```
 * 转移mysql数据目录
 ```
@@ -202,8 +202,8 @@ service mariadb start
 ```
 * 对比2数据库差异
 ```
-mysqldump -h 10.66.187.161 -uroot -pnewlife -d qcloud>qcloud1.sql
-mysqldump -h 10.66.187.161 -uroot -pnewlife -d qcloud2>qcloud2.sql
+mysqldump -h 10.66.187.161 -uroot -ppass -d qcloud>qcloud1.sql
+mysqldump -h 10.66.187.161 -uroot -ppass -d qcloud2>qcloud2.sql
 sed -i 's/AUTO_INCREMENT=.* //' qcloud1.sql
 sed -i 's/AUTO_INCREMENT=.* //' qcloud2.sql
 sed -i '/^\/\*!/d' qcloud1.sql
@@ -241,8 +241,8 @@ sed -i "s/,   /, /g" qcloud2.sql
 diff qcloud1.sql qcloud2.sql
 或
 yum install mysql-utilities.noarch
-mysqldiff --server1=root:newlife@192.168.6.168 --server2=root:newlife@192.168.6.168 --difftype=differ qcloud:qfortune
-mysqldiff --server1=root:newlife@192.168.6.168 --server2=root:newlife@192.168.6.168 --difftype=sql qcloud:qfortune
+mysqldiff --server1=root:pass@192.168.6.168 --server2=root:pass@192.168.6.168 --difftype=differ qcloud:qfortune
+mysqldiff --server1=root:pass@192.168.6.168 --server2=root:pass@192.168.6.168 --difftype=sql qcloud:qfortune
 ```
 * 表结构
 ```

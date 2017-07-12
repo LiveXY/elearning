@@ -11,7 +11,7 @@ xtrabackup备份和恢复
 * 差异备份：仅备份上次完整备份以来变化的数据
 创建备份用户：
 ```
-mysql -uroot -pnewlife -e "grant reload,lock tables,replication client on *.* to 'bak'@'localhost' identified by '123456';flush privileges;"
+mysql -uroot -ppass -e "grant reload,lock tables,replication client on *.* to 'bak'@'localhost' identified by '123456';flush privileges;"
 ```
 安装：
 ```
@@ -110,8 +110,8 @@ mysqlhotcopy备份和恢复 只支持MyISAM引擎
 ==========
 ```
 #备份
-mysqlhotcopy dbname -u root -p newlife /home/dbbak
-mysqlhotcopy --addtodest db1 db2 -u root -p newlife /home/dbbak
+mysqlhotcopy dbname -u root -p pass /home/dbbak
+mysqlhotcopy --addtodest db1 db2 -u root -p pass /home/dbbak
 #还原
 cp /path /var/lib/mysql/ -R
 chown -R mysql.mysql /var/lib/mysql

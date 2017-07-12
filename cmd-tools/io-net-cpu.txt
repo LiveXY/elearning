@@ -50,8 +50,8 @@ kbswpused：已用Swap、单位K
 %swpused：已用Swap百分比
 kbswpcad：被缓存的Swap、单位K
 
-lsof +d /home/happiplay.com/
-lsof +D /home/happiplay.com/
+lsof +d /home/web.com/
+lsof +D /home/web.com/
 lsof -g 3013
 lsof -i :22
 lsof -i@10.65.64.23

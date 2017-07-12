@@ -537,8 +537,8 @@ http {
 }
 server {
 	listen  119.81.27.72:443 ssl;
-	ssl_certificate      /home/ssl/happiplay.crt;
-	ssl_certificate_key  /home/ssl/happiplay.key;
+	ssl_certificate      /home/ssl/cert.crt;
+	ssl_certificate_key  /home/ssl/cert.key;
 	ssl_ciphers RC4:HIGH:!aNULL:!MD5;
 	ssl_prefer_server_ciphers   on;
 

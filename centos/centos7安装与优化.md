@@ -611,7 +611,7 @@ listen stats-front *:8000
 	stats enable
 	stats realm HAProxy\ Galera
 	stats uri /dbs/stats
-	stats auth admin:123456
+	stats auth a:a
 	stats admin if TRUE
 
 frontend db-cluster-front
@@ -691,7 +691,7 @@ listen stats
     #stats hide-version # 隐藏Haproxy版本号；
     stats uri     /stats # 自定义统计页面的访问uri；
     stats realm   Haproxy\ Statistics # 统计页面密码验证时的提示信息；
-    stats auth    admin:Happ123 # 为统计页面开启登录验证功能；
+    stats auth    a:a # 为统计页面开启登录验证功能；
     stats admin if TRUE # 若登录用户验证通过，则赋予管理功能；
 
 frontend jggame
@@ -720,8 +720,8 @@ server
         listen  333;
 #		listen 80;
 #		listen 443;
-#		ssl_certificate      /home/ssl/upupgame.crt;
-#               ssl_certificate_key  /home/ssl/upupgame.key;
+#		ssl_certificate      /home/ssl/cert.crt;
+#               ssl_certificate_key  /home/ssl/cert.key;
 
 #                ssl_ciphers RC4:HIGH:!aNULL:!MD5;
 #		ssl_prefer_server_ciphers   on;
@@ -809,6 +809,71 @@ function pingAddress($ip) {
     return $status;
 }
 php /home/ssl/index.php
+```
+
+#haproxy web80 nodejs8080
+```
+vi /etc/haproxy/haproxy.cfg
+global
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     40000
+    user         haproxy
+    group       haproxy
+    daemon # 以后台程序运行；
+
+defaults
+    mode                   http # 选择HTTP模式，即可进行7层过滤；
+    log                     global
+    option                  httplog # 可以得到更加丰富的日志输出；
+    option                  dontlognull
+    option http-server-close # server端可关闭HTTP连接的功能；
+    option forwardfor except 127.0.0.0/8 # 传递client端的IP地址给server端，并写入“X-Forward_for”首部中；
+    option originalto
+    option                  redispatch
+    retries                 3
+    timeout http-request    30s
+    timeout queue           1m
+    timeout connect         30s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 30s
+    timeout check           30s
+    maxconn                 30000
+
+listen stats
+    mode http
+    bind 0.0.0.0:1080 # 统计页面绑定1080端口；
+    stats enable # 开启统计页面功能；
+    #stats hide-version # 隐藏Haproxy版本号；
+    stats uri     /stats # 自定义统计页面的访问uri；
+    stats realm   Haproxy\ Statistics # 统计页面密码验证时的提示信息；
+    stats auth    a:a # 为统计页面开启登录验证功能；
+    stats admin if TRUE # 若登录用户验证通过，则赋予管理功能；
+
+frontend tcp-8080-front
+    bind *:8080
+    mode tcp
+    default_backend     tcp-8080-back
+
+backend tcp-8080-back
+   mode tcp
+   balance leastconn
+   server tcp-8080 10.0.0.43:8080
+
+frontend kwx
+    bind *:80
+    mode http
+    log global
+    option logasap
+    option dontlognull
+    default_backend kwxlb # 默认请求转入后端动态服务器
+
+backend kwxlb
+    balance roundrobin
+    server lb 10.0.0.43:80
+
 ```
 
 #nodejs
