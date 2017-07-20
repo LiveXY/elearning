@@ -1,5 +1,23 @@
 https://www.zhihu.com/question/19907735
 
+IPHONE 唤起APP XCODE 设置：
+http://www.cocoachina.com/ios/20150902/13321.html
+Associated Domains->Domains 增加 applinks:test.com/applinks:www.test.com
+
+增加 https://www.test.com/apple-app-site-association
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "TEAMID.包名",
+                "paths": ["/101/*","/tt101/*","/rr101/*"]
+            }
+        ]
+    }
+}
+https://www.test.com/101/enter 可唤起APP
+
 微信中判断是否安装app
 在微信中如果想通过Schema方式打开应用，貌似除腾讯以外的是不行了。
 // 判断是否安装

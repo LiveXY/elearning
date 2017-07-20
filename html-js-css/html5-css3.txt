@@ -203,6 +203,21 @@ border05::after {
     -webkit-border-image: url(data:image/gif;base64,R0lGODlhAgAEAJEDAMfGy8jHy8jGy////yH/C1hNUCBEYXRhWE1QP…oZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQBAAADACwAAAAAAgAEAAACBAyGI1IAOw==) 2 0 stretch;
     background-color: #fff;
 }
+.border05:after {
+    content: " ";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #e2e2e2;
+    -webkit-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(.5);
+    -ms-transform: scaleY(.5);
+    transform: scaleY(.5);
+    left: 10px;
+}
 button {
     background-color: #8C46FE;
     box-shadow: 0 -0.06rem 0 #9660FA;
@@ -256,6 +271,20 @@ write-btn {
     border-radius: .25rem;
     display: inline-block;
     line-height: .4rem;
+}
+
+末尾文字渐变隐藏
+.summary:after {
+    position: absolute;
+    bottom: 0;
+    content: '';
+    right: 0;
+    display: block;
+    width: 160px;
+    height: 20px;
+    background: -webkit-linear-gradient(left,rgba(255,255,255,0),#fff 96%);
+    background: -webkit-gradient(linear,left top,right top,from(rgba(255,255,255,0)),color-stop(96%,#fff));
+    background: linear-gradient(to right,rgba(255,255,255,0),#fff 96%);
 }
 
 页面预显示
