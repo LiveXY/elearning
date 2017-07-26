@@ -110,6 +110,11 @@ set foreign_key_checks=1;
 * `alter table tablename discard tablespace;` 删除表空间, `alter table tablename import tablespace;` 重新导入表空间
 * 查看时区：`show variables like '%time_zone%';`，`select CURTIME();`
 * 查询排名：`select *, @rank:=@rank+1 as rank from table, (select @rank:=0) as r`
+```
+select uid, @rank := if (@prev = score, @rank, @rank + 1) as rank, @prev := score as score
+from user_score, (select @prev := -1, @rank := 0) as s
+where mid=2 order by score desc
+```
 * 
 * 
 * 

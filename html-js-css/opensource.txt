@@ -1,7 +1,9 @@
 http://zeptojs.com/
 
 http://photoswipe.com/
+https://github.com/buildinternet/supersized
 http://www.swiper.com.cn/download/index.html
+
 https://github.com/kenwheeler/slick/
 https://github.com/peachananr/onepage-scroll
 https://github.com/peachananr/zepto-onepage-scroll

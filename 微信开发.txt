@@ -1,0 +1,42 @@
+网站扫码登陆
+https://open.weixin.qq.com/connect/qrconnect?appid=网站APPID&redirect_uri=信任跳转地址&response_type=code&scope=snsapi_login
+
+微信WEB版扫码登陆
+https://login.wx.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_=时间戳
+返回UUID：
+https://login.weixin.qq.com/qrcode/UUID
+适用于写微信机器人
+
+手机微信公众号登陆(OAuth2.0)
+https://open.weixin.qq.com/connect/oauth2/authorize?appid=公众号APPID&redirect_uri=信任跳转地址&response_type=code&&scope=snsapi_userinfo&state=1#wechat_redirect
+code只可以用一次，每次要重新获取
+获取到code后获取access_token：
+https://api.weixin.qq.com/sns/oauth2/access_token?appid=公众号APPID&secret=公众号secret&code=?&grant_type=authorization_code
+access_token 2小时过期，如果过期可以使用 refresh_token 换新 access_token 就不用重新登陆了。
+获取用户信息：
+https://api.weixin.qq.com/sns/userinfo?access_token=?&openid=?&lang=zh_CN
+
+手机微信应用(APP)登陆
+微信登陆SDK获取code：
+获取到code后获取access_token
+https://api.weixin.qq.com/sns/oauth2/access_token?appid=应用APPID&secret=应用secret&code=?&grant_type=authorization_code
+获取用户信息：
+https://api.weixin.qq.com/sns/userinfo?access_token=?&openid=?
+
+获取全局access token：
+https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=?&secret=?
+access_token保存2小时 建议存到CACHE
+获取ticket：
+https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=?&type=jsapi
+
+检查access_token是否过期：
+https://api.weixin.qq.com/sns/auth?access_token=?&openid=?
+refresh_token 换新 access_token：
+https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=?&grant_type=refresh_token&refresh_token=?
+
+统一下单：
+https://api.mch.weixin.qq.com/pay/unifiedorder
+发红包：
+https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack
+转账：
+https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers
