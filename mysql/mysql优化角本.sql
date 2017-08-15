@@ -1,4 +1,53 @@
+pt-online-schema-change 修改大表结构
+安装：
+wget percona.com/get/percona-toolkit.tar.gz
+tar -zxvf percona-toolkit-2.2.6.tar.gz
+perl Makefile.PL
+make
+make test
+make install
 
+首先，我们用--dry-run验证是否可以执行修改：
+pt-online-schema-change --alter "modify treatment_afterday INT(4) NULL" D=portal,t=comment_expert -uroot -p*** --dry-run
+确认无误之后，再用--execute真正执行：
+pt-online-schema-change --alter "modify treatment_afterday INT(4) NULL" D=portal,t=comment_expert -uroot -p*** --execute
+
+pt-online-schema-change h=127.0.0.1,P=3306,t=db1.tablename --alter "add key pid(pid), add flag  tinyint" --sleep 0.1 --bin-log
+pt-online-schema-change h=127.0.0.1,P=3306,t=db1.tablename --alter "add key pid(pid), add flag  tinyint default null" --bin-log
+--sleep的单位是秒，在每插入--chunk-size行后，sleep --sleep指定的秒，可以用小数。
+--chunk-size单位是行，每次insert select的行数，缺省是1000
+--bin-log参数，以保证master和slave的数据一致性。不使用--bin-log时，有部分数据更改的操作不写入binlog
+当修改过程中出现死锁导致的异常退出时，把--chunk-size改小再试。重试之前先清理一下pt-online-schema-change产生的临时表和trigger。
+
+原理：
+use `db1`;
+alter table tablename using temporary table __tmp_tablename;
+show triggers from `db1` LIKE 'tablename';
+create table `db1`.`__tmp_tablename` like `db1`.`tablename`;
+alter table `db1`.`__tmp_tablename` add key pid(pid), add flag tinyint default null;
+create trigger mk_osc_del after delete on `db1`.`tablename` for each row delete ignore from `db1`.`__tmp_tablename` where `db1`.`__tmp_tablename`.id = OLD.id;
+create trigger mk_osc_upd after update on `db1`.`tablename` for each row replace into `db1`.`__tmp_tablename` (id, pid, sid, create_on) values(NEW.id, NEW.pid, NEW.sid, NEW.create_on);
+create trigger mk_osc_ins after insert on `db1`.`tablename` for each row replace into `db1`.`__tmp_tablename` (id, pid, sid, create_on) values(NEW.id, NEW.pid, NEW.sid, NEW.create_on);
+复制数据
+rename table `db1`.`tablename` TO `db1`.`__old_tablename`, `db1`.`__tmp_tablename` to `db1`.`tablename`;
+drop trigger if exists `db1`.`mk_osc_del`;
+drop trigger if exists `db1`.`mk_osc_upd`;
+drop trigger if exists `db1`.`mk_osc_ins`;
+============================================
+索引分为聚簇索引和非聚簇索引两种，聚簇索引是按照数据存放的物理位置为顺序的，而非聚簇索引就不一样了；聚簇索引能提高多行检索的速度，而非聚簇索引对于单行的检索很快。
+索引分：普通索引／唯一索引／主键索引／组合索引（最左前缀）／全文索引／短索引
+1，多表关联查询，关联字段加索引。
+2，添加字段时，设置字段不能为空，设置个默认值。null是不走索引的。
+3，尽可能少使用字符串类型，不常用字符串类型可以单独放个表，尽量避免使用字符串作为主键。
+4，多个字段为主键时，常用的字段放前面
+5，组合索引，列的顺序非常重要
+6，字符串like查询时，后%是走索引的
+7，HASH索引只支持等值比较
+8，InnoDB对自增主键建立聚簇索引
+9，MySQL查询只使用一个索引
+10，不要在列上进行运算
+11，建议不要建太多索引，索引影响增删该操作
+12，纯日志表不建议加索引
 ==========================================
 explain/explain extended -- 查询分析
 -- 实例：

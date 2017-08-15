@@ -39,6 +39,16 @@ gitlab-ctl status
 gitlab-rake gitlab:check
 gitlab-ctl restart unicorn
 gitlab-ctl tail unicorn
+
+gitlab-rake gitlab:env:info
+gitlab-ctl tail
+systemctl status gitlab-runsvdir.service
+systemctl start gitlab-runsvdir
+gitlab-ctl restart
+
+gitlab-ctl restart postgresql
+rm /var/opt/gitlab/postgresql/data/postmaster.pid
+gitlab-ctl restart postgresql
 ====================================
 vi /opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/git_access.rb
 The project you were looking for could not be found.
