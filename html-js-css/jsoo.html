@@ -1,0 +1,326 @@
+<script type="text/javascript">
+//======object类定义和扩展=================================================
+//创建一个类OO1 并扩展两个方法a和b(方法一)
+var OO1 = {
+	t : null,
+    a : function(){ alert("OO1a"); },
+    b : function(){ alert("OO1b"); }
+};
+
+//类OO1扩展两个方法c和d(方法二)
+OO1.c = function(){ alert("OO1c"); }
+OO1.d = function(){ alert("OO1d"); }
+
+//类OO1扩展两个方法e和f(方法三)
+OO1["e"] = function(){ alert("OO1e"); }
+OO1["f"] = function(){ alert("OO1f"); }
+var a = {}
+var k = 5, v = 6;
+a = { [k]: v }
+a[k] = v;
+
+//调用
+//OO1.a(); OO1.b(); OO1.c(); OO1.d(); OO1.e(); OO1.f();
+
+//不支持原型扩展 如下会出错
+//OO1.prototype.g = function(){ alert("OO1g"); }
+//OO1.prototype.h = function(){ alert("OO1h"); }
+
+//======function类定义和扩展===============================================
+//创建一个类OO2 并扩展两个私有(this.)方法a和b(方法一)
+var OO2 = function() {
+    this.a = function() { alert("OO4a"); }
+    this.b = function() { alert("OO4b"); }
+};
+
+//类OO2扩展两个方法c和d(方法二)
+OO2.c = function(){ alert("OO2c"); }
+OO2.d = function(){ alert("OO2d"); }
+
+//类OO2扩展两个方法e和f(方法三)
+OO2["e"] = function(){ alert("OO2e"); }
+OO2["f"] = function(){ alert("OO2f"); }
+
+//类OO2扩展两个私有方法g和h(方法四)
+OO2.prototype.g = function(){ alert("OO2g"); }
+OO2.prototype.h = function(){ alert("OO2h"); }
+
+//类OO2扩展两个私有方法i和j(方法四)
+OO2.prototype = {
+    i : function(){ alert("OO2i"); },
+    j : function(){ alert("OO2j"); }
+}
+
+//方法二和三可以直接调用，不需要实例化
+//OO2.c(); OO2.d(); OO2.e(); OO2.f();
+
+//方法一和四 需要实例化后才能调用
+//var testOO2 = new OO2()
+//testOO2.a(); testOO2.b(); testOO2.g(); testOO2.h(); testOO2.i(); testOO2.j();
+
+//函数原生扩展和this扩展需要实例化后访问
+var testOO2 = new OO2()
+//testOO2.a(); testOO2.b(); testOO2.g(); testOO2.h(); testOO2.i(); testOO2.j();
+
+//======命名空间========================================================
+System = {};
+System.IO = {};
+System.IO.Path = {
+    ChangeExtension: function (path, extension) { return path.substr(0, path.lastIndexOf('.')) + extension; },
+    GetExtension: function (path) { return path.substr(path.lastIndexOf('.')); },
+    GetFileName: function (path) { return path.lastIndexOf('/') != -1 ? path.substr(path.lastIndexOf('/') + 1) : path.substr(path.lastIndexOf('\\') + 1); }
+};
+//不需要实例化直接调用
+//alert(System.IO.Path.ChangeExtension('c:\\test.jpg', '.gif'));
+//alert(System.IO.Path.GetExtension('c:\\test.jpg'));
+//alert(System.IO.Path.GetFileName('c:\\test.jpg'));
+
+System.Text = {};
+System.Text.StringBuilder = function() {};
+System.Text.StringBuilder.prototype = {
+    values: "",
+    Append: function (value) { this.values += value; return this; },
+    AppendLine: function () { this.values += '\r\n'; return this; },
+    AppendFormat: function () { var args = arguments; this.values += args[0].replace(/{(\d+)}/g, function () { return args[parseInt(arguments[1]) + 1]; }); return this; },
+    ToString: function () { return this.values; }
+};
+
+//需要实例化后才能调用 支持链式调用
+//var sb = new System.Text.StringBuilder();
+//alert(sb.Append("姓名：").Append("熊华春").AppendLine().AppendFormat("性别：{0}  年龄：{1}", "男", 20).ToString());
+
+var sb2 = new System.Text.StringBuilder()
+    .Append("姓名：")
+    .Append("熊华春")
+    .AppendLine()
+    .AppendFormat("性别：{0}  年龄：{1}", "男", 20)
+    .ToString();
+//alert(sb2);
+
+function StringBuilder() {
+    this.values = "";
+    this.Append = function (value) { this.values += value; return this; };
+    this.AppendLine = function () { this.values += '\r\n'; return this; };
+    this.AppendFormat = function () { var args = arguments; this.values += args[0].replace(/{(\d+)}/g, function () { return args[parseInt(arguments[1]) + 1]; }); return this; };
+    this.ToString = function () { return this.values; };
+};
+var sb2 = new StringBuilder()
+    .Append("姓名：")
+    .Append("熊哥")
+    .AppendLine()
+    .AppendFormat("性别：{0}  年龄：{1}", "男", 20)
+    .ToString();
+//alert(sb2);
+
+//======属性========================================================
+var OO4 = function(){}
+OO4.prototype.__defineGetter__("golds", function() { return this.g; });
+OO4.prototype.__defineSetter__("golds", function(value) { this.g = value; });
+var oo4 = new OO4();
+oo4.golds = 1;
+//alert(oo4.golds);
+console.log('oo4', oo4);
+
+function OO5() {
+    var g = 0;
+    Object.defineProperty(this, "golds", {
+        get: function () { return g; },
+        set: function (value) { g = value; }
+    });
+    var g2 = 0;
+    this.__defineGetter__("golds2", function() { return g2; });
+    this.__defineSetter__("golds2", function(value) { g2 = value; });
+}
+var oo5 = new OO5();
+oo5.golds = 1;
+oo5.golds2 = 2;
+//alert(oo5.golds);
+//alert(oo5.golds2);
+console.log('oo5', oo5);
+
+var OO6 = {
+    g: 0,
+    get golds() { return this.g; },
+    set golds(value) { this.g = value; }
+}
+OO6.golds = 1;
+//alert(OO6.golds);
+console.log('OO6', OO6);
+
+//======对象 函数========================================================
+/*
+undefined, number(var i = 5), string(var s = ''), boolean(var b = true)属于简单的值类型，不是对象
+new Function、new Array([])、new Object({})、null、new Number(10)、new String('')都是对象。他们都是引用类型，一切（引用类型）都是对象，对象是属性的集合
+javascript数组是对象，函数是对象，对象还是对象。
+对象里面的一切都是属性，只有属性，没有方法。那么这样方法如何表示呢？——方法也是一种属性。因为它的属性表示为键值对的形式。javascript中的对象可以任意的扩展属性
+每个函数都有一个属性叫做prototype。
+这个prototype的属性值是一个对象，默认的只有一个叫做constructor的属性，指向这个函数本身。
+每个对象都有一个隐藏的属性——“__proto__”（隐式原型），这个属性引用了创建这个对象的函数的prototype。即：
+fn.__proto__ === Fn.prototype
+但是Object.prototype确实一个特例——它的__proto__指向的是null，Function.prototype=Object.prototype=null，切记切记！
+不建议在系统对象上对prototype扩展更多的方法
+对于值类型，你可以通过typeof判断
+值类型，你可以通过typeof判断，string/number/boolean都很清楚，但是typeof在判断到引用类型的时候，返回值只有object/function
+instanceof可以检查某个变量是不是某个的实例
+访问一个对象的属性时，先在基本属性中查找，如果没有，再沿着__proto__这条链向上找，这就是原型链
+console.log(a);
+直接执行会报未定义错误
+console.log(a);
+var a = 10;
+浏览器优化：
+var a;
+console.log(a);
+a = 10;
+正确的写法先定义变量，后使用
+console.log(f1); //显示f1
+function f1() {}; //为函数声明
+console.log(f2); //显示undefined
+
+function Foo() { console.log(this); }
+var f1 = new Foo();
+Foo();
+情况1：构造函数 中的 this 代表它即将new出来的对象，直接调用this是Window对象
+var obj = { x: 10, fn: function() { console.log(this);} }
+obj.fn();
+var fn1 = obj.fn; fn1();
+情况2：函数作为对象的一个属性，函数中的this指向该对象。函数被赋值到了另一个变量中，并没有作为原的一个属性被调用，那么this的值就是window
+情况3：函数用call或者apply调用
+var obj = { x: 10 };
+var fn = function() { console.log(this); }
+fn.call(obj);
+当一个函数被call和apply调用时，this的值就取传入的对象的值。
+情况4：全局 & 调用普通函数
+在全局环境下，this永远是window，普通函数在调用时，其中的this也都是window，
+情况4:不仅仅是构造函数的prototype，即便是在整个原型链中，this代表的也都是当前对象的值。
+function Fn() {}
+Fn.prototype.do = function() { console.log(this); }
+var f1 = new Fn();
+f1.do();
+javascript没有块级作用域,所谓“块”，就是大括号“｛｝”中间的语句,所以，我们在编写代码的时候，不要在“块”里面声明变量，要在代码的一开始就声明好了。以避免发生歧义。
+我们在声明变量时，全局代码要在代码前端声明，函数中要在函数体一开始就声明好。除了这两个地方，其他地方都不要出现变量声明。而且建议用“单var”形式。
+作用域有上下级的关系，上下级关系的确定就看函数是在哪个作用域下创建的。作用域最大的用处就是隔离变量，不同作用域下同名变量不会有冲突。
+作用域在函数定义时就已经确定了。而不是在函数调用时确定。
+自由变量:在A作用域中使用的变量x，却没有在A作用域中声明（即在其他作用域中声明的），对于A作用域来说，x就是一个自由变量
+自由变量取值：要到创建这个函数的那个作用域中取值——是“创建”，而不是“调用”
+*/
+//======call apply bind caller callee=============================
+/*
+一、call 方法
+调用一个对象的一个方法，以另一个对象替换当前对象(其实就是更改对象的内部指针，即改变对象的this指向的内容)。
+fn.call(obj, param1, param2, param3, ....)
+function fn(param1) { console.log(this.num + param1); }
+var obj1 = { num: 1 }
+var obj2 = { num: 2 }
+fn.call(obj1, 1);
+fn.call(obj2, 2);
+二、apply方法
+apply方法的第一个参数也是要传入给当前对象的对象，即函数内部的this。后面的参数都是传递给当前对象的参数。
+function fn(param1) { console.log(this.num + param1); }
+var obj1 = { num: 1 }
+var obj2 = { num: 2 }
+fn.apply(obj1, [1]);
+fn.apply(obj2, [2]);
+三、caller 属性
+返回一个对函数的引用，即调用了当前函数的函数体。
+function call() { console.log(call.caller); }
+function caller() { call(); }
+call();
+caller();
+四、callee属性
+返回正被执行的 Function 对象，也就是所指定的 Function 对象的正文。
+arguments.callee //获取当前函数
+arguments.callee.caller //获取调用当前函数的函数
+
+function callee() {console.log(arguments.callee)}
+callee()
+function calleelen (arg1, arg2) { console.log(arguments.length, arguments.callee.length);}
+calleelen(1,2)
+function sum (n) { if (n<=0) return 1; else return n+arguments.callee(n - 1); }
+console.log(sum(10));
+五、bind
+function fn() {
+    this.f1 = function() {
+        setTimeout(this.f2, 1000);
+    }
+    this.f2 = function() {
+        console.log(this);
+    }
+    this.f3 = function() {
+        setTimeout(this.f2.bind(this), 1000);
+    }
+}
+var f = new fn();
+f.f1();
+f.f3();
+
+function fn(param1) { console.log(this.num + param1); }
+var obj1 = { num: 1 }
+var obj2 = { num: 2 }
+fn.bind(obj1, 1)();
+fn.bind(obj2, 2)();
+
+callee 与 caller区别
+function a() { b(); }
+function b() {
+    console.log(b === arguments.callee);
+    console.log(b.caller === a);
+    console.log(arguments.callee.caller === a);
+    console.log(this === arguments.callee);
+    console.log(this.caller === a);
+    console.log(arguments.callee.caller === this.caller);
+}
+a();
+*/
+//======闭包========================================================
+/*
+一、变量的作用域
+要理解闭包，首先必须理解Javascript特殊的变量作用域。
+变量的作用域无非就是两种：全局变量和局部变量。
+Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。
+另一方面，在函数外部自然无法读取函数内的局部变量。
+这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！
+二、如何从外部读取局部变量？
+出于种种原因，我们有时候需要得到函数内的局部变量。
+那就是在函数的内部，再定义一个函数。
+
+function a () {
+    var n = 0;
+    function b() {
+        n++;
+        console.log(n);
+    }
+    b();
+    b();
+}
+a();
+在上面的代码中，函数b就被包括在函数a内部，这时a内部的所有局部变量，对b都是可见的。
+但是反过来就不行，b内部的局部变量，对a就是不可见的。
+这就是Javascript语言特有的"链式作用域"结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。
+所以，父对象的所有变量，对子对象都是可见的，反之则不成立。
+
+既然b可以读取a中的局部变量，那么只要把b作为返回值，我们不就可以在a外部读取它的内部变量了吗！
+function a () {
+    var n = 0;
+    function b() {
+        n++;
+        console.log(n);
+    }
+    return b;
+}
+var result=a();
+result();
+三、闭包的概念
+闭包就是能够读取其他函数内部变量的函数。
+有权访问另一个函数作用域内变量的函数都是闭包。
+这里 b 函数访问了构造函数 a 里面的变量 n，所以形成了一个闭包。
+函数作为返回值，函数作为参数被传递 都形成闭包
+由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成"定义在一个函数内部的函数"。
+所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+四、闭包的用途
+闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。
+五、使用闭包的注意点
+1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
+*/
+
+</script>

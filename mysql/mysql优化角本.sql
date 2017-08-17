@@ -1,12 +1,13 @@
+http://www.cnblogs.com/zhoujinyi/p/3491059.html
 pt-online-schema-change 修改大表结构
-安装：
+安装：https://www.percona.com/downloads/percona-toolkit/LATEST/
 wget percona.com/get/percona-toolkit.tar.gz
 tar -zxvf percona-toolkit-2.2.6.tar.gz
 perl Makefile.PL
 make
 make test
 make install
-
+实例：
 首先，我们用--dry-run验证是否可以执行修改：
 pt-online-schema-change --alter "modify treatment_afterday INT(4) NULL" D=portal,t=comment_expert -uroot -p*** --dry-run
 确认无误之后，再用--execute真正执行：
@@ -19,6 +20,18 @@ pt-online-schema-change h=127.0.0.1,P=3306,t=db1.tablename --alter "add key pid(
 --bin-log参数，以保证master和slave的数据一致性。不使用--bin-log时，有部分数据更改的操作不写入binlog
 当修改过程中出现死锁导致的异常退出时，把--chunk-size改小再试。重试之前先清理一下pt-online-schema-change产生的临时表和trigger。
 
+1，增加字段：
+pt-online-schema-change --user=root --password=123456 --host=192.168.200.25  --alter "ADD COLUMN content text" D=aaa,t=tmp_test --no-check-replication-filters --alter-foreign-keys-method=auto --recursion-method=none --print --execute
+2，删除字段：
+pt-online-schema-change --user=root --password=123456 --host=192.168.200.25  --alter "DROP COLUMN content " D=aaa,t=tmp_test --no-check-replication-filters --alter-foreign-keys-method=auto --recursion-method=none --quiet --execute
+3，修改字段：
+pt-online-schema-change --user=root --password=123456 --host=192.168.200.25  --alter "MODIFY COLUMN age TINYINT NOT NULL DEFAULT 0" D=aaa,t=tmp_test --no-check-replication-filters --alter-foreign-keys-method=auto --recursion-method=none --quiet --execute
+4，字段改名：
+pt-online-schema-change --user=root --password=123456 --host=192.168.200.25  --alter "CHANGE COLUMN age address varchar(30)" D=aaa,t=tmp_test --no-check-alter --no-check-replication-filters --alter-foreign-keys-method=auto --recursion-method=none --quiet --execut
+5，增加索引：
+pt-online-schema-change --user=root --password=123456 --host=192.168.200.25  --alter "ADD INDEX idx_address(address)" D=aaa,t=tmp_test --no-check-alter --no-check-replication-filters --alter-foreign-keys-method=auto --recursion-method=none --print --execute
+6，删除索引：
+pt-online-schema-change --user=root --password=123456 --host=192.168.200.25  --alter "DROP INDEX idx_address" D=aaa,t=tmp_test --no-check-alter --no-check-replication-filters --alter-foreign-keys-method=auto --recursion-method=none --print --execute
 原理：
 use `db1`;
 alter table tablename using temporary table __tmp_tablename;
@@ -29,10 +42,12 @@ create trigger mk_osc_del after delete on `db1`.`tablename` for each row delete 
 create trigger mk_osc_upd after update on `db1`.`tablename` for each row replace into `db1`.`__tmp_tablename` (id, pid, sid, create_on) values(NEW.id, NEW.pid, NEW.sid, NEW.create_on);
 create trigger mk_osc_ins after insert on `db1`.`tablename` for each row replace into `db1`.`__tmp_tablename` (id, pid, sid, create_on) values(NEW.id, NEW.pid, NEW.sid, NEW.create_on);
 复制数据
+insert low_priority ignore into `db1`.`__tmp_tablename`(id, pid, sid, create_on) select * from `db1`.`tablename` lock in share mode;
 rename table `db1`.`tablename` TO `db1`.`__old_tablename`, `db1`.`__tmp_tablename` to `db1`.`tablename`;
 drop trigger if exists `db1`.`mk_osc_del`;
 drop trigger if exists `db1`.`mk_osc_upd`;
 drop trigger if exists `db1`.`mk_osc_ins`;
+
 ============================================
 索引分为聚簇索引和非聚簇索引两种，聚簇索引是按照数据存放的物理位置为顺序的，而非聚簇索引就不一样了；聚簇索引能提高多行检索的速度，而非聚簇索引对于单行的检索很快。
 索引分：普通索引／唯一索引／主键索引／组合索引（最左前缀）／全文索引／短索引

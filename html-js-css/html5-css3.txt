@@ -15,7 +15,7 @@ Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' http:/
     content: '';
     position: absolute;
     bottom: -25px;
-    top: 100%;
+    top: calc(100% - 2px);
     left: 0;
     border-right: 100vw solid currentColor;
     border-bottom: 4vw solid transparent;
