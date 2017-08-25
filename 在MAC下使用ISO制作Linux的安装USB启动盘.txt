@@ -6,3 +6,10 @@ sudo dd if=win2008.iso of=/dev/rdisk2 bs=1m
 
 在终端下，将ISO镜像转换为DMG格式：
 hdiutil convert -format UDRW -o win2008.dmg win2008.iso
+
+格式化
+diskutil eraseVolume JHFS+ Samsung_T3 /dev/disk2s2
+diskutil eraseVolume exFAT Samsung_T3 /dev/disk2s2
+
+文件系统：
+diskutil listFilesystems

@@ -236,3 +236,21 @@ background: -webkit-linear-gradient(top,#f4f4f4 50%,#fff 50%);
 background: -webkit-linear-gradient(left,#f4f4f4 50%,#fff 50%);
     background: -o-linear-gradient(left,#f4f4f4 50%,#fff 50%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f4f4f4,endColorstr=#ffffff,gradientType=1);
+
+渐变隐藏
+.summary:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    width: 160px;
+    height: 20px;
+    content: '';
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0), #fff 96%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255,255,255,0)), color-stop(96%, #fff));
+    background: linear-gradient(to right, rgba(255,255,255,0), #fff 96%);
+}
+
+字体大小：
+fontSize=20*((document.documentElement.clientWidth || document.body.clientWidth)/320)
+

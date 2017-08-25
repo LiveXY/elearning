@@ -40,3 +40,6 @@ https://api.mch.weixin.qq.com/pay/unifiedorder
 https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack
 转账：
 https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers
+
+
+微信接口：https://github.com/lbbniu/WebWechat/blob/master/README.md

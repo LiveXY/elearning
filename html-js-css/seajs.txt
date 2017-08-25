@@ -1,0 +1,44 @@
+//单一模式
+seajs.use('./a');
+
+//回调模式
+seajs.use('./a', function(a) {
+  a.run();
+});
+
+//多模块模式
+seajs.use(['./a', './b'], function(a, b) {
+  a.run();
+  b.run();
+});
+
+<script src="./sea.js" data-main="./init"></script>
+
+
+var a = require('a'); //引入a模块
+
+
+define(function(require) {
+
+});
+
+
+不要重命名 require 函数，或在任何作用域中给 require 重新赋值。
+
+在seajs中使用require加载静态文件时，必须使用常量，不能用变量。如果一定要用变量，请使用require.async
+
+
+// 所有模块都通过 define 来定义
+define(function(require, exports, module) {
+
+  // 通过 require 引入依赖
+  var $ = require('jquery');
+  var Spinning = require('./spinning');
+
+  // 通过 exports 对外提供接口
+  exports.doSomething = ...
+
+  // 或者通过 module.exports 提供整个接口
+  module.exports = ...
+
+});

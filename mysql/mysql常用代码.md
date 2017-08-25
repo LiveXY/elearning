@@ -114,6 +114,12 @@ set foreign_key_checks=1;
 select uid, @rank := if (@prev = score, @rank, @rank + 1) as rank, @prev := score as score
 from user_score, (select @prev := -1, @rank := 0) as s
 where mid=2 order by score desc
+select a.mid,uid, @rank := if (@prev = score, @rank, @rank + 1) as rank, @prev := score as score, if(rounds>=minround, 1, 0) r
+from user_match_score as a inner join game_match_config as b on a.mid=b.mid and a.mid=56, (select @prev := -1, @rank := 1) as s
+order by r desc, score desc
+select a.mid,uid, @rank:=@rank+1 as rank,score, if(rounds>=minround, 1, 0) r
+from user_match_score as a inner join game_match_config as b on a.mid=b.mid and a.mid=56, (select @rank:=0) as s
+order by r desc, score desc, uid asc
 ```
 * 
 * 
