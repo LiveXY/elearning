@@ -1568,6 +1568,11 @@ $ find . -type f -not -name '*gz' -print0 | xargs -0 -I {} rm -v {}
 7. 让我们看一个额外的例子，下面的命令行将会删除掉当前目录下除了 .gz、 .odt 和 .jpg 之外的所有文件：
 $ find . -type f -not \(-name '*gz' -or -name '*odt' -or -name '*.jpg' \) -delete
 
+Linux如何挂载windows下的共享目录？
+mount.cifs //IP地址/server /mnt/server -o user=administrator,password=123456
+linux 下的server需要自己手动建一个 后面的user与pass 是windows主机的账号和密码 注意空格 和逗号
+
+
 
 
 

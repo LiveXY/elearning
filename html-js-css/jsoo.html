@@ -14,10 +14,11 @@ OO1.d = function(){ alert("OO1d"); }
 //类OO1扩展两个方法e和f(方法三)
 OO1["e"] = function(){ alert("OO1e"); }
 OO1["f"] = function(){ alert("OO1f"); }
-var a = {}
+
 var k = 5, v = 6;
-a = { [k]: v }
+var a = {k:v}
 a[k] = v;
+a = { [k]: v }
 
 //调用
 //OO1.a(); OO1.b(); OO1.c(); OO1.d(); OO1.e(); OO1.f();

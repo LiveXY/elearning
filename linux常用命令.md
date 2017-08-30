@@ -16,6 +16,10 @@ exiftool file.jpg
 -A 同 -a ，但不列出 "." (目前目录) 及 ".." (父目录)
 -F 在列出的档案名称后加一符号；例如可执行档则加 "*", 目录则加 "/"
 -R 若目录下有档案，则以下之档案亦皆依序列出
+-h 使打印结果易于使用者查看(human readable)
+-s 显示文件大小
+-S 以大小进行排序
+-L 显示文件链接名
 
 复制代码
 范例：
@@ -80,7 +84,9 @@ mkdir -p BBB/Test
 1.7	head(初级)
 功能说明：看一个文件的头几行
 语法：head –n filename
-参数：-n ：后面接数字，代表显示几行的意思
+参数：
+-n ：后面接数字，代表显示几行的意思
+-c number 显示前几个字节
 
 常用方式及使用技巧：$head -10 error.log
 
@@ -96,6 +102,19 @@ q ：代表立刻离开 more ，不再显示该档案内容。
 
 常用方式及使用技巧:#ifconfig –a | more
 
+more [option] [filename]
++n 从第n行开始显示
+-n 定义屏幕大小为n行
++/pattern 再显示前按pattern匹配子串并显示
+-s 把连续的多个空行显示为一行
+常用操作命令：
+Enter 向下n行，默认为1行
+Ctrl+F 跳过一屏
+Ctrl+B 返回上一屏
+空格键 向下滚动一屏
+= 输出当前行的行号
+在more模式中回车，输入/pattern可以持续向下搜索
+
 1.9	less(初级)
 功能说明：less 与 more 类似，但是比 more 更好的是，他可以往前翻页！
 语法：less filename
@@ -110,6 +129,19 @@ N ：反向的重复前一个搜寻 (与 / 或 ? 有关！)
 q ：离开 less 这个程序；
 
 常用方式及使用技巧:less error.log
+－N 显示每行的行号
+-i 忽略搜索时的大小写
+-s 将连续空行显示为一行
+-m 显示百分比
+常用操作命令：
+/字符串 向下搜索“字符串”功能
+?字符串 向上搜索“字符串”功能
+n 重复前一个搜索
+空格键 滚动一页
+d 滚动半页
+b 回溯一页
+y 回溯一行
+q 退出less命令
 
 1.10	tail(初级)
 功能说明：看一个文件末尾n行
@@ -127,9 +159,13 @@ q ：离开 less 这个程序；
 补充说明：cp指令用在复制文件或目录，如同时指定两个以上的文件或目录，且最后的目的地是一个已经存在的目录，则它会把前面指定的所有文件或目录复制到该目录中。若同时指定多个文件或目录，而最后的目的地并非是一个已存在的目录，则会出现错误信息。
 参　　数：
 　-r 　递归处理，将指定目录下的文件与子目录一并处理。
-　-R或--recursive 　递归处理，将指定目录下的所有文件与子目录一并处理。 。
+　-R或--recursive 　递归处理，将指定目录下的所有文件与子目录一并处理。
 
 常用方式及使用技巧:cp server.xml ../bak
+
+cp -ruv test1 test2 拷贝test1中的新的文件到test2目录 -r 是“递归”， -u 是“更新”，-v 是“详细”
+cp --force --backup=numbered test1.py test1.py 带编号的连续备份
+
 
 1.12	mv(初级)
 功能说明：移动或更名现有的文件或目录。
@@ -184,6 +220,7 @@ q ：离开 less 这个程序；
 参　　数：
 -c或--bytes或--chars 只显示Bytes数。
 -l或--lines 只显示列数。
+-m 统计字符数
 -w或--words 只显示字数。
 
 常用方式及使用技巧：netstat –an | grep 1521 | wc -l
@@ -273,6 +310,20 @@ q ：离开 less 这个程序；
 参　　数：
 -i或--ignore-case 忽略字符大小写的差别。
 -v或--revert-match 反转查找。
+基本格式 grep [option] [regex] [path]
+
+-o 只按行显示匹配的字符
+-c 只输出匹配行的数目
+-n 显示匹配行的行号
+-v 显示不包含匹配文本的行
+-i 不区分大小写 (grep是大小写敏感的)
+-R 文件夹下递归搜索
+-l 只显示匹配的文件名 
+-H 显示文件名
+-A NUM(after)显示匹配的后几行
+-B NUM(before)显示匹配的前几行
+-C NUM显示匹配的前后几行 
+–color 标出颜色
 
 常用方式及使用技巧:find ./ -name “*.xml” xargs –print | grep –i “time-out”
 
@@ -291,6 +342,7 @@ q ：离开 less 这个程序；
 说明：把档案串连接后传到基本输出（萤幕或加 > fileName 到另一个档案）
 参数：
 -n 或 --number 由 1 开始对所有输出的行数编号
+-b 与-n类似，但空行不编号
 
 范例：
 cat -n textfile1 > textfile2 把 textfile1 的档案内容加上行号后输入 textfile2 这个档案里
@@ -338,6 +390,10 @@ tail –f Error.log > test.log
 语法：
 tail –f Error.log >> test.log
 常用方式及使用技巧:cat Error.log > > test.log
+基本格式 tail [option] [filename]
+-n number 定位参数，+5表示从第五行开始显示，10或-10表示显示最后10行
+-f 监控文本变化，更新内容
+-k number 从number所指的KB处开始读取
 
 2	设备管理
 2.1	mount(中级)
@@ -886,3 +942,14 @@ tcpdump –s –i eth0 –w login.cap port 8080
 7.1	man(初级)
 
 敏捷测试团队，不再仅仅是在coding之后。而是和研发人员贯穿在需求分析、规格说明、自动化单元测试、自动化验收测试、静态代码分析、技术债等环节中。所以敏捷项目必定在将来效率的趋势下成为主流。
+
+sort [option] [filename]
+-u 忽略重复行
+-n 按照数字大小排序
+-r 逆序
+-k start,endstart为比较的起始位置，end为结束位置
+sort -nk 2 -t - sort.txt 以-进行分割，对分割后的第二个域进行排序；
+sort -nrk 2 -t - sort.txt 逆序排序
+
+
+
