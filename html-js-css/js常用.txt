@@ -53,6 +53,8 @@ https://github.com/BlazeCSS/Blaze
 https://github.com/Tencent/QMUI_Web
 https://github.com/RubyLouvre/avalon.oniui
 https://github.com/nolimits4web/Framework7
+https://github.com/mrholek/CoreUI-Free-Bootstrap-Admin-Template
+https://github.com/yahoo/pure/
 
 https://github.com/MithrilJS/mithril.js
 https://github.com/fbsamples/f8app
@@ -68,6 +70,8 @@ https://github.com/BelinChung/HiApp
 https://github.com/Tencent/QMUI_Web_Desktop
 https://gitee.com/yubo725/RNWeChat
 https://github.com/reactnativecomponent/react-native-netease-im
+https://github.com/jxnblk/rebass
+https://github.com/unsplash/react-trend
 
 全平台桌面应用
 https://github.com/electron/electron
@@ -179,11 +183,14 @@ http://www.cnblogs.com/snandy/p/3428171.html
 coffeescript
 http://coffee-script.org/
 https://github.com/Pathgather/please-wait
+https://github.com/js2coffee/js2coffee
 
 typescript
 http://www.typescriptlang.org/play/index.html
 https://www.tslang.cn/docs/handbook/typescript-in-5-minutes.html
 https://www.w3cschool.cn/typescript/typescript-tutorial.html
+https://github.com/pnpm/pnpm
+https://github.com/graphcool/chromeless
 
 构建部署
 https://github.com/webpack/webpack
@@ -233,6 +240,8 @@ https://github.com/kazzkiq/balloon.css
 https://github.com/gchq/CyberChef
 https://github.com/OctoLinker/browser-extension
 
+https://github.com/codemirror/codemirror
+
 模版
 https://github.com/janl/mustache.js
 https://github.com/aui/art-template
@@ -250,7 +259,9 @@ https://github.com/ecomfe/echarts
 https://github.com/tobiasahlin/SpinKit
 http://tobiasahlin.com/spinkit/
 https://github.com/juliangarnier/anime
+https://github.com/HubSpot/pace
 https://github.com/legomushroom/mojs
+https://github.com/michaelvillar/dynamics.js
 https://github.com/VincentGarreau/particles.js
 https://github.com/adobe-webplatform/Snap.svg
 https://github.com/chenglou/react-motion
@@ -258,22 +269,36 @@ https://github.com/maxwellito/vivus
 https://github.com/DmitryBaranovskiy/raphael
 https://github.com/jacomyal/sigma.js
 https://github.com/hakimel/Ladda
+https://github.com/matthieua/WOW
 https://github.com/highcharts/highcharts
 https://github.com/greensock/GreenSock-JS
 https://github.com/daniel-lundin/snabbt.js
 https://github.com/ConnorAtherton/walkway
 https://github.com/adrai/flowchart.js
+https://github.com/anijs/anijs
 https://github.com/visionmedia/move.js
 https://github.com/hakimel/stroll.js
 https://github.com/inorganik/countUp.js
 https://github.com/pa7/heatmap.js
+https://github.com/tictail/bounce.js
+https://github.com/popmotion/popmotion
 https://github.com/IanLunn/Sequence
 https://github.com/HunterLarco/voxel.css
 https://github.com/blivesta/animsition
+https://github.com/chinchang/cta.js
 https://github.com/AlloyTeam/curvejs
 https://github.com/AlloyTeam/AlloyStick
 https://github.com/1000ch/grunt-image
 https://github.com/will-stone/waitanimate
+https://github.com/miniMAC/rocket
+https://github.com/rikschennink/fitty
+https://github.com/svg/svgo
+https://github.com/usablica/kissui.scrollanim
+https://github.com/shakiba/planck.js
+https://github.com/janhuenermann/neurojs
+https://github.com/atomiks/tippyjs
+https://github.com/simple-icons/simple-icons
+https://github.com/luruke/barba.js
 
 socket websocket webrtc
 https://github.com/socketio/socket.io
@@ -314,6 +339,7 @@ https://github.com/ciar4n/imagehover.css
 https://github.com/timmywil/jquery.panzoom
 https://github.com/peachananr/panorama_viewer
 https://github.com/peachananr/parallax-scroller
+https://github.com/henrygd/bigpicture
 
 node
 https://github.com/expressjs/express
@@ -420,6 +446,9 @@ https://github.com/louischatriot/nedb
 https://github.com/techfort/LokiJS
 https://github.com/Level/levelup
 https://github.com/share/sharedb
+
+store
+https://github.com/marcuswestin/store.js
 
 响应式框架 多点触控 手势
 https://github.com/Dogfalo/materialize
@@ -535,6 +564,15 @@ https://github.com/AlloyTeam/AlloyRender
 https://github.com/chokcoco/httphijack
 https://github.com/colebemis/feather
 https://github.com/overtrue/share.js
+https://github.com/graphcool/chromeless
+https://github.com/stylelint/stylelint
+https://github.com/dleitee/strman
+https://github.com/prettier/prettier
+https://github.com/ilkeryilmaz/timelinejs
+
+vr
+https://github.com/facebook/react-vr
+
 
 
 https://github.com/hcxiong?direction=desc&page=50&sort=stars&tab=stars

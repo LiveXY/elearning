@@ -11,6 +11,8 @@ https://github.com/saeedalipoor/icono
 https://github.com/tawian/text-spinners
 https://github.com/aui/font-spider
 https://github.com/ijry/lyicon
+http://nagoshiashumari.github.io/Rpg-Awesome/
+https://github.com/simple-icons/simple-icons
 
 动画
 https://github.com/daneden/animate.css
@@ -25,6 +27,7 @@ https://github.com/elrumordelaluz/csshake
 https://github.com/gudh/ihover
 https://github.com/raphaelfabeni/css-loader
 https://github.com/eliortabeka/tootik
+https://github.com/ghosh/microtip#installation
 
 规范化的样式
 https://github.com/necolas/normalize.css

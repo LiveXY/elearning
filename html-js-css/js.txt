@@ -123,6 +123,67 @@ function serialnum() {
 	doc.addEventListener('DOMContentLoaded', recalc, false);
 	win.addEventListener(resizeEvt, recalc, false);
 })(document, window);
+==========================================================
+$(function() {
+    if($(".meipian-content").length == 0) {
+        var content = $(".mp-content");
+    }else{
+        var content = $(".meipian-content");
+    }
+    var img = content.find("img").last();
+    img.load(function() {
+        var scrollHeight = $(window).scrollTop();
+        function getHeight(){
+            if($(".section").length == 0){
+                var section = $(".mp-section");
+            }else{
+                var section = $(".section");
+            }
+            var screenHeight = $(window).height() * 3;//超过文章内容超过4倍高度执行文章折叠
+            var contentHeight = content.height();
+            var notFoldHeight = null;
+            var foldHeight = null;
+            var otherTop = $(section[0]).offset().top;
+            for(var i = 0, len = section.length; i < len; i++) {
+                if($(section[i]).offset().top - otherTop >= screenHeight) {
+                    notFoldHeight = $(section[i]).offset().top - otherTop;
+                    foldHeight = contentHeight - notFoldHeight;
+                    if(foldHeight > $(window).height() * 2) {
+                        return notFoldHeight;
+                    }else{
+                        return null;
+                    }
+                }
+            }
+            return null;
+        }
+        if(getHeight() && $(window).height() * 5 < content.height()) {
+            if(scrollHeight + $(window).height() < $(window).height() * 3) {
+                content.css({
+                    "height":getHeight(),
+                    "overflow":"hidden"
+                });
+                content.after('<div id="loadMore"><p><a href="javascript:void(0);"><span>展开阅读全文</span><span class="iconfont icon-arrow"></span></a></p></div>');
+                $("#loadMore").click(function() {
+                    $(this).remove();
+                    content.css({"height":"auto"});
+                });
+            }
+        }
+    });
+});
+======================================
+预览图片
+if (window.android)
+{
+    window.android.previewImage(i, imgList);
+}
 
+try
+{
+    wx.previewImage(message);
+}
+catch (err) {}
+window.webkit.messageHandlers.previewImage.postMessage(message);
 
 

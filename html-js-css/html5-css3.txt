@@ -286,6 +286,63 @@ write-btn {
     background: -webkit-gradient(linear,left top,right top,from(rgba(255,255,255,0)),color-stop(96%,#fff));
     background: linear-gradient(to right,rgba(255,255,255,0),#fff 96%);
 }
+.RichContent-inner{position:relative;-webkit-transition:max-height .32s cubic-bezier(.95,.05,.795,.035),-webkit-mask-size .22s cubic-bezier(.95,.05,.795,.035);transition:max-height .32s cubic-bezier(.95,.05,.795,.035),-webkit-mask-size .22s cubic-bezier(.95,.05,.795,.035);transition:mask-size .22s cubic-bezier(.95,.05,.795,.035),max-height .32s cubic-bezier(.95,.05,.795,.035);transition:mask-size .22s cubic-bezier(.95,.05,.795,.035),max-height .32s cubic-bezier(.95,.05,.795,.035),-webkit-mask-size .22s cubic-bezier(.95,.05,.795,.035);-webkit-mask-image:-webkit-gradient(linear,left top,left bottom,from(#000),to(transparent));-webkit-mask-image:linear-gradient(#000 calc(100% - 8rem),transparent calc(100% - 2.8rem));mask-image:-webkit-gradient(linear,left top,left bottom,from(#000),to(transparent));mask-image:linear-gradient(#000 calc(100% - 8rem),transparent calc(100% - 2.8rem));-webkit-mask-size:100% 100%;mask-size:100% 100%}
+
+按钮缩放动画
+@-webkit-keyframes a_icon_download{0%{-webkit-transform:scale(1);}60%{-webkit-transform:scale(1);}70%{-webkit-transform:scale(0.98);}80%{-webkit-transform:scale(1.05);}90%{-webkit-transform:scale(0.95);}100%{-webkit-transform:scale(1);}}
+.icon_download{display:inline-block;height:25px;width:25px;background:url(https://aq.qq.com/mobile_v3/images/download/icon_download.png) no-repeat 0 0;background-size:contain;margin-right:5px;vertical-align:middle;-webkit-animation:a_icon_download 2s 0s linear infinite;}
+
+箭头下载动画
+.icon_download{display:inline-block;background-repeat: no-repeat;vertical-align: middle;display: none;width: 16px;height: 16px;background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzRweCIgaGVpZ2h0PSIxN3B4IiB2aWV3Qm94PSIwIDAgMzQgMTciIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzg2LjAwMDAwMCwgLTEzLjAwMDAwMCkiPgogICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzODcuMDAwMDAwLCA3LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZS0yIiB4PSIwIiB5PSIwIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjwvcmVjdD4KICAgICAgICAgICAgICAgIDxwb2x5bGluZSBpZD0iUGF0aC0yLUNvcHktMiIgc3Ryb2tlPSIjNzc3Nzc3IiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuODAwMjcxNzM5IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHBvaW50cz0iMSA3LjYgMTYgMjEuMSAzMSA3LjYiPjwvcG9seWxpbmU+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=);background-size: 16px 16px;-webkit-animation: OpenGuide-arrow 1s linear infinite;animation: OpenGuide-arrow 1s linear infinite;margin-left: 12px;}
+@-webkit-keyframes OpenGuide-arrow{0%{-webkit-transform:translateY(-5px);transform:translateY(-5px);opacity:0}50%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(5px);transform:translateY(5px);opacity:0}}
+@keyframes OpenGuide-arrow{0%{-webkit-transform:translateY(-5px);transform:translateY(-5px);opacity:0}50%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}100%{-webkit-transform:translateY(5px);transform:translateY(5px);opacity:0}}
+
+文字闪闪动画
+{
+letter-spacing: 1px;
+-webkit-animation: neon1 3s ease-in-out infinite alternate;
+animation: neon1 3s ease-in-out infinite alternate;
+}
+@keyframes neon1 {
+    0% {color: #FFF;text-shadow: 0 0 2px #fff, 0 0 4px  #fff, 0 0 6px  #fff, 0 0 8px  #FF9900, 0 0 14px  #FF9900, 0 0 16px  #FF9900, 0 0 20px #FF9900;}
+    15% {color: #FFF;text-shadow: none;}
+    40% {color: #FFF;text-shadow: none;}
+    50% {color: #FF9900;text-shadow: none;}
+    60% {color: #FFF;text-shadow: none;}
+    85% {color: #FFF;text-shadow: none;}
+    100% {color: #FFF;text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #FF9900, 0 0 7px #FF9900, 0 0 8px #FF9900, 0 0 10px #FF9900;}
+}
+@-webkit-keyframes neon1 {
+    0% {color: #FFF;text-shadow: 0 0 2px #fff, 0 0 4px  #fff, 0 0 6px  #fff, 0 0 8px  #FF9900, 0 0 14px  #FF9900, 0 0 16px  #FF9900, 0 0 20px #FF9900;}
+    15% {color: #FFF;text-shadow: none;}
+    40% {color: #FFF;text-shadow: none;}
+    50% {color: #FF9900;text-shadow: none;}
+    60% {color: #FFF;text-shadow: none;}
+    85% {color: #FFF;text-shadow: none;}
+    100% {color: #FFF;text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #FF9900, 0 0 7px #FF9900, 0 0 8px #FF9900, 0 0 10px #FF9900;}
+}
+
+上下二种色
+background: -webkit-linear-gradient(top,#225618 50%,#0c3c0a 50%);
+background: -o-linear-gradient(top,#225618 50%,#0c3c0a 50%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#225618,endColorstr=#0c3c0a,gradientType=0);
+
+朦胧效果
+.download_bar.ios9 {
+    background-color: rgba(255,255,255,.5);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+.download_bar {
+    position: fixed;
+    z-index: 3000000000;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 40px;
+    text-shadow: none;
+    background-color: rgba(255,255,255,.9);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
 
 页面预显示
 <div id="holder" style="">

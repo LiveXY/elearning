@@ -836,3 +836,4 @@ http://www.css88.com/archives/5480/comment-page-1
     <title>标题</title>
 </head>
 
+    <link rel='canonical' href='https://www.meipian.cn/soj0dtv' />
