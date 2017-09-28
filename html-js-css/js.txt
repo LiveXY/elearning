@@ -123,6 +123,13 @@ function serialnum() {
 	doc.addEventListener('DOMContentLoaded', recalc, false);
 	win.addEventListener(resizeEvt, recalc, false);
 })(document, window);
+===========================================================
+AutoPage();
+var  timer=setInterval(AutoPage,30);
+function AutoPage(){
+    document.documentElement.style.fontSize = document.documentElement.clientWidth * 100 / 640 + 'px';
+ } ;
+window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize" , AutoPage, false);
 ==========================================================
 $(function() {
     if($(".meipian-content").length == 0) {

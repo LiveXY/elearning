@@ -287,10 +287,67 @@ write-btn {
     background: linear-gradient(to right,rgba(255,255,255,0),#fff 96%);
 }
 .RichContent-inner{position:relative;-webkit-transition:max-height .32s cubic-bezier(.95,.05,.795,.035),-webkit-mask-size .22s cubic-bezier(.95,.05,.795,.035);transition:max-height .32s cubic-bezier(.95,.05,.795,.035),-webkit-mask-size .22s cubic-bezier(.95,.05,.795,.035);transition:mask-size .22s cubic-bezier(.95,.05,.795,.035),max-height .32s cubic-bezier(.95,.05,.795,.035);transition:mask-size .22s cubic-bezier(.95,.05,.795,.035),max-height .32s cubic-bezier(.95,.05,.795,.035),-webkit-mask-size .22s cubic-bezier(.95,.05,.795,.035);-webkit-mask-image:-webkit-gradient(linear,left top,left bottom,from(#000),to(transparent));-webkit-mask-image:linear-gradient(#000 calc(100% - 8rem),transparent calc(100% - 2.8rem));mask-image:-webkit-gradient(linear,left top,left bottom,from(#000),to(transparent));mask-image:linear-gradient(#000 calc(100% - 8rem),transparent calc(100% - 2.8rem));-webkit-mask-size:100% 100%;mask-size:100% 100%}
+.unfold-field .unflod-field__mask {
+    position: absolute;
+    top: -78px;
+    height: 78px;
+    width: 100%;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#FFFFFF));
+    background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
+}
+main .readall_box {
+    border-left: 1px solid #e4ebf4;
+    border-right: 1px solid #e4ebf4;
+    position: relative;
+    z-index: 9999;
+    padding: 200px 0 25px;
+    margin-top: -320px;
+    text-align: center;
+    background: #fff;
+    background: -moz-linear-gradient(bottom,rgba(255,255,255,0.1),rgba(255,255,255,0));
+    background: -webkit-gradient(linear,0 top,0 center,from(rgba(255,255,255,0)),to(#fff));
+    background: -o-linear-gradient(bottom,rgba(255,255,255,0.1),rgba(255,255,255,0));
+}
 
 按钮缩放动画
 @-webkit-keyframes a_icon_download{0%{-webkit-transform:scale(1);}60%{-webkit-transform:scale(1);}70%{-webkit-transform:scale(0.98);}80%{-webkit-transform:scale(1.05);}90%{-webkit-transform:scale(0.95);}100%{-webkit-transform:scale(1);}}
 .icon_download{display:inline-block;height:25px;width:25px;background:url(https://aq.qq.com/mobile_v3/images/download/icon_download.png) no-repeat 0 0;background-size:contain;margin-right:5px;vertical-align:middle;-webkit-animation:a_icon_download 2s 0s linear infinite;}
+#getPrize {
+    width: 40%;
+    margin: 0 auto;
+    animation: fig_scale 1.6s linear infinite;
+    -moz-animation: fig_scale 1.6s linear infinite;
+    -webkit-animation: fig_scale 1.6s linear infinite;
+    -o-animation: fig_scale 1.6s linear infinite;
+}
+@keyframes fig_scale {
+    0% {transform: scale(1, 1);}
+    25% {transform: scale(0.90, 1.10);}
+    50% {transform: scale(1, 1);}
+    75% {transform: scale(1.05, 0.95);}
+    100% {transform: scale(1, 1);}
+}
+@-moz-keyframes fig_scale {    /* Firefox */
+    0% {-moz-transform: scale(1, 1);}
+    25% {-moz-transform: scale(0.90, 1.10);}
+    50% {-moz-transform: scale(1, 1);}
+    75% {-moz-transform: scale(1.05, 0.95);}
+    100% {-moz-transform: scale(1, 1);}
+}
+@-webkit-keyframes fig_scale {  /* Safari/Chrome */
+    0% {-webkit-transform: scale(1, 1);}
+    25% {-webkit-transform: scale(0.90, 1.10);}
+    50% {-webkit-transform: scale(1, 1);}
+    75% {-webkit-transform: scale(1.05, 0.95);}
+    100% {-webkit-transform: scale(1, 1);}
+}
+@-o-keyframes fig_scale {       /* Opera */
+    0% {-o-transform: scale(1, 1);}
+    25% {-o-transform: scale(0.90, 1.10);}
+    50% {-o-transform: scale(1, 1);}
+    75% {-o-transform: scale(1.05, 0.95);}
+    100% {-o-transform: scale(1, 1);}
+}
 
 箭头下载动画
 .icon_download{display:inline-block;background-repeat: no-repeat;vertical-align: middle;display: none;width: 16px;height: 16px;background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzRweCIgaGVpZ2h0PSIxN3B4IiB2aWV3Qm94PSIwIDAgMzQgMTciIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzg2LjAwMDAwMCwgLTEzLjAwMDAwMCkiPgogICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzODcuMDAwMDAwLCA3LjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZS0yIiB4PSIwIiB5PSIwIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjwvcmVjdD4KICAgICAgICAgICAgICAgIDxwb2x5bGluZSBpZD0iUGF0aC0yLUNvcHktMiIgc3Ryb2tlPSIjNzc3Nzc3IiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuODAwMjcxNzM5IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHBvaW50cz0iMSA3LjYgMTYgMjEuMSAzMSA3LjYiPjwvcG9seWxpbmU+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=);background-size: 16px 16px;-webkit-animation: OpenGuide-arrow 1s linear infinite;animation: OpenGuide-arrow 1s linear infinite;margin-left: 12px;}
@@ -343,6 +400,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#225618,endColo
     background-color: rgba(255,255,255,.9);
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
+
+#play {
+    left: 73%;
+    transform: translate(-50%,-50%);
+    transition: transform .5s ease 0 infinite;
+    animation: 1s scale infinite;
+}
+@keyframes scale{50%{opacity:.5}100%{opacity:1}}
+
 
 页面预显示
 <div id="holder" style="">
