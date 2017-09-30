@@ -269,3 +269,88 @@ var iosJump = function() {
         }
       
     </script>
+
+fir.im 安装APP：
+itms-services://?action=download-manifest&url=https%3A%2F%2Fdownload.fir.im%2Fapps%2F59c8e501ca87a83391000570%2Finstall%3Fdownload_token%3Ddbd32cb420f4e0b09fd9e2112e3a3e88%26release_id%3D59c8e7c2ca87a833910005c8
+plist + ipa 安装APP：
+itms-services://?action=download-manifest&url=https://safe.18juyou.com/down/shmj/shmj_ios.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>items</key>
+  <array>
+    <dict>
+      <key>assets</key>
+      <array>
+        <dict>
+          <key>kind</key>
+          <string>software-package</string>
+          <key>url</key>
+          <string>http://cdn.18juyou.com/down/shmj/shmj_1.0.685i104_iosyy_170908_signed.ipa</string>
+        </dict>
+        <dict>
+          <key>kind</key>
+          <string>display-image</string>
+          <key>needs-shine</key>
+          <true/>
+          <key>url</key>
+          <string>http://cdn.18juyou.com/down/shmj/shmj_icon.png</string>
+        </dict>
+        <dict>
+          <key>kind</key>
+          <string>full-size-image</string>
+          <key>needs-shine</key>
+          <true/>
+          <key>url</key>
+          <string>http://cdn.18juyou.com/down/shmj/shmj_icon.png</string>
+        </dict>
+      </array>
+      <key>metadata</key>
+      <dict>
+        <key>bundle-identifier</key>
+        <string>com.sh.wxmj</string>
+        <key>bundle-version</key>
+        <string>1.6</string>
+        <key>kind</key>
+        <string>software</string>
+        <key>subtitle</key>
+        <string>五星上海麻将</string>
+        <key>title</key>
+        <string>五星上海麻将</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
+itms-services://?action=download-manifest&url=https://update.xlsxmj.com/appdown/mahjonglongxingshanxics.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>items</key>
+  <array>
+    <dict>
+      <key>assets</key>
+      <array>
+        <dict>
+          <key>kind</key>
+          <string>software-package</string>
+          <key>url</key>
+          <string>http://download.xianlaivip.com/download/longxingshanxics/longxingshanxics.ipa</string>
+        </dict>
+      </array>
+      <key>metadata</key>
+      <dict>
+        <key>bundle-identifier</key>
+        <string>com.longxing.shanxi</string>
+        <key>kind</key>
+        <string>software</string>
+        <key>title</key>
+        <string>龙兴山西测试</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
+
