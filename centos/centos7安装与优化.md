@@ -59,6 +59,10 @@ yum update
 yum install nginx -y
 yum install --enablerepo=remi --enablerepo=remi-php70 php php-mysql php-gd php-mbstring php-mcrypt php-memcached php-openssl php-xml php-xmlrpc php-fpm php-opcache php-pdo -y
 yum install mariadb-server mariadb -y
+若remi 未安装成功
+rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+rpm --import http://rpms.famillecollet.com/RPM-GPG-KEY-remi
+
 ```
 ##升级LNMP
 ```sh
@@ -881,6 +885,8 @@ backend kwxlb
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 yum install nodejs -y
 yum install "gcc-c++.x86_64"
+若提示  Requires: libhttp_parser.so.2()(64bit)  Requires: http-parser >= 2.7.0
+sudo rpm -ivh https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm
 
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
 rpm -qa | grep node
