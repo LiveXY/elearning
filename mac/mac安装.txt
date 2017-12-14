@@ -479,5 +479,6 @@ export PATH="$(brew --prefix php70)/bin:$PATH"
 
 vi /usr/local/etc/php/7.0/php-fpm.conf
 
-
+=========================================
+sudo gem install -n /usr/local/bin cocoapods
 

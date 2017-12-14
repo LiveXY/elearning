@@ -1,0 +1,35 @@
+openssl pkcs12 -clcerts -nokeys -out out.pem -in in.p12
+
+
+1.openssl x509 -in allinpay-pds.cer -inform DER -out allinpay-pds.pem -outform PEM
+2.openssl pkcs12 -nocerts -out 20029000001972704.pem -in 20029000001972704.p12
+3.cat allinpay-pds.pem 20029000001972704.pem > 20029000001972704-new.pem
+
+▲转秘钥
+
+ERR: call curl_easy_perform failed:[Peer certificate cannot be authenticated with known CA certificates] { https.cpp:111 }
+目前P端是liunx C++
+使用的是测试环境提供的公钥私钥，转换为pem
+curl开源库返回的信息：Peer certificate cannot be authenticated with known CA certificates
+
+生成私钥
+openssl genrsa -out rsa_private_key.pem 1024
+生成公钥
+openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+
+生成例子：
+
+转换私钥
+openssl pkcs12 -nocerts -nodes -in 20060400000044502.p12 -out 20060400000044502.pem
+
+转换的时候，密码是：111111
+
+转换公钥(或证书)
+openssl x509 -inform DER -in allinpay-pds.cer  -out allinpay-pds.pem
+
+ssl证书生成
+openssl genrsa -des3 -out luluteam.key 2048
+openssl req -new -key luluteam.key -out luluteam.csr
+cp luluteam.key luluteam.key.org
+openssl rsa -in luluteam.key.org -out luluteam.key
+openssl x509 -req -days 365 -in luluteam.csr -signkey luluteam.key -out luluteam.crt

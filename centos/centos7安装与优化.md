@@ -1013,3 +1013,23 @@ rename -v 's/\.pdf$/\.doc/' *.pdf
 rename -v 's/\e.bak$//' *.bak
 
 检查单词拼写 look docum
+
+禁止IP访问SSH
+vi /etc/hosts.deny
+sshd:ip地址
+
+/home目录下找出大小超过10MB的文件 find /home -size +10M
+/home目录下找出120天之前被修改过的文件 find /home -mtime +120
+/home目录下找出90天之内未被访问过的文件 find /home ! -atime -90
+最近7天被访问过的所有文件 find . -atime 7 -type f -print
+提取和显示非文本文件中的文本字符串 strings /home/shell
+查找txt和pdf文件 find /home \( -name "*.txt" -o -name "*.pdf" \) -print
+查找所有非txt文本 find . ! -name "*.txt" -print
+打印出当前目录的文件（深度为1）find . -maxdepth 1 -type f
+只列出所有目录 find . -type d -print
+找具有可执行权限的所有文件 find . -type f -perm 644 -print
+找用户nginx所拥有的文件 find . -type f -user nginx -print
+删除当前目录下所有的swp文件 find . -type f -name "*.swp" -delete
+将当前目录下的所有权变更为nginx find . -type f -user root -exec chown nginx {} \;
+将找到的文件全都copy到另一个目录 find . -type f -mtime +10 -name "*.txt" -exec cp {} /bak/ \;
+匹配多个模式 grep -e "内容1" -e "内容2" file

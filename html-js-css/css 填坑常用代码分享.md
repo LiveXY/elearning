@@ -1,6 +1,40 @@
 css 填坑常用代码分享
 一. css 2.x code
-1. 文字换行
+统一浏览器样式：https://github.com/necolas/normalize.css
+样式的优先级：内联式 > 嵌入式 > 外部式 就近原则
+块级元素 行内元素
+```
+块级元素：div  , p  , form,   ul,  li ,  ol, dl,    form,   address,  fieldset,  hr, menu,  table
+行内元素：span,   strong,   em,  br,  img ,  input,  label,  select,  textarea,  cite
+http://www.cnblogs.com/Kampfer/archive/2010/08/14/1799766.html
+```
+window body box 层级关系 box盒子模型/box-flex弹性盒子模型/Grid布局
+```
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes
+http://www.zhangxinxu.com/wordpress/2010/12/css-box-flex%E5%B1%9E%E6%80%A7%EF%BC%8C%E7%84%B6%E5%90%8E%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E7%AE%80%E4%BB%8B/
+https://segmentfault.com/a/1190000006559564
+http://blog.csdn.net/hj7jay/article/details/70670467
+```
+position的relative,absolute,static,fixed区别：
+```
+static：默认值
+relative：生成相对定位的元素，通过top,bottom,left,right的设置相对于其正常位置进行定位。可通过z-index进行层次分级。
+absolute：生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。可通过z-index进行层次分级。
+fixed：生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。可通过z-index进行层次分级。
+```
+选择器
+```
+元素选择器 html {}
+分组选择器 h2,p{}
+类/ID选择器 .class,#id {}
+属性选择器 *[title=''] {} p[class~=''] {}
+后代选择器 h1 em {}
+子元素选择器 h1 > strong {}
+相邻兄弟选择器 h1 + p {}
+兄弟选择器 p~p{}
+
+```
+1.文字换行
 ```
 /*强制不换行*/
 white-space:nowrap;
@@ -92,7 +126,7 @@ http://www.qianduan.net/search-box-style-custom-webkit.html
 ::-webkit-input-placeholder {}
 ::-moz-input-placeholder {}
 input:focus::-webkit-input-placeholder { color: transparent; }
--webkit-appearance:none;  google边框去除
+-webkit-appearance:none; ios 边框去除 submit按钮显示圆角问题
 input[type="search"]{-webkit-appearance:textfield;} // 去除chrome默认样式
 http://i.wanz.im/2011/02/04/remove_border_from_input_type_search/
 http://blog.csdn.net/do_it__/article/details/6789699
@@ -117,6 +151,8 @@ http://segmentfault.com/a/1190000000362621
 CSS 实现 textArea 的 placeholder 换行
 6.阻止默认事件
 pointer-events:none;
+e.stopPropagation();
+e.preventDefault();
 7. 变灰 gray:
 复制代码
 html{
@@ -152,6 +188,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr
 .chrome_adjust { font-size: 9px; -webkit-transform: scale(0.75); }
 15. webkit 水平居中：
 display:-webkit-box;-webkit-box-pack:center; -webkit-box-align: center;
+div 水平居中：margin: 0 auto;
 16. 取消chrome 搜索x提示：
 input[type=search]::-webkit-search-decoration,
 input[type=search]::-webkit-search-cancel-button,
@@ -253,4 +290,15 @@ background: -webkit-linear-gradient(left,#f4f4f4 50%,#fff 50%);
 
 字体大小：
 fontSize=20*((document.documentElement.clientWidth || document.body.clientWidth)/320)
+
+垂直局中1：利用table
+.pdiv { dispaly:table;width:100%;height:100%; }
+.sdiv { dispaly:table-cell;vertical-align:middle;text-align:center }
+垂直局中2：利用flex-box
+.pdiv {display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;-moz-justify-content:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;-webkit-align-items:center;-moz-align-items:center;align-items:center;}
+.sdiv {display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-moz-flex;display:-ms-flexbox;display:flex;-webkit-box-direction:normal;-webkit-box-orient:vertical;-webkit-flex-direction:column;-moz-flex-direction:column;-ms-flex-direction:column;flex-direction:column;    -moz-transform: scale(-1, 1);-ms-transform: scale(-1, 1);-o-transform: scale(-1, 1);-webkit-transform: scale(-1, 1);transform: scale(-1, 1);transition: opacity 1s;}
+http://blog.csdn.net/lzqial1987/article/details/78747662
+
+全屏显示
+width:100%;max-width:100%;height:100%;max-height:100%;object-fit:cover;
 
