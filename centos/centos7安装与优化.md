@@ -1033,3 +1033,6 @@ sshd:ip地址
 将当前目录下的所有权变更为nginx find . -type f -user root -exec chown nginx {} \;
 将找到的文件全都copy到另一个目录 find . -type f -mtime +10 -name "*.txt" -exec cp {} /bak/ \;
 匹配多个模式 grep -e "内容1" -e "内容2" file
+
+查看自启动服务 systemctl list-unit-files | grep enabled
+systemd-analyze blame，这个命令可以显示进程耗时，帮助我们发现耗时最长的进程。
