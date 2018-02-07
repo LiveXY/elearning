@@ -11,6 +11,12 @@ make clean linux-x86-64
 cd ../run/
 ./john --test
 ./john hcpasswd
+
+unshadow /etc/passwd /etc/shadow > ~/file_to_crack
+john --wordlist=/usr/share/john/password.lst ~/file_to_crack
+john --show ~/file_to_crack
+john ~/file_to_crack
+john --restore
 ```
 
 hydra安装：

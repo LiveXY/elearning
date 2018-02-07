@@ -630,6 +630,45 @@ cp /etc/php.ini.rpmsave /etc/php.ini
 service php-fpm stop
 service php70-php-fpm start
 ```
-
+###shadowsocks
+```
+yum install -y m2crypto python-setuptools
+easy_install pip
+pip install shadowsocks
+pip install -U shadowsocks #更新
+pip uninstall shadowsocks #卸载
+vi /etc/shadowsocks.json
+{
+    "server":"0.0.0.0",
+    "server_port":7070,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"password",
+    "timeout":600,
+    "method":"aes-128-cfb"
+}
+多账号
+{
+    "server":"服务器ip地址",
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "port_password":{
+        "9011":"1234567890",
+        "9012":"4561237980",
+        "9013":"3216549870",
+        "9014":"0987654321"
+    },
+    "timeout":300,
+    "method":"rc4-md5",
+    "fast_open": false
+}
+#fast_open：true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。开启方法：echo 3 > /proc/sys/net/ipv4/tcp_fastopen
+ssserver -c /etc/shadowsocks.json -d start
+ssserver -c /etc/shadowsocks.json -d stop
+vi /etc/sysconfig/iptables
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 8989 -j ACCEPT
+service iptables restart
+iphone使用SuperWingy MAC使用ShadowsocksX.app
+```
 
 

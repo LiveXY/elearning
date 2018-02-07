@@ -409,6 +409,18 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#225618,endColo
 }
 @keyframes scale{50%{opacity:.5}100%{opacity:1}}
 
+混合渐变背景色
+.pic {
+    background: url($img), linear-gradient(#f00, #00f);
+    background-size: cover, 100% 100%;
+    background-position: 0 0, -300px 0;
+    background-blend-mode: luminosity;
+    background-repeat: no-repeat;
+    transition: .5s background-position linear;
+}
+.pic:hover {
+    background-position: 0 0, 0 0;
+}
 
 页面预显示
 <div id="holder" style="">
