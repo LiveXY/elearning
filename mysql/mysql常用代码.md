@@ -270,7 +270,34 @@ show create table activity
 show create procedure crontab_report_day
 show create function func_split
 ```
-* 
+* MYSQL增加账号与权限分配
+```
+增加dba管理员方法1:
+CREATE USER 'wound'@'%' IDENTIFIED BY '123456';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `wound`.* TO 'wound'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `research`.* TO 'wound'@'%';
+FLUSH PRIVILEGES;
+
+drop user wound
+增加dba管理员方法2:
+insert into mysql.user(Host,User,Password) VALUES('%','wound',PASSWORD('123456'));
+select * from mysql.user where User='wound';
+
+GRANT USAGE ON *.* TO 'wound'@'%' IDENTIFIED BY PASSWORD '123456';
+FLUSH PRIVILEGES;
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `wound`.* TO 'wound'@'%';
+FLUSH PRIVILEGES;
+
+show grants for 'wound'@'%';
+
+普通 DBA 管理某个 MySQL 数据库的权限
+grant all privileges on 'wound'.* to 'wound'@'%'
+管理所有 MySQL 数据库的权限
+grant all on *.* to 'wound'@'%'
+撤销权限
+revoke all on *.* from 'wound'@'%';
+REVOKE SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE VIEW,SHOW VIEW,EXECUTE,TRIGGER ON `wound`.* FROM 'wound'@'%';
+```
 * 
 * 
 * 

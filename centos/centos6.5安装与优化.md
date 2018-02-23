@@ -378,6 +378,7 @@ echo "Welcome to Server" >/etc/redhat-release
 * 内核参数优化
 ```sh
 vi /etc/sysctl.conf    #末尾添加如下参数
+fs.file-max=1048576
 fs.file-max=122880
 net.ipv4.tcp_syncookies = 1            #1是开启SYN Cookies，当出现SYN等待队列溢出时，启用Cookies来处，理，可防范少量SYN攻击，默认是0关闭
 net.ipv4.tcp_tw_reuse = 1             #1是开启重用，允许讲TIME_AIT sockets重新用于新的TCP连接，默认是0关闭
