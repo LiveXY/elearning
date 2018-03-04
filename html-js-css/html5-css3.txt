@@ -422,6 +422,135 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#225618,endColo
     background-position: 0 0, 0 0;
 }
 
+渐变线
+.content h3:before {
+    display: block;
+    content: '';
+    background: -webkit-gradient(linear, left top, right top, color-stop(0.8, #dfe2e7), color-stop(1, rgba(223,226,231,0)));
+    background: -webkit-linear-gradient(left, #dfe2e7 80%, rgba(223,226,231,0) 100%);
+    background: -moz-linear-gradient(left, #dfe2e7 80%, rgba(223,226,231,0) 100%);
+    background: -o-linear-gradient(left, #dfe2e7 80%, rgba(223,226,231,0) 100%);
+    background: -ms-linear-gradient(left, #dfe2e7 80%, rgba(223,226,231,0) 100%);
+    background: linear-gradient(left, #dfe2e7 80%, rgba(223,226,231,0) 100%);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    height: 1px;
+    position: relative;
+    top: -40px;
+    left: -40px;
+    width: 100%;
+}
+
+
+.LtoR-blue{display:inline-block}
+.LtoR-blue:after{-webkit-transition:all .5s ease;transition:all .5s ease;content:"";display:block;height:1px;width:0;background-color:#4381f4}
+.LtoR-blue:hover{color:#4381f4}
+.LtoR-blue:hover:after{width:100%}.LtoR-grey{display:inline-block}
+.LtoR-grey:after{-webkit-transition:all .5s ease;transition:all .5s ease;content:"";display:block;height:1px;width:0;background-color:#bbb}
+.LtoR-grey:hover{color:#4381f4}
+.LtoR-grey:hover:after{width:100%}@media (max-width:991px){.LtoR-grey{font-size:13px}}.LtoR-orange{display:inline-block}.LtoR-orange:after{-webkit-transition:all .5s ease;transition:all .5s ease;content:"";display:block;height:1px;width:0;background-color:#f45e43}.LtoR-orange:hover{color:#f45e43}.LtoR-orange:hover:after{width:100%}@media (max-width:1199px){.LtoR-orange{font-size:13px}}
+.LtoR-white{display:inline-block;font-size:14px}
+.LtoR-white:after{-webkit-transition:all .5s ease;transition:all .5s ease;content:"";display:block;height:1px;width:0;background-color:#fff}
+.LtoR-white:hover{color:#fff}
+.LtoR-white:hover:after{width:100%}p{color:#4d4d4d;font-family:Soleil_Light;font-size:16px;line-height:24px}a:focus,a:hover{text-decoration:none}
+
+.mj-btn{-webkit-transition:all .5s ease-in-out;transition:all .5s ease-in-out;position:relative;margin:15px;padding:15px 25px;border-radius:2px;border:1px solid #a2a2a2;color:#a2a2a2;font-size:16px;outline:0;font-family:Soleil_Regular;background-color:transparent}@media (max-width:1199px){.mj-btn{font-size:13px}}
+.mj-btn:after,.mj-btn:before{-webkit-transition:all .5s ease-in-out;transition:all .5s ease-in-out;-webkit-transform:scale(0);transform:scale(0);border-radius:2px;width:100%;height:100%;z-index:3;content:"";position:absolute;top:0;left:0}
+.mj-btn:before{-webkit-transform-origin:0 100%;transform-origin:0 100%;border-bottom:1px solid #4381f4;border-left:1px solid #4381f4}
+.mj-btn:after{-webkit-transform-origin:100% 0;transform-origin:100% 0;border-top:1px solid #4381f4;border-right:1px solid #4381f4}
+.mj-btn:hover{color:#4381f4!important;border:1px solid rgba(0,160,80,0)!important}
+.mj-btn:hover:after,.mj-btn:hover:before{-webkit-transform:scale(1);transform:scale(1)}
+.mj-btn:focus{color:#4381f4!important}
+
+.mj-btn-white{position:relative;margin:15px;padding:15px 25px;border-radius:2px;border:1px solid #fff;color:#fff;font-size:16px;outline:0;font-family:Soleil_Regular;background-color:transparent;-moz-box-shadow:1px 1px 10px 0 #656565}
+.mj-btn-white,.mj-btn-white:after,.mj-btn-white:before{-webkit-transition:all .5s ease-in-out;transition:all .5s ease-in-out}
+.mj-btn-white:after,.mj-btn-white:before{-webkit-transform:scale(0);transform:scale(0);border-radius:2px;width:100%;height:100%;z-index:3;content:"";position:absolute;top:0;left:0}
+.mj-btn-white:before{-webkit-transform-origin:0 100%;transform-origin:0 100%;border-bottom:1px solid #fff;border-left:1px solid #fff}
+.mj-btn-white:after{-webkit-transform-origin:100% 0;transform-origin:100% 0;border-top:1px solid #fff;border-right:1px solid #fff}
+.mj-btn-white:hover{color:#fff!important;border:1px solid #f18071!important}
+.mj-btn-white:hover:after,.mj-btn-white:hover:before{-webkit-transform:scale(1);transform:scale(1)}.mj-btn-white:focus{color:#fff}
+
+.mj-btn-blue{-webkit-transition:all .3s ease-in-out;transition:all .3s ease-in-out;position:relative;margin:15px;padding:15px 25px;border-radius:2px;border:1px solid #2b6ee9;color:#fff;font-size:16px;font-family:Soleil_Regular;background-color:#4381f4;outline:0;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.2);box-shadow:0 2px 5px 0 rgba(0,0,0,.2)}
+.mj-btn-blue:hover{background-color:#3470df;color:#fff}
+.mj-btn-blue:focus{color:#fff}.big-btn{padding:15px 40px;margin:30px}
+
+箭头上下动画
+.hero__scroll .chevron {
+    margin-top: 20px;
+    display: block;
+    -webkit-animation: pulse 2s infinite;
+            animation: pulse 2s infinite;
+    color: #FF4081; }
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); }
+  50% {
+    -webkit-transform: translate(0, 10px);
+            transform: translate(0, 10px); }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); } }
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); }
+  50% {
+    -webkit-transform: translate(0, 10px);
+            transform: translate(0, 10px); }
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0); } }
+
+放大
+a:hover{-webkit-transform:scale(1.1);-ms-transform:scale(1.1);transform:scale(1.1);}
+
+加载效果
+<div class="app-loader"><div class="try-loader-container"><div class="try-loader"><span class="green-loader"></span></div></div></div>
+.try-loader-container{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;flex:1;justify-content:center;align-items:center;z-index:10}
+.try-loader{display:block;position:relative;width:150px;height:150px;border-radius:50%;border:3px solid transparent;border-top-color:#d04;animation:spin 2s linear infinite}.try-loader:after,.try-loader:before{border-radius:50%;content:"";position:absolute}
+.try-loader:before{top:5px;left:5px;right:5px;bottom:5px;border:3px solid transparent;border-top-color:#09d;animation:spin 3s linear infinite}
+.try-loader:after{top:15px;left:15px;right:15px;bottom:15px;border:3px solid transparent;border-top-color:#ffc400;animation:spin 1.5s linear infinite}
+.try-loader .green-loader{content:"";position:absolute;top:25px;left:25px;right:25px;bottom:25px;border-radius:50%;border:3px solid transparent;border-top-color:#8d0;animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+<div class="loader loader--full"><div class="loader__rects"><div class="loader__rect loader__rect--1"></div><div class="loader__rect loader__rect--2"></div><div class="loader__rect loader__rect--3"></div><div class="loader__rect loader__rect--4"></div><div class="loader__rect loader__rect--5"></div></div></div>
+.loader--full{position:relative;width:100%}
+.loader--full .loader__rects{position:absolute;top:20px;left:0;width:100%}
+.loader__rects{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}
+.loader__rect{width:7px;height:30px;background-color:rgba(166,210,165,.9);-webkit-animation:stretch 1.2s infinite ease-in-out;animation:stretch 1.2s infinite ease-in-out}
+.loader__rect+.loader__rect{margin-left:3px}
+.loader__rect--2{-webkit-animation-delay:-1.1s;animation-delay:-1.1s}
+.loader__rect--3{-webkit-animation-delay:-1s;animation-delay:-1s}
+.loader__rect--4{-webkit-animation-delay:-.9s;animation-delay:-.9s}
+.loader__rect--5{-webkit-animation-delay:-.8s;animation-delay:-.8s}
+@-webkit-keyframes stretch{0%,40%,to{-webkit-transform:scaleY(.4);transform:scaleY(.4)}20%{-webkit-transform:scaleY(1);transform:scaleY(1)}}@keyframes stretch{0%,40%,to{-webkit-transform:scaleY(.4);transform:scaleY(.4)}20%{-webkit-transform:scaleY(1);transform:scaleY(1)}}.nav{height:50px;background-color:#3a3f41}
+
+
+图片上显示文字 背景渐变
+.thumb:after {
+    background-image: -moz-linear-gradient(to top,rgba(10,17,25,.35) 5%,transparent 35%);
+    background-image: -webkit-linear-gradient(to top,rgba(10,17,25,.35) 5%,transparent 35%);
+    background-image: -ms-linear-gradient(to top,rgba(10,17,25,.35) 5%,transparent 35%);
+    background-image: linear-gradient(to top,rgba(10,17,25,.35) 5%,transparent 35%);
+    -moz-pointer-events: none;
+    -webkit-pointer-events: none;
+    -ms-pointer-events: none;
+    pointer-events: none;
+    background-size: cover;
+    content: '';
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+
+
 页面预显示
 <div id="holder" style="">
     <svg style="width: 100%; height: 240" viewBox="0, 0, 417, 235"><rect stroke="#fff" id="svg_2" height="40" width="40" y="15" x="20" rx="5" ry="5" stroke-width="0.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_6" y2="35" x2="160" y1="35" x1="80" stroke-width="7.5" stroke="#eaeaea" fill="none"></line><rect id="svg_9" height="40" width="40" y="75.171054" x="21" rx="5" ry="5" stroke-width="0.5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_11" y2="85.333332" x2="300" y1="85.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_12" y2="105" x2="300" y1="105.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_13" height="29" width="58" y="81" x="340" stroke-width="7.5" rx="5" ry="5" fill="#eaeaea"></rect><rect id="svg_15" height="40" width="40" y="139.171054" x="20" stroke-width="0.5" rx="5" ry="5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_16" y2="149.333332" x2="300" y1="149.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_17" y2="170" x2="300" y1="170.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_18" height="29" width="58" y="145" x="340" rx="5" ry="5" stroke-width="7.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_20" y2="214.333332" x2="130.519229" y1="214.333332" x1="20" stroke-width="7.5" stroke="#eaeaea" fill="none"></line></svg>

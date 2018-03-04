@@ -181,6 +181,7 @@ show global status like 'handler_read%'
 
 show variables like 'innodb_buffer_pool_size'; -- 对于InnoDB表来说，innodb_buffer_pool_size的作用就相当于key_buffer_size对于MyISAM表的作用一样。InnoDB使用该参数指定大小的内存来缓冲数据和索引。对于单独的MySQL数据库服务器，最大可以把该值设置成物理内存的80%。根据MySQL手册，对于2G内存的机器，推荐值是1G（60%-70%）。
 -- 分配足够 innodb_buffer_pool_size ，来将整个InnoDB 文件加载到内存 — 减少从磁盘上读。
+innodb_buffer_pool_instances 确保每个实例至少有不小于 1 GB 的缓冲池
 
 show variables like 'innodb_log_file_size';
 set global innodb_log_file_size=256M;

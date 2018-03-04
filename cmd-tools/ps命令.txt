@@ -73,9 +73,9 @@ X 采用旧式的Linux i386登陆格式显示程序状况。
 ps -C node -O rss | grep hall
 
 显示10个消耗cpu最多的进程
-ps aux |head -1 ;ps aux |sort -rn +2 |head -10
+ps -auxf | sort -nr -k 3 | head -10
 显示10个消耗内存最多的进程
-ps vx |head -1 ;ps vx |grep -v PID |sort -rn +6 |head -10
+ps -auxf | sort -nr -k 4 | head -10
 显示10个换页最多的进程
 ps vx |head -1 ;ps vx |grep -v PID |sort -rn +4 |head -10
 显示10个消耗存储空间最多的进程

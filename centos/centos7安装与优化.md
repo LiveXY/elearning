@@ -221,11 +221,14 @@ SELINUX=disabled
 ##nfs文件共享系统
 ```sh
 服务器端配置：
-yum install nfs-utils nfs-utils-lib -y
+yum install nfs-utils -y
 
 vi /etc/exports
-/home/test/ 192.168.1.0/24(rw,no_root_squash,no_all_squash,sync)
+/home 10.0.0.0/8(rw,sync,no_root_squash)
 exportfs -r #使配置生效
+
+mount -t nfs 10.0.0.10:/home /home #其它服务器挂载
+umount /home nfs #取消挂载
 
 注：配置文件说明：
 /home/test/ 为共享的目录，使用绝对路径。
@@ -1036,3 +1039,11 @@ sshd:ip地址
 
 查看自启动服务 systemctl list-unit-files | grep enabled
 systemd-analyze blame，这个命令可以显示进程耗时，帮助我们发现耗时最长的进程。
+
+显示10个消耗cpu最多的进程
+ps -auxf | sort -nr -k 3 | head -10
+显示10个消耗内存最多的进程
+ps -auxf | sort -nr -k 4 | head -10
+
+who -b #查看系统重新启动的时间/日期
+last -x|grep shutdown | head -1 #查看系统上次关机的时间和日期

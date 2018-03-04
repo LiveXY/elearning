@@ -2,6 +2,19 @@ brew install node
 brew install watchman
 brew install flow
 
+npm install -g yarn react-native-cli
+sudo chown -R `whoami` /usr/local
+
+react-native init test1
+cd test1
+react-native run-ios
+react-native run-android
+
+npx create-react-app my-app
+cd my-app
+npm start
+npm run build or yarn build
+
 npm install -g react-native-cli
 cnpm install -g react-native-cli
 或
@@ -15,17 +28,79 @@ react-native run-android;
 react-native android
 react-native bundle
 
-
+https://github.com/hcxiong/movieapp
 https://github.com/fbsamples/f8app
+yarn install
+react-native run-ios
+
+yarn global add react-native-rename
+react-native-rename <newName>
+react-native-rename <newName> -b <bundleIdentifier>
+react-native-rename "Travel App" -b com.junedomingo.travelapp
+
+https://github.com/MarnoDev/react-native-open-project/blob/master/category/00_FullApp.md
+https://github.com/MarnoDev/react-native-eyepetizer
+https://github.com/crazycodeboy/GitHubPopular
+https://github.com/catalinmiron/react-native-dribbble-app
+https://github.com/7kfpun/FinanceReactNative
+https://github.com/benoitvallon/react-native-nw-react-calculator
+https://github.com/fangwei716/30-days-of-react-native
+https://github.com/nihgwu/react-native-sudoku
+https://github.com/stage88/react-weather
+https://github.com/MIFind/react-native-OneLess
+https://github.com/wangdicoder/JueJinClient
+https://github.com/togayther/react-native-cnblogs
+https://github.com/bigsui/shopping-react-native
+https://github.com/race604/ZhiHuDaily-React-Native
+https://github.com/qddegtya/A-ReactNative-TesterHome
+https://github.com/im-js/im.js
+https://github.com/lvwangbeta/Poplar
+https://github.com/believeitcould/HelloRN
+https://github.com/stoneWeb/elm-react-native
+https://github.com/liujinyang1994/BIGTIGER.ME
+https://github.com/yinmazuo/RNMars
+https://github.com/jaggerwang/zqc-app-demo
+https://github.com/gongchao/react-native-quan
+https://github.com/dlyt/YCool
+https://github.com/VctrySam/SnapChat
+https://github.com/VctrySam/Tinder/
+https://github.com/VctrySam/AirBnb/
+https://github.com/VctrySam/whatsapp
+https://github.com/VctrySam/Over18s
+https://github.com/VctrySam/TicTacToe
+https://github.com/VctrySam/game1
+https://github.com/VctrySam/Youtube
+https://github.com/VctrySam/Twitter
+https://github.com/VctrySam/FCBarca
+
+
+https://github.com/expo/expo
+https://github.com/react-native-training/react-native-elements-app
+https://github.com/react-navigation/react-navigation
+
+https://github.com/Monte9/react-native-ratings
+https://github.com/Monte9/react-native-parallax-scrollview
+https://github.com/yorkie/react-native-wechat
+https://github.com/redbooth/react-native-auto-updater
+https://github.com/corymsmith/react-native-icons
+https://github.com/andpor/react-native-sqlite-storage
+https://github.com/zmxv/react-native-sound
+https://github.com/FaridSafi/react-native-gifted-form
+https://github.com/animatedjs/animated
+https://github.com/oblador/react-native-image-progress
+https://github.com/lipeiwei-szu/ReactNativeOne
+https://github.com/DylanVann/react-native-fast-image
+https://github.com/alinz/react-native-webview-bridge
+https://github.com/EstebanFuentealba/react-native-share
+https://github.com/transistorsoft/react-native-background-geolocation
+
 https://github.com/attentiveness/reading
 https://github.com/stage88/react-weather
 https://github.com/wwayne/react-native-nba-app
 
 https://github.com/hcxiong/react-native-guide
 demo
-https://github.com/race604/ZhiHuDaily-React-Native
 https://github.com/bigsui/shopping-react-native
-https://github.com/7kfpun/FinanceReactNative
 https://github.com/iSimar/HackerNews-React-Native
 https://github.com/FaridSafi/react-native-gifted-messenger
 https://github.com/FaridSafi/react-native-google-places-autocomplete

@@ -509,8 +509,11 @@ https://github.com/Samsung/iotjs
 学习
 https://github.com/JacksonTian/fks
 https://github.com/alsotang/node-lessons
+http://es6.ruanyifeng.com/
 https://github.com/DrkSephy/es6-cheatsheet
 https://github.com/reactnativecn/react-native-guide
+https://www.tslang.cn/docs/handbook/typescript-in-5-minutes.html
+https://www.w3cschool.cn/typescript/typescript-tutorial.html
 https://github.com/AlloyTeam/Mars
 http://javascript.ruanyifeng.com/
 https://github.com/foru17/front-end-collect

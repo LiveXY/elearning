@@ -27,6 +27,12 @@ NOSQL库：memcached※,memcachedb,TokyoTyrant※,MongoDB※,Cassandra※,redis�
 日志相关：syslog,rsyslog,Awstats,flume logstash scribe kafka,storm
 DB 代理：mysql-proxy,amoeba（更多还是程序实现读写分离）
 搜索软件：Sphinx,Xapian（大公司会自己开发类似百度的小规模内部搜索引擎）
+◆ 安装和登录命令：login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；
+◆ 文件处理命令：file、mkdir、grep、dd、find、mv、ls、diff、cat、ln；
+◆ 系统管理相关命令：df、top、free、quota、at、lp、adduser、groupadd、kill、crontab；
+◆ 网络操作命令：ifconfig、ip、ping、netstat、telnet、ftp、route、rlogin、rcp、finger、mail、 nslookup；
+◆ 系统安全相关命令：passwd、su、umask、chgrp、chmod、chown、chattr、sudo ps、who；
+◆ 其它命令：tar、unzip、gunzip、unarj、mtools、man、unendcode、uudecode。
 
 Linux硬件信息命令大全
 1,lscpu命令可以用来查询处理器cpu的详细信息，只需要简单地输入lscpu即可，如下所示，它本身也没有提供更多选项和功能可供选择。

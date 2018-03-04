@@ -951,5 +951,27 @@ sort [option] [filename]
 sort -nk 2 -t - sort.txt 以-进行分割，对分割后的第二个域进行排序；
 sort -nrk 2 -t - sort.txt 逆序排序
 
+login
+login [name][-p][-h 主机名称]
+
+at [-V] [-q x] [-f file] [-m] time
+－V：显示标准错误输出。
+－q：许多队列输出。
+－f：从文件中读取作业。
+－m：执行完作业后发送电子邮件到用户。
+time：设定作业执行的时间。time格式有严格的要求，由小时、分钟、日期和时间的偏移量组成，其中日期的格式为MM.DD.YY，MM是分钟，DD是日期，YY是指年份。偏移量的格式为时间＋偏移量，单位是minutes、hours和days。
+at -f data 15:30 +2 days #两天后的17：30执行文件data中指明的作业
+
+lp [－c][－d][－m][－number][－title][-p]
+－c：先拷贝文件再打印。
+－d：打印队列文件。
+－m：打印结束后发送电子邮件到用户。
+－number：打印份数。
+－title：打印标题。
+－p：设定打印的优先级别，最高为100。
+
+
+
+
 
 
