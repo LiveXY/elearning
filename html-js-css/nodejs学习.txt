@@ -73,6 +73,11 @@ http://koajs.cn/
 
 http://mongoosejs.com/docs/guide.html
 http://cnodejs.org/topic/504b4924e2b84515770103dd
+---------------------------------------------------------
+https://github.com/NetEase/pomelo
+https://github.com/NetEase/pomelo/wiki/Home-in-Chinese
+https://github.com/NetEase/chatofpomelo
+https://github.com/NetEase/chatofpomelo-websocket
 ----------------------------------------------------------
 https://github.com/socketio/socket.io
 https://github.com/mzabriskie/axios
