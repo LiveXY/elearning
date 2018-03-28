@@ -82,3 +82,7 @@ disable app systemMonitor
 dump cpu /home/xxx/test 5 --force
 dump memory /home/xxx/test --force
 
+https://github.com/NetEase/pomelo/wiki/Home-in-Chinese
+http://nextzeus.github.io/pomelo/
+http://pomelo.netease.com/api.html
+

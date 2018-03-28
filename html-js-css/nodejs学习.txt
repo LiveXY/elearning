@@ -22,6 +22,19 @@ nvm ls #查看已安装的版本
 nvm ls-remote #查看可以安装的版本
 nvm uninstall <version> #删除指定的版本
 nvm use <version> #使用选定的版本
+---n--------------------------------------------
+npm install n -g
+n -h
+n --latest
+n --stable
+n --lts
+n ls
+n latest
+n stable
+n lts
+n 8.10.0
+n use <version>
+n rm <version>
 -----------------------------------------------
 npm config set proxy=sock5://127.0.0.1:7070
 npm config delete http-proxy

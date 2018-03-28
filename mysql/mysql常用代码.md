@@ -298,7 +298,24 @@ grant all on *.* to 'wound'@'%'
 revoke all on *.* from 'wound'@'%';
 REVOKE SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE VIEW,SHOW VIEW,EXECUTE,TRIGGER ON `wound`.* FROM 'wound'@'%';
 ```
-* 
+* 清理部分数据
+```
+-- 初始化数据
+select max(lid) from log_create_rooms where ltime < unix_timestamp(20180320);
+select max(lxid) from log_round_212 where lid<1914644;
+select count(lxid) from log_round_212 where lxid >= 4264485;
+select auto_increment from information_schema.tables where table_schema='dbname' and table_name='log_round_212';
+-- 方法一
+create table log_round_212_bak like log_round_212;
+insert into log_round_212_bak select * from log_round_212 where lxid >= 4264401;
+-- 方法二
+drop table log_round_212_bak3;
+create table log_round_212_bak3 select * from log_round_212 where lxid >= 4264401;
+alter table log_round_212_bak3 change column `lxid` `lxid` int(11) unsigned not null auto_increment, add primary key (`lxid`), add index `lid` (`lid` asc);
+-- 改名替换源表
+-- alter table log_round_212 rename to log_round_212_bak2;
+-- alter table log_round_212_bak rename to log_round_212;
+```
 * 
 * 
 * 

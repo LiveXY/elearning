@@ -894,6 +894,24 @@ sudo rpm -ivh https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.e
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
 rpm -qa | grep node
 yum clean all
+
+yum -y install gcc make gcc-c++ openssl-devel wget
+wget https://nodejs.org/dist/latest-v8.x/node-v8.10.0-linux-x64.tar.gz
+tar zxvf node-v8.10.0-linux-x64.tar.gz
+cd /root/node-v8.10.0-linux-x64/bin
+ln -s /root/node-v8.10.0-linux-x64/bin/node /usr/bin/node
+ln -s /root/node-v8.10.0-linux-x64/bin/npm /usr/bin/npm
+ln -s /root/node-v8.10.0-linux-x64/bin/node /usr/local/bin/node
+ln -s /root/node-v8.10.0-linux-x64/bin/npm /usr/local/bin/npm
+node -v
+
+npm: relocation error: npm: symbol SSL_set_cert_cb, version libssl.so.10 not defined in file libssl.so.10 with link time reference
+yum update openssl
+npm install n -g
+n 8.10.0
+node -v
+ln -s /usr/local/bin/node /usr/bin/node
+ln -s /usr/local/bin/npm /usr/bin/npm
 ```
 
 #安全策略
