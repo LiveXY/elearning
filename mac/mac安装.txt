@@ -481,4 +481,11 @@ vi /usr/local/etc/php/7.0/php-fpm.conf
 
 =========================================
 sudo gem install -n /usr/local/bin cocoapods
+=========================================
+/bin/bash: bad interpreter: Operation not permitted
+xattr -dr com.apple.quarantine ./*
+=========================================
+Spotlight 关闭掉
+sudo mdutil -a -i off
+sudo mdutil -a -i on
 

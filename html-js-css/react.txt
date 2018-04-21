@@ -5,10 +5,249 @@ brew install flow
 npm install -g yarn react-native-cli
 sudo chown -R `whoami` /usr/local
 
-react-native init test1
-cd test1
+react-native init SmallGame
+cd SmallGame
 react-native run-ios
 react-native run-android
+
+https://github.com/mehcode/rn-splash-screen
+yarn add rn-splash-screen && react-native link rn-splash-screen
+
+https://github.com/react-navigation/react-navigation
+yarn add react-navigation && react-native link react-navigation
+
+https://github.com/gre/react-native-view-shot
+yarn add react-native-view-shot && react-native link react-native-view-shot
+
+https://github.com/beefe/react-native-picker
+yarn add react-native-picker && react-native link react-native-picker
+
+https://github.com/wkh237/react-native-fetch-blob
+yarn add react-native-fetch-blob && react-native link react-native-fetch-blob
+
+https://github.com/oblador/react-native-vector-icons
+yarn add react-native-vector-icons && react-native link react-native-vector-icons
+https://blog.csdn.net/f409031mn/article/details/79522129
+
+https://github.com/midas-gufei/react-native-clear-app-cache
+yarn add react-native-clear-app-cache && react-native link react-native-clear-app-cache
+
+https://github.com/react-native-community/react-native-linear-gradient
+yarn add react-native-linear-gradient && react-native link react-native-linear-gradient
+
+https://github.com/react-native-community/react-native-blur
+yarn add react-native-blur && react-native link react-native-blur
+
+https://github.com/zmxv/react-native-sound
+yarn add react-native-sound && react-native link react-native-sound
+
+https://github.com/jsierles/react-native-audio
+yarn add react-native-audio && react-native link react-native-audio
+
+https://github.com/react-native-community/react-native-svg
+yarn add react-native-svg && react-native link react-native-svg
+
+https://github.com/rebeccahughes/react-native-device-info
+yarn add react-native-device-info && react-native link react-native-device-info
+
+https://github.com/yorkie/react-native-wechat
+yarn add react-native-wechat && react-native link react-native-wechat
+
+https://github.com/deadivan/react-native-yunpeng-alipay
+yarn add react-native-yunpeng-alipay && react-native link react-native-yunpeng-alipay
+
+https://github.com/Microsoft/react-native-code-push
+yarn add react-native-code-push && react-native link react-native-code-push
+https://github.com/lisong/code-push-server
+
+https://github.com/jpush/jpush-react-native
+yarn add jpush-react-native && react-native link jpush-react-native
+https://github.com/jpush/jcore-react-native
+yarn add jcore-react-native && react-native link jcore-react-native
+
+https://github.com/ptomasroos/react-native-idfa
+yarn add @ptomasroos/react-native-idfa && react-native link @ptomasroos/react-native-idfa
+
+https://github.com/rt2zz/react-native-contacts
+yarn add react-native-contacts && react-native link react-native-contacts
+
+https://github.com/kmend/react-native-pomelo
+yarn add react-native-pomelo && react-native link react-native-pomelo
+
+https://github.com/leecade/react-native-swiper
+yarn add react-native-swiper && react-native link react-native-swiper
+
+https://github.com/ivpusic/react-native-image-crop-picker
+yarn add react-native-image-crop-picker && react-native link react-native-image-crop-picker
+
+https://github.com/yonahforst/react-native-permissions
+yarn add react-native-permissions && react-native link react-native-permissions
+
+https://github.com/rilyu/teaset
+yarn add teaset && react-native link teaset
+
+https://github.com/yonahforst/react-native-permissions
+
+https://github.com/master-atul/react-native-exception-handler
+
+https://github.com/race604/react-native-viewpager
+https://github.com/react-community/react-native-image-picker
+https://github.com/maxs15/react-native-spinkit
+https://github.com/baifendian/bfd-ui
+https://github.com/react-native-training/react-native-elements
+
+tab
+https://github.com/skv-headless/react-native-scrollable-tab-view
+https://github.com/Slowyn/react-native-underline-tabbar
+https://github.com/react-native-community/react-native-tab-view
+https://github.com/happypancake/react-native-tab-navigator
+https://github.com/kirankalyan5/react-native-segmented-control-tab
+https://github.com/philipshurpik/react-native-animated-tabs
+https://github.com/jackuhan/react-native-viewpager-indicator
+https://github.com/territoryfan/react-native-tabbar
+demo
+https://github.com/jjhappyforever/TouTiaoTabBar
+
+
+https://github.com/roylee0704/react-flexbox-grid
+https://github.com/taobaofed/react-web
+https://github.com/palantir/blueprint
+https://github.com/ant-design/ant-design/
+https://github.com/ant-design/ant-design-pro
+https://github.com/ant-design/ant-design-mobile
+https://github.com/ant-design/ant-motion
+https://github.com/silentcloud/react-native-page-control
+https://github.com/huanxsd/react-native-refresh-list-view
+https://github.com/zo0r/react-native-push-notification
+https://github.com/reactjs/react-timer-mixin
+https://github.com/vault-development/react-native-svg-uri
+https://github.com/obipawan/react-native-hyperlink
+https://github.com/APSL/react-native-keyboard-aware-scroll-view
+https://github.com/BondGoat/react-native-native-video-player
+https://github.com/react-native-community/react-native-video
+https://github.com/itsnubix/react-native-video-controls
+https://github.com/alwx/react-native-photo-view
+https://github.com/facebookincubator/idx
+https://github.com/moment/moment-timezone
+https://github.com/fiber-god/react-native-app-link
+https://github.com/zetachang/react-native-dotenv
+https://github.com/luggit/react-native-config
+https://github.com/react-native-community/react-native-modal
+https://github.com/maxs15/react-native-modalbox
+https://github.com/victoriafrench/react-native-dialogbox
+https://github.com/jacklam718/react-native-popup-dialog
+https://github.com/connected-lab/react-native-xml2js
+https://github.com/AlexanderZaytsev/react-native-i18n
+https://github.com/stefalda/ReactNativeLocalization
+https://github.com/root-two/react-native-drawer
+https://github.com/react-native-community/react-native-navbar
+https://github.com/oblador/react-native-animatable
+https://github.com/react-native-component/react-native-smart-splash-screen
+https://github.com/gnestor/react-native-statusbar-alert
+https://github.com/testshallpass/react-native-dropdownalert
+https://github.com/jsdf/react-native-htmlview
+https://github.com/oblador/react-native-progress
+https://github.com/jshanson7/react-native-swipeable
+https://github.com/mfrachet/rn-placeholder
+https://github.com/itinance/react-native-fs
+https://github.com/react-native-community/react-native-side-menu
+https://github.com/umhan35/react-native-search-bar
+https://github.com/ocetnik/react-native-background-timer
+https://github.com/expo/react-native-invertible-scroll-view
+https://github.com/cssivision/react-native-qrcode
+https://github.com/tradle/react-native-udp
+https://github.com/PeelTechnologies/react-native-tcp
+https://github.com/fuyaode/react-native-app-intro
+https://github.com/expo/react-native-read-more-text
+https://github.com/manuelbieh/geolib
+https://www.npmjs.com/package/react-native-fade-in-image
+https://github.com/christopherdro/react-native-html-to-pdf
+https://github.com/zbtang/React-Native-ViewPager
+https://github.com/lelandrichardson/react-native-parallax-view
+https://github.com/oblador/react-native-parallax
+https://github.com/expo/react-native-infinite-scroll-view
+https://github.com/yamill/react-native-orientation
+https://github.com/kkjdaniel/react-native-device-display
+https://github.com/sharingapples/react-native-transition
+https://github.com/FaridSafi/react-native-google-places-autocomplete
+https://github.com/oblador/react-native-collapsible
+https://github.com/mastermoo/react-native-action-button
+https://github.com/alekhurst/react-native-elevated-view
+https://github.com/ptelad/react-native-iphone-x-helper
+https://github.com/innoveit/react-native-ble-manager
+https://github.com/jeanregisser/react-native-slider
+https://github.com/SmallComfort/rn-swipe-out
+https://github.com/benevbright/react-native-swipeout-longpressforandroid
+https://github.com/react-component/swipeout
+https://github.com/dancormier/react-native-swipeout
+https://github.com/react-native-component/react-native-smart-badge
+https://github.com/APSL/react-native-button
+https://github.com/ide/react-native-button/
+https://github.com/fractaltech/react-native-timer
+https://github.com/joeferraro/react-native-cookies
+https://github.com/crazycodeboy/react-native-easy-toast
+https://github.com/beefe/react-native-actionsheet
+https://github.com/oblador/react-native-store-review
+https://github.com/i6mi6/react-native-parallax-scroll-view
+https://github.com/alwx/react-native-photo-view
+https://github.com/conorhastings/react-syntax-highlighter
+https://github.com/oliviertassinari/react-swipeable-views
+https://github.com/aakashns/react-native-dialogs
+https://github.com/DylanVann/react-native-fast-image
+https://github.com/oblador/react-native-image-progress
+https://github.com/bgryszko/react-native-circular-progress
+https://github.com/ascoders/react-native-image-viewer
+https://github.com/brh55/react-native-masonry
+https://github.com/bamlab/react-native-image-resizer
+https://github.com/ldn0x7dc/react-native-gallery
+https://github.com/archriss/react-native-image-gallery
+https://github.com/bamlab/react-native-image-header-scroll-view
+https://github.com/TheSavior/react-native-mask-loader
+https://github.com/ascoders/react-native-image-zoom
+https://github.com/syanbo/react-native-syan-image-picker
+https://github.com/anvilabs/react-native-image-carousel
+https://github.com/npomfret/react-native-image-tools
+https://github.com/mg365/react-native-customized-image-picker
+https://github.com/Snapp-FidMe/react-native-photo-gallery
+https://github.com/shimohq/react-native-keyboard-view
+https://github.com/aksonov/react-native-tableview
+
+https://github.com/philipphecht/react-native-doc-viewer
+https://github.com/root-two/react-native-drawer
+
+https://github.com/jamesisaac/react-native-background-task
+https://github.com/ocetnik/react-native-background-timer
+
+https://github.com/wcandillon/react-native-img-cache
+
+https://github.com/facebook/react-native-fbsdk
+https://github.com/devfd/react-native-google-signin
+
+https://github.com/brix/crypto-js
+https://github.com/ljharb/qs
+https://github.com/markdown-it/markdown-it
+https://github.com/mathiasbynens/base64
+https://github.com/muan/emojilib
+https://github.com/feross/buffer
+https://github.com/axios/axios
+https://github.com/bgrins/TinyColor
+https://github.com/facebook/prop-types
+https://github.com/reactjs/reselect
+https://github.com/omnidan/node-emoji
+https://github.com/kelektiv/node-uuid
+https://github.com/sunnylqm/react-native-storage
+
+https://github.com/reactjs/react-redux
+https://github.com/davezuko/react-redux-starter-kit
+https://github.com/markerikson/react-redux-links
+https://github.com/reactjs/reselect
+
+https://github.com/airbnb/react-sketchapp
+https://github.com/wwayne/react-native-nba-app
+https://github.com/gitpoint/git-point
+https://github.com/egm0121/splitcloud-app
+
+https://github.com/infinitered/ChainReactApp/blob/master/package.json
 
 npx create-react-app my-app
 cd my-app
@@ -112,83 +351,40 @@ https://github.com/catalinmiron/react-native-dribbble-app
 https://github.com/qddegtya/A-ReactNative-TesterHome
 https://github.com/Johnqing/miumiu
 https://github.com/shevawen/react-native-weather-app
-组件：
-https://react.parts/native
-https://github.com/ide/react-native-button
+
 https://github.com/lwansbrough/react-native-camera
-npm install react-native-camera@latest --save
-https://github.com/corymsmith/react-native-icons
-npm install react-native-icons@latest --save
 https://github.com/johanneslumpe/react-native-keyboardevents
 https://github.com/brentvatne/react-native-modal
-npm install react-native-modal --save
 https://github.com/brentvatne/react-native-login
 https://github.com/brentvatne/react-native-video
 https://github.com/brentvatne/react-native-linear-gradient
-https://github.com/facebook/react-native-fbsdk
 https://github.com/brentvatne/react-native-overlay
-npm install react-native-overlay --save
 https://github.com/react-native-fellowship/react-native-blur
-https://github.com/brentvatne/react-native-scrollable-tab-view
 https://github.com/react-native-fellowship/react-native-navbar
-npm i react-native-navbar --save
 https://github.com/jsdf/react-native-refreshable-listview
 https://github.com/jasonmerino/react-native-simple-store
-https://github.com/race604/react-native-viewpager
-npm install react-native-viewpager --save
 https://github.com/brentvatne/react-native-svg
-npm i react-native-svg --save
 https://github.com/brentvatne/react-native-keyboard-spacer
-npm install --save react-native-keyboard-spacer
-https://github.com/jeanregisser/react-native-slider
-npm i --save react-native-slider
 https://github.com/exponentjs/react-native-infinite-scroll-view
-npm install react-native-infinite-scroll-view --save
 https://github.com/exponentjs/react-native-refreshable-scroll-view
-https://github.com/exponentjs/react-native-tab-navigator
 https://github.com/react-native-fellowship/react-native-side-menu
-npm install react-native-side-menu --save
 https://github.com/veddermatic/react-native-multipicker
-npm install react-native-multipicker --save
-https://github.com/silentcloud/react-native-page-control
-$ npm install react-native-page-control --save
-https://github.com/leecade/react-native-swiper
-$ npm i react-native-swiper --save
 https://github.com/t4t5/react-native-router
-npm install react-native-router --save
 https://github.com/appintheair/react-native-looped-carousel
-$ npm install react-native-looped-carousel --save
 https://github.com/nick/react-native-carousel
-npm install react-native-carousel
-https://github.com/jsdf/react-native-htmlview
 https://github.com/siuying/react-native-htmltext
 https://github.com/appintheair/react-native-buyscreen
 https://github.com/lazaronixon/react-native-qrcode-reader
 https://github.com/exponentjs/react-native-invertible-scroll-view
 https://github.com/gcanti/tcomb-form-native
-npm install tcomb-form-native
-
 https://github.com/NishanthShankar/react-native-android-statusbar
-npm i --save react-native-android-statusbar
 https://github.com/GertjanReynaert/react-native-device
-npm install react-native-device --save
-
-
-$ npm install react-native-swiper --save
-$ npm i react-timer-mixin --save
-$ npm install react-native-store --save
-$ npm install react-native-simple-store
-$ npm install react-native-camera@latest --save//扫码
-npm install react-native-drawer --save
-npm install react-native-refresher --save
-npm install react-native-store --save
 
 tools
 https://github.com/roman01la/react-native-babel
 https://github.com/Shrugs/react-native-snippets
 https://github.com/almost/react-native-sqlite
 https://github.com/soliury/gulp-react-native-css
-
 
 https://github.com/Lobos/react-ui
 http://amazeui.org/react/components
@@ -201,47 +397,7 @@ https://github.com/walmartreact
 https://facebook.github.io/react-native/showcase.html
 
 https://github.com/Tinysymphony/workflow-starter
-git clone https://github.com/Tinysymphony/workflow-starter
-cd workflow-starter
-#get the workflow-starter command
-read a < starter.sh && eval $a
-#find a place to locate your project
-mkdir yourApp && cd yourApp
-workflow-starter
-#about 120+M
-npm install -ddd
-#make sure you have installed Gulp globally
-npm install -g gulp -ddd
-#checkout available Gulp commands
-gulp help
-#get all the files
-gulp build
-#clean the files in build and prebuild
-gulp clean
-#ues a terminal to watch your src directory
-gulp watch
-#open anthor one to start your server, default is at 3000 port
-gulp server
-需要打包发布时，一定要gulp build，然后使用build文件夹的内容。
-实际的开发流程应该是：gulp webpack ---> gulp watch ---> gulp server ---> 开启PC端，移动端浏览器 ---> 编辑src文件夹内容 ---> 直接查看各个浏览器效果 ---> gulp build ---> 发布build文件夹内容
-
 https://github.com/kriasoft/react-starter-kit
-$ git clone -o react-starter-kit -b master --single-branch \
-      https://github.com/kriasoft/react-starter-kit.git MyApp
-$ cd MyApp
-$ npm install                   # Install Node.js components listed in ./package.json
-$ npm start                     # Compile and launch
-$ npm run build                 # or, `npm run build -- --release`
-$ npm start                     # or, `npm start -- --release`
-$ npm run deploy                # or, `npm run deploy -- --production`
-How to Update
-You can always fetch and merge recent changes from this repo back into your own project:
-$ git checkout master
-$ git fetch react-starter-kit
-$ git merge react-starter-kit/master
-$ npm install
-
-
 npm install -g create-react-app
 create-react-app my-app
 cd my-app/
