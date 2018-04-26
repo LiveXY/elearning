@@ -22,3 +22,11 @@ http://blog.csdn.net/yicixing7/article/details/65934467?locationNum=3&fps=1
 fpm 开启
 /usr/local/Cellar/php70/7.0.19_11/sbin
 sudo sh php70-fpm start
+
+zend studio 不自动提示
+vi .buildpath
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+        <buildpathentry kind="src" path=""/>
+        <buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

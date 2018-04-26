@@ -1,0 +1,150 @@
+DeepLink作用：网页启动唤起APP，并进入相关界面
+一、Android Deeplink设置
+1，修改AndroidManifest.xml文件，在要实现Deeplink的Activity中设定：
+deep link 不能通过直接在浏览器输入网址测试
+而是直接在网页源码中加入 <a href="fd350://link/gamepk/roomid">启动</a>
+<intent-filter>
+    <action android:name="android.intent.action.VIEW"/>
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.BROWSABLE"/>
+    <data android:scheme="fd350" android:host="link"/>
+</intent-filter>
+android:path="/gamepk"
+android:pathPrefix="/gamepk"
+其中data中的scheme和host、path就是该Activity相对应的Uri中的部分
+2，在相应的HTML文档中添加如下标签：
+<a href="fd350://link/gamepk/111111?token=aadfasdf">启动</a>
+[scheme://][host]<:port><path><?query1=&query2=&...><#fragment>
+3，Android接收传入的参数
+Uri data = getIntent().getData();
+scheme = data.getScheme(); // "fd350"
+host = data.getHost(); // "link"
+//path = data.getPath(); // "/gamepk"
+params = data.getPathSegments();
+gamepk = params.get(0); // "gamepk"
+roomid = params.get(1); // "111111"
+token = data.getQueryParameter("token");
+
+二、IOS Deeplink设置
+1，通过Xcode添加URL Scheme跳转，操作步骤如下:
+找到URL Types: TARGETS -> info -> Url types，点击加号 添加Url Schemes
+2，同ANDROID
+3，接收传入的参数
+在Appdelegate.m中找到如下方法
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+此方法的作用就是在当前APP是其他APP通过URL打开时便会调用.在此处解析URL便可实现跳转到指定页面的需求 也就是deeplink技术
+NSString *scheme = [url scheme];
+NSString *host = [url host];
+NSString *query = [url query];
+
+三、IOS使用meta启动下载APP
+<meta charset="UTF-8" name="apple-itunes-app" content="app-id=1375236716, affiliate-data=myAffiliateData, app-argument=fd320://link/gamepk/0">
+使用手机Safari打开网页会在网页的头部显示APP图标，名称安装和打开
+
+DEEPLINK 和 meta 被微信禁用了。
+
+四、IOS9开始增加了Universal Links机制，IOS11.2.25以下
+1，apple-app-site-association 或 .well-known/apple-app-site-association 文件配置
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+	   		{
+                "appID": "TEAMID.bundleid",
+                "paths": ["/fd350/*"]
+            }
+        ]
+    }
+}
+TEAMID的获取：登录开发者网站https://developer.apple.com/cn/，找到Membership选项卡。
+文件所在域名必须支持HTTPS支持TLS1.2协议以上，唤起APP的域名不能和这个文件是相同域名
+也可以使用苹果的验证网站：https://search.developer.apple.com/appsearch-validation-tool/
+当玩家下载完app的时候，系统会自动请求apple-app-site-association文件
+2，IOS工程要设置Associated domains：TARGETS -> Capablities -> Associated domains
+增加apple-app-site-association文件所在的域名:
+applinks:wx.shmxplay.com
+3，代码接收Universal Links唤醒
+-(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
+    NSLog(@"userActivity : %@",userActivity.webpageURL.description);
+    return YES;
+}
+在appdelegate中实现上面这个方法，当使用Universal Links唤醒app时就执行这个方法。
+4，调用方法：
+<a href="http://wx.shmxplay.com/fd350/gamepk/0">启动</a>
+Universal Links机制在微信6.6也被禁用
+
+五、调用代码
+1，DEEPLINK调用1
+var room = '123456';
+var fdllOpen = $('#fdllOpen').click(function(){
+	var downUrl = 'http://fd.shmxplay.com/fdll.html'; //下载页
+	var deeplink = 'fd350://link/gamepk/' + room;
+	location.href = deeplink;
+	setTimeout(function() {
+		location.href = downUrl;
+	}, 2000);
+    return false;
+});
+if (room && fdllOpen) $("meta[name='apple-itunes-app']").attr('content', $("meta[name='apple-itunes-app']").attr('content') + room);
+1，DEEPLINK调用2
+var room = '123456';
+var fdllOpen = $('#fdllOpen').click(function(){
+	var downUrl = 'http://fd.shmxplay.com/fdll.html'; //下载页
+	var deeplink = 'fd350://link/gamepk/' + room;
+
+	var ifr = document.createElement('iframe');
+	ifr.src = deeplink;
+	ifr.style.display = 'none';
+	document.body.appendChild(ifr);
+
+	setTimeout(function() {
+		if (ifr) document.body.removeChild(ifr);
+		location.href = downUrl;
+	}, 2000);
+    return false;
+});
+
+六、打开常用APP的功能：
+知乎
+zhihu://answers/{id} 回答
+zhihu://people/{id} 用户页
+微信
+weixin://dl/scan 扫一扫
+weixin://dl/feedback 反馈
+weixin://dl/moments 朋友圈
+weixin://dl/settings 设置
+weixin://dl/notifications 消息通知设置
+weixin://dl/chat 聊天设置
+weixin://dl/general 通用设置
+weixin://dl/officialaccounts 公众号
+weixin://dl/games 游戏
+weixin://dl/help 帮助
+weixin://dl/feedback 反馈
+weixin://dl/profile 个人信息
+weixin://dl/features 功能插件
+腾讯微博：TencentWeibo://
+淘宝：taobao://
+支付宝：alipay://
+微博：sinaweibo://
+weico微博：weico://
+QQ浏览器：mqqbrowser://
+uc浏览器：ucbrowser://
+海豚浏览器：dolphin://
+搜狗浏览器：SogouMSE://
+百度地图：baidumap://
+Chrome：googlechrome://
+优酷：youku://
+京东：openapp.jdmoble://
+人人：renren://
+美团：imeituan://
+1号店：wccbyihaodian://
+我查查：wcc://
+有道词典：ddictproapp://
+点评：dianping://
+微盘：sinavdisk://
+豆瓣fm：doubanradio://
+网易公开课：ntesopen://
+名片全能王：camcard://
+淘宝宝贝搜索：taobao://http://s.taobao.com/?q=[prompt]
+淘宝店铺搜索：taobao://http://shopsearch.t
+
