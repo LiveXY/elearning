@@ -1,0 +1,268 @@
+public function postWXCurl($url,$xml,$cert, $key, $ca){
+	$ch = curl_init();
+	//设置超时
+	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+	curl_setopt($ch,CURLOPT_URL, $url);
+	curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+	curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,false);//严格校验
+	curl_setopt($ch,CURLOPT_SSLCERT,$cert);//加入证书
+	curl_setopt($ch,CURLOPT_SSLKEY,$key);//加入证书
+	curl_setopt($ch,CURLOPT_CAINFO,$ca);//加入证书
+	//设置header
+	curl_setopt($ch, CURLOPT_HEADER, FALSE);
+	//要求结果为字符串且输出到屏幕上
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+
+	//post提交方式
+	curl_setopt($ch, CURLOPT_POST, TRUE);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+	//运行curl
+	$data = curl_exec($ch);
+
+	//返回结果
+	if ($data) {
+		curl_close($ch);
+		return self::xmlToArr($data);
+	} else {
+		$error = curl_error($ch);
+		curl_close($ch);
+		return $error;
+	}
+}
+public function curl($url) {
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_FAILONERROR, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	if (strlen($url) > 5 && strtolower(substr($url, 0, 5)) == "https") {
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+	}
+
+	$reponse = curl_exec($ch);
+
+	if (curl_errno($ch)) {
+		throw new Exception(curl_error($ch), 0);
+	} else {
+		$httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if (200 !== $httpStatusCode) {
+			throw new Exception($reponse, $httpStatusCode);
+		}
+	}
+	curl_close($ch);
+	return $reponse;
+}
+public function xmlToArr($xml){
+	$res = @simplexml_load_string($xml, NULL, LIBXML_NOCDATA);
+	$res = json_decode(json_encode($res, JSON_UNESCAPED_UNICODE), true);
+	return $res;
+}
+public function toWXXml($data){
+	$xml = "<xml>";
+	foreach ($data as $key=>$val) {
+		if (is_numeric($val)){
+			$xml.="<".$key.">".$val."</".$key.">";
+		}else{
+			$xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+		}
+	}
+	$xml.="</xml>";
+	return $xml;
+}
+public function getWXSign($data,$skey){
+	ksort($data);
+	$str = '';
+	foreach ($data as $key=>$val){
+		$str .= $str ? '&'.$key.'='.$val : $key.'='.$val;
+	}
+	$str .= '&key='.$skey;
+	$data['sign'] = strtoupper(md5($str));
+	return $data;
+}
+public function getNonceStr($length = 32){
+	$chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+	$str ="";
+	for ( $i = 0; $i < $length; $i++ )  {
+		$str .= substr($chars, mt_rand(0, strlen($chars)-1), 1);
+	}
+	return $str;
+}
+public function randOrderID(){
+	return date('YmdHis').rand(10000,99999);
+}
+public function getIP() {
+	if (getenv('HTTP_CLIENT_IP')&& strcasecmp(getenv('HTTP_CLIENT_IP' ), 'unknown' )) {
+		$onlineip = getenv('HTTP_CLIENT_IP' );
+	} elseif (getenv('HTTP_X_FORWARDED_FOR')&& strcasecmp(getenv('HTTP_X_FORWARDED_FOR' ), 'unknown' )) {
+		$onlineip = getenv('HTTP_X_FORWARDED_FOR' );
+	} elseif (getenv('REMOTE_ADDR')&& strcasecmp(getenv('REMOTE_ADDR' ), 'unknown' )) {
+		$onlineip = getenv('REMOTE_ADDR' );
+	} elseif (isset($_SERVER ['REMOTE_ADDR'])&& $_SERVER ['REMOTE_ADDR'] && strcasecmp($_SERVER ['REMOTE_ADDR'], 'unknown' )) {
+		$onlineip = $_SERVER ['REMOTE_ADDR'];
+	}
+	preg_match("/[\d\.]{7,15}/", $onlineip, $onlineipmatches);
+	return isset($onlineipmatches[0]) ? $onlineipmatches [0] : false;
+}
+public static function getNowUrl() {
+	$nowurl = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : ($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);
+	$nowurl = ROOTURL . $nowurl;
+	return $nowurl;
+}
+//微信全局TOKEN
+public function getWxToken() {
+	$token = CacheManager::cache_get('wx_access_token_'.wxappid);
+	if ($token) return $token;
+	$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".wxappid."&secret=".wxsecret;
+	$response = @json_decode(curl($url), true);
+	if(@$response['access_token']) {
+		CacheManager::cache_set('wx_access_token_'.wxappid, $response['access_token'], (int)$response['expires_in']-10);
+		return $response['access_token'];
+	}
+	return '';
+}
+//微信全局TICKET
+public function getTicket() {
+	$token = $this->getWxToken();
+	$ticketUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=$token&type=jsapi";
+	$response = @json_decode(curl($ticketUrl), true);
+	if(@$response['ticket']) return $response['ticket'];
+	return '';
+}
+
+//统一下单
+$data = array(
+	'appid'				=> wxappid,
+	'mch_id'			=> wxmchid,
+	'nonce_str'			=> getNonceStr(),
+	'body'				=> "售价 ¥50，可获得 20 张星卡",
+	'out_trade_no'	 	=> randOrderID(),
+	'total_fee'			=> 50 * 100,
+	'spbill_create_ip'  => getIP(),
+	'time_start'		=> date("YmdHis", TIMESTAMP),
+	'time_expire'	  	=> date("YmdHis", TIMESTAMP + 600),
+	'notify_url'		=> BASEURI.'user/retailCallback',
+	'trade_type'		=> 'JSAPI',
+	'openid'			=> $openid,
+);
+$data = getWXSign($data, wxkey);
+$xml = toWXXml($data);
+$cert = getcwd().'/../config/'.wxappid.'/apiclient_cert.pem';
+$key = getcwd().'/../config/'.wxappid.'/apiclient_key.pem';
+$ca = getcwd().'/../config/'.wxappid.'/rootca.pem';
+$result = postWXCurl('https://api.mch.weixin.qq.com/pay/unifiedorder', $xml, $cert, $key, $ca);
+
+$out = null; //生成数据给前端调支付
+//返回成功
+if (isset($result['return_code']) && $result['return_code'] == 'SUCCESS' && isset($result['result_code']) && $result['result_code'] == 'SUCCESS') {
+	$noncestr = getNonceStr();
+	$data = array(
+		'appId'		=> wxappid,
+		'signType'  => "MD5",
+		'package'   => 'prepay_id='.$result['prepay_id'],
+		'nonceStr'  => $noncestr,
+		'timeStamp' => TIMESTAMP.'',
+	);
+	$data = getWXSign($data, wxkey);
+	$data['orderId'] = $id;
+	$data['paySign'] = $data['sign'];
+	unset($data['sign']);
+
+	$cdata = "jsapi_ticket={getTicket()}&noncestr=$noncestr&timestamp=".TIMESTAMP."&url=".getNowUrl();
+	$data['configSign'] = sha1($cdata);
+
+	$out = $data;
+}
+
+回调：
+private function orderquery($transaction_id) {
+	$data = array(
+		'appid'			 => wxappid,
+		'mch_id'		 => wxmchid,
+		'transaction_id' => $transaction_id,
+		'nonce_str'		 => getNonceStr()
+	);
+	$data = getWXSign($data, wxkey);
+	$xml = toWXXml($data);
+	//订单查询
+	$cert = getcwd().'/../config/'.wxappid.'/apiclient_cert.pem';
+	$key = getcwd().'/../config/'.wxappid.'/apiclient_key.pem';
+	$ca = getcwd().'/../config/'.wxappid.'/rootca.pem';
+	$result = postWXCurl('https://api.mch.weixin.qq.com/pay/orderquery', $xml, $cert, $key, $ca);
+	//判断返货结果
+	if(isset($result['return_code']) && $result['return_code'] == 'SUCCESS' && isset($result['result_code']) && $result['result_code'] == 'SUCCESS'){
+		return true;
+	}
+	return false;
+}
+public function retailCallback() {
+	$retXml = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
+
+	$xml = file_get_contents('php://input');
+	$xml = $xml ? $xml : stream_get_contents(STDIN);
+	$result = $xml ? xmlToArr($xml) : array();
+
+	if (isset($result['return_code']) && $result['return_code'] == 'SUCCESS' && isset($result['result_code']) && $result['result_code'] == 'SUCCESS') {
+		if (isset($result['transaction_id']) && $result['transaction_id']) {
+			//调微信接口确认订单
+			$isReal = orderquery($result['transaction_id']);
+			if ($isReal && $result['out_trade_no']) {
+				//处理订单状态
+			}
+		}
+	}
+	echo $retXml;
+}
+
+有 $out 数据时前端调用：
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	wx.config({
+		'appId': '<?=@$out['appId']?>',
+		'timestamp': '<?=@$out['timeStamp']?>',
+		'nonceStr': '<?=@$out['nonceStr']?>',
+		'signature': '<?=@$out['configSign']?>',
+		'jsApiList': ['chooseWXPay']
+	});
+	wx.chooseWXPay({
+		'appId': '<?=@$out['appId']?>',
+		'timestamp': <?=@$out['timeStamp']?>,
+		'nonceStr': '<?=@$out['nonceStr']?>',
+		'package': '<?=@$out['package']?>',
+		'signType': '<?=@$out['signType']?>',
+		'paySign': '<?=@$out['paySign']?>',
+		'success': function (res) { }
+	});
+	function onBridgeReady(){
+		WeixinJSBridge.invoke(
+			'getBrandWCPayRequest', {
+				'appId': '<?=@$out['appId']?>',
+				'timeStamp': '<?=@$out['timeStamp']?>',
+				'nonceStr': '<?=@$out['nonceStr']?>',
+				'package': '<?=@$out['package']?>',
+				'signType': '<?=@$out['signType']?>',
+				'paySign': '<?=@$out['paySign']?>'
+			},
+			function (res) {
+				if (res.err_msg == "get_brand_wcpay_request:ok") {
+					alert('游戏充值成功！');
+				}
+			}
+		);
+	}
+	if (typeof WeixinJSBridge == "undefined"){
+		if (document.addEventListener) {
+			document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		} else if (document.attachEvent){
+			document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		}
+	} else{
+		onBridgeReady();
+	}
+};
+</script>
+

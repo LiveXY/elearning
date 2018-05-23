@@ -1,6 +1,41 @@
 
 ffmpeg -i in.mov -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > out.gif
 
+https://segmentfault.com/a/1190000002502526
+brew install ffmpeg --with-faac --with-fdk-aac --with-ffplay --with-fontconfig --with-freetype --with-libass --with-libbluray --with-libcaca --with-libsoxr --with-libquvi --with-frei0r --with-libvidstab --with-libvorbis --with-libvpx --with-opencore-amr --with-openjpeg --with-openssl --with-opus --with-rtmpdump --with-schroedinger --with-speex --with-theroa --with-tools --with-x265
+ffmpeg -i MVI_7274.MOV -vcodec libx264 -preset fast -crf 20 -y -vf "scale=1920:-1" -acodec libmp3lame -ab 128k a.mp4
+ffmpeg -threads 2 -crf 20 -y -i ML-02.avi -strict experimental ML-02.mp4
+
+一般来说，压制480p我会用20左右，压制720p我会用16-18
+ffmpeg -i 2018022813524728175.mp4 -vcodec libx264 -preset fast -crf 20 -y -vf "scale=1920:-1" -acodec libmp3lame -ab 128k 1.mp4
+
+视频帧率10fps，音频码率32k
+ffmpeg.exe -i "C:\test.mp4" -r 10 -b:a 32k "C:\test_mod.mp4"
+
+ffmpeg -i IMG_0572.m4v -c copy 1.mp4
+ffmpeg -i IMG_0572.m4v -threads 2 2.mp4
+ffmpeg -i IMG_0572.m4v -preset fast -crf 20 3.mp4
+ffmpeg -i IMG_0572.m4v -r 10 -b:a 32k 4.mp4
+ffmpeg -i IMG_0572.m4v -c copy 5.mp4
+ffmpeg -y -i IMG_0572.m4v -vcodec libx264 -s 176x144 -r 29.97 -b 1500 -acodec aac -ac 2 -ar 48000 -ab 128 -vol 100 -f mp4 6.mp4
+ffmpeg -i IMG_0572.m4v -threads 2 -crf 20 -y 7.mp4
+ffmpeg -i IMG_0572.m4v -vcodec copy -acodec copy 8.mp4
+ffmpeg  -i IMG_0572.m4v -vcodec libx264 -s 1920X1080 -acodec copy 9.mp4
+ffmpeg -i IMG_0572.m4v -b:v 300k -r 15 -s 960x540 10.mp4
+ffmpeg -i IMG_0572.m4v -r 15 -b:a 32k 11.mp4
+ffmpeg -i IMG_0572.m4v -r 15 -b:a 150k 12.mp4
+ffmpeg -i IMG_0572.m4v -r 15 -b:a 150k 12.mp4
+ffmpeg -i IMG_0572.m4v -r 15 -b 32k 13.mp4
+ffmpeg -i IMG_0572.m4v -r 20 -b 1280k 13.mp4
+ffmpeg -i IMG_0572.m4v -r 30 -b:a 1280k 14.mp4
+ffmpeg -i IMG_0572.m4v -r 25 -b:a 300k 15.mp4
+ffmpeg -i IMG_0572.m4v -s hd720 -c:v libx264 -crf 23 -c:a aac -strict -2 16.mp4
+ffmpeg -i IMG_0572.m4v -vf scale=-1:720 17.mp4
+ffmpeg -i IMG_0572.m4v -c copy -c:v libx264 -vf scale=-2:720 18.mp4
+
+ffmpeg -i IMG_0572.m4v -ab 56 -ar 22050 -b 500 -r 15 1.flv
+ffmpeg -i IMG_0572.m4v 2.flv
+ffmpeg -i IMG_0572.m4v -r 15 -b 1024k 3.flv
 
 Linux下使用FFmpeg进行屏幕录制相对比较方便，可以使用x11grab，使用如下的命令：
 ffmpeg -f x11grab -s 1600x900 -r 50 -vcodec libx264 –preset:v ultrafast –tune:v zerolatency -crf 18 -f mpegts udp://localhost:1234

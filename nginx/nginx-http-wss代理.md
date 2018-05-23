@@ -1,10 +1,9 @@
 nginx http/https代理
 
-http代理
+http正向代理
 ```nginx
 server{
 	resolver 8.8.8.8;
-	access_log /data/logs/nginx/access_proxy.log main;
 	listen 7070;
 	location / {
 		root html;
@@ -23,13 +22,13 @@ server{
 		root html;
 	}
 }
+查看dns方法 cat /etc/resolv.conf
 ```
-https代理
+https正向代理
 ```nginx
 server{
 	resolver 8.8.8.8;
-	access_log /data/logs/nginx/access_proxy.log main;
-	listen 443;
+	listen 443 ssl;
 	location / {
 		root html;
 		index index.html index.htm;
@@ -45,5 +44,32 @@ server{
 	location = /50x.html {
 		root html;
 	}
+}
+```
+wss代理
+```
+server {
+	listen 443 ssl;
+	server_name domain.com;
+
+	ssl_certificate /home/ssl/ssl.crt;
+	ssl_certificate_key /home/ssl/ssl.key;
+	ssl_session_timeout 5m;
+	ssl_session_cache shared:SSL:50m;
+	ssl_prefer_server_ciphers on;
+	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+	location / {
+		proxy_pass http://ws/;
+		proxy_set_header Host $host:$server_port;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+	}
+}
+upstream ws {
+	hash $remote_addr consistent;
+	server 10.0.0.1:7510;
 }
 ```

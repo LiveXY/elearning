@@ -557,3 +557,123 @@ a:hover{-webkit-transform:scale(1.1);-ms-transform:scale(1.1);transform:scale(1.
     <svg style="width: 100%; height: 240" viewBox="0, 0, 417, 235"><rect stroke="#fff" id="svg_2" height="40" width="40" y="15" x="20" rx="5" ry="5" stroke-width="0.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_6" y2="35" x2="160" y1="35" x1="80" stroke-width="7.5" stroke="#eaeaea" fill="none"></line><rect id="svg_9" height="40" width="40" y="75.171054" x="21" rx="5" ry="5" stroke-width="0.5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_11" y2="85.333332" x2="300" y1="85.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_12" y2="105" x2="300" y1="105.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_13" height="29" width="58" y="81" x="340" stroke-width="7.5" rx="5" ry="5" fill="#eaeaea"></rect><rect id="svg_15" height="40" width="40" y="139.171054" x="20" stroke-width="0.5" rx="5" ry="5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_16" y2="149.333332" x2="300" y1="149.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_17" y2="170" x2="300" y1="170.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_18" height="29" width="58" y="145" x="340" rx="5" ry="5" stroke-width="7.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_20" y2="214.333332" x2="130.519229" y1="214.333332" x1="20" stroke-width="7.5" stroke="#eaeaea" fill="none"></line></svg> 
     <svg style="width: 100%; height: 240" viewBox="0, 0, 417, 235"><rect stroke="#fff" id="svg_2" height="40" width="40" y="15" x="20" rx="5" ry="5" stroke-width="0.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_6" y2="35" x2="160" y1="35" x1="80" stroke-width="7.5" stroke="#eaeaea" fill="none"></line><rect id="svg_9" height="40" width="40" y="75.171054" x="21" rx="5" ry="5" stroke-width="0.5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_11" y2="85.333332" x2="300" y1="85.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_12" y2="105" x2="300" y1="105.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_13" height="29" width="58" y="81" x="340" stroke-width="7.5" rx="5" ry="5" fill="#eaeaea"></rect><rect id="svg_15" height="40" width="40" y="139.171054" x="20" stroke-width="0.5" rx="5" ry="5" stroke="#fff" fill="#eaeaea"></rect><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_16" y2="149.333332" x2="300" y1="149.333332" x1="80" stroke-width="7.5" fill="none"></line><line stroke="#eaeaea" stroke-linecap="null" stroke-linejoin="null" id="svg_17" y2="170" x2="300" y1="170.333332" x1="80" stroke-width="7.5" fill="none"></line><rect id="svg_18" height="29" width="58" y="145" x="340" rx="5" ry="5" stroke-width="7.5" fill="#eaeaea"></rect><line stroke-linecap="null" stroke-linejoin="null" id="svg_20" y2="214.333332" x2="130.519229" y1="214.333332" x1="20" stroke-width="7.5" stroke="#eaeaea" fill="none"></line></svg>
 </div>
+
+https://mp.weixin.qq.com/s/_N09Nwtn5BRJg7j9HY6vIw
+scroll-behavior: smooth; CSS锚点 平滑地滚动
+position: sticky;top: 50px; 粘性 CSS
+
+全面使用函数节流
+function throttle(action) {
+  let isRunning = false;
+  return function() {
+    if (isRunning) return;
+    isRunning = true;
+    window.requestAnimationFrame(() => {
+      action();
+      isRunning = false;
+    });
+  }
+}
+Lodash 中的 _.throttle
+window.addEventListener('scroll', throttle(() => {
+  const scrollTop = window.scrollY;
+  /* doSomething with scrollTop */
+}));
+
+在视窗中显示
+当你需要实现图片懒加载或者无限滚动时，需要确定元素是否出现在视窗中。这可以在事件监听器中处理，最常见的解决方案是使用 lement.getBoundingClientRect()
+window.addEventListener('scroll', () => {
+  const rect = elem.getBoundingClientRect();
+  const inViewport = rect.bottom > 0 && rect.right > 0 &&
+                     rect.left < window.innerWidth &&
+                     rect.top < window.innerHeight;
+});
+上述代码的问题在于每次调用 getBoundingClientRect 时都会触发回流，严重地影响了性能。在事件处理函数中调用（ getBoundingClientRect ）尤为糟糕，就算使用了函数节流（的技巧）也可能对性能没多大帮助。 （回流是指浏览器为局部或整体地重绘某个元素，需要重新计算该元素在文档中的位置与形状。）
+在2016年后，可以通过使用 Intersection Observer 这一 API 来解决问题。它允许你追踪目标元素与其祖先元素或视窗的交叉状态。此外，尽管只有一部分元素出现在视窗中，哪怕只有一像素，也可以选择触发回调函数：
+const observer = new IntersectionObserver(callback, options);
+observer.observe(element);
+
+滚动边界问题 控制连锁滚动
+.element {
+  overscroll-behavior: contain;
+}
+
+页面上的惯性滚动
+.element {
+  -webkit-overflow-scrolling: touch;
+}
+
+另一个需要考虑的问题是开发者如何处理 touchstart 与 touchmove 事件触发时可能存在的性能问题，它对用户滚动体验的影响非常大
+element.addEventListener('touchstart', e => {
+  /* doSomething */
+}, { passive: true });
+
+https://mp.weixin.qq.com/s/Ma9SvTTiIipxx5nfSkb9ug
+强制移动端页面横屏显示
+$( window ).on( "orientationchange", function( event ) {
+    if (event.orientation=='portrait') {
+        $('body').css('transform', 'rotate(90deg)');
+    } else {
+        $('body').css('transform', 'rotate(0deg)');
+    }
+});
+$( window ).orientationchange();
+电脑端页面全屏显示
+function fullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
+}
+fullscreen(document.documentElement);
+
+<input type="file" name="filePath" accept=".jpg,.jpeg,.doc,.docxs,.pdf"/>
+<input type="file" class="file" value="上传" accept="image/*">
+
+图片反防盗链方法
+<img src="xxxx.jpg"  referrerPolicy="no-referrer" />
+
+
+http://www.cnblogs.com/coco1s/p/8882542.html
+div {
+    position: absolute;
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    transition: color .5s;
+    margin: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div::before {
+    content: "";
+    position: absolute;
+    left: 0%;
+    bottom: 0;
+    width: 200px;
+    transform: scaleX(0);
+    height: 2px;
+    background: deeppink;
+    z-index: -1;
+    transition: all .5s;
+}
+
+div:hover::before {
+    transform: scaleX(1);
+}
+
+https://mp.weixin.qq.com/s/fqcuiJ4FeSnwnffGy-veSQ
+CSS 滤镜
+
+

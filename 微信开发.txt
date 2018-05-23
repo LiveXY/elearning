@@ -25,6 +25,8 @@ https://api.weixin.qq.com/sns/userinfo?access_token=?&openid=?
 
 获取全局access token：
 https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=?&secret=?
+用户信息
+https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN
 access_token保存2小时 建议存到CACHE
 获取ticket：
 https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=?&type=jsapi
@@ -47,3 +49,7 @@ https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers
 微信授权：
 https://open.weixin.qq.com/connect/oauth2/authorize?appid=&redirect_uri=&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect
 scope	 是	 应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
+
+小程序授权
+https://blog.csdn.net/qq_34827048/article/details/77990510
+
