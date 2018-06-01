@@ -404,3 +404,108 @@ cd my-app/
 npm start
 npm test
 npm run build
+
+------------------------------------------------------------
+npm install code-push-server -g
+code-push-server-db init --dbhost localhost --dbuser root --dbpassword #初始化mysql数据库
+code-push-server #启动服务
+code-push-server-db upgrade --dbhost localhost --dbuser root --dbpassword #升级codepush数据库
+code-push-server
+
+git clone https://github.com/lisong/code-push-server.git
+cd code-push-server
+npm install
+./bin/db init --dbhost localhost --dbuser root --dbpassword #初始化mysql数据库
+./bin/www #启动服务
+git pull --rebase origin master
+./bin/db upgrade --dbhost localhost --dbuser root --dbpassword #升级codepush数据库
+
+vim config/config.js
+修改：
+db/local/jwt
+
+npm install code-push-cli -g
+code-push login  #login in browser account:admin password:123456
+change admin password
+curl -X PATCH -H "Authorization: Bearer mytoken" -H "Accept: application/json" -H "Content-Type:application/json" -d '{"oldPassword":"123456","newPassword":"654321"}' http://127.0.0.1:3000/users/password
+
+code-push app add xyhb-ios ios react-native
+我们获取了Deployment Key，可以去配置info.plist中
+code-push release-react xyhb-ios ios
+
+注册账号: code-push register
+登陆: code-push login
+注销: code-push logout
+添加项目: code-push app add [app名称]
+删除项目: code-push app remove [app名称]
+列出账号下的所有项目: code-push app list
+显示登陆的token: code-push access-key ls
+删除某个access-key: code-push access-key rm <accessKey>
+添加协作人员：code-push collaborator add <appName> next@126.com
+部署一个环境: code-push deployment add <appName> <deploymentName>
+删除部署: code-push deployment rm <appName>
+列出应用的部署: code-push deployment ls <appName>
+查询部署环境的key: code-push deployment ls <appName> -k
+查看部署的历史版本信息: code-push deployment history <appName> <deploymentNmae>
+重命名一个部署: code-push deployment rename <appName> <currentDeploymentName> <newDeploymentName>
+
+RN
+yarn add react-native-code-push && react-native link react-native-code-push
+iOS eg. in file Info.plist
+<key>CodePushDeploymentKey</key>
+<string>YourCodePushKey</string>
+<key>CodePushServerURL</key>
+<string>YourCodePushServerUrl</string>
+AppDelegate.m
+//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#ifdef DEBUG
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  jsCodeLocation = [CodePush bundleURL];
+#endif
+修改info.plist 中 Bundle versions string, short的值改成三位数字,如1.0.0
+
+Android eg. in file MainApplication.java
+@Override
+protected List<ReactPackage> getPackages() {
+  return Arrays.<ReactPackage>asList(
+      new MainReactPackage(),
+      new CodePush(
+         "YourKey",
+         MainApplication.this,
+         BuildConfig.DEBUG,
+         "YourCodePushServerUrl"
+      )
+  );
+}
+自动打包发布
+code-push release-react MyApp ios --plistFile ../MyApp/Info.plist -t "1.0.0" --des "v1.0.0" -m true -d production
+code-push rollback MyApp Production                     "MyApp"中"Production"部署执行回滚
+code-push rollback MyApp Production --targetRelease v4  "MyApp"中"Production"部署执行回滚，回滚到v4这个标签版本
+code-push promote MyApp Staging Production                                   "MyApp"中"Staging"部署的最新更新发布到"Production"部署中
+code-push promote MyApp Staging Production --des "Production rollout" -r 25  "MyApp"中"Staging"部署的最新更新发布到"Production"部署中, 并且只推送25%的用户
+js内写法
+如果有发布热更新时 mandatory 则 Code Push 会根据 mandatory 是 true 或false 来控制应用是否强制更新。默认情况下 mandatory 为 false 即不强制更新。mandatory 为 false时以下三种设置方法才有效
+// 第一种:
+codePush.sync();
+// 第二种:
+codePush.sync({
+    updateDialog: false,
+    installMode: codePush.InstallMode.IMMEDIATE
+});
+// 第三种:
+CodePush.sync({
+    deploymentKey: 'deployment-key-here',
+    updateDialog: {
+        optionalIgnoreButtonLabel: '稍后',
+        optionalInstallButtonLabel: '后台更新',
+        optionalUpdateMessage: '有新版本了，是否更新？',
+        title: '更新提示'
+    },
+    installMode: CodePush.InstallMode.IMMEDIATE
+});
+三种更新的策略: 配置到installMode: 之后即可生效
+IMMEDIATE 立即更新APP
+ON_NEXT_RESTART 到下一次启动应用时
+ON_NEXT_RESUME 当应用从后台返回时
+发布的时候，Cannot find module 'AccessibilityInfo'。这个问题搜了一下，好多人都有，因为我把react-native从0.44.3升级到了0.51.0，同事那里pull下来之后就一直出现这个问题，他被坑了半天，才解决的，我这边改着改着也出现了，请教一下，只需要把react-native的版本降回去，然后项目能运行，再升上来就行了

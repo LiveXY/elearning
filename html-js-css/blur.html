@@ -1,0 +1,201 @@
+<style>
+::-webkit-scrollbar {
+	display: none;
+}
+
+.screen {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+header {
+	position:absolute;
+	left:0;
+	top:0;
+	right:0;
+	height:44px;
+	overflow:hidden;
+	background:#f8f8f8;
+	z-index:2;
+	box-shadow:0 1px 0 rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.1);
+}
+
+header h1 {
+	position: relative;
+	font-family:"Helvetica Neue","Helvetica",sans-serif;
+	font-weight:normal;
+	font-size:1rem;
+	margin:0;
+	padding:0;
+	line-height:44px;
+	text-align:center;
+  	z-index: 2;
+  	font-weight:300;
+	box-shadow:inset 0 -1px 0 rgba(255,255,255,.25);
+}
+
+.content-blurred {
+	margin-top:44px;
+	padding:0 1rem;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	-webkit-filter:blur(10px);
+	filter:url(#blur-effect);
+	opacity:.35;
+  	z-index: 1;
+}
+
+.content-wrapper {
+	position:relative;
+	padding:0 1rem;
+	z-index:1;
+	height:100%;
+	overflow:auto;
+  -webkit-backface-visibility:hidden;
+}
+
+.content-wrapper .content {
+ 	margin-top:44px;
+}
+
+.content {
+	display:block;
+	padding-top:1em;
+}
+
+.messages {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+
+.messages li {
+	display:block;
+	float:left;
+	clear:both;
+	max-width:65%;
+	margin:0 0 1rem 0;
+	padding:0;
+}
+
+.messages li:nth-child(even) {
+	float:right;
+}
+
+.messages li:nth-child(even) img {
+	float:right;
+}
+
+.messages p {
+	border-radius:.75rem;
+	background:#e6e5eb;
+	color:#383641;
+	padding:.6875rem;
+	margin:0;
+	font-size:.875rem;
+}
+
+.messages li:nth-child(even) p {
+	background:#158ffe;
+	color:#fff;
+}
+
+.messages img {
+	display:block;
+	max-width:65%;
+	border-radius:.75rem;
+}
+
+
+</style>
+<div class="phone">
+	<div class="screen">
+		<header>
+			<h1>iOS 7 Blurred Header</h1>
+		</header>
+		<div class="content-wrapper">
+			<div class="content">
+				<ol class="messages">
+					<li>
+						<p>Praesent porttitor nisl vel enim consectetur, vitae dictum ipsum condimentum.</p>
+					</li>
+					<li>
+						<p>Sed convallis lorem non augue lobortis tincidunt.</p>
+					</li>
+					<li>
+						<p>Mauris viverra lacus et justo accumsan, et lobortis eros adipiscing.</p>
+					</li>
+					<li>
+						<p>Integer eget nisi euismod, fermentum ligula eget, faucibus nibh.</p>
+					</li>
+					<li>
+						<p>Sed ultricies tortor sagittis sapien dapibus commodo.</p>
+					</li>
+					<li>
+						<p>Morbi nec erat sit amet dui aliquet pretium.</p>
+					</li>
+					<li>
+						<p>Praesent porttitor nisl vel enim consectetur, vitae dictum ipsum condimentum.</p>
+					</li>
+					<li>
+						<p>Sed convallis lorem non augue lobortis tincidunt.</p>
+					</li>
+					<li>
+						<p>Praesent porttitor nisl vel enim consectetur, vitae dictum ipsum condimentum.</p>
+					</li>
+					<li>
+						<p>Sed convallis lorem non augue lobortis tincidunt.</p>
+					</li>
+					<li>
+						<p>Mauris viverra lacus et justo accumsan, et lobortis eros adipiscing.</p>
+					</li>
+					<li>
+						<p>Integer dignissim metus id arcu pretium, ultrices tristique dolor vulputate.</p>
+					</li>
+					<li>
+						<p>Sed ultricies tortor sagittis sapien dapibus commodo.</p>
+					</li>
+					<li>
+						<p>Morbi nec erat sit amet dui aliquet pretium.</p>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+
+<svg id="svg-image-blur">
+	<filter id="blur-effect">
+		<feGaussianBlur stdDeviation="10" />
+	</filter>
+</svg>
+
+<script>
+var content = document.querySelector('.content');
+var duplicate = content.cloneNode(true);
+var contentBlurred = document.createElement('div');
+contentBlurred.className = 'content-blurred';
+contentBlurred.appendChild(duplicate);
+
+var header = document.querySelector('header');
+header.appendChild(contentBlurred);
+
+var contentWrapper = document.querySelector('.content-wrapper'),
+translation;
+
+contentWrapper.addEventListener('scroll',function(){
+  translation = 'translate3d(0,' + (-this.scrollTop + 'px') + ',0)';
+  duplicate.style['-webkit-transform'] = translation;
+  duplicate.style['-moz-transform'] = translation;
+  duplicate.style['transform'] = translation;
+});
+
+// offset to demo blurring
+contentWrapper.scrollTop = 140;
+</script>

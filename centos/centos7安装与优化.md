@@ -914,6 +914,13 @@ ln -s /usr/local/bin/node /usr/bin/node
 ln -s /usr/local/bin/npm /usr/bin/npm
 ```
 
+#ffmpeg
+```
+sudo rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm
+yum install -y ffmpeg
+```
+
 #安全策略
 禁止所有可连接端口后开启外网的22;80;443端口，开启内网可访问的所有端口。
 

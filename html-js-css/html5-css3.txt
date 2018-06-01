@@ -47,6 +47,19 @@ background: linear-gradient(to right, #0e419b 0%, #19859c 100%);
             filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
 }
 
+.content-blurred {
+    margin-top:44px;
+    padding:0 1rem;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    -webkit-filter:blur(10px);
+    filter:url(#blur-effect);
+    opacity:.35;
+  z-index: 1;
+}
+
 向下渐变透明背景：
 .grid aside.bottom {
     bottom: 0;
