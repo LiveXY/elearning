@@ -231,6 +231,11 @@ border05::after {
     transform: scaleY(.5);
     left: 10px;
 }
+.border0.5: {
+    background: transparent -webkit-linear-gradient(bottom,#eee,#eee 50%,transparent 0,transparent) 0 100% no-repeat;
+    -webkit-background-size: 100% 1px;
+    background-size: 100% 1px;
+}
 button {
     background-color: #8C46FE;
     box-shadow: 0 -0.06rem 0 #9660FA;
@@ -254,6 +259,233 @@ button {
     word-wrap: normal;
 }
 
+图片下方文字背景渐变
+.hd-banner .hotel-info-mask{position:absolute;z-index:1;bottom:0;width:100%;color:#fff;text-align:left;/* display:-webkit-box; display:-webkit-flex; display:-ms-flexbox;display:flex;-webkit-box-align:end; -webkit-align-items:flex-end; -ms-flex-align:end; align-items:flex-end; padding:5px;height:70px;background:-webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.7));background:linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.7));}.hd-banner .hotel-info-mask .hotel-info-left{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;}
+
+图片上下动画：
+.hd-banner img{width:100%;-webkit-animation:floatingUpDowm 16s infinite ease-in-out;animation:floatingUpDowm 16s infinite ease-in-out;}
+@-webkit-keyframes floatingUpDowm{0%{-webkit-transform:translateY(0);transform:translateY(0)}45%{-webkit-transform:translateY(-40px);transform:translateY(-40px)}50%{-webkit-transform:translateY(-40px);transform:translateY(-40px)}95%{-webkit-transform:translateY(0);transform:translateY(0)}100%{-webkit-transform:translateY(0);transform:translateY(0)}}
+
+左箭头
+.qt-arrow:after {
+    content: ' ';
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border: 1px solid;
+    border-bottom: 0;
+    border-right: 0;
+    margin-top: -3px;
+    color: #ccc;
+    -webkit-transform: rotateZ(-45deg);
+    transform: rotateZ(-45deg);
+}
+右箭头
+.qt-arrow.r:after {
+    right: 8px;
+    -webkit-transform: rotateZ(135deg);
+    transform: rotateZ(135deg);
+}
+上箭头
+.qt-arrow.t:after {
+    right: 8px;
+    margin-top: -3px;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+}
+下箭头
+.qt-arrow.b:after {
+    right: 8px;
+    margin-top: -7px;
+    -webkit-transform: rotateZ(-135deg);
+    transform: rotateZ(-135deg);
+}
+上下切换箭头动画
+.room-content-head.qt-arrow:after {
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+}
+头部标题
+<h1 class="title">test</h1>
+.qt-page-header .title {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    margin: 0;
+    font-size: 16px;
+    line-height: 50px;
+    text-align: center;
+    z-index: 1;
+}
+* {-webkit-tap-highlight-color: rgba(255,255,255,0); -webkit-font-smoothing: antialiased;}
+transform: translate(0px, 0px) translateZ(0px); transition-duration: 0ms; 归位
+transform: translate(0px, 100px) translateZ(0px); transition-duration: 0ms; 下拉
+transform: translate(0px, -100px) translateZ(0px); transition-duration: 0ms; 上拉
+
+<div style="position: absolute;top:0.83rem;bottom:0;left:0;right:0;overflow: hidden" data-widget-cid="widget-1762" class="yo-list">
+    <div class="scroll-wrap" data-role="scroller" style="transform: translate(0px, 0px) translateZ(0px); transition-duration: 0ms;">
+        <div class="m-page-list">
+            <ul class="yo-list yo-list-article js_listItem" data-role="itemwrap"><li class="item" data-role="list-item" data-url="/h5/group/groupAggDetail?hotelSeq=beijing_city_19884&amp;selectCity=beijing_city&amp;location=null" action-type="show.detail">
+    <div class="mark">
+        <img src="https://userimg.qunarzz.com/imgs/201412/19/66I5P26RJ2VOmm1D6i160.jpg" data-src="https://userimg.qunarzz.com/imgs/201412/19/66I5P26RJ2VOmm1D6i160.jpg" class="" data-complete="true">
+        <div class="tips">
+            
+
+            
+
+            
+        </div>
+    </div>
+    <div class="info flex">
+        <h3 class="name">北京常安福宾馆北京马甸桥店</h3>
+        <div class="service">
+            <h4 class="hotel-level">经济型</h4>
+            
+            <div class="service-ico">
+                
+                    <i class="yo-ico yo-ico-wifi"></i>
+                
+            </div>
+            
+        </div>
+        <div class="location">
+            
+            
+            
+                在燕莎盛世大厦附近
+            
+        </div>
+        <div class="tuan-main">
+            <h3 class="price">
+                <span class="rmb">¥</span>248
+                <span class="text-gray rmb">起</span>
+            </h3>
+        </div>
+        <div class="tuan-info">
+            <span class="market-price">¥298</span>
+            <span class="cheap">省¥50</span>
+            <div class="a-right flex">
+                
+                <span class="comment"><em>3.9分</em></span>
+                
+                /
+                
+                <span class="sold">已售51</span>
+                
+            </div>
+        </div>
+    </div>
+</li><li class="item" data-role="list-item" data-url="/h5/group/groupAggDetail?hotelSeq=beijing_city_10292&amp;selectCity=beijing_city&amp;location=null" action-type="show.detail">
+    <div class="mark">
+        <img src="https://userimg.qunarzz.com/imgs/201801/10/JhS1_tMNzXDUnGxbJi160.jpg" data-src="https://userimg.qunarzz.com/imgs/201801/10/JhS1_tMNzXDUnGxbJi160.jpg" class="" data-complete="true">
+        <div class="tips">
+            
+
+            
+
+            
+        </div>
+    </div>
+    <div class="info flex">
+        <h3 class="name">北京金地来大酒店</h3>
+        <div class="service">
+            <h4 class="hotel-level">经济型</h4>
+            
+            <div class="service-ico">
+                
+                    <i class="yo-ico yo-ico-wifi"></i>
+                
+            </div>
+            
+        </div>
+        <div class="location">
+            
+            
+            
+                在密云第二小学附近
+            
+        </div>
+        <div class="tuan-main">
+            <h3 class="price">
+                <span class="rmb">¥</span>430
+                <span class="text-gray rmb">起</span>
+            </h3>
+        </div>
+        <div class="tuan-info">
+            <span class="market-price">¥580</span>
+            <span class="cheap">省¥150</span>
+            <div class="a-right flex">
+                
+                <span class="comment"><em>4.2分</em></span>
+                
+                /
+                
+                <span class="sold">已售10</span>
+                
+            </div>
+        </div>
+    </div>
+</li></ul>
+        </div>
+    <div style="position: absolute; text-align: center; width: 100%; height: 40px; line-height: 40px; top: -40px;">
+    <div class="yo-loadtip" style="">
+        <i class="yo-ico" style=""></i>
+        <div class="text">下拉可以刷新</div>
+    </div>
+    <div class="yo-loadtip" style="display: none;">
+        <i class="yo-ico" style="transform: rotate(-180deg);"></i>
+        <div class="text">释放立即更新</div>
+    </div>
+    <div class="yo-loadtip" style="display: none;">
+        <i class="yo-ico yo-ico-loading"></i>
+        <div class="text">努力加载中...</div>
+    </div>
+    <div class="yo-loadtip" style="display: none;">
+        <i class="yo-ico yo-ico-succ"></i>
+        <div class="text">加载成功</div>
+    </div>
+    <div class="yo-loadtip" style="display: none;">
+        <i class="yo-ico yo-ico-fail"></i>
+        <div class="text">加载失败</div>
+    </div>
+</div><div style="position: absolute; text-align: center; width: 100%; height: 40px; line-height: 40px; bottom: -40px;">
+    <div class="yo-loadtip" style="display: none;">
+        <i class="yo-ico yo-ico-loading"></i>
+        <div class="text">正在加载...</div>
+    </div>
+    <div class="yo-loadtip" style="display: none;">
+        <div class="text">没有更多了...</div>
+    </div>
+</div></div>
+    <div class="no-data" data-role="nodata" style="height: 100%; display: none;"><div class="m-empty">
+    <div class="content">
+        <img src="//simg1.qunarzz.com/mobile_platform/mobile_douxing/qtuan/hy/unlogin.png">
+        <p>非常抱歉，无符合要求的团购。</p>
+    </div>
+</div></div>
+</div>
+.yo-ico{font-family:iconfont!important;font-style:normal;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;vertical-align:middle}
+.yo-loadtip{display:-webkit-inline-box;display:-webkit-inline-flex;display:inline-flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;color:#666;font-size:.14rem}
+.yo-loadtip>.yo-ico{display:block;-webkit-transform-origin:center;transform-origin:center;color:#1ba9ba;-webkit-transition:-webkit-transform .3s;transition:transform .3s;-webkit-transform:rotatez(0deg);transform:rotatez(0deg)}
+.yo-loadtip>.yo-ico-flip{-webkit-transform:rotatez(180deg);transform:rotatez(180deg)}
+.yo-loadtip>.yo-ico-loading{-webkit-animation:rotate 1s infinite linear;animation:rotate 1s infinite linear}
+.yo-loadtip>.text{margin-left:.1rem}
+.yo-loadtip>.text>.time{display:block;font-size:.12rem}
+.yo-loadtip .text{width:inherit}
+
+sticky
 parent { position: relative }
 .sticky {
   position: -webkit-sticky;
@@ -689,4 +921,5 @@ div:hover::before {
 https://mp.weixin.qq.com/s/fqcuiJ4FeSnwnffGy-veSQ
 CSS 滤镜
 
+箭头上下旋转 transform: rotate(-180deg);
 

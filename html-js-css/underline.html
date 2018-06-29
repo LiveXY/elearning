@@ -161,6 +161,16 @@
         </a>
     </div>
 </div>
-
+<style type="text/css">
+  .testnav:hover:before {width:100%;left:0;}
+  .testnav:before {content: "";position: absolute;bottom:1px;left:0;right:0;height:1px;background-color:red;width:0;left:50%;}
+  .testnav,.testnav:before {transition: all .4s cubic-bezier(.23,1,.32,1);}
+  .testnav {position:relative;display:inline-block;width:50px;text-align:center;color:red;}
+</style>
+<div class="test">
+<a class="testnav">test</a>
+<a class="testnav">test</a>
+<a class="testnav">test</a>
+</div>
 </body>
 </html>

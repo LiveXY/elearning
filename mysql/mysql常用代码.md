@@ -316,7 +316,23 @@ alter table log_round_212_bak3 change column `lxid` `lxid` int(11) unsigned not 
 -- alter table log_round_212 rename to log_round_212_bak2;
 -- alter table log_round_212_bak rename to log_round_212;
 ```
-* 
+* 死锁改表名
+```
+delimiter $$
+create definer=`root`@`%` procedure `killrename`(tname varchar(50))
+begin
+  declare pid int(11) default 0;
+  select ID into pid from information_schema.processlist where info not like '%processlist%' and info like concat('%',tname,'%');
+    while (pid > 0) do
+    kill pid;
+        select ID into pid from information_schema.processlist where info not like '%processlist%' and info like concat('%',tname,'%');
+    end while;
+    call crontab_exec(concat('alter table `', tname, '` rename to `', tname, '_bak`'));
+end$$
+delimiter ;
+
+call killrename('table_name')
+```
 * 
 * 
 * 
