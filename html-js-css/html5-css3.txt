@@ -931,3 +931,57 @@ div {position:sticky;}
 @supports (background:-webkit-linear-gradient(0deg, yellow, red)) or (background:linear-gradient(90deg, yellow, red)){ }
 
 https://www.cnblogs.com/coco1s/p/6829372.html
+
+关闭自动完成：autocomplete="off"
+关闭自动大小写：autocorrect="off"
+关闭纠错：autocapitalize="off"
+
+圆扩散动画
+a.yuan{ display:block;background-color: #6ad7e9;position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 10px;height: 10px;margin: auto;-webkit-border-radius: 50%;-webkit-background-clip: padding-box;-moz-border-radius: 50%;-moz-background-clip: padding;border-radius: 50%; z-index:1}
+a.yuan:hover{ background:#0FF}
+a.yua0{ display:block;background-color: #F00;position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 10px;height: 10px;margin: auto;-webkit-border-radius: 50%;-webkit-background-clip: padding-box;-moz-border-radius: 50%;-moz-background-clip: padding;border-radius: 50%; z-index:1}
+a.yua0:hover{ background: #F00}
+.yuan2{width:100%;height:100%;margin: auto;-webkit-border-radius: 50%; position: absolute;top: 0;left: 0;right: 0;bottom: 0;}
+.yuan2{
+animation: yuan2 3s linear 0s infinite normal;
+/* Firefox: */
+-moz-animation: yuan2 3s linear 0s infinite normal;
+/* Safari 和 Chrome: */
+-webkit-animation: yuan2 3s linear 0s infinite normal;
+/* Opera: */
+-o-animation: yuan2 3s linear 0s infinite normal;
+}
+@keyframes yuan2{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-moz-keyframes yuan2{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-webkit-keyframes yuan2{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-o-keyframes yuan2{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+
+.yuan3{width:100%;height:100%;margin: auto;-webkit-border-radius: 50%; position: absolute;top: 0;left: 0;right: 0;bottom: 0;}
+.yuan3{
+animation: yuan3 3s linear .5s infinite normal;
+/* Firefox: */
+-moz-animation: yuan3 3s linear .5s infinite normal;
+/* Safari 和 Chrome: */
+-webkit-animation: yuan3 3s linear .5s infinite normal;
+/* Opera: */
+-o-animation: yuan2 3s linear .5s infinite normal;
+}
+@keyframes yuan3{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-moz-keyframes yuan3{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-webkit-keyframes yuan3{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-o-keyframes yuan3{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+.yuan4{width:100%;height:100%;margin: auto;-webkit-border-radius: 50%; position: absolute;top: 0;left: 0;right: 0;bottom: 0;}
+.yuan4{
+animation: yuan4 4s linear .8s infinite normal;
+/* Firefox: */
+-moz-animation: yuan4 4s linear .8s infinite normal;
+/* Safari 和 Chrome: */
+-webkit-animation: yuan4 4s linear .8s infinite normal;
+/* Opera: */
+-o-animation: yuan4 4s linear .8s infinite normal;
+}
+@keyframes yuan4{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-moz-keyframes yuan4{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-webkit-keyframes yuan4{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+@-o-keyframes yuan4{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
+

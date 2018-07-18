@@ -488,4 +488,22 @@ xattr -dr com.apple.quarantine ./*
 Spotlight 关闭掉
 sudo mdutil -a -i off
 sudo mdutil -a -i on
-
+=========================================
+vi ~/.bash_profile 或 ~/.bashrc
+shopt -s histappend
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# 忽略重复的命令
+# export HISTCONTROL=ignoredups
+# 忽略由冒号分割的这些命令
+export HISTIGNORE="[   ]*:&:bg:fg:exit"
+# 设置保存历史命令的文件大小
+export HISTFILESIZE=1000000
+# 保存历史命令条数
+export HISTSIZE=1000000
+# 显示命令执行时间
+export HISTTIMEFORMAT='%F %T '
+========================================
+vi ~/.bash_profile
+# Alias
+source $HOME/.alias
+eval "$(hub alias -s)"

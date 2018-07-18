@@ -302,3 +302,113 @@ http://blog.csdn.net/lzqial1987/article/details/78747662
 全屏显示
 width:100%;max-width:100%;height:100%;max-height:100%;object-fit:cover;
 
+帮助提示萌层
+.hl-in {box-shadow: 0 0 20px 0 #fff0d5,0 0 0 2px #f1a325,0 0 0 2000px rgba(0,0,0,.2)!important;}
+
+放大1.1倍
+-webkit-transform: scale(1.1); -ms-transform: scale(1.1); transform: scale(1.1) !important;
+
+阴影：box-shadow: 2.5pt 2.5pt 1.5pt #595959;
+背景色动画渐变：transition: background-color 0.25s linear 0s;
+
+文本框
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+.form-control::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #999;
+}
+.form-control::-webkit-input-placeholder {
+  color: #999;
+}
+.form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+textarea.form-control {
+  height: auto;
+}
+.input-sm {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+下拉列表
+.mastfoot select {
+  border: 1px solid #6D6D6D;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 14px;
+  color: #FFF;
+  background-color: transparent;
+  padding: 7px 20px 7px 6px;
+  min-width: 130px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' width='20' height='14' viewBox='0 0 8 14' xmlns='http://www.w3.org/2000/svg'><path d='M8 5.5q0 0.203-0.148 0.352l-3.5 3.5q-0.148 0.148-0.352 0.148t-0.352-0.148l-3.5-3.5q-0.148-0.148-0.148-0.352t0.148-0.352 0.352-0.148h7q0.203 0 0.352 0.148t0.148 0.352z' /></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 7px;
+  cursor: pointer;
+}
+.mastfoot select:hover,
+.mastfoot select:focus {color: #D1D1D1; }
+.mastfoot select option { color: #333; }
+
+上下动画
+.hero-octonaut{position:absolute;top:100px;left:calc(50% - 380px);animation:hero-octonaut 2s alternate ease-in-out infinite;will-change:transform;-webkit-user-select:none;user-select:none;}
+@keyframes hero-octonaut{0%{transform:translateY(-8px)}100%{transform:translateY(8px)}}
+
+转圈动画
+.hero-logo-circle{position:absolute;left:0;top:0;animation:hero-logo-circle 1s linear infinite;will-change:transform}
+.hero-logo-circle:nth-child(1){animation-duration:30s}
+.hero-logo-circle:nth-child(2){animation-duration:40s}
+.hero-logo-circle:nth-child(3){animation-duration:50s}
+.hero-logo-circle:nth-child(4){animation-duration:60s}
+.hero-logo-circle:nth-child(5){animation-duration:70s}
+.hero-logo-circle:nth-child(6){animation-duration:80s}
+.hero-logo-circle:nth-child(7){animation-duration:90s}
+.hero-logo-circle:nth-child(8){animation-duration:100s}
+.hero-logo-circle:nth-child(9){animation-duration:110s}
+.hero-logo-circle:nth-child(10){animation-duration:120s}
+@keyframes hero-logo-circle{100%{transform:rotate(1turn)}}
+
+.welcome .welcome-bg{position:absolute}
+.welcome .welcome-bg--screenshot{bottom:50%;right:50%;margin-bottom:-244px;margin-right:40px;width:780px;height:488px;border-radius:5px;box-shadow:0 20px 30px rgba(0,0,0,0.5);transition:filter 2s}
+.welcome .welcome-bg--screenshot:hover{filter:none}
+发黄
+.section--realtime .welcome-bg--screenshot{filter:brightness(0.75) contrast(1) sepia(0.7) hue-rotate(-5deg) saturate(3.5);}
+发紫
+.section--ide .welcome-bg--screenshot{left:50%;margin-left:40px;filter:brightness(0.7) contrast(0.8) sepia(1) hue-rotate(160deg) saturate(3)}
+发白
+.section--github .welcome-bg--screenshot{filter:brightness(0.7) contrast(1) sepia(1) hue-rotate(115deg) saturate(1.5)}
+

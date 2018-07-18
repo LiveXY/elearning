@@ -15,6 +15,9 @@ http://jiehe0205.github.io/2016/08/06/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD
 http://qzs.qq.com/tencentwap/js/txmv.base.banner.min.js?v=20150721
 http://pingjs.qq.com/ping_video.js?max_age=31104000
 
+开调试
+(function() {} ['constructor']('debugger')())
+
 js获取联网类型
 var connection = navigator.connection||navigator.mozConnection||navigator.webkitConnection||{tyep:'unknown'};
 var type_text = ['unknown','ethernet','wifi','2g','3g','4g','none'];
