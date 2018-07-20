@@ -1,0 +1,78 @@
+python
+
+mac: brew install pipenv
+dnf install pipenv
+yum install pipenv
+pipenv graph
+pipenv lock
+pipenv install --dev
+pipenv uninstall --all
+pipenv shell
+pipenv install requests
+
+
+yum install -y m2crypto python-setuptools
+easy_install pip
+pip install yagmail
+pip3 install yagmail
+
+https://github.com/ansible/ansible
+
+https://github.com/pytorch/pytorch
+https://github.com/requests/requests
+https://github.com/nicolargo/glances
+https://github.com/giampaolo/psutil
+https://github.com/kootenpv/yagmail
+https://github.com/MechanicalSoup/MechanicalSoup
+https://github.com/webpy/webpy
+
+https://github.com/mongodb/mongo-python-driver
+
+https://github.com/fxsjy/jieba
+https://github.com/baidu/lac
+https://github.com/baidu/AnyQ
+https://github.com/baidu/Senta
+
+http://www.magedu.com/72257.html
+核心库
+https://github.com/numpy/numpy
+https://github.com/scipy/scipy
+https://github.com/pandas-dev/pandas
+可视化 http://www.magedu.com/70783.html
+https://github.com/matplotlib/matplotlib
+https://github.com/mwaskom/seaborn
+https://github.com/bokeh/bokeh
+https://github.com/plotly/plotly.py
+https://github.com/amueller/word_cloud
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud
+https://github.com/fyuanfen/wordcloud
+https://github.com/gaussic/weibo_wordcloud
+https://github.com/wvengen/d3-wordcloud
+https://github.com/MasterScrat/Chatistics
+https://gitee.com/zlikun/python-crawler-douban-movie
+机器学习
+https://github.com/scikit-learn/scikit-learn
+深度学习
+https://github.com/keras-team/keras
+https://github.com/tensorflow/tensorflow
+https://github.com/Theano/Theano
+自然语言处理 http://www.magedu.com/71122.html
+https://github.com/nltk/nltk
+https://github.com/RaRe-Technologies/gensim
+数据挖掘，统计学，爬虫
+https://github.com/scrapy/scrapy
+https://github.com/statsmodels/statsmodels
+自动控制
+https://github.com/autopilot-rs/autopy
+https://github.com/python-pillow/Pillow
+GUI
+https://github.com/flexxui/flexx
+https://github.com/cztomczak/cefpython
+https://github.com/kivy/kivy
+
+
+
+
+
+
+

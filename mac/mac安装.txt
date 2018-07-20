@@ -507,3 +507,14 @@ vi ~/.bash_profile
 # Alias
 source $HOME/.alias
 eval "$(hub alias -s)"
+=========================================
+http://anyproxy.io/cn/
+npm install -g anyproxy
+anyproxy 默认端口8001
+anyproxy --port 1080
+http://127.0.0.1:8002
+https://github.com/qqnp1100/chxg
+https://github.com/game-helper/weixin
+=========================================
+Too many open files
+sudo launchctl limit maxfiles unlimited

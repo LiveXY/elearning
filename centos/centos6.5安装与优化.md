@@ -182,6 +182,12 @@ date --set '01/20/2015 15:39:00'
 hwclock -w
 ```
 
+## iptraf-ng网络监控工具
+```sh
+yum install -y iptraf-ng
+iptraf-ng
+```
+
 ## nethogs查询网络带宽占用安装
 ```sh
 yum install nethogs -y

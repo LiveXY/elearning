@@ -1,0 +1,243 @@
+
+yum install ansible
+
+
+easy_install pip
+pip install ansible
+pip3 install ansible
+mac: sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible
+pip install ansible -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+
+pip install paramiko PyYAML Jinja2 httplib2 six
+
+http://www.ansible.com.cn/
+https://github.com/ansible/ansible-examples
+https://github.com/geerlingguy/ansible-role-mysql
+https://github.com/ansible/ansible-container
+https://github.com/openstack/openstack-ansible
+https://github.com/geerlingguy/ansible-role-nginx
+https://github.com/geerlingguy/ansible-role-php
+
+
+https://docs.ansible.com/ansible/latest/cli/ansible-console.html
+
+在ansible服务器端执行ssh-keygen生成密钥，将公钥复制到客户端。（可选）
+在inventory文件中定义客户端信息，然后使用ping模块进行测试连接。
+
+ansible-config [view|dump|list] [--help] [options] [ansible.cfg]
+/etc/ansible/ansible.cfg
+~/.ansible.cfg
+/etc/ansible/hosts.inventory
+
+$ echo "127.0.0.1" > ~/ansible_hosts
+$ export ANSIBLE_HOSTS=~/ansible_hosts
+
+$ ssh-agent bash
+$ ssh-add ~/.ssh/id_rsa
+
+ansible myhost --sudo -m raw -a "yum install -y python2 python-simplejson"
+
+/etc/ansible/hosts
+[local]
+192.168.6.168
+db-[a:f].example.com
+www[01:50].example.com
+db.example.com ansible_connection=ssh ansible_ssh_user=root
+ansible_ssh_port
+ansible_ssh_pass
+ansible_ssh_private_key_file
+ansible_python_interpreter=/usr/local/bin/python
+ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
+
+[atlanta:vars]
+ntp_server=ntp.atlanta.example.com
+proxy=proxy.atlanta.example.com
+
+[atlanta]
+host1
+host2
+
+[raleigh]
+host2
+host3
+
+[southeast:children]
+atlanta
+raleigh
+
+[windows]
+winserver1.example.com
+winserver2.example.com
+group_vars/windows.yml
+ansible_ssh_user: Administrator
+ansible_ssh_pass: SecretPasswordGoesHere
+ansible_ssh_port: 5986
+ansible_connection: winrm
+
+/etc/ansible/group_vars/raleigh
+ntp_server: acme.example.org
+database_server: storage.example.org
+/etc/ansible/group_vars/webservers
+
+/etc/ansible/host_vars/foosball
+
+ansible <pattern_goes_here> -m <module_name> -a <arguments>
+pattern_goes_here:
+webservers
+all
+*
+one.example.com:two.example.com
+192.168.1.*
+webservers:dbservers
+webservers:!phoenix 机器必须隶属 webservers 组但同时不在 phoenix组
+webservers:&staging 同时隶属于 webservers 和 staging 组
+webservers:dbservers:&staging:!phoenix
+webservers:!{{excluded}}:&{{required}} 可以使用-e传参数
+*.example.com
+one*.com:dbservers
+webservers[0]
+webservers[0-25]
+~(web|db).*\.example\.com
+
+ansible all -m ping -u root
+ansible all -m ping -u root --ask-pass
+ansible all -m ping -u root
+ansible all -m ping -u test --sudo
+ansible all -m ping -u test --sudo --sudo-user root
+ansible all -u root -a "/bin/echo hello"
+
+ansible atlanta -a "/sbin/reboot" -f 10 并行的方式执行每次重启10个
+ansible atlanta -a "/usr/bin/foo" -u username -U otheruser [--ask-sudo-pass]
+ansible raleigh -m shell -a 'echo $TERM'
+ansible atlanta -m copy -a "src=/etc/hosts dest=/tmp/hosts" 并行的方式同时 SCP 大量的文件到多台机器
+ansible webservers -m file -a "dest=/srv/foo/a.txt mode=600"
+ansible webservers -m file -a "dest=/srv/foo/b.txt mode=600 owner=mdehaan group=mdehaan"
+ansible webservers -m file -a "dest=/path/to/c mode=755 owner=mdehaan group=mdehaan state=directory" 创建目录与执行 mkdir -p 效果类似
+ansible webservers -m file -a "dest=/path/to/c state=absent" 删除目录(递归的删除)和删除文件
+ansible webservers -m yum -a "name=acme state=present" 确认一个软件包已经安装,但不去升级它:
+ansible webservers -m yum -a "name=acme-1.5 state=present" 确认一个软件包的安装版本
+ansible webservers -m yum -a "name=acme state=absent" 确认一个软件包还没有安装
+ansible all -m user -a "name=foo password=<crypted password here>" 创建账户
+ansible all -m user -a "name=foo state=absent" 删除账户
+ansible webservers -m git -a "repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD" git 部署 webapp
+ansible webservers -m service -a "name=httpd state=started" 确认某个服务在所有的webservers上都已经启动
+ansible webservers -m service -a "name=httpd state=restarted"
+ansible webservers -m service -a "name=httpd state=stopped"
+ansible all -B 3600 -P 0 -a "/usr/bin/long_running_operation --do-stuff" 需要长时间运行的命令可以放到后台去,在命令开始运行后我们也可以检查运行的状态.如果运行命令后,不想获取返回的信息
+ansible web1.example.com -m async_status -a "jid=488359678239.2844"
+ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff" 其中 -B 1800 表示最多运行30分钟, -P 60 表示每隔60秒获取一次状态信息
+ansible windows [-i inventory] -m win_ping --ask-vault-pass
+
+
+--private-key
+
+假设你有一些静态IP地址,希望设置一些别名,但不是在系统的 host 文件中设置,又或者你是通过隧道在连接,那么可以设置如下:
+jumper ansible_ssh_port=5555 ansible_ssh_host=192.168.1.50
+
+
+用户可以修改一下配置文件来修改设置,他们的被读取的顺序如下:
+* ANSIBLE_CONFIG (一个环境变量)
+* ansible.cfg (位于当前目录中)
+* .ansible.cfg (位于家目录中)
+* /etc/ansible/ansible.cfg
+版本1.5之前的读取顺序如下:
+* ansible.cfg (位于当前目录)
+* ANSIBLE_CONFIG (一个环境变量)
+* .ansible.cfg (位于家目录下)
+* /etc/ansible/ansible.cfg
+inventory = /etc/ansible/hosts
+library = /usr/share/ansible
+log_path=/var/log/ansible.log
+module_name = command
+nocolor=0
+nocows=0
+private_key_file=/path/to/file.pem
+remote_port = 22
+remote_tmp = $HOME/.ansible/tmp
+remote_user = root
+roles_path = /opt/mysite/roles:/opt/othersite/roles
+sudo_user=root
+timeout = 10
+
+playbook
+---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: pkg=httpd state=latest
+  - name: write the apache config file
+    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+    notify:
+    - restart apache
+  - name: ensure apache is running
+    service: name=httpd state=started
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
+
+tasks:
+ping:
+service: name=nginx state=started
+service: name=httpd state=running
+command: /sbin/setenforce 0
+shell: /usr/bin/somecommand || /bin/true
+shell: /usr/bin/somecommand
+ignore_errors: True
+copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts owner=root group=root mode=0644
+
+template
+template: src=somefile.j2 dest=/etc/httpd/conf.d/{{ vhost }}
+template: src=templates/foo.j2 dest=/etc/foo.conf
+
+当一个文件的内容被改动时,重启两个 services
+- name: template configuration file
+  template: src=template.j2 dest=/etc/foo.conf
+  notify:
+     - restart memcached
+     - restart apache
+  handlers:
+    - name: restart memcached
+      service:  name=memcached state=restarted
+    - name: restart apache
+      service: name=apache state=restarted
+
+tasks:
+  - include: wordpress.yml wp_user=timmy
+  - include: wordpress.yml wp_user=alice
+  - include: wordpress.yml wp_user=bob
+tasks:
+ - { include: wordpress.yml, wp_user: timmy, ssh_keys: [ 'keys/one.txt', 'keys/two.txt' ] }
+
+---
+- hosts: all
+  remote_user: root
+  vars_files:
+    - "vars/common.yml"
+    - [ "vars/{{ ansible_os_family }}.yml", "vars/os_defaults.yml" ]
+  tasks:
+  - name: make sure apache is running
+    service: name={{ apache }} state=running
+
+- name: add several users
+  user: name={{ item }} state=present groups=wheel
+  with_items:
+     - testuser1
+     - testuser2
+  with_items: "{{somelist}}"
+
+- name: add several users
+  user: name={{ item.name }} state=present groups={{ item.groups }}
+  with_items:
+    - { name: 'testuser1', groups: 'wheel' }
+    - { name: 'testuser2', groups: 'root' }
+
+
+
+ansible-playbook playbook.yml -f 10 10个并发执行
+ansible-playbook playbook.yml --list-hosts 查看执行会影响到哪些 hosts
+
+

@@ -985,3 +985,12 @@ animation: yuan4 4s linear .8s infinite normal;
 @-webkit-keyframes yuan4{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
 @-o-keyframes yuan4{0%{ width:10px; height:10px;border:1px solid #6ad7e9; opacity:1}100% { width:120px; height:120px;border:1px solid #6ad7e9; opacity:0}}
 
+整个页面的滚动条优化：
+::-webkit-scrollbar {  width:0;height:0;color: transparent; }
+所有文字都不能贴边
+page{ width:100vh;height:100vh;overflow:hidden;background-color:#f8f8f8;padding:0 20rpx;}
+字体：简书字体，平滑抗锯齿、
+font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+-webkit-font-smoothing: subpixel-antialiase;
+显示...
+overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
