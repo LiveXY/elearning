@@ -26,6 +26,15 @@ linux下载地址：http://mirrors.163.com/centos/6.5/isos/x86_64/CentOS-6.5-x86
 * `yum update -y` 更新软件
 * `yum clean all` 清理全部缓存文件
 
+## 创建免密登录
+```
+ssh-keygen -t rsa
+ssh-keygen -t rsa -P ''
+ssh-keygen -t rsa -P '' -f ~/id_rsa
+yum -y install openssh-clients
+ssh-copy-id -i /root/.ssh/id_rsa.pub root@ipaddress
+```
+
 ## nginx安装与配置
 * nginx安装：
 ```sh

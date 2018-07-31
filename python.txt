@@ -33,6 +33,11 @@ https://github.com/baidu/lac
 https://github.com/baidu/AnyQ
 https://github.com/baidu/Senta
 
+http://ml.apachecn.org/mlia/
+https://github.com/apachecn/MachineLearning
+https://morvanzhou.github.io/tutorials/
+https://github.com/MorvanZhou/tutorials
+http://sklearn.apachecn.org/cn/0.19.0/
 http://www.magedu.com/72257.html
 核心库
 https://github.com/numpy/numpy
@@ -52,6 +57,8 @@ https://github.com/MasterScrat/Chatistics
 https://gitee.com/zlikun/python-crawler-douban-movie
 机器学习
 https://github.com/scikit-learn/scikit-learn
+https://www.cnblogs.com/lianyingteng/p/7811126.html
+http://sklearn.apachecn.org/cn/0.19.0/index.html
 深度学习
 https://github.com/keras-team/keras
 https://github.com/tensorflow/tensorflow
@@ -71,8 +78,22 @@ https://github.com/cztomczak/cefpython
 https://github.com/kivy/kivy
 
 
+AI
+https://wit.ai/docs/recipes
+https://www.jianshu.com/p/aa8c759cbbab
 
+http://www.tuling123.com/
 
+https://api.ai/
 
+https://github.com/tech-sketch/JuliusForAndroid
+https://github.com/julius-speech/julius
+https://github.com/zzmp/juliusjs
+https://cmusphinx.github.io/
 
+https://github.com/Melissa-AI/Melissa-Core
+https://github.com/Melissa-AI/Melissa-Web
+
+https://github.com/Clarifai/clarifai-python
+https://github.com/Clarifai/clarifai-javascript
 
