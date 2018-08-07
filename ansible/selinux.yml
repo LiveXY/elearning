@@ -1,0 +1,25 @@
+- name: 禁用SELinux
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 检测SELinux
+    shell: getenforce
+    register: rel
+    ignore_errors: true
+  - name: 禁用SELinux
+    shell: setenforce 0
+    when: 'not "Disabled" in rel.stdout'
+  - name: 检测文件
+    shell: cat /etc/sysconfig/selinux
+    register: rel
+    ignore_errors: true
+  - debug: var=rel.stdout
+  - name: 内容不存在，自动补上
+    shell: echo -e 'SELINUX=disabled' >> /etc/sysconfig/selinux
+    when: 'not "\nSELINUX=disabled" in rel.stdout'
+  - name: 文件不存在，自动创建
+    shell: echo -e 'SELINUX=disabled' > /etc/sysconfig/selinux
+    when: rel is failed
+
+#ansible-playbook selinux.yml -e host=6168

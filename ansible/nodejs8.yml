@@ -1,0 +1,34 @@
+- name: 安装NODEJS7之上版本
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 查看当前NODEJS版本
+    shell: node -v
+    register: rel
+    ignore_errors: true
+  - debug: var=rel.stdout
+  - name: 更新openssl
+    yum: name={{ item }} state=latest
+    with_items:
+      - openssl
+  - name: NPM安装n
+    shell: npm install n -g
+  - name: 切换8.10.0版本，耐心等待...
+    shell: n 8.10.0
+    ignore_errors: true
+  - name: 查看版本
+    shell: node -v
+    register: rel
+    ignore_errors: true
+  - debug: var=rel.stdout
+  - name: 版本没有变化，建立软连接
+    shell: ln -s /usr/local/bin/node /usr/bin/node && ln -s /usr/local/bin/npm /usr/bin/npm
+    when: 'not "v8.10.0" in rel.stdout'
+  - name: 重新查看版本
+    shell: node -v
+    register: rel
+    ignore_errors: true
+  - debug: var=rel.stdout
+
+#ansible-playbook nodejs8.yml -e host=6168

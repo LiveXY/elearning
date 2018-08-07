@@ -1,0 +1,30 @@
+- name: 安装NGINX+PHP
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 删除httpd服务
+    yum: name=httpd state=absent
+  - name: 安装NGINX+PHP
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - nginx
+      - php
+      - php-mysql
+      - php-gd
+      - php-mbstring
+      - php-mcrypt
+      - php-memcached
+      - php-openssl
+      - php-xml
+      - php-xmlrpc
+      - php-fpm
+      - php-opcache
+      - php-pdo
+      - goaccess
+  - name: 启动nginx服务
+    service: enabled=true name=nginx state=started
+  - name: 启动php-fpm服务
+    service: enabled=true name=php-fpm state=started
+
+#ansible-playbook php.yml -e host=6168

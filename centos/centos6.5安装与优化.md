@@ -618,6 +618,31 @@ pm.max_spare_servers = CPUcore * 4
 pm.start_servers = pm.max_spare_servers /2
 pm.max_requests = 500
 
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 5
+pm.min_spare_servers = 5
+pm.max_spare_servers = 35
+pm.max_requests = 500
+
+pm.max_children = 160
+pm.start_servers = 130
+pm.min_spare_servers = 115
+pm.max_spare_servers = 145
+pm.max_requests = 5000
+
+pm.max_children = 120
+pm.start_servers = 60
+pm.min_spare_servers = 30
+pm.max_spare_servers = 90
+pm.max_requests = 500
+
+pm.max_children = 60
+pm.start_servers = 30
+pm.min_spare_servers = 15
+pm.max_spare_servers = 45
+pm.max_requests = 500
+
 物理cpu个数:cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l
 cpu核数:cat /proc/cpuinfo | grep "cpu cores" | uniq
 逻辑cpu个数(线程数):cat /proc/cpuinfo | grep "cpu cores" | wc -l

@@ -1,0 +1,42 @@
+server {
+	listen {{ sport | default(80) }};
+{% if ssl is defined %}
+	listen 443 ssl;
+{% endif %}
+	server_name {{ domain }};
+
+	root {{ path }};
+	index index.html index.htm index.php;
+{% if ssl is defined %}
+
+	ssl_certificate {{ ssl }}.crt;
+	ssl_certificate_key {{ ssl }}.key;
+	ssl_session_timeout 5m;
+	ssl_prefer_server_ciphers on;
+	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+{% endif %}
+
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+	add_header Access-Control-Allow-Origin *;
+	add_header Access-Control-Allow-Headers X-Requested-With;
+	add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+
+	client_max_body_size 5m;
+
+	location / {
+		try_files $uri $uri/ /index.php?$args;
+	}
+	location ~ ^(.+.php)(.*)$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass 127.0.0.1:9000;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi_params;
+	}
+}
+

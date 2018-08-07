@@ -978,7 +978,7 @@ bt 查看线程调用。
 `grep '0' /etc/passwd` 查看是否产生了新用户，UID和GID为0的用户
 `ls -l /etc/passwd` 查看passwd的修改时间，判断是否在不知的情况下添加用户
 `awk -F: "$3= =0 {print $1}" /etc/passwd` 查看是否存在特权用户
-`awk -F: 'length($2)= =0 {print $1}' /etc/shadow` 查看是否存在空口令帐户
+`awk -F: 'length($2)==0 {print $1}' /etc/shadow` 查看是否存在空口令帐户
 * 检查异常进程
 `ps -ef` 注意UID为0的进程使用
 `lsof -p pid` 察看该进程所打开的端口和文件
@@ -1072,3 +1072,5 @@ ps -auxf | sort -nr -k 4 | head -10
 
 who -b #查看系统重新启动的时间/日期
 last -x|grep shutdown | head -1 #查看系统上次关机的时间和日期
+
+ps --no-headers -o "rss,cmd" -C php-fpm | awk '{ sum+=$1 } END { printf ("%d%s\n", sum/NR/1024,"M") }' #php-fpm 平均占内存

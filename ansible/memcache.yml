@@ -1,0 +1,11 @@
+- name: 安装memcache缓存
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 安装memcached服务
+    yum: name=memcached state=present disable_gpg_check=yes
+  - name: 启动memcached服务
+    service: enabled=true name=memcached state=started
+
+#ansible-playbook memcache.yml -e host=6168

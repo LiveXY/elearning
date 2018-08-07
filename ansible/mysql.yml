@@ -1,0 +1,21 @@
+- name: 安装mysql服务器
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 安装mysql-server服务
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - mysql
+      - mysql-server
+  - name: 上传配置文件
+    template: src=./files/my.cnf dest=/etc/my.cnf
+    notify:
+      - 重启mysqld服务
+  - name: 启动mysqld服务
+    service: enabled=true name=mysqld state=started
+  handlers:
+  - name: 重启mysqld服务
+    service: name=mysqld state=restarted
+
+#ansible-playbook mysql.yml -e host=6168

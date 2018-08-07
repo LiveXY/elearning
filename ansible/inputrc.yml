@@ -1,0 +1,17 @@
+- name: 上下键快速查找历史命令
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: ~/.inputrc上下键快速查找历史命令
+    shell: cat ~/.inputrc
+    register: rel
+    ignore_errors: true
+  - name: 内容不存在，自动补上
+    shell: echo -e '"\\e[B":history-search-forward\n"\\e[A":history-search-backward' >> ~/.inputrc
+    when: 'not "history-search-forward" in rel.stdout'
+  - name: 文件不存在，自动创建
+    shell: echo -e '"\\e[B":history-search-forward\n"\\e[A":history-search-backward' > ~/.inputrc
+    when: rel is failed
+
+#ansible-playbook inputrc.yml -e host=6168

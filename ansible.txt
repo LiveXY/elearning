@@ -149,8 +149,7 @@ ansible 6168 -m shell -a 'ps aux|grep nginx'
 
 ansible 6168 -m yum -a 'name=nginx state=latest' #安装最新nginx
 ansible 6168 -m yum -a 'name="@Development tools" state=present' #安装当前的
-ansible 6168 -m yum -a 'name=http://nginx.org/packages/centos/6/noarch/RPMS/
-nginx-release-centos-6-0.el6.ngx.noarch.rpm state=present'
+ansible 6168 -m yum -a 'name=http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm state=present'
 
 ansible 6168 -m script -a '/root/a.sh'
 ansible 6168 -m command -a "uptime"
@@ -163,6 +162,7 @@ ansible 6168 -m shell -a "service nginx status"
 ansible 6168 -m git -a "repo=git://foo.example.org/repo.git dest=/srv/myapp version=HEAD"
 
 ansible 6168 -m get_url -a 'url=http://10.1.1.116/favicon.ico dest=/tmp'
+ansible 6168 -m get_url -a "url=http://www.baidu.com dest=/tmp/index.html mode=0440 force=yes"
 
 ansible 6168 -m stat -a 'path=/etc/sysctl.conf'
 ansible web -m fetch -a 'src=/etc/fstab dest=/tmp/'
@@ -188,8 +188,119 @@ ansible web -m hostname -a 'name={{ hostname }}'
 
 #计划任务模块，每周六1点执行
 ansible web -m cron -a 'name=daycron minute="0" hour="1" weekday="5" job="ls /tmp >>/tmp/a.log"'
+ - cron: name="test time jobs" minute="*/1" hour="*" job="/usr/local/src/test_time.sh >> /tmp/time.log"
+cron: name="test time jobs" minute="*/2" hour="*" job="/usr/local/src/test_time.sh >> /tmp/time.log"
 
 ansible 6168 -m mysql_user -a 'name=test password=123456 state=present'
+
+ansible-playbook e33_var_in_command.yml --extra-vars "hosts=web user=root"
+ansible-playbook e33_var_in_command.yml --extra-vars "{'hosts':'vm-rhel7-1', 'user':'root'}"
+ansible-playbook e33_var_in_command.yml --extra-vars "@vars.json"
+--extra-vars '{"pacman":"mrs","ghosts":["inky","pinky","clyde","sue"]}'
+
+#ansible host1 -m mount -a "name=/mnt/data src=/dev/sd0 fstype=ext3 opts=ro state=present"
+
+sysctl: name=kernel.panic value=3 sysctl_file=/etc/sysctl.conf checks=before reload=yes
+以下是定义在yml格式文件中的例子：
+- sysctl: name=net.ipv4.tcp_rmem 'value=4096        87380   16777216' state=present
+- sysctl: name=net.ipv4.tcp_wmem 'value=4096        65536   16777216' state=present
+- sysctl: name=net.ipv6.conf.lo.disable_ipv6 value=1 state=present
+
+- lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=enforcing
+- lineinfile: dest=/etc/sudoers state=absent regexp="^%wheel"
+- lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost' owner=root group=root mode=0644
+- lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Listen " insertafter="^#Listen " line="Listen 8080"
+- lineinfile: dest=/etc/services regexp="^# port for http" insertbefore="^www.*80/tcp" line="# port for http by default"
+# Add a line to a file if it does not exist, without passing regexp
+- lineinfile: dest=/tmp/testfile line="192.168.1.99 foo.lab.net foo"
+# Fully quoted because of the ': ' on the line. See the Gotchas in the YAML docs.
+- lineinfile: "dest=/etc/sudoers state=present regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL'"
+- lineinfile: dest=/opt/jboss-as/bin/standalone.conf regexp='^(.*)Xms(\d+)m(.*)$' line='\1Xms${xms}m\3' backrefs=yes
+# Validate the sudoers file before saving
+- lineinfile: dest=/etc/sudoers state=present regexp='^%ADMIN ALL\=' line='%ADMIN ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s'
+
+Insert/update/remove a text block surrounded by marker lines
+- name: insert/update "Match User" configuation block in /etc/ssh/sshd_config
+  blockinfile:
+    dest: /etc/ssh/sshd_config
+    block: |
+      Match User ansible-agent
+      PasswordAuthentication no
+- name: insert/update eth0 configuration stanza in /etc/network/interfaces
+        (it might be better to copy files into /etc/network/interfaces.d/)
+  blockinfile:
+    dest: /etc/network/interfaces
+    block: |
+      iface eth0 inet static
+          address 192.168.0.1
+          netmask 255.255.255.0
+- name: insert/update HTML surrounded by custom markers after <body> line
+  blockinfile:
+    dest: /var/www/html/index.html
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertafter: "<body>"
+    content: |
+      <h1>Welcome to {{ansible_hostname}}</h1>
+      <p>Last updated on {{ansible_date_time.iso8601}}</p>
+- name: remove HTML as well as surrounding markers      ##此文件实现将上面添加的内容删除
+  blockinfile:
+    dest: /var/www/html/index.html
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    content: ""
+- name: insert/update "Match User" configuation block in /etc/ssh/sshd_config
+  blockinfile:
+    dest: /etc/hosts
+    block: |
+      {{item.name}} {{item.ip}}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{item.name}}"
+  with_items:
+      - { name: host1, ip: 10.10.1.10 }
+      - { name: host2, ip: 10.10.1.11 }
+      - { name: host3, ip: 10.10.1.12 }
+
+#cat blockinfile.yml 
+---
+- hosts: web
+  user: root
+  tasks:
+    - name: this is test blockinfile module
+      blockinfile:
+         dest: /etc/hosts
+         block: |
+           this is a test line 1 
+           this is a test line 2 
+           this is a test line 3
+结果：
+#cat /etc/hosts
+# BEGIN ANSIBLE MANAGED BLOCK
+this is a test line 1
+this is a test line 2
+this is a test line 3
+# END ANSIBLE MANAGED BLOCK
+#cat blockinfile.yml
+---
+- hosts: 10.0.90.25
+  user: root
+  gather_facts: True
+  tasks:
+    - name: this is test blockinfile module
+      blockinfile:
+         dest: /etc/hosts
+         block: |
+            {{item.name}} {{item.ip}}
+         marker: "# {mark} ansible managed block {{item.name}}"
+      with_items:
+         - { name: host1, ip: 10.10.1.10}
+         - { name: host2, ip: 10.10.1.11}
+         - { name: host3, ip: 10.10.1.12}
+
+当命令执行时间比较长时，也可以放到后台执行，这里会用到-B、-P参数，如下：
+ansible all -B 3600 -a "/usr/bin/long_running_operation --do-stuff" \\后台执行命令 3600s，-B 表示后执行的时间
+ansible all -m async_status -a "jid=123456789"  \\检查任务的状态
+ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff" \\后台执行命令最大时间是 1800s 即 30 分钟，-P 每 60s 检查下状态默认 15s
+示例如下：
+[root@361way ~]# ansible 10.212.52.252 -B 3600 -P 0 -a 'watch ls'
+
 
 ansible-console
 
@@ -321,6 +432,8 @@ tasks:
             - {key:"one",value:"value1"}
             - {key:"two",value:"value2"}
 
+- debug: msg="{% for i in hi_var.results %} {{i.stdout}} {% endfor %}"
+
 ansible-playbook playbook.yml -f 10 10个并发执行
 ansible-playbook playbook.yml --list-hosts 查看执行会影响到哪些 hosts
 
@@ -416,6 +529,9 @@ ansible test -m yum -a 'name=httpd state=latest'
 ansible test -m yum -a 'name="@Development tools" state=present'
 ansible test -m yum -a 'name=http://nginx.org/packages/centos/6/noarch/RPMS/
 nginx-release-centos-6-0.el6.ngx.noarch.rpm state=present'
+yum: name=httpd enablerepo=testing state=present
+- name: upgrade all packages
+  yum: name=* state=latest
 八、user模块与group模块
 user模块是请求的是useradd, userdel, usermod三个指令，goup模块请求的是groupadd, groupdel, groupmod 三个指令，具体参数这里不再细讲，直接上示例。
 1、user模块示例：
@@ -509,3 +625,210 @@ $ ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff"
 其中 -B 1800 表示最多运行30分钟, -P 60 表示每隔60秒获取一次状态信息.
 Polling 获取状态信息的操作会在后台工作任务启动之后开始.若你希望所有的工作任务快速启动, --forks 这个选项的值 要设置得足够大,这是前面讲过的并发进程的个数.在运行指定的时间(由``-B``选项所指定)后,远程节点上的任务进程便会被终止.
 一般你只能在把需要长时间运行的命令或是软件升级这样的任务放到后台去执行.对于 copy 模块来说,即使按照前面的示例想放到 后台执行文件传输,实际上并不会如你所愿.
+
+when: foo is defined
+when: bar is not defined
+
+vars:
+    epic: true
+when: epic
+when: not epic
+
+when: "'reticulating splines' in output"
+
+- command: echo {{ item }}
+  with_items: [ 0, 2, 4, 6, 8, 10 ]
+  when: item > 5
+
+tasks:
+  - command: /bin/false
+    register: result
+    ignore_errors: True
+  - command: /bin/something
+    when: result|failed
+  - command: /bin/something_else
+    when: result|succeeded
+  - command: /bin/still/something_else
+    when: result|skipped
+
+tasks:
+    - shell: echo "I've got '{{ foo }}' and am not afraid to use it!"
+      when: foo is defined
+
+    - fail: msg="Bailing out. this play requires 'bar'"
+      when: bar is undefined
+#when 和 循环
+tasks:
+    - command: echo {{ item }}
+      with_items: [ 0, 2, 4, 6, 8, 10 ]
+      when: item > 5
+
+#when和include
+- include: tasks/sometasks.yml
+  when: "'reticulating splines' in output"
+
+when: motd_contents.stdout.find('hi') != -1
+with_items: home_dirs.stdout_lines
+
+#when 和角色
+- hosts: webservers
+  roles:
+     - { role: debian_stock_config, when: ansible_os_family == 'Debian' }
+
+有些时候，我们想基于不同的操作系统，选择不同的配置文件，及配置文件的存放路径，可以借助with_first_found来解决：
+- name: template a file
+   template: src={{ item }} dest=/etc/myapp/foo.conf
+   with_first_found:
+     - files:
+        - {{ ansible_distribution }}.conf
+        - default.conf
+       paths:
+        - search_location_one/somedir/
+        - /opt/other_location/somedir/
+
+failed_when其实是ansible的一种错误处理机制，是由fail模块使用了when条件语句的组合效果。示例如下：
+- name: this command prints FAILED when it fails
+  command: /usr/bin/example-command -x -y -z
+  register: command_result
+  failed_when: "'FAILED' in command_result.stderr"我们也可以直接通过fail模块和when条件语句，写成如下：
+- name: this command prints FAILED when it fails
+  command: /usr/bin/example-command -x -y -z
+  register: command_result
+  ignore_errors: True
+
+- name: fail the play if the previous command did not succeed
+  fail: msg="the command failed"
+  when: "'FAILED' in command_result.stderr"
+
+当我们控制一些远程主机执行某些任务时，当任务在远程主机上成功执行，状态发生更改时，会返回changed状态响应，状态未发生更改时，会返回OK状态响应，当任务被跳过时，会返回skipped状态响应。我们可以通过changed_when来手动更改changed响应状态。示例如下：
+  - shell: /usr/bin/billybass --mode="take me to the river"
+    register: bass_result
+    changed_when: "bass_result.rc != 2"    #只有该条task执行以后，bass_result.rc的值不为2时，才会返回changed状态
+
+  # this will never report 'changed' status
+  - shell: wall 'beep'
+    changed_when: False    #当changed_when为false时，该条task在执行以后，永远不会返回changed状态
+
+cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.j2
+vim /etc/nginx/nginx.conf.j2
+     worker_processes {{ ansible_processor_vcpus }};  #引用内置变量获得cpu颗数
+     listen {{ nginxport }};  #自定义变量
+
+users:
+  alice:
+    name: Alice Appleworth
+    telephone: 123-456-7890
+  bob:
+    name: Bob Bananarama
+    telephone: 987-654-3210
+#playbook文件
+tasks:
+  - name: Print phone records
+    debug: msg="User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})"
+    with_dict: users
+
+用with_fileglob可以获取本地文件列表。示例如下：
+  # copy each file over that matches the given pattern
+  - copy: src={{ item }} dest=/etc/fooapp/ owner=root mode=600
+    with_fileglob:
+      - /playbooks/files/fooapp/*
+用with_together可以达到类似Python里的zip函数的功能。示例如下：
+#变量文件：
+---
+alpha: [ 'a', 'b', 'c', 'd' ]
+numbers:  [ 1, 2, 3, 4 ]
+#playbook文件
+tasks:
+    - debug: msg="{{ item.0 }} and {{ item.1 }}"
+      with_together:
+        - alpha
+        - numbers
+with_lines指令后跟一个命令，ansible会遍历命令的输出。示例如下：
+- name: Example of looping over a command result
+  shell: /usr/bin/frobnicate {{ item }}
+  with_lines: /usr/bin/frobnications_per_host --param {{ inventory_hostname }}
+
+标签功能可以给Roles、文件、单独的任务甚至整个Playbook打上标签，然后利用这些标签来指定要运行或不运行Playbook中的个别任务。
+例：
+vim test.yml
+---
+- hosts: test
+  tags: deploy    #给整个Playbook打一个标签
+  tasks:
+    - name: test_tags
+      shell: ***
+      tags:    #为任务打标签
+        - test1
+        - test2
+    - include: foo.yml
+      tags: foo
+ansible-playbook test.yml --tags "test1"    #只执行test_tags任务
+ansible-playbook test.yml --skip-tags "test2"    #跳过test_tags任务
+
+ansible test -m user -a "name=test shell=/bin/bash groups=admin,dba append=yes home=/home/test state=present"    #新建test用户,group指定属组，groups指定附加组，'groups='删除所有附加组，append=yes增量添加属组，state默认present，表示新建。
+ansible test -m user -a "name=test groups=dba append=no"    #test用户附加组改为dba，append=no全量变更属组信息。
+ansible test -m user -a "name=test1 generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa"    #generate_ssh_key=yes生成SSH key，ssh_key_bits指定加密位数，默认2048，ssh_key_file指定key文件位置，默认.ssh/id_rsa，相对路径表示家目录下
+ansible test -m user -a "name=test state=absent remove=yes"    #删除test用户，state=absent表示删除用户，remove=yes结合state=absent相当于userdel --remove
+ansible test -m user -a "name=test password=eRgUloPQMARVY"    #变更用户密码，使用加密密码。
+加密方式：
+(a)书中介绍的mkpasswd，在redhat下不行，好像ubuntu下可以，我用的openssl，测试redhat下可行。
+openssl passwd  "redhat123"
+eRgUloPQMARVY
+(b)使用python的passlib、getpass库
+
+ansible-playbook example.yml --tags "configuration,packages"
+ansible-playbook example.yml --skip-tags "notification"
+
+ansible db -m user -a 'name=DBA uid=505 home=/home/dba shell=/sbin/nologin'
+ansible db -m user -a 'name=DBA state=absent'　　　　#state属性有：present表示添加,absend表示删除，state属性默认是present
+ansible all -m shell -a 'echo "123456" | passwd  foo --stdin'
+
+absent,present,installed,removed,latest
+
+3、通过vars_prompt来实现人机交互：
+hosts: all
+remote_user: root
+vars_prompt:
+  - name: 'https_passphrase'          #存储数据的变量名
+    prompt: 'Key Passphrase'          #手工输入数据
+    private: yes                      #当该值为yes，则用户的输入不会被打印
+
+j2:
+{% if 'db1' in group_names %}
+[mysqld]
+server-id=1
+log-bin=mysql-bin
+log-bin-index=mysql-bin.index
+sync-binlog=1
+innodb_flush_log_at_trx_commit=1    #我们知道db1在mdb组，当db1与当前执行c一组时，我们认为当前主机即在mdb组，所以对当前主机应用mysql master的配置
+{% else %}
+[mysqld]
+server-id=2
+relay-log=relay-log
+relay-log-index=relay-log.index
+read-only = yes
+sync_master_info = 1
+sync_relay_log = 1
+sync_relay_log_info = 1
+relay_log_recovery = 1
+skip_slave_start    #当db1与当前主机不在同一组时，则认为当前主机不在mdb组，即应用my slave的配置
+{% endif %}
+
+{% for i in range(1,10) %}
+test{{ i }}
+{% endfor %}
+
+{% for host in groups.web%}
+    server {{host.inventory_hostname}} {{ host.ansible_default_ipv4.address }}:80
+{% endfor %}
+
+{% for id in range(201,212) %}
+192.168.13.{{ id }} web{{ "%03d" |format(id-200) }}.test.com
+{% endfor %}
+
+bind_address=10.0.90.27:{{ PORT | default(3306) }}
+
+
+
+
+

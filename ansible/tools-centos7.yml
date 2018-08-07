@@ -1,0 +1,27 @@
+- name: 安装centos7基础工具
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: centos7安装基础源
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - epel-release
+      - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+  - name: centos7安装基础工具
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - wget
+      - curl
+      - psmisc
+      - axel
+      - sysstat
+      - ntp
+      - ntpd
+      - iptraf-ng
+      - nethogs
+      - iftop
+  - name: 同步上海时区
+    shell: ntpdate us.pool.ntp.org && date -R && cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+#ansible-playbook tools-centos7.yml -e host=6168

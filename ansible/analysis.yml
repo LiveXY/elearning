@@ -1,0 +1,86 @@
+- name: 分析数据
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 分析服务器链接
+    shell: netstat -an | grep -E "^(tcp)" | cut -c 68- | sort | uniq -c | sort -rn
+    register: rel
+    ignore_errors: true
+    tags: net-conn
+  - debug: var=rel.stdout_lines
+    tags: net-conn
+  - name: 查找较多time_wait连接
+    shell: netstat -n | grep TIME_WAIT | awk '{print $5}' | sort | uniq -c | sort -rn | head -n20
+    register: rel
+    ignore_errors: true
+    tags: net-wait
+  - debug: var=rel.stdout_lines
+    tags: net-wait
+  - name: 找查较多的SYN连接
+    shell: "netstat -an | grep SYN | awk '{print $5}' | awk -F: '{print $1}' | sort | uniq -c | sort -nr | more"
+    register: rel
+    ignore_errors: true
+    tags: net-syn
+  - debug: var=rel.stdout_lines
+    tags: net-syn
+  - name: 查看开启 {{ p }} 进程数目
+    shell: ps -ef | grep '{{ p }}' | grep -v 'master' | grep -v 'grep' | wc -l
+    register: rel
+    ignore_errors: true
+    tags: pnum
+  - debug: var=rel.stdout
+    tags: pnum
+  - name: 查看uptime
+    shell: uptime
+    register: rel
+    ignore_errors: true
+    tags: uptime
+  - debug: var=rel.stdout
+    tags: uptime
+  - name: 查看free
+    shell: free -mh
+    register: rel
+    ignore_errors: true
+    tags: free
+  - debug: var=rel.stdout_lines
+    tags: free
+  - name: 查看CPU占用最多的前10个进程
+    shell: ps auxw | head -1; ps auxw | sort -rn -k3 | head -10
+    register: rel
+    ignore_errors: true
+    tags: cpu-top10
+  - debug: var=rel.stdout_lines
+    tags: cpu-top10
+  - name: 内存消耗最多的前10个进程
+    shell: ps auxw | head -1; ps auxw | sort -rn -k4 | head -10
+    register: rel
+    ignore_errors: true
+    tags: mem-top10
+  - debug: var=rel.stdout_lines
+    tags: mem-top10
+  - name: 查看进程启动情况
+    shell: "ps aux | grep {{ p }} "
+    register: rel
+    ignore_errors: true
+    tags: ps
+  - debug: var=rel.stdout_lines
+    tags: ps
+  - name: 查看磁盘空间
+    shell: df -h
+    register: rel
+    ignore_errors: true
+    tags: df
+  - debug: var=rel.stdout_lines
+    tags: df
+
+#ansible-playbook analysis.yml -e host=6168 --tags net-conn
+#ansible-playbook analysis.yml -e host=6168 --tags net-wait
+#ansible-playbook analysis.yml -e host=6168 --tags net-syn
+#ansible-playbook analysis.yml -e 'host=6168 p=php-fpm' --tags pnum
+#ansible-playbook analysis.yml -e host=6168 --tags uptime
+#ansible-playbook analysis.yml -e host=6168 --tags free
+#ansible-playbook analysis.yml -e host=6168 --tags cpu-top10
+#ansible-playbook analysis.yml -e host=6168 --tags mem-top10
+#ansible-playbook analysis.yml -e 'host=6168 p=php-fpm' --tags ps
+#ansible-playbook analysis.yml -e host=6168 --tags df

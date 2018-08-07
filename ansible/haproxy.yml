@@ -1,0 +1,45 @@
+- name: HA代理服务器
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  vars:
+    code: "frontend {{ haname }}-front\n\tbind *:{{ listen }}\n\tmode {{ mode }}{{ option }}\n\tdefault_backend {{ haname }}-back\n\nbackend {{ haname }}-back\n\tbalance {{ balance }}\n\t{{ server }}\n"
+  tasks:
+
+  - name: 安装haproxy服务
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - haproxy
+    tags: install
+  - name: 上传配置文件
+    template: src=./templates/haproxy-base.cfg dest=/etc/haproxy/haproxy.cfg
+    tags: install
+
+  - name: 添加服务器配置
+    blockinfile: path=/etc/haproxy/haproxy.cfg block='{{ code }}' marker='#{mark} {{ haname }} server'
+    tags: add
+  - name: 重启haproxy服务
+    service: enabled=true name=haproxy state=restarted
+    tags:
+      - add
+      - restart
+
+  - name: 停止haproxy服务
+    service: enabled=false name=haproxy state=stopped
+    tags: stop
+
+#ansible-playbook haproxy.yml --tags install -e host=6168
+#ansible-playbook haproxy.yml --tags stop -e host=6168
+#ansible-playbook haproxy.yml --tags restart -e host=6168
+
+#JSON
+#ansible-playbook haproxy.yml --tags add -e '{"host":"6168","mode":"http","haname":"php","balance":"roundrobin","listen":5000,"option":"\n\tlog global\n\toption logasap\n\toption dontlognull","server":"server php-back 127.0.0.1:5001 check"}'
+#ansible-playbook haproxy.yml --tags add -e '{"host":"6168","mode":"tcp","haname":"node","balance":"leastconn","listen":5005,"option":"","server":"server node-back 127.0.0.1:5006"}'
+
+#KV
+#ansible-playbook haproxy.yml --tags add -e 'host=6168 mode=http haname=php balance=roundrobin listen=5000 option="\n\tlog global\n\toption logasap\n\toption dontlognull" server="server php-back 127.0.0.1:5001 check"'
+#ansible-playbook haproxy.yml --tags add -e 'host=6168 mode=tcp haname=node balance=leastconn listen=5005 option="" server="server node-back 127.0.0.1:5006"'
+
+#php+node 代理
+#ansible-playbook haproxy.yml --tags add -e 'host=6168 mode=http haname=php balance=roundrobin listen=80 option="\n\tlog global\n\toption logasap\n\toption dontlognull" server="server php-back 负载均衡IP:80"'
+#ansible-playbook haproxy.yml --tags add -e 'host=6168 mode=tcp haname=node balance=leastconn listen=8080 option="" server="server node-back 负载均衡IP:7511"'

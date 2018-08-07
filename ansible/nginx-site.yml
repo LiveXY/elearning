@@ -1,0 +1,16 @@
+- name: 配置NGINX站点
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 上传配置文件 {{ stemplate | default('./templates/nginx-site.conf.j2') }}
+    template: src="{{ stemplate | default('./templates/nginx-site.conf.j2') }}" dest="{{ conf }}"
+  - name: nginx重新加载
+    service: name=nginx state=reloaded
+
+#资源有缓存 GZIP SSL
+#ansible-playbook nginx-site.yml -e 'host=6168 conf=/etc/nginx/conf.d/hzmjttt.conf domain=hzmj2.realbullgame.com sport=192.168.6.168:5009 path=/home/hzmj_laravel/public'
+#图片无缓存
+#ansible-playbook nginx-site.yml -e 'host=6168 stemplate=./templates/nginx-small.conf.j2 conf=/etc/nginx/conf.d/hzmjttt.conf domain=hzmj2.realbullgame.com sport=192.168.6.168:5009 path=/home/hzmj_laravel/public'
+#代理服务器
+#ansible-playbook nginx-site.yml -e 'host=6168 stemplate=./templates/nginx-proxy.conf.j2 conf=/etc/nginx/conf.d/hzmj-node-proxy.conf domain=hzmj2.realbullgame.com sport=192.168.6.168:5008 server=192.168.6.168:17071'

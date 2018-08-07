@@ -1,0 +1,30 @@
+server {
+	listen {{ sport | default(80) }};
+{% if ssl is defined %}
+	listen 443 ssl;
+{% endif %}
+	server_name {{ domain }};
+{% if ssl is defined %}
+
+	ssl_certificate {{ ssl }}.crt;
+	ssl_certificate_key {{ ssl }}.key;
+	ssl_session_timeout 5m;
+	ssl_session_cache shared:SSL:50m;
+	ssl_prefer_server_ciphers on;
+	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+{% endif %}
+
+	location / {
+		proxy_pass http://proxy/;
+		proxy_set_header Host $host:$server_port;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+	}
+}
+upstream proxy {
+	hash $remote_addr consistent;
+	server {{ server }};
+}
+

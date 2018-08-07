@@ -1,0 +1,21 @@
+- name: 切换NODEJS版本
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 查看当前NODEJS版本
+    shell: node -v
+    register: rel
+    ignore_errors: true
+  - debug: var=rel.stdout
+  - name: 切换版本
+    shell: 'n {{ v }}'
+    ignore_errors: true
+  - name: 查看版本
+    shell: node -v
+    register: rel
+    ignore_errors: true
+  - debug: var=rel.stdout
+
+#ansible-playbook n.yml -e 'host=6168 v=6.12.2'
+#ansible-playbook n.yml -e 'host=6168 v=8.10.0'

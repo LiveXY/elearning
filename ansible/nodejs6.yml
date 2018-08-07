@@ -1,0 +1,15 @@
+- name: 安装NODEJS7之下版本
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 安装NODEJS6源
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+  - name: 安装NODEJS6
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+      - nodejs
+
+#ansible-playbook nodejs6.yml -e host=6168

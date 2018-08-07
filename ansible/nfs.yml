@@ -1,0 +1,40 @@
+- name: NFS
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 安装nfs服务
+    yum: name=nfs-utils,rpcbind state=present disable_gpg_check=yes
+    tags:
+      - server
+      - client
+
+  - name: 增加nfs服务器配置
+    blockinfile: path=/etc/exports block='{{ path }} {{ inet }}' marker='#{mark} {{ path }} nfs'
+    tags: server
+
+  - name: 启动nfs服务器
+    service: enabled=true name={{ item }} state=restarted
+    with_items:
+      - rpcbind
+      - nfs
+    tags:
+      - server
+      - client
+
+  - name: nfs客户端挂载
+    mount: name={{ iname }} src={{ isrc }} fstype=nfs state=mounted
+    tags: client
+
+  - name: nfs客户端取消挂载
+    mount: name={{ iname }} fstype=nfs state=absent
+    tags: umount
+
+  - name: 卸载nfs
+    yum: name=nfs-utils,rpcbind state=absent
+    tags: uninstall
+
+#ansible-playbook nfs.yml --tags server -e 'host=6168 path=/home/tttthz inet=192.168.6.0/8(rw,sync,no_root_squash)'
+#ansible-playbook nfs.yml --tags client -e 'host=6168 iname=/tttthz isrc=192.168.6.168:/home/tttthz'
+#ansible-playbook nfs.yml --tags umount -e 'host=6168 iname=/tttthz'
+#ansible-playbook nfs.yml --tags uninstall -e host=6168
