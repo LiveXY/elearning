@@ -3,3 +3,27 @@ npm install profiler tick -g
 node --prof test.js
 node-tick-processor v8.log
 
+npm install -g lighthouse
+lighthouse https://www.example.com/
+lighthouse --help
+lighthouse --view http://www.gtja.com/i/
+
+npm install -g source-map-explorer
+source-map-explorer bundle.min.js
+source-map-explorer bundle.min.js bundle.min.js.map
+source-map-explorer --json foo.min.js
+{
+  "node_modules/browserify/node_modules/browser-pack/_prelude.js": 463,
+  "bar.js": 62,
+  "foo.js": 137
+}
+source-map-explorer --tsv foo.min.js
+Source	Size
+dist/bar.js	62
+dist/foo.js	137
+
+source-map-explorer --html foo.min.js > tree.html
+source-map-explorer foo.min.js --replace 'dist/' --with ''
+
+npm install -g bundle-buddy
+bundle-buddy my-app/public/*.map

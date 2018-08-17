@@ -56,6 +56,11 @@ https://github.com/nolimits4web/Framework7
 https://github.com/mrholek/CoreUI-Free-Bootstrap-Admin-Template
 https://github.com/yahoo/pure/
 
+https://github.com/styled-components
+https://github.com/emotion-js/emotion
+https://github.com/Khan/aphrodite
+https://github.com/cssinjs/jss
+
 https://github.com/MithrilJS/mithril.js
 https://github.com/fbsamples/f8app
 https://github.com/gaearon/react-hot-loader

@@ -1,0 +1,30 @@
+- name: 备份数据库
+  hosts: '{{ ohost }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 备份数据库 {{ odbname }}
+    shell: mysqldump -h {{ odbhost }} -u{{ odbuser | default('root') }} -p{{ odbpass }} -R {{ odbname }} > /home/{{ odbname }}.sql
+  - name: 下载备份文件 {{ odbname }}.sql
+    fetch: src=/home/{{ odbname }}.sql dest=./files/{{ odbname }}.sql flat=yes
+
+- name: 复制新数据库
+  hosts: '{{ nhost }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 创建新数据库 {{ ndbname }}
+    shell: mysql -h {{ ndbhost }} -u{{ ndbuser | default('root') }} -p{{ ndbpass }} -e "create schema {{ ndbname }} default character set utf8;"
+    register: rel
+    ignore_errors: true
+  - name: 上传数据库文件 {{ odbname }}.sql
+    copy: src=./files/{{ odbname }}.sql dest=/home/{{ ndbname }}.sql
+    when: rel is succeeded
+  - name: 处理文件内容 /home/{{ ndbname }}.sql
+    replace: dest=/home/{{ ndbname }}.sql regexp=' DEFINER=`(.*)`@`(.*)` ' replace=' DEFINER=`{{ ndbuser }}`@`%` ' backup=yes
+    when: rel is succeeded
+  - name: 导入 /home/{{ ndbname }}.sql
+    shell: mysql -h {{ ndbhost }} -u{{ ndbuser | default('root') }} -p{{ ndbpass }} {{ ndbname }} < /home/{{ ndbname }}.sql
+    when: rel is succeeded
+
+#ansible-playbook copydb.yml -e "ohost=6168 odbhost=127.0.0.1 odbuser=root odbpass=123456 odbname=tt nhost=6168 ndbhost=127.0.0.1 ndbuser=root ndbpass=123456 ndbname=ttt"

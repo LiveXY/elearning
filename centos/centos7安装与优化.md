@@ -47,6 +47,7 @@ wget http://cnfreesoft.googlecode.com/svn/trunk/axelget/axelget.conf（或wget h
 cd /usr/lib/yum-plugins/
 wget http://cnfreesoft.googlecode.com/svn/trunk/axelget/axelget.py（或wget http://www.ha97.com/code/axelget.py）
 最后确认 /etc/yum.conf中plugins=1
+yum localinstall http://mirrors.aliyun.com/repo/Centos-7.repo
 yum localinstall http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 yum localinstall http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
 ```

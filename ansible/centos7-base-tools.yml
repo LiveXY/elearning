@@ -24,4 +24,4 @@
   - name: 同步上海时区
     shell: ntpdate us.pool.ntp.org && date -R && cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-#ansible-playbook tools-centos7.yml -e host=6168
+#ansible-playbook centos7-base-tools.yml -e host=6168

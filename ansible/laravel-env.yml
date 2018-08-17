@@ -1,0 +1,7 @@
+- name: 配置laravel .env文件
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 上传配置文件 {{ stemplate | default('./templates/laravel.env.j2') }}
+    template: src="{{ stemplate | default('./templates/laravel.env.j2') }}" dest="{{ envfile }}"

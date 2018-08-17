@@ -994,3 +994,42 @@ font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragin
 -webkit-font-smoothing: subpixel-antialiase;
 显示...
 overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+
+倾斜效果：transform:skewY(-2deg);
+https://www.gitbook.com/
+
+转圈圈效果：
+@keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@-moz-keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@-webkit-keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@-o-keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+{animation:rotate .7s;-moz-animation:rotate .7s;-webkit-animation:rotate .7s;-o-animation:rotate .7s}
+
+有动画效果：transition: 1s;
+
+焦点时，背景从左到右动画
+.button:after{content:"";position:absolute;left:0;top:0;height:100%;width: 0;z-index: 0;-webkit-transition:all .3s;-moz-transition:all .3s;transition: all .3s;background:rgba(0,0,0,.05);}
+.button:hover:after{width:100%}
+
+焦点时，背景分别左右动画
+.button:before {
+    content: '';
+    position: absolute;
+    background-color: #FF0000;
+    bottom: -9px;
+    height: 1px;
+    width: 75%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.2s;
+}
+.button:hover:before {
+    width: 100%;
+}
+
+转动的1/4圆动画
+progress-spinner{display:inline-block;width:1em;height:1em;border:1px solid transparent;border-top-color:rgba(0,0,0,.6);border-radius:50%;animation:rotate .8s linear infinite;}
+progress-spinner[dark]{border-top-color:hsla(0,0%,100%,.6)}
+progress-spinner[dotted]{border-width:0;border-style:dotted;border-top-width:2px}
+@keyframes rotate{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}
+

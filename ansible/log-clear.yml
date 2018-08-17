@@ -1,0 +1,49 @@
+- name: 清理日志
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 获取pm2一个月未更改的日志文件
+    shell: find ~/.pm2/logs/ -mtime +30
+    register: rel
+    ignore_errors: true
+    tags: pm2
+  - name: 删除pm2一个月未更改的日志文件
+    file: dest={{ item }} state=absent
+    with_items: "{{ rel.stdout_lines }}"
+    tags: pm2
+  - name: 获取pm2大于100M的日志文件
+    shell: find ~/.pm2/logs/ -type f -size +100M
+    register: rel
+    ignore_errors: true
+    tags: pm2
+  - name: 清理pm2大于100M日志文件
+    shell: echo '' > {{ item }}
+    with_items: "{{ rel.stdout_lines }}"
+    #when: item.find('-out') != -1
+    tags: pm2
+
+  - name: 获取nohup日志文件
+    shell: find /home/ -name nohup.out
+    register: rel
+    ignore_errors: true
+    tags: nohup
+  - name: 清理nohup日志文件
+    shell: echo '' > {{ item }}
+    with_items: "{{ rel.stdout_lines }}"
+    tags: nohup
+
+  - name: 获取php项目日志30天未更改大于10M文件
+    shell: find /home/ -path "*/storage/logs/*" -mtime +30 -type f -size +10M
+    register: rel
+    ignore_errors: true
+    tags: php
+  - name: 清理php项目日志30天未更改大于10M文件
+    file: dest={{ item }} state=absent
+    with_items: "{{ rel.stdout_lines }}"
+    tags: php
+
+#ansible-playbook log-clear.yml -e host=6168 --tags pm2
+#ansible-playbook log-clear.yml -e host=6168 --tags nohup
+#ansible-playbook log-clear.yml -e host=6168 --tags php
+

@@ -488,6 +488,11 @@ xattr -dr com.apple.quarantine ./*
 Spotlight 关闭掉
 sudo mdutil -a -i off
 sudo mdutil -a -i on
+cd /System/Library/CoreServices/
+sudo mv Search.bundle/ Search2.bundle/
+sudo mv Search2.bundle/ Search.bundle/
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
 =========================================
 vi ~/.bash_profile 或 ~/.bashrc
 shopt -s histappend
@@ -518,3 +523,20 @@ https://github.com/game-helper/weixin
 =========================================
 Too many open files
 sudo launchctl limit maxfiles unlimited
+-----------------------------------------
+nc 常用：
+侦听任意端口，以TCP/UDP 方式
+端口扫描
+传输文件
+测速
+1) -l 用于指定nc将处于侦听模式。指定该参数，则意味着nc被当作server，侦听并接受连接，而非向其它地址发起连接。
+2) -p <port> 限制数据发送原端口
+3) -s 指定发送数据的源IP地址，适用于多网卡机
+4) -u 指定nc使用UDP协议，默认为TCP
+5) -v 输出交互或出错信息，新手调试时尤为有用
+6）-w 超时秒数，后面跟数字
+7）-z 表示zero，表示扫描时不发送任何数据
+nc -vz -w 5 127.0.0.1 1-100 #对 1-100 端口进行扫描
+nc -vz -w 5 127.0.0.1 8888 #连接端口
+nc -l 8888 -v #监听端口
+

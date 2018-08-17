@@ -1,0 +1,26 @@
+- name: 更换centos7源
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 检测是否已经备份
+    shell: ls /etc/yum.repos.d/CentOS-Base.bak
+    ignore_errors: true
+    register: result
+    tags: base
+  - name: 备份/etc/yum.repos.d/CentOS-Base.repo源
+    shell: mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.bak
+    when: result is failed
+    tags: base
+  - name: 下载aliyun源
+    get_url: dest=/etc/yum.repos.d/CentOS-Base.repo url=http://mirrors.aliyun.com/repo/Centos-7.repo
+    tags: aliyun
+  - name: 下载aliyun源
+    get_url: dest=/etc/yum.repos.d/CentOS-Base.repo url=http://mirrors.aliyun.com/repo/Centos-7.repo
+    tags: '163'
+  - name: 生成yum makecache缓存
+    shell: yum clean all && yum makecache
+    tags: base
+
+
+#ansible-playbook centos7-repo.yml --tags base,aliyun -e host=6168

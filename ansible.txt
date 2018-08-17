@@ -167,6 +167,9 @@ ansible 6168 -m get_url -a "url=http://www.baidu.com dest=/tmp/index.html mode=0
 ansible 6168 -m stat -a 'path=/etc/sysctl.conf'
 ansible web -m fetch -a 'src=/etc/fstab dest=/tmp/'
 
+ansible 6168 -m replace -a 'dest=/home/ttt.sql regexp=" DEFINER=`(.*)`@`(.*)` " replace=" DEFINER=`root`@`%` " backup=yes'
+
+
 将主控方/root/a目录推送到指定节点的/tmp目录下
 ansible 6168 -m synchronize -a 'src=/root/a dest=/tmp/ compress=yes'
 将10.1.1.113节点的/tmp/a目录拉取到主控节点的/root目录下

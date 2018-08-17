@@ -73,6 +73,13 @@
     tags: df
   - debug: var=rel.stdout_lines
     tags: df
+  - name: 查看目录文件大小，前50个大到小排序
+    shell: du -s {{ p }}/* | sort -nr | head -n 50 | awk -F" " '{print $1/1024 "M " $2}'
+    register: rel
+    ignore_errors: true
+    tags: du
+  - debug: var=rel.stdout_lines
+    tags: du
 
 #ansible-playbook analysis.yml -e host=6168 --tags net-conn
 #ansible-playbook analysis.yml -e host=6168 --tags net-wait
@@ -84,3 +91,4 @@
 #ansible-playbook analysis.yml -e host=6168 --tags mem-top10
 #ansible-playbook analysis.yml -e 'host=6168 p=php-fpm' --tags ps
 #ansible-playbook analysis.yml -e host=6168 --tags df
+#ansible-playbook analysis.yml -e 'host=6168 p=~/.pm2/logs' --tags du
