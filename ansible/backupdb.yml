@@ -1,0 +1,82 @@
+- name: 备份数据库
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 备份完整数据库 {{ dbname }}
+    shell: mysqldump -h {{ dbhost }} -u{{ dbuser | default('root') }} -p{{ dbpass }} -R {{ dbname }} > /home/{{ dbname }}.sql
+    ignore_errors: true
+    register: rel
+    tags: full
+
+  - name: 备份数据库表结构 {{ dbname }}
+    shell: mysqldump -h {{ dbhost }} -u{{ dbuser | default('root') }} -p{{ dbpass }} --skip-add-drop-table --single-transaction -d -R {{ dbname }} > /home/{{ dbname }}-structure.sql
+    ignore_errors: true
+    register: rel
+    tags: structure
+
+  - name: 备份数据库表数据 {{ dbname }} {{ dbtables }}
+    shell: mysqldump -h {{ dbhost }} -u{{ dbuser | default('root') }} -p{{ dbpass }}  --extended-insert=false --skip-add-drop-table --single-transaction -t --skip-add-locks {{ dbname }} {{ dbtables }} > /home/{{ dbname }}-data.sql
+    ignore_errors: true
+    register: rel
+    tags: data
+
+  - name: 创建文件 {{ dbname }}.sql
+    shell: echo '' > /home/{{ dbname }}.sql && rm -f /home/{{ dbname }}.zip
+    ignore_errors: true
+    when: rel is succeeded
+    tags:
+      - structure
+      - data
+
+  - name: 合并文件数据库结构 {{ dbname }}-structure.sql >> {{ dbname }}.sql
+    shell: cat /home/{{ dbname }}-structure.sql >> /home/{{ dbname }}.sql
+    when: rel is succeeded
+    tags: structure
+
+  - name: 合并文件数据库表数据 {{ dbname }}-data.sql >> {{ dbname }}.sql
+    shell: cat /home/{{ dbname }}-data.sql >> /home/{{ dbname }}.sql
+    when: rel is succeeded
+    tags: data
+
+  - name: 压缩文件 {{ dbname }}.sql >> {{ dbname }}.zip
+    shell: cd /home/ && zip -r {{ dbname }}.zip {{ dbname }}.sql && rm -f {{ dbname }}.sql
+    when: rel is succeeded
+    tags: zip
+
+  - name: 检测文件 {{ dbname }}.sql
+    stat: path=/home/{{ dbname }}.sql
+    ignore_errors: true
+    register: rel
+    when: rel is succeeded
+    tags: zip
+
+  - name: 下载压缩文件 {{ dbname }}.zip
+    fetch: src=/home/{{ dbname }}.zip dest={{ path | default('./files') }}/{{ dbname }}.zip flat=yes
+    when: rel is succeeded and rel.stat is defined and (not rel.stat.exists)
+    tags: zip
+
+  - name: 下载备份文件 {{ dbname }}.sql
+    fetch: src=/home/{{ dbname }}.sql dest={{ path | default('./files') }}/{{ dbname }}.sql flat=yes
+    when: rel is succeeded and (rel.stat is not defined or rel.stat.exists)
+    tags:
+      - full
+      - structure
+      - data
+
+  - name: 清理临时文件
+    shell: echo '' && rm -f /home/{{ dbname }}.sql && rm -f /home/{{ dbname }}.zip && rm -f /home/{{ dbname }}-structure.sql && rm -f /home/{{ dbname }}-data.sql
+    when: rel is succeeded
+    tags:
+      - full
+      - structure
+      - data
+      - zip
+
+#ansible-playbook backupdb.yml --tags full,zip -e "host=6168 dbhost=127.0.0.1 dbuser=root dbpass=123456 dbname=small-apps path=./files/20180824"
+
+#ansible-playbook backupdb.yml --tags structure -e "host=6168 dbhost=127.0.0.1 dbuser=root dbpass=123456 dbname=small-apps path=./files/20180824"
+
+#ansible-playbook backupdb.yml --tags data -e "host=6168 dbhost=127.0.0.1 dbuser=root dbpass=123456 dbname=small-apps path=./files/20180824 dbtables='sys_app sys_app_function sys_role sys_role_function'"
+
+#ansible-playbook backupdb.yml --tags structure,data -e "host=6168 dbhost=127.0.0.1 dbuser=root dbpass=123456 dbname=small-apps path=./files/20180824 dbtables='sys_app sys_app_function sys_role sys_role_function'"

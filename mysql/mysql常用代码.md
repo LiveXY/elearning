@@ -333,7 +333,7 @@ delimiter ;
 
 call killrename('table_name')
 ```
-* 
+* `select * from mysql.slow_log_view` 查看慢查询
 * 
 * 
 * 

@@ -186,4 +186,32 @@ ansible-playbook copydb.yml -e "\
 	ndbpass=123456 \
 	ndbname=db"
 
+#完全备份数据库并压缩
+ansible-playbook backupdb.yml --tags full,zip -e "host=6168 \
+	dbhost=127.0.0.1 \
+	dbuser=root \
+	dbpass=123456 \
+	dbname=small-apps \
+	path=./files/20180824"
+#只备份数据库表结构
+ansible-playbook backupdb.yml --tags structure -e "host=6168 \
+	dbhost=127.0.0.1 \
+	dbuser=root dbpass=123456 \
+	dbname=small-apps \
+	path=./files/20180824"
+#只备份数据库表数据
+#ansible-playbook backupdb.yml --tags data -e "host=6168 \
+	dbhost=127.0.0.1 \
+	dbuser=root dbpass=123456 \
+	dbname=small-apps \
+	path=./files/20180824 \
+	dbtables='sys_app sys_app_function sys_role sys_role_function'"
+#备份数据库表结构+部分表数据
+#ansible-playbook backupdb.yml --tags structure,data -e "host=6168 \
+	dbhost=127.0.0.1 \
+	dbuser=root dbpass=123456 \
+	dbname=small-apps \
+	path=./files/20180824 \
+	dbtables='sys_app sys_app_function sys_role sys_role_function'"
+
 ```

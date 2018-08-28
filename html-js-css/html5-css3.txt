@@ -1033,3 +1033,15 @@ progress-spinner[dark]{border-top-color:hsla(0,0%,100%,.6)}
 progress-spinner[dotted]{border-width:0;border-style:dotted;border-top-width:2px}
 @keyframes rotate{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}
 
+黄色渐变圆角阴影按钮 {
+    background-color: #FFBA00;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#FFBA00), to(#FF9900));
+    border: none;
+    -moz-border-radius: 21px;
+    -khtml-border-radius: 21px;
+    -webkit-border-radius: 21px;
+    border-radius: 21px;
+    -webkit-box-shadow: 0px 1px 0px #EA5E00;
+    -moz-box-shadow: 0px 1px 0px #EA5E00;
+    box-shadow: 0px 1px 0px #EA5E00;
+}
