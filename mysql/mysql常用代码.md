@@ -121,8 +121,19 @@ select a.mid,uid, @rank:=@rank+1 as rank,score, if(rounds>=minround, 1, 0) r
 from user_match_score as a inner join game_match_config as b on a.mid=b.mid and a.mid=56, (select @rank:=0) as s
 order by r desc, score desc, uid asc
 ```
-* 
-* 
+* 索引碎片优化
+```
+查询哪些表需要索引碎片优化
+SELECT table_schema, table_name, round((data_length+index_length)/1024/1024) as total_mb, round(data_length/1024/1024) as data_mb, round(index_length/1024/1024) as index_mb, round(data_free/1024/1024) AS data_free_MB, TABLE_ROWS FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free_MB desc;
+生成优化SQL脚本
+SELECT concat('ALTER TABLE ', table_name, ' ENGINE=InnoDB;') FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
+或
+SELECT concat('optimize table ', table_name, ';') FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
+```
+* 查看所有表记录情况按记录数排序
+```
+select table_name,`engine`,table_rows,avg_row_length,data_length,index_length,table_collation from information_schema.tables where table_schema = 'dbname' order by table_rows desc;
+```
 * 
 * 
 * 

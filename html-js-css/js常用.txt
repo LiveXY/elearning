@@ -21,6 +21,7 @@ https://github.com/facebook/react-native
 https://github.com/ionic-team/ionic
 https://github.com/alibaba/weex
 http://cordova.apache.org/
+https://github.com/flutter/flutter
 
 https://github.com/ant-design/ant-design
 https://github.com/meteor/meteor
@@ -77,6 +78,11 @@ https://gitee.com/yubo725/RNWeChat
 https://github.com/reactnativecomponent/react-native-netease-im
 https://github.com/jxnblk/rebass
 https://github.com/unsplash/react-trend
+
+微信小程序
+https://github.com/NervJS/taro
+https://github.com/Meituan-Dianping/mpvue
+https://github.com/Tencent/wepy
 
 全平台桌面应用
 https://github.com/electron/electron

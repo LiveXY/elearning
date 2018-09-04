@@ -76,6 +76,25 @@ GUI
 https://github.com/flexxui/flexx
 https://github.com/cztomczak/cefpython
 https://github.com/kivy/kivy
+人脸识别
+https://github.com/ageitgey/face_recognition
+https://github.com/ageitgey/face_recognition/blob/master/examples/facerec_from_webcam_faster.py
+pip3 install face_recognition
+识别照片或文件夹中的面部照片
+face_recognition ./pictures_of_people_i_know/ ./unknown_pictures/
+在照片或文件夹中找到满是照片的面孔
+face_detection  ./folder_with_pictures/
+face_recognition --tolerance 0.54 ./pictures_of_people_i_know/ ./unknown_pictures/
+face_recognition --show-distance true ./pictures_of_people_i_know/ ./unknown_pictures/
+face_recognition ./pictures_of_people_i_know/ ./unknown_pictures/ | cut -d ',' -f2
+face_recognition --cpus 4 ./pictures_of_people_i_know/ ./unknown_pictures/
+
+人脸识别c++
+https://github.com/seetaface/SeetaFaceEngine
+
+强化学习
+全新的基于 Tensorflow 的框架——Dopamine，旨在为 RL 研究人员提供灵活性、稳定性和可重复性
+https://github.com/google/dopamine
 
 
 AI
