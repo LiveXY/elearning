@@ -1,30 +1,77 @@
-mongodb
+mongodb 阿里云的源
 
-vi /etc/yum.repos.d/mongodb.repo
-[mongodb]
+vi /etc/yum.repos.d/mongodb-org-3.4.repo
+[mongodb-org-3.4]
 name=MongoDB Repository
-baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
+baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7/mongodb-org/3.4/x86_64/
 gpgcheck=0
 enabled=1
-sudo yum install mongodb-org -y
 
-sudo rm /home/mongodb/db/mongod.lock
-mongod --dbpath /home/mongodb/db/ &
-service mongod start #启动服务
+这里可以修改 gpgcheck=0, 省去gpg验证，更新时加gpgcheck=1
+
+yum install mongodb-org -y
+
+vi /etc/mongod.conf
+远程访问：把bindIP改成 0.0.0.0所有的机器都可以访问，或者注释掉
+
+systemctl start mongod.service #启动
+systemctl stop mongod.service #停止
+systemctl restart mongod.service #重启
+systemctl enable mongod #开机自启动
+
+MongoDB默认将数据文件存储在/var/lib/mongo目录，
+默认日志文件在/var/log/mongodb中。如果要修改,
+可以在 /etc/mongod.conf 配置中指定备用日志和数据文件目录
+
+vi /etc/mongod.conf
+dbPath: /home/mongodb
+
+chown mongod:mongod /home/mongodb
+
 mongo #连接mongodb
-mongo localhost:27017/admin
+mongo 127.0.0.1:27017/admin #链接mongodb的admin数据库
 mongo --nodb 启用shell 不连接数据库
-grep -E ‘([0-9])+ms’ mongod.log
+
+show dbs #查看所有数据库
+use local #打开数据库test
+show tables #查看所有表
+db.startup_log.find() #查表所有数据
+db#显示当前数据库名称db.getName()
+db.dropDatabase() #删除当前的数据库
+db.repairDatabase() #修复当前数据库
+
+启用账号：
+use admin
+db.createUser({user:"root",pwd:"rbnewlife",roles:["root"]}) #超级用户角色
+
+db.createUser({user:"root",pwd:"rbnewlife",roles:[{"role":"userAdminAnyDatabase","db":"admin"}]}) #用户管理员
+db.createUser({user:"test",pwd:"test",roles:[{role:"dbOwner",db:"test"}]}) #数据库所有者角色
+db.createUser({user:"test",pwd:"test",roles:[{role:"readWrite",db:"test"}]}) #数据库读写
+db.auth("root", "rbnewlife")
+vi /etc/mongod.conf
+security:
+  authorization: enabled
+Built-In Roles（内置角色）：
+1. 数据库用户角色：read、readWrite;
+2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；
+3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；
+4. 备份恢复角色：backup、restore；
+5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase，userAdminAnyDatabase、dbAdminAnyDatabase
+6. 超级用户角色：root
+7. 内部角色：__system
+db.changeUserPassword("user", "newpwd") #修改密码
+db.dropUser("user") #删除管理员
+db.getUser("user")
+db.dropAllUsers() #删除当前数据下所有用户
+db.grantRolesToUser("user", [{role:"", db:""}]) #修改角色
+db.revokeRolesFromUser("user", [{role:"", db:""}]) #追加角色
+
+使用链接：mongodb://root:rbnewlife@127.0.0.1/admin
+mongo -u root -p rbnewlife 127.0.0.1/admin
+mongo -u root -p rbnewlife 127.0.0.1:27017/admin
 
 it#向下查询
 .explain()#查询优化
-
-show dbs#查看所有数据库
-show tables#查看所有表
-use test#打开数据库test
-db#显示当前数据库名称db.getName()
-db.dropDatabase()#删除当前的数据库
-db.repairDatabase() 修复当前数据库
 
 db.cloneDataBase(fromhost) 从目标服务器克隆一个数据库
 db.copyDatabase(fromdb,todb,fromhost) 复制数据库fromdb---源数据库名称，todb---目标数据库名称，fromhost---源数据库服务器地址

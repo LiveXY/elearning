@@ -1,0 +1,639 @@
+https://www.cnblogs.com/zhuweiheng/p/8206188.html
+http://solidity-cn.readthedocs.io/zh/develop/solidity-by-example.html
+https://blog.csdn.net/jerry81333/article/details/78118972
+https://charlesliuyx.github.io/2018/03/03/%E3%80%90%E5%8C%BA%E5%9D%97%E9%93%BE%E3%80%91%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98/
+http://mapofcoins.com/bitcoin#
+https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6
+https://ethfans.org/posts/510
+https://blog.csdn.net/jiange_zh/article/details/53386250
+http://me.tryblockchain.org/getting-up-to-speed-on-ethereum.html
+
+https://github.com/LiuBoyu/blockchain
+https://github.com/blockchain-university/databank
+https://github.com/dily3825002/awesome-blockchain
+
+http://www.8btc.com/wiki/bitcoin-a-peer-to-peer-electronic-cash-system
+https://ethfans.org/posts/ethereum-whitepaper
+
+https://github.com/chaozh/awesome-blockchain-cn
+smart contracts
+https://github.com/OpenZeppelin/openzeppelin-solidity
+https://github.com/fivedogit/solidity-baby-steps/tree/master/contracts
+https://github.com/kvhnuke/etherwallet
+https://github.com/EdgelessCasino/Smart-Contracts
+https://github.com/status-im/status-network-token
+https://github.com/AugurProject/augur-ui
+https://github.com/aragon/aragonOS/tree/master/contracts
+https://github.com/dharmaprotocol/dharma-cli-DEPRECATED
+https://github.com/slockit/smart-contract
+https://github.com/horizon-games/arcadeum/tree/master/ethereum
+
+以太坊
+https://learnblockchain.cn/2017/11/20/whatiseth/
+以太坊（Ethereum）是一个建立在区块链技术之上， 去中心化应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。
+
+智能合约开发环境Remix IDE
+https://learnblockchain.cn/2018/06/07/remix-ide/
+https://github.com/ethereum/remix-ide.git
+n 7.10.1
+npm install remix-ide -g
+remix-ide
+
+https://learnblockchain.cn/2018/03/18/create_private_blockchain/#more
+https://github.com/ethereum/go-ethereum
+brew tap ethereum/ethereum
+brew install ethereum
+geth --help
+初始化：写入创世区块
+cd privatechain
+geth --datadir data0 init genesis.json
+启动私有链节点
+geth --datadir data0 --networkid 1108 console
+eth：包含一些跟操作区块链相关的方法
+net：包含以下查看p2p网络状态的方法
+admin：包含一些与管理节点相关的方法
+miner：包含启动&停止挖矿的一些方法
+personal：主要包含一些管理账户的方法
+txpool：包含一些查看交易内存池的方法
+web3：包含了以上对象，还包含一些单位换算的方法
+> eth.accounts
+> personal.newAccount()
+> Passphrase:
+> Repeat passphrase:
+eth.getBalance(eth.accounts[0])
+eth.getBalance(eth.accounts[1])
+user1=eth.accounts[0]
+eth.getBalance(user1)
+eth.blockNumber
+eth.sendTransaction({from: user1,to: user2,value: web3.toWei(3,"ether")})
+personal.unlockAccount('0x73e8655a84a37685d98891b7a9333a7423e12cb3','11111111')
+eth.getBalance(user2)
+
+启动&停止挖矿
+miner.start(1)
+miner.stop()
+eth.coinbase
+miner.setEtherbase(eth.accounts[1])
+getBalance()返回值的单位是wei，wei是以太币的最小单位，1个以太币=10的18次方个wei。要查看有多少个以太币，可以用web3.fromWei()将返回值换算成以太币：
+> web3.fromWei(eth.getBalance(eth.accounts[0]),'ether')
+可以通过发送一笔交易，从账户0转移10个以太币到账户1：
+> amount = web3.toWei(10,'ether')
+"10000000000000000000"
+> eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:amount})
+Error: authentication needed: password or unlock
+这里报错了，原因是账户每隔一段时间就会被锁住，要发送交易，必须先解锁账户，由于我们要从账户0发送交易，所以要解锁账户0：
+> personal.unlockAccount(eth.accounts[0])
+我们去查看账户1中的余额：
+> eth.getBalance(eth.accounts[1])
+发现还没转过去，此时交易已经提交到区块链，但还未被处理，这可以通过查看txpool来验证：
+> txpool.status
+其中有一条pending的交易，pending表示已提交但还未被处理的交易。
+要使交易被处理，必须要挖矿。这里我们启动挖矿，然后等待挖到一个区块之后就停止挖矿：
+> miner.start(1);admin.sleepBlocks(1);miner.stop();
+查看交易和区块
+eth对象封装了查看交易和区块信息的方法。
+查看当前区块总数：
+> eth.blockNumber
+通过区块号查看区块：
+> eth.getBlock(66)
+通过交易hash查看交易：
+> eth.getTransaction("0x1b21bba16dd79b659c83594b0c41de42debb2738b447f6b24e133d51149ae2a6")
+
+可升级的智能合约
+https://learnblockchain.cn/2018/03/15/contract-upgrade/#more
+Solidity API
+https://learnblockchain.cn/2018/03/14/solidity-api/#more
+众筹
+https://learnblockchain.cn/2018/02/28/ico-crowdsale/#more
+货币单位（Ether Units）
+https://learnblockchain.cn/2018/02/02/solidity-unit/#more
+实现一个可管理、增发、兑换、冻结等高级功能的代币
+https://learnblockchain.cn/2018/01/27/create-token2/#more
+拜占庭将军问题
+https://learnblockchain.cn/2018/02/05/bitcoin-byzantine/#more
+比特币如何挖矿（挖矿原理）-工作量证明POW
+https://learnblockchain.cn/2017/11/04/bitcoin-pow/
+ERC721标准
+https://learnblockchain.cn/2018/03/23/token-erc721/#more
+函数修改器
+https://learnblockchain.cn/2018/04/09/solidity-modify/
+非对称加密应用
+https://learnblockchain.cn/2017/11/02/bitcoin-own/
+
+部署第一个去中心化应用(Dapp) - 宠物商店
+https://learnblockchain.cn/2018/01/12/first-dapp/#more
+npm install -g truffle
+https://github.com/trufflesuite/ganache
+> mkdir pet-shop-tutorial
+> cd pet-shop-tutorial
+truffle unbox pet-shop
+contracts/ 智能合约的文件夹，所有的智能合约文件都放置在这里，里面包含一个重要的合约Migrations.sol（稍后再讲）
+migrations/ 用来处理部署（迁移）智能合约 ，迁移是一个额外特别的合约用来保存合约的变化。
+test/ 智能合约测试用例文件夹
+truffle.js/ 配置文件
+编译部署智能合约
+> truffle compile
+部署
+> truffle  migrate
+
+区块链：
+Bitcoin比特币中本聪
+https://github.com/bitcoin/bitcoin
+彩色币（Coloredcoin）https://github.com/Colored-Coins
+tØ是比特币区块链在金融领域的应用，是美国在线零售商Overstock推出的基于区块链的私有和公有股权交易平台。
+
+Ethereum以太坊
+https://blog.ethereum.org/
+https://github.com/ethereum/go-ethereum
+目前基于以太坊的合约项目已达到数百个，比较有名的有Augur、TheDAO、Digix、FirstBlood等。
+
+
+Hyperledger Fabric超级账本IBM和DAH主导开发
+http://hyperledger-fabric.readthedocs.io/en/latest/index.html
+https://blog.csdn.net/ooo123lll/article/details/79639915
+https://github.com/hyperledger/fabric
+
+Sawtooth Lake
+
+Iroha
+
+
+Corda(BCOS)
+Corda是由一家总部位于纽约的区块链创业公司R3CEV开发的，由其发起的R3区块链联盟，至今已吸引了数十家巨头银行的参与，其中包括富国银行、美国银行、纽约梅隆银行、花旗银行、德国商业银行、德意志银行、汇丰银行、三菱UFJ金融集团、摩根士丹利、澳大利亚国民银行、加拿大皇家银行、瑞典北欧斯安银行（SEB）、法国兴业银行等。从R3成员的组成上也可以看出，Corda是一款专门用于银行与银行间业务的技术架构。尽管R3声称Corda不是区块链，但它具备区块链的一些重要特性。
+Corda由Java和Kotlin开发
+
+Open Blockchain（OBC）IBM公司
+
+Onchain DNA（Onchain Distributed Networks Architecture），是由总部位于上海的区块链创业公司“分布科技”开发的区块链架构，可以同时支持公有链、联盟链、私有链等不同应用类型和场景，并快速与业务系统集成。分布科技同样也是超级账本的成员之一。
+小蚁、法链
+小蚁（Antshares）是一个定位于资产数字化的公有链，将实体世界的资产和权益进行数字化，通过点对点网络进行登记发行、转让交易、清算交割等金融业务的去中心化网络协议。它采用社区化开发的模式，在架构上与Onchain DNA保持一致，从而可以与任何基于Onchain DNA的区块链系统发生跨链互操作。
+法链是全球第一个大规模商用的法律存证区块链，一个底层基于Onchain DNA区块链技术，并由多个机构参与建立和运营的证据记录和保存系统。该系统没有中心控制点，且数据一旦录入，单个机构或节点无法篡改，从而满足司法存证的要求。
+
+
+比特币10分钟；以太坊15秒；瑞波币3.5秒；莱特币2.5分钟
+XRP
+Bitcoin Cash
+Litecoin
+Monero
+有面包店算法，拜占庭将军问题，Paxos算法(Raft是由Google牵头开发一个Paxos理论实现版本)
+分布式一致性算法（PBFT）拜占庭容错
+
+https://charlesliuyx.github.io/2017/09/25/%E7%8E%B0%E4%BB%A3%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%8E%E6%96%B0%E6%8A%80%E6%9C%AF/
+权益证明（又称股权证明），英文单词 Proof of Stake，缩写PoS，与之平级的概念是工作量证明，Proof of Work，这个我们应该很熟悉了
+分布式一致性算法
+即这篇文章前面提到的拜占庭容错。在此基础上，发展出的Paxos是理论上的高效算法，很难实现。而Raft是由Google牵头开发一个Paxos理论实现版本
+【去中心化】【大规模节点无法支持】【效率低】
+投票机制
+其中有两个比较有名的【RPCA Ripple共识】【DPOS 股权代理人共识】，在规则和协议上稍有不同，但是核心的Idea还是使用类似人大代表选举的制度来保证新区块的产生不会由同一个人控制，即代表轮流挖矿
+NEO使用的是【DBFT】，投票的拜占庭容错算法，算是结合了几个算法的优势和思路，也很有想法！容错能力和PBFT一样，但是效率更高，信道使用冗余更低
+【半中心化】【大规模节点支持】【效率高】
+PoW 工作量证明
+最早的共识算法，使用算力来资源消耗来实现共识，详细方法见一步一步发明比特币
+为了对抗ASIC矿机等专业化HASH算力硬件，也有一些PoW引入了内存HASH等禁止ASIC算力的方法。但是万变不离其中，最终还是归一化到一个【每Hash Rate/法币花费】博弈和平衡中
+【PoC Proof of Capacity】容量证明，挖到区块和你的硬盘空间正相关
+【去中心化】【大规模检点支持】【效率低】【资源消耗高】
+PoS 权益证明
+新建区块和你拥有的币的数量呈正相关，类似于利息的激励方式，可以参看权益证明
+更多的【PoA Proof of Activity】活动证明，是一种Pow+PoS混合共识方式，基本被证明不靠谱了，提及一下
+【去中心化】【大规模节点支持】【效率中】
+【PoET Proof of Elapsed Time】消逝时间证明：Intel使用HyperLedger建立的锯齿（Sawtooth）项目使用。在一种收信任的执行环境下保证随机的选择用户来生产区块，间隔时间提前约定。很奇怪的Idea，只适合于联盟链
+
+元币平台 Meta Coin
+元币和元区块链是比特币之上实现的软件层，也可以认为是覆盖在比特币系统之上的平台/协议，或者是一个币中币的实现。
+这些功能扩展了核心比特币的协议，使得比特币交易和比特币地址附加信息称为可能
+彩色币 Colored Coin
+通过仔细跟踪一些特定比特币的来龙去脉，可以将它们与其他的比特币区分开来，这些特定比特币就叫作彩色币。
+它们具有一些特殊的属性，比如支持代理或聚集点 ，从而具有与比特币面值无关的价值。
+彩色币可以用作替代货币、商品证书、智能财产以及其他金融工具，如股票和债券等。
+彩色币本身就是比特币，存储和转移不需要第三方，可以利用已经存在的比特币的基础，因此彩色币可以为现实世界中难以通过传统方法去中心化的事物铺平道路。
+万事达币 MasterCoin
+MasterCoin是比特币协议的应用层协议，类似HTTP协议是TCP协议的应用层一样
+货币属性不同于比特币的竞争币
+比特币自身所具有的一些设计规则使得它成为了一个总额固定并且不通胀的虚拟货币，有一些竞争币通过对这些货币属性的微调，来达到实现不同的货币政策的目的。
+莱特币 LiteCoin
+它是最早的一批竞争币的一员，自2011年发布至今，已经成为继比特币之后的第二成功的电子货币。它的主要创新是两点
+使用了Scrypt作为工作量证明的算法（这种算法比SHA256来说，主要的特点就是内存消耗更多，难度更大，使用ASCII或者GPU矿机更加难以计算）
+更快的货币参数
+狗狗币 DogeCoin
+它是基于莱特币的一款竞争币，与2013年12月发布。之所以值得一提还是因为它飞快的出块速度和惊人的货币总量。现在已经一文不值
+Freicoin
+于2012年7月发布。它是一种滞留性通货，可以理解为存在钱包中的货币的利率为负数，只有不断交易和消费才能保证它不变少。它的特点是它的货币政策正好和比特币的通货紧缩政策相反
+
+一致性机制创新的竞争币
+在时代的发展中，除了SHA256找0的方式，还衍生出了不同的算法来实现工作量证明的一致性机制。包括Scrypt；Scrypt-N，Skein，Grosetl，SHA3，X11，Blake。这些算法都在一定程度上组织的ASIC矿机的泛滥
+而在2013年，出现的一种替代方式：权益证明（或股权证明 Proof of Stake PoS），称为现代竞争币的基础
+在权益证明系统中，货币的所有人可以将自己的货币做利息抵押。类似于存款证明，参与者可以保有他们货币的一部分，通过利息和矿工费的方式获取回报
+Peercoin
+与2012年8月发布，首款工作量证明和权益证明混用的竞争币
+Myriad
+与2014年2月发布，它同时使用了5中工作量证明算法（HA256d；Scrypt；Qubit；Skein；Myriad-Groestl），根据矿工的情况动态选择。这也是为了让系统不受集中化ASIC矿机的影响，也加强了其抵御一致性攻击的能力
+黑币 BlackCoin
+与2014年2月发布，使用的是权益证明的一致性机制。同时，它引入的可以根据收益自动切换到不同竞争币的“多矿池”机制也值得关注
+VeriCoin
+与2014年5月发布，它使用权益证明机制，并用市场供需关系动态调整利率。它是首款可以直接在钱包中兑换比特币支付的竞争币
+NXT
+发音同Next，一种纯粹的权益证明竞争币，根本不采用工作量证明的挖矿机制。
+它是一款完全自己实现的加密货币，并非衍生品。NXT具有很多先进的功能，包括名字注册、去中心化资产交易、集成的去中心化加密信息的权益委托。NXT也被称为加密货币2.0
+
+多目的挖矿创新
+比特币的工作量证明机制的目的是：维护比特币系统的安全，构建去中心化的信任。很多人认为挖矿这一行为是一种浪费。（这个观点个人持保留态度）
+多目的挖矿算法就是为了解决工作量证明导致的“浪费”问题而出现的。多目的挖矿的在为货币系统的安全加入额外需求的同时，也为该系统供需关系加入了额外的变量
+PrimeCoin
+与2013年7月发布，它的工作量证明算法可以搜索质数，计算孪生素数表。很有意思的，随着PrimeCoin新区块的不断产生，会不断的发现新的素数，构造一个科学成果：素数表
+CureCoin
+与2013年5月发布。它把SHA256工作量证明算法和蛋白质褶皱结构的研究结合起来。蛋白质褶皱研究需要对蛋白质进行生化反应的模拟，用于发现治愈疾病的新药，但这一过程需要大量的计算资源
+GridCoin
+与2013年10月发布。它结合了Scrpy为基础的工作量证明算法和参与BOINC计算项目的补贴机制。BONIC是伯克利发开的网络计算系统，算力是提供给这个平台的
+
+致力于匿名性的竞争币
+其实比特币的地址和显示中真是个人的关系还是比较容易通过大数据的分析手段计算出来的，所以有一些加密货币希望能在这方面有突破
+ZeroCoin/Zerocash
+还在开发当中
+CryptoNote
+它提供一种以电子货币为基础的匿名性的参考实现，与2013年10月发布。它可以被克隆继而衍生出其他的实现，并内建了一个周期性的重置机制使其不能作为货币，很多竞争币基于它实现：入ByteCoin，Aeon，Boolberry，DuckNote，FantomCoin，Monero，MonetaVerde和Quazarcoin
+ByteCoin
+与2012年发布，是CryptoNote的第一个实现，之前还有一个同名的ByteCOin电子货币，BTE，这个为BCN。
+ByteCoin使用了基于CryptNote的工作量证明机制，每个实例至少2MB的内存，是的GPU和ASIC矿机无法在Bytecoin中运行，它继承了CryptoNote的环签名、不可链接交易和块链抗分析匿名性等机制
+Monero
+货币区县比ByteCoin平缓，在系统运行最开始的四年发型80%的货币
+
+非货币型竞争区块链
+这些区块链设计模式有着自己独特的设计模式，并不主要作为货币使用。当然不少这种区块链也含有货币，但只不过它们的货币仅是一种象征，用于分配其他东西，比如一种资源或者一份合约。
+
+域名币 NameCoin
+它是一种使用区块链的去中心化平台，用来注册和转让键-值对。也就是域名注册。现在，.bit的替代性域名服务（DNS）就是使用这个系统来完成。
+用它注册的域名空间不受限制，人和人都可以以任意方式使用任意的命名空间
+Bitmessage
+它是一种去中心化安全消息服务的比特币竞争区块链。其本质是一个无服务器的加密电子邮件系统。
+Bitmessage可以让用户通过一个Bitmessage地址来编写和发送消息。这些消息的运作方式与比特币交易大致相同，区别在于，消息的保存是有时间时间限制的，如果两天还没被送到目的地，就会消失。
+Bitmessage的好处是可以抵御全面监视，除非网络偷听者破坏了接收方的谁被，否则无法截取邮件信息
+以太坊
+以太坊是一种图灵完备的平台，基于区块链账本，用于合约的处理和执行。它不是比特币的一个克隆，而是完全独立设计和实现的。币用来付合约执行的花费。
+以太坊区块链记录的东西叫做合约，所谓合约，就是一种低级二进制码。本质上，合约是运行在以太坊系统中各个节点上的程序。这些程序可以存储数据、支付及收取、存储币以及执行无穷范围的计算行为，在系统中充当去中心化的自制软件代理
+
+RootStock
+RootStock 是一个建立在比特币区块链上的智能合约分布式平台。它的目标是，将复杂的智能合约实施为一个侧链，为核心比特币网络增加价值和功能。RootStock实现了以太坊虚拟机的一个改进版本，它将作为比特币的一个侧链，使用了一种可转换为比特币的代币作为智能合约的“燃料”。
+侧链 Sidechain
+楔入式侧链技术（ pegged sidechains），它将实现比特币和其他数字资产在多个区块链间的转移，这就意味着用户们在使用他们已有资产的情况下，就可以访问新的加密货币系统。目前，侧链技术主要是由Blockstream公司负责开发。
+闪电网络 Lightning Network
+闪电网络的目的是实现安全地进行链下交易，其本质上是使用了哈希时间锁定智能合约来安全地进行0确认交易的一种机制，通过设置巧妙的‘智能合约’，使得用户在闪电网络上进行未确认的交易和黄金一样安全（或者和比特币一样安全）。
+超级账本 Hyperledger
+超级账本（hyperledger）是Linux基金会于2015年发起的推进区块链数字技术和交易验证的开源项目，加入成员包括：荷兰银行（ABN AMRO）、埃森哲（Accenture）等十几个不同利益体，目标是让成员共同合作，共建开放平台，满足来自多个不同行业各种用户案例，并简化业务流程。
+由于点对点网络的特性，分布式账本技术是完全共享、透明和去中心化的，故非常适合于在金融行业的应用，以及其他的例如制造、银行、保险、物联网等无数个其他行业。
+通过创建分布式账本的公开标准，实现虚拟和数字形式的价值交换，例如资产合约、能源交易、结婚证书、能够安全和高效低成本的进行追踪和交易。
+
+OpenBazzar是一个结合了ebay与BitTorrentt特点的去中心化商品交易市场，使用比特币进行交易，既没有费用，也不用担心受到审查。
+因此相对于易趣与亚马逊这些提供中心化服务的电子商务平台，通过OpenBazz不需要支付高额费用、不需要担心平台收集个人信息致使个人信息泄露或被转卖用作其他用途。
+
+Hyperledger Fabric vs Ethereum 以太坊
+https://blog.csdn.net/youngzs/article/details/79362216
+比特币、以太坊、Fabric…你知道它们的优缺点吗？
+https://yq.aliyun.com/articles/583035
+比特币和以太坊采用了工作量证明（Proof-of-Work）机制来保证账本数据的一致性。
+Fabric和Onchain DNA都设计了基于拜占庭容错（Byzantine Fault Tolerance）模型的共识机制。
+工作量证明机制提供了极高的灵活性和可用性，因为每个节点都独立构造区块而几乎不需要其他节点的参与，节点可以随时加入或者退出网络，即使全网只剩下一个节点，网络还是可以继续工作，但是相应的它也失去了交易的最终性；而拜占庭容错的机制则与之相反，牺牲了一定的灵活性和可用性，记账节点必须在线提供服务而不能退出网络，一旦出现1/3的记账节点停机，那么网络将变得不可用，但它保证了交易的最终性。
+
+PoW、PBFT、PoS、DPos、RPCA、Raft
+Smart Contract智能合约
+Ethash挖矿算法
+pow共识机制
+GHOST Greedy Heaviest Observed Subtree，又称幽灵协议
+Casper
+图灵完备智能合约
+EVM（Ethereum Virtual Machine）
+Fabric选择了使用现有的容器技术来支持智能合约功能
+Onchain DNA采用了AVM（Antshares Virtual Machine）作为其智能合约功能的底层支持
+Corda的智能合约功能与其自身一样，都是基于JVM（Java Virtual Machine）
+比特币提出了使用默克尔树（Merkle tree）来存放交易散列的方式
+以太坊、Fabric和Onchain DNA在比特币区块压缩的基础上，又采用了状态快照的方式来节约硬盘空间
+基于UTXO系统的比特币可以很容易地对交易进行并行验证，因为UTXO之间是没有关联的
+目前Fabric没有提出什么好的办法来解决这个问题；而Corda则没有这个问题，因为它的交易本身就不会向全网进行广播，所以只要交易参与者和公证人可以验证即可。以太坊和Onchain DNA的方法都是分区，即将各个合约分到不同的逻辑区中，每个区中的合约都顺序执行，而不同的区之间并行执行
+Onchain DNA将合约分为功能合约（Function code）和应用合约（Applicationcode）。其中功能合约专门用于提供可复用的功能函数，被其它合约调用，且必须被声明为无状态，这一点消除了绝大部分的合约聚集现象；而只有应用合约可以保存自己的状态，所以在执行应用合约时，对其采用动态分区方案：在合约被执行之前，会先计算出它们的调用树，并将调用树有交集的合约放在同一个分区中执行。
+
+幽灵协议是以太坊对现有POW算法的改进，它提出的动机是当前快速确认的区块链因为区块的高作废率而受到的低安全性困扰。因为区块需要花一定时间扩散至全网，如果矿工A挖出了一个区块然后矿工B碰巧在A的区块传播至B之前挖出了另外一个区块，矿工B的区块就会作废并且没有对网络安全作出贡献。如果A是一个拥有全网30%算力的矿池而B拥有10%的算力，A将面临70%的时间都在产生作废区块的风险而B在90%的时间里都在产生作废区块。通过在计算哪条链“最长”的时候把废区块也包含进来，幽灵协议解决了降低网络安全性的第一个问题；这就是说，不仅一个区块的父区块和更早的祖先块，祖先块的作废的后代区块（以太坊术语中称之为“叔区块”）也被加进来以计算哪一个区块拥有最大的工作量证明。以太坊付给以“叔区块”身份为新块确认作出贡献的废区块87.5%的奖励，把它们纳入计算的“侄子区块”将获得奖励的12.5%。计算表明，带有激励的五层幽灵协议即使在出块时间为15s的情况下也实现了95%以上的效率，而拥有25%算力的矿工从中心化得到的益处小于3%。
+
+国密算法是由中国国家密码管理局制定的一系列商用密码学算法，其中包括了对称加密算法SM1，椭圆曲线非对称加密算法SM2，杂凑算法SM3等。通常区块链在使用密码学算法时会采用国际标准，如AES、ECDSA、SHA2等。而国内的金融机构在选用密码学方案的时候，通常会考虑国密算法。Onchain DNA提供了可选的密码学模块，针对不同的应用场景可以选择不同密码学标准，解决了安全性和政策性风险。
+
+跨链互操作
+目前，区块链技术正处于百花齐放、百家争鸣的时代，各种不同的区块链纷纷涌现出来，区块链之间的互操作性成为了一个非常重要而又迫切的需求。企业用户可能需要在不同的链之间进行业务迁移；普通用户可能需要在不同的链之间进行资产交换；央行的数字法币可能会需要在各个区块链上流通等。Onchain DNA提供了一种跨链互操作协议，通过这种跨链协议，用户可以跨越不同的区块链进行资产交易、合约执行等操作，并保证该操作在各个区块链上的事务一致性。
+
+区块的结构，区块头和内部交易数据组成，区块头包含：区块编号、上一区块哈希值、本区块哈希值、挖矿随机数、难度、时间戳。
+区块链2.0技术架构分五层由上至下分别为：智能合约层（EVM和solidity脚本）、激励层（发行机制、分配机制）、共识层（POW、POS、DPOS、PBFT）、网络层（P2P网络、传播机制、验证机制）、数据层（区块数据、链式结构、数字签名、哈希函数、Merkle树、非对称加密）
+
+RSCoin的解决办法
+记账效率低下，是由于竞争记账。既然银行控制大账本，没有必要搞竞争，指定少数几家银行，负责记账。双层记账体系，树形结构优化，RSCoin使用30个授权节点，一秒可以达到2000笔
+
+
+完整项目
+https://github.com/horizon-games/arcadeum
+
+
+ethereum mac
+brew install go
+brew tap ethereum/ethereum
+brew install ethereum
+geth account new
+geth --help
+
+centos7
+yum -y install golang
+git clone https://github.com/ethereum/go-ethereum.git
+cd go-ethereum
+make all
+echo "export PATH=$PATH:/root/go-ethereum/build/bin" >> /etc/profile
+source /etc/profile
+
+xcode-select --install
+
+https://cmake.org/download/
+wget https://cmake.org/files/v3.9/cmake-3.9.2.tar.gz
+tar -xzvf cmake-3.9.2.tar.gz
+cd cmake-3.9.2
+./bootstrap && make && make install
+
+win
+https://github.com/ethereum/go-ethereum/releases/
+
+npm install -g solc
+npm install -g truffle
+
+vi genesis.json
+{
+	"config": {
+		"chainId": 888888,
+		"homesteadBlock": 0,
+		"eip155Block": 0,
+		"eip158Block": 0
+	},
+	"nonce":"0x0000000000000042",
+	"mixhash":"0x0000000000000000000000000000000000000000000000000000000000000000",
+	"difficulty": "0x4000",
+	"alloc": {},
+	"coinbase":"0x0000000000000000000000000000000000000000",
+	"timestamp": "0x00",
+	"parentHash":"0x0000000000000000000000000000000000000000000000000000000000000000",
+	"extraData": "0x00",
+	"gasLimit":"0xffffffff"
+}
+
+mixhash 与nonce配合用于挖矿，由上一个区块的一部分生成的hash。注意他和nonce的设置需要满足以太坊的Yellow paper, 4.3.4. Block Header Validity, (44)章节所描述的条件。.
+nonce 就是一个64位随机数，用于挖矿，注意他和mixhash的设置需要满足以太坊的Yellow paper, 4.3.4. Block Header Validity, (44)章节所描述的条件。
+difficulty 设置当前区块的难度，如果难度过大，cpu挖矿就很难，这里设置较小难度
+alloc 用来预置账号以及账号的以太币数量，因为私有链挖矿比较容易，所以我们不需要预置有币的账号，需要的时候自己创建即可以。
+coinbase 矿工的账号，随便填
+timestamp 设置创世块的时间戳
+parentHash 上一个区块的hash值，因为是创世块，所以这个值是0
+extraData 附加信息，随便填，可以填你的个性信息
+gasLimit 该值设置对GAS的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私有链，所以填最大。
+
+
+启动Geth即可以启动以太坊的区块链，为了构建私有链 ，需要在Geth启动时加入一些参数，Geth参数含义如下：
+identity 区块链的标示，随便填写，用于标示目前网络的名字
+init 指定创世块文件的位置，并创建初始块
+datadir 设置当前区块链网络数据存放的位置
+port 网络监听端口
+rpc 启动rpc通信，可以进行智能合约的部署和调试
+rpcapi 设置允许连接的rpc的客户端，一般为db,eth,net,web3
+networkid 设置当前区块链的网络ID，用于区分不同的网络，是一个数字
+console 启动命令行模式，可以在Geth中执行命令
+
+geth会用到8078和30303端口
+firewall-cmd --zone=public --add-port=8087/tcp --permanent
+firewall-cmd --zone=public --add-port=30303/tcp --permanent
+
+geth --dev console
+
+私有链节点初始化
+mkdir /home/blockchain
+geth --datadir /home/blockchain init genesis.json
+控制台方式连接私有链
+geth --networkid 888888 --datadir /home/blockchain console
+建立矿工帐号
+# 第1个建立的帐号默认为矿工帐号
+> eth.accounts
+> personal.newAccount("xionghc")
+> personal.newAccount("hcxiong")
+> eth.getBalance(eth.accounts[0])
+> eth.getBalance(eth.accounts[1])
+> web3.fromWei(eth.getBalance(eth.accounts[0]),'ether')
+矿工的以太WEI
+> eth.getBalance(eth.coinbase)
+节点默认矿工帐号
+> eth.coinbase
+后台启动
+nohup geth --networkid 123 --datadir /home/blockchain --mine --nodiscover --rpc --rpcaddr 0.0.0.0 --rpcapi "db,eth,net,web3,admin,personal" --ipcpath /home/blockchain/geth.ipc &
+加入节点
+geth.exe --datadir=/home/blockchain --networkid 123 --bootnodes enode://69e4026e61198088b9bdc353a7e0c924481b1835b35acbf298066634bf47406655516f251933992d3ae2d2752048c0df5656981d4113faa92bb0302243a62eea@123.206.176.142:30303
+
+geth account new
+geth account list
+geth --nodiscover --maxpeers 0 init genesis.json
+geth --rpc --rpcport 8000 --rpccorsdomain '"*"' --mine --minerthreads 1 --maxpeers 0 --nodiscover --networkid 3301 console
+geth attach
+>loadScript("./smartsponsor.js")
+>ss
+>ss.benefactor()
+>ss.owner()
+>ss.getPot()
+>ss.numPledges()
+>ss.complete()
+
+转账
+>personal.unlockAccount(eth.accounts[0],"password");
+>personal.unlockAccount(eth.accounts[0],"xionghc");
+>eth.sendTransaction({from: eth.accounts[0], to: eth.accounts[1], value: 100000000000000000});
+>eth.getBalance(eth.accounts[0]);
+>eth.getBalance(eth.accounts[1]);
+miner.start(1)
+miner.stop()
+>personal.unlockAccount(eth.accounts[1],"hcxiong");
+eth.sendTransaction({from:test1, to: test2, value: web3.toWei(1, 'ether')})
+
+>ss.pledge("Good luck with the run!", {from: thesponsor, value: 10000000, gas: 3000000});
+>eth.getBalance(thebenefactor);
+miner.setEtherbase(eth.primaryAddress) //设定开采账户
+eth.getBlock("pending", true).transactions 这时候发现交易已经在区块中
+
+以太坊钱包连接
+/home/Ethereum Wallet/ethereumwallet --rpc  /home/blockchain/geth.ipc
+连接到以太坊私链
+geth attach /home/blockchain/geth.ipc
+geth attach http://127.0.0.1:8545
+挖矿
+miner.start(1)
+
+当前节点值
+> admin.nodeInfo.enode
+当前块号
+> eth.blockNumber
+当前块内容
+> eth.getBlock(255)
+多节点配置
+必须使用同样创始块初始化文件genesis.json创建节点，参考前面的操作。
+# 查询节点1信息
+> admin.nodeInfo.enode or admin.nodeInfo
+admin.addPeer("enode://9d12900c5b7105d6db5769bacbf16e02574e19f8a8db4d16c8fad2b10a17c566f09e81619c298e3d4bbca0f0f5476ee3ef60e16a2f8cd3fe323ea884025d3fe8@192.168.48.111:30303?discport=0")
+# 登录节点1查看
+> admin.peers
+# 这种控制台添加节点方式，一旦退出控制台就失效，所以使用命令方式添加
+nohup geth --networkid 123 --datadir /opt/blockchain --identity "TestChain_112" --mine --port 30303 --nodiscover --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpcapi "db,eth,net,web3" --bootnodes "enode://9d12900c5b7105d6db5769bacbf16e02574e19f8a8db4d16c8fad2b10a17c566f09e81619c298e3d4bbca0f0f5476ee3ef60e16a2f8cd3fe323ea884025d3fe8@192.168.48.111:30303" &
+nohup geth --networkid 123 --datadir /opt/blockchain --identity "TestChain_113" --mine --port 30303 --nodiscover --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpcapi "db,eth,net,web3" --bootnodes "enode://9d12900c5b7105d6db5769bacbf16e02574e19f8a8db4d16c8fad2b10a17c566f09e81619c298e3d4bbca0f0f5476ee3ef60e16a2f8cd3fe323ea884025d3fe8@192.168.48.111:30303" &
+nohup geth --networkid 123 --datadir /opt/blockchain --identity "TestChain_114" --mine --port 30303 --nodiscover  --rpc --rpcaddr 0.0.0.0 --rpcport 8545 --rpcapi "db,eth,net,web3" --bootnodes "enode://9d12900c5b7105d6db5769bacbf16e02574e19f8a8db4d16c8fad2b10a17c566f09e81619c298e3d4bbca0f0f5476ee3ef60e16a2f8cd3fe323ea884025d3fe8@192.168.48.111:30303" &
+
+
+https://blog.csdn.net/wo541075754/article/details/79599081
+以太坊客户端Geth命令用法-参数详解
+geth是以太坊的官方节点版本，无论是mist钱包或其他的钱包内部都是集成了geth。今天就带大家熟悉一下geth的使用，命令行参数。主要根据官方文档进行翻译，注解。
+
+命令行选项
+名称
+geth - go-ethereum命令行接口
+
+版本信息
+1.7.3-stable
+命令使用方法
+geth [选项] 命令 [命令选项] [参数…]
+
+具体命令
+以下命令为系统级别的操作命令，比如管理账户，导入导出功能，本身并不会启动节点，只是在使用相应的功能。只有console命令和attach命令会进入js交互窗口。
+
+account    管理账户（比如添加list参数可现实本节点地址列表）
+attach     启动交互式JavaScript环境（连接到节点），此模式在生产环境以后台进程启动是常用
+bug        上报bug Issues（会打开github提交问题的页面）
+console    启动交互式JavaScript环境（启动时添加此参数会直接进入console交互页面，但不建议这样使用）
+copydb     从指定的chaindata目录创建本地链
+dump       Dump（分析）一个特定的块存储（可执行./geth dump -help查看具体命令）
+dumpconfig 显示配置值(可查看节点的默认配置信息)
+export     导出区块链到文件（可通过./geth export -help查看具体使用方法）
+import     导入一个区块链文件
+init       启动并初始化一个新的创世纪块（通过获取json文件中的配置进行初始化）
+js         执行指定的JavaScript文件(多个)
+license    显示许可信息
+makecache  生成ethash验证缓存(用于测试)
+makedag    生成ethash 挖矿DAG(用于测试)
+monitor    监控和可视化节点指标
+removedb   删除区块链和状态数据库
+version    打印版本号
+wallet     管理Ethereum预售钱包
+help,h     显示一个命令或帮助一个命令列表
+
+ETHEREUM选项
+以下命令在启动geth时传递，来指定相应的配置。
+
+--config value          TOML 配置文件
+--datadir "/home/karalabe/.ethereum"       数据库和keystore密钥的数据目录
+--keystore              keystore存放目录(默认在datadir内)
+--nousb                 禁用监控和管理USB硬件钱包
+--networkid value       网络标识符(整型, 1=Frontier, 2=Morden (弃用), 3=Ropsten, 4=Rinkeby) (默认: 1)
+--testnet               Ropsten网络:预先配置的POW(proof-of-work)测试网络
+--rinkeby               Rinkeby网络: 预先配置的POA(proof-of-authority)测试网络
+--syncmode "fast"       同步模式 ("fast", "full", or "light")
+--ethstats value        上报ethstats service  URL (nodename:secret@host:port)
+--identity value        自定义节点名
+--lightserv value       允许LES请求时间最大百分比(0 – 90)(默认值:0) 
+--lightpeers value      最大LES client peers数量(默认值:20)
+--lightkdf              在KDF强度消费时降低key-derivation RAM&CPU使用
+
+开发者（模式）选项
+--dev               使用POA共识网络，默认预分配一个开发者账户并且会自动开启挖矿。
+--dev.period value  开发者模式下挖矿周期 (0 = 有pending状态交易时进行挖矿) (默认: 0)
+
+ETHASH 选项
+--ethash.cachedir                        ethash验证缓存目录(默认 = datadir目录内)
+--ethash.cachesinmem value               在内存保存的最近的ethash缓存个数  (每个缓存16MB ) (默认: 2)
+--ethash.cachesondisk value              在磁盘保存的最近的ethash缓存个数 (每个缓存16MB) (默认: 3)
+--ethash.dagdir ""                       存ethash DAGs目录 (默认 = 用户hom目录)
+--ethash.dagsinmem value                 在内存保存的最近的ethash DAGs 个数 (每个1GB以上) (默认: 1)
+--ethash.dagsondisk value                在磁盘保存的最近的ethash DAGs 个数 (每个1GB以上) (默认: 2)
+
+交易池选项
+--txpool.nolocals            为本地提交交易禁用价格豁免
+--txpool.journal value       本地交易的磁盘日志：用于节点重启 (默认: "transactions.rlp")
+--txpool.rejournal value     重新生成本地交易日志的时间间隔 (默认: 1小时)
+--txpool.pricelimit value    加入交易池的最小的gas价格限制(默认: 1)
+--txpool.pricebump value     价格波动百分比（相对之前已有交易） (默认: 10)
+--txpool.accountslots value  每个帐户保证可执行的最少交易槽数量  (默认: 16)
+--txpool.globalslots value   所有帐户可执行的最大交易槽数量 (默认: 4096)
+--txpool.accountqueue value  每个帐户允许的最多非可执行交易槽数量 (默认: 64)
+--txpool.globalqueue value   所有帐户非可执行交易最大槽数量  (默认: 1024)
+--txpool.lifetime value      非可执行交易最大入队时间(默认: 3小时)
+
+性能调优的选项
+--cache value                分配给内部缓存的内存MB数量，缓存值(最低16 mb /数据库强制要求)(默认:128)
+--trie-cache-gens value      保持在内存中产生的trie node数量(默认:120)
+
+帐户选项
+--unlock value              需解锁账户用逗号分隔
+--password value            用于非交互式密码输入的密码文件
+
+API和控制台选项
+--rpc                       启用HTTP-RPC服务器
+--rpcaddr value             HTTP-RPC服务器接口地址(默认值:“localhost”)
+--rpcport value             HTTP-RPC服务器监听端口(默认值:8545)
+--rpcapi value              基于HTTP-RPC接口提供的API
+--ws                        启用WS-RPC服务器
+--wsaddr value              WS-RPC服务器监听接口地址(默认值:“localhost”)
+--wsport value              WS-RPC服务器监听端口(默认值:8546)
+--wsapi  value              基于WS-RPC的接口提供的API
+--wsorigins value           websockets请求允许的源
+--ipcdisable                禁用IPC-RPC服务器
+--ipcpath                   包含在datadir里的IPC socket/pipe文件名(转义过的显式路径)
+--rpccorsdomain value       允许跨域请求的域名列表(逗号分隔)(浏览器强制)
+--jspath loadScript         JavaScript加载脚本的根路径(默认值:“.”)
+--exec value                执行JavaScript语句(只能结合console/attach使用)
+--preload value             预加载到控制台的JavaScript文件列表(逗号分隔)
+
+网络选项
+--bootnodes value    用于P2P发现引导的enode urls(逗号分隔)(对于light servers用v4+v5代替)
+--bootnodesv4 value  用于P2P v4发现引导的enode urls(逗号分隔) (light server, 全节点)
+--bootnodesv5 value  用于P2P v5发现引导的enode urls(逗号分隔) (light server, 轻节点)
+--port value         网卡监听端口(默认值:30303)
+--maxpeers value     最大的网络节点数量(如果设置为0，网络将被禁用)(默认值:25)
+--maxpendpeers value    最大尝试连接的数量(如果设置为0，则将使用默认值)(默认值:0)
+--nat value             NAT端口映射机制 (any|none|upnp|pmp|extip:<IP>) (默认: “any”)
+--nodiscover            禁用节点发现机制(手动添加节点)
+--v5disc                启用实验性的RLPx V5(Topic发现)机制
+--nodekey value         P2P节点密钥文件
+--nodekeyhex value      十六进制的P2P节点密钥(用于测试)
+
+矿工选项
+--mine                  打开挖矿
+--minerthreads value    挖矿使用的CPU线程数量(默认值:8)
+--etherbase value       挖矿奖励地址(默认=第一个创建的帐户)(默认值:“0”)
+--targetgaslimit value  目标gas限制：设置最低gas限制（低于这个不会被挖？） (默认值:“4712388”)
+--gasprice value        挖矿接受交易的最低gas价格
+--extradata value       矿工设置的额外块数据(默认=client version)
+
+GAS价格选项
+--gpoblocks value      用于检查gas价格的最近块的个数  (默认: 10)
+--gpopercentile value  建议gas价参考最近交易的gas价的百分位数，(默认: 50)
+
+虚拟机的选项
+--vmdebug        记录VM及合约调试信息
+
+日志和调试选项
+--metrics            启用metrics收集和报告
+--fakepow            禁用proof-of-work验证
+--verbosity value    日志详细度:0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=detail (default: 3)
+--vmodule value      每个模块详细度:以 <pattern>=<level>的逗号分隔列表 (比如 eth/*=6,p2p=5)
+--backtrace value    请求特定日志记录堆栈跟踪 (比如 “block.go:271”)
+--debug                     突出显示调用位置日志(文件名及行号)
+--pprof                     启用pprof HTTP服务器
+--pprofaddr value           pprof HTTP服务器监听接口(默认值:127.0.0.1)
+--pprofport value           pprof HTTP服务器监听端口(默认值:6060)
+--memprofilerate value      按指定频率打开memory profiling    (默认:524288)
+--blockprofilerate value    按指定频率打开block profiling    (默认值:0)
+--cpuprofile value          将CPU profile写入指定文件
+--trace value               将execution trace写入指定文件
+
+WHISPER实验选项
+--shh                        启用Whisper
+--shh.maxmessagesize value   可接受的最大的消息大小 (默认值: 1048576)
+--shh.pow value              可接受的最小的POW (默认值: 0.2)
+
+弃用选项
+--fast     开启快速同步（现客户端第一次启动已经默认采取此模式，第二次启动采用full模式）
+--light    启用轻客户端模式
+
+其他选项
+–help, -h    这个我们经常使用的展示帮助信息，即以上命令及详情介绍

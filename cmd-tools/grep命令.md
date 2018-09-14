@@ -54,6 +54,7 @@ grep实例
 * `more size.txt | grep -iv 'b1..*3'` -v ：查找不包含匹配项的行
 * `more size.txt | grep -in 'b1..*3' `
 * `grep '5[[:upper:]][[:upper:]]' data.doc`     #查询以5开头以两个大写字母结尾的行
+* `grep "func main" * -r -n --include=*.go > func_main.txt` #查找内容为func main的文件
 
 使用类名, 可以使用国际模式匹配的类名：
 * `[[:upper:]]`   [A-Z]

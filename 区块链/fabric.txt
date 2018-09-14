@@ -1,0 +1,380 @@
+https://help.aliyun.com/document_detail/85734.html
+
+https://godoc.org/github.com/hyperledger/fabric
+https://hyperledger-fabric.readthedocs.io/en/latest/CONTRIBUTING.html
+
+vi ~/.bash_profile
+export GOPATH=/Users/hcxiong/go_pro
+source ~/.bash_profile
+
+fabric安装：
+
+Go 1.9
+dep:
+brew install dep
+curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+Make
+Docker
+Docker Compose
+Git
+
+https://github.com/hyperledger/fabric/releases
+v1.1.1 df84b5b
+v1.2.0 cae2ad4
+mkdir -p $GOPATH/src/github.com/hyperledger
+cd $GOPATH/src/github.com/hyperledger
+git clone https://github.com/hyperledger/fabric.git
+cd fabric
+git checkout df84b5b
+验证结构安装
+打开命令提示符/终端并浏览到此目录 $GOPATH/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02
+$ go build --tags nopkcs11 ./
+
+
+fabric-sdk-go:
+https://github.com/hyperledger/fabric-sdk-go
+go get -u github.com/hyperledger/fabric-sdk-go
+cd $GOPATH/src/github.com/hyperledger/fabric-sdk-go/
+make populate
+
+https://github.com/securekey/fabric-examples
+https://github.com/securekey/fabric-examples/tree/master/fabric-cli
+go get -u github.com/securekey/fabric-examples
+cd $GOPATH/src/github.com/securekey/fabric-examples/cmd/fabric-cli
+make populate
+go run fabric-cli.go <command> <sub-command> [options]
+go run fabric-cli.go
+
+fabric-sdk-node:
+https://github.com/hyperledger/fabric-sdk-node
+https://fabric-sdk-node.github.io/index.html
+弹珠所有者之间转移弹珠:
+https://github.com/IBM-Blockchain/marbles
+https://github.com/IBM-Blockchain/marbles/blob/master/README-cn.md
+marbles 依赖 node 和 npm
+node v8.11.2
+npm 5.6.0
+https://help.aliyun.com/document_detail/88775.html
+https://github.com/IBM-Blockchain/marbles/blob/master/docs/env_setup.md
+https://github.com/IBM-Blockchain/marbles/blob/master/docs/use_local_hyperledger.md
+https://github.com/IBM-Blockchain/marbles/blob/master/docs/install_chaincode_locally.md
+https://github.com/IBM-Blockchain/marbles/blob/master/docs/host_marbles_locally.md
+
+Fabric的开发
+https://www.cnblogs.com/studyzy/p/7360733.html
+example02
+https://blog.csdn.net/mcdullsin/article/details/51670780
+cli交互如下：
+CORE_SECURITY_ENABLED=true CORE_SECURITY_PRIVACY=true peer chaincode deploy -u jim -n mycc -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
+rest可以使用postman，交互如下，
+POST host:port/chaincode
+{
+  "jsonrpc": "2.0",
+  "method": "deploy",
+  "params": {
+    "type": 1,
+    "chaincodeID":{
+        "name": "mycc"
+    },
+    "ctorMsg": {
+        "function":"init",
+        "args":["a", "100", "b", "200"]
+    },
+    "secureContext": "jim"
+  },
+  "id": 1
+}
+
+
+链代码
+背书
+对等节点
+读取或写入账本称为提案
+
+定义：
+对等节点 - 对等节点是区块链的成员，运行着 Hyperledger Fabric。在 Marbles 的上下文中，对等节点归我的弹珠公司所有和操作。
+CA - CA（证书颁发机构）负责守卫我们的区块链网络。它将为客户端（比如我们的 Marbles node.js 应用程序）提供交易证书。
+订购者 - 订购者或订购服务是区块链网络的成员，其主要职责是将交易打包到区块中。
+用户 - 用户是经过授权能与区块链进行交互的实体。在 Marbles 的上下文中，用户是我们的管理员。用户可以查询和写入账本。
+区块 - 区块包含交易和一个验证完整性的哈希值。
+交易或提案 - 它们表示与区块链账本的交互。对账本的读取或写入请求是以交易/提案的形式发送的。
+账本 - 这是区块链在一个对等节点上的存储区。它包含由交易参数和键值对组成的实际的区块数据。它由链代码编写。
+链代码 - 链代码是代表智能合约的 Hyperledger Fabric。它定义资产和所有关于资产的规则。
+资产 - 资产是存在于账本中的实体。它是一种键值对。在 Marbles 的上下文中，资产是一颗弹珠或弹珠所有者。
+让我们看看创建一颗新的弹珠时涉及的操作。
+Marbles 中发生的第一件事是向网络的 CA 注册我们的管理员用户。如果成功，CA 会向 Marbles 发送注册证书，SDK 将该证书存储在我们的本地文件系统中。
+管理员从用户界面创建一颗新弹珠时，SDK 会创建一个调用事务。
+创建弹珠的事务被构建为一个调用链代码函数 init_marble() 的提案。
+Marbles（通过 SDK）将此提案发送到一个对等节点进行背书。
+对等节点将运行 Go 函数 init_marble() 来模拟该事务，并记录它尝试写入账本中的所有更改。
+如果该函数成功返回，对等节点会对该提案进行背书并将它发回给 Marbles。如果失败，错误也将发送回来，但不会对提案进行背书。
+然后，Marbles（通过 SDK）将背书后的提案发送给订购者。
+订购者将组织来自整个网络的提案的序列。它将通过查找相互冲突的交易，检查该交易序列是否有效。任何由于冲突而无法添加到区块中的交易都被标记为错误。订购者将新区块广播到网络中的对等节点。
+我们的对等节点将收到新区块，并通过查看各种签名和哈希值来验证它。最终将该区块提交到对等节点的账本。
+此刻，我们的账本中会出现新的弹珠，并很快会出现在所有对等节点的账本中。
+
+centos7 安装Fabric
+yum install -y docker docker-compose
+docker version
+docker-compose version
+
+启用docker官方中国区加速器：
+vim /etc/sysconfig/docker
+DOCKER_OPTS="--registry-mirror=https://docker.mirrors.ustc.edu.cn"
+DOCKER_OPTS="https://registry.docker-cn.com"
+service docker start
+
+centos7 yum可以安装docker-compose 无需执行下面
+#yum install -y python-pip
+#pip install --upgrade pip
+#pip install docker-compose
+
+安装1.9.4goang + git
+yum install -y golang git
+如果安装更高版本自行下载
+wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
+wget https://studygolang.com/dl/golang/go1.10.3.linux-amd64.tar.gz
+tar -zvxf go1.10.3.linux-amd64.tar.gz
+
+下载fabric源代码
+go get github.com/hyperledger/fabric
+#go get github.com/hyperledger/fabric-ca
+我们切换到v1.1.0分支，1.2.0的Docker镜像暂时还没有先不要切
+cd $GOPATH/src/github.com/hyperledger/fabric/
+git checkout v1.1.0
+#git checkout v1.2.0
+
+Fabric Docker镜像下载，1.2.0镜像暂时还没有
+cd $GOPATH/src/github.com/hyperledger/fabric/examples/e2e_cli/
+source download-dockerimages.sh -c x86_64-1.1.0 -f x86_64-1.1.0
+#source download-dockerimages.sh -c x86_64-1.2.0 -f x86_64-1.2.0
+docker images
+
+运行fabric网络
+./network_setup.sh up
+1编译生成Fabric公私钥、证书的程序，程序在目录：fabric/release/linux-amd64/bin
+2基于configtx.yaml生成创世区块和通道相关信息，并保存在channel-artifacts文件夹。
+3基于crypto-config.yaml生成公私钥和证书信息，并保存在crypto-config文件夹中。
+4基于docker-compose-cli.yaml启动1Orderer+4Peer+1CLI的Fabric容器。
+5在CLI启动的时候，会运行scripts/script.sh文件，这个脚本文件包含了创建Channel，加入Channel，安装Example02，运行Example02等功能。
+
+跑一下Example02，channel名字是mychannel，链码的名字是mycc，打开另一个终端
+docker exec -it cli bash
+查询账户余额
+peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
+从a账户转账20元到b账户
+peer chaincode invoke -o orderer.example.com:7050  --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  -C mychannel -n mycc -c '{"Args":["invoke","a","b","20"]}'
+查询账户余额
+peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
+退出另一个终端：exit
+
+关闭网络
+./network_setup.sh down
+
+手动处理：
+下载镜像命令如下：
+docker pull yeasy/hyperledger-fabric-base:latest \
+  && docker pull yeasy/hyperledger-fabric-peer:latest \
+  && docker pull yeasy/hyperledger-fabric-orderer:latest \
+  && docker pull yeasy/hyperledger-fabric-ca:latest \
+  && docker pull yeasy/blockchain-explorer:latest \
+  && docker tag yeasy/hyperledger-fabric-peer hyperledger/fabric-peer \
+  && docker tag yeasy/hyperledger-fabric-orderer hyperledger/fabric-orderer \
+  && docker tag yeasy/hyperledger-fabric-ca hyperledger/fabric-ca \
+  && docker tag yeasy/hyperledger-fabric-base hyperledger/fabric-baseimage \
+  && docker tag yeasy/hyperledger-fabric-base hyperledger/fabric-ccenv:x86_64-1.0.0-preview
+docker images
+创建2个docker网络,如下：
+docker network create fabric_noops
+docker network create fabric_pbft
+启动集群
+git clone https://github.com/yeasy/docker-compose-files
+cd hyperledger/1.0/
+快速 启动一个 MVE fabric 集群:
+docker-compose up
+启动后的容器镜像:
+docker ps -a
+开始部署chaincode
+集群启动后，进入 VP 节点，节点名称为 fabric-vp0
+docker exec -it fabric-vp0 bash
+部署example02
+peer chaincode deploy -n testname -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Args":["init","a","100","b","200"]}'
+查询
+peer chaincode invoke -n testname -c '{"Args":["query","a"]}'
+转账
+peer chaincode invoke -n testname -c '{"Args":["invoke","a","b","10"]}'
+
+在crypto-config.yaml中配置orderer节点信息：
+OrdererOrgs:
+  - Name: Orderer
+    Domain: example.com
+    Specs:
+      - Hostname: orderer1
+      - Hostname: orderer2
+      - Hostname: orderer3
+使用cryptogen工具生成MSP证书：
+cryptogen generate --config=./crypto-config.yaml
+生成创世区块
+结合crypto-config.yaml配置内容定义Orderer配置信息，具体参考如下：
+Orderer: &OrdererExample
+    OrdererType: kafka
+    Addresses:
+        - orderer1.example.com:7050
+        - orderer2.example.com:7050
+        - orderer3.example.com:7050
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+    Kafka:
+        Brokers:
+            - k1:9092
+            - k3:9092
+使用configtxgen工具生成创世区块：
+# 生成排序服务创世区块 生成GenesisBlock
+export FABRIC_CFG_PATH=$PWD
+configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+# 生成通道配置创世区块
+export CHANNEL_NAME=mychannel
+configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+定义组织锚节点
+configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
+创建YAML文件
+参考fabric-samples/first-network和fabric/examples/e2e_cli项目编写自己的docker-compose.yaml。
+当前目录结构：
+kafka $ ls
+channel-artifacts   kafka-base.yaml
+configtx.yaml       orderer-base.yaml
+crypto-config       peer-base.yaml
+crypto-config.yaml  scripts
+dc-kafka.yaml
+cp ../e2e_cli/scripts/script.sh scripts/script.sh
+启动整个网络
+docker-compose -f dc-kafka.yaml up -d
+创建并加入通道
+docker exec -it cli bash
+export CHANNEL_NAME=mychannel
+peer channel create -o orderer1.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx
+peer channel join -b mychannel.block
+切换环境变量，将peer1.org1.example.com加入通道
+export CORE_PEER_ADDRESS=peer1.org1.example.com:7051
+export CORE_PEER_LOCALMSPID="Org1MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin\@org1.example.com/msp
+peer channel join -b mychannel.block
+安装和实例化链码
+在peer0.org.example.com上安装链码：
+export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+export CORE_PEER_LOCALMSPID="Org1MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin\@org1.example.com/msp
+peer chaincode install -n mycc -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02
+# 重新打开一个终端，确认安装是否成功
+docker exec peer0.org1.example.com ls /var/hyperledger/production/chaincodes
+安装完成后，任意选择一个peer节点实例化链码：
+peer chaincode instantiate -o orderer1.example.com:7050 -C $CHANNEL_NAME -n mycc -v 1.0 -c '{"Args":["init", "a", "100", "b", "200"]}' -P "OR('Org1MSP.member', 'Org2MSP.member')"
+链码调用或查询
+切换至任意节点的环境，然后可以执行调用或查询。
+export CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+export CORE_PEER_LOCALMSPID="Org2MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin\@org2.example.com/msp
+
+peer chaincode invoke -o orderer1.example.com:7050 -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke", "a", "b", "10"]}'
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
+
+生成anchor peer
+../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
+后台启动
+CHANNEL_NAME=$CHANNEL_NAME TIMEOUT=600 docker-compose -f docker-compose-cli.yaml up -d
+接入docker cli(cli可以理解成一个可以对镜像做操作的控制台)
+docker exec -it cli bash
+
+3个 example02
+1个 orderer
+4个 kafka
+4个 peer
+3个 zookeeper
+1个 cli
+
+orderer提供solo、kafka和bft三种模式，分别可以认为是中心化、半中心化和去中心化。其中solo模式指整个fabric网络依赖于一个orderer节点，而kafka模式依赖于一个kafka集群，bft模式则是去中心化的orderer集群，但目前bft模式并没有在fabric-1.0中实现。
+
+MSP：Membership service provider 会员服务提供者
+BCCSP：blockchain（前两个字母BC） cryptographic service provider 区域链加密服务提供者
+ab：atomic broadcast原子（操作）广播
+lscc：lifecycle(L) system(S) chaincode（CC）生命周期系统链码
+Spec：Specification，规格标准，详细说明
+KV：key-value 键-值
+CDS：ChaincodeDeploymentSpec
+CIS：ChaincodeInvocationSpec
+mgmt：management
+SW：software-based
+AB：AtomicBroadcast
+GB：genesis block，创世纪的block，也就是区域链中的第一个块
+CC或cc：chaincode
+SCC或scc：system chaincode
+cscc：configer system chaincode
+lscc：lifecycle system chaincode
+escc：endorser system chaincode
+vscc：validator system chaincode
+qscc：querier system chaincode
+alg：algorithm 算法
+mcs：mspMessageCryptoService
+mock：假装，学样子，模仿的意思，基本上是服务于xxx_test.go的，即用于测试的
+Gossip：一种使分布结点达到状态最终一致的算法
+attr：attribute
+FsBlockStore：file system block store
+vdb：versioned database 也就是状态数据库
+RTEnv：runtime environment运行环境
+pkcs11：pcks#11，一种公匙加密标准，有一套叫做Cryptoki的接口，是一组平台设备无关的API
+MCS：mspMessageCryptoService，消息加密服务
+sa：SecurityAdvisor
+impl：implement，好多处XXX.go和XXXimpl.go是对应的，前者是用于接口或者定义的，后者是实现该接口或定义的
+FSM：finite state machine 有限状态机
+FS：filesystem 文件系统
+blk：block
+cli：command line interface 命令行界面
+CFG：FABRIC_CFG_PATH中的，应该是config的意思
+mgr：manager
+cpinfo：checkpoint information，检查点信息
+DevMode：development mode，开发模式
+Reg：register，注册，登记
+hdr：header
+impl：implement
+oid：ObjectIdentifier，对象标识符
+ou或OU：organizational unit
+CRL：certificate revocation list，废除证书列表
+prop：proposal，申请，交易所发送的申请
+ACL：Access Control List，访问控制列表
+rwset：read/write set，读写集
+tx，Tx：transaction，交易
+CSP：cryptographic service provider，BCCSP的后三个字母，加密服务提供者
+opt：option，选项
+opts：options，多个选项
+SKI：当前证书标识，所谓标识，一般是对公匙进行一下hash
+AKI：签署方的SKI，也就是签署方的公匙标识
+HSM：Hardware Security Modules
+ks：KeyStore，Key存储，这个key指的是用于签名的公匙私匙
+oid：OBJECT IDENTIFIER，对象身份标识
+
+第三方库：
+https://github.com/spf13/cobra
+https://github.com/syndtr/goleveldb/leveldb
+
+Fabric 1.0的多机部署
+https://www.cnblogs.com/studyzy/p/7237287.html
+生成公私钥、证书、创世区块等
+公私钥和证书是用于Server和Server之间的安全通信，另外要创建Channel并让其他节点加入Channel就需要创世区块，这些必备文件都可以一个命令生成，官方已经给出了脚本：
+./generateArtifacts.sh mychannel
+运行这个命令后，系统会创建channel-artifacts文件夹，里面包含了mychannel这个通道相关的文件，另外还有一个crypto-config文件夹，里面包含了各个节点的公私钥和证书的信息。
+
+fabric源码解析17——chaincode的元数据
+https://blog.csdn.net/idsuf698987/article/details/78353417
+https://blog.csdn.net/idsuf698987
+
+k8s
+https://www.cnblogs.com/lyq863987322/p/8516958.html
+https://www.cnblogs.com/xhyan/p/6655731.html

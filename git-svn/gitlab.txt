@@ -55,3 +55,11 @@ The project you were looking for could not be found.
 修改为：
 return build_status_object(true)
 gitlab-ctl restart
+====================================
+If the request size is already small, it's possible that it is less than your kernel's SHMMIN parameter, in which case raising the request size or reconfiguring SHMMIN is called for.
+The PostgreSQL documentation contains more information about shared memory configuration.
+
+sudo echo 4294967296 > /proc/sys/kernel/shmmax
+vim /etc/sysctl.conf
+kernel.shmmax=4294967296 #4G
+
