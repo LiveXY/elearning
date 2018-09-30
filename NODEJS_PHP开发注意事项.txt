@@ -1,5 +1,5 @@
 NODEJS
-1、排版整齐，风格统一：
+1、排版整齐，风格统一，能减少很多莫名其秒的问题：
 - 不要使用自动排版，除非可自定义自动排版
 - 使用TAB不要使用四个空格缩进
 - 运算符前后有空格，常用关键字后有空格(if/for/while)，{前空格，并且不另起行
@@ -28,17 +28,61 @@ NODEJS
 - 函数遵循能结束早结束原则，不要嵌套太多的if；
 - 比较尽可能多使用 ===、!--、!、!!
 - 比较尽可能多使用'少使用"
-2、每次热更新后JS里的变量都重新赋值，如果想不被重新赋值必须放在另一个JS文件中写 module.exports.users = {}; 或者在类的function里写 this.user = {}; 相当于构造函数，这种写法不会被热更新
-3、setTimeout/setInterval回调函数里直接写代码也不会热更新，只有setInterval(function() { service.showGameStat(); }, 1000); 这样给回调新起函数写才可以热更新。
-4、热更新后执行代码的写法：beans里增加runupdate: 'init'，init为热更新后执行的函数
-5、数组([])循环不能用forin，应该这么写for (var i = 0, len = list.length; i < len; i++)性能最高
-6、Pomelo RPC接口里面结束之前一定要执行回调函数(next)，如果没有或执行超过20秒会报500超时错误
-7、循环里面调用带回调函数的，回调函数内又用到循环的参数，循环内的代码一定要新起一个函数实现
-8、Pomelo接口完成了，可以在web-server里写测试代码
-
+2、关于热更新
+- 每次热更新后JS里的变量都重新赋值，如果想不被重新赋值必须放在另一个JS文件中写 module.exports.users = {}; 或者在类的function里写 this.user = {}; 相当于构造函数，这种写法不会被热更新
+- setTimeout/setInterval回调函数里直接写代码也不会热更新，只有setInterval(function() { service.showGameStat(); }, 1000); 这样给回调新起函数写才可以热更新。
+- 热更新后执行代码的写法：beans里增加runupdate: 'init'，init为热更新后执行的函数
+- pomelo的app/servers目录的代码不会热更新，核心代码一定要放在app/services目录下实现，在servers里调用
+3、性能优化
+- 数组([])循环不能用forin，应该这么写for (var i = 0, len = list.length; i < len; i++)性能最高
+- key/value 查找key比数组查找快，尽可能转为KV存储
+- Pomelo RPC接口里面结束之前一定要执行回调函数(next)，如果没有或执行超过20秒会报500超时错误
+- 循环里面调用带回调函数的，回调函数内又用到循环的参数，循环内的代码一定要新起一个函数实现，因为异步导致循环内的变量始终是循环后的值，循环远远比异步回调快
+- pomelo接口完成了，可以在web-server里写测试代码
+- mysql库使用连接池性能更高一些
+- pomelo的config/servers.json线上配置多台服务器时尽可能不使用clusterCount配置，会导致server-id重复
+4、我们的老项目最高支持在NODE6.12.2，千万不能使用ES6的写法，前端JS也不用使用ES6写法，因为目前并不是完全支持。新项目使用的最高支持NODE8.10.0，不能使用更高的特性。
+- 老项目启动方法有2种，一种是pm2+pomelo、另一种是pomelo、如果是单台服务器只使用pm2启动就OK、多台使用pomelo或和pm2混合启动，使用pm2启动的好处是，日志比较全，缺点日志太占空间，经常要关注磁盘空间。
+- pm2启动：
+pm2 start app.js -n app
+pm2 stop app
+pm2 restart app
+- pomelo启动，使用我们研发的rpcman工具
+rpcman start path
+rpcman stop path
+rpcman restart path
+rpcman list path
+rpcman check path
+rpcman servers path
+rpcman connections path
+rpcman gamehub path
+rpcman 还支持自动恢复功能，如果使用pm2混合启动的必须执行 rpcman setmain path 才可以自动恢复服务器
+更多功能查看 rpcman
+- pomelo+pm2混合启动
+pomj stop
+pm2 stop all
+cd /home/shmass_node/ && git pull origin shmass-aa
+ps aux | grep node
+pm2 start all
+cd /home/shmass_node/hall-server/
+nohup pomelo start -t connector &
+exit #必须exit才生效，不能直接关闭终端，切记
+- 配置文件的development和production节点要完全一样，不要只改一个development，一部署到线上就跑不起来。
+- config/memcached.json配置中的prefix要和PHP环境中的memcache前缀一致，必须后面加:号是因为php laravel前缀会自动加:来保持一致
+5、NODEJS代码和C++代码一样脆弱，及其容易崩，写代码的时候很多要注意的地方
+- 不能给 null undefined 的对象付属性，所有要处理的对象一定先要判断对象是否实例化并且不为null undefined
+- 各种临界点的问题一定要注意处理
+- 异步嵌套调用是魔鬼，使用promise来解决
+- 闭包的坑最多，写的时候一定要少用函数嵌函数
+- 命名空间可以解决相同类名不同意义
+- NODEJS是单线程的，setTimeout/setInterval是鸡肋，严格计时器不要使用
+- return 后面的对象不能换行写
+- 一定要增加 process.on('uncaughtException', function(err) { }); 全局错误处理
+- 提交数据的地方增加锁，可防止重复提交数据
+- 
 
 PHP
-1、排版整齐，风格统一：
+1、排版整齐，风格统一，能减少很多莫名其秒的问题：
 - 前几条同上
 - 函数处理第一步：接收数据+转换数据类型
 - 第二步：验证接收数据
@@ -47,22 +91,38 @@ PHP
 - 第五步：实现业务逻辑
 - 第六步：结束前解锁
 - 第七步：结束返回数据
-- 支付回调/活动领取一定要加锁。不重要的可以不用加锁，一样遵循能结束早结束原则。
+- 支付回调/活动领取货币一定要加锁。不重要的可以不用加锁，一样遵循能结束早结束原则。
 - laravel模版代码尽可能使用PHP原始代码，不要使用laravel模版特性
+- 按钮的提交最好先让按钮变为不可用，防止连续点击，或多次点击
+- 做第三方接口时一定要实现签名，防止数据被串改
+- PHP没有内存可用存储公共的数据，借用共享缓存性能消耗大，如果做高性能对象内存实时加减操作的PHP不适合，请使用C++/NODE/GO/C#做TCP长连接比较合适
+- 千万不要写万能的方法，后期改动维护成本太大，尽可能的拆分多个小函数去实现
+- 不要COPY相同的代码，可以实现公共方法调用，相同的代码维护成本大
+- 网络上COPY代码时一定要检查整理并消化为我们自己的
+- 前台JS验证数据(为了体验)，提交到程序里也需要验证数据(为了安全)。做双保险才安全。不要相信提交的任何数据。
+- 提现/发红包的时候注意：金额必须>0，玩家身上的钱必须满足提取的数量，加锁，写日志
+- 数据库读取数据在显示的时候一定要加htmlspecialchars函数防止XSS攻击
+- 
 2、代码不要上来就写，先要分析了解需求，每个活动都会包含几个部分
 - 前端：取配置接口/领取接口 最少会有这2个接口
 - 后端配置：配置设置功能
 - 后端报表：领取日志/生成每日总表
 - 设计数据库：增加领取日志表、修改每日汇总存储过程
 3、数据库
-- 建表时多个字段可以决定主键的一定不要新加自增列，同时用的多的放前面
+- 建表时多个字段可以决定主键的一定不要新加自增列，同时用的多的放前面，遵循最左前缀原则
 - 建表后：有关联用户ID的字段要加索引，有按时间查数据的时间要加索引
 - 不要写count(0)、count(*)等，应该count(第一个主键)
 - 复杂的报表需要用计划去跑。
 - 定期查看慢查询，优化慢查询
 - 如果一定要用TEXT，要放在新表中，不要和其它数据混在一个表
-- 存储过程的in参数一定不要和字段名一样，要加个数据类型前缀
-4、代码目录结构
+- 存储过程的in参数一定不要和字段名一样，要加个数据类型前缀来区分
+- 少用触发器/游标/外键
+- 2个大表inner join时可用使用最大的表使用零时表，如log表和主表关联查询这么写更好：select log.*, m.name from (select * from log_login order by lid desc limit 0, 10) as log inner join member as m on m.uid=log.uid order by log.lid desc
+- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多
+- like字段有索引查询时使用后%代替前%
+- try catch 异常结果一定要写日志或处理掉，千万不要放空，否则出错了你都不知道原因
+- 
+4、我们的代码目录结构
 - app/Console 计划任务：每小时/每分钟跑报表代码
 - app/Models MODEL数据库操作 按系统区分：活动/日志/报表/代理/设置/用户权限
 - resources/views VIEW视图代码 按前后端区分，后台按系统区分
@@ -92,10 +152,26 @@ or 1=2
 - 是否可查看，修改，删除，更新别人的信息。
 - 是否有登录漏洞/是否可本地提交数据/程序是否验证数据的格式、安全性和恶意性
 8、从其它平台移功能时，你就会发现命名的重要性和GIT完整功能一个提交的重要性
-9、
+9、不能从日志里分析玩家是否达到什么条件，应该增加表记录玩家完成状态
+10、前端JS和CSS
+- JS代码段不要放在HTML页面，应该放在独立的JS文件里面，好处是JS文件可以CDN/缓存。
+- 可将CSS文件放到<head></head>之间，JS文件或代码放到</body>之前，让页面先显示在执行JS。
+- 可将网站的图片/CSS/JS/资料/资源放到独立的站点，做下CDN加速,二级域名会有COOKIES，最好使用独立域名。
+- A标记和IMG标记需要加上title/alt，<head>标签内需要加title/keywords/description/rss/sitemap优化，有利于搜索引擎收录。
+- NGINX要启用gzip压缩，安装FF的插件“YSlow/Page Speed”分析页面
+- a连接js控制click事件后面加return false;代码。防止页面滚动到0,0位置。
+- JQUERY多次用到某个元素时，定义一个变量来接收选择器找到的对象，不要每次用的时候直接用选择器去取。
+- Js中的全局变量要慎用，避免引用的js中变量重名。
+- <script>if (self != top) { top.location = self.location; }</script>防止页面被别人内嵌。
+- <NOSCRIPT><IFRAME SRC="*.html"></IFRAME></NOSCRIPT>防止页面被另存为。
+- JQUERY选择器优先级：ID > CLASS >标记 使用ID速度最快。
+- 多使用$(“#test > .subtest”) 不要使用$(“#test .subtest”)，后者速度慢查找所有子节点。
+- 所有的$.get/$.post都修改为$.ajax，get和post无法对错误处理。
+- js/css代码使用packer_yui_compiler工具压缩一下，好处可以检查代码是否有问题并且文件大小可以压缩接近一半
+- 
 
 GIT注意事项
-- 不要提交没有用的代码(本地配置文件/IDE配置文件/测试代码)，提交前一定要看看是不是你要改的要提交的代码，无关未完成代码不要提交，更不要看都不看全选直接提交
+- 不要提交没有用的代码(本地配置文件/IDE配置文件/临时测试代码)，提交前一定要看看是不是你要改的要提交的代码，无关未完成代码不要提交，更不要看都不看全选直接提交
 - 别人的测试代码合并到你的分支上了，你的代码一定不要合并到线上分支，必须更新要给代码COPY到主分支
 - 每个功能测试完成没有问题了提交一个版本，不要改一行提交一下
 - 有冲突了一定不能为了解决冲突删除别人的代码，要看清楚谁的才是最新并且正确的代码
@@ -109,5 +185,13 @@ git pull origin 分支
 - 将某个项目分支的某个提交 COPY 到其它分支：
 git fetch 远程GIT地址 分支
 git cherry-pick 提交HASH
+- 
+
+服务器注意事项
+- 每个服务器+数据库都要设置CPU/磁盘空间短信提醒
+- 定期查看数据库慢查询，并解决慢查询：select * from mysql.slow_log_view
+- 上海和湖北项目定期查看：1，WEB服务器管理如果存在状态为不可用，需要手动检查一下。2，服务器管理发现状态不可用，也需要手动检查核实，如果都是手动检查是可用状态，需要打开数据库表game_servers2中的isdie改为0，然后执行：call initGameServers()
+- 一般大面积访问不了，基本问题都出在数据库，使用 show processlist; 看看是否有大量SQL在执行，如果发现是SQL堵塞，看看表是PHP/NODEJS/C++谁在使用的，如果PHP使用的修改.env的SystemMaintenance=1开启维护，快速给表改个名字，然后解决问题，在给SystemMaintenance=0关闭维护，NODEJS和C++也一样先开维护给表改名可以给影响降到最低，时间越长堵塞越多给表改名花费的时间更长
+- 使用phpdata服务器镜像安装服务器时一定要给crontab -e中的跑报表脚本删除，防止报表重复执行
 - 
 

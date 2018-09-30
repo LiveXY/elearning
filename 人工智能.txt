@@ -1,0 +1,689 @@
+Text-To-Speech
+######
+多语言：
+https://github.com/pndurette/gTTS
+pip install gTTS
+gtts-cli 'hello' --output hello.mp3
+https://github.com/cboard-org/cboard
+
+https://github.com/zlargon/google-tts/
+npm install google-tts-api --save
+https://github.com/vilic/cordova-plugin-tts
+https://github.com/naoufal/react-native-speech
+web:
+https://github.com/guest271314/SpeechSynthesisRecorder
+https://github.com/kripken/speak.js
+https://github.com/Marak/say.js
+命令行：
+https://www.npmjs.com/package/voc-cli
+py:
+https://github.com/buriburisuri/speech-to-text-wavenet
+https://github.com/readbeyond/aeneas
+http://espeak.sourceforge.net/test/latest.html
+https://github.com/Kyubyong/tacotron
+https://github.com/keithito/tacotron
+https://keithito.com/LJ-Speech-Dataset/
+https://librivox.org/
+https://github.com/DragonComputer/Dragonfire
+
+https://github.com/r9y9/deepvoice3_pytorch
+git clone https://github.com/r9y9/deepvoice3_pytorch && cd deepvoice3_pytorch
+pip install -e ".[bin]"
+python preprocess.py --preset=presets/deepvoice3_ljspeech.json ljspeech ~/data/LJSpeech-1.0
+python train.py --preset=presets/deepvoice3_ljspeech.json --data-root=./data/ljspeech
+python preprocess.py ljspeech ~/data/LJSpeech-1.0
+# warning! this may use different hyper parameters used at preprocessing stage
+python train.py --preset=presets/deepvoice3_ljspeech.json --data-root=./data/ljspeech
+https://github.com/mozilla/TTS
+https://github.com/hgneng/ekho #Chinese
+http://www.eguidedog.net/ekho.php
+
+speech-to-text
+######
+https://github.com/mozilla/DeepSpeech
+pip3 install deepspeech
+deepspeech --model models/output_graph.pbmm --alphabet models/alphabet.txt --lm models/lm.binary --trie models/trie --audio my_audio_file.wav
+pip3 install deepspeech-gpu
+deepspeech --model models/output_graph.pbmm --alphabet models/alphabet.txt --lm models/lm.binary --trie models/trie --audio my_audio_file.wav
+pre-trained model
+wget https://github.com/mozilla/DeepSpeech/releases/download/v0.1.1/deepspeech-0.1.1-models.tar.gz
+tar xvfz deepspeech-0.1.1-models.tar.gz
+audio files
+wget https://github.com/mozilla/DeepSpeech/releases/download/v0.1.1/audio-0.1.1.tar.gz
+tar xvfz audio-0.1.1.tar.gz
+deepspeech models/output_graph.pb audio/2830-3980-0043.wav models/alphabet.txt models/lm.binary models/trie
+Text: experience proves this
+deepspeech models/output_graph.pb audio/4507-16021-0012.wav models/alphabet.txt models/lm.binary models/trie
+Text: why should one halt on the way
+deepspeech models/output_graph.pb audio/8455-210777-0068.wav models/alphabet.txt models/lm.binary models/trie
+Text: your power is sufficient i said
+deepspeech --model models/output_graph.pbmm --alphabet models/alphabet.txt --lm models/lm.binary --trie models/trie --audio my_audio_file.wav
+To download the pre-built binaries, use util/taskcluster.py:
+python3 util/taskcluster.py --target .
+or if you're on macOS:
+python3 util/taskcluster.py --arch osx --target .
+
+https://github.com/asticode/go-astideepspeech
+http://www.cstr.ed.ac.uk/projects/festival/
+
+采用densenet识别图中文字
+https://github.com/yinchangchang/ocr_densenet
+
+阿里云语音验证码
+https://github.com/qingdie/qingdie-aliyun
+https://dysmsapi.aliyuncs.com/ #短信验证码
+https://dyvmsapi.aliyuncs.com/ #语音验证码
+
+手机短信验证码语音验证码话费充值流量充值
+https://github.com/gitchenze/panguPhone
+http://www.miaodiyun.com/
+
+语音识别
+https://github.com/xxbb1234021/speech_recognition
+训练数据下载 清华大学中文语料库（thchs30）http://www.openslr.org/18/
+训练
+配置conf目录下的conf.ini文件中的各项
+在终端运行 python train.py 开始训练
+在终端运行 python test.py 测试
+也可以使用PyCharm打开
+
+wav 文件转 16k 16bits 位深的单声道pcm文件
+ffmpeg -y  -i 16k.wav  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
+44100 采样率 单声道 16bts pcm 文件转 16000采样率 16bits 位深的单声道pcm文件
+ffmpeg -y -f s16le -ac 1 -ar 44100 -i test44.pcm  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
+mp3 文件转 16K 16bits 位深的单声道 pcm文件
+ffmpeg -y  -i aidemo.mp3  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
+// -acodec pcm_s16le pcm_s16le 16bits 编码器 // -f s16le 保存为16bits pcm格式 // -ac 1 单声道 // -ar 16000 16000采样率
+
+https://github.com/facebookresearch/wav2letter
+
+IBM:
+https://github.com/watson-developer-cloud/speech-to-text-nodejs
+https://stream-wdc.watsonplatform.net/speech-to-text/api
+https://gateway-syd.watsonplatform.net/speech-to-text/api
+https://speech-to-text-demo.ng.bluemix.net/
+
+GOOGLE:
+https://console.developers.google.com/
+http://www.chromium.org/developers/how-tos/api-keys
+https://github.com/gillesdemey/google-speech-v2
+brew install sox
+rec --encoding signed-integer --bits 16 --channels 1 --rate 16000 test.wav
+curl -X POST \
+--data-binary @'audio/hello (16bit PCM).wav' \
+--header 'Content-Type: audio/l16; rate=16000;' \
+'https://www.google.com/speech-api/v2/recognize?output=json&lang=en-us&key=yourkey'
+curl -X POST \
+--data-binary @audio/good-morning-google.flac \
+--header 'Content-Type: audio/x-flac; rate=44100;' \
+'https://www.google.com/speech-api/v2/recognize?output=json&lang=en-us&key=yourkey'
+https://github.com/evancohen/sonus
+npm install --save sonus
+
+科大讯飞
+https://www.xfyun.cn/
+https://www.xfyun.cn/services/voicedictation
+http://member.voicecloud.cn/index.php/default/register
+https://www.xfyun.cn/solutions/robots
+http://www.devstore.cn/evaluation/testInfo/107-127.html
+
+文字转拼音
+https://github.com/janx/ruby-pinyin
+
+APPLE
+https://developer.apple.com/documentation/avfoundation/speech_synthesis
+https://github.com/CoderTitan/TextAndVoice
+
+BAIDU
+```
+https://github.com/Baidu-AIP/nodejs-sdk
+npm install baidu-aip-sdk
+http://ai.baidu.com/docs#/
+http://yuyin.baidu.com/
+https://github.com/ChenHao96/VoiceInteraction
+https://github.com/eisneim/cytron_tts_gui
+https://github.com/apetab/vbot-voice
+
+http://tsn.baidu.com/text2audio
+QQ&微信语音silk转换wav
+brew install gcc ffmpeg
+git clone https://github.com/kn007/silk-v3-decoder.git silk-v3-decoder
+cd silk-v3-decoder/silk
+make && make decoder
+./decoder 123.silk 123.pcm
+ffmpeg -y -f s16le -ar 24000 -ac 1 -i 123.pcm -f wav -ar 16000 -b:a 16 -ac 1 123.wav
+https://www.jianshu.com/p/b092da81feb0
+语音识别
+len + speech方式
+http://vop.baidu.com/server_api?format=wav&rate=16000&channel=1&token=&cuid=9e:eb:e8:d4:67:00&len=大小&speech=图片base64
+url + callback方式
+http://vop.baidu.com/server_api?format=wav&rate=16000&channel=1&token=&cuid=9e:eb:e8:d4:67:00&url=123.wav&callback=回调地址
+http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=2&text=
+https://ai.baidu.com/aidemo?type=tns2&idx=1&tex=%s&cuid=baidu_speech_demo&cod=2&lan=zh&ctp=1&pdt=1&spd=5&per=4&vol=5&pit=5
+http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=2&text=你要转换的文字
+https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}&
+```
+
+https://github.com/nl8590687/ASRT_SpeechRecognition
+cp -rf datalist/* dataset/
+目前可用的模型有24、25和251
+本项目开始训练请执行：
+$ python3 train_mspeech.py
+本项目开始测试请执行：
+$ python3 test_mspeech.py
+测试之前，请确保代码中填写的模型文件路径存在。
+ASRT API服务器启动请执行：
+$ python3 asrserver.py
+如果要训练和使用模型251，请在代码中 import SpeechModel 的相应位置做修改。
+dataset/data_thchs30/train/*.wav
+dataset/data_thchs30/dev/*.wav
+dataset/data_thchs30/test/*.wav
+dataset/ST-CMDS-20170001_1-OS/*.wav
+https://github.com/nl8590687/ASRT_SpeechRecognition/wiki
+
+自然语言处理 中文分词 词性标注 命名实体识别 依存句法分析 关键词提取 新词发现 短语提取 自动摘要 文本分类 拼音简繁 http://hanlp.com/
+https://github.com/hankcs/HanLP
+https://github.com/hankcs/pyhanlp
+pip3 install pyhanlp
+hanlp update
+hanlp --help
+hanlp segment <<< '欢迎新老师生前来就餐'
+hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。'
+
+语音翻译 面对面翻译小程序
+https://github.com/Tencent/Face2FaceTranslator
+
+智能家居
+https://github.com/apanly/piRobot
+https://github.com/apanly/autohome
+https://github.com/2shou/TextGrocery.git #短文本分类工具
+BeautifulSoup(HTML/XML的解析器)
+http://www.pm25.in/api_doc
+https://www.faceplusplus.com.cn/
+pip3 install jieba tgrocery
+
+sudo apt-get install libttspico-utils
+https://github.com/GwadaLUG/pico-read-speaker
+- libttspico-data (https://openrepos.net/content/mickaelh/libttspico-data)
+- libttspico0 (https://openrepos.net/content/mickaelh/libttspico0)
+- libttspico-utils (https://openrepos.net/content/mickaelh/libttspico-utils)
+- libttspico-dev (https://openrepos.net/content/mickaelh/libttspico-dev)
+or
+- sudo apt-get install libttspico0 libttspico-utils libttspico-data
+ wget https://raw.githubusercontent.com/stevenmirabito/asterisk-picotts/master/picotts-install.sh -O - | sh
+- svox (pico2wave) https://packages.debian.org/source/squeeze/svox
+https://github.com/mscdex/speaky
+https://github.com/grigi/talkey
+https://pbxinaflash.com/community/threads/svox-pico-tts-for-asterisk.17859/
+pico2wave -l fr-FR -w /tmp/test.wav "Ceci est un test"
+aplay /tmp/test.wav
+
+https://github.com/zaf/asterisk-googletts
+brew install sox mpg123 pulseaudio espeak
+soxi sox play
+play existing-file.wav
+sox existing-file.wav −d
+
+https://www.google.com.hk/speech-api/v1/recognize?xjerr=1&client=chromium&pfilter=2&lang=zh-CN&maxresults=6
+https://github.com/apanly/piRobot/blob/master/stt/google.py
+
+cd /
+wget http://incrediblepbx.com/picotts.tar.gz
+tar zxvf picotts.tar.gz
+cd /root
+./picotts-install.sh
+sed -i 's|en)|en-US)|' /etc/asterisk/extensions_custom.conf
+sed -i 's|googletts|picotts|' /etc/asterisk/extensions_custom.conf
+asterisk -rx "dialplan reload"
+
+espeak --stdout "this is a test" | paplay
+echo "these are my notes" > text.txt
+espeak --stdout -f text.txt > text.wav
+paplay text.wav # you should hear "these are my notes"
+play text.wav
+
+基于STM32的孤立词语音识别
+https://github.com/gk969/stm32-speech-recognition
+http://gk969.com/stm32-speech-recognition/
+
+图灵
+聊天
+http://www.tuling123.com/openapi/api
+
+图片识别文字
+pip3 install baidu-aip
+https://github.com/shuoGG1239/Image2Text
+https://github.com/lancezhange/smoke_recognition 图片烟雾识别
+python3 smokeDetection.py
+pip3 install pytesseract
+
+https://www.cnblogs.com/wzben/p/5930538.html
+brew install --with-training-tools --all-languages tesseract
+https://github.com/tesseract-ocr/tessdata
+https://github.com/tesseract-ocr/tessdata/tree/3.04.00
+https://github.com/tesseract-ocr/tessdata_fast/
+
+tesseract -v tesseract --list-langs 查看版本+语音
+tesseract 图片名称 生成的结果文件的名称 字库
+tesseract test.jpg result -l chi_sim
+tesseract -l chi_sim+eng
+tesseract 1234.png 1234 -l chi_sim -psm 6
+tesseract --help-psm
+ 0 定向脚本监测（OSD）
+ 1 使用OSD自动分页
+ 2 自动分页，但是不使用OSD或OCR（Optical Character Recognition，光学字符识别）
+ 3 全自动分页，但是没有使用OSD（默认）
+ 4 假设可变大小的一个文本列。
+ 5 假设垂直对齐文本的单个统一块。
+ 6 假设一个统一的文本块。
+ 7 将图像视为单个文本行。
+ 8 将图像视为单个词。
+ 9 将图像视为圆中的单个词。
+
+将图片转换成tif格式，用于后面生成box文件。可以通过画图，然后另存为tif即可
+[lang].[fontname].exp[num].tif
+生成box文件
+tesseract mjorcen.normal.exp0.jpg mjorcen.normal.exp0 -l chi_sim batch.nochop makebox
+box文件和对应的tif一定要在相同的目录下，不然后面打不开。
+打开jTessBoxEditor矫正错误并训练 打开train.bat
+tesseract  mjorcen.normal.exp0.jpg mjorcen.normal.exp0  nobatch box.train
+unicharset_extractor mjorcen.normal.exp0.box
+新建一个font_properties文件
+里面内容写入 normal 0 0 0 0 0 表示默认普通字体
+shapeclustering -F font_properties -U unicharset mjorcen.normal.exp0.tr
+mftraining -F font_properties -U unicharset -O unicharset mjorcen.normal.exp0.tr
+cntraining mjorcen.normal.exp0.tr
+最后会生成五个文件，把目录下的unicharset、inttemp、pffmtable、shapetable、normproto这五个文件前面都加上normal.
+combine_tessdata normal.
+得到训练好的字库。
+把 normal.traineddata 复制到Tesseract-OCR 安装目录下的tessdata文件夹中
+tesseract mjorcen.normal.exp0.jpg mjorcen.normal.exp0 -l normal
+
+素材合成，(多个素材合成)
+打开jTessBoxEditor工具，菜单栏：tools->Merge TIFF...，选中要合成的图片并保存为为：huiyi.fitt。
+生成box文件
+tesseract  huiyi.tif huiyi -l chi_sim -psm 10 batch.nochop makebox
+执行后会在生成一个名为huiyi.box的box文件。
+用文本编辑器或者xcode打开编辑保存
+生成.tr文件
+tesseract huiyi.tif huiyi -psm 10 nobatch box.train
+生成unicharset文件
+unicharset_extractor huiyi.box
+
+jTessBoxEditor
+https://sourceforge.net/projects/vietocr/files/jTessBoxEditor/
+java -Xms4096m -Xmx4096m -jar jTessBoxEditor.jar
+
+图片转tiff
+pip3 install tifffile
+python3 /usr/local/lib/python3.7/site-packages/tifffile/tifffile.py --help
+vi ~/.bash_profile
+alias tifffile='python3 /usr/local/lib/python3.7/site-packages/tifffile/tifffile.py'
+source ~/.bash_profile
+tifffile --help
+
+go get -u github.com/brunsgaard/img2tiff
+cd $GOPATH/src/github.com/brunsgaard/img2tiff
+
+https://blog.csdn.net/qq_25806863/article/details/67637567
+vi process-tessdata.sh
+#!/bin/sh
+read -p "输入你语言:" lang
+echo ${lang}
+read -p "输入你的字体:" font
+echo ${font}
+echo "所以完整文件名为："
+echo ${lang}.${font}.exp0.tif
+echo "开始。。。"
+echo ${font} 0 0 0 0 0 >font_properties
+tesseract  ${lang}.${font}.exp0.tif ${lang}.${font}.exp0  nobatch box.train
+unicharset_extractor ${lang}.${font}.exp0.box
+shapeclustering -F font_properties -U unicharset ${lang}.${font}.exp0.tr
+mftraining -F font_properties -U unicharset -O unicharset ${lang}.${font}.exp0.tr
+cntraining ${lang}.${font}.exp0.tr
+echo "开始重命名文件"
+mv inttemp ${font}.inttemp
+mv normproto ${font}.normproto
+mv pffmtable ${font}.pffmtable
+mv shapetable ${font}.shapetable
+mv unicharset ${font}.unicharset
+echo "生成最终文件"
+combine_tessdata ${font}.
+echo "完成"
+
+
+识别车牌
+https://github.com/zeusees/HyperLPR
+pip install hyperlpr
+
+一款入门级的人脸、视频、文字检测以及识别的项目.
+https://github.com/vipstone/faceai
+
+pip3 install dlib
+训练模型用于是人脸识别的关键，用于查找图片的关键点。
+wget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+当然你也可以训练自己的人脸关键点模型，这个功能会放在后面讲。
+下载好的模型文件，我的存放地址是：C:\Python36\Lib\site-packages\dlib-data\shape_predictor_68_face_landmarks.dat.bz2
+解压：shape_predictor_68_face_landmarks.dat.bz2得到文件：shape_predictor_68_face_landmarks.dat
+https://github.com/hcxiong/faceai/blob/master/doc/detectionDlib.md
+https://github.com/hcxiong/faceai/blob/master/doc/videoOpenCV.md
+https://github.com/hcxiong/faceai/blob/master/doc/videoDlib.md
+https://github.com/hcxiong/faceai/blob/master/doc/faceRecognitionOutline.md
+
+
+https://github.com/fighting41love/funNLP
+中英文敏感词过滤 https://github.com/observerss/textfilter
+97种语言检测 https://github.com/saffsd/langid.py
+另一个语言检测https://code.google.com/archive/p/language-detection/
+中国手机归属地查询 https://github.com/ls0f/phone
+phone国际手机、电话归属地查询 https://github.com/AfterShip/phone
+根据名字判断性别： https://github.com/observerss/ngender
+人名语料库 https://github.com/wainshine/Chinese-Names-Corpus
+中文缩写库 https://github.com/zhangyics/Chinese-abbreviation-dataset/blob/master/dev_set.txt
+汉语拆字词典 https://github.com/kfcd/chaizi
+词汇情感值 https://github.com/rainarch/SentiBridge/blob/master/Entity_Emotion_Express/CCF_data/pair_mine_result
+中文词库、停用词、敏感词 https://github.com/dongxiexidian/Chinese
+汉字转拼音 https://github.com/mozillazg/python-pinyin
+中文繁简体互转 https://github.com/skydark/nstools/tree/master/zhtools
+英文模拟中文发音引擎 funny chinese text to speech enginee https://github.com/tinyfool/ChineseWithEnglish
+同义词库、反义词库、否定词库 https://github.com/phunterlau/wangfeng-rnn
+无空格英文串分割、抽取单词 https://github.com/keredson/wordninja
+结巴中文分词 https://github.com/fxsjy/jieba
+百度中文词法分析（分词+词性+专名）系统 https://github.com/baidu/lac
+https://github.com/baidu/AnyQ 百度FAQ自动问答系统
+https://github.com/baidu/Senta 百度情感识别系统
+
+
+ocr
+http://apis.baidu.com/apistore/idlocr/ocr
+https://github.com/deloz/baiduocr
+https://github.com/tesseract-ocr/tesseract
+brew install --with-training-tools --all-languages tesseract
+brew install imagemagick
+tesseract imagename outputbase [-l lang] [--oem ocrenginemode] [--psm pagesegmode] [configfiles...]
+tesseract -l chi_sim data/test_data.png out_test_data
+chi_sim.traineddata
+eng.traineddata
+https://github.com/naptha/tesseract.js
+http://tesseract.projectnaptha.com/
+https://github.com/madmaze/pytesseract
+https://github.com/thiagoalessio/tesseract-ocr-for-php
+https://github.com/otiai10/gosseract
+https://github.com/Greedysky/TTKOCR
+https://github.com/Aixtuz/CardScanner
+https://github.com/iChenwin/pytesseractID
+https://github.com/csxiaoyaojianxian/BloodTestReportOCR
+https://github.com/bigchao8/Opencv-ImageBase
+基于caffe
+https://github.com/JinpengLI/deep_ocr
+python reco_chars.py
+实现ctpn+crnn+ctc实现不定长场景文字OCR识别
+https://github.com/xiaofengShi/CHINESE-OCR
+环境部署
+Bash
+##GPU环境
+sh setup.sh
+##CPU环境
+sh setup-cpu.sh
+##CPU python3环境
+sh setup-python3.sh
+使用环境：python3.6+tensorflow1.7+cpu/gpu
+https://github.com/jimmyleaf/ocr_tensorflow_cnn
+安装
+http://caffe.berkeleyvision.org/install_osx.html
+brew tap homebrew/science
+brew install hdf5 opencv
+
+文字识别
+http://www.robots.ox.ac.uk/~vgg/data/text/
+https://yq.aliyun.com/articles/109555?t=t1
+https://github.com/YCG09/chinese_ocr
+sh setup.sh #环境部署
+python demo.py #Demo 将测试图片放入test_images目录，检测结果会保存到test_result中
+训练 数据集：https://pan.baidu.com/s/1QkI7kjah8SPHwOQ40rS1Pw (密码：lu7m) 图片解压后放置到train/images目录下，描述文件放到train目录下
+cd train
+python train.py
+https://github.com/JarveeLee/SynthText_Chinese_version
+https://github.com/Belval/TextRecognitionDataGenerator
+https://github.com/Sanster/text_renderer
+
+用keras实现OCR定位、识别
+https://github.com/xiaomaxiao/keras_ocr
+
+https://github.com/eragonruan/text-detection-ctpn 文字区域检测CTPN
+https://github.com/eragonruan/text-detection-ctpn/releases
+python ./ctpn/demo_pb.py
+cd lib/utils
+chmod +x make.sh
+./make.sh
+prepare data
+cd lib/prepare_training_data
+python split_label.py
+it will generate the prepared data in current folder, and then run
+python ToVoc.py
+python ./ctpn/train_net.py
+
+主流ocr算法研究实验性的项目，目前实现了CNN+BLSTM+CTC架构
+https://github.com/senlinuc/caffe_ocr
+https://github.com/isee15/Card-Ocr
+基于caffe的LSTM OCR案例，能够利用该案例完成序列的识别，包括验证码、车牌、身份证号码、地址等长序列动长的内容识别
+https://github.com/dlunion/CaffeLSTM-OCR
+
+CTC可以被用来训练端对端的语音识别系统
+https://github.com/baidu-research/warp-ctc
+git clone https://github.com/baidu-research/warp-ctc.git
+cd warp-ctc
+mkdir build
+cd build
+cmake ../
+make
+http://ilovin.me/2017-04-06/tensorflow-lstm-ctc-ocr/
+https://github.com/ilovin/lstm_ctc_ocr
+
+https://github.com/bgshih/crnn
+https://github.com/meijieru/crnn.pytorch
+
+腾讯优图OCR云平台识别身份证、银行卡、行驶证、驾驶证，依赖包小，识别次数免费
+https://api.youtu.qq.com/youtu/ocrapi/
+https://open.youtu.qq.com/#/open
+https://github.com/Tencent-YouTu/nodejs_sdk
+https://github.com/Tencent-YouTu/Python_sdk
+https://github.com/Tencent-YouTu/Go_sdk
+https://github.com/TencentYouTu/ios_sdk
+https://github.com/TencentYouTu/android_sdk
+
+基于Xception的腾讯验证码识别（样本+代码）
+https://github.com/bojone/n2n-ocr-for-qqcaptcha
+10万验证码样本公开如下：
+链接: https://pan.baidu.com/s/1mhO1sG4 密码: j2rj
+https://github.com/keras-team/keras
+
+百度莱茨狗抢购脚本
+https://github.com/Acamy/pet-chain-buyer
+https://github.com/yanwii/pet-chain
+https://pet-chain.baidu.com/
+
+图片验证码识别
+https://www.showapi.com/api/view/184
+https://github.com/Yaoshicn/decaptcha
+https://github.com/dingyaguang117/ImageRecognizeOf58
+https://github.com/CrazyHusen/IdentificationCodes
+
+百度二代身份证识别
+https://github.com/DophinL/baidu-ocr-idcard
+https://github.com/Freeza91/baidu_ocr
+百度OCR文字识别API For Ruby Gems
+https://rubygems.org/gems/baidu_ocr
+https://aip.baidubce.com/rest/2.0/ocr/v1/general
+https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic
+https://aip.baidubce.com/rest/2.0/ocr/v1/general_enhanced
+https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic
+https://aip.baidubce.com/rest/2.0/ocr/v1/accurate
+https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard
+https://aip.baidubce.com/rest/2.0/ocr/v1/idcard
+https://aip.baidubce.com/rest/2.0/ocr/v1/webimage
+https://aip.baidubce.com/rest/2.0/ocr/v1/driving_license
+https://aip.baidubce.com/rest/2.0/ocr/v1/vehicle_license
+https://aip.baidubce.com/rest/2.0/ocr/v1/license_plate
+https://aip.baidubce.com/rest/2.0/ocr/v1/business_license
+https://aip.baidubce.com/rest/2.0/ocr/v1/receipt
+https://github.com/UEdge/OCRCard
+https://github.com/chasecs/react-native-baidu-ocr
+语音识别,语音合成,中文分词, 中文词向量表示, 短文本相似度, 中文DNN语言模型, 评论观点抽取, 词性标注, 人脸识别, 人脸N:N比对, 身份证识别, 黄色图片识别, 图片查找, 等接口的golang调用sdk
+https://github.com/ghostwwl/baiduai
+
+aliyun
+https://market.aliyun.com/aliyunocrnew
+https://data.aliyun.com/product/ocr
+
+图片识别
+http://image.baidu.com/pictureup/uploadshitu?fr=flash&fm=index&pos=upload
+curl -i -F 'image=@3.jpg' 'http://image.baidu.com/pictureup/uploadshitu?pos=upload&uptype=upload_pc&fm=index' -L
+
+人脸识别
+https://github.com/ageitgey/face_recognition
+https://github.com/ageitgey/face_recognition/blob/master/examples/facerec_from_webcam_faster.py
+pip3 install face_recognition
+识别照片或文件夹中的面部照片
+face_recognition ./pictures_of_people_i_know/ ./unknown_pictures/
+在照片或文件夹中找到满是照片的面孔
+face_detection  ./folder_with_pictures/
+face_detection  ./unknown_pictures/test1.png
+face_recognition --tolerance 0.54 ./pictures_of_people_i_know/ ./unknown_pictures/
+face_recognition --tolerance 0.54 ./pictures_of_people_i_know/ ./unknown_pictures/test1.png
+face_recognition --show-distance true ./pictures_of_people_i_know/ ./unknown_pictures/
+face_recognition ./pictures_of_people_i_know/ ./unknown_pictures/ | cut -d ',' -f2
+face_recognition --cpus 4 ./pictures_of_people_i_know/ ./unknown_pictures/
+https://github.com/vipstone/faceai/blob/master/doc/faceRecognition.md
+
+头像特效合成
+https://github.com/vipstone/faceai/blob/master/doc/compose.md
+
+性别识别
+https://github.com/vipstone/faceai/blob/master/doc/gender.md
+pip3 install keras
+pip3 install tensorflow
+https://github.com/oarriaga/face_classification
+
+表情识别
+https://github.com/oarriaga/face_classification
+Run real-time emotion demo:
+python3 video_emotion_color_demo.py
+Run real-time guided back-prop demo:
+python3 image_gradcam_demo.py
+Make inference on single images:
+python3 image_emotion_gender_demo.py <image_path>
+python3 image_emotion_gender_demo.py ../images/test_image.jpg
+https://github.com/hcxiong/faceai/blob/master/doc/emotion.md
+
+https://blog.csdn.net/ZWX2445205419/article/details/79086288
+https://blog.csdn.net/ZWX2445205419/article/details/79030001
+
+视频对象提取
+https://github.com/vipstone/faceai/blob/master/doc/hsv-opencv.md
+图片修复
+https://github.com/vipstone/faceai/blob/master/doc/inpaint.md
+
+https://github.com/davidsandberg/facenet
+pip3 install facenet
+
+https://github.com/zangruirui/facenet_regonistant
+pip3 install -r requirements.txt
+python3 face_recognition_api.py #访问地址是XXXXXX:8088 这个可以配置
+python3 face_recognition_savepic.py #人脸信息提取出来并保存到单独的文件夹下
+修改文件参数
+1.images_path：要处理的图片文件夹路径
+2.modelpath： 模型存放路径
+3.out_path： 将每个图片中每个人脸转换为128维向量保存到json文件中
+
+人脸识别c++
+https://github.com/seetaface/SeetaFaceEngine
+
+AutoIT自动化脚本工具与脚本录制
+https://www.autoitscript.com/site/autoit/downloads
+https://github.com/ellysh/au3src
+https://www.jb51.net/shouce/autoit/
+https://github.com/acalcutt/Vistumbler 无线网络扫描仪
+https://github.com/9aylas/Shortcut-Payload-Generator
+https://github.com/9aylas/PE-Binary-Dumper
+https://github.com/9aylas/Automated-UPX-Packer
+https://github.com/9aylas/Administrator-Tool
+https://github.com/9aylas/Wireless-Recovery-Tool
+https://github.com/xwxbug/autoit-cn
+https://github.com/xhawk18/node-autoit
+https://github.com/dragana-r/autoit-winhttp
+https://github.com/ellysh/l2bot 天堂2机器人
+https://github.com/jvanegmond/au3_uiautomation
+https://github.com/3gstudent/AutoIt-Keylogger
+https://github.com/geekcomputers/AutoIt
+https://github.com/nurupo/chrome-mouse-wheel-tab-scroller
+https://github.com/GkevinOD/msl-bot 怪物超级联赛AutoIT机器人
+https://github.com/Kirlovon/Devil-Backdoor 恶魔后门
+https://github.com/turbo/OOPEAu3
+https://github.com/xLinkOut/telegram-udf-autoit
+https://github.com/admiralmachado/AutoIt-Uplay
+https://github.com/Pahiro/AutoIT-Scripts
+https://github.com/J2TEAM/AutoIt-Imgur-UDF
+https://github.com/upig/TxtSpider 抓取小说
+https://github.com/QstarLLC/Black-Desert-Fishing-Bot-AutoItScript- 黑色沙漠在线鱼机器人
+https://github.com/jogonba2/Autoit-Obfuscator 自动代码混淆
+https://github.com/genokolar/Genotools
+https://github.com/cornernote/autoit-poker_bot 自动化玩德州扑克
+https://github.com/rcmaehl/IRC-UDFs
+https://github.com/tarreislam/Autoit-Socket-IO
+https://github.com/subnet-/AutoIT
+https://github.com/ormaaj/d2au3 暗黑破坏神II自动化框架
+https://github.com/J2TEAM/autoit-updater
+https://github.com/AchmadFathoni/Duellink-PC-Bot
+https://github.com/Amatsukan/MemorySystem-AutoIT
+https://github.com/gileli121/share-variables-in-ram
+https://github.com/wsguest/LiveRobot 24小时转播艾菲卡的机器人
+https://github.com/JoshuaDoes/PPMIt
+https://github.com/Dateranoth/ConanExilesServerUtility
+https://github.com/ialsaud/PianoTilesAutoit
+https://github.com/Trailerbreaker/LauncherAoS 黑桃王牌游戏的发射器
+https://github.com/KBebel/ZombidleAuto
+https://github.com/opdo/autoit-hanoitower
+https://github.com/jack-c-taylor/AutoIT-Card-Game 纸牌游戏
+https://github.com/ulfgebhardt/autoit_pokeautopilot 口袋妖怪
+https://github.com/Genotypek/TWMB-AutoIT3
+https://github.com/MrAutoIt/Flash_Game_Automation_Example
+https://github.com/WildGenie/WildNosBot
+https://github.com/xLinkOut/lumberjack-bot
+https://github.com/dbechrd/Vondido 益智游戏
+https://github.com/jcageman/d2itemreader 暗黑破坏神2
+https://github.com/Dateranoth/RustServerUtility
+https://github.com/Isonyx/QADCA
+https://github.com/RobertoGalois/Automation-LevelUp-Megaman-Zero-GBA
+https://github.com/dolong/PathofExilePixelRecognitionProject
+
+https://github.com/codebroken/BrokenBot
+https://brokenbot.org
+https://github.com/CodeSlinger69/ClAsHbOt 部落冲突农场机器人
+https://github.com/blackdaddy/ClashBot ClashBot 6.0错误修复程序
+https://github.com/xseano/ClashBotV2 企业Clash Bot版本2
+https://github.com/trickymast3r/clashbot 5.6版本
+https://github.com/nhocly/AutoIt-ClashBot
+https://github.com/iminjured/ClashBot-v6.2.3
+https://github.com/nhocly/COC-Bot
+https://github.com/Phid/COC-Bot
+https://github.com/nhocly/Coc-bot-Csharp
+https://github.com/nhocly/cgb-unofficial
+https://github.com/nhocly/pokubot
+https://mybot.run/
+https://github.com/ChackBR/MyBot_v7
+https://github.com/Envyus/GameBot
+https://github.com/ChackBR/MyBot6_5m
+
+https://ntcore.com/?page_id=388
+https://ntcore.com/files/ExplorerSuite.exe
+https://ntcore.com/files/CFF_Explorer.zip
+
+https://autohotkey.com/
+https://github.com/floowsnaake/Starcraft-1-Bot-thingy 星际争霸
+
+
+
+淘宝自动发货机器人
+https://github.com/localhost02/Taobao_order_robot
+

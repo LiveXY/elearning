@@ -1,4 +1,4 @@
-brew install tesseract
+brew install --with-training-tools --all-languages tesseract
 wget https://tesseract-ocr.googlecode.com/files/eng.traineddata.gz
 wget https://github.com/tesseract-ocr/tessdata/raw/master/chi_sim.traineddata
 

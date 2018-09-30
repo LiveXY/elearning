@@ -1,5 +1,43 @@
 python
 
+brew install python3
+ln -s /usr/local/Cellar/python/3.7.0/bin/python3 /usr/local/bin/python3
+
+安装包路径：/usr/local/lib/python3.7/site-packages/
+
+pip3 install matplotlib -i https://pypi.douban.com/simple
+https://pypi.tuna.tsinghua.edu.cn/simple
+https://mirrors.aliyun.com/pypi/simple/
+
+pip 使用阿里云的源
+```
+mkdir ~/.pip
+
+cat > ~/.pip/pip.conf << EOF
+
+[global]
+trusted-host=mirrors.aliyun.com
+index-url=https://mirrors.aliyun.com/pypi/simple/
+
+EOF
+
+Windows系统：
+首先在window的文件夹窗口输入 ： %APPDATA%
+然后创建pip文件夹
+最后创建pip.ini文件，写入如下内容
+[global]
+index-url = https://mirrors.aliyun.com/pypi/simple/
+[install]
+trusted-host=mirrors.aliyun.com
+```
+
+pip3 list
+pip3 list --outdated
+pip uninstall 包名
+
+pip install --upgrade pip
+pip3 install --upgrade pip
+
 mac: brew install pipenv
 dnf install pipenv
 yum install pipenv
@@ -62,6 +100,7 @@ http://sklearn.apachecn.org/cn/0.19.0/index.html
 深度学习
 https://github.com/keras-team/keras
 https://github.com/tensorflow/tensorflow
+https://www.tensorflow.org/install/
 https://github.com/Theano/Theano
 自然语言处理 http://www.magedu.com/71122.html
 https://github.com/nltk/nltk

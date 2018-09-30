@@ -148,6 +148,8 @@ db.user.update({uid:1},{'$set':{uname:'test2'}},true,true)
 #只修改uname结点
 db.test0.update({"count":{$gt:5}},{$set:{"test5":"OK"}},true,true );
 db.test0.update({"count":{$gt:15}},{$inc:{"count":1}},false,true );
+db.task.update({id:NumberLong(5000005)},{$set:{'task.77.status':3}},true,true);
+db.task.update({id:NumberLong(5000005),'task.id':100000017},{$set:{'task.$.status':1}},true,true);
 db.user.remove({'uid':1})#删除表数据
 db.user.drop()#删除表
 db.test.renameCollection(newName) 重命名些数据集名称

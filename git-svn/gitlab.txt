@@ -1,4 +1,17 @@
 
+wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-8.7.0-ce.0.el7.x86_64.rpm
+rpm -e gitlab-ce
+rpm -ivh gitlab-ce-8.7.0-ce.0.el7.x86_64.rpm
+vi /etc/gitlab/gitlab.rb
+external_url 'http://git.realbullgame.com'
+gitlab_workhorse['auth_backend'] = "http://192.168.6.218:18080"
+unicorn['listen'] = '192.168.6.218'
+unicorn['port'] = 18080
+nginx['listen_addresses'] = ['192.168.6.218']
+CE版本执行
+sudo gitlab-rails runner "Project.where.not(import_url: nil).each { |p| p.import_data.destroy if p.import_data }"
+
+
 https://about.gitlab.com/downloads/#centos7
 
 ```
@@ -46,6 +59,7 @@ systemctl status gitlab-runsvdir.service
 systemctl start gitlab-runsvdir
 gitlab-ctl restart
 
+gitlab-ctl tail postgresql
 gitlab-ctl restart postgresql
 rm /var/opt/gitlab/postgresql/data/postmaster.pid
 gitlab-ctl restart postgresql
@@ -62,4 +76,32 @@ The PostgreSQL documentation contains more information about shared memory confi
 sudo echo 4294967296 > /proc/sys/kernel/shmmax
 vim /etc/sysctl.conf
 kernel.shmmax=4294967296 #4G
+====================================
 
+cd /opt/gitlab/bin
+gitlab-rails console production
+user = User.where(id: 1).first
+user.password=12345678
+user.password_confirmation=12345678
+user.save!
+quit
+
+备份
+    gitlab-rake gitlab:backup:create
+备份的数据会存储在/var/opt/gitlab/backups
+恢复
+    # 停止unicorn和sidekiq，保证数据库没有新的连接，不会有写数据情况
+    sudo gitlab-ctl stop unicorn
+    sudo gitlab-ctl stop sidekiq
+    # 进入备份目录进行恢复，1476900742为备份文件的时间戳
+    cd /var/opt/gitlab/backups
+    gitlab-rake gitlab:backup:restore BACKUP=1476900742
+    cd -
+    # 启动unicorn和sidekiq
+    sudo gitlab-ctl start unicorn
+    sudo gitlab-ctl start sidekiq
+
+gitlab-rake gitlab:check --trace
+wrong or missing hooks
+sudo -u git -H /opt/gitlab/embedded/service/gitlab-shell/bin/create-hooks
+gitlab-rake db:migrate:status --trace
