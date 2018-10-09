@@ -687,3 +687,121 @@ https://github.com/floowsnaake/Starcraft-1-Bot-thingy 星际争霸
 淘宝自动发货机器人
 https://github.com/localhost02/Taobao_order_robot
 
+tts
+http://zhangjikai.com/text2sound/
+https://github.com/hiddentao/google-tts
+https://developer.chrome.com/apps/tts
+https://github.com/yyx990803/Speech.js
+https://github.com/smithclay/sayeasy
+https://github.com/5paceManSpiff/ttsmp3
+
+https://github.com/sekaiamber/tts.js
+
+webkitSpeechRecognition
+https://www.google.com/intl/en/chrome/demos/speech.html
+https://github.com/jediKn8/speechtotext
+https://speechnotes.co/
+https://speechnotes.co/resources/scriptA2.min.js
+https://speechnotes.co/resources/scriptB2.min.js
+https://dictation.io/
+https://dictation.io/dictation.js
+
+watson-developer-cloud
+https://github.com/watson-developer-cloud/node-tts-player
+https://github.com/watson-developer-cloud/raspberry-pi-time-weather-demo
+https://github.com/watson-developer-cloud/raspberry-pi-speech-to-text
+
+http://www.ibm.com/watson/developercloud/speech-to-text/api/v1/#get_models
+
+http://www.ibm.com/watson/developercloud/speech-to-text.html
+https://github.com/watson-developer-cloud/speech-to-text-nodejs
+
+espeak
+http://espeak.sourceforge.net/commands.html
+http://espeak.sourceforge.net/languages.html
+http://espeak.sourceforge.net/data/
+brew install espeak
+cd /usr/local/Cellar/espeak/1.48.04_1/share/espeak-data/voices
+wget http://espeak.sourceforge.net/data/zh_listx.zip
+wget http://espeak.sourceforge.net/data/zhy_list.zip
+espeak --compile=zh
+espeak --compile=zh-yue
+espeak "This is a test"
+espeak -f <text file>
+espeak -v en "[[D,Is Iz sVm f@n'EtIk t'Ekst 'InpUt]]"
+espeak -v zh "这里是文字内容"
+espeak -vzhy "粤语"
+
+oddcast
+http://www.oddcast.com/home/demos/tts/tts_example.php?sitepal
+
+ispeech
+http://www.ispeech.org/p/generic/getaudio?text=test%2C&voice=chchinesefemale&speed=0&action=markers
+http://www.ispeech.org/p/generic/getaudio?text=test%2C&voice=chchinesefemale&speed=0&action=convert
+
+baidu
+https://github.com/skechboy/SpeakIt
+http://tts.baidu.com/text2audio?lan=zh&pid=101&ie=UTF-8&text=%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C&_=11111111111
+http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=2&text=你要转换的文字
+http://fanyi.baidu.com/gettts?lan=en&source=web&text=这里是文字内容
+http://tts.baidu.com/text2audio?idx=1&tex=%25E7%2599%25BE%25E5%25BA%25A6%25E8%25AF%25AD%25E9%259F%25B3%25EF%25BC%258C%25E9%259D%25A2%25E5%2590%2591%25E5%25B9%25BF%25E5%25A4%25A7%25E5%25BC%2580%25E5%258F%2591%25E8%2580%2585%25E6%25B0%25B8%25E4%25B9%2585%25E5%2585%258D%25E8%25B4%25B9%25E5%25BC%2580%25E6%2594%25BE%25E8%25AF%25AD%25E9%259F%25B3%25E5%2590%2588%25E6%2588%2590%25E6%258A%2580%25E6%259C%25AF%25E3%2580%2582%25E6%2589%2580%25E9%2587%2587%25E7%2594%25A8%25E7%259A%2584%25E7%25A6%25BB%25E5%259C%25A8%25E7%25BA%25BF%25E8%259E%258D%25E5%2590%2588%25E6%258A%2580%25E6%259C%25AF%25EF%25BC%258C%25E6%25A0%25B9%25E6%258D%25AE%25E5%25BD%2593%25E5%2589%258D%25E7%25BD%2591%25E7%25BB%259C%25E7%258A%25B6%25E5%2586%25B5%25EF%25BC%258C%25E8%2587%25AA%25E5%258A%25A8%25E5%2588%25A4%25E6%2596%25AD%25E4%25BD%25BF%25E7%2594%25A8%25E6%259C%25AC%25E5%259C%25B0%25E5%25BC%2595%25E6%2593%258E%25E6%2588%2596%25E8%2580%2585%25E4%25BA%2591%25E7%25AB%25AF%25E5%25BC%2595%25E6%2593%258E%25EF%25BC%258C%25E8%25BF%259B%25E8%25A1%258C%25E8%25AF%25AD%25E9%259F%25B3%25E5%2590%2588%25E6%2588%2590%25EF%25BC%258C%25E5%2586%258D%25E4%25B9%259F%25E4%25B8%258D%25E7%2594%25A8%25E6%258B%2585%25E5%25BF%2583%25E6%25B5%2581%25E9%2587%258F%25E6%25B6%2588%25E8%2580%2597%25E4%25BA%2586%25EF%25BC%2581&cuid=baidu_speech_demo&cod=2&lan=zh&ctp=1&pdt=1&spd=5&per=3&vol=5&pit=5
+
+google
+https://github.com/zlargon/google-tts
+https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C&tl=zh&total=1&idx=0&textlen=4&tk=883703.737194&client=t&prev=input&ttsspeed=1
+http://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium&lang=zh-CN&maxresults=1
+https://github.com/ashafir20/node-google-text-to-speech
+https://github.com/olragon/gtts.js
+google+tts-api
+https://github.com/ajay-gandhi/light-tts
+
+itri
+http://tts.itri.org.tw/
+http://tts.itri.org.tw/online_tts/display.php
+http://tts.itri.org.tw/development/web_service_api.php
+http://tts.itri.org.tw/development/javascript_api.php
+
+ivona
+https://www.ivona.com/
+https://github.com/IonicaBizau/text-to-speech-js
+
+https://github.com/Marak/say.js
+
+text2wave
+https://github.com/PatrickStankard/say-p-i
+
+naturalreaders
+https://api.naturalreaders.com/v2/tts/?t=测试&r=1&s=1&requesttoken=af7c15ef6e0846703e15a77204bf7176
+
+
+http://blog.csdn.net/yylsheng/article/details/8364487
+
+say
+http://qiita.com/zakuroishikuro/items/0c17acb21f119647c205
+https://github.com/hbouvier/node-tts
+say "さんをつけろよデコ助野郎！"
+say -f sample.txt
+say -v Otoya "そぉいっ！！！"
+say -v Alex -r 10 "Hello"
+say "さんをつけろよデコ助野郎！" -o say.m4a
+text2mp3:
+say -f script.txt -o greetings.aiff
+brew install lame
+lame -m m greetings.aiff greetings.mp3
+
+stt
+
+cris
+https://github.com/ritazh/speech-to-text-demo
+
+
+
+
+
+
+
+
+
+
+
+

@@ -214,4 +214,26 @@ ansible-playbook backupdb.yml --tags structure -e "host=6168 \
 	path=./files/20180824 \
 	dbtables='sys_app sys_app_function sys_role sys_role_function'"
 
+#ansible-playbook tool7.yml --tags ps -e 'host=6168 p=telnet' #查找进程
+#ansible-playbook tool7.yml --tags ps2 -e 'host=6168 p=telnet' #查找进程
+#ansible-playbook tool7.yml --tags killall -e 'host=6168 p=telnet' #关闭进程
+#ansible-playbook tool7.yml --tags killall2 -e 'host=6168 p=telnet' #关闭进程
+#ansible-playbook tool7.yml --tags kill9 -e 'host=6168 p="123123 456456"' #关闭进程
+#ansible-playbook tool7.yml --tags pnum -e 'host=6168 p=telnet' #查看进程数
+#ansible-playbook tool7.yml --tags usershow -e host=6168 #显示可登录用户
+#ansible-playbook tool7.yml --tags userdel -e 'host=6168 u=test' #删除用户
+#ansible-playbook tool7.yml --tags userdel -e 'host=6168 u=test pass=123456' #修改密码
+#ansible-playbook tool7.yml --tags ll -e 'host=6168 p=~/.ssh/' #显示文件目录
+#ansible-playbook tool7.yml --tags llgrep -e 'host=6168 p=~/.ssh/ k=git' #显示文件目录
+#ansible-playbook tool7.yml --tags llS -e 'host=6168 p=~/.ssh/' #显示文件从大到小排
+#ansible-playbook tool7.yml --tags llSr -e 'host=6168 p=~/.ssh/' #显示文件从小到大排
+#ansible-playbook tool7.yml --tags llt -e 'host=6168 p=~/.ssh/' #显示文件最新排序
+#ansible-playbook tool7.yml --tags lltr -e 'host=6168 p=~/.ssh/' #显示文件最旧排序
+#ansible-playbook tool7.yml --tags cat -e 'host=6168 p=~/.ssh/config' #显示文件内容
+#ansible-playbook tool7.yml --tags catgrep -e 'host=6168 p=~/.ssh/config k=git' #显示文件内容并过滤
+#ansible-playbook tool7.yml --tags rm -e 'host=6168 p=~/.ssh/test.key' #删除文件目录
+#ansible-playbook tool7.yml --tags sshprikey -e 'host=6168 ksrc=../key/6168.key kdesc=~/.ssh/test.key' #配置私钥
+#ansible-playbook tool7.yml --tags sshpubkey -e 'host=6168 sname=6168 key="test"' #配置公钥
+#ansible-playbook tool7.yml --tags sshconfig -e 'host=6168 ip=192.168.6.168 key=~/.ssh/test.key' #ssh config 配置
+
 ```

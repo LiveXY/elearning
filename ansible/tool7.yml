@@ -1,0 +1,156 @@
+- name: 工具
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 查找进程 {{ p }}
+    shell: ps aux | grep {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: ps
+  - debug: var=rel.stdout_lines
+    tags: ps
+  - name: 查找进程 {{ p }}
+    shell: ps aux | grep {{ p }} | grep -v grep
+    register: rel
+    ignore_errors: true
+    tags: ps2
+  - debug: var=rel.stdout_lines
+    tags: ps2
+  - name: 关闭进程 {{ p }}
+    shell: killall {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: killall
+  - debug: var=rel.stdout_lines
+    tags: killall
+  - name: 关闭进程 {{ p }}
+    shell: ps aux | grep {{ p }} | grep -v grep | awk '{print $2}' | xargs kill -9
+    register: rel
+    ignore_errors: true
+    tags: killall2
+  - debug: var=rel.stdout_lines
+    tags: killall2
+  - name: 关闭进程 {{ p }}
+    shell: kill -9 {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: kill9
+  - debug: var=rel.stdout_lines
+    tags: kill9
+  - name: 查看开启 {{ p }} 进程数目
+    shell: ps -ef | grep '{{ p }}' | grep -v 'master' | grep -v 'grep' | wc -l
+    register: rel
+    ignore_errors: true
+    tags: pnum
+  - name: 显示用户
+    shell: cat /etc/passwd | grep /bin/bash
+    register: rel
+    ignore_errors: true
+    tags: usershow
+  - debug: var=rel.stdout_lines
+    tags: usershow
+  - name: 删除用户
+    shell: userdel {{ u }}
+    register: rel
+    ignore_errors: true
+    tags: userdel
+  - debug: var=rel.stdout_lines
+    tags: userdel
+  - name: 修改密码
+    shell: echo "{{ pass }}" | passwd --stdin {{ u }}
+    register: rel
+    ignore_errors: true
+    tags: passwd
+  - debug: var=rel.stdout_lines
+    tags: passwd
+  - name: 显示文件目录
+    shell: ls -lGh {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: ll
+  - debug: var=rel.stdout_lines
+    tags: ll
+  - name: 显示文件目录
+    shell: ls -lGh {{ p }} | egrep {{ k }}
+    register: rel
+    ignore_errors: true
+    tags: llgrep
+  - debug: var=rel.stdout_lines
+    tags: llgrep
+  - name: 显示文件从大到小排序
+    shell: ls -SlGh {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: llS
+  - debug: var=rel.stdout_lines
+    tags: llS
+  - name: 显示文件从小到大排序
+    shell: ls -SrlGh {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: llSr
+  - debug: var=rel.stdout_lines
+    tags: llSr
+  - name: 显示文件最新排序
+    shell: ls -tlGh {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: llt
+  - debug: var=rel.stdout_lines
+    tags: llt
+  - name: 显示文件最旧排序
+    shell: ls -trlGh {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: lltr
+  - debug: var=rel.stdout_lines
+    tags: lltr
+  - name: 显示文件内容
+    shell: cat {{ p }}
+    register: rel
+    ignore_errors: true
+    tags: cat
+  - debug: var=rel.stdout_lines
+    tags: cat
+  - name: 显示文件内容并过滤
+    shell: cat {{ p }} | egrep {{ k }}
+    register: rel
+    ignore_errors: true
+    tags: catgrep
+  - debug: var=rel.stdout_lines
+    tags: catgrep
+  - name: 删除文件目录
+    file: path={{ p }} state=absent
+    tags: rm
+  - name: 配置私钥
+    copy: src={{ ksrc }} dest={{ kdesc }} mode=0600
+    tags: sshprikey
+  - name: 配置公钥
+    blockinfile: path=~/.ssh/authorized_keys block='{{ key }}' marker='#{mark} {{sname}} public key'
+    tags: sshpubkey
+  - name: ssh config 配置
+    blockinfile: path=~/.ssh/config block='Host {{ip}}\n    HostName {{ip}}\n    PreferredAuthentications publickey\n    IdentityFile {{key}}' marker='#{mark} {{ip}} config'
+    tags: sshconfig
+
+#ansible-playbook tool7.yml --tags ps -e 'host=6168 p=telnet' #查找进程
+#ansible-playbook tool7.yml --tags ps2 -e 'host=6168 p=telnet' #查找进程
+#ansible-playbook tool7.yml --tags killall -e 'host=6168 p=telnet' #关闭进程
+#ansible-playbook tool7.yml --tags killall2 -e 'host=6168 p=telnet' #关闭进程
+#ansible-playbook tool7.yml --tags kill9 -e 'host=6168 p="123123 456456"' #关闭进程
+#ansible-playbook tool7.yml --tags pnum -e 'host=6168 p=telnet' #查看进程数
+#ansible-playbook tool7.yml --tags usershow -e host=6168 #显示可登录用户
+#ansible-playbook tool7.yml --tags userdel -e 'host=6168 u=test' #删除用户
+#ansible-playbook tool7.yml --tags userdel -e 'host=6168 u=test pass=123456' #修改密码
+#ansible-playbook tool7.yml --tags ll -e 'host=6168 p=~/.ssh/' #显示文件目录
+#ansible-playbook tool7.yml --tags llgrep -e 'host=6168 p=~/.ssh/ k=git' #显示文件目录
+#ansible-playbook tool7.yml --tags llS -e 'host=6168 p=~/.ssh/' #显示文件从大到小排
+#ansible-playbook tool7.yml --tags llSr -e 'host=6168 p=~/.ssh/' #显示文件从小到大排
+#ansible-playbook tool7.yml --tags llt -e 'host=6168 p=~/.ssh/' #显示文件最新排序
+#ansible-playbook tool7.yml --tags lltr -e 'host=6168 p=~/.ssh/' #显示文件最旧排序
+#ansible-playbook tool7.yml --tags cat -e 'host=6168 p=~/.ssh/config' #显示文件内容
+#ansible-playbook tool7.yml --tags catgrep -e 'host=6168 p=~/.ssh/config k=git' #显示文件内容并过滤
+#ansible-playbook tool7.yml --tags rm -e 'host=6168 p=~/.ssh/test.key' #删除文件目录
+#ansible-playbook tool7.yml --tags sshprikey -e 'host=6168 ksrc=../key/6168.key kdesc=~/.ssh/test.key' #配置私钥
+#ansible-playbook tool7.yml --tags sshpubkey -e 'host=6168 sname=6168 key="test"' #配置公钥
+#ansible-playbook tool7.yml --tags sshconfig -e 'host=6168 ip=192.168.6.168 key=~/.ssh/test.key' #ssh config 配置

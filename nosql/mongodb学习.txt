@@ -224,3 +224,33 @@ http://tech.lezi.com/archives/290
 Mongodb启动命令mongod参数说明
 http://blog.darkmi.com/2012/11/15/2470.html
 http://docs.mongodb.org/manual/reference/method/
+
+查询所有的存储过程
+db.system.js.find();
+执行存储过程
+db.eval('myAdd(1,2)');
+db.eval(function(){return 3+3;});
+
+db.system.js.save({"_id":"myAdd",value:function add(x,y){ return x+y; }});
+db.system.js.update({_id:'myAdd'},{$set:{value:function (x,y){return x*y;}}});
+
+db.loadServerScripts();myAdd(1,2);
+
+db.achievement.remove({id:NumberLong(5000022)});
+db.award.remove({id:NumberLong(5000022)});
+db.godwar.remove({id:NumberLong(5000022)});
+db.fight.remove({id:NumberLong(5000022)});
+db.goal.remove({id:NumberLong(5000022)});
+db.hook.remove({id:NumberLong(5000022)});
+db.hotkey.remove({id:NumberLong(5000022)});
+db.legion.remove({id:NumberLong(5000022)});
+db.mail.remove({id:NumberLong(5000022)});
+db.mailoff.remove({id:NumberLong(5000022)});
+db.master.remove({id:NumberLong(5000022)});
+db.package.remove({id:NumberLong(5000022)});
+db.player_fbrec.remove({id:NumberLong(5000022)});
+db.social.remove({id:NumberLong(5000022)});
+db.stallage.remove({id:NumberLong(5000022)});
+db.status.remove({id:NumberLong(5000022)});
+db.task.remove({id:NumberLong(5000022)});
+db.team.remove({id:NumberLong(5000022)});

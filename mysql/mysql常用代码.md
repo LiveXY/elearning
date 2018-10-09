@@ -129,6 +129,7 @@ SELECT table_schema, table_name, round((data_length+index_length)/1024/1024) as 
 SELECT concat('ALTER TABLE ', table_name, ' ENGINE=InnoDB;') FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
 或
 SELECT concat('optimize table ', table_name, ';') FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
+这个优化不能每天执行，最好是1个月执行一次，或更长，如果有碎片空间>100M才清理
 ```
 * 查看所有表记录情况按记录数排序
 ```
