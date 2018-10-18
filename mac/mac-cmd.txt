@@ -185,8 +185,35 @@ sips -f vertical ~/Pictures/*.JPG
 设置打开文件数
 $sudo launchctl limit maxfiles 100000 500000
 $sudo ulimit -n 100000
+======================================================
+invalid active developer path (/Library/Developer/CommandLineTools)
+xcode-select --install
+====================================================
 
+git clone https://github.com/facebook/WebDriverAgent.git
+cd WebDriverAgent
+./Scripts/bootstrap.sh
 
+brew install carthage
+
+BundleID:com.reallycattle.wound
+Product->Scheme->WebDriverAgentRunner
+Product->Test
+
+open: http://192.168.6.214:8100/status
+
+brew install libimobiledevice --HEAD
+iproxy 8100 8100
+http://localhost:8100/status
+http://localhost:8100/inspector
+
+# 解锁keychain，以便可以正常的签名应用，
+PASSWORD="replace-with-your-password"
+security unlock-keychain -p $PASSWORD ~/Library/Keychains/login.keychain
+# 获取设备的UDID
+UDID=$(idevice_id -l | head -n1)
+# 运行测试
+xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination "id=$UDID" test
 
 
 

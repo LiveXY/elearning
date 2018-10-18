@@ -129,6 +129,23 @@ http://www.devstore.cn/evaluation/testInfo/107-127.html
 
 文字转拼音
 https://github.com/janx/ruby-pinyin
+https://github.com/sofish/han
+
+微信CLIENT
+https://github.com/trazyn/weweChat #只有PC
+开源IM
+https://github.com/hcxiong/xuanxuan #只有PC
+https://github.com/meili/TeamTalk
+https://github.com/YiChat
+https://github.com/duckchat/gaga
+https://github.com/dianbaer/anychat
+https://github.com/zulip
+
+https://github.com/gunthercox/ChatterBot
+https://github.com/pandolia/qqbot
+https://github.com/huangzk/qqchatbot
+https://gitee.com/airgzn/QQChatBot
+https://gitee.com/airgzn/xiaofeichatbot
 
 APPLE
 https://developer.apple.com/documentation/avfoundation/speech_synthesis

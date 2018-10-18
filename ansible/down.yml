@@ -1,0 +1,28 @@
+- name: 下载文件
+  hosts: '{{ host }}'
+  remote_user: root
+  gather_facts: false
+  tasks:
+  - name: 压缩文件 {{ fname }} >> {{ zname }}
+    shell: cd {{ zpath }} && zip -r {{ zname }} {{ fname }}
+    ignore_errors: true
+    register: rel
+    tags: zip
+
+  - name: 下载压缩文件 {{ zname }}
+    fetch: src={{ zpath }}/{{ zname }} dest={{ lpath | default('./files') }}/{{ zname }} flat=yes
+    when: rel is succeeded
+    tags: zip
+
+  - name: 清理临时文件
+    shell: echo '' && rm -f {{ zpath }}/{{ zname }}
+    when: rel is succeeded
+    tags: zip
+
+  - name: 下载文件 {{ fname }}
+    fetch: src={{ zpath }}/{{ fname }} dest={{ lpath | default('./files') }}/{{ fname }} flat=yes
+    tags: down
+
+#ansible-playbook down.yml --tags zip -e "host=6168 zpath=/home/ zname=test.zip fname=test.png"
+#ansible-playbook down.yml --tags zip -e "host=6168 zpath=/home/ zname=test.zip fname=test"
+#ansible-playbook down.yml --tags down -e "host=6168 zpath=/home/ fname=test.png"

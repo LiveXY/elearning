@@ -102,25 +102,59 @@ PHP
 - 前台JS验证数据(为了体验)，提交到程序里也需要验证数据(为了安全)。做双保险才安全。不要相信提交的任何数据。
 - 提现/发红包的时候注意：金额必须>0，玩家身上的钱必须满足提取的数量，加锁，写日志
 - 数据库读取数据在显示的时候一定要加htmlspecialchars函数防止XSS攻击
-- 
+- 不要这么写，缓存读了多次
+$nn = CacheManager::getUser(1) ? CacheManager::getUser(1)->nickname : '';
+或
+$nn = @CacheManager::getUser(1)->nickname;
+$un = @CacheManager::getUser(1)->username;
+或
+在views里面使用<?=@CacheManager::getHeros(1)->hname;?>
+应该在Controller传人$heros = CacheManager::getHeros();然后在view里面使用$heros[1]->hname
+- 一次拉全表数据的一定要加缓存，如配置数据，当前在线用户等，1分钟缓存都比不加缓存好
+- 代理后台，公共平台，用户接口在删除/更改/查询某个功能时，一般接口都是传入某个功能的唯一编号，如果在做删除操作时一定要处理这个帖子是当前操作者的，否则后果很严重，任何一个玩家可以给所有数据全部删除。
+举个例子：当前玩家删除自己的帖子接口是deleteMyPost?postid=1111&token=11111，在deleteMyPost接口里实现删除数据的时候一定要处理这个帖子1111一定是11111的帖子，这个功能很容易出现循环删除1～1百万编号的帖子。
+- try catch 异常结果一定要写日志或处理掉，千万不要放空，否则出错了你都不知道原因
 2、代码不要上来就写，先要分析了解需求，每个活动都会包含几个部分
 - 前端：取配置接口/领取接口 最少会有这2个接口
 - 后端配置：配置设置功能
 - 后端报表：领取日志/生成每日总表
 - 设计数据库：增加领取日志表、修改每日汇总存储过程
 3、数据库
+- 创建数据库是使用utf-8编码，InnoDB引擎，如果用户表的用户昵称用表情图片请使用utf8mb4编码
+- 建表一定要设置主键，所有字段都不要设置允许NULL
+- 强制使用索引 force index (indexname)，使用explain查看有没有按我们需要的索引走
+- InnoDB默认对主键建立聚簇索引。如果你不指定主键，InnoDB会用一个具有唯一且非空值的索引来代替。如果不存在这样的索引，InnoDB会定义一个隐藏的主键，然后对其建立聚簇索引。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比非聚簇索引中快。
 - 建表时多个字段可以决定主键的一定不要新加自增列，同时用的多的放前面，遵循最左前缀原则
 - 建表后：有关联用户ID的字段要加索引，有按时间查数据的时间要加索引
-- 不要写count(0)、count(*)等，应该count(第一个主键)
+- 不要写count(0)、count(*)等，应该count(第一个主键)，不建议使用SELECT *
 - 复杂的报表需要用计划去跑。
 - 定期查看慢查询，优化慢查询
 - 如果一定要用TEXT，要放在新表中，不要和其它数据混在一个表
 - 存储过程的in参数一定不要和字段名一样，要加个数据类型前缀来区分
 - 少用触发器/游标/外键
 - 2个大表inner join时可用使用最大的表使用零时表，如log表和主表关联查询这么写更好：select log.*, m.name from (select * from log_login order by lid desc limit 0, 10) as log inner join member as m on m.uid=log.uid order by log.lid desc
-- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多
+- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多，使用exist代替in（表中数据越多，exist的效率就比in要越大）
 - like字段有索引查询时使用后%代替前%
-- try catch 异常结果一定要写日志或处理掉，千万不要放空，否则出错了你都不知道原因
+- 直接explain查看SQL执行计划，杜绝全表扫描
+- 如果只查询一条数据，非主键查询时最后面加 limit 1
+- 非负数值使用UNSIGNED，存储精确浮点数必须使用DECIMAL替代FLOAT和DOUBLE，不建议使用ENUM类型(不方便扩展)使用TINYINT来代替，尽可能不使用TEXT、BLOB类型，日期类型使用int(4字节)比datetime(8字节)好，建议字段定义为NOT NULL设置default值
+- 每张表数据量建议控制在1000w以下
+- 使用下面的语句来减少和db的交互次数：
+INSERT ... ON DUPLICATE KEY UPDATE
+REPLACE
+INSERT IGNORE
+INSERT INTO values(),()
+- 推荐分页方式：
+select * from table where lid < last_lid order by lid desc limit 10
+select * from table inner join (select lid from table order by lid desc limit 1,10) as t using(lid)
+select * from table order by lid desc limit 1,10 注意：这个分页越到最后越慢
+- 避免使用复杂的SQL/大sql/大批量/大事务/高频无索引，不要在索引列上进行运算/函数调用这样都不走索引
+- 禁止库名、表名、字段名使用MySQL保留字，如：code/root/type/order/time/date/add/all/alter/as/and/select/update/delete/before/between/int/both/by/call/case/char/check/column/create/dec/div等，如果使用了前后加`
+- IP使用INT类型，用inet_aton()和inet_ntoa()来转换
+- 不用外键由程序保证约束
+- 使用同类型比较，int类型的比较不要写成 users > '5'/phone=13155667788，避免隐式转换;
+- 禁止使用分区表，还是不是很成熟，而且对分区键有严格要求，分区表变大后对于表备份恢复都有很大困难，建议在业务端使用sharding技术。
+- 禁止在数据库中存储明文密码
 - 
 4、我们的代码目录结构
 - app/Console 计划任务：每小时/每分钟跑报表代码
@@ -196,6 +230,7 @@ git cherry-pick 提交HASH
 - 
 
 防DDOS攻击实现
+- 接入阿里云的DDOS防护，比较简单有钱就行，或者自己实现防DDOS，需要购买100+低配服务器(带宽+IP)，全部安装HA代理转发到固定的内网WEB或游戏服务器，按以下规则实现
 - 每5分钟更换5个API服务器地址，必须保证这5个API服务器是活的，给服务器地址列表加密后写到CDN服务器的某个目录下，方便客户端使用CDN域名下载API服务器列表文件。
 - 客户端拿到API服务器列表后随机一个，来完成登录流程（如果API服务器无法访问就切换下一个，如果5个全部宕机，只能等待5分钟后获取新的API服务器），登录流程里API服务器在为每个玩家分配一个游戏服务器地址，游戏服务器地址和玩家是绑定的。
 - 游戏服务器的分配首先将用户分组，如按充值玩家分配不同的游戏服务器地址保护充值玩家，按玩游戏次数分组可以保护老玩家，攻击者不会付费，不会玩游戏就拿不到这批服务器地址

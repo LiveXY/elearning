@@ -61,15 +61,30 @@ server {
 	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 
 	location / {
-		proxy_pass http://ws/;
+		proxy_pass http://wss/;
 		proxy_set_header Host $host:$server_port;
 		proxy_http_version 1.1;
 		proxy_set_header Upgrade $http_upgrade;
 		proxy_set_header Connection "upgrade";
 	}
 }
-upstream ws {
+upstream wss {
 	hash $remote_addr consistent;
 	server 10.0.0.1:7510;
+}
+```
+ws代理web
+```
+server {
+	listen 8889;
+	server_name domain.com;
+
+	location / {
+		proxy_pass http://192.168.6.169:8889;
+		proxy_set_header Host $host:$server_port;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+	}
 }
 ```

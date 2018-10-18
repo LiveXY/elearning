@@ -123,6 +123,9 @@
   - name: 删除文件目录
     file: path={{ p }} state=absent
     tags: rm
+  - name: 复制文件
+    copy: src={{src}} dest={{desc}}
+    tags: scp
   - name: 配置私钥
     copy: src={{ ksrc }} dest={{ kdesc }} mode=0600
     tags: sshprikey
