@@ -5,9 +5,6 @@
   vars:
     limit_files: 209708
   tasks:
-  - name: 优化ulimit
-    shell: echo "ulimit -SHn {{ limit_files }}" >> /etc/rc.local && echo 'ulimit -HSn {{ limit_files }}' >> /etc/profile && source /etc/profile
-    tags: ulimit
   - name: 优化limits -> /etc/security/limits.conf
     lineinfile: dest=/etc/security/limits.conf regexp='{{ item.regexp }}' line='{{ item.line }}'
     with_items:
@@ -15,6 +12,9 @@
       - { regexp: '^\* hard nproc', line: '* hard nproc {{ limit_files }}' }
       - { regexp: '^\* soft nofile', line: '* soft nofile {{ limit_files }}' }
       - { regexp: '^\* hard nofile', line: '* hard nofile {{ limit_files }}' }
+    tags: ulimit
+  - name: 优化ulimit
+    shell: echo "ulimit -SHn {{ limit_files }}" >> /etc/rc.local && echo 'ulimit -HSn {{ limit_files }}' >> /etc/profile && source /etc/profile
     tags: ulimit
   - name: 内核参数优化
     sysctl: name={{ item.name }} value={{ item.value }} state=present reload=yes
@@ -36,6 +36,7 @@
       - { name: fs.protected_symlinks, value: 1 }
       #2，改进系统内存管理
       - { name: fs.file-max, value: '{{ limit_files }}' } #增加文件句柄和inode缓存的大小
+      - { name: fs.nr_open, value: '{{ limit_files }}' } #nofile
       #少交换
       - { name: vm.swappiness, value: 30 }
       - { name: vm.dirty_ratio, value: 30 }
@@ -98,7 +99,7 @@
       - { name: net.ipv4.icmp_ignore_bogus_error_responses, value: 1 } #启用错误的错误消息保护
       - { name: net.ipv4.icmp_ratelimit, value: 100 } #+
       - { name: net.ipv4.icmp_ratemask, value: 88089 } #+
-      - { name: net.ipv4.ip_local_port_range, value: '16384 65535' } #允许本地端口范围
+      - { name: net.ipv4.ip_local_port_range, value: '1024 65535' } #允许本地端口范围
       - { name: net.ipv4.tcp_rfc1337, value: 1 } #启用RFC1337的修复 TCP中的时间等待暗杀危险
       #不自动配置IPv6
       - { name: net.ipv6.conf.all.autoconf, value: 0 }
@@ -163,7 +164,6 @@
       #这将使得即时后续连接使用新值
       - { name: net.ipv4.route.flush, value: 1 }
       - { name: net.ipv6.route.flush, value: 1 }
-
     tags: sysctl
   - name: 优化PHP -> rlimit_files = {{ limit_files }}
     lineinfile: dest={{ item }} regexp='^;rlimit_files =' line='rlimit_files = {{ limit_files }}' backrefs=yes

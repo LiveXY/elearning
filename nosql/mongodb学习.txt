@@ -11,13 +11,27 @@ enabled=1
 
 yum install mongodb-org -y
 
+yum -y erase $(rpm -qa | grep mongodb-org)
+rm /var/run/mongodb/ -rf
+rm /var/log/mongodb/ -rf
+rm /var/lib/mongo/ -rf
+
 vi /etc/mongod.conf
 远程访问：把bindIP改成 0.0.0.0所有的机器都可以访问，或者注释掉
+
+nohup mongod --auth --port 27017 --dbpath /home/mongo &
 
 systemctl start mongod.service #启动
 systemctl stop mongod.service #停止
 systemctl restart mongod.service #重启
 systemctl enable mongod #开机自启动
+
+mongod --port 27018 --dbpath /home/mongo
+mongod --auth --port 27018 --dbpath /home/mongo
+
+db.createUser({user:"root",pwd:"password",roles:[{role:"root",db:"admin"},{role:"readWrite",db:"admin"},{role:"dbAdmin",db:"admin"},{role:"dbOwner",db:"admin"},{role:"readWrite",db:"mmo50"},{role:"dbAdmin",db:"mmo50"},{role:"readWrite",db:"mmo199999"},{role:"dbAdmin",db:"mmo199999"},{role:"readWrite",db:"backstage50"},{role:"dbAdmin",db:"backstage50"},{role:"readWrite",db:"backstage199999"},{role:"dbAdmin",db:"backstage199999"}]})
+
+db.createUser({user:"test",pwd:"test",roles:["dbOwner"]})
 
 MongoDB默认将数据文件存储在/var/lib/mongo目录，
 默认日志文件在/var/log/mongodb中。如果要修改,
@@ -41,13 +55,19 @@ db.dropDatabase() #删除当前的数据库
 db.repairDatabase() #修复当前数据库
 
 启用账号：
-use admin
-db.createUser({user:"root",pwd:"rbnewlife",roles:["root"]}) #超级用户角色
+var schema = db.system.version.findOne({"_id" : "authSchema"})
+schema.currentVersion = 3
+db.system.version.save(schema)
 
-db.createUser({user:"root",pwd:"rbnewlife",roles:[{"role":"userAdminAnyDatabase","db":"admin"}]}) #用户管理员
+use admin
+db.createUser({user:"root",pwd:"password",roles:[{role:"root", db:"admin"}]})
+db.createUser({user:"root",pwd:"password",roles:["root"]}) #超级用户角色
+db.auth("root", "password")
+
+db.createUser({user:"root",pwd:"password",roles:[{"role":"userAdminAnyDatabase","db":"admin"}]}) #用户管理员
 db.createUser({user:"test",pwd:"test",roles:[{role:"dbOwner",db:"test"}]}) #数据库所有者角色
 db.createUser({user:"test",pwd:"test",roles:[{role:"readWrite",db:"test"}]}) #数据库读写
-db.auth("root", "rbnewlife")
+db.auth("root", "password")
 vi /etc/mongod.conf
 security:
   authorization: enabled
@@ -66,9 +86,9 @@ db.dropAllUsers() #删除当前数据下所有用户
 db.grantRolesToUser("user", [{role:"", db:""}]) #修改角色
 db.revokeRolesFromUser("user", [{role:"", db:""}]) #追加角色
 
-使用链接：mongodb://root:rbnewlife@127.0.0.1/admin
-mongo -u root -p rbnewlife 127.0.0.1/admin
-mongo -u root -p rbnewlife 127.0.0.1:27017/admin
+使用链接：mongodb://root:password@127.0.0.1/admin
+mongo -u root -p password 127.0.0.1/admin
+mongo -u root -p password 127.0.0.1:27017/admin
 
 it#向下查询
 .explain()#查询优化

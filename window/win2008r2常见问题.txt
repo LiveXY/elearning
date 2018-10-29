@@ -1,0 +1,5 @@
+处理程序“PageHandlerFactory-Integrated”在其模块列表中有一个错误模块“ManagedPipelineHandler”
+
+cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
+aspnet_regiis.exe -i
+
