@@ -170,6 +170,27 @@ db.test0.update({"count":{$gt:5}},{$set:{"test5":"OK"}},true,true );
 db.test0.update({"count":{$gt:15}},{$inc:{"count":1}},false,true );
 db.task.update({id:NumberLong(5000005)},{$set:{'task.77.status':3}},true,true);
 db.task.update({id:NumberLong(5000005),'task.id':100000017},{$set:{'task.$.status':1}},true,true);
+db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200103},{$set:{'propfresh.$.expire':1541433600}},true,true);
+db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200104},{$set:{'propfresh.$.expire':1541433600}},true,true);
+
+db.package.update({id:NumberLong(5000009),'package.item.id':103100026},{$set:{'package.item.$.appraise':15}},true,true);
+db.package.update({id:NumberLong(5000009),'package.item.id':103401300},{$set:{'package.item.$.level':15}},true,true);
+db.package.update({id:NumberLong(5000009),'package.item.id':103402300},{$set:{'package.item.$.level':15}},true,true);
+db.package.update({id:NumberLong(5000009),'package.item.id':102301263},{$set:{'package.item.$.lucky.0.level':2516}},true,true);
+
+db.fight.update({id:NumberLong(5000009)},{$set:{'fight.blood':302491}},true,true);
+db.fight.update({id:NumberLong(5000009)},{$set:{'fight.all_property.0':302491}},true,true);
+db.fight.update({id:NumberLong(5000009),'fight.skill.id':411000001},{$set:{'fight.skill.$.exp':258586,'fight.skill.$.last_time':1541509632}},true,true);
+db.fight.update({id:NumberLong(5000009),'fight.skill.id':462000012},{$set:{'fight.skill.$.exp':14400000}},true,true);
+
+db.achievement.update({id:NumberLong(5000009),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
+db.achievement.update({id:NumberLong(5000009)},{$set:{'tx_label.0':1000224}},true,true);
+
+db.achievement.update({id:NumberLong(5000021),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
+db.achievement.update({id:NumberLong(5000021)},{$set:{'tx_label.0':1000224}},true,true);
+
+
+
 db.user.remove({'uid':1})#删除表数据
 db.user.drop()#删除表
 db.test.renameCollection(newName) 重命名些数据集名称

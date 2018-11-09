@@ -1,0 +1,409 @@
+https://blog.csdn.net/tjcyjd/article/details/11194489#
+http://blog.51yip.com/mysql/1013.html
+
+show variables like "%part%";
+
+表分区 partition
+当一张表的数据非常多的时候,比如单个.myd文件都达到10G, 这时,必然读取起来效率降低.
+可不可以把表的数据分开在几张表上?
+
+1: 从业务角度可以解决.. (分表，水平分割)，比如, 通过id%10 , user0 , user1....user9, 这10张表 根据不同的余数,来插入或查询某张表.
+
+2: 通过mysql的分区功能，而不是通过代码来控制，再建表的时候指定分区的规则，mysql将会根据指定的规则,把数据放在不同的表文件上，相当于在文件上,被拆成了小块.但是,给客户的界面,还是1张表.对用户来说是透明的。
+
+常用的规则：一般是根据某列的范围来分区, 也可以某列的散点值来分区.
+
+ALERT TABLE users DROP PARTITION p0;
+ALTER TABLE users REORGANIZE PARTITION p0,p1 INTO (PARTITION p0 VALUES LESS THAN (6000000));
+ALTER TABLE users REORGANIZE PARTITION p0,p1 INTO (PARTITION p0 VALUES IN(0,1,4,5,8,9,12,13));
+ALTER TABLE users REORGANIZE PARTITION COALESCE PARTITION 2;
+ALTER TABLE category ADD PARTITION (PARTITION p4 VALUES IN (16,17,18,19)
+            DATA DIRECTORY = '/data8/data'
+            INDEX DIRECTORY = '/data9/idx');
+ALTER TABLE users ADD PARTITION PARTITIONS 8;
+
+alter table results partition by RANGE (month(ttime)) (PARTITION p0 VALUES LESS THAN (1),PARTITION p1 VALUES LESS THAN (2) , PARTITION p2 VALUES LESS THAN (3) ,PARTITION p3 VALUES LESS THAN (4) , PARTITION p4 VALUES LESS THAN (5) ,PARTITION p5 VALUES LESS THAN (6) , PARTITION p6 VALUES LESS THAN (7) ,PARTITION p7 VALUES LESS THAN (8) , PARTITION p8 VALUES LESS THAN (9) ,PARTITION p9 VALUES LESS THAN (10) , PARTITION p10 VALUES LESS THAN (11),PARTITION p11 VALUES LESS THAN (12),PARTITION P12 VALUES LESS THAN (13) );
+
+alter table xxxxxxx add partition (partition p0 values less than(1991));  //只能添加大于分区键的分区
+
+alter table xxxxxx  truncate partition p1,p2;
+alter table xxxxxx  truncate partition all;
+或
+delete from xxxxxx where separated < '2006-01-01' or (separated >= '2006-01-01' and separated<'2011-01-01');
+
+alter table xxxxx reorganize partition p1,p3,p4 into (partition pm1 values less than(2006),
+partition pm2 values less than(2011));
+
+alter  table xxxxxx rebuild partition pm1/all; //相当于drop所有记录，然后再reinsert；可以解决磁盘碎片
+
+alter  table xxxxxx analyze partition pm1/all;
+alter  table xxxxxx check partition pm1/all;
+
+Alter table orders_range remove partitioning;
+
+
+SELECT * FROM information_schema.partitions WHERE table_name='employees2'
+
+ALTER TABLE tb_3a_huandan_detail PARTITION BY RANGE (TO_DAYS(ServiceStartTime))
+(
+    PARTITION p20160523 VALUES LESS THAN (TO_DAYS('2016-05-23')),
+    PARTITION p20160524 VALUES LESS THAN (TO_DAYS('2016-05-24')),
+    PARTITION p20160525 VALUES LESS THAN (TO_DAYS('2016-05-25')),
+    PARTITION p20160526 VALUES LESS THAN (TO_DAYS('2016-05-26')),
+    PARTITION p20160527 VALUES LESS THAN (TO_DAYS('2016-05-27'))
+)
+DELIMITER $$
+
+USE `nres`$$
+
+DROP PROCEDURE IF EXISTS `create_Partition_3Ahuadan`$$
+
+CREATE DEFINER=`nres`@`%` PROCEDURE `create_Partition_3Ahuadan`()
+BEGIN
+/* 事务回滚，其实放这里没什么作用，ALTER TABLE是隐式提交，回滚不了的。*/
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
+    START TRANSACTION;
+
+/* 到系统表查出这个表的最大分区，得到最大分区的日期。在创建分区的时候，名称就以日期格式存放，方便后面维护 */
+    SELECT REPLACE(partition_name,'p','') INTO @P12_Name FROM INFORMATION_SCHEMA.PARTITIONS
+    WHERE table_name='tb_3a_huandan_detail' ORDER BY partition_ordinal_position DESC LIMIT 1;
+     SET @Max_date= DATE(DATE_ADD(@P12_Name+0, INTERVAL 1 DAY))+0;
+/* 修改表，在最大分区的后面增加一个分区，时间范围加1天 */
+    SET @s1=CONCAT('ALTER TABLE tb_3a_huandan_detail ADD PARTITION (PARTITION p',@Max_date,' VALUES LESS THAN (TO_DAYS (''',DATE(@Max_date),''')))');
+    /* 输出查看增加分区语句*/
+    SELECT @s1;
+    PREPARE stmt2 FROM @s1;
+    EXECUTE stmt2;
+    DEALLOCATE PREPARE stmt2;
+/* 取出最小的分区的名称，并删除掉 。
+    注意：删除分区会同时删除分区内的数据，慎重 */
+    /*select partition_name into @P0_Name from INFORMATION_SCHEMA.PARTITIONS
+    where table_name='tb_3a_huandan_detail' order by partition_ordinal_position limit 1;
+    SET @s=concat('ALTER TABLE tb_3a_huandan_detail DROP PARTITION ',@P0_Name);
+    PREPARE stmt1 FROM @s;
+    EXECUTE stmt1;
+    DEALLOCATE PREPARE stmt1; */
+/* 提交 */
+    COMMIT ;
+ END$$
+
+DELIMITER ;
+
+
+ALTER TABLE td_sendmessagelog ADD PARTITION (   PARTITION p20150210 VALUES LESS THAN (TO_DAYS('2015-02-10')),  PARTITION p20150220 VALUES LESS THAN (TO_DAYS('2015-02-20')),  PARTITION p20150301 VALUES LESS THAN (TO_DAYS('2015-03-01')),  PARTITION p20150310 VALUES LESS THAN (TO_DAYS('2015-03-10')),  PARTITION p20150320 VALUES LESS THAN (TO_DAYS('2015-03-20')),  PARTITION p20150401 VALUES LESS THAN (TO_DAYS('2015-04-01')),  PARTITION p20150410 VALUES LESS THAN (TO_DAYS('2015-04-10')),  PARTITION p20150420 VALUES LESS THAN (TO_DAYS('2015-04-20')),  PARTITION p20150501 VALUES LESS THAN (TO_DAYS('2015-05-01')),  PARTITION pmax VALUES LESS THAN (maxvalue)  );
+
+SELECT  partition_name part,   partition_expression expr,   partition_description descr,   FROM_DAYS(partition_description) lessthan_sendtime,   table_rows FROM  INFORMATION_SCHEMA.partitions WHERE  TABLE_SCHEMA = SCHEMA()   AND TABLE_NAME='td_sendmessagelog'; ---这里是表名
+
+
+
+=== 水平分区的几种模式：===
+* Range（范围） – 这种模式允许DBA将数据划分不同范围。例如DBA可以将一个表通过年份划分成三个分区，80年代（1980's）的数据，90年代（1990's）的数据以及任何在2000年（包括2000年）后的数据。
+
+* Hash（哈希） – 这中模式允许DBA通过对表的一个或多个列的Hash Key进行计算，最后通过这个Hash码不同数值对应的数据区域进行分区，。例如DBA可以建立一个对表主键进行分区的表。
+
+* Key（键值） – 上面Hash模式的一种延伸，这里的Hash Key是MySQL系统产生的。
+
+* List（预定义列表） – 这种模式允许系统通过DBA定义的列表的值所对应的行数据进行分割。例如：DBA建立了一个横跨三个分区的表，分别根据2004年2005年和2006年值所对应的数据。
+
+* Composite（复合模式） - 很神秘吧，哈哈，其实是以上模式的组合使用而已，就不解释了。举例：在初始化已经进行了Range范围分区的表上，我们可以对其中一个分区再进行hash哈希分区。
+
+= 垂直分区（按列分）=
+举个简单例子：一个包含了大text和BLOB列的表，这些text和BLOB列又不经常被访问，这时候就要把这些不经常使用的text和BLOB了划分到另一个分区，在保证它们数据相关性的同时还能提高访问速度。
+
+
+mysql> CREATE TABLE part_tab ( c1 int default NULL, c2 varchar(30) default NULL, c3 date default NULL) engine=myisam
+PARTITION BY RANGE (year(c3)) (PARTITION p0 VALUES LESS THAN (1995),
+PARTITION p1 VALUES LESS THAN (1996) , PARTITION p2 VALUES LESS THAN (1997) ,
+PARTITION p3 VALUES LESS THAN (1998) , PARTITION p4 VALUES LESS THAN (1999) ,
+PARTITION p5 VALUES LESS THAN (2000) , PARTITION p6 VALUES LESS THAN (2001) ,
+PARTITION p7 VALUES LESS THAN (2002) , PARTITION p8 VALUES LESS THAN (2003) ,
+PARTITION p9 VALUES LESS THAN (2004) , PARTITION p10 VALUES LESS THAN (2010),
+PARTITION p11 VALUES LESS THAN MAXVALUE );
+
+CREATE TABLE users (
+       uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(30) NOT NULL DEFAULT '',
+       email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY RANGE (uid) (
+       PARTITION p0 VALUES LESS THAN (3000000)
+       DATA DIRECTORY = '/data0/data'
+       INDEX DIRECTORY = '/data1/idx',
+
+       PARTITION p1 VALUES LESS THAN (6000000)
+       DATA DIRECTORY = '/data2/data'
+       INDEX DIRECTORY = '/data3/idx',
+
+       PARTITION p2 VALUES LESS THAN (9000000)
+       DATA DIRECTORY = '/data4/data'
+       INDEX DIRECTORY = '/data5/idx',
+
+       PARTITION p3 VALUES LESS THAN MAXVALUE     DATA DIRECTORY = '/data6/data'
+       INDEX DIRECTORY = '/data7/idx'
+);
+
+CREATE TABLE category (
+     cid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY LIST (cid) (
+     PARTITION p0 VALUES IN (0,4,8,12)
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1 VALUES IN (1,5,9,13)
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx',
+
+     PARTITION p2 VALUES IN (2,6,10,14)
+     DATA DIRECTORY = '/data4/data'
+     INDEX DIRECTORY = '/data5/idx',
+
+     PARTITION p3 VALUES IN (3,7,11,15)
+     DATA DIRECTORY = '/data6/data'
+     INDEX DIRECTORY = '/data7/idx'
+);
+
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY HASH (uid) PARTITIONS 4 (
+     PARTITION p0
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx',
+
+     PARTITION p2
+     DATA DIRECTORY = '/data4/data'
+     INDEX DIRECTORY = '/data5/idx',
+
+     PARTITION p3
+     DATA DIRECTORY = '/data6/data'
+     INDEX DIRECTORY = '/data7/idx'
+);
+
+CREATE TABLE ti2 (id INT, amount DECIMAL(7,2), tr_date DATE)
+    ENGINE=myisam
+    PARTITION BY HASH( MONTH(tr_date) )
+    PARTITIONS 6;
+
+CREATE PROCEDURE load_ti2()
+       begin
+    declare v int default 0;
+    while v < 80000
+    do
+        insert into ti2
+        values (v,'3.14',adddate('1995-01-01',(rand(v)*3652) mod 365));
+         set v = v + 1;
+    end while;
+    end
+    //
+
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY KEY (uid) PARTITIONS 4 (
+     PARTITION p0
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx',
+
+     PARTITION p2
+     DATA DIRECTORY = '/data4/data'
+     INDEX DIRECTORY = '/data5/idx',
+
+     PARTITION p3
+     DATA DIRECTORY = '/data6/data'
+     INDEX DIRECTORY = '/data7/idx'
+);
+
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY RANGE (uid) SUBPARTITION BY HASH (uid % 4) SUBPARTITIONS 2(
+     PARTITION p0 VALUES LESS THAN (3000000)
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1 VALUES LESS THAN (6000000)
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx'
+);
+
+CREATE TABLE users (
+     uid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(30) NOT NULL DEFAULT '',
+     email VARCHAR(30) NOT NULL DEFAULT ''
+)
+PARTITION BY RANGE (uid) SUBPARTITION BY KEY(uid) SUBPARTITIONS 2(
+     PARTITION p0 VALUES LESS THAN (3000000)
+     DATA DIRECTORY = '/data0/data'
+     INDEX DIRECTORY = '/data1/idx',
+
+     PARTITION p1 VALUES LESS THAN (6000000)
+     DATA DIRECTORY = '/data2/data'
+     INDEX DIRECTORY = '/data3/idx'
+);
+
+DAY()
+DAYOFMONTH()
+DAYOFWEEK()
+DAYOFYEAR()
+DATEDIFF()
+EXTRACT()
+HOUR()
+MICROSECOND()
+MINUTE()
+MOD()
+MONTH()
+QUARTER()
+SECOND()
+TIME_TO_SEC()
+TO_DAYS()
+WEEKDAY()
+YEAR()
+YEARWEEK()
+
+
+#range添加新分区
+mysql> alter table employees add partition ( partition p4 values less than (26) );
+
+#list添加新分区
+mysql> alter table employees add partition( partition pSouth values in (21, 22, 23) );
+
+#hash重新分区
+mysql> alter table employees add partition partitions 5;
+
+select PARTITION_NAME as "分区",TABLE_ROWS as "行数" from information_schema.partitions where table_schema="mysql_test" and table_name="test_11";
+
+explain PARTITIONS select * from 20130117date_par where create_time BETWEEN '2012-01-01' and '2012-01-02';
+
+SELECT * FROM information_schema.PARTITIONS WHERE table_name='table_name'；
+
+SELECT
+partition_name part,partition_expression expr,partition_description descr,table_rows
+FROM
+INFORMATION_SCHEMA.partitions
+WHERE
+TABLE_SCHEMA = schema()
+AND TABLE_NAME='mobile';
+
+alter table r add partition (partition p2 values less than maxvalue); --所有大于等于20的加入p2分区
+
+Alter table orders_range add partition(Partition p5 values less than(maxvalue))
+ALTER TABLE expenses
+    PARTITION BY LIST COLUMNS (category)
+    (
+         PARTITION p01 VALUES IN ( 'lodging', 'food'),
+      PARTITION p02 VALUES IN ( 'flights', 'ground transportation'),
+      PARTITION p03 VALUES IN ( 'leisure', 'customer entertainment'),
+      PARTITION p04 VALUES IN ( 'communications'),
+      PARTITION p05 VALUES IN ( 'fees')
+    );
+
+ALTER TABLE mobile
+
+PARTITION BY LIST COLUMNS (substring(mac,17))
+(
+PARTITION p01 VALUES IN ( '0', '1' ,'2'),
+PARTITION p02 VALUES IN ( '3', '4' ,'5'),
+PARTITION p03 VALUES IN ( '6', '7' ,'8'),
+PARTITION p04 VALUES IN ( '9', 'A' ,'B'),
+PARTITION p05 VALUES IN ( 'C', 'D' ,'E','F'),
+PARTITION p06 VALUES LESS THAN (MAXVALUE)
+);
+
+ALTER TABLE mobile_union_key
+PARTITION BY RANGE COLUMNS(mac)
+(
+PARTITION p01 VALUES LESS THAN ('3'),
+PARTITION p02 VALUES LESS THAN ('5'),
+PARTITION p03 VALUES LESS THAN ('8'),
+PARTITION p04 VALUES LESS THAN ('A'),
+PARTITION p05 VALUES LESS THAN ('D'),
+PARTITION p06 VALUES LESS THAN (MAXVALUE)
+);
+ALTER TABLE mobile
+PARTITION BY KEY(substring(mac,17))
+(
+PARTITION p01 VALUES IN ( '0', '1' ,'2'),
+PARTITION p02 VALUES IN ( '3', '4' ,'5'),
+PARTITION p03 VALUES IN ( '6', '7' ,'8'),
+PARTITION p04 VALUES IN ( '9', 'A' ,'B'),
+PARTITION p05 VALUES IN ( 'C', 'D' ,'E','F'),
+PARTITION p06 VALUES LESS THAN (MAXVALUE));
+);
+
+CREATE TABLE `xxxxxxxx` (
+`crttm` int(11) NOT NULL,
+`srvid` int(11) NOT NULL,
+`evtid` int(11) NOT NULL,
+`aid` int(11) NOT NULL,
+`rid` int(11) NOT NULL,
+`itmid` int(11) NOT NULL,
+`itmnum` int(11) NOT NULL,
+`gdtype` int(11) NOT NULL,
+`gdnum` int(11) NOT NULL,
+`islmt` int(11) NOT NULL,
+KEY `crttm` (`crttm`),
+  KEY `itemid` (`itmid`),
+  KEY `srvid` (`srvid`),
+  KEY `gdtype` (`gdtype`)
+) ENGINE=myisam DEFAULT CHARSET=utf8
+PARTITION BY RANGE (crttm)
+(
+PARTITION p201303 VALUES LESS THAN (unix_timestamp('2013-04-01')),
+PARTITION p201304 VALUES LESS THAN (unix_timestamp('2013-05-01')),
+PARTITION p201305 VALUES LESS THAN (unix_timestamp('2013-06-01')),
+PARTITION p201306 VALUES LESS THAN (unix_timestamp('2013-07-01')),
+PARTITION p201307 VALUES LESS THAN (unix_timestamp('2013-08-01')),
+PARTITION p201308 VALUES LESS THAN (unix_timestamp('2013-09-01')),
+PARTITION p201309 VALUES LESS THAN (unix_timestamp('2013-10-01')),
+PARTITION p201310 VALUES LESS THAN (unix_timestamp('2013-11-01')),
+PARTITION p201311 VALUES LESS THAN (unix_timestamp('2013-12-01')),
+PARTITION p201312 VALUES LESS THAN (unix_timestamp('2014-01-01')),
+PARTITION p201401 VALUES LESS THAN (unix_timestamp('2014-02-01'))
+);
+
+alter table xxxxxxx add partition (partition p0 values less than(1991));  //只能添加大于分区键的分区
+alter table xxxxxxx drop partition p0; //可以删除任意分区
+
+重定义分区（包括重命名分区，伴随移动数据；合并分区)
+alter table xxxxx reorganize partition p1,p3,p4 into (partition pm1 values less than(2006),
+partition pm2 values less than(2011));
+rebuild重建分区
+alter  table xxxxxx rebuild partition pm1/all; //相当于drop所有记录，然后再reinsert；可以解决磁盘碎片
+alter  table tt2 optimize partition pm1; //在大量delete表数据后，可以回收空间和碎片整理。但在5.5.30后支持。在5.5.30之前可以通过recreate+analyze来替代，如果用rebuild+analyze速度慢
+analzye表
+alter  table xxxxxx analyze partition pm1/all;
+
+show create table employees2;  //查看分区表的定义
+show table status like 'employees2'\G;    //查看表时候是分区表 如“Create_options: partitioned”
+select * from information_schema.KEY_COLUMN_USAGE where table_name='employees2';   //查看索引
+SELECT * FROM information_schema.partitions WHERE table_name='employees2'   //查看分区表
+explain partitions select * from employees2 where separated < '1990-01-01' or separated > '2016-01-01';   //查看分区是否被select使用
+
+alter table user add partition(partition p4 values less than MAXVALUE);
+alter table list_part add partition(partition p4 values in (25,26,28));
+alter table hash_part add partition partitions 4;
+alter table key_part add partition partitions 4;
+alter table sub1_part add partition(partition p3 values less than MAXVALUE);
+show create table log_partition
+show create table sub1_part\G;
+ALTER TABLE user REORGANIZE PARTITION p0,p1,p2,p3,p4 INTO (PARTITION p0 VALUES LESS THAN MAXVALUE);
+ALTER TABLE list_part REORGANIZE PARTITION p0,p1,p2,p3,p4 INTO (PARTITION p0 VALUES in (1,2,3,4,5));
+ALTER TABLE key_part REORGANIZE PARTITION COALESCE PARTITION 9;
+
+select partition_name,partition_expression,partition_description,table_rows from information_schema.partitions where table_schema = schema() and table_name = ‘ib_origin‘;

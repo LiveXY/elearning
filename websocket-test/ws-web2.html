@@ -1,0 +1,77 @@
+<script type="text/javascript">
+
+var client = new WebSocket('ws://127.0.0.1:3000', 'echo-protocol');
+client.binaryType = "arraybuffer";
+
+var cmd = {
+    login: 10000,
+    laba: 10001
+}
+
+client.onerror = function(error) {
+    console.log('连接错误：', error);
+};
+
+client.onopen = function() {
+    console.log('连接服务器成功，向服务器发送登录消息！');
+    login();
+};
+
+client.onmessage = function(e) {
+    if (e.data instanceof ArrayBuffer) {
+        var dv = new DataView(e.data);
+        switch(dv.getUint32(0)) {
+            case cmd.login:
+                const rel = dv.getUint32(4);
+                console.log('登录服务器成功！', rel);
+                break;
+            case cmd.laba:
+                const bytes = [];
+                //for (dv.length)
+                const laba = dv.getUint32(4);
+                console.log('接收到广播：', laba, dv);
+                break;
+        }
+    }
+}
+
+client.onclose = function() {
+    console.log('断开连接');
+}
+
+function login() {
+    if (client.readyState === WebSocket.OPEN) {
+        var ab = new ArrayBuffer(8);
+        var dv = new DataView(ab);
+        dv.setUint32(0, cmd.login);
+        dv.setUint32(4, rand(10000, 99999));
+        client.send(ab);
+    }
+}
+
+function rand(min, max){
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+function encodeUtf8(text) {
+    const code = encodeURIComponent(text);
+    const bytes = [];
+    for (var i = 0; i < code.length; i++) {
+        const c = code.charAt(i);
+        if (c === '%') {
+            const hex = code.charAt(i + 1) + code.charAt(i + 2);
+            const hexVal = parseInt(hex, 16);
+            bytes.push(hexVal);
+            i += 2;
+        } else bytes.push(c.charCodeAt(0));
+    }
+    return bytes;
+}
+function decodeUtf8(bytes) {
+    var encoded = "";
+    for (var i = 0; i < bytes.length; i++) {
+        encoded += '%' + bytes[i].toString(16);
+    }
+    return decodeURIComponent(encoded);
+}
+
+</script>

@@ -1,3 +1,4 @@
 /.idea/
 pass-dict/mytest
 *.retry
+websocket-test/node_modules

@@ -1,0 +1,203 @@
+
+WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。
+它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
+
+WebSocket实例对象的所有属性和方法清单参考：https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket
+http://www.ruanyifeng.com/blog/2017/05/websocket.html
+https://www.cnblogs.com/fuqiang88/p/5956363.html
+https://www.cnblogs.com/coloc/p/8127268.html
+https://www.cnblogs.com/coloc/p/8111601.html
+
+https://github.com/socketio/socket.io
+https://github.com/socketio/socket.io-client
+https://github.com/theturtle32/WebSocket-Node
+https://github.com/websockets/ws
+
+简单的客户端代码：
+var ws = new WebSocket('ws://127.0.0.1:3000');
+ws.onopen = function(e) { console.log('连接打开', e) && ws.send('hello'); };
+ws.onmessage = function(e) { console.log('接收到数据：', e.data); };
+ws.onclose = function(e) { console.log('连接关闭', e); };
+ws.onerror = function(e) { console.error('出错了：', e); };
+
+const ws = new WebSocket('ws://127.0.0.1:3000');
+ws.addEventListener('open', function (e) { console.log('连接打开', e) && ws.send('hello'); });
+ws.addEventListener('message', function (e) { console.log('接收到数据：', e.data); });
+ws.addEventListener('close', function (e) { console.log('连接关闭', e); });
+ws.addEventListener('error', function (e) { console.error('出错了：', e); });
+
+属性:
+onopen：用于指定连接成功后的回调函数。
+onclose：用于指定连接关闭后的回调函数。
+var code = e.code;
+var reason = e.reason;
+var wasClean = e.wasClean;
+会返回关闭的原因
+onmessage：用于指定收到服务器数据后的回调函数。
+服务器数据可能是文本，也可能是二进制数据（blob对象或Arraybuffer对象）。
+ws.onmessage = function(e) {
+	if(typeof e.data === String) console.log('接收到文本数据');
+	if(e.data instanceof ArrayBuffer) console.log('接收到二进制数据');
+}
+除了动态判断收到的数据类型，也可以使用binaryType属性，显式指定收到的二进制数据类型。
+//设置blob，接收到的数据是文本数据
+ws.binaryType = "blob";
+ws.onmessage = function(e) { console.log(e.data.size); };
+//设置arraybuffer，接收到的数据是二进制数据
+ws.binaryType = "arraybuffer";
+ws.onmessage = function(e) { console.log(e.data.byteLength); };
+send()方法用于向服务器发送数据：ws.send('hello');
+发送 Blob 对象的例子：ws.send(document.querySelector('input[type="file"]').files[0]);
+发送 ArrayBuffer 对象的例子：
+var img = canvas_context.getImageData(0, 0, 400, 320);
+var binary = new Uint8Array(img.data.length);
+for (var i = 0; i < img.data.length; i++) binary[i] = img.data[i];
+ws.send(binary.buffer);
+
+
+ws.readyState：
+WebSocket.CONNECTING：值为0，表示正在连接。
+WebSocket.OPEN：值为1，表示连接成功，可以通信了。
+WebSocket.CLOSING：值为2，表示连接正在关闭。
+WebSocket.CLOSED：值为3，表示连接已经关闭，或者打开连接失败。
+switch (ws.readyState) {
+  case WebSocket.CONNECTING:
+    break;
+  case WebSocket.OPEN:
+    break;
+  case WebSocket.CLOSING:
+    break;
+  case WebSocket.CLOSED:
+    break;
+  default:
+    break;
+}
+ws.binaryType：使用二进制的数据类型连接(blob/arraybuffer)
+ws.bufferedAmount只读：未发送至服务器的字节数，表示还有多少字节的二进制数据没有发送出去。它可以用来判断发送是否结束。
+ws.extensions只读：服务器选择的扩展
+
+ArrayBuffer作为内存区域，可以存放多种类型的数据
+视图类型	数据类型 	占用位数 	占用字节 	有无符号 
+Int8Array	 整数	 8	 1	 有
+Uint8Array	 整数	 8	 1	 无
+Uint8ClampedArray	 整数	 8	 1	 无
+Int16Array	 整数	 16	 2	 有
+Uint16Array	 整数	 16	 2	 无
+Int32Array	 整数	 32	 4	 有
+Uint32Array	 整数	 32	 4	 无
+Float32Array	 浮点数	 32	 4	 \
+Float64Array	 浮点数	 64	 8	 \
+
+Int8Array：8位有符号整数，长度1个字节，其范围为 -128~127。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int8Array
+Uint8Array：8位无符号整数，长度1个字节，范围是 0~255。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
+Int16Array：16位有符号整数，长度2个字节。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int16Array
+Uint16Array：16位无符号整数，长度2个字节。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array
+Int32Array：32位有符号整数，长度4个字节。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int32Array
+Uint32Array：32位无符号整数，长度4个字节。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array
+Float32Array：32位浮点数，长度4个字节。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float32Array
+Float64Array：64位浮点数，长度8个字节。参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float64Array
+每一种视图都有一个BYTES_PER_ELEMENT常数，表示这种数据类型占据的字节数。
+同一个ArrayBuffer对象之上，可以根据不同的数据类型，建立多个视图。
+// new Int8Array(arraybuffer, start, length);
+// 创建一个8字节的ArrayBuffer
+var b = new ArrayBuffer(8);
+// 创建一个指向b的Int32视图，开始于字节0，直到缓冲区的末尾
+var v1 = new Int32Array(b);
+// 创建一个指向b的Uint8视图，开始于字节2，直到缓冲区的末尾
+var v2 = new Uint8Array(b, 2);
+// 创建一个指向b的Int16视图，开始于字节2，长度为2
+var v3 = new Int16Array(b, 2, 2);
+将普通数组转为视图数组：var typedArray = new Uint8Array( [ 1, 2, 3, 4 ] );
+也可以将视图直接转化为数组：Array.from(typeArray); 或 Array.apply([],typeArray);
+buffer　　　　  返回ArrayBuffer的引用
+byteLength　　返回字节长度
+byteOffset　 　返回视图在该ArrayBuffer中占用内存区域的起点位置
+length　　　　 返回视图数据的个数
+set()　　　　   第一个参数为已有的视图或者数组，第二个参数代表从第几个字节开始设置值
+subarray　　   返回一个新的视图，如果第二个参数省略，则取剩余的全部
+
+ArrayBuffer与字符串，javascript的字符串使用UTF-16编码的方式，所以我们可以这样来做：
+function Uint162Str(arraybuffer) {
+    return String.fromCharCode.apply(null, new Uint16Array(arraybuffer));
+}
+function Str2Uint16(str) {
+    //假设字符串”abc“ length=3,使用16位，则每一个字母占据2字节，总字节为length乘以2
+    var arraybuffer = new ArrayBuffer(str.length*2);
+    var view = new Uint16Array(arraybuffer);
+    for(var i=0, l=str.length; i<l; i++){
+        view[i] = str.charCodeAt(i);
+    }
+    return view;
+}
+Decode UTF-8 with Javascript
+https://stackoverflow.com/questions/13356493/decode-utf-8-with-javascript/22373061
+
+DataView
+//new DataView(arraybuffer,byteOffset [, byteLength])
+var arraybuffer = new ArrayBuffer(8);
+var dv1 = new DataView(arraybuffer);    //0-7
+var dv2 = new DataView(arraybuffer,2);    //2-7
+var dv3 = new DataView(arraybuffer,3,2);    //3-4
+Read	Write
+getInt8()	setInt8()
+getUint8()	setUint8()
+getInt16()	setInt16()
+getUint16()	setUint16()
+getInt32()	setInt32()
+getUint32()	setUint32()
+getFloat32()	setFloat32()
+getFloat64()	setFloat64()
+//读取数据
+var num  =  dataview.getUint32(byteOffset [, littleEndian]);
+//写入数据
+dataview.setUint32(byteOffset,value [, littleEndian]);
+//参数
+//byteOffset   表示从内存的哪个字节开始
+//value           该对应字节将被设置的值
+//littleEndian  字节序，true为小端字节序，false或者不填为大端字节序
+你可以通过如下的方式来判断运行当前javascript的机器使用哪一种字节序
+var littleEndian = (function() {
+  var buffer = new ArrayBuffer(2);
+  new DataView(buffer).setInt16(0, 256, true);
+  return new Int16Array(buffer)[0] === 256;
+})();
+console.log(littleEndian); // true ---->littleEndian
+                           //false ---->BigEndian
+
+Uint8ClampedArray ，它与 Uint8Array 颇为相似，但又有所区别。
+因为颜色数据刚好都是符合8位二进制的无符号整数，所以这两个类型在处理Canvas绘图数据时常常用到。
+Uint8ClampedArray主要用于某些特殊场景，典型的就是 ImageData.
+clamped这个词的字面意思是“紧固的，夹紧的”。
+如果输入的值已经是0~255之间的整数，那么Uint8Array 与 Uint8ClampedArray的最终结果是一致的。
+Uint8Array 与 Uint8ClampedArray 的区别，就在于处理不在该范围（0~255之间的整数）的输入数值的转换逻辑的差异。
+
+Uint8Array采用的转换逻辑是ToUint8(http://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint8) 
+其中一个关键点是，它将输入数与256取模，将8个比特位转化为正整数，它也不会进行四舍五入。
+所以 new Uint8Array([33.999]) 等价于 new Uint8Array([33.111])
+特别注意，对于负数来说，由于负数的二进制存储形式是补码形式的，其转换后得到的值与输入值的联系就不直观了。
+例如 －23，二进制是11101001即得233 （23的二进制是00010111，它的补码就是11101001），
+所以new Uint8Array([-23]) 等价于 new Uint8Array([233])
+详细规则如下：
+Let number be ToNumber(argument).
+ReturnIfAbrupt(number).
+If number is NaN, +0, −0, +∞, or −∞, return +0.
+Let int be sign(number) × floor(abs(number)).
+Let int8bit be int modulo 28.
+Return int8bit.
+Uint8ClampedArray 采用的转换逻辑是ToUint8Clamp(http://people.mozilla.org/~jorendorff/es6-draft.html#sec-touint8clamp)
+它会将负数归入0，大于255的数归入255，所以取模就不用了。
+所以new Uint8ClampedArray([-23]) 等价于 new Uint8ClampedArray([ 0 ])
+上面说到 new Uint8Array([-23]) 等价于 new Uint8Array([ 233 ]) ，这样就看出差别了吧。
+另外，它不是直接取整，而是会处理舍入，但并不是像Math.round()那样的四舍五入，而是采用一种叫做银行家舍入的方法。
+详细规则如下：
+Let number be ToNumber(argument).
+ReturnIfAbrupt(number).
+If number is NaN, return +0.
+If number ≤ 0, return +0.
+If number ≥ 255, return 255.
+Let f be floor(number).
+If f + 0.5 < number, then return f + 1.
+If number < f + 0.5, then return f.
+If f is odd, then return f + 1.
+Return f.
+

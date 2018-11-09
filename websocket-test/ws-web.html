@@ -1,0 +1,41 @@
+<script type="text/javascript">
+
+var client = new WebSocket('ws://127.0.0.1:3000', 'echo-protocol');
+var cmd = {
+    login: 10000,
+    laba: 10001
+}
+
+client.onerror = function(error) {
+    console.log('连接错误：', error);
+};
+
+client.onopen = function() {
+    console.log('连接服务器成功，向服务器发送登录消息！');
+    login();
+};
+
+client.onmessage = function(e) {
+    if (typeof e.data === 'string') {
+        var body = JSON.parse(e.data);
+        switch(body.cmd) {
+            case cmd.login: console.log('登录服务器成功！', body.data); break;
+            case cmd.laba: console.log('接收到广播：', body.data); break;
+        }
+    }
+}
+
+client.onclose = function() {
+    console.log('断开连接');
+}
+
+function login() {
+    if (client.readyState === WebSocket.OPEN)
+        client.send(JSON.stringify({ cmd: cmd.login, data: { uid: rand(10000, 99999) } }));
+}
+
+function rand(min, max){
+	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+</script>

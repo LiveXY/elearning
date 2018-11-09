@@ -1,0 +1,17 @@
+视频会诊使用技术
+一、手机端实现使用
+1，Android端使用开源部件：cordova-plugin-crosswalk-webview
+2，IOS端使用开源部件：cordova-plugin-iosrtc
+3，H5端使用开源部件：peerjs
+4，兼容支持：Android系统、IOS系统、Firefox浏览器、Safari浏览器、Chrome浏览器、Opera浏览器
+二、信令系统
+用户登陆认证
+会话控制：开始和结束通话
+三、STUN和TURN服务器
+用来取外网地址、主要处理打洞、建立局域网UDP通讯
+如果无法STUN打洞，就使用TURN服务器转发数据流
+四、ICE
+整合了STUN和TURN
+
+现在WIFI 和 4G通信 FF浏览器检测出
+ICE failed, add a TURN server and see about:webrtc for more details
