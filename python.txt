@@ -55,8 +55,12 @@ pip install yagmail
 pip3 install yagmail
 
 https://github.com/ansible/ansible
-
+并由 Facebook 作为其机器学习的框架发布由强 GPU 支持的加速张量计算（如 NumPy ），其深度神经网络是建立在基于磁盘的 autograd 包上
 https://github.com/pytorch/pytorch
+创新开发深度学习和强化学习的算法以用于生成歌曲、图像、绘图和其他素材
+https://github.com/tensorflow/magenta
+https://github.com/tensorflow/magenta-demos
+
 https://github.com/requests/requests
 https://github.com/nicolargo/glances
 https://github.com/giampaolo/psutil
@@ -93,7 +97,7 @@ https://github.com/gaussic/weibo_wordcloud
 https://github.com/wvengen/d3-wordcloud
 https://github.com/MasterScrat/Chatistics
 https://gitee.com/zlikun/python-crawler-douban-movie
-机器学习
+数据挖掘和数据分析
 https://github.com/scikit-learn/scikit-learn
 https://www.cnblogs.com/lianyingteng/p/7811126.html
 http://sklearn.apachecn.org/cn/0.19.0/index.html
@@ -101,6 +105,7 @@ http://sklearn.apachecn.org/cn/0.19.0/index.html
 https://github.com/keras-team/keras
 https://github.com/tensorflow/tensorflow
 https://www.tensorflow.org/install/
+https://github.com/apache/incubator-mxnet
 https://github.com/Theano/Theano
 自然语言处理 http://www.magedu.com/71122.html
 https://github.com/nltk/nltk
@@ -159,4 +164,59 @@ https://github.com/Melissa-AI/Melissa-Web
 
 https://github.com/Clarifai/clarifai-python
 https://github.com/Clarifai/clarifai-javascript
+
+JS可以根据既定的颜色样式在草图上绘制、或在草图上创建绘制自己的颜色风格、亦或者将现有的风格转换至另一种风格
+https://github.com/lllyasviel/style2paints
+https://s2p.moe/
+https://style2paints.github.io/README_zh
+
+未配对和成对的图像到图像转换
+https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
+语音风格转移将任意人的声音转换为著名的英国女演员 Kate Winslet 的声音
+https://github.com/andabi/deep-voice-conversion
+将源图像转换成不同的发型、皮肤类型、年龄、性别和不同的情绪。
+https://github.com/yunjey/stargan
+Uber AI Labs 构建了这个深度概率编程库，用于简化其运输服务的预测和优化收益。 任何处理概率建模的人都会对这个库感兴趣。
+https://github.com/uber/pyro
+ParlAI 是一个用于在各种公开可用的对话数据集上训练和评估 AI 模型的框架。 ParlAI 是一个在为研究人员提供访问许多流行数据集的权限的同时，也可以共享和测试对话模型的统一框架。
+https://github.com/facebookresearch/ParlAI
+Facets 一种可视化机器学习数据集的工具可视化的关键是跨多个数据集的异常检测和分布比较。 有趣的值（例如，大量的缺失数据，或跨多个数据集非常不同的特征分布）以红色突出显示。
+https://github.com/PAIR-code/facets
+该项目基于 Gatys 的艺术风格的神经算法， Johnson 对实时样式转换和超分辨率的感知损失以及 Ulyanov 的实例规范化的组合
+https://github.com/lengstrom/fast-style-transfer
+图片风格转换工具
+https://github.com/NVIDIA/FastPhotoStyle
+FastText 是一个有效学习单词意思和句子分类的库。
+https://github.com/facebookresearch/fastText
+AirSim 是一款基于 Unreal Engine 的无人机，汽车的模拟器
+https://github.com/Microsoft/AirSim
+https://github.com/simondlevy/AirSimTensorFlow
+Deep Image Prior 是基于神经网络的修复图像工具 – 并不是机器学习。
+https://github.com/DmitryUlyanov/deep-image-prior
+Open Pose 代表了第一个在单个图像上联合检测人体、手、面部和足部关键点（总共 135 个关键点）的实时多人系统。
+https://github.com/CMU-Perceptual-Computing-Lab/openpose
+https://github.com/TadasBaltrusaitis/OpenFace
+https://github.com/dlunion/OpenPose
+https://github.com/tensorlayer/openpose-plus
+局部着色工具
+https://github.com/msracver/Deep-Exemplar-based-Colorization
+快速准确的神经网络训练
+https://github.com/fastai/fastai
+通过运用深度神经网络来从下一代 DNA 序列数据中预测遗传变异
+https://github.com/google/deepvariant
+快速的图像增强库，它易于使用并封装了其他一些图像处理库的功能
+https://github.com/albu/albumentations
+MangaCraft 是当前最佳的半自动化漫画着色项目
+https://github.com/lllyasviel/MangaCraft
+http://mangacraft.net/
+用于强化学习和机器人研究的模拟器
+https://github.com/byu-pccl/holodeck
+基于神经网络的视觉生成器和混合器，能够利用神经网络进行 VJing 过程
+https://github.com/keijiro/Ngx
+是一个使用无监督和监督学习进行股票预测的开源项目，通过堆叠神经网络的实现来预测股票的盈利值
+https://github.com/VivekPa/AlphaAI
+Tencent-ml-images 是包含当前最大的多标签图像数据库(ml-images) 的开源项目，共由 11166 个图像类别，17609752 张训练图像和 88739  哥验证数据的URL 地址组成。此外，通过迁移学习，将ml-images 上预训练好的ResNet-101 模型迁移到 ImageNet  数据库上，能够实现 80.73% 的 Top1 精度。
+https://github.com/Tencent/tencent-ml-images
+
+
 

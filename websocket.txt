@@ -3,6 +3,7 @@ WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器�
 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
 
 WebSocket实例对象的所有属性和方法清单参考：https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket
+https://www.cnblogs.com/jingmoxukong/p/7755643.html
 http://www.ruanyifeng.com/blog/2017/05/websocket.html
 https://www.cnblogs.com/fuqiang88/p/5956363.html
 https://www.cnblogs.com/coloc/p/8127268.html
@@ -12,6 +13,13 @@ https://github.com/socketio/socket.io
 https://github.com/socketio/socket.io-client
 https://github.com/theturtle32/WebSocket-Node
 https://github.com/websockets/ws
+https://github.com/joewalnes/websocketd
+
+git clone https://github.com/swoole/swoole-src.git && \
+cd swoole-src && \
+phpize && \
+./configure && \
+make && make install
 
 简单的客户端代码：
 var ws = new WebSocket('ws://127.0.0.1:3000');

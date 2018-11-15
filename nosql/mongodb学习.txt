@@ -168,27 +168,6 @@ db.user.update({uid:1},{'$set':{uname:'test2'}},true,true)
 #只修改uname结点
 db.test0.update({"count":{$gt:5}},{$set:{"test5":"OK"}},true,true );
 db.test0.update({"count":{$gt:15}},{$inc:{"count":1}},false,true );
-db.task.update({id:NumberLong(5000005)},{$set:{'task.77.status':3}},true,true);
-db.task.update({id:NumberLong(5000005),'task.id':100000017},{$set:{'task.$.status':1}},true,true);
-db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200103},{$set:{'propfresh.$.expire':1541433600}},true,true);
-db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200104},{$set:{'propfresh.$.expire':1541433600}},true,true);
-
-db.package.update({id:NumberLong(5000009),'package.item.id':103100026},{$set:{'package.item.$.appraise':15}},true,true);
-db.package.update({id:NumberLong(5000009),'package.item.id':103401300},{$set:{'package.item.$.level':15}},true,true);
-db.package.update({id:NumberLong(5000009),'package.item.id':103402300},{$set:{'package.item.$.level':15}},true,true);
-db.package.update({id:NumberLong(5000009),'package.item.id':102301263},{$set:{'package.item.$.lucky.0.level':2516}},true,true);
-
-db.fight.update({id:NumberLong(5000009)},{$set:{'fight.blood':302491}},true,true);
-db.fight.update({id:NumberLong(5000009)},{$set:{'fight.all_property.0':302491}},true,true);
-db.fight.update({id:NumberLong(5000009),'fight.skill.id':411000001},{$set:{'fight.skill.$.exp':258586,'fight.skill.$.last_time':1541509632}},true,true);
-db.fight.update({id:NumberLong(5000009),'fight.skill.id':462000012},{$set:{'fight.skill.$.exp':14400000}},true,true);
-
-db.achievement.update({id:NumberLong(5000009),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
-db.achievement.update({id:NumberLong(5000009)},{$set:{'tx_label.0':1000224}},true,true);
-
-db.achievement.update({id:NumberLong(5000021),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
-db.achievement.update({id:NumberLong(5000021)},{$set:{'tx_label.0':1000224}},true,true);
-
 
 
 db.user.remove({'uid':1})#删除表数据
@@ -295,3 +274,128 @@ db.stallage.remove({id:NumberLong(5000022)});
 db.status.remove({id:NumberLong(5000022)});
 db.task.remove({id:NumberLong(5000022)});
 db.team.remove({id:NumberLong(5000022)});
+
+
+更换账号
+db.account.remove({"account" : "ce666c6f99b8fe0c18e10a2449759eb6"})
+db.account.update({"account" : "xhc"},{$set:{"account" : "ce666c6f99b8fe0c18e10a2449759eb6"}},true,true);
+db.role.update({"account" : "xhc"},{$set:{"account" : "ce666c6f99b8fe0c18e10a2449759eb6"}},true,true);
+db.validate.update({"account" : "xhc"},{$set:{"account" : "ce666c6f99b8fe0c18e10a2449759eb6"}},true,true);
+db.giftbox.update({"account" : "xhc"},{$set:{"account" : "ce666c6f99b8fe0c18e10a2449759eb6"}},true,true);
+db.settings.update({"account" : "xhc"},{$set:{"account" : "ce666c6f99b8fe0c18e10a2449759eb6"}},true,true);
+
+
+更换账号
+db.account.remove({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.account.update({"account" : "Shane"},{$set:{"account" : "22991593ae85ab2a4ac9a28532901ea9"}},true,true);
+db.achievement.remove({"id" : NumberLong(5000069)})
+db.award.remove({"id" : NumberLong(5000069)})
+db.fight.remove({"id" : NumberLong(5000069)})
+db.giftbox.remove({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.giftbox.update({"account" : "Shane"},{$set:{"account" : "22991593ae85ab2a4ac9a28532901ea9"}},true,true);
+db.goal.remove({"id" : NumberLong(5000069)})
+db.godwar.remove({"master" : NumberLong(5000069)})
+db.guojia_shop.remove({"role_id" : NumberLong(5000069)})
+db.head_shop.remove({"role_id" : NumberLong(5000069)})
+db.hook.remove({"id" : NumberLong(5000069)})
+db.hotkey.remove({"id" : NumberLong(5000069)})
+db.league.remove({"chairman_id" : NumberLong(5000069)})
+db.legion.remove({"id" : NumberLong(5000069)})
+db.mail.remove({"id" : NumberLong(5000069)})
+db.mailoff.remove({"roleid" : NumberLong(5000069)})
+db.master.remove({"id" : NumberLong(5000069)})
+db.package.remove({"id" : NumberLong(5000069)})
+db.player_fbrec.remove({"id" : NumberLong(5000069)})
+db.produce.remove({"id" : NumberLong(5000069)})
+db.role.remove({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.role.update({"account" : "Shane"},{$set:{"account" : "22991593ae85ab2a4ac9a28532901ea9"}},true,true);
+db.settings.remove({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.settings.update({"account" : "Shane"},{$set:{"account" : "22991593ae85ab2a4ac9a28532901ea9"}},true,true);
+db.social.remove({"id" : NumberLong(5000069)})
+db.stallage.remove({"id" : NumberLong(5000069)})
+db.status.remove({"id" : NumberLong(5000069)})
+db.task.remove({"id" : NumberLong(5000069)})
+db.team.remove({"id" : NumberLong(5000069)})
+db.tong_guan.remove({"id" : NumberLong(5000069)})
+db.validate.remove({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.validate.update({"account" : "Shane"},{$set:{"account" : "22991593ae85ab2a4ac9a28532901ea9"}},true,true);
+
+查询修改后的新账号
+db.account.find({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.role.find({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.giftbox.find({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.settings.find({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+db.validate.find({"account" : "22991593ae85ab2a4ac9a28532901ea9"})
+
+查询修改后的老账号
+db.account.find({"account" : "Shane"})
+db.role.find({"account" : "Shane"})
+db.giftbox.find({"account" : "Shane"})
+db.settings.find({"account" : "Shane"})
+db.validate.find({"account" : "Shane"})
+
+db.account.find({$where: "this.account.length >= 32"})
+db.account.find({account: {$type: 2}, $where: "this.account.length >= 32"});
+db.account.find({account: {$exists: true}, $where: "this.account.length >= 32"});
+
+修改任务状态
+db.task.update({id:NumberLong(5000005)},{$set:{'task.77.status':3}},true,true);
+db.task.update({id:NumberLong(5000005),'task.id':100000017},{$set:{'task.$.status':1}},true,true);
+
+修改转生限制
+db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200103},{$set:{'propfresh.$.expire':1541433600}},true,true);
+db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200104},{$set:{'propfresh.$.expire':1541433600}},true,true);
+
+测试更改数据
+db.package.update({id:NumberLong(5000015),'package.item.id':103100026},{$set:{'package.item.$.appraise':15}},true,true);
+db.package.update({id:NumberLong(5000009),'package.item.id':103401300},{$set:{'package.item.$.level':15}},true,true);
+db.package.update({id:NumberLong(5000009),'package.item.id':103402300},{$set:{'package.item.$.level':15}},true,true);
+db.package.update({id:NumberLong(5000009),'package.item.id':102301263},{$set:{'package.item.$.lucky.0.level':2516}},true,true);
+
+db.fight.update({id:NumberLong(5000009)},{$set:{'fight.blood':302491}},true,true);
+db.fight.update({id:NumberLong(5000009)},{$set:{'fight.all_property.0':302491}},true,true);
+db.fight.update({id:NumberLong(5000009),'fight.skill.id':411000001},{$set:{'fight.skill.$.exp':258586,'fight.skill.$.last_time':1541509632}},true,true);
+db.fight.update({id:NumberLong(5000009),'fight.skill.id':462000012},{$set:{'fight.skill.$.exp':14400000}},true,true);
+
+删除一刀999称号
+db.achievement.update({id:NumberLong(5000015),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
+db.achievement.update({id:NumberLong(5000015)},{$set:{'tx_label.0':1000224}},true,true);
+
+db.achievement.update({id:NumberLong(5000021),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
+db.achievement.update({id:NumberLong(5000021)},{$set:{'tx_label.0':1000224}},true,true);
+
+--备份单个表
+mongodump -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role -o ./test1
+--恢复单表
+mongorestore -u root -p rbnewlife --authenticationDatabase admin -d mmo50 -c role ./test1/mmo50/role.bson
+
+--备份单个库
+mongodump -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -o ./test2
+--恢复单个库：
+mongorestore -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 ./test2
+
+--备份所有库
+mongodump -u root -p rbnewlife --port 27017 --authenticationDatabase admin -o ./test3
+--恢复所有库：
+mongorestore -u  root -p rbnewlife --port 27017 --authenticationDatabase admin  ./test3
+
+--备份所有库推荐使用添加--oplog参数的命令，这样的备份是基于某一时间点的快照，只能用于备份全部库时才可用，单库和单表不适用：
+mongodump -u root -p rbnewlife --port 27017 --authenticationDatabase admin --oplog -o ./test4
+mongodump -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d local -c oplog.rs -o ./test4
+--恢复时也要加上--oplogReplay参数，具体命令如下(下面是恢复单库的命令)：
+mongorestore -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 --oplogReplay  ./test4/mmo50/
+
+
+--备份单个表
+mongoexport -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role -o role-all.json
+mongoexport -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role --type csv -f id,account,server_id,from_type,name,IP,sex -o role.csv
+
+mongoexport -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role -o role.json --query='{"account":"xhc"}' --limit=1
+
+
+mongoimport -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role role.json --batchSize 2000
+mongoimport -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role role.json --numInsertionWorkers 100
+
+创建oplog
+use local
+db.createCollection("oplog.rs", {"capped" : true, "size" : 10000000})

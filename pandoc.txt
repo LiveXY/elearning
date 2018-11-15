@@ -1,0 +1,36 @@
+brew install pandoc
+
+vi match.tex
+% Pandoc math demos
+$a^2 + b^2 = c^2$
+$v(t) = v_0 + \frac{1}{2}at^2$
+$\gamma = \frac{1}{\sqrt{1 - v^2/c^2}}$
+$\exists x \forall y (Rxy \equiv Ryx)$
+$p \wedge q \models p$
+$\Box\diamond p\equiv\diamond p$
+$\int_{0}^{1} x dx = \left[ \frac{1}{2}x^2 \right]_{0}^{1} = \frac{1}{2}$
+$e^x = \sum_{n=0}^\infty \frac{x^n}{n!} = \lim_{n\rightarrow\infty} (1+x/n)^n$
+
+pandoc math.tex -s --mathml -o mathMathML.html
+
+
+vi SLIDES
+
+% Case Study
+% Kiko Fernandez Reyes
+% Sept 27, 2017
+
+# Wine Management System
+## <img src="img/SwissFlag.png" style="vertical-align:middle"/> Idea
+>- Swiss love their **wine** and cheese
+>- Create a *simple* wine tracker system
+![](img/matterhorn.jpg)
+
+## Implementation
+>- Bottles have a RFID tag
+>- RFID reader (emits and read signal)
+>- **Raspberry Pi**
+>- **Server (online shop)**
+>- Mobile app
+
+pandoc -t revealjs -s --self-contained SLIDES -V theme=white -V slideNumber=true -o index.html

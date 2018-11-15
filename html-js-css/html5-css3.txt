@@ -1125,3 +1125,88 @@ progress-spinner[dotted]{border-width:0;border-style:dotted;border-top-width:2px
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
+CSS图片滤镜
+filter:blur(2px) 高斯模糊
+filter:brightness(70%); 线性乘法
+filter:contrast(50%); 对比度
+filter: drop-shadow(705px 0 0 #ccc); 给图像设置一个阴影效果
+filter:hue-rotate(70deg); 色相旋转
+filter:invert(100%) 反转
+filter:grayscale(80%); 将图像转换为灰度图像
+*{
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+}
+filter:sepia(50%) 将图像转换为深褐色
+
+单行文本截断
+div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+多行文字截取
+div {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+定位元素实现多行文本截断
+p {
+    position: relative;
+    line-height: 18px;
+    height: 36px;
+    overflow: hidden;
+}
+p::after {
+    content:"...";
+    font-weight:bold;
+    position:absolute;
+    bottom:0;
+    right:0;
+    padding:0 20px 1px 45px;
+
+    /* 为了展示效果更好 */
+    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+    background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+}
+float 特性实现多行文本截断
+.wrap {
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.wrap .text {
+  float: right;
+  margin-left: -5px;
+  width: 100%;
+  word-break: break-all;
+}
+.wrap::before {
+  float: left;
+  width: 5px;
+  content: '';
+  height: 40px;
+}
+.wrap::after {
+  float: right;
+  content: "...";
+  height: 20px;
+  line-height: 20px;
+  /* 为三个省略号的宽度 */
+  width: 3em;
+  /* 使盒子不占位置 */
+  margin-left: -3em;
+  /* 移动省略号位置 */
+  position: relative;
+  left: 100%;
+  top: -20px;
+  padding-right: 5px;
+}
