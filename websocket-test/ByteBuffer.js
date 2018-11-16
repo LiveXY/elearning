@@ -173,7 +173,7 @@ var ByteBuffer = function (buffer, offset) {
 				case VStringType:
 					var vlen = Buffer.byteLength(list[i].d, encoding);//字符串实际长度
 					buffer.write(list[i].d, index, encoding);
-					for (var j = index + vlen, l = offset + list[i].l; j < l; j++) buffer.writeUInt8(0, j); //补齐\0
+					for (var j = index + vlen, l = index + list[i].l; j < l; j++) buffer.writeUInt8(0, j); //补齐\0
 					index += list[i].l;
 					break;
 				case ByteArrayType:

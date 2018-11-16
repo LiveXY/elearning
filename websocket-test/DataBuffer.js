@@ -128,7 +128,7 @@ var DataBuffer = function (arrayBuffer, offset) {
 	}
 	this.vstring = function (len, val, index) {
 		if (!len) return this;
-		if (arguments.length <= 1) list.push(this.getVString());
+		if (arguments.length <= 1) list.push(this.getVString(len));
 		else splice(VStringType, val, len, index);
 		return this;
 	};
@@ -176,8 +176,8 @@ var DataBuffer = function (arrayBuffer, offset) {
 					index += list[i].l;
 					break;
 				case VStringType:
-					utf8Write(dataView, index,list[i].d);
-					var vlen = utf8Length(list[i].d);//字符串实际长度
+					utf8Write(dataView, index, list[i].d);
+					var vlen = utf8Length(list[i].d); //字符串实际长度
 					for (var j = index + vlen, l = index + list[i].l; j < l; j++) dataView.setUint8(j, 0); //补齐\0
 					index += list[i].l;
 					break;
@@ -286,30 +286,3 @@ var DataBuffer = function (arrayBuffer, offset) {
 		return length;
 	}
 }
-/*
-//压包操作
-var sbuf = new DataBuffer().littleEndian();
-var buffer = sbuf.string('abc123你好')//变长字符串，utf8编码，前4个字节表示字符串长度
-	.int32(-999).uint32(999).float(-0.5)
-	.int64(9999999).double(-0.000005).short(32767).ushort(65535)
-	.byte(255)
-	.vstring(10, 'abcd')//定长字符串，utf8编码,不足的字节补0x00
-	.byteArray(5, new Uint8Array([65, 66, 67, 68, 69]))//字节数组，不足字节补0x00
-	.pack();//结尾调用打包方法
-
-//buffer 类型是ArrayBuffer
-console.log(buffer);
-
-//解包操作
-var rbuf = new DataBuffer(buffer).littleEndian();
-//解包出来是一个数组
-var arr = rbuf.string()//变长字符串，utf8编码，前4个字节表示字符串长度
-	.int32().uint32().float()
-	.int64().double().short().ushort()
-	.byte()
-	.vstring(10)//定长字符串，utf8编码,不足的字节补0x00
-	.byteArray(5)//字节数组，不足字节补0x00
-	.unpack();//结尾调用解包方法
-
-console.log(arr);
-*/
