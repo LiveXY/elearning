@@ -53,7 +53,7 @@ var DataBuffer = function (arrayBuffer, offset) {
 	};
 
 	//获取Ushort数据
-	this.getUshort = function() { return read('getUshort', 2); }
+	this.getUshort = function() { return read('getUint16', 2); }
 	this.ushort = function(val, index) {
 		if (arguments.length == 0) list.push(this.getUshort());
 		else splice(UShortType, val, 2, index);

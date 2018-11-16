@@ -24,6 +24,9 @@ ws.on('message', function (message) {
 			const laba = buf.getString();
 			console.log('接收到广播：', laba);
 			break;
+		case tools.cmd.friends:
+			showFriends(buf);
+			break;
 	}
 });
 
@@ -37,8 +40,25 @@ function login() {
 function bigdata() {
 	for (var i = 0; i < 10; i++) {
 		var str = i + '->' + tools.randString(100, 10000);
-		var data = new ByteBuffer().uint32(tools.cmd.bigdata).string(str).pack();
 		console.log(str);
-		ws.send(data);
+		ws.send(new ByteBuffer().uint32(tools.cmd.bigdata).string(str).pack());
 	};
+	getFriends();
+}
+
+function getFriends() {
+	if (ws.readyState === WebSocket.OPEN)
+		ws.send(new ByteBuffer().uint32(tools.cmd.friends).uint32(tools.randInt(10000, 99999)).pack());
+}
+
+function showFriends(buf) {
+	var list = [];
+	var len = buf.getUshort();
+	if (len > 0) for (var i = 0; i < len; i++) {
+		var uid = buf.getUint32();
+		var nickname = buf.getString();
+		var avatar = buf.getString();
+		list.push({uid: uid, nickname: nickname, avatar: avatar});
+	}
+	console.log('我的好友列表：', list);
 }

@@ -28,6 +28,9 @@ wss.on('connection', function (ws) {
 				case tools.cmd.bigdata:
 					console.log(body.data);
 					break;
+				case tools.cmd.friends:
+					ws.send(JSON.stringify({ cmd: tools.cmd.friends, data: tools.friends }));
+					break;
 			}
 		} else if (message instanceof Buffer) {
 			console.log('接收二进制消息：' + message.length + ' 字节');
@@ -48,6 +51,9 @@ wss.on('connection', function (ws) {
 					const data = buf.getString();
 					console.log(data);
 					break;
+				case tools.cmd.friends:
+					sendFriends(ws);
+					break;
 			}
 		}
 	});
@@ -55,9 +61,19 @@ wss.on('connection', function (ws) {
 });
 
 wss.broadcast = function (uid, data) {
-	wss.clients.forEach(function (client) {
-		if (client.uid !== uid && client.readyState === WebSocket.OPEN) client.send(data);
+	wss.clients.forEach(function (ws) {
+		if (ws.uid !== uid && ws.readyState === WebSocket.OPEN) ws.send(data);
 	});
 };
+
+function sendFriends(ws) {
+	var buf = new ByteBuffer().uint32(tools.cmd.friends);
+	buf.ushort(tools.friends.length);
+	for (var i = 0, len = tools.friends.length; i < len; i++) {
+		var o = tools.friends[i];
+		buf.uint32(o.uid).string(o.nickname).string(o.avatar);
+	}
+	if (ws.readyState === WebSocket.OPEN) ws.send(buf.pack());
+}
 
 console.log('监听端口3000');

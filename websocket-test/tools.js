@@ -2,7 +2,8 @@ var tools = {
 	cmd: {
 		login: 10000,
 		laba: 10001,
-		bigdata: 10002
+		bigdata: 10002,
+		friends: 10003
 	},
 	randInt: function (min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
@@ -14,7 +15,12 @@ var tools = {
 			str += arr[pos];
 		}
 		return str;
-	}
+	},
+	friends: [
+		{ uid: 1, nickname: '11', avatar: '111' },
+		{ uid: 2, nickname: '22', avatar: '222' },
+		{ uid: 3, nickname: '33', avatar: '333' }
+	]
 }
 
 try {

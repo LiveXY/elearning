@@ -3,19 +3,19 @@
 <script type="text/javascript">
 //网页WebSocket 客户端测试代码 二进制消息
 
-var client = new WebSocket('ws://127.0.0.1:3000');
-client.binaryType = "arraybuffer";
+var ws = new WebSocket('ws://127.0.0.1:3000');
+ws.binaryType = "arraybuffer";
 
-client.onerror = function(error) {
+ws.onerror = function(error) {
 	console.log('连接错误：', error);
 };
 
-client.onopen = function() {
+ws.onopen = function() {
 	console.log('连接服务器成功，向服务器发送登录消息！');
 	login();
 };
 
-client.onmessage = function(e) {
+ws.onmessage = function(e) {
 	if (e.data instanceof ArrayBuffer) {
 		var buf = new DataBuffer(e.data);
 		var c = buf.getUint32();
@@ -29,17 +29,20 @@ client.onmessage = function(e) {
 				const laba = buf.getString();
 				console.log('接收到广播：', laba);
 				break;
+			case tools.cmd.friends:
+				showFriends(buf);
+				break;
 		}
 	}
 }
 
-client.onclose = function() {
+ws.onclose = function() {
 	console.log('断开连接');
 }
 
 function login() {
-	if (client.readyState === WebSocket.OPEN) {
-		client.send(new DataBuffer().uint32(tools.cmd.login).uint32(tools.randInt(10000, 99999)).pack());
+	if (ws.readyState === WebSocket.OPEN) {
+		ws.send(new DataBuffer().uint32(tools.cmd.login).uint32(tools.randInt(10000, 99999)).pack());
 	}
 }
 
@@ -49,8 +52,25 @@ function bigdata() {
 		var str = i + '->' + tools.randString(100, 10000);
 		var data = new DataBuffer().uint32(tools.cmd.bigdata).string(str).pack();
 		console.log(str);
-		client.send(data);
+		ws.send(data);
 	};
+	getFriends();
 }
 
+function getFriends() {
+	if (ws.readyState === WebSocket.OPEN)
+		ws.send(new DataBuffer().uint32(tools.cmd.friends).uint32(tools.randInt(10000, 99999)).pack());
+}
+
+function showFriends(buf) {
+	var list = [];
+	var len = buf.getUshort();
+	if (len > 0) for (var i = 0; i < len; i++) {
+		var uid = buf.getUint32();
+		var nickname = buf.getString();
+		var avatar = buf.getString();
+		list.push({uid: uid, nickname: nickname, avatar: avatar});
+	}
+	console.log('我的好友列表：', list);
+}
 </script>
