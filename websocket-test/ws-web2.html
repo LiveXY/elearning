@@ -1,77 +1,56 @@
+<script type="text/javascript" src="./DataBuffer.js"></script>
+<script type="text/javascript" src="./tools.js"></script>
 <script type="text/javascript">
+//网页WebSocket 客户端测试代码 二进制消息
 
-var client = new WebSocket('ws://127.0.0.1:3000', 'echo-protocol');
+var client = new WebSocket('ws://127.0.0.1:3000');
 client.binaryType = "arraybuffer";
 
-var cmd = {
-    login: 10000,
-    laba: 10001
-}
-
 client.onerror = function(error) {
-    console.log('连接错误：', error);
+	console.log('连接错误：', error);
 };
 
 client.onopen = function() {
-    console.log('连接服务器成功，向服务器发送登录消息！');
-    login();
+	console.log('连接服务器成功，向服务器发送登录消息！');
+	login();
 };
 
 client.onmessage = function(e) {
-    if (e.data instanceof ArrayBuffer) {
-        var dv = new DataView(e.data);
-        switch(dv.getUint32(0)) {
-            case cmd.login:
-                const rel = dv.getUint32(4);
-                console.log('登录服务器成功！', rel);
-                break;
-            case cmd.laba:
-                const bytes = [];
-                //for (dv.length)
-                const laba = dv.getUint32(4);
-                console.log('接收到广播：', laba, dv);
-                break;
-        }
-    }
+	if (e.data instanceof ArrayBuffer) {
+		var buf = new DataBuffer(e.data);
+		var c = buf.getUint32();
+		switch(c) {
+			case tools.cmd.login:
+				const rel = buf.getUint32();
+				console.log('登录服务器成功！', rel);
+				setTimeout(bigdata, 2000);
+				break;
+			case tools.cmd.laba:
+				const laba = buf.getString();
+				console.log('接收到广播：', laba);
+				break;
+		}
+	}
 }
 
 client.onclose = function() {
-    console.log('断开连接');
+	console.log('断开连接');
 }
 
 function login() {
-    if (client.readyState === WebSocket.OPEN) {
-        var ab = new ArrayBuffer(8);
-        var dv = new DataView(ab);
-        dv.setUint32(0, cmd.login);
-        dv.setUint32(4, rand(10000, 99999));
-        client.send(ab);
-    }
+	if (client.readyState === WebSocket.OPEN) {
+		client.send(new DataBuffer().uint32(tools.cmd.login).uint32(tools.randInt(10000, 99999)).pack());
+	}
 }
 
-function rand(min, max){
-	return Math.floor(Math.random() * (max - min + 1) + min);
-}
-function encodeUtf8(text) {
-    const code = encodeURIComponent(text);
-    const bytes = [];
-    for (var i = 0; i < code.length; i++) {
-        const c = code.charAt(i);
-        if (c === '%') {
-            const hex = code.charAt(i + 1) + code.charAt(i + 2);
-            const hexVal = parseInt(hex, 16);
-            bytes.push(hexVal);
-            i += 2;
-        } else bytes.push(c.charCodeAt(0));
-    }
-    return bytes;
-}
-function decodeUtf8(bytes) {
-    var encoded = "";
-    for (var i = 0; i < bytes.length; i++) {
-        encoded += '%' + bytes[i].toString(16);
-    }
-    return decodeURIComponent(encoded);
+//测试大数据
+function bigdata() {
+	for (var i = 0; i < 10; i++) {
+		var str = i + '->' + tools.randString(100, 10000);
+		var data = new DataBuffer().uint32(tools.cmd.bigdata).string(str).pack();
+		console.log(str);
+		client.send(data);
+	};
 }
 
 </script>

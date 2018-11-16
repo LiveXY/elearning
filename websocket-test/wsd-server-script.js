@@ -1,18 +1,16 @@
+//NODEJS websocketd 服务器端脚本测试代码 字符串消息
+var tools = require('./tools');
+
 process.stdin.resume()
 process.stdin.setEncoding('utf8')
 
-var cmd = {
-    login: 10000,
-    laba: 10001
-}
-
 process.stdin.on( 'data', function( data ) {
-    var body = JSON.parse(data);
-    switch(body.cmd) {
-        case cmd.login:
-            process.stdout.write(JSON.stringify({ cmd: cmd.login, data: { ret: 0 } }) + '\n')
-            break;
-    }
+	var body = JSON.parse(data);
+	switch(body.cmd) {
+		case tools.cmd.login:
+			process.stdout.write(JSON.stringify({ cmd: tools.cmd.login, data: { ret: 0 } }) + '\n')
+			break;
+	}
 })
 
 
