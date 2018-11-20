@@ -17,6 +17,7 @@ var ByteBuffer = function (buffer, offset) {
 	var encoding = 'utf8';
 	var list = [];
 	var endian = 'BE';
+	var headLen = 0;
 
 	//指定文字编码
 	this.encoding = function(encode) { return encoding = encode, this; };
@@ -26,6 +27,10 @@ var ByteBuffer = function (buffer, offset) {
 
 	//指定字节序 为LittleEndian
 	this.littleEndian = function() { return endian = 'LE', this; };
+
+	//指定包头长度
+	this.uint32Head = function() { return headLen = 4, this; }
+	this.ushortHead = function() { return headLen = 2, this; }
 
 	//获取一个字节
 	this.getByte = function() { return offset += 1, buffer.readUInt8(offset - 1); }
@@ -144,14 +149,11 @@ var ByteBuffer = function (buffer, offset) {
 	//解包成数据数组
 	this.unpack = function() { return list; };
 
-	//打包成二进制,在前面加上2个字节表示包长
-	this.packWithHead = function() { return this.pack(true); };
-
-	//打包成二进制 是否在前面加上2个字节表示包长
-	this.pack = function(ifhead) {
-		buffer = new Buffer(ifhead ? offset + 2 : offset);
+	//打包成二进制
+	this.pack = function() {
+		buffer = new Buffer(offset + headLen);
 		var index = 0;
-		if (ifhead) index += writeHead();
+		if (headLen > 0) index += writeHead();
 
 		for (var i = 0, len = list.length; i < len; i++) {
 			switch (list[i].t) {
@@ -210,8 +212,9 @@ var ByteBuffer = function (buffer, offset) {
 		return list[i].l;
 	}
 	function writeHead() {
-		buffer['writeUInt16' + endian](offset, 0);
-		return 2;
+		if (headLen === 2) buffer['writeUInt16' + endian](offset, 0);
+		if (headLen === 4) buffer['writeUInt32' + endian](offset, 0);
+		return headLen;
 	}
 }
 

@@ -29,6 +29,7 @@ var DataBuffer = function (arrayBuffer, offset) {
 	offset = offset || 0;
 	var list = [];
 	var littleEndian = false;
+	var headLen = 0;
 
 	//指定字节序 为BigEndian
 	this.bigEndian = function() { return littleEndian = false, this; };
@@ -36,8 +37,12 @@ var DataBuffer = function (arrayBuffer, offset) {
 	//指定字节序 为LittleEndian
 	this.littleEndian = function() { return littleEndian = true, this; };
 
+	//指定包头长度
+	this.uint32Head = function() { return headLen = 4, this; }
+	this.ushortHead = function() { return headLen = 2, this; }
+
 	//获取一个字节
-	this.getByte = function() { return offset += 1, dataView.getUint8(offset - 1,littleEndian); }
+	this.getByte = function() { return offset += 1, dataView.getUint8(offset - 1, littleEndian); }
 	this.byte = function (val, index) {
 		if (arguments.length == 0) list.push(this.getByte());
 		else splice(ByteType, val, 1, index)
@@ -149,14 +154,11 @@ var DataBuffer = function (arrayBuffer, offset) {
 	//解包成数据数组
 	this.unpack = function () { return list; };
 
-	//打包成二进制,在前面加上2个字节表示包长
-	this.packWithHead = function () { return this.pack(true); };
-
 	//打包成二进制
-	this.pack = function (ifhead) {
-		dataView = new DataView(new ArrayBuffer((ifhead) ? offset + 2 : offset));
+	this.pack = function () {
+		dataView = new DataView(new ArrayBuffer(offset + headLen));
 		var index = 0;
-		if (ifhead) index += writeHead();
+		if (headLen > 0) index += writeHead();
 
 		for (var i = 0; i < list.length; i++) {
 			switch (list[i].t) {
@@ -215,8 +217,9 @@ var DataBuffer = function (arrayBuffer, offset) {
 		return list[i].l;
 	}
 	function writeHead() {
-		dataView.setUint16(0, offset, littleEndian);
-		return 2;
+		if (headLen === 2) dataView.setUint16(0, offset, littleEndian);
+		if (headLen === 4) dataView.setUint32(0, offset, littleEndian);
+		return headLen;
 	}
 	function utf8Write(view, index, str) {
 		var c = 0;
