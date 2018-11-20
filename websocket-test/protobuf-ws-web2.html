@@ -1,0 +1,99 @@
+<script type="text/javascript" src="./js/long.js"></script>
+<script type="text/javascript" src="./js/bytebuffer.js"></script>
+<script type="text/javascript" src="./js/protobuf.js"></script>
+<script type="text/javascript" src="./DataBuffer.js"></script>
+<script type="text/javascript" src="./tools.js"></script>
+<script type="text/javascript">
+//网页WebSocket 客户端测试代码 二进制消息
+//ws-tcp-bridge --method=ws2tcp --lport=3001 --rhost=127.0.0.1:3000
+
+var messages = dcodeIO.ProtoBuf.loadProto('message user {\
+  required int32 uid = 1;\
+}\
+message result {\
+  required int32 ret = 1;\
+  optional string msg = 2;\
+}\
+message laba {\
+  required string data = 1;\
+}\
+message friends {\
+  message users {\
+    required int32 uid = 1;\
+    required string nickname = 2;\
+    required string avatar = 3;\
+  }\
+  repeated users list = 1;\
+}').build();
+
+var ws = new WebSocket('ws://127.0.0.1:3001');
+ws.binaryType = "arraybuffer";
+
+ws.onerror = function(error) {
+	console.log('连接错误：', error);
+};
+
+ws.onopen = function() {
+	console.log('连接服务器成功，向服务器发送登录消息！');
+	login();
+};
+
+ws.onmessage = function(e) {
+	if (e.data instanceof ArrayBuffer) {
+		var buf = new DataBuffer(e.data).littleEndian();
+		var head = buf.getUint32();
+		var c = buf.getUint32();
+		var buf = buf.getBuffer();
+		switch(c) {
+			case tools.cmd.login:
+				var result = messages.result.decode(buf);
+				console.log('登录服务器成功！', result.ret);
+				setTimeout(bigdata, 2000);
+				break;
+			case tools.cmd.laba:
+				var laba = messages.laba.decode(buf);
+				console.log('接收到广播：', laba.data);
+				break;
+			case tools.cmd.friends:
+				showFriends(buf);
+				break;
+		}
+	}
+}
+
+ws.onclose = function() {
+	console.log('断开连接');
+}
+
+function login() {
+	if (ws.readyState === WebSocket.OPEN) {
+		var buf = messages.user.encode({ uid: tools.randInt(10000, 99999) }).buffer;
+		var buf = new DataBuffer().littleEndian().uint32Head().uint32(tools.cmd.login).buffer(buf).pack();
+		ws.send(buf);
+	}
+}
+
+//测试大数据
+function bigdata() {
+	for (var i = 0; i < 10; i++) {
+		var str = i + '->' + tools.randString(100, 10000);
+		var buf = messages.laba.encode({ data: str }).buffer;
+		var data = new DataBuffer().littleEndian().uint32Head().uint32(tools.cmd.bigdata).buffer(buf).pack();
+		console.log(str);
+		ws.send(data);
+	};
+	getFriends();
+}
+
+function getFriends() {
+	if (ws.readyState === WebSocket.OPEN) {
+		var buf = messages.user.encode({ uid: tools.randInt(10000, 99999) }).buffer;
+		ws.send(new DataBuffer().littleEndian().uint32Head().uint32(tools.cmd.friends).buffer(buf).pack());
+	}
+}
+
+function showFriends(buf) {
+	var list = messages.friends.decode(buf);
+	console.log('我的好友列表：', list);
+}
+</script>

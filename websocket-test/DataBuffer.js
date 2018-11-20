@@ -24,6 +24,7 @@ var DataBuffer = function (arrayBuffer, offset) {
 	var FloatType = 9;
 	var DoubleType = 10;
 	var ByteArrayType = 11;
+	var BufferType = 12;
 
 	var dataView = arrayBuffer ? (arrayBuffer.constructor == DataView ? arrayBuffer : (arrayBuffer.constructor == Uint8Array ? new DataView(arrayBuffer.buffer, offset) : new DataView(arrayBuffer, offset))) : new DataView(new Uint8Array([]).buffer);
 	offset = offset || 0;
@@ -151,6 +152,18 @@ var DataBuffer = function (arrayBuffer, offset) {
 		return this;
 	};
 
+	this.getBuffer = function() {
+		var len = dataView.byteLength - offset;
+		var buf = dataView.buffer.slice(offset);
+		offset += len;
+		return buf;
+	}
+	this.buffer = function(val, index) {
+		if (val == undefined || val == null) list.push(this.getBuffer());
+		else splice(BufferType, val, val.byteLength, index);
+		return this;
+	}
+
 	//解包成数据数组
 	this.unpack = function () { return list; };
 
@@ -190,6 +203,12 @@ var DataBuffer = function (arrayBuffer, offset) {
 						else dataView.setUint8(j, 0); //不够的话，后面补齐0x00
 						indx++
 					}
+					index += list[i].l;
+					break;
+				case BufferType:
+					var vlen = dataView.byteLength - list[i].l;
+					var ndv = new DataView(list[i].d);
+					for (var j = 0, l = list[i].l; j < l; j++) dataView.setUint8(vlen + j, ndv.getUint8(j));
 					index += list[i].l;
 					break;
 			}

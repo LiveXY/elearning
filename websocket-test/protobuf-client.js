@@ -28,8 +28,8 @@ exBuffer.on('data', function(data) {
 			setTimeout(bigdata, 2000);
 			break;
 		case tools.cmd.laba:
-			const laba = buf.getString();
-			console.log('接收到广播：', laba);
+			var laba = messages.laba.decode(buf);
+			console.log('接收到广播：', laba.data);
 			break;
 		case tools.cmd.friends:
 			showFriends(buf);
