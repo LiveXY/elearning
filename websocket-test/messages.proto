@@ -1,0 +1,21 @@
+message user {
+  required int32 uid = 1;
+}
+
+message result {
+  required int32 ret = 1;
+  optional string msg = 2;
+}
+
+message laba {
+  required string data = 1;
+}
+
+message friends {
+  message users {
+    required int32 uid = 1;
+    required string nickname = 2;
+    required string avatar = 3;
+  }
+  repeated users list = 1;
+}

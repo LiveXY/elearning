@@ -11,6 +11,7 @@ var Int64Type = 8;
 var FloatType = 9;
 var DoubleType = 10;
 var ByteArrayType = 11;
+var BufferType = 12;
 
 var ByteBuffer = function (buffer, offset) {
 	offset = offset || 0;
@@ -146,6 +147,19 @@ var ByteBuffer = function (buffer, offset) {
 		return this;
 	};
 
+	this.getBuffer = function() {
+		var len = buffer.length - offset;
+		var buf = Buffer.alloc(len);
+		buffer.copy(buf, 0, offset, buffer.length);
+		offset += len;
+		return buf;
+	}
+	this.buffer = function(val, index) {
+		if (val == undefined || val == null) list.push(this.getBuffer());
+		else splice(BufferType, val, val.length, index);
+		return this;
+	}
+
 	//解包成数据数组
 	this.unpack = function() { return list; };
 
@@ -185,6 +199,10 @@ var ByteBuffer = function (buffer, offset) {
 						else buffer.writeUInt8(0, j); //不够的话，后面补齐0x00
 						indx++
 					}
+					index += list[i].l;
+					break;
+				case BufferType:
+					list[i].d.copy(buffer, buffer.length - list[i].l, 0, list[i].l);
 					index += list[i].l;
 					break;
 			}

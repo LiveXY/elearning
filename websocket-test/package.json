@@ -13,6 +13,7 @@
 		"socket.io-client": "^2.1.1",
 		"websocket": "^1.0.28",
 		"ws": "^6.1.0",
-		"pomelo-rpc": "^1.0.7"
+		"pomelo-rpc": "^1.0.7",
+		"protocol-buffers": "^4.1.0"
 	}
 }

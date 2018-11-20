@@ -215,6 +215,7 @@ UDID=$(idevice_id -l | head -n1)
 # 运行测试
 xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination "id=$UDID" test
 
+lsof -nP -iTCP | grep 3000
 
 
 
