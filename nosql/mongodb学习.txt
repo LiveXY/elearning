@@ -343,8 +343,8 @@ db.task.update({id:NumberLong(5000005)},{$set:{'task.77.status':3}},true,true);
 db.task.update({id:NumberLong(5000005),'task.id':100000017},{$set:{'task.$.status':1}},true,true);
 
 修改转生限制
-db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200103},{$set:{'propfresh.$.expire':1541433600}},true,true);
-db.player_fbrec.update({id:NumberLong(5000009),'propfresh.id':210200104},{$set:{'propfresh.$.expire':1541433600}},true,true);
+db.player_fbrec.update({id:NumberLong(6000001),'propfresh.id':210200103},{$set:{'propfresh.$.expire':1541433600}},true,true);
+db.player_fbrec.update({id:NumberLong(6000001),'propfresh.id':210200104},{$set:{'propfresh.$.expire':1541433600}},true,true);
 
 测试更改数据
 db.package.update({id:NumberLong(5000015),'package.item.id':103100026},{$set:{'package.item.$.appraise':15}},true,true);
@@ -357,12 +357,14 @@ db.fight.update({id:NumberLong(5000009)},{$set:{'fight.all_property.0':302491}},
 db.fight.update({id:NumberLong(5000009),'fight.skill.id':411000001},{$set:{'fight.skill.$.exp':258586,'fight.skill.$.last_time':1541509632}},true,true);
 db.fight.update({id:NumberLong(5000009),'fight.skill.id':462000012},{$set:{'fight.skill.$.exp':14400000}},true,true);
 
-删除一刀999称号
-db.achievement.update({id:NumberLong(5000015),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
-db.achievement.update({id:NumberLong(5000015)},{$set:{'tx_label.0':1000224}},true,true);
+清理邮件
+db.mail.find({id:NumberLong(6000001)});
+db.mail.update({id:NumberLong(6000001)}, {$set:{"mail":{"allcount":0,"count":0,"info":[]}}}, true, true);
 
-db.achievement.update({id:NumberLong(5000021),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
-db.achievement.update({id:NumberLong(5000021)},{$set:{'tx_label.0':1000224}},true,true);
+删除一刀999称号
+db.achievement.find({'label_new.label_id':1000230})
+db.achievement.update({id:NumberLong(6000040),'label_new.label_id':1000230},{$set:{'label_new.$.label_id':1000224}},true,true);
+db.achievement.update({id:NumberLong(6000040)},{$set:{'tx_label.0':1000224}},true,true);
 
 --备份单个表
 mongodump -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d mmo50 -c role -o ./test1

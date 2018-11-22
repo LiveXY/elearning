@@ -1,3 +1,34 @@
+https://www.cnblogs.com/softidea/p/7085473.html
+http://www.eefocus.com/communication/393583
+https://blog.csdn.net/yazhouren/article/details/78658531
+
+纯消息：底层协议（例如 TCP）是被设计用来将一个消息从一个发送者（sender）传递给一个接收者（receiver）。他们并不关系消息本身应该如何构建，也不关系消息的请求、获取、存储以及如何保证安全可靠。
+
+WebSockets：在TCP之上的协议，添加了一些额外的功能，例如使用头部（header）传输元数据，通过多个数据包分割较大的消息，简单的身份验证，以及路由／重定向相关信息。本质上它们仍然是点对点交换数据的方式。
+
+发布－订阅模式：
+MQTT(Message Queue Telemerty Transport“轻量级” 通讯协议低开销、低带宽占用的即时通讯协议，使其在物联网、小型设备、移动应用等方面有较广泛的应用)，
+STOMP(面向流文本的消息传输协议Streaming Text Oriented Messaging Protocol)，
+WAMP(Web应用消息协议Web Application Messaging Protocol)，
+DDS 协议 (高可靠性、实时)数据分发服务 DDS(Data Distribution Service)是对象管理组织 (OMG) 在 HLA 及 CORBA 等标准的基础上制定的新一代分布式实时通信中间件技术规范，DDS 采用发布 / 订阅体系架构，强调以数据为中心，提供丰富的 QoS 服务质量策略，能保障数据进行实时、高效、灵活地分发，可满足各种分布式实时通信应用需求。DDS 信息分发中间件是一种轻便的、能够提供实时信息传送的中间件技术。分布式高可靠性、实时传输设备数据通信。目前DDS已经广泛应用于国防、民航、工业控制等领域。
+
+消息队列：
+AMQP(Advanced Message Queuing Protocol, 一个提供统一消息服务的应用层标准高级消息队列协议, 是应用层协议的一个开放标准, 为面向消息的中间件设计，RabbitMQ/HornetQ)
+ZeroMQ(比AMQP更高速同时去中心化的替代方案)
+
+请求/响应：RPC(远程过程调用Remote Procedure Calls),RMI(远程方法调用Remote Method Invocation)
+
+服务调用：REST/HTTP(松耦合服务调用Representational State Transfer)，SOAP， XML-RPC，
+
+CoAP（Constrained Application Protocol），受限应用协议，应用于无线传感网中协议。（UDP 协议）用于小设备 (256KB Flash 32KB RAM 20MHz 主频)
+
+即时通信：XMPP 是一种基于标准通用标记语言的子集 XML 的协议，它继承了在 XML 环境中灵活的发展性。因此，基于 XMPP 的应用具有超强的可扩展性。
+
+MQTT是一种二进制协议，主要用于服务器和那些低功耗的物联网设备（IoT）之间的通信。
+https://www.jianshu.com/p/5c42cb0ed1e9
+https://www.cnblogs.com/zhangyu1024/p/6141818.html
+https://blog.csdn.net/anxianfeng55555/article/details/80908795DDS
+
 
 WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器都已经支持了。
 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。
