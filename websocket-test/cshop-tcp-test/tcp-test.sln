@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tcp-server", "tcp-server\tcp-server.csproj", "{C7687DAA-F0FD-4CDD-8B0F-8840289FE4B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pub.Class.Net_Mono", "Pub.Class.Net\Pub.Class.Net_Mono.csproj", "{C8CFBFBC-4D11-4B19-95BD-5FAEE44C57AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7687DAA-F0FD-4CDD-8B0F-8840289FE4B0}.Debug|x86.ActiveCfg = Debug|x86
+		{C7687DAA-F0FD-4CDD-8B0F-8840289FE4B0}.Debug|x86.Build.0 = Debug|x86
+		{C7687DAA-F0FD-4CDD-8B0F-8840289FE4B0}.Release|x86.ActiveCfg = Release|x86
+		{C7687DAA-F0FD-4CDD-8B0F-8840289FE4B0}.Release|x86.Build.0 = Release|x86
+		{C8CFBFBC-4D11-4B19-95BD-5FAEE44C57AC}.Debug|x86.ActiveCfg = Debug|x86
+		{C8CFBFBC-4D11-4B19-95BD-5FAEE44C57AC}.Debug|x86.Build.0 = Debug|x86
+		{C8CFBFBC-4D11-4B19-95BD-5FAEE44C57AC}.Release|x86.ActiveCfg = Release|x86
+		{C8CFBFBC-4D11-4B19-95BD-5FAEE44C57AC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal

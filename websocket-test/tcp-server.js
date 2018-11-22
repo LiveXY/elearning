@@ -38,9 +38,10 @@ var server = net.createServer(client => {
 });
 
 function broadcast(uid, data) {
-	clients.forEach(function (client) {
-		if (client && client.writable && client.uid !== uid) client.write(data);
-	});
+	for (var i in clients) {
+		var client = clients[i];
+		if (client && client.writable) client.write(data);
+	}
 }
 
 function sendFriends(client) {
