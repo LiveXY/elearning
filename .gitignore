@@ -2,3 +2,9 @@
 pass-dict/mytest
 *.retry
 websocket-test/node_modules
+websocket-test/cshop-tcp-test/.vs
+websocket-test/cshop-tcp-test/bin
+*.user
+websocket-test/cshop-tcp-test/Pub.Class.Net/obj
+websocket-test/cshop-tcp-test/tcp-client/obj
+websocket-test/cshop-tcp-test/tcp-server/obj
