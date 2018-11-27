@@ -6,6 +6,7 @@
 <script type="text/javascript">
 //网页WebSocket 客户端测试代码 二进制消息
 //ws-tcp-bridge --method=ws2tcp --lport=3001 --rhost=127.0.0.1:3000
+//websockify 3001 127.0.0.1:3000
 
 var messages = dcodeIO.ProtoBuf.loadProto('message user {\
   required int32 uid = 1;\
@@ -26,7 +27,7 @@ message friends {\
   repeated users list = 1;\
 }').build();
 
-var ws = new WebSocket('ws://127.0.0.1:3001');
+var ws = new WebSocket('ws://127.0.0.1:3001', ['binary']);
 ws.binaryType = "arraybuffer";
 
 ws.onerror = function(error) {

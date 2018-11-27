@@ -24,6 +24,8 @@ CoAP（Constrained Application Protocol），受限应用协议，应用于无�
 
 即时通信：XMPP 是一种基于标准通用标记语言的子集 XML 的协议，它继承了在 XML 环境中灵活的发展性。因此，基于 XMPP 的应用具有超强的可扩展性。
 
+QUIC （Quick UDP Internet Connections）是 Google 推出的一个项目，旨在降低基于 TCP 通讯的 Web 延迟。QUIC 非常类似 TCP+TLS+SPDY ，但是基于 UDP 实现的。HTTP/3
+
 MQTT是一种二进制协议，主要用于服务器和那些低功耗的物联网设备（IoT）之间的通信。
 https://www.jianshu.com/p/5c42cb0ed1e9
 https://www.cnblogs.com/zhangyu1024/p/6141818.html

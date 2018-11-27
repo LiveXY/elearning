@@ -118,7 +118,11 @@ opcache.enable=1
 opcache.enable_cli=1
 opcache.save_comments=0
 ```
+* memcached配置
+```
+vi /etc/php.d/memcached.ini
 
+```
 ## svn client安装：
 ```sh
 yum install -y subversion
