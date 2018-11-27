@@ -17,21 +17,21 @@ var ByteBuffer = function (buffer, offset) {
 	offset = offset || 0;
 	var encoding = 'utf8';
 	var list = [];
-	var endian = 'BE';
-	var headLen = 0;
+	ByteBuffer.Endian = ByteBuffer.Endian || 'BE';
+	ByteBuffer.HeadLen = ByteBuffer.HeadLen || 0;
 
 	//指定文字编码
 	this.encoding = function(encode) { return encoding = encode, this; };
 
 	//指定字节序 为BigEndian
-	this.bigEndian = function() { return endian = 'BE', this; };
+	this.bigEndian = function() { return ByteBuffer.Endian = 'BE', this; };
 
 	//指定字节序 为LittleEndian
-	this.littleEndian = function() { return endian = 'LE', this; };
+	this.littleEndian = function() { return ByteBuffer.Endian = 'LE', this; };
 
 	//指定包头长度
-	this.uint32Head = function() { return headLen = 4, this; }
-	this.ushortHead = function() { return headLen = 2, this; }
+	this.uint32Head = function() { return ByteBuffer.HeadLen = 4, this; }
+	this.ushortHead = function() { return ByteBuffer.HeadLen = 2, this; }
 
 	//获取一个字节
 	this.getByte = function() { return offset += 1, buffer.readUInt8(offset - 1); }
@@ -99,7 +99,7 @@ var ByteBuffer = function (buffer, offset) {
 
 	//获取变长字符串 前2个字节表示字符串长度
 	this.getString = function() {
-		var len = buffer['readUInt16' + endian](offset);
+		var len = buffer['readUInt16' + ByteBuffer.Endian](offset);
 		offset += 2;
 		offset += len;
 		return buffer.toString(encoding, offset - len, offset);
@@ -165,9 +165,9 @@ var ByteBuffer = function (buffer, offset) {
 
 	//打包成二进制
 	this.pack = function() {
-		buffer = new Buffer(offset + headLen);
+		buffer = new Buffer(offset + ByteBuffer.HeadLen);
 		var index = 0;
-		if (headLen > 0) index += writeHead();
+		if (ByteBuffer.HeadLen > 0) index += writeHead();
 
 		for (var i = 0, len = list.length; i < len; i++) {
 			switch (list[i].t) {
@@ -181,7 +181,7 @@ var ByteBuffer = function (buffer, offset) {
 				case DoubleType: index += write('writeDouble', i, index); break;
 				case StringType:
 					//前2个字节表示字符串长度
-					buffer['writeUInt16' + endian](list[i].l, index);
+					buffer['writeUInt16' + ByteBuffer.Endian](list[i].l, index);
 					index += 2;
 					buffer.write(list[i].d, index, encoding);
 					index += list[i].l;
@@ -222,18 +222,23 @@ var ByteBuffer = function (buffer, offset) {
 	}
 	function read(func, len) {
 		offset += len;
-		return buffer[func + endian](offset - len);
+		return buffer[func + ByteBuffer.Endian](offset - len);
 	}
 	function write(func, i, index) {
 		if (func === 'writeUInt8') buffer.writeUInt8(list[i].d, index);
-		else buffer[func + endian](list[i].d, index);
+		else buffer[func + ByteBuffer.Endian](list[i].d, index);
 		return list[i].l;
 	}
 	function writeHead() {
-		if (headLen === 2) buffer['writeUInt16' + endian](offset, 0);
-		if (headLen === 4) buffer['writeUInt32' + endian](offset, 0);
-		return headLen;
+		if (ByteBuffer.HeadLen === 2) buffer['writeUInt16' + ByteBuffer.Endian](offset, 0);
+		if (ByteBuffer.HeadLen === 4) buffer['writeUInt32' + ByteBuffer.Endian](offset, 0);
+		return ByteBuffer.HeadLen;
 	}
 }
+
+ByteBuffer.littleEndian = function() { return ByteBuffer.Endian = 'LE', ByteBuffer; }
+ByteBuffer.bigEndian = function() { return ByteBuffer.Endian = 'BE', ByteBuffer; }
+ByteBuffer.uint32Head = function() { return ByteBuffer.HeadLen = 4, ByteBuffer; }
+ByteBuffer.ushortHead = function() { return ByteBuffer.HeadLen = 2, ByteBuffer; }
 
 module.exports = exports = ByteBuffer;

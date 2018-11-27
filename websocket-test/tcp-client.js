@@ -1,6 +1,6 @@
 var net = require('net');
 var ExBuffer = require('./ExBuffer');
-var ByteBuffer = require('./ByteBuffer');
+var ByteBuffer = require('./ByteBuffer').littleEndian().uint32Head();
 var tools = require('./tools');
 
 var exBuffer = new ExBuffer().uint32Head().littleEndian();
@@ -8,13 +8,13 @@ var exBuffer = new ExBuffer().uint32Head().littleEndian();
 var client = net.connect(3000, function() {
 	console.log('连接服务器成功，向服务器发送登录消息！');
 
-	client.write(new ByteBuffer().littleEndian().uint32Head().uint32(tools.cmd.login).uint32(tools.randInt(10000, 99999)).pack());
+	client.write(new ByteBuffer().uint32(tools.cmd.login).uint32(tools.randInt(10000, 99999)).pack());
 });
 
 client.on('data', exBuffer.put);
 
 exBuffer.on('data', function(data) {
-	var buf = new ByteBuffer(data).littleEndian();
+	var buf = new ByteBuffer(data);
 	var c = buf.getUint32();
 	switch (c) {
 		case tools.cmd.login:
@@ -36,14 +36,14 @@ function bigdata() {
 	for (var i = 0; i < 10; i++) {
 		var str = i + '->' + tools.randString(100, 10000);
 		console.log(str);
-		if (client.writable) client.write(new ByteBuffer().littleEndian().uint32Head().uint32(tools.cmd.bigdata).string(str).pack());
+		if (client.writable) client.write(new ByteBuffer().uint32(tools.cmd.bigdata).string(str).pack());
 	};
 	getFriends();
 }
 
 function getFriends() {
 	if (client.writable)
-		client.write(new ByteBuffer().littleEndian().uint32Head().uint32(tools.cmd.friends).uint32(tools.randInt(10000, 99999)).pack());
+		client.write(new ByteBuffer().uint32(tools.cmd.friends).uint32(tools.randInt(10000, 99999)).pack());
 }
 
 function showFriends(buf) {

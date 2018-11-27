@@ -308,3 +308,8 @@ var DataBuffer = function (arrayBuffer, offset) {
 		return length;
 	}
 }
+
+DataBuffer.littleEndian = function() { return this.littleEndian(); }
+DataBuffer.bigEndian = function() { return this.bigEndian(); }
+DataBuffer.uint32Head = function() { return this.uint32Head(); }
+DataBuffer.ushortHead = function() { return this.ushortHead(); }

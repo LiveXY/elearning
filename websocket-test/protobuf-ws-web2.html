@@ -27,6 +27,8 @@ message friends {\
   repeated users list = 1;\
 }').build();
 
+DataBuffer.littleEndian().uint32Head();
+
 var ws = new WebSocket('ws://127.0.0.1:3001', ['binary']);
 ws.binaryType = "arraybuffer";
 
@@ -41,7 +43,7 @@ ws.onopen = function() {
 
 ws.onmessage = function(e) {
 	if (e.data instanceof ArrayBuffer) {
-		var buf = new DataBuffer(e.data).littleEndian();
+		var buf = new DataBuffer(e.data);
 		var head = buf.getUint32();
 		var c = buf.getUint32();
 		var buf = buf.getBuffer();
@@ -69,7 +71,7 @@ ws.onclose = function() {
 function login() {
 	if (ws.readyState === WebSocket.OPEN) {
 		var buf = messages.user.encode({ uid: tools.randInt(10000, 99999) }).buffer;
-		var buf = new DataBuffer().littleEndian().uint32Head().uint32(tools.cmd.login).buffer(buf).pack();
+		var buf = new DataBuffer().uint32(tools.cmd.login).buffer(buf).pack();
 		ws.send(buf);
 	}
 }
@@ -79,7 +81,7 @@ function bigdata() {
 	for (var i = 0; i < 10; i++) {
 		var str = i + '->' + tools.randString(100, 10000);
 		var buf = messages.laba.encode({ data: str }).buffer;
-		var data = new DataBuffer().littleEndian().uint32Head().uint32(tools.cmd.bigdata).buffer(buf).pack();
+		var data = new DataBuffer().uint32(tools.cmd.bigdata).buffer(buf).pack();
 		console.log(str);
 		ws.send(data);
 	};
@@ -89,7 +91,7 @@ function bigdata() {
 function getFriends() {
 	if (ws.readyState === WebSocket.OPEN) {
 		var buf = messages.user.encode({ uid: tools.randInt(10000, 99999) }).buffer;
-		ws.send(new DataBuffer().littleEndian().uint32Head().uint32(tools.cmd.friends).buffer(buf).pack());
+		ws.send(new DataBuffer().uint32(tools.cmd.friends).buffer(buf).pack());
 	}
 }
 

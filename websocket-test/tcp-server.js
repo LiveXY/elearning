@@ -1,6 +1,6 @@
 var net = require('net');
 var ExBuffer = require('./ExBuffer');
-var ByteBuffer = require('./ByteBuffer');
+var ByteBuffer = require('./ByteBuffer').littleEndian().uint32Head();
 var tools = require('./tools');
 var clients = {};
 
@@ -14,13 +14,13 @@ var server = net.createServer(client => {
 				const uid = buf.getUint32();
 				client.uid = uid;
 				console.log('请求登录:', uid, '，并回复客户端登录成功');
-				client.write(new ByteBuffer().littleEndian().uint32Head().uint32(tools.cmd.login).uint32(0).pack());
+				client.write(new ByteBuffer().uint32(tools.cmd.login).uint32(0).pack());
 
 				clients[uid] = client;
 
 				const laba = `${uid}上线了！`;
 				console.log('广播', laba);
-				broadcast(uid, new ByteBuffer().littleEndian().uint32Head().uint32(tools.cmd.laba).string(laba).pack());
+				broadcast(uid, new ByteBuffer().uint32(tools.cmd.laba).string(laba).pack());
 				break;
 			case tools.cmd.bigdata:
 				const data = buf.getString();
@@ -45,7 +45,7 @@ function broadcast(uid, data) {
 }
 
 function sendFriends(client) {
-	var buf = new ByteBuffer().littleEndian().uint32Head().uint32(tools.cmd.friends);
+	var buf = new ByteBuffer().uint32(tools.cmd.friends);
 	buf.ushort(tools.friends.length);
 	for (var i = 0, len = tools.friends.length; i < len; i++) {
 		var o = tools.friends[i];
