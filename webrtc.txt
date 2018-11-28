@@ -6,34 +6,55 @@ yum localinstall turnserver-utils-4.5.0.3-0.el7.centos.x86_64.rpm
 yum localinstall turnserver-4.5.0.3-0.el7.centos.x86_64.rpm
 vi /etc/turnserver/turnserver.conf
 ```
-# 记得开防火墙
-min-port=59000
-max-port=65000
-# 更繁杂的输出日志
 Verbose
-# WebRTC 的消息里会用到
 fingerprint
-# WebRTC 认证需要
 lt-cred-mech
-# REST API 认证需要
 use-auth-secret
-# REST API 加密所需的 KEY
-# 这里我们使用“静态”的 KEY，Google 自己也用的这个
 static-auth-secret=4080218913
-# 用户登录域
 realm=
-# 可为 TURN 服务提供更安全的访问
 stale-nonce
-# SSL 需要用到的, 生成命令:
 # sudo openssl req -x509 -newkey rsa:2048 -keyout /etc/turn_server_pkey.pem -out /etc/turn_server_cert.pem -days 99999 -nodes
 cert=/etc/turn_server_cert.pem
 pkey=/etc/turn_server_pkey.pem
-# 屏蔽 loopback, multicast IP地址的 relay
 no-loopback-peers
 no-multicast-peers
-# 启用 Mobility ICE 支持(具体干啥的我也不晓得)
 mobility
-# 禁用本地 telnet cli 管理接口
-no-cli
+#no-cli
 ```
 systemctl start turnserver
+
+turnadmin -A -u rbturn -p rbt@7890 -r domain.com
+turnadmin -a -u rbturn -p rbt@7890 -r domain.com
+turnadmin -k -u rbturn -p rbt@7890 -r domain.com
+0x16eb8ca31472484bebeb1946dbbc80dd
+
+vi /etc/turnserver/turnserver.conf
+listening-ip=ipaddress
+listening-port=3478
+tls-listening-port=5349
+relay-ip=ipaddress
+external-ip=ipaddress
+relay-threads=10
+lt-cred-mech
+user=rbturn:0x16eb8ca31472484bebeb1946dbbc80dd
+max-bps=102400
+
+vi /etc/turnserver/turnuserdb.conf
+rbturn:0x16eb8ca31472484bebeb1946dbbc80dd
+
+turnserver -L ipaddress -c /etc/turnserver/turnserver.conf -o -a -b/etc/turnserver/turnuserdb.conf -f -r domain.com
+
+turnutils_uclient -u rbturn -w 0x16eb8ca31472484bebeb1946dbbc80dd
+
+turnserver -c /etc/turnserver/turnserver.conf -o -a -f -v --mobility -m 10 --lt-cred-mech --max-bps=102400 -b /var/db/turndb -r domain.com
+
+listening-port=3478
+lt-cred-mech
+user=rbturn3:rbt@7890
+max-bps=102400
+mobility
+no-cli
+realm=domain.com
+relay-threads=5
+Verbose
+fingerprint

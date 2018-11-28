@@ -266,3 +266,150 @@ inputOnFocus(e){
     },200);
 }
 
+移动Web开发，4行代码检测浏览器是否支持position:fixed
+function isSupportFixed() {
+    var userAgent = window.navigator.userAgent,
+        ios = userAgent.match(/(iPad|iPhone|iPod)\s+OS\s([\d_\.]+)/),
+        ios5below = ios && ios[2] && (parseInt(ios[2].replace(/_/g, '.'), 10) < 5),
+        operaMini = /Opera Mini/i.test(userAgent),
+        body = document.body,
+        div, isFixed;
+
+    div = document.createElement('div');
+    div.style.cssText = 'display:none;position:fixed;z-index:100;';
+    body.appendChild(div);
+    isFixed = window.getComputedStyle(div).position != 'fixed';
+    body.removeChild(div);
+    div = null;
+
+    return !!(isFixed || ios5below || operaMini);
+}
+
+判断屏幕是否旋转
+
+function orientationChange() {
+    switch(window.orientation) {
+    　　case 0:
+            alert("肖像模式 0,screen-width: " + screen.width + "; screen-height:" + screen.height);
+            break;
+    　　case -90:
+            alert("左旋 -90,screen-width: " + screen.width + "; screen-height:" + screen.height);
+            break;
+    　　case 90:
+            alert("右旋 90,screen-width: " + screen.width + "; screen-height:" + screen.height);
+            break;
+    　　case 180:
+        　　alert("风景模式 180,screen-width: " + screen.width + "; screen-height:" + screen.height);
+        　　break;
+    };};
+
+    addEventListener('load', function(){
+    orientationChange();
+    window.onorientationchange = orientationChange;
+});
+
+JS 单击延迟 click 事件因为要等待单击确认，会有 300ms 的延迟，体验并不是很好。
+建议使用fastclick来解决https://github.com/ftlabs/fastclick
+确保在点击功能之后添加event.stopPropagation();和/或event.preventDefault();直接添加，否则它可能会像我一样运行两次，即：
+$("#buttonId").on('click',function(event){
+    event.stopPropagation(); event.preventDefault();
+   //do your magic
+});
+https://github.com/baijunjie/noclickdelay.js/blob/master/noclickdelay.js
+
+有这样一种需求，需要判断用户照片是横着拍出来的还是竖着拍出来的，这里需要使用照片得exif信息：
+https://github.com/exif-js/exif-js
+$("input").change(function() {
+    var file = this.files[0];
+    fr   = new FileReader;
+    fr.onloadend = function() {
+        var exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
+        alert(exif.Orientation);
+    };
+    fr.readAsBinaryString(file);
+});
+https://github.com/jseidelin/binaryajax/blob/master/binaryajax.js
+
+要让a链接的CSS active伪类生效，只需要给这个a链接的touch系列的任意事件touchstart/touchend绑定一个空的匿名方法即可hack成功
+<style>
+a {
+color: #000;
+}
+a:active {
+color: #fff;
+}
+</style>
+<a herf=”asdasd”>asdasd</a>
+<script>
+var a=document.getElementsByTagName(‘a’);
+for(var i=0;i<a.length;i++){
+a[i].addEventListener(‘touchstart’,function(){},false);
+}
+</script>
+
+判断是否支持localStorage
+try{
+    if('localStorage' in window){
+         //需要使用localStorage的代码写在这
+    }else{
+         //不支持的提示和向下兼容代码
+    }
+}catch(e){
+    // 隐私模式相关提示代码和不支持的提示和向下兼容代码
+}
+
+安卓手机点击锁定页面效果问题
+function touchHandlerDummy(e)
+{
+    e.preventDefault();
+    return false;
+}
+document.addEventListener("touchstart", touchHandlerDummy, false);
+document.addEventListener("touchmove", touchHandlerDummy, false);
+document.addEventListener("touchend", touchHandlerDummy, false);
+
+判断用户是否是“将网页添加到主屏后，再从主屏幕打开这个网页”的
+navigator.standalone
+
+隐藏地址栏 & 处理事件的时候，防止滚动条出现：
+addEventListener('load', function(){
+        setTimeout(function(){ window.scrollTo(0, 1); }, 100);
+});
+
+ios7 可以通过meta标签的minimal来隐藏地址栏了 http://darkblue.sdf.org/weblog/ios-7-dot-1-mobile-safari-minimal-ui.html
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+
+判断是否为iPhone：
+function isAppleMobile() {
+    return (navigator.platform.indexOf('iPhone') != -1);
+};
+
+Cache开启和设置
+browser.getSettings().setAppCacheEnabled(true);
+browser.getSettings().setAppCachePath("/data/data/[com.packagename]/cache");
+browser.getSettings().setAppCacheMaxSize(5*1024*1024); // 5MB
+
+LocalStorage相关设置
+browser.getSettings().setDatabaseEnabled(true);
+browser.getSettings().setDomStorageEnabled(true);
+String databasePath = browser.getContext().getDir("databases", Context.MODE_PRIVATE).getPath();
+browser.getSettings().setDatabasePath(databasePath);//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中
+myWebView.setWebChromeClient(new WebChromeClient(){
+　　　 @Override
+　　　 public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater)
+　　　 {
+　　　　　　　 quotaUpdater.updateQuota(estimatedSize * 2);
+　　　 }
+}
+
+浏览器自带缩放按钮取消显示
+browser.getSettings().setBuiltInZoomControls(false);
+
+iOS下的 Fixed + Input BUG现象
+http://efe.baidu.com/blog/mobile-fixed-layout/
+
+QQ浏览器X5内核问题汇总
+https://www.qianduan.net/qqliu-lan-qi-x5nei-he-wen-ti-hui-zong/
+
+
+

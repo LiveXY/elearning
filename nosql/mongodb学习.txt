@@ -278,6 +278,7 @@ db.team.remove({id:NumberLong(5000022)});
 删除角色
 db.role.find({"id" : NumberLong(6000065)})
 db.role.remove({"id" : NumberLong(6000065)})
+db.role.update({"id" : NumberLong(6000072)},{$set:{"delete_type" : 1}},true,true);
 
 更换账号
 db.account.remove({"account" : "ce666c6f99b8fe0c18e10a2449759eb6"})

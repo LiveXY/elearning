@@ -80,9 +80,38 @@ https://github.com/jxnblk/rebass
 https://github.com/unsplash/react-trend
 
 微信小程序
-https://github.com/NervJS/taro
+https://github.com/NervJS/taro 多端统一开发框架，支持用 React 的开发方式编写一次代码，生成能运行在微信小程序/百度智能小程序/支付宝小程序、H5、React Native 等的应用
+$ npm install -g @tarojs/cli
+$ yarn global add @tarojs/cli
+$ taro init myApp
+$ npx @tarojs/cli init myApp
+https://nervjs.github.io/taro/docs/GETTING-STARTED.html
+
+https://github.com/zhongku/mpvue-weex
 https://github.com/Meituan-Dianping/mpvue
+
 https://github.com/Tencent/wepy
+
+React Native 的样式基于开源的跨平台布局引擎
+https://github.com/facebook/yoga
+https://facebook.github.io/react-native/docs/layout-props
+http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+https://facebook.github.io/react-native/docs/getting-started.html
+
+移动端下拉刷新、上拉加载更多插件
+https://github.com/ximan/dropload
+
+这里收集了许多移动端上遇到的各种坑
+https://github.com/RubyLouvre/mobileHack
+
+移动设备参数表
+http://screensiz.es/phone
+ios端移动设备参数速查
+https://ivomynttinen.com/blog/ios-design-guidelines
+各浏览器兼容测试
+https://github.com/alibaba/f2etest
+HTML5-Cross-Browser-Polyfills
+https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills
 
 全平台桌面应用
 https://github.com/electron/electron
