@@ -1,9 +1,5 @@
 linux 常用命令
 
-exiftool file.jpg
-
-有些技能可以事半功倍，有些命运掌握在我们手中。熟练的掌握和使用这些命令可以提高工作效率，并且结合这些命令对测试过程中遇到的问题进行一些初步的定位。
-
 1 目录与文件操作
 1.1	ls(初级)
 使用权限：所有人
@@ -20,19 +16,16 @@ exiftool file.jpg
 -s 显示文件大小
 -S 以大小进行排序
 -L 显示文件链接名
-
-复制代码
 范例：
 列出目前工作目录下所有名称是 s 开头的档案，愈新的排愈后面 :
 　　 ls -ltr s*
 　　将 /bin 目录以下所有目录及档案详细资料列出 :
 　　 ls -lR /bin
-　　列出目前工作目录下所有档案及目录；目录于名称后加 "/", 可执行档于名称后加 "*"
+　　列出目前工作目录下所有档案及目录；目录于名称后加 "/", 可执行档于名称后加*
 　　 ls –AF
 常用方式及使用技巧：
 　　ls –l 以列表形式输出当前目录中存在的文件
 　　ls –lt 按照修改时间倒序排序，即最新的在最上面展示
-复制代码
 1.2 ll(初级)
 ls –l的缩写形式
 cd(初级)
@@ -40,7 +33,6 @@ cd(初级)
 使用方式 : cd [dirName]
 说明 : 变换工作目录至 dirName。 其中 dirName 表示法可为绝对路径或相对路径。若目录名称省略，则变换至使用者的 home directory (也就是刚 login 时所在的目录)。
 另外，"~" 也表示为 home directory 的意思，"." 则是表示目前所在的目录，".." 则表示目前目录位置的上一层目录。
-
 范例 : 跳到 /usr/bin/ : cd /usr/bin
 跳到自己的 home directory : cd ~
 跳到目前目录的上上两层 : cd ../..
@@ -48,7 +40,6 @@ cd(初级)
 常用方式及使用技巧：~表示当前用户的家目录，另外需要大家关注相对路径以及绝对路径的概念
 1.3 pwd(初级)
 功能：显示当前工作目录
-
 范例：$pwd
 常用方式及使用技巧:手动打补丁上传补丁文件时通常先在服务端找到该文件，然后使用pwd将路径输出并且拷贝，然后将路径粘贴到ftp工具的路径栏中
 1.4 mkdir(初级)
@@ -57,7 +48,6 @@ cd(初级)
 使用方式：mkdir [-p] dirName
 说明：建立名称为 dirName 之子目录。
 参数：-p 确保目录名称存在，不存在的就建一个。
-
 范例：
 在工作目录下，建立一个名为 AAA 的子目录 :
 mkdir AAA
@@ -436,7 +426,7 @@ tail –f Error.log >> test.log
 　　-o rw 用可读写模式挂上。
 　　-o loop= 　使用 loop 模式用来将一个档案当成硬盘分割挂上系统。
 
-复制代码
+
 范例：
 　　将 /dev/hda1 挂在 /mnt 之下。
 　　 #mount /dev/hda1 /mnt
@@ -445,8 +435,8 @@ tail –f Error.log >> test.log
 　　将 /tmp/image.iso 这个光碟的 image 档使用 loop 模式挂在 /mnt/cdrom之下。用这种方法可以将一般网络上可以找到的 Linux 光 碟 ISO 档在不烧录成光碟的情况下检视其内容。
 　　 #mount -o loop /tmp/image.iso /mnt/cdrom
 相关命令：umount
-常用方式及使用技巧: mount -t nfs 10.137.22.245:/home/pnfs /home/pnfs
-复制代码
+常用方式及使用技巧: mount -t nfs 10.137.22.245:/home /home
+
 
 2.2	umount(中级)
 功能说明：卸除文件系统。
@@ -461,7 +451,7 @@ tail –f Error.log >> test.log
 -v 执行时显示详细的信息。
 -V 显示版本信息。
 [文件系统] 除了直接指定文件系统外，也可以用设备名称或挂入点来表示文件系统。
-常用方式及使用技巧	:umount /home/pnfs
+常用方式及使用技巧	:umount /home
 2.3	du(中级)
 功能说明：显示目录或文件的大小。
 语　　法：du [-abcDhHklmsSx][-L <符号连接>][-X <文件>][--block-size][--exclude=<目录或文件>][--max-depth=<目录层数>][--help][--version][目录或文件]
@@ -524,7 +514,7 @@ tail –f Error.log >> test.log
 　-i或--interactive 　覆盖既有文件之前先询问用户。
 　-n或--no-dereference 　把符号连接的目的目录视为一般文件。
 　-s或--symbolic 　对源文件建立符号连接，而非硬连接。
-常用方式及使用技巧:ln –s /home/pnfs/share share
+常用方式及使用技巧:ln –s /home/pnfs/share /share
 2.7	unzip(初级)
 功能说明：解压缩zip文件
 语　　法：unzip [-cflptuvz][-agCjLMnoqsVX][-P <密码>][.zip文件][文件][-d <目录>][-x <文件>] 或 unzip [-Z]

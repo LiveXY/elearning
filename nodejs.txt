@@ -1,3 +1,109 @@
+https://segmentfault.com/a/1190000017158444
+
+本地开发：npm run dev
+本地预览：npm run start
+构建：npm run build
+部署：npm run deploy
+
+https://github.com/prettier/prettier 代码格式化
+https://github.com/typicode/husky Git钩子
+https://github.com/okonet/lint-staged
+https://github.com/editorconfig/
+https://github.com/eslint/eslint
+https://github.com/stylelint/stylelint
+
+https://github.com/react-boilerplate/react-boilerplate
+https://github.com/ant-design/ant-design-pro
+https://github.com/zuiidea/antd-admin
+https://github.com/PanJiaChen/vue-element-admin
+https://github.com/kriasoft/react-starter-kit
+https://github.com/facebook/create-react-app
+https://github.com/senntyou/lila
+
+https://github.com/requirejs/requirejs
+
+https://en.wikipedia.org/wiki/Tree_shaking
+https://webpack.js.org/guides/tree-shaking/
+https://webpack.docschina.org/concepts/
+https://blog.csdn.net/haodawang/article/details/77199980
+https://en.wikipedia.org/wiki/Immediately_invoked_function_expression
+https://en.wikipedia.org/wiki/Single-page_application
+
+https://github.com/webpack/webpack
+https://github.com/parcel-bundler/parcel
+
+https://github.com/mui-org/material-ui
+https://github.com/Semantic-Org/Semantic-UI
+https://github.com/ElemeFE/element
+https://github.com/iview/iview
+https://github.com/airyland/vux
+https://github.com/ElemeFE/mint-ui
+
+https://github.com/react-bootstrap/react-bootstrap
+https://github.com/bootstrap-vue/bootstrap-vue
+https://github.com/Semantic-Org/Semantic-UI-React
+https://github.com/Dogfalo/materialize
+https://github.com/mui-org/material-ui
+https://github.com/jgthms/bulma
+
+https://github.com/facebook/react
+https://github.com/vuejs/vue
+https://github.com/angular/angular
+
+https://github.com/css-modules/css-modules
+https://github.com/webpack-contrib/css-loader
+https://github.com/zeit/styled-jsx
+https://github.com/cssinjs/jss
+https://github.com/styled-components/styled-components
+https://github.com/FormidableLabs/radium
+https://github.com/emotion-js/emotion
+https://github.com/Khan/aphrodite
+https://github.com/styled-components/polished
+https://github.com/paypal/glamorous
+https://github.com/threepointone/glamor
+https://github.com/styletron/styletron
+https://github.com/MicheleBertoli/css-in-js
+
+https://github.com/Microsoft/TypeScript
+https://github.com/TypeStrong/ts-loader
+
+https://github.com/less/less.js
+https://github.com/sass/sass
+
+https://github.com/jsdoc3/jsdoc
+
+http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html
+java -jar compiler.jar \
+　　　　--js script.js \
+　　　　--create_source_map ./script-min.js.map \
+　　　　--source_map_format=V3 \
+　　　　--js_output_file script-min.js
+各个参数的意义如下：
+　　- js： 转换前的代码文件
+　　- create_source_map： 生成的source map文件
+　　- source_map_format：source map的版本，目前一律采用V3。
+　　- js_output_file： 转换后的代码文件。
+- version：Source map的版本，目前为3。
+- file：转换后的文件名。
+- sourceRoot：转换前的文件所在的目录。如果与转换前的文件在同一目录，该项为空。
+- sources：转换前的文件。该项是一个数组，表示可能存在多个文件合并。
+- names：转换前的所有变量名和属性名。
+- mappings：记录位置信息的字符串，下文详细介绍。
+
+
+https://github.com/mozilla/source-map
+https://github.com/mishoo/UglifyJS2
+https://github.com/mishoo/UglifyJS2/tree/harmony
+https://github.com/google/closure-compiler
+https://github.com/google/closure-compiler-js
+
+https://github.com/senntyou/sclean
+
+https://github.com/facebook/jest
+https://github.com/airbnb/enzyme
+https://github.com/cypress-io/cypress
+https://github.com/SeleniumHQ/selenium
+https://github.com/GoogleChrome/puppeteer
 
 npm install profiler tick -g
 node --prof test.js

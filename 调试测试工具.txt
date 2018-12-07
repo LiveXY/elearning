@@ -1,0 +1,62 @@
+gdb
+p：print，打印C变量的值
+c：continue，继续运行被中止的程序
+b：breakpoint，设置断点，可以按照函数名设置，如b zif_php_function，也可以按照源代码的行数指定断点，如b src/networker/Server.c:1000
+t：thread，切换线程，如果进程拥有多个线程，可以使用t指令，切换到不同的线程
+ctrl + c：中断当前正在运行的程序，和c指令配合使用
+n：next，执行下一行，单步调试
+info threads：查看运行的所有线程
+l：list，查看源码，可以使用l 函数名 或者 l 行号
+bt：backtrace，查看运行时的函数调用栈。当程序出错后用于查看调用栈信息
+finish：完成当前函数
+f：frame，与bt配合使用，可以切换到函数调用栈的某一层
+r：run，运行程序
+
+ulimit -c #当返回结果为0时，说明系统不会生成core文件
+ulimit -c 0
+ulimit -c unlimited
+gdb php -c core.
+source /prefix/php-src-dir/.gdbinit
+zbacktrace
+zmemcheck
+
+git clone https://github.com/php/php-src.git
+gdb --pid=9341
+source .gdbinit
+zbacktrace
+
+bt
+f 6
+
+gdb php
+set args a.php
+break sleep
+r
+print_cvs #打印当前执行环境中已编译的PHP变量
+printzv 0x9543f98 #打印指定的PHP变量， 需要指定地址
+printzv *executor_globals.current_execute_data->prev_execute_data->CVs[1]
+printzv *executor_globals.current_execute_data->prev_execute_data->CVs[2]
+printf “%s\n” ,executor_globals.current_execute_data->prev_execute_data->op_array->vars[1].name
+printf “%s\n” ,executor_globals.current_execute_data->prev_execute_data->op_array->vars[2].name
+
+zbacktrace #打印PHP的函数调用栈
+print_ft 打印函数表
+set $eg = executor_globals
+print $eg.function_table
+print_ft $eg.function_table
+
+phptrace
+git clone https://github.com/Qihoo360/phptrace
+cd phptrace
+打印当前PHP进程调用栈
+pstack 9341
+
+
+strace
+strace cat index.php
+strace -e read cat index.php
+strace -c cat index.php
+strace -T cat index.php 2>&1|grep read
+
+ll /proc/9341/fd/ #通过PID找到哪个文件操作的进程，进而知道问题所在
+pmap 9341

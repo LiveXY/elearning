@@ -1624,15 +1624,54 @@ ge  大于等于
 le  小于等于
 以上就是shell中常见参数及判断命令的全部内容了，希望能给大家一个参考。
 
+统计出apache的access.log中访问量最多的5个ip
+cat access.log | awk '{print $1}' | sort | uniq -c | sort -n -r | head -5
 
+如何查看Linux系统每个ip的连接数？
+netstat -n | awk '/^tcp/ {print $5}' | awk -F: '{print $1}' | sort | uniq -c | sort -rn
 
+写一个脚本，实现判断192.168.1.0/24网络里，当前在线的IP有哪些，能ping通则认为在线
+#!/bin/bash
+for ip in `seq 1 255`
+do
+ping -c 1 192.168.1.$ip > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+echo 192.168.1.$ip UP
+else
+echo 192.168.1.$ip DOWN
+fi
+}&
+done
+wait
 
+写一个脚本，判断一个指定的脚本是否是语法错误；如果有错误，则提醒用户键入Q或者q无视错误并退出其它任何键可以通过vim打开这个指定的脚本
+[root@localhost tmp]# cat checksh.sh
+#!/bin/bash
+read -p "please input check script-> " file
+if [ -f $file ]; then
+sh -n $file > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+read -p "You input $file syntax error,[Type q to exit or Type vim to edit]" answer
+case $answer in
+q | Q)
+exit 0
+;;
+vim )
+vim $file
+;;
+*）
+exit 0
+;;
+esac
+fi
+else
+echo "$file not exist"
+exit 1
+fi
 
-
-
-
-
-
+如何让history命令显示具体时间？
+HISTTIMEFORMAT=”%Y-%m-%d %H:%M:%S”
+export HISTTIMEFORMAT
 
 
 

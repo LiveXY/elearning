@@ -346,6 +346,34 @@ db.account.find({account: {$exists: true}, $where: "this.account.length >= 32"})
 db.task.update({id:NumberLong(5000005)},{$set:{'task.77.status':3}},true,true);
 db.task.update({id:NumberLong(5000005),'task.id':100000017},{$set:{'task.$.status':1}},true,true);
 
+修改成就
+db.achievement.update(
+   { "id":NumberLong(5000037) },
+   { $set: { "achievement.$[elem1].detail.$[elem2].price" : 3 } },
+   {
+     multi: true,
+     arrayFilters: [ { "elem1.type_id": 10004 }, { "elem2.subtype_id": 2 } ]
+   }
+)
+db.achievement.findOneAndUpdate(
+   { "id":NumberLong(5000037) },
+   { $set: { "achievement.$[elem1].detail.$[elem2].price" : 3 } },
+   { arrayFilters: [ { "elem1.type_id": 10004 }, { "elem2.subtype_id": 2 } ] }
+)
+cannot use the part (grades of grades.$[].std) to traverse the element
+db.adminCommand( { setFeatureCompatibilityVersion: "3.6" } )
+
+db.achievement.find({"id":NumberLong(5000037),"achievement.type_id":10004},{"achievement.$.detail":1}).forEach(doc => { doc.achievement[0].detail.forEach(printjson) })
+var ss = [];
+db.achievement.find({"id":NumberLong(5000037),"achievement.type_id":10004},{"achievement.$.detail":1}).forEach(r1 => {
+	r1.achievement[0].detail.forEach(r2 => {
+		if (r2.subtype_id === 1) r2.price = 3
+		ss.push(r2)
+	})
+});
+db.achievement.update({id:NumberLong(5000037),'achievement.type_id':10004},{$set:{'achievement.$.detail': ss }},true,true);
+db.achievement.find({"id":NumberLong(5000025),"achievement.type_id":10004},{"achievement.$.detail":1}).forEach(doc => { doc.achievement[0].detail.forEach(printjson) })
+
 修改转生限制
 db.player_fbrec.update({id:NumberLong(6000001),'propfresh.id':210200103},{$set:{'propfresh.$.expire':1541433600}},true,true);
 db.player_fbrec.update({id:NumberLong(6000001),'propfresh.id':210200104},{$set:{'propfresh.$.expire':1541433600}},true,true);

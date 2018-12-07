@@ -107,6 +107,19 @@ https://github.com/tensorflow/tensorflow
 https://www.tensorflow.org/install/
 https://github.com/apache/incubator-mxnet
 https://github.com/Theano/Theano
+https://github.com/google-research/bert
+https://github.com/deeppomf/DeepCreamPy
+https://github.com/facebookresearch/Horizon
+https://github.com/jantic/DeOldify 颜色恢复
+https://github.com/tensorflow/adanet AUTOML
+https://github.com/deepmind/graph_nets
+https://github.com/M-J-Murray/MAMEToolkit
+https://github.com/Tencent/PocketFlow
+
+https://github.com/facebookresearch/maskrcnn-benchmark 对象检查
+https://conda.io/docs/user-guide/install/macos.html
+https://conda.io/miniconda.html
+
 自然语言处理 http://www.magedu.com/71122.html
 https://github.com/nltk/nltk
 https://github.com/RaRe-Technologies/gensim
