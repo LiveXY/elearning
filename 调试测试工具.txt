@@ -60,3 +60,10 @@ strace -T cat index.php 2>&1|grep read
 
 ll /proc/9341/fd/ #通过PID找到哪个文件操作的进程，进而知道问题所在
 pmap 9341
+
+
+truss
+https://www.cnblogs.com/lidabo/p/5490200.html
+truss -fa -t open -p `ps -ef | grep inetd | grep -v grep | awk '{print $2}'`
+
+ltrace

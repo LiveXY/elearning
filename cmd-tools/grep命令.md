@@ -2,6 +2,7 @@ grep命令
 ==========
 ```sh
 grep pattern [file...]
+pgrep pattern [file...]
 ```
 
 grep参数：
@@ -22,14 +23,14 @@ pattern正则表达式主要参数：
 * `\<`：从匹配正则表达 式的行开始。
 * `\>`：到匹配正则表达式的行结束。
 * `[ ]`：单个字符，如[A]即A符合要求 。
-* `[ - ]`：范围，如[A-Z]，即A、B、C一直到Z都符合要求 。
+* `[ - ]`：范围，如[A-Za-z0-9]，即A、B、C一直到Z都符合要求 。
 * `.` ：所有的单个字符。
 * `*` ：有字符，长度可以为0。
 
 grep实例
 * `grep ‘test’ d*` 显示所有以d开头的文件中包含 test的行。
 * `grep ‘test’ aa bb cc` 显示在aa，bb，cc文件中匹配test的行。
-* `* grep '[a-z]\{5\}' aa*` 显示所有包含每个字符串至少有5个连续小写字符的字符串的行。
+* `grep '[a-z]\{5\}' aa*` 显示所有包含每个字符串至少有5个连续小写字符的字符串的行。
 * `grep 'w\(es\)t.*\1' aa` 如果west被匹配，则es就被存储到内存中，并标记为1，然后搜索任意个字符(.*)，这些字符后面紧跟着 另外一个es(\1)，找到就显示该行。如果用egrep或grep -E，就不用”\”号进行转义，直接写成’w(es)t.*\1′就可以了。
 * `grep magic /usr/src/Linux/Doc/* | less` 假设您正在’/usr/src/Linux/Doc’目录下搜索带字符 串’magic’的文件
 * `grep -i pattern files` ：不区分大小写地搜索。默认情况区分大小写，
@@ -55,6 +56,9 @@ grep实例
 * `more size.txt | grep -in 'b1..*3' `
 * `grep '5[[:upper:]][[:upper:]]' data.doc`     #查询以5开头以两个大写字母结尾的行
 * `grep "func main" * -r -n --include=*.go > func_main.txt` #查找内容为func main的文件
+* `grep php /home/sh_laravel/public/upload/ -r` 或者 `find /home/sh_laravel/public/ -name *.php` 查看上传目录是否被别人上传木马
+* `find /home/sh_laravel/ -name *.php | xargs grep -RPnDskip "(php|passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|fopen|fclose|readfile) *\("` 查看文件内容是否包含不安全代码
+grep -Hrv ";" /etc/php.ini | grep "extension="
 
 使用类名, 可以使用国际模式匹配的类名：
 * `[[:upper:]]`   [A-Z]

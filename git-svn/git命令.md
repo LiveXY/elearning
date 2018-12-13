@@ -38,7 +38,7 @@ git push origin --tags
 提交到ＳＶＮ：git svn rebase / git svn dcommit
 提交到ＧＩＴ：git svn rebase / git pull / git commit -am "" / git push
 git svn rebase #拉取服务器上所有最新的改变，在基础上衍合你的修改
-sit svn fetch #拉取最新修改，不更新本地数据
+git svn fetch #拉取最新修改，不更新本地数据
 git svn dcommit #提交到SVN
 
 7,常用命令
