@@ -119,6 +119,7 @@ https://github.com/nwjs/nw.js
 https://github.com/electron-userland/electron-builder
 https://github.com/oldj/SwitchHosts
 https://github.com/leanote/desktop-app
+https://github.com/alibaba/ice
 
 模块加载 依赖管理 AMD规范 CMD规范
 AMD规范
@@ -439,6 +440,7 @@ https://github.com/topojson/topojson
 https://github.com/bestiejs/benchmark.js
 https://github.com/WechatFE/vConsole
 https://github.com/tj/should.js
+https://github.com/alibaba/macaca
 
 os
 https://github.com/os-js/OS.js

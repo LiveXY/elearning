@@ -342,5 +342,7 @@ eg:
 mkdir empty
 rsync --delete-before -avH --progress --stats /root/empty/ /tmp/test/log/
 
-
-
+同步文件保存全部属性、权限、软链接，时间信息，目标文件不做删除操作，只增加和覆盖
+rsync -ratoglp /home/upload/ /opt/bak/upload/
+完全一致备份
+rsync -ratoglp --delete /home/upload/ /opt/bak/upload/

@@ -321,6 +321,10 @@ yum install rpcbind nfs-utils -y
 mount -t nfs 10.0.0.10:/home /home
 vi /etc/fstab
 10.0.0.10:/home    /home   nfs  defaults  0 0
+或者
+vi /etc/rc.local
+mount -t nfs 10.0.0.10:/home /home
+chmod u+x /etc/rc.local
 
 mount -t nfs 192.168.1.65:/home/test/ /home/test/
 mount

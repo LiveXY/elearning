@@ -120,22 +120,29 @@ $un = @CacheManager::getUser(1)->username;
 - 后端报表：领取日志/生成每日总表
 - 设计数据库：增加领取日志表、修改每日汇总存储过程
 3、数据库
+- 表记录数超过100万级的修改表结构一定要定个JOB早上5点人少时执行，大表改表结构都是以分钟为单位，很容易死锁造成数据库拥堵
+- 建表时多个字段可以决定主键的一定不要新加自增列，同时用的多的放前面，遵循最左前缀原则
+- 用户量大的项目建表后立即给必要的索引也加上：有关联用户ID查询的字段要加索引，有按时间查询数据的时间要加索引，有关联其它表查询的字段加上索引
+- 避免使用复杂的SQL/大数据的SQL/大批量操作/大事务处理/高频无索引，不要在列上进行运算/函数调用这样都不走索引
+- 复杂的报表需要用计划去跑，大数据千万不要在log表中分析数据，应该做一个汇总表来记录某个条件满足的次数和汇总值。
+- 写每个SQL都要模拟上百条数据，使用explain查看SQL执行计划是否走索引，一定要杜绝全表扫描
+- 写order by时，明明有自增的主键不用，去使用没有索引的创建时间排序，肯定是脑子忘家里了，还有要count(主键/索引)别在使用count(非主键)。
+- 不要写count(0)、count(*)等，应该count(第一个主键)，不建议使用SELECT *
+- 不会用left join和right join的一律使用inner join替代不用去兼容某些特殊情况
+- 使用同类型比较，int类型的比较不要写成 users > '5'/phone=13155667788，避免隐式转换;
+- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多，使用exist代替in（表中数据越多，exist的效率就比in要越大）
+- 多执行 select * from mysql.slow_log_view 主动发现慢查询并改进
+
 - 创建数据库是使用utf-8编码，InnoDB引擎，如果用户表的用户昵称用表情图片请使用utf8mb4编码
 - 建表一定要设置主键，所有字段都不要设置允许NULL
 - 强制使用索引 force index (indexname)，使用explain查看有没有按我们需要的索引走
 - InnoDB默认对主键建立聚簇索引。如果你不指定主键，InnoDB会用一个具有唯一且非空值的索引来代替。如果不存在这样的索引，InnoDB会定义一个隐藏的主键，然后对其建立聚簇索引。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比非聚簇索引中快。
-- 建表时多个字段可以决定主键的一定不要新加自增列，同时用的多的放前面，遵循最左前缀原则
-- 建表后：有关联用户ID的字段要加索引，有按时间查数据的时间要加索引
-- 不要写count(0)、count(*)等，应该count(第一个主键)，不建议使用SELECT *
-- 复杂的报表需要用计划去跑。
 - 定期查看慢查询，优化慢查询
 - 如果一定要用TEXT，要放在新表中，不要和其它数据混在一个表
 - 存储过程的in参数一定不要和字段名一样，要加个数据类型前缀来区分
 - 少用触发器/游标/外键
 - 2个大表inner join时可用使用最大的表使用零时表，如log表和主表关联查询这么写更好：select log.*, m.name from (select * from log_login order by lid desc limit 0, 10) as log inner join member as m on m.uid=log.uid order by log.lid desc
-- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多，使用exist代替in（表中数据越多，exist的效率就比in要越大）
 - like字段有索引查询时使用后%代替前%
-- 直接explain查看SQL执行计划，杜绝全表扫描
 - 如果只查询一条数据，非主键查询时最后面加 limit 1
 - 非负数值使用UNSIGNED，存储精确浮点数必须使用DECIMAL替代FLOAT和DOUBLE，不建议使用ENUM类型(不方便扩展)使用TINYINT来代替，尽可能不使用TEXT、BLOB类型，日期类型使用int(4字节)比datetime(8字节)好，建议字段定义为NOT NULL设置default值
 - 每张表数据量建议控制在1000w以下
@@ -148,14 +155,12 @@ INSERT INTO values(),()
 select * from table where lid < last_lid order by lid desc limit 10
 select * from table inner join (select lid from table order by lid desc limit 1,10) as t using(lid)
 select * from table order by lid desc limit 1,10 注意：这个分页越到最后越慢
-- 避免使用复杂的SQL/大sql/大批量/大事务/高频无索引，不要在索引列上进行运算/函数调用这样都不走索引
 - 禁止库名、表名、字段名使用MySQL保留字，如：code/root/type/order/time/date/add/all/alter/as/and/select/update/delete/before/between/int/both/by/call/case/char/check/column/create/dec/div等，如果使用了前后加`
 - IP使用INT类型，用inet_aton()和inet_ntoa()来转换
 - 不用外键由程序保证约束
-- 使用同类型比较，int类型的比较不要写成 users > '5'/phone=13155667788，避免隐式转换;
 - 禁止使用分区表，还不是很成熟，而且对分区键有严格要求，分区表变大后对于表备份恢复都有很大困难，建议在业务端使用sharding技术。
 - 禁止在数据库中存储明文密码
-- 
+
 4、我们的代码目录结构
 - app/Console 计划任务：每小时/每分钟跑报表代码
 - app/Models MODEL数据库操作 按系统区分：活动/日志/报表/代理/设置/用户权限
@@ -235,4 +240,6 @@ git cherry-pick 提交HASH
 - 客户端拿到API服务器列表后随机一个，来完成登录流程（如果API服务器无法访问就切换下一个，如果5个全部宕机，只能等待5分钟后获取新的API服务器），登录流程里API服务器在为每个玩家分配一个游戏服务器地址，游戏服务器地址和玩家是绑定的。
 - 游戏服务器的分配首先将用户分组，如按充值玩家分配不同的游戏服务器地址保护充值玩家，按玩游戏次数分组可以保护老玩家，攻击者不会付费，不会玩游戏就拿不到这批服务器地址
 - 另外针对普通玩家游戏服务器默认启用10台，depth设置为1，每1分钟检测游戏服务器是否有宕机，如果有一台宕机检测这台服务器上有多少个玩家，如果只有一个玩家直接封号，这个玩家就是攻击者，否则另起10台并且给depth+1，将宕机服务器上的玩家平均分配到新的10台游戏服务器上，如果宕机的depth=1，还需要补一台，保证当前depth=1的服务器有10台在工作，一般情况depth=5就可以找到攻击者。
+
+
 

@@ -1,0 +1,108 @@
+https://linux.cn/article-10375-1.html
+
+pi/raspberry
+sudo raspi-config
+
+https://www.offensive-security.com/kali-linux-arm-images/
+https://www.raspberrypi.org/downloads/
+
+mac制作启动盘
+https://www.raspberrypi.org/documentation/installation/installing-images/mac.md
+格式化为FAT32
+diskutil list
+sudo dd bs=1m if=path_of_your_image.img of=/dev/rdiskn conv=sync
+别SD卡的磁盘（而不是分区），例如disk4，不是disk4s1
+diskutil unmountDisk /dev/disk<disk# from diskutil>
+sudo dd bs=1m if=image.img of=/dev/rdisk<disk# from diskutil> conv=sync
+sudo dd bs=1m if=2018-11-13-raspbian-stretch.img of=/dev/rdisk4 conv=sync
+sudo dd bs=1M if=image.img of=/dev/rdisk<disk# from diskutil> conv=sync
+弹出卡
+sudo diskutil eject /dev/rdisk<disk# from diskutil>
+df -h
+sudo diskutil unmount /dev/disk3s5
+
+DNS 服务器
+https://www.ionos.com/digitalguide/server/configuration/how-to-make-your-raspberry-pi-into-a-dns-server/
+针对黑客的蜜罐陷阱
+https://github.com/mattymcfatty/HoneyPi
+打印服务器
+https://opensource.com/article/18/3/print-server-raspberry-pi
+网络附加存储（NAS）
+https://howtoraspberrypi.com/create-a-nas-with-your-raspberry-pi-and-samba/
+sudo apt update
+sudo apt upgrade
+sudo mkdir /home/shares
+sudo mkdir /home/shares/public
+sudo chown -R root:users /home/shares/public
+sudo chmod -R ug=rwx, o=rx /home/shares/public
+sudo apt install samba samba-common-bin
+sudo nano /etc/samba/smb.conf
+security = user
+read only = no
+[public]
+  comment = public storage
+  path = /home/shares/public
+  valid users = @users
+  force group = users
+  create mask = 0660
+  directory mask = 0771
+  read only = no
+sudo /etc/init.d/samba restart
+sudo smbpasswd -a pi
+
+dmesg
+umount /dev/sda1
+sudo mkfs.ext4 /dev/sda1
+sudo mkdir /home/shares/public/disk1
+sudo chown -R root:users /home/shares/public/disk1
+sudo chmod -R ug=rwx,o=rx /home/shares/public/dis
+sudo mount /dev/sda1 /home/shares/public/disk1
+sudo nano /etc/fstab
+/dev/sda1 /home/shares/public/disk1 auto noatime,nofail 0 0
+
+数字标牌
+https://blog.capterra.com/7-free-and-open-source-digital-signage-software-options-for-your-next-event/
+目录和信息亭:它直接引导到 Chromium 的全屏版本 —— 这非常适合导购、图书馆目录等
+https://github.com/guysoft/FullPageOS
+https://github.com/guysoft/CustomPiOS
+
+用于构建OctoPi的脚本，这是一个用于通过Web控制3D打印机的Raspberry PI发行版
+https://github.com/guysoft/OctoPi
+https://octoprint.org/
+https://github.com/Ultimaker/CuraEngine
+https://github.com/foosel/OctoPrint
+
+媒体中心
+https://osmc.tv/download/
+https://raspbian-france.fr/media-center-raspberry-pi-osmc-xbmc/
+
+摄像头监控
+https://raspbian-france.fr/video-surveillance-raspberry-pi-camera/
+sudo apt-get install motion
+sudo modprobe bcm2835-v4l2
+echo 'bcm2835-v4l2' | sudo tee -a /etc/modules
+vi / etc / default / motion
+start_motion_daemon = YES
+vi /etc/motion.conf 或 /etc/motion/motion.conf
+#On active le daemon
+daemon on
+#On utilise le fichier /tmp/motion.log pour stocker les logs
+logfile /tmp/motion.log
+#On règle la résolution (adapter la résolution à celle de votre camera. Ici, nous avons réglé pour la caméra de la raspberry pi)
+width 1280
+height 720
+#On règle le nombre d'images prises par seconde
+framerate 2
+#On règle le nombre d'images enregistrées avant et après un mouvement (ici 2 avant 2 après)
+pre_capture 2
+post_capture 2
+#On règle le code, pour une lecture sur de nombreux médias
+ffmpeg_video_codec msmpeg4
+#On autorise la lecture du flux depuis internet pour permettre l'accès en ligne à la vidéo-surveillance
+stream_localhost off
+
+
+
+https://github.com/jacksonliam/mjpg-streamer
+
+http://www.karlrunge.com/x11vnc/

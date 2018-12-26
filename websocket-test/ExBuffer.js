@@ -4,12 +4,16 @@ var ExBuffer = function (bufferLength) {
 	var self = this;
 	var headLen = 2;
 	var endian = 'B';
-	var inBuffer = new Buffer(bufferLength || 8192);
+	var inBuffer = new Buffer(bufferLength || 512);
 	var readOffset = 0;
 	var putOffset = 0;
 	var dlen = 0;
 	var slice = Array.prototype.slice;
 	var readMethod = 'readUInt16BE';
+	var headerProtocol = null;
+
+	//自定义包头
+	this.setHeaderProtocol = function(len, func) { return headLen = len, readMethod = 'readUInt' + (8*headLen) + '' + endian + 'E', headerProtocol = func, this; };
 
 	//指定包长是uint32型(默认是ushort型)
 	this.uint32Head = function() { return headLen = 4, readMethod = 'readUInt' + (8*headLen) + '' + endian + 'E', this; };
@@ -102,7 +106,12 @@ var ExBuffer = function (bufferLength) {
 			if (dlen == 0) {
 				if (getLen() < headLen) break; //连包头都读不了
 				if (inBuffer.length - readOffset >= headLen) {
-					dlen = inBuffer[readMethod](readOffset);
+					if (headerProtocol) {
+						var hbuf = inBuffer.slice(readOffset, readOffset + headLen);
+						dlen = headerProtocol(hbuf);
+					} else if (headLen <= 4) {
+						dlen = inBuffer[readMethod](readOffset);
+					}
 					readOffset += headLen;
 				} else {
 					var hbuf = new Buffer(headLen);
@@ -113,7 +122,7 @@ var ExBuffer = function (bufferLength) {
 					}
 					readOffset = 0;
 					for (var i = 0, l = (headLen - rlen); i < l; i++) hbuf[rlen+i] = inBuffer[readOffset++];
-					dlen = hbuf[readMethod](0);
+					dlen = headerProtocol ? headerProtocol(hbuf) : hbuf[readMethod](0);
 				}
 			}
 			if (getLen() >= dlen) {
