@@ -1,0 +1,49 @@
+brew install mvnvm
+mvn clean compile #编译完成的.class文件将会出现在target/classes目录下
+mvn exec:java -Dexec.mainClass="hello.HelloWorld" #运行项目
+mvn clean package #打包完成后，会在target目录下生成一个JAR文件
+
+http://maven.apache.org/download.cgi
+使用阿里云源
+vi ~/.m2/setting.xml
+<mirrors>
+    <mirror>
+      <id>alimaven</id>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+</mirrors>
+
+mvn clean package
+copy ./target/test.war /usr/local/Cellar/tomcat/9.0.14/libexec/webapps/test.war
+catalina run
+vi /usr/local/Cellar/tomcat/9.0.14/libexec/conf/server.xml
+在server.xml文件的 </Host> 闭合标签前面添加一行
+<Context docBase="test" path="/" reloadable="true" source="org.eclipse.jst.jee.server:test"/>
+
+mvn clean package -f root/pom.xml -Pproduct -pl ../StormBackend -am
+mvn clean package -f root/pom.xml -Pproduct -pl ../MMOServer -am
+mvn clean package -f root/pom.xml -Pproduct -pl ../PlannerConfig -am
+mvn clean package -f root/pom.xml -Pproduct -pl ../StormLib -am
+mvn clean package -f root/pom.xml -Pproduct -pl ../robot -am
+
+brew install tomcat
+catalina -h #查看帮助
+catalina run #运行服务
+catalina start
+catalina stop
+
+Tomcat的默认端口是8080
+点击访问http://localhost:8080
+
+webapp的根目录(CATALINA_HOME)
+/usr/local/Cellar/tomcat/9.0.14/libexec/webapps/ROOT
+注意自己的版本号
+
+配置到intelliJ IDEA
+在intelliJ IDEA的web项目里
+运行按钮附近有配置服务器
+
+tomcat home:
+/usr/local/Cellar/tomcat/9.0.14/libexec

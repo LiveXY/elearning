@@ -1092,3 +1092,21 @@ who -b #查看系统重新启动的时间/日期
 last -x|grep shutdown | head -1 #查看系统上次关机的时间和日期
 
 ps --no-headers -o "rss,cmd" -C php-fpm | awk '{ sum+=$1 } END { printf ("%d%s\n", sum/NR/1024,"M") }' #php-fpm 平均占内存
+
+用户权限和组权限
+cat /etc/passwd
+username:password:UID:GID:GECUS:dircution:shell
+用户名:x:UID:GID:注释:家目录:shell
+管理员或root：0
+普通用户：1-6000
+系统用户：1-999（centos7） 1-499（centos6）
+登录用户：1000-65535（centos7） 500-65535（centos6）
+可在/etc/login.defs、/etc/group文件查看
+密码保存在：/etc/shadow文件
+查看系统支持的SHELL：/etc/shells
+SUDO权限：/etc/sudoers
+增加一个管理员：
+useradd -g root test1
+visudo 然后增加：test1         ALL=(ALL)       ALL
+创建一个有效的缓冲30天用户：useradd -e 2019-01-01 -f 30 test
+改用户名：usermod -l test88 test //-l 新的用户名
