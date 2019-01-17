@@ -28,6 +28,11 @@ mvn clean package -f root/pom.xml -Pproduct -pl ../PlannerConfig -am
 mvn clean package -f root/pom.xml -Pproduct -pl ../StormLib -am
 mvn clean package -f root/pom.xml -Pproduct -pl ../robot -am
 
+yum install tomcat -y
+systemctl start tomcat
+/usr/share/tomcat/webapps/
+
+
 brew install tomcat
 catalina -h #查看帮助
 catalina run #运行服务
@@ -47,3 +52,7 @@ webapp的根目录(CATALINA_HOME)
 
 tomcat home:
 /usr/local/Cellar/tomcat/9.0.14/libexec
+
+git clone https://github.com/apache/flink.git
+cd flink
+mvn clean package -DskipTests # this will take up to 10 minutes

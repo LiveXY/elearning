@@ -3,3 +3,6 @@ https://github.com/ata4/disunity/releases
 jdk7
 
 
+ProceduralMaterial is obsolete
+在Unity编辑器中打开Asset Store，在搜索框中输入 Substance。找到并点击进入”Substance in Unity“
+下载后导入

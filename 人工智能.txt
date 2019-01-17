@@ -198,7 +198,8 @@ dataset/data_thchs30/test/*.wav
 dataset/ST-CMDS-20170001_1-OS/*.wav
 https://github.com/nl8590687/ASRT_SpeechRecognition/wiki
 
-自然语言处理 中文分词 词性标注 命名实体识别 依存句法分析 关键词提取 新词发现 短语提取 自动摘要 文本分类 拼音简繁 http://hanlp.com/
+自然语言处理 中文分词 词性标注 命名实体识别 依存句法分析 关键词提取 新词发现 短语提取 自动摘要 文本分类 拼音简繁 
+http://hanlp.com/
 https://github.com/hankcs/HanLP
 https://github.com/hankcs/pyhanlp
 pip3 install pyhanlp
@@ -206,6 +207,7 @@ hanlp update
 hanlp --help
 hanlp segment <<< '欢迎新老师生前来就餐'
 hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。'
+https://github.com/fighting41love/cocoNLP
 
 语音翻译 面对面翻译小程序
 https://github.com/Tencent/Face2FaceTranslator
@@ -929,6 +931,7 @@ https://github.com/home-assistant/home-assistant
 
 Facebook 人工智能实验室推出的最新的物体检测算法实现
 https://github.com/facebookresearch/Detectron
+https://github.com/facebookresearch/DensePose
 
 AI
 https://wit.ai/docs/recipes
@@ -1004,6 +1007,10 @@ https://github.com/Tencent/tencent-ml-images
 
 https://github.com/microsoft/onnxruntime
 
+git clone https://github.com/facebookresearch/ParlAI.git
+cd ParlAI; python3 setup.py develop
+python examples/display_data.py -t babi:task1k:1
+python examples/display_data.py -t babi:task1k:1,squad -n 100
 
 
 

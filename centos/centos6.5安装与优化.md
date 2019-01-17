@@ -90,6 +90,7 @@ yum install php-pear php-pecl-memcache -y
 vi /etc/php.ini
 short_open_tag = On  #启用短名
 expose_php = Off #不显示PHP版本
+max_input_vars = 3000 #POST字段个数
 service php-fpm restart
 ```
 * php升级：
