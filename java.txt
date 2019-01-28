@@ -30,6 +30,8 @@ mvn clean package -f root/pom.xml -Pproduct -pl ../robot -am
 
 yum install tomcat -y
 systemctl start tomcat
+systemctl enable tomcat
+
 /usr/share/tomcat/webapps/
 
 

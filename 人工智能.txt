@@ -1012,6 +1012,15 @@ cd ParlAI; python3 setup.py develop
 python examples/display_data.py -t babi:task1k:1
 python examples/display_data.py -t babi:task1k:1,squad -n 100
 
-
-
-
+InstaGAN：实例感知图像转换
+https://github.com/sangwoomo/instagan
+图像标注
+https://github.com/tzutalin/labelImg
+深度学习库
+https://github.com/tensorlayer/tensorlayer
+神经网络训练
+https://github.com/tensorpack/tensorpack
+一系列Docker图像（及其生成器），可让您快速设置深度学习研究环境
+https://github.com/ufoym/deepo
+《动手学深度学习》
+https://zh.d2l.ai/
