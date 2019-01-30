@@ -881,6 +881,7 @@ https://www.tensorflow.org/install/
 https://github.com/apache/incubator-mxnet
 https://github.com/Theano/Theano
 https://github.com/google-research/bert
+DeepCreamPy 是一款基于深度学习的工具，通过使用深度神经网络去除马赛克
 https://github.com/deeppomf/DeepCreamPy
 https://github.com/facebookresearch/Horizon
 https://github.com/jantic/DeOldify 颜色恢复
@@ -1024,3 +1025,43 @@ https://github.com/tensorpack/tensorpack
 https://github.com/ufoym/deepo
 《动手学深度学习》
 https://zh.d2l.ai/
+一种多用户分布式计算环境，用于在基于英特尔®至强®可扩展处理器的系统上运行DL模型培训实验
+https://github.com/intelAI/Nauta
+Neo AI是机器学习模型的编译器和运行时。编译器优化各种目标硬件的机器学习模型。运行时在目标硬件上执行模型。
+https://github.com/neo-ai/neo-ai-dlr
+用于超级参数调整的Google Vizier的开源实现
+https://github.com/tobegit3hub/advisor
+Learning to Rank in TensorFlow
+https://github.com/tensorflow/ranking
+阿布量化交易系统(股票，期权，期货，比特币，机器学习) 基于python的开源量化交易，量化投资架构
+https://github.com/bbfamily/abu
+https://github.com/maxmon/abu_ml
+http://www.abuquant.com/lecture/lecture_0.html
+学习Q＃和量子计算的编程练习
+https://github.com/Microsoft/QuantumKatas
+ML.NET是.NET的开源和跨平台机器学习框架
+https://github.com/dotnet/machinelearning
+Tinn 是一个用 C99 编写的仅有 200 行代码微型神经网络库，无依赖，轻量级
+https://github.com/glouw/tinn
+开源的卷积神经网络和医疗影像分析平台 NiftyNet
+https://github.com/NifTK/NiftyNet
+deepfake 的深度学习技术，这款工具本来的用途是用来识别和交换图片、视频中人物脸部图像的工具
+https://github.com/deepfakes/faceswap
+内容感知图像压缩/扩展库 Caire
+https://github.com/esimov/caire
+Apache Fluo 是  Google Percolator（搜索索引）的开源实现，允许用户对存储在 Apache Accumulo 中的大型数据集进行增量更新，而无需重新处理
+https://github.com/apache/fluo
+多数据流实时分布式分析系统 Confluo
+https://github.com/ucbrise/confluo
+Apache Traffic Control 是一个分布式、可扩展的冗余解决方案，可用于构建、监视和配置大型内容交付网络（CDN），项目起源于 Traffic Server ，实现
+https://github.com/apache/trafficcontrol
+万维网之父 Tim Berners-Lee 爵士对今天的中心化 Web 非常不满，他想要拯救互联网，方法是重新去中心化
+https://github.com/solid/solid
+TensorSpace是一套用于构建神经网络3D可视化应用的框架
+https://github.com/tensorspace-team/tensorspace
+Sparser 是一个用于解析原始数据的解析引擎，由斯坦福大学开源，用于非结构化和半结构化的数据格式，例如 JSON、Avro 和 Parquet
+https://github.com/stanford-futuredata/sparser
+Tink 是一个多语言、跨平台的加密开发库，提供安全，易于正确使用和难以滥用的加密 API，目前 Tink 已经被用于保护许多谷歌内部产品的数据，如 AdMob、Google Pa
+https://github.com/google/tink
+Sourcegraph 是一款能够根据语义来把 Web 上的开源代码编入索引的代码搜索浏览工具，提供代码搜索和代码语义智能感知功能
+https://github.com/sourcegraph/sourcegraph

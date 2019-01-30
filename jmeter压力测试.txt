@@ -1,0 +1,19 @@
+http://jmeter.apache.org/download_jmeter.cgi
+http://jmeter.apache.org/usermanual/get-started.html#non_gui
+
+mac
+brew info jmeter
+
+lib/ext
+https://bitbucket.org/pjtr/jmeter-websocket-samplers/downloads/
+http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-http
+http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-io
+http://mvnrepository.com/artifact/org.eclipse.jetty/jetty-util
+http://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-api
+http://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
+http://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-common
+
+
+https://blog.csdn.net/smooth00/article/details/81355110
+https://blog.csdn.net/leiwenen/article/details/79792276
+https://www.cnblogs.com/wangcp-2014/p/5151497.html

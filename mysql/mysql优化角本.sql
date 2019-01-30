@@ -782,3 +782,89 @@ wsrep_sst_auth=sst:sstpass123:
 
 # Protocol version to use
 # wsrep_protocol_version=:
+
+=============================================
+http://www.mysqlcalculator.com/
+使用以下命令可以知道mysql的配置使用多少 RAM
+https://my.oschina.net/qcloudcommunity/blog/3004940
+SELECT ( @@key_buffer_size
++ @@query_cache_size
++ @@innodb_buffer_pool_size
++ @@innodb_additional_mem_pool_size
++ @@innodb_log_buffer_size
++ @@max_connections * ( @@read_buffer_size
++ @@read_rnd_buffer_size
++ @@sort_buffer_size
++ @@join_buffer_size
++ @@binlog_cache_size
++ @@thread_stack
++ @@tmp_table_size
+)
+) / (1024 * 1024 * 1024) AS MAX_MEMORY_GB;
+mariadb 推荐配置
+注意这里只推荐innodb引擎
+内存配置只关注有注释的行
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+default-storage-engine=INNODB
+
+character-set-server=utf8
+collation-server=utf8_general_ci
+
+user=mysql
+symbolic-links=0
+
+# global settings
+table_cache=65535
+table_definition_cache=65535
+
+max_allowed_packet=4M
+net_buffer_length=1M
+bulk_insert_buffer_size=16M
+
+query_cache_type=0				#是否使用查询缓冲,0关闭
+query_cache_size=0				#0关闭，因为改表操作多，命中低，开启消耗cpu
+
+# shared
+key_buffer_size=8M				#保持8M MyISAM索引用
+innodb_buffer_pool_size=4G		        #DB专用mem*50%，非DB专用mem*15%到25%
+myisam_sort_buffer_size=32M
+max_heap_table_size=16M				#最大中间表大小
+tmp_table_size=16M				#中间表大小
+
+# per-thread
+sort_buffer_size=256K				#加速排序缓存大小
+read_buffer_size=128k				#为需要全表扫描的MYISAM数据表线程指定缓存
+read_rnd_buffer_size=4M				#已排序的表读取时缓存，如果比较大内存就到6M
+join_buffer_size=1M				#join语句多时加大，1-2M
+thread_stack=256k				#线程空间，256K or 512K
+binlog_cache_size=64K				#大事务binlog
+
+
+# big-tables
+innodb_file_per_table = 1
+skip-external-locking
+max_connections=2048				#最大连接数
+skip-name-resolve
+
+# slow_query_log
+slow_query_log_file = /var/log/mysql-slow.log
+long_query_time = 30
+group_concat_max_len=65536
+
+# according to tuning-primer.sh
+thread_cache_size = 8
+thread_concurrency = 16
+
+# set variables
+concurrent_insert=2
+
+运行时修改
+set @@global.binlog_cache_size=65536;
+set @@join_buffer_size=1048576;
+set @@read_rnd_buffer_size=4194304;
+set @@sort_buffer_size=262144;
+set @@read_buffer_size=131072;
+set global key_buffer_size=8388608;
+

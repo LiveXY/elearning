@@ -23,3 +23,5 @@ rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 sudo rm -rf /usr/local/var/mysql
 
 brew install percona-server
+brew cask install mark-text
+brew cask install react-native-debugger

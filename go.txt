@@ -34,3 +34,7 @@ https://github.com/hybridgroup/gobot
 https://github.com/google/gxui
 
 https://github.com/astaxie/beedb
+
+https://github.com/go-chassis/go-chassis
+https://github.com/TruthHun/DocHub
+https://github.com/rodrigo-brito/gocity

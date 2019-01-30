@@ -56,6 +56,13 @@ https://github.com/RubyLouvre/avalon.oniui
 https://github.com/nolimits4web/Framework7
 https://github.com/mrholek/CoreUI-Free-Bootstrap-Admin-Template
 https://github.com/yahoo/pure/
+https://github.com/heyui/heyui
+https://github.com/dcloudio/uni-app
+https://github.com/facebookincubator/fbt
+https://github.com/rsuite/rsuite
+https://github.com/TalkingData/iview-weapp
+https://github.com/designmodo/Flat-UI
+https://github.com/tabler/tabler
 
 https://github.com/styled-components
 https://github.com/emotion-js/emotion
@@ -120,6 +127,8 @@ https://github.com/electron-userland/electron-builder
 https://github.com/oldj/SwitchHosts
 https://github.com/leanote/desktop-app
 https://github.com/alibaba/ice
+https://github.com/marktext/marktext
+https://github.com/Molunerfinn/PicGo
 
 模块加载 依赖管理 AMD规范 CMD规范
 AMD规范
@@ -271,6 +280,7 @@ https://github.com/mishoo/UglifyJS
 https://github.com/mishoo/UglifyJS2
 https://github.com/sentsin/layer
 https://github.com/FezVrasta/popper.js
+https://github.com/MonkSoul/Layx/
 https://github.com/qiao/PathFinding.js
 https://github.com/josdejong/mathjs
 https://github.com/gka/chroma.js
@@ -340,6 +350,9 @@ https://github.com/janhuenermann/neurojs
 https://github.com/atomiks/tippyjs
 https://github.com/simple-icons/simple-icons
 https://github.com/luruke/barba.js
+https://github.com/spritejs/spritejs
+https://github.com/spritejs/sprite-wxapp
+https://github.com/syt123450/giojs
 
 socket websocket webrtc
 https://github.com/socketio/socket.io

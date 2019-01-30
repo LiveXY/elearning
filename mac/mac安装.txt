@@ -11,7 +11,7 @@ mac备份
 ~/Library/MonoDevelop-Unity-5.0/
 
 
-
+brew cask install mark-text
 
 mac安装
 #商店安装：Go2Shell/Google Chrome/New File Free/PDF Reader X/QQ/QQ音乐/RAR Extractor Free/Thunder/Xcode/Dr. Cleaner/MPlayerX/Color Picker/iHex/Base64Anywhere/App2Dmg/微信/

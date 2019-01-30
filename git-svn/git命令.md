@@ -604,3 +604,14 @@ git remote set-head origin master # 设置远程仓库的HEAD指向master分支
 也可以命令设置跟踪远程库和本地库
 git branch --set-upstream master origin/master
 git branch --set-upstream develop origin/develop
+
+
+git clone fatal: unable to access : The requested URL returned error:
+vi .git/config
+[remote "gitbook"]
+    url = https://username:password@git.github.com/test/test.git
+
+GIT不记住密码：git config --global credential.helper store
+
+
+

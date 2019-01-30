@@ -2,6 +2,8 @@ https://github.com/twbs/bootstrap
 
 
 字体图库
+https://fontawesome.com/?from=io
+https://fontawesome.com/icons
 https://github.com/FortAwesome/Font-Awesome
 https://github.com/google/material-design-icons
 https://github.com/ionic-team/ionicons
