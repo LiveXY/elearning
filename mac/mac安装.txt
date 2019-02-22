@@ -539,4 +539,12 @@ nc 常用：
 nc -vz -w 5 127.0.0.1 1-100 #对 1-100 端口进行扫描
 nc -vz -w 5 127.0.0.1 8888 #连接端口
 nc -l 8888 -v #监听端口
-
+=======================================
+xcode library not found for -libstdc++.6.0.9
+tagets->Build Phases ->Link Binary With Libraries下找到这个库
+Xcode10后没有libstdc++库 可以使用：https://github.com/devdawei/libstdc-
+https://www.jianshu.com/p/6d94278d62b3
+========================================
+react-native 工程时，出错：xcrun: error: unable to find utility "instruments", not a developer tool or in PATH
+解决方法：在 终端执行如下命令 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer/
+注意：前提是你已经安装了xcode
