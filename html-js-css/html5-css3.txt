@@ -1210,3 +1210,228 @@ float 特性实现多行文本截断
   top: -20px;
   padding-right: 5px;
 }
+图片边框
+.imgborder { border-width: 20px; border-style: solid; -webkit-border-image: url(../../client/images/box5.png) 30 fill; }
+
+4个带方向箭头的标注框 带动画
+http://wow.techbrood.com/fiddle/28888
+<div class="wrap">
+  <div class="box pointer--bottom">下</div>
+  <div class="box pointer--top">上</div>
+  <div class="box pointer--left">左</div>
+  <div class="box pointer--right">右 </div>
+</div>
+.box {
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-left: 0.46296%;
+    margin-right: 0.46296%;
+    position: relative;
+    background: #346BB3;
+    color: #fff;
+    padding: 1%;
+    margin: 5%;
+    white-space: nowrap;
+    border-radius: 5px;
+}
+.box:after {
+    content: " ";
+    position: absolute;
+    height: 0;
+    width: 0;
+    border: solid transparent;
+    pointer-events: none;
+    border-width: 16px;
+    border-color: transparent;
+}
+.pointer--bottom {
+    animation: animimate-pointer--bottom 500ms ease-in-out;
+    animation-transform-origin: bottom center;
+}
+.pointer--bottom:after {
+    margin-left: -16px;
+    border-top-color: #346BB3;
+    top: 100%;
+    left: 50%;
+}
+.pointer--top {
+    animation: animimate-pointer--top 500ms ease-in-out;
+    transform-origin: top center;
+}
+.pointer--top:after {
+    margin-left: -16px;
+    border-bottom-color: #346BB3;
+    top: -32px;
+    left: 50%;
+}
+.pointer--left {
+    animation: animate-pointer--left 500ms ease-in-out;
+    transform-origin: left center;
+}
+.pointer--left:after {
+    border-right-color: #346BB3;
+    top: 25%;
+    left: -32px;
+}
+.pointer--right {
+    animation: animate-pointer--right 500ms ease-in-out;
+    transform-origin: right center;
+}
+.pointer--right:after {
+    border-left-color: #346BB3;
+    top: 25%;
+    right: -32px;
+}
+@keyframes animimate-pointer--bottom {
+    0% {
+        opacity: 0;
+        transform: scale(0.1) rotate(30deg) translateY(50px) rotateX(90deg);
+    }
+    50% {
+        transform: rotate(-10deg) rotateX(-2deg);
+        opacity: 1;
+    }
+    70% {
+        transform: rotate(3deg);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes animimate-pointer--top {
+    0% {
+        transform: scale(0.1) rotate(-30deg) translateY(-50px) rotateX(-90deg);
+        opacity: 0;
+    }
+    50% {
+        transform: rotate(10deg) rotateX(2deg);
+        opacity: 1;
+    }
+    70% {
+        transform: rotate(-3deg);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes animate-pointer--left {
+    0% {
+        transform: rotate(0deg) rotateX(-30deg);
+        opacity: 0;
+    }
+    50% {
+        transform: rotate(-10deg);
+        opacity: 1;
+    }
+    70% {
+        transform: rotate(10deg) rotateX(30deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+@keyframes animate-pointer--right {
+    0% {
+        transform: rotate(0deg) rotateX(30deg);
+        opacity: 0;
+    }
+    50% {
+        transform: rotate(10deg);
+        opacity: 1;
+    }
+    70% {
+        transform: rotate(-10deg) rotateX(-30deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+方法二：
+<div class="box">
+    <span class="triangle bottom"></span>
+</div>
+<div class="box">
+    <span class="triangle left"></span>
+</div>
+<div class="box">
+    <span class="triangle right"></span>
+</div>
+<div class="box">
+    <span class="triangle top"></span>
+</div>
+.box {
+    width: 260px;
+    height: 173.33333px;
+    float: left;
+    margin: 25px;
+    background-color: #d66c5c;
+    padding: 15px;
+    border-radius: 3.25px;
+    position: relative;
+}
+.box .triangle {
+    width: 0;
+    height: 0;
+    position: absolute;
+    z-index: 1;
+    border-width: 13px;
+    border-style: solid;
+    border-color: transparent;
+}
+.box .triangle.top {
+    border-bottom-color: #d66c5c;
+    top: -26px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.box .triangle.right {
+    border-left-color: #d66c5c;
+    right: -26px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.box .triangle.bottom {
+    border-top-color: #d66c5c;
+    bottom: -26px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.box .triangle.left {
+    border-right-color: #d66c5c;
+    left: -26px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+圆形进度条
+<div class="circle-bar">
+    <div class="circle-bar-left"></div>
+    <div class="circle-bar-right"></div>
+    <div class="mask">
+        <span class="percent">50%</span>
+    </div>
+</div>
+.circle-bar { font-size:6em; width: 1em; height: 1em; position: relative;  background-color:#ff4114; margin: 0 auto; }
+.circle-bar-left,.circle-bar-right { width: 1em; height: 1em; background-color: #eee; }
+.circle-bar-right { clip:rect(0,auto,auto,.5em); }
+.circle-bar-left { clip:rect(0,.5em,auto,0); }
+.circle-bar .mask { width: 0.8em; height: 0.8em;  background-color: #fff;text-align: center;line-height: 0.2em; color:rgba(0,0,0,0.5); }
+.circle-bar .mask :first-child { font-size: 0.3em; height: 0.8em; line-height: 0.8em; display: block; font-size:0.2em; }
+.circle-bar * {  position: absolute; top:0; right:0; bottom:0; left:0; margin:auto; }
+.circle-bar, .circle-bar > * { border-radius: 50%; }
+app.circle = function(selector) {
+    var percent = parseInt($(selector + ' .mask :first-child').text());
+    var baseColor = $(selector).css('background-color');
+
+    if (percent <= 50) {
+        $(selector + ' .circle-bar-right').css('transform','rotate('+(percent*3.6)+'deg)');
+    } else {
+        $(selector + ' .circle-bar-right').css({ 'transform':'rotate(0deg)', 'background-color': baseColor });
+        $(selector + ' .circle-bar-left').css('transform','rotate('+((percent-50)*3.6)+'deg)');
+    }
+}
