@@ -205,6 +205,13 @@ brew install nmap wget
 brew install mono
 brew install python
 
+#centos7 webkit2png
+git clone https://github.com/adamn/python-webkit2png.git
+cd python-webkit2png
+python setup.py install
+yum -y install PyQt4 PyQt4-devel PyQt4-webkit
+yum -y install xorg-x11-server-Xvfb.x86_64
+yum -y install wqy-zenhei-fonts.noarch
 
 #~/.ssh/目录权限
 chmod a-rwx ~/.ssh/*

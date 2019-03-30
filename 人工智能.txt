@@ -97,6 +97,11 @@ ffmpeg -y  -i aidemo.mp3  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
 
 https://github.com/facebookresearch/wav2letter
 
+https://github.com/Uberi/speech_recognition
+pip install SpeechRecognition
+https://realpython.com/python-speech-recognition/
+https://blog.csdn.net/weixin_40490238/article/details/84841825
+
 IBM:
 https://github.com/watson-developer-cloud/speech-to-text-nodejs
 https://stream-wdc.watsonplatform.net/speech-to-text/api
@@ -208,6 +213,12 @@ hanlp --help
 hanlp segment <<< '欢迎新老师生前来就餐'
 hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。'
 https://github.com/fighting41love/cocoNLP
+https://github.com/PaddlePaddle/LARK/tree/develop/ERNIE
+
+https://polyglot.readthedocs.io/en/latest/Installation.html
+https://github.com/aboSamoor/polyglot
+brew install polyglot
+pip3 install polyglot
 
 语音翻译 面对面翻译小程序
 https://github.com/Tencent/Face2FaceTranslator
@@ -1065,3 +1076,14 @@ Tink 是一个多语言、跨平台的加密开发库，提供安全，易于正
 https://github.com/google/tink
 Sourcegraph 是一款能够根据语义来把 Web 上的开源代码编入索引的代码搜索浏览工具，提供代码搜索和代码语义智能感知功能
 https://github.com/sourcegraph/sourcegraph
+
+手势识别
+https://github.com/alvinwan/hand-tracking-pong
+https://github.com/victordibia/handtrack.js/
+https://github.com/MrEliptik/HandPose
+https://victordibia.github.io/handtrack.js/#/
+https://github.com/victordibia/handtracking
+
+姿势检测
+https://github.com/tensorflow/tfjs-models/tree/master/posenet
+

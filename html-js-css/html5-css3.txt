@@ -1435,3 +1435,9 @@ app.circle = function(selector) {
         $(selector + ' .circle-bar-left').css('transform','rotate('+((percent-50)*3.6)+'deg)');
     }
 }
+
+斜线背景
+    background: -webkit-gradient(linear,left top,right bottom,color-stop(49.9%,#e4505d),color-stop(50.1%,transparent));
+    background: linear-gradient(to right bottom,#e4505d 49.9%,transparent 50.1%);
+
+

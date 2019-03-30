@@ -1,6 +1,7 @@
 mysql常用代码
 ==========
 
+* `rename database olddbname to newdbname`
 * `show engine innodb status /G;` 当 MySQL 出现问题通常我们需要执行的第一个命令
 * `select @@datadir` 数据存放目录
 * `select db, name, type, definer from mysql.proc where db='db';` 查看存贮过程权限

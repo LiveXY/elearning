@@ -90,14 +90,27 @@ https://github.com/yonahforst/react-native-permissions
 
 https://github.com/master-atul/react-native-exception-handler
 
+https://github.com/bgryszko/react-native-circular-progress
+https://github.com/jeanregisser/react-native-slider
+https://github.com/cesardeazevedo/react-native-bottom-sheet-behavior
+https://github.com/oblador/react-native-parallax
+https://github.com/okgrow/react-native-copilot
+https://github.com/voronianski/react-native-effects-view
+https://github.com/zachgibson/react-native-parallax-swiper
+https://github.com/kfiroo/react-native-cached-image
+https://github.com/wcandillon/react-native-img-cache
+https://github.com/wcandillon/react-native-expo-image-cache
+https://github.com/EricPKerr/react-native-emoji
+https://github.com/saleel/react-native-super-grid
+
 https://github.com/race604/react-native-viewpager
-https://github.com/react-community/react-native-image-picker
+https://github.com/react-native-community/react-native-image-picker
 https://github.com/maxs15/react-native-spinkit
 https://github.com/baifendian/bfd-ui
 https://github.com/react-native-training/react-native-elements
 
 tab
-https://github.com/skv-headless/react-native-scrollable-tab-view
+https://github.com/ptomasroos/react-native-scrollable-tab-view
 https://github.com/Slowyn/react-native-underline-tabbar
 https://github.com/react-native-community/react-native-tab-view
 https://github.com/happypancake/react-native-tab-navigator
@@ -117,6 +130,8 @@ https://github.com/ant-design/ant-design-pro
 https://github.com/ant-design/ant-design-mobile
 https://github.com/ant-design/ant-motion
 https://github.com/silentcloud/react-native-page-control
+https://github.com/garrettmac/react-native-pagination
+https://github.com/chitezh/react-native-swiper-animated
 https://github.com/huanxsd/react-native-refresh-list-view
 https://github.com/zo0r/react-native-push-notification
 https://github.com/reactjs/react-timer-mixin
@@ -142,9 +157,11 @@ https://github.com/stefalda/ReactNativeLocalization
 https://github.com/root-two/react-native-drawer
 https://github.com/react-native-community/react-native-navbar
 https://github.com/oblador/react-native-animatable
+https://github.com/crazycodeboy/react-native-splash-screen
 https://github.com/react-native-component/react-native-smart-splash-screen
 https://github.com/gnestor/react-native-statusbar-alert
 https://github.com/testshallpass/react-native-dropdownalert
+https://github.com/alinz/react-native-dropdown
 https://github.com/jsdf/react-native-htmlview
 https://github.com/oblador/react-native-progress
 https://github.com/jshanson7/react-native-swipeable
@@ -164,7 +181,7 @@ https://www.npmjs.com/package/react-native-fade-in-image
 https://github.com/christopherdro/react-native-html-to-pdf
 https://github.com/zbtang/React-Native-ViewPager
 https://github.com/lelandrichardson/react-native-parallax-view
-https://github.com/oblador/react-native-parallax
+https://github.com/kyaroru/RNParallax
 https://github.com/expo/react-native-infinite-scroll-view
 https://github.com/yamill/react-native-orientation
 https://github.com/kkjdaniel/react-native-device-display
@@ -175,7 +192,6 @@ https://github.com/mastermoo/react-native-action-button
 https://github.com/alekhurst/react-native-elevated-view
 https://github.com/ptelad/react-native-iphone-x-helper
 https://github.com/innoveit/react-native-ble-manager
-https://github.com/jeanregisser/react-native-slider
 https://github.com/SmallComfort/rn-swipe-out
 https://github.com/benevbright/react-native-swipeout-longpressforandroid
 https://github.com/react-component/swipeout
@@ -186,16 +202,18 @@ https://github.com/ide/react-native-button/
 https://github.com/fractaltech/react-native-timer
 https://github.com/joeferraro/react-native-cookies
 https://github.com/crazycodeboy/react-native-easy-toast
+https://github.com/magicismight/react-native-root-toast
+https://github.com/remobile/react-native-toast
 https://github.com/beefe/react-native-actionsheet
 https://github.com/oblador/react-native-store-review
 https://github.com/i6mi6/react-native-parallax-scroll-view
+https://github.com/monterosalondon/react-native-parallax-scroll
 https://github.com/alwx/react-native-photo-view
 https://github.com/conorhastings/react-syntax-highlighter
 https://github.com/oliviertassinari/react-swipeable-views
 https://github.com/aakashns/react-native-dialogs
 https://github.com/DylanVann/react-native-fast-image
 https://github.com/oblador/react-native-image-progress
-https://github.com/bgryszko/react-native-circular-progress
 https://github.com/ascoders/react-native-image-viewer
 https://github.com/brh55/react-native-masonry
 https://github.com/bamlab/react-native-image-resizer
@@ -211,6 +229,45 @@ https://github.com/mg365/react-native-customized-image-picker
 https://github.com/Snapp-FidMe/react-native-photo-gallery
 https://github.com/shimohq/react-native-keyboard-view
 https://github.com/aksonov/react-native-tableview
+https://github.com/wix/react-native-calendars
+https://github.com/SmallStoneSK/react-native-draggable-calendar
+https://github.com/maggialejandro/react-native-calendario
+https://github.com/halilb/react-native-textinput-effects
+https://github.com/oblador/react-native-lightbox
+https://github.com/gre/gl-react-native-v2
+https://github.com/jmurzy/react-native-foldview
+https://github.com/tomauty/react-native-chart
+https://github.com/joinspontaneous/react-native-loading-spinner-overlay
+https://github.com/rgommezz/react-native-offline
+https://github.com/thegamenicorus/react-native-timeline-listview
+https://github.com/jeanregisser/react-native-popover
+https://github.com/24ark/react-native-step-indicator
+https://github.com/jgrancher/react-native-sketch
+https://github.com/JesperLekland/react-native-svg-charts
+https://github.com/ladas-larry/react-native-responsive-image
+https://github.com/iddan/react-native-canvas
+https://github.com/cnjon/react-native-pdf-view
+https://github.com/prscX/react-native-shine-button
+https://github.com/IjzerenHein/react-navigation-magic-move
+https://github.com/cesardeazevedo/react-native-collapsing-toolbar
+https://github.com/geremih/react-native-circular-action-menu
+https://github.com/shoumma/react-native-off-canvas-menu
+https://github.com/phuochau/react-native-beautiful-video-recorder
+https://github.com/SoftZen/react-native-bouncy-drawer
+https://github.com/rafaelmotta/react-native-scl-alert
+https://github.com/xgfe/react-native-picker-xg
+https://github.com/App2Sales/react-native-switch-selector
+https://github.com/leowang721/k-react-native-swipe-unlocker
+https://github.com/baspellis/react-native-infinite-scrollview
+https://github.com/netbeast/react-native-color-wheel
+https://github.com/atlanteh/react-native-slot-machine
+https://github.com/react-native-china/react-native-drop-refresh
+https://github.com/testshallpass/react-native-simple-stepper
+https://github.com/ngothanhtai/react-native-auto-typing-text
+https://github.com/monterosalondon/react-native-elastic-stack
+https://github.com/valerybugakov/react-native-custom-actionsheet
+
+https://github.com/archriss/react-native-snap-carousel
 
 https://github.com/philipphecht/react-native-doc-viewer
 https://github.com/root-two/react-native-drawer
@@ -337,6 +394,8 @@ https://github.com/attentiveness/reading
 https://github.com/stage88/react-weather
 https://github.com/wwayne/react-native-nba-app
 
+https://github.com/hcxiong/kittenTricks
+
 https://github.com/hcxiong/react-native-guide
 demo
 https://github.com/bigsui/shopping-react-native
@@ -379,6 +438,9 @@ https://github.com/exponentjs/react-native-invertible-scroll-view
 https://github.com/gcanti/tcomb-form-native
 https://github.com/NishanthShankar/react-native-android-statusbar
 https://github.com/GertjanReynaert/react-native-device
+
+sqlite
+https://github.com/realm/realm-js
 
 tools
 https://github.com/roman01la/react-native-babel
@@ -660,3 +722,22 @@ class MarkdownEditor extends React.Component {
 
 ReactDOM.render(<MarkdownEditor />, mountNode);
 https://codepen.io/gaearon/pen/gWWZgR
+
+UI
+https://docs.nativebase.io/Components.html#Components
+https://shoutem.github.io/docs/ui-toolkit/components/spinner
+https://react-native-training.github.io/react-native-elements/docs/avatar.html
+https://akveo.github.io/react-native-ui-kitten/#/docs/ui-components/rkbutton
+https://demos.creative-tim.com/material-kit-react-native/
+
+https://demos.creative-tim.com/material-kit-react/#/
+
+https://ant.design/components/icon-cn/
+https://material-ui.com/demos/app-bar/
+https://evergreen.segment.com/components/
+
+https://github.com/akveo/kittenTricks
+https://github.com/FormidableLabs/victory-native
+
+动画
+https://github.com/react-native-community/lottie-react-native

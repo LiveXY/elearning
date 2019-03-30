@@ -46,6 +46,8 @@ https://github.com/Dogfalo/materialize
 https://github.com/mui-org/material-ui
 https://github.com/jgthms/bulma
 
+https://github.com/sequelize/sequelize
+
 https://github.com/facebook/react
 https://github.com/vuejs/vue
 https://github.com/angular/angular
