@@ -1,0 +1,12 @@
+Electron
+
+打包：
+npm install -g asar
+asar list app.asar
+asar pack your-app app.asar
+
+从打包中排除多个资源
+asar pack app app.asar --unpack-dir "{x1,x2}"
+
+解包
+asar extract app.asar ./

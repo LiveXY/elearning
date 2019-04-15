@@ -555,3 +555,16 @@ https://www.jianshu.com/p/6d94278d62b3
 react-native 工程时，出错：xcrun: error: unable to find utility "instruments", not a developer tool or in PATH
 解决方法：在 终端执行如下命令 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer/
 注意：前提是你已经安装了xcode
+=======================================
+
+brew install wget nmap nginx mysql php@7.1 brew-php-switcher pkg-config libmemcached
+brew-php-switcher 7.1
+php -m
+pecl install memcached
+brew services restart php
+brew services restart nginx
+
+pecl version 查看版本信息
+pecl help 可以查看命令帮助
+pecl search xdebug  搜索可以安装的扩展信息
+pecl install xdebug 安装扩展

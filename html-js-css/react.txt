@@ -10,276 +10,593 @@ cd SmallGame
 react-native run-ios
 react-native run-android
 
+启动屏
+https://github.com/crazycodeboy/react-native-splash-screen
+yarn add react-native-splash-screen && react-native link react-native-splash-screen
 https://github.com/mehcode/rn-splash-screen
 yarn add rn-splash-screen && react-native link rn-splash-screen
 
+左右滑动时可以显示功能性操作菜单
+https://github.com/kmagiera/react-native-gesture-handler
+yarn add react-native-gesture-handler && react-native link react-native-gesture-handler
+https://github.com/jshanson7/react-native-swipeable
+npm i --save react-native-swipeable
+https://github.com/SmallComfort/rn-swipe-out
+npm install rn-swipe-out --save
+https://github.com/react-component/swipeout
+npm install --save rc-swipeout
+https://github.com/dancormier/react-native-swipeout
+npm install --save react-native-swipeout
+
+错误处理
+https://github.com/master-atul/react-native-exception-handler
+yarn add react-native-exception-handler && react-native link react-native-exception-handler
+
+路由和导航
 https://github.com/react-navigation/react-navigation
 yarn add react-navigation && react-native link react-navigation
 
+快照
 https://github.com/gre/react-native-view-shot
 yarn add react-native-view-shot && react-native link react-native-view-shot
 
+日期 时间 区域选择器
 https://github.com/beefe/react-native-picker
 yarn add react-native-picker && react-native link react-native-picker
 
+文件访问和数据传输
 https://github.com/joltup/rn-fetch-blob
 yarn add rn-fetch-blob && react-native link rn-fetch-blob
 
-https://github.com/oblador/react-native-vector-icons
-yarn add react-native-vector-icons && react-native link react-native-vector-icons
-https://blog.csdn.net/f409031mn/article/details/79522129
+图片缓存
+https://github.com/wcandillon/react-native-img-cache
+npm install react-native-img-cache --save
+https://github.com/kfiroo/react-native-cached-image
+yarn add react-native-cached-image
 
+清理app缓存
 https://github.com/midas-gufei/react-native-clear-app-cache
 yarn add react-native-clear-app-cache && react-native link react-native-clear-app-cache
 
+自定义图标
+https://github.com/oblador/react-native-vector-icons
+yarn add react-native-vector-icons && react-native link react-native-vector-icons
+https://blog.csdn.net/f409031mn/article/details/79522129
+https://github.com/corymsmith/react-native-icons
+
+LinearGradient线性梯度组件
 https://github.com/react-native-community/react-native-linear-gradient
 yarn add react-native-linear-gradient && react-native link react-native-linear-gradient
 
+Blur组件
 https://github.com/react-native-community/react-native-blur
 yarn add react-native-blur && react-native link react-native-blur
+https://github.com/voronianski/react-native-effects-view
+npm install react-native-effects-view --save
 
+播放声音
 https://github.com/zmxv/react-native-sound
 yarn add react-native-sound && react-native link react-native-sound
 
+录音机库
 https://github.com/jsierles/react-native-audio
 yarn add react-native-audio && react-native link react-native-audio
 
+SVG库
 https://github.com/react-native-community/react-native-svg
 yarn add react-native-svg && react-native link react-native-svg
+https://github.com/vault-development/react-native-svg-uri
+npm install react-native-svg-uri --save && react-native link react-native-svg
+https://github.com/JesperLekland/react-native-svg-charts
 
+帮助提示
+https://github.com/okgrow/react-native-copilot
+npm install --save @okgrow/react-native-copilot
+
+设备信息
 https://github.com/rebeccahughes/react-native-device-info
 yarn add react-native-device-info && react-native link react-native-device-info
 
+微信支付
 https://github.com/yorkie/react-native-wechat
 yarn add react-native-wechat && react-native link react-native-wechat
 
+支付宝支付
 https://github.com/deadivan/react-native-yunpeng-alipay
 yarn add react-native-yunpeng-alipay && react-native link react-native-yunpeng-alipay
 
+Apple支付
+https://github.com/chirag04/react-native-in-app-utils
+react-native install react-native-in-app-utils
+https://github.com/dooboolab/react-native-iap
+npm install react-native-iap --save && react-native link react-native-iap
+
+热更新
 https://github.com/Microsoft/react-native-code-push
 yarn add react-native-code-push && react-native link react-native-code-push
 https://github.com/lisong/code-push-server
 
+极光推送
 https://github.com/jpush/jpush-react-native
 yarn add jpush-react-native && react-native link jpush-react-native
 https://github.com/jpush/jcore-react-native
 yarn add jcore-react-native && react-native link jcore-react-native
+提供了快速验证用户输入的手机号码和本机 SIM 卡号码一致性
+https://github.com/jpush/jverification-react-native
 
+获取广告标识符IDFA
 https://github.com/ptomasroos/react-native-idfa
 yarn add @ptomasroos/react-native-idfa && react-native link @ptomasroos/react-native-idfa
 
+联系人
 https://github.com/rt2zz/react-native-contacts
 yarn add react-native-contacts && react-native link react-native-contacts
 
-https://github.com/kmend/react-native-pomelo
-yarn add react-native-pomelo && react-native link react-native-pomelo
-
-https://github.com/leecade/react-native-swiper
-yarn add react-native-swiper && react-native link react-native-swiper
-
+图像选择器，支持相机，视频，可配置压缩，多个图像和裁剪
 https://github.com/ivpusic/react-native-image-crop-picker
 yarn add react-native-image-crop-picker && react-native link react-native-image-crop-picker
+https://github.com/bamlab/react-native-image-resizer
+npm install --save react-native-image-resizer && react-native link react-native-image-resizer
+https://github.com/syanbo/react-native-syan-image-picker
+yarn add react-native-syan-image-picker && react-native link react-native-syan-image-picker
+https://github.com/mg365/react-native-customized-image-picker
+npm i react-native-customized-image-picker --save && react-native link react-native-customized-image-picker
 
+设备库或直接从摄像机中选择媒体
+https://github.com/react-native-community/react-native-image-picker
+yarn add react-native-image-picker && react-native link react-native-image-picker
+
+照相机
+https://github.com/lwansbrough/react-native-camera
+npm install react-native-camera --save && react-native link react-native-camera
+
+检查并请求用户权限
 https://github.com/yonahforst/react-native-permissions
 yarn add react-native-permissions && react-native link react-native-permissions
 
+文件目录操作，上传文件
+https://github.com/itinance/react-native-fs
+yarn add react-native-fs && react-native link react-native-fs
+
+键盘显示时自动滚动到焦点TextInput
+https://github.com/APSL/react-native-keyboard-aware-scroll-view
+yarn add react-native-keyboard-aware-scroll-view && react-native link react-native-keyboard-aware-scroll-view
+https://github.com/shimohq/react-native-keyboard-view
+npm i react-native-keyboard-view --save && react-native link react-native-keyboard-view
+https://github.com/halilb/react-native-textinput-effects
+npm install react-native-textinput-effects --save
+
+地图
+https://github.com/qiuxiang/react-native-baidumap-sdk
+https://github.com/qiuxiang/react-native-amap3d
+定位
+https://github.com/qiuxiang/react-native-amap-geolocation
+https://github.com/mauron85/react-native-background-geolocation
+https://github.com/transistorsoft/react-native-background-geolocation
+https://github.com/manuelbieh/geolib
+
+视频播放器
+https://github.com/easyui/EZPlayer
+https://github.com/abbasfreestyle/react-native-af-video-player
+https://github.com/ldn0x7dc/react-native-media-kit
+https://github.com/BondGoat/react-native-native-video-player
+https://github.com/react-native-community/react-native-video
+https://github.com/itsnubix/react-native-video-controls
+https://github.com/phuochau/react-native-beautiful-video-recorder
+https://github.com/brentvatne/react-native-video
+
+图片
+https://github.com/DylanVann/react-native-fast-image
+yarn add react-native-fast-image && react-native link react-native-fast-image
+
+照片浏览
+https://github.com/ascoders/react-native-image-viewer
+npm i react-native-image-zoom-viewer --save
+https://github.com/alwx/react-native-photo-view
+https://github.com/halilb/react-native-photo-browser
+https://github.com/merryjs/photo-viewer
+
+webview
+https://github.com/alinz/react-native-webview-bridge
+https://github.com/react-native-community/react-native-webview
+https://github.com/CRAlpha/react-native-wkwebview
+https://github.com/ankur-sardar/react-native-wkwebview-reborn
+HTML浏览
+https://github.com/jsdf/react-native-htmlview
+npm install react-native-htmlview --save
+https://github.com/obipawan/react-native-hyperlink
+npm i --save react-native-hyperlink
+
+分享
+https://github.com/songxiaoliang/react-native-share
+https://github.com/react-native-community/react-native-share
+
+https://github.com/madsleejensen/react-native-image-capinsets
+npm i --save react-native-image-capinsets && react-native link react-native-image-capinsets
+
+后台运行
+https://github.com/ocetnik/react-native-background-timer
+yarn add react-native-background-timer && react-native link react-native-background-timer
+https://github.com/jamesisaac/react-native-background-task
+npm install react-native-background-task --save && react-native link react-native-background-task
+
+Swiper/Page/View组件
+https://github.com/leecade/react-native-swiper
+yarn add react-native-swiper
+https://github.com/archriss/react-native-snap-carousel
+npm install --save react-native-snap-carousel
+https://github.com/Jacse/react-native-app-intro-slider
+npm i react-native-app-intro-slider --save
+https://github.com/zachgibson/react-native-parallax-swiper
+npm install react-native-parallax-swiper --save
+https://github.com/chitezh/react-native-swiper-animated
+npm i react-native-swiper-animated --save
+https://github.com/oliviertassinari/react-swipeable-views
+npm install --save react-swipeable-views-native
+https://github.com/race604/react-native-viewpager
+npm install react-native-viewpager --save
+https://github.com/fuyaode/react-native-app-intro
+npm i react-native-app-intro --save
+https://github.com/24ark/react-native-step-indicator
+npm install react-native-step-indicator --save
+https://github.com/phil-r/react-native-looped-carousel
+npm install react-native-looped-carousel --save
+
+选项卡
+https://github.com/ptomasroos/react-native-scrollable-tab-view
+npm install react-native-scrollable-tab-view --save
+https://github.com/Slowyn/react-native-underline-tabbar
+yarn add react-native-underline-tabbar
+https://github.com/react-native-community/react-native-tab-view
+yarn add react-native-tab-view
+https://github.com/happypancake/react-native-tab-navigator
+npm install react-native-tab-navigator --save
+https://github.com/kirankalyan5/react-native-segmented-control-tab
+npm install react-native-segmented-control-tab --save
+https://github.com/philipshurpik/react-native-animated-tabs
+npm install react-native-nav-tabbar --save
+https://github.com/jackuhan/react-native-viewpager-indicator
+npm install react-native-viewpager-indicator --save
+https://github.com/zbtang/React-Native-ViewPager
+npm install --save rn-viewpager
+https://github.com/App2Sales/react-native-switch-selector
+yarn add react-native-switch-selector
+
+
+md5加密
+npm install react-native-md5 --save
+https://github.com/kmend/react-native-md5
+
+提示信息
+https://github.com/magicismight/react-native-root-toast
+npm install react-native-root-toast --save
+
+日历
+https://github.com/wix/react-native-calendars
+npm install --save react-native-calendars
+https://github.com/BugiDev/react-native-calendar-strip
+npm install --save react-native-calendar-strip
+https://github.com/stephy/CalendarPicker
+npm install --save react-native-calendar-picker
+https://github.com/SmallStoneSK/react-native-draggable-calendar
+npm install react-native-draggable-calendar --save
+https://github.com/maggialejandro/react-native-calendario
+
+UI/界面
 https://github.com/rilyu/teaset
 yarn add teaset && react-native link teaset
-
-https://github.com/yonahforst/react-native-permissions
-
-https://github.com/master-atul/react-native-exception-handler
-
-https://github.com/bgryszko/react-native-circular-progress
-https://github.com/jeanregisser/react-native-slider
-https://github.com/cesardeazevedo/react-native-bottom-sheet-behavior
-https://github.com/oblador/react-native-parallax
-https://github.com/okgrow/react-native-copilot
-https://github.com/voronianski/react-native-effects-view
-https://github.com/zachgibson/react-native-parallax-swiper
-https://github.com/kfiroo/react-native-cached-image
-https://github.com/wcandillon/react-native-img-cache
-https://github.com/wcandillon/react-native-expo-image-cache
-https://github.com/EricPKerr/react-native-emoji
-https://github.com/saleel/react-native-super-grid
-
-https://github.com/race604/react-native-viewpager
-https://github.com/react-native-community/react-native-image-picker
-https://github.com/maxs15/react-native-spinkit
-https://github.com/baifendian/bfd-ui
 https://github.com/react-native-training/react-native-elements
+npm install --save react-native-elements
+https://github.com/baifendian/bfd-ui
+https://github.com/akveo/react-native-ui-kitten
+https://github.com/binggg/mrn
+https://github.com/invertase/react-native-material-design
+https://github.com/callstack/react-native-paper
 
-tab
-https://github.com/ptomasroos/react-native-scrollable-tab-view
-https://github.com/Slowyn/react-native-underline-tabbar
-https://github.com/react-native-community/react-native-tab-view
-https://github.com/happypancake/react-native-tab-navigator
-https://github.com/kirankalyan5/react-native-segmented-control-tab
-https://github.com/philipshurpik/react-native-animated-tabs
-https://github.com/jackuhan/react-native-viewpager-indicator
-https://github.com/territoryfan/react-native-tabbar
-demo
-https://github.com/jjhappyforever/TouTiaoTabBar
+可预测状态容器
+https://github.com/reduxjs/redux
+https://github.com/reduxjs/react-redux
+https://github.com/redux-utilities/redux-actions
+https://github.com/redux-utilities/redux-promise
+https://github.com/reduxjs/redux-thunk
+npm install --save redux react-redux redux-actions redux-promise redux-thunk
 
+ActionSheet组件
+https://github.com/beefe/react-native-actionsheet
+npm install react-native-actionsheet --save
+https://github.com/valerybugakov/react-native-custom-actionsheet
+npm i -S react-native-custom-actionsheet
 
+工具
+https://github.com/facebook/prop-types
+npm install --save prop-types
+https://github.com/facebookincubator/idx
+npm install --save idx babel-plugin-idx
+https://github.com/moment/moment
+https://github.com/moment/moment-timezone
+
+文本解析
+https://github.com/taskrabbit/react-native-parsed-text
+npm install --save react-native-parsed-text
+
+动画
+https://github.com/oblador/react-native-animatable
+npm install react-native-animatable --save
+https://github.com/nanndoj/react-native-particles
+npm install react-native-particles --save
+https://github.com/oblador/react-native-progress
+npm install react-native-progress --save
+https://github.com/bgryszko/react-native-circular-progress
+npm i --save react-native-circular-progress react-native-svg
+https://github.com/stoneWeb/react-native-parabolic
+npm i react-native-parabolic --save
+https://github.com/animatedjs/animated
+https://github.com/sharingapples/react-native-transition
+动画
+https://github.com/react-native-community/lottie-react-native
+npm i --save lottie-react-native && react-native link lottie-ios && react-native link lottie-react-native
+https://github.com/IjzerenHein/react-navigation-magic-move
+yarn add react-navigation-magic-move
+
+加载动画
+https://github.com/maxs15/react-native-spinkit
+npm install react-native-spinkit --save && react-native link react-native-spinkit
+https://github.com/mfrachet/rn-placeholder
+npm install rn-placeholder --save
+https://github.com/TheSavior/react-native-mask-loader
+yarn add react-native-mask-loader
+https://github.com/joinspontaneous/react-native-loading-spinner-overlay
+yarn add react-native-loading-spinner-overlay
+
+pomelo
+https://github.com/kmend/react-native-pomelo
+yarn add react-native-pomelo
+https://github.com/mroderick/PubSubJS
+npm install --save pubsub-js
+https://github.com/PeelTechnologies/react-native-tcp
+npm install react-native-tcp --save && react-native link react-native-tcp
+https://github.com/tradle/react-native-udp
+
+css
+https://github.com/sabeurthabti/react-native-css
+npm install react-native-css --save
+
+https://github.com/FaridSafi/react-native-gifted-chat
+npm install react-native-gifted-chat --save
+
+图片进度条
+https://github.com/oblador/react-native-image-progress
+yarn add react-native-image-progress
+
+字幕
+https://github.com/cheng-kang/react-native-lahk-marquee-label
+npm install --save react-native-lahk-marquee-label
+
+阴影
+https://github.com/Aamirali86/react-native-shadow-cards
+npm i --save react-native-shadow-cards
+阴影原生
+https://github.com/879479119/react-native-shadow
+yarn add react-native-shadow
+yarn add react-native-svg && react-native link react-native-svg
+
+模态窗口
+https://github.com/maxs15/react-native-modalbox
+npm install react-native-modalbox --save
+https://github.com/react-native-community/react-native-modal
+npm install --save react-native-modal
+
+搜索框
+https://github.com/umhan35/react-native-search-bar
+yarn add react-native-search-bar && react-native link react-native-search-bar
+https://github.com/gaoxiaosong/react-native-general-searchbar
+npm install --save react-native-general-searchbar
+
+大列表
+https://github.com/bolan9999/react-native-largelist
+yarn add react-native-spring-scrollview react-native-largelist-v3 && react-native link react-native-spring-scrollview
+
+滑块进度
+https://github.com/jeanregisser/react-native-slider
+npm i --save react-native-slider
+
+解锁
+https://github.com/leowang721/k-react-native-swipe-unlocker
+
+视差效果
+https://github.com/oblador/react-native-parallax
+npm install --save react-native-parallax
+https://github.com/lelandrichardson/react-native-parallax-view
+npm i react-native-parallax-view --save
+https://github.com/kyaroru/RNParallax
+npm i react-native-parallax-header --save
+https://github.com/i6mi6/react-native-parallax-scroll-view
+npm install react-native-parallax-scroll-view --save
+https://github.com/monterosalondon/react-native-parallax-scroll
+npm install @monterosa/react-native-parallax-scroll --save
+https://github.com/Monte9/react-native-parallax-scrollview
+yarn add react-native-parallax-scrollview
+https://github.com/bamlab/react-native-image-header-scroll-view
+npm install react-native-image-header-scroll-view --save
+https://github.com/cesardeazevedo/react-native-bottom-sheet-behavior
+npm install react-native-bottom-sheet-behavior && react-native link react-native-bottom-sheet-behavior
+https://github.com/cesardeazevedo/react-native-collapsing-toolbar
+
+聊天
+https://github.com/jpush/aurora-imui
+
+打电话，发邮件，发短信，浏览器打开
+https://github.com/anarchicknight/react-native-communications
+
+emoji
+https://github.com/EricPKerr/react-native-emoji
+拖动排序
+https://github.com/bolan9999/react-native-drag-to-sort-tags
+
+列表
+https://github.com/saleel/react-native-super-grid
+npm install --save react-native-super-grid
+https://github.com/huanxsd/react-native-refresh-list-view
+npm install --save react-native-refresh-list-view
+https://github.com/expo/react-native-infinite-scroll-view
+npm install --save react-native-infinite-scroll-view
+https://github.com/aksonov/react-native-tableview
+npm install react-native-tableview --save && react-native link react-native-tableview
+
+排版
 https://github.com/roylee0704/react-flexbox-grid
-https://github.com/taobaofed/react-web
+npm install --save react-flexbox-grid
+https://github.com/phil-r/react-native-grid-component
+yarn add react-native-grid-component
+
+表单
+https://github.com/gcanti/tcomb-form-native
+
+doc/pdf
+https://github.com/philipphecht/react-native-doc-viewer
+https://github.com/cnjon/react-native-pdf-view
+https://github.com/christopherdro/react-native-html-to-pdf
+
+左菜单
+https://github.com/root-two/react-native-drawer
+npm install --save react-native-drawer
+https://github.com/react-native-community/react-native-side-menu
+npm install react-native-side-menu --save
+https://github.com/shoumma/react-native-off-canvas-menu
+npm install react-native-off-canvas-menu --save
+https://github.com/rafaelmotta/react-native-scl-alert
+npm install react-native-bouncy-drawer --save
+
+时间线
+https://github.com/thegamenicorus/react-native-timeline-listview
+npm i react-native-timeline-listview --save
+
+高亮显示
+https://github.com/conorhastings/react-syntax-highlighter
+npm install react-syntax-highlighter --save
+
+对话框
+https://github.com/jacklam718/react-native-popup-dialog
+npm install --save react-native-popup-dialog
+https://github.com/aakashns/react-native-dialogs
+https://github.com/victoriafrench/react-native-dialogbox
+
+分页
+https://github.com/garrettmac/react-native-pagination
+
+通知
+https://github.com/zo0r/react-native-push-notification
+
+安全定时器
+https://github.com/reactjs/react-timer-mixin
+https://github.com/fractaltech/react-native-timer
+
+deep link
+https://github.com/fiber-god/react-native-app-link
+
+配置
+https://github.com/zetachang/react-native-dotenv
+https://github.com/luggit/react-native-config
+
+xml2js
+https://github.com/connected-lab/react-native-xml2js
+
+多语言
+https://github.com/AlexanderZaytsev/react-native-i18n
+https://github.com/stefalda/ReactNativeLocalization
+
+导航栏
+https://github.com/react-native-community/react-native-navbar
+npm install react-native-navbar --save
+
+状态栏消息
+https://github.com/react-native-community/react-native-statusbar
+npm install @react-native-community/status-bar --save && react-native link @react-native-community/status-bar
+https://github.com/testshallpass/react-native-dropdownalert
+npm i react-native-dropdownalert --save
+
+二维码
+https://github.com/cssivision/react-native-qrcode
+npm install react-native-qrcode --save
+https://github.com/moaazsidat/react-native-qrcode-scanner
+npm install react-native-qrcode-scanner --save && react-native link react-native-qrcode-scanner
+
+控制设备横竖屏
+https://github.com/yamill/react-native-orientation
+npm install react-native-orientation --save && react-native link react-native-orientation
+
+浮动按钮
+https://github.com/geremih/react-native-circular-action-menu
+https://github.com/mastermoo/react-native-action-button
+
+IPHONEX
+https://github.com/ptelad/react-native-iphone-x-helper
+npm i react-native-iphone-x-helper --save
+
+蓝牙
+https://github.com/innoveit/react-native-ble-manager
+
+badge
+https://github.com/react-native-component/react-native-smart-badge
+
+more-text
+https://github.com/expo/react-native-read-more-text
+https://github.com/joeferraro/react-native-cookies
+https://github.com/ide/react-native-button/
+
+WEBUI
 https://github.com/palantir/blueprint
 https://github.com/ant-design/ant-design/
 https://github.com/ant-design/ant-design-pro
 https://github.com/ant-design/ant-design-mobile
 https://github.com/ant-design/ant-motion
-https://github.com/silentcloud/react-native-page-control
-https://github.com/garrettmac/react-native-pagination
-https://github.com/chitezh/react-native-swiper-animated
-https://github.com/huanxsd/react-native-refresh-list-view
-https://github.com/zo0r/react-native-push-notification
-https://github.com/reactjs/react-timer-mixin
-https://github.com/vault-development/react-native-svg-uri
-https://github.com/obipawan/react-native-hyperlink
-https://github.com/APSL/react-native-keyboard-aware-scroll-view
-https://github.com/BondGoat/react-native-native-video-player
-https://github.com/react-native-community/react-native-video
-https://github.com/itsnubix/react-native-video-controls
-https://github.com/alwx/react-native-photo-view
-https://github.com/facebookincubator/idx
-https://github.com/moment/moment-timezone
-https://github.com/fiber-god/react-native-app-link
-https://github.com/zetachang/react-native-dotenv
-https://github.com/luggit/react-native-config
-https://github.com/react-native-community/react-native-modal
-https://github.com/maxs15/react-native-modalbox
-https://github.com/victoriafrench/react-native-dialogbox
-https://github.com/jacklam718/react-native-popup-dialog
-https://github.com/connected-lab/react-native-xml2js
-https://github.com/AlexanderZaytsev/react-native-i18n
-https://github.com/stefalda/ReactNativeLocalization
-https://github.com/root-two/react-native-drawer
-https://github.com/react-native-community/react-native-navbar
-https://github.com/oblador/react-native-animatable
-https://github.com/crazycodeboy/react-native-splash-screen
-https://github.com/react-native-component/react-native-smart-splash-screen
-https://github.com/gnestor/react-native-statusbar-alert
-https://github.com/testshallpass/react-native-dropdownalert
-https://github.com/alinz/react-native-dropdown
-https://github.com/jsdf/react-native-htmlview
-https://github.com/oblador/react-native-progress
-https://github.com/jshanson7/react-native-swipeable
-https://github.com/mfrachet/rn-placeholder
-https://github.com/itinance/react-native-fs
-https://github.com/react-native-community/react-native-side-menu
-https://github.com/umhan35/react-native-search-bar
-https://github.com/ocetnik/react-native-background-timer
-https://github.com/expo/react-native-invertible-scroll-view
-https://github.com/cssivision/react-native-qrcode
-https://github.com/tradle/react-native-udp
-https://github.com/PeelTechnologies/react-native-tcp
-https://github.com/fuyaode/react-native-app-intro
-https://github.com/expo/react-native-read-more-text
-https://github.com/manuelbieh/geolib
-https://www.npmjs.com/package/react-native-fade-in-image
-https://github.com/christopherdro/react-native-html-to-pdf
-https://github.com/zbtang/React-Native-ViewPager
-https://github.com/lelandrichardson/react-native-parallax-view
-https://github.com/kyaroru/RNParallax
-https://github.com/expo/react-native-infinite-scroll-view
-https://github.com/yamill/react-native-orientation
-https://github.com/kkjdaniel/react-native-device-display
-https://github.com/sharingapples/react-native-transition
-https://github.com/FaridSafi/react-native-google-places-autocomplete
-https://github.com/oblador/react-native-collapsible
-https://github.com/mastermoo/react-native-action-button
-https://github.com/alekhurst/react-native-elevated-view
-https://github.com/ptelad/react-native-iphone-x-helper
-https://github.com/innoveit/react-native-ble-manager
-https://github.com/SmallComfort/rn-swipe-out
-https://github.com/benevbright/react-native-swipeout-longpressforandroid
-https://github.com/react-component/swipeout
-https://github.com/dancormier/react-native-swipeout
-https://github.com/react-native-component/react-native-smart-badge
-https://github.com/APSL/react-native-button
-https://github.com/ide/react-native-button/
-https://github.com/fractaltech/react-native-timer
-https://github.com/joeferraro/react-native-cookies
-https://github.com/crazycodeboy/react-native-easy-toast
-https://github.com/magicismight/react-native-root-toast
-https://github.com/remobile/react-native-toast
-https://github.com/beefe/react-native-actionsheet
-https://github.com/oblador/react-native-store-review
-https://github.com/i6mi6/react-native-parallax-scroll-view
-https://github.com/monterosalondon/react-native-parallax-scroll
-https://github.com/alwx/react-native-photo-view
-https://github.com/conorhastings/react-syntax-highlighter
-https://github.com/oliviertassinari/react-swipeable-views
-https://github.com/aakashns/react-native-dialogs
-https://github.com/DylanVann/react-native-fast-image
-https://github.com/oblador/react-native-image-progress
-https://github.com/ascoders/react-native-image-viewer
+https://github.com/Lobos/react-ui
+http://amazeui.org/react/components
+
+响应式瀑布流
 https://github.com/brh55/react-native-masonry
-https://github.com/bamlab/react-native-image-resizer
-https://github.com/ldn0x7dc/react-native-gallery
-https://github.com/archriss/react-native-image-gallery
-https://github.com/bamlab/react-native-image-header-scroll-view
-https://github.com/TheSavior/react-native-mask-loader
-https://github.com/ascoders/react-native-image-zoom
-https://github.com/syanbo/react-native-syan-image-picker
-https://github.com/anvilabs/react-native-image-carousel
-https://github.com/npomfret/react-native-image-tools
-https://github.com/mg365/react-native-customized-image-picker
-https://github.com/Snapp-FidMe/react-native-photo-gallery
-https://github.com/shimohq/react-native-keyboard-view
-https://github.com/aksonov/react-native-tableview
-https://github.com/wix/react-native-calendars
-https://github.com/SmallStoneSK/react-native-draggable-calendar
-https://github.com/maggialejandro/react-native-calendario
-https://github.com/halilb/react-native-textinput-effects
-https://github.com/oblador/react-native-lightbox
-https://github.com/gre/gl-react-native-v2
+npm install --save react-native-masonry
 https://github.com/jmurzy/react-native-foldview
-https://github.com/tomauty/react-native-chart
-https://github.com/joinspontaneous/react-native-loading-spinner-overlay
-https://github.com/rgommezz/react-native-offline
-https://github.com/thegamenicorus/react-native-timeline-listview
-https://github.com/jeanregisser/react-native-popover
-https://github.com/24ark/react-native-step-indicator
-https://github.com/jgrancher/react-native-sketch
-https://github.com/JesperLekland/react-native-svg-charts
-https://github.com/ladas-larry/react-native-responsive-image
-https://github.com/iddan/react-native-canvas
-https://github.com/cnjon/react-native-pdf-view
+yarn add react-native-foldview
 https://github.com/prscX/react-native-shine-button
-https://github.com/IjzerenHein/react-navigation-magic-move
-https://github.com/cesardeazevedo/react-native-collapsing-toolbar
-https://github.com/geremih/react-native-circular-action-menu
-https://github.com/shoumma/react-native-off-canvas-menu
-https://github.com/phuochau/react-native-beautiful-video-recorder
-https://github.com/SoftZen/react-native-bouncy-drawer
-https://github.com/rafaelmotta/react-native-scl-alert
-https://github.com/xgfe/react-native-picker-xg
-https://github.com/App2Sales/react-native-switch-selector
-https://github.com/leowang721/k-react-native-swipe-unlocker
-https://github.com/baspellis/react-native-infinite-scrollview
+
+图片预览
+https://github.com/oblador/react-native-lightbox
+https://github.com/ascoders/react-native-image-zoom
+https://github.com/archriss/react-native-image-gallery
+https://github.com/Snapp-FidMe/react-native-photo-gallery
+https://github.com/anvilabs/react-native-image-carousel
+https://github.com/gre/gl-react-native-v2
+https://github.com/ladas-larry/react-native-responsive-image
+
+飞行模式
+https://github.com/rgommezz/react-native-offline
+
+画画
+https://github.com/jgrancher/react-native-sketch
+https://github.com/iddan/react-native-canvas
+
+颜色选择
 https://github.com/netbeast/react-native-color-wheel
-https://github.com/atlanteh/react-native-slot-machine
+拖到刷新
 https://github.com/react-native-china/react-native-drop-refresh
+水果机
+https://github.com/atlanteh/react-native-slot-machine
+加减
 https://github.com/testshallpass/react-native-simple-stepper
+yarn add react-native-simple-stepper
+打字机效果
 https://github.com/ngothanhtai/react-native-auto-typing-text
+npm install --save react-native-auto-typing-text
+拖动喜欢不喜欢效果
 https://github.com/monterosalondon/react-native-elastic-stack
-https://github.com/valerybugakov/react-native-custom-actionsheet
 
-https://github.com/archriss/react-native-snap-carousel
-
-https://github.com/philipphecht/react-native-doc-viewer
-https://github.com/root-two/react-native-drawer
-
-https://github.com/jamesisaac/react-native-background-task
-https://github.com/ocetnik/react-native-background-timer
-
-https://github.com/wcandillon/react-native-img-cache
-
+FBSDK
 https://github.com/facebook/react-native-fbsdk
+GOOGLE
 https://github.com/devfd/react-native-google-signin
 
+工具
 https://github.com/brix/crypto-js
 https://github.com/ljharb/qs
 https://github.com/markdown-it/markdown-it
@@ -288,22 +605,27 @@ https://github.com/muan/emojilib
 https://github.com/feross/buffer
 https://github.com/axios/axios
 https://github.com/bgrins/TinyColor
-https://github.com/facebook/prop-types
 https://github.com/reactjs/reselect
 https://github.com/omnidan/node-emoji
 https://github.com/kelektiv/node-uuid
 https://github.com/sunnylqm/react-native-storage
 
+sqlite/db
+https://github.com/realm/realm-js
+https://github.com/almost/react-native-sqlite
+https://github.com/andpor/react-native-sqlite-storage
+
+redux
 https://github.com/reactjs/react-redux
 https://github.com/davezuko/react-redux-starter-kit
 https://github.com/markerikson/react-redux-links
 https://github.com/reactjs/reselect
 
+APP
 https://github.com/airbnb/react-sketchapp
 https://github.com/wwayne/react-native-nba-app
 https://github.com/gitpoint/git-point
 https://github.com/egm0121/splitcloud-app
-
 https://github.com/infinitered/ChainReactApp/blob/master/package.json
 
 npx create-react-app my-app
@@ -334,6 +656,7 @@ react-native-rename <newName>
 react-native-rename <newName> -b <bundleIdentifier>
 react-native-rename "Travel App" -b com.junedomingo.travelapp
 
+APP
 https://github.com/MarnoDev/react-native-open-project/blob/master/category/00_FullApp.md
 https://github.com/MarnoDev/react-native-eyepetizer
 https://github.com/crazycodeboy/GitHubPopular
@@ -368,88 +691,33 @@ https://github.com/VctrySam/game1
 https://github.com/VctrySam/Youtube
 https://github.com/VctrySam/Twitter
 https://github.com/VctrySam/FCBarca
-
-
-https://github.com/expo/expo
-https://github.com/react-native-training/react-native-elements-app
-https://github.com/react-navigation/react-navigation
-
-https://github.com/Monte9/react-native-ratings
-https://github.com/Monte9/react-native-parallax-scrollview
-https://github.com/yorkie/react-native-wechat
-https://github.com/redbooth/react-native-auto-updater
-https://github.com/corymsmith/react-native-icons
-https://github.com/andpor/react-native-sqlite-storage
-https://github.com/zmxv/react-native-sound
-https://github.com/FaridSafi/react-native-gifted-form
-https://github.com/animatedjs/animated
-https://github.com/oblador/react-native-image-progress
 https://github.com/lipeiwei-szu/ReactNativeOne
-https://github.com/DylanVann/react-native-fast-image
-https://github.com/alinz/react-native-webview-bridge
-https://github.com/EstebanFuentealba/react-native-share
-https://github.com/transistorsoft/react-native-background-geolocation
-
 https://github.com/attentiveness/reading
-https://github.com/stage88/react-weather
-https://github.com/wwayne/react-native-nba-app
 
-https://github.com/hcxiong/kittenTricks
-
+教程
 https://github.com/hcxiong/react-native-guide
 demo
-https://github.com/bigsui/shopping-react-native
-https://github.com/iSimar/HackerNews-React-Native
 https://github.com/FaridSafi/react-native-gifted-messenger
 https://github.com/FaridSafi/react-native-google-places-autocomplete
 https://github.com/chandu0101/sri
 https://github.com/martijnboland/reverb-dealfinder
 https://github.com/AndrewJack/react-native-weather
 https://github.com/xuxubin/Movies_React-Native
-https://github.com/catalinmiron/react-native-dribbble-app
-https://github.com/qddegtya/A-ReactNative-TesterHome
 https://github.com/Johnqing/miumiu
 https://github.com/shevawen/react-native-weather-app
 
-https://github.com/lwansbrough/react-native-camera
-https://github.com/johanneslumpe/react-native-keyboardevents
-https://github.com/brentvatne/react-native-modal
-https://github.com/brentvatne/react-native-login
-https://github.com/brentvatne/react-native-video
-https://github.com/brentvatne/react-native-linear-gradient
-https://github.com/brentvatne/react-native-overlay
-https://github.com/react-native-fellowship/react-native-blur
-https://github.com/react-native-fellowship/react-native-navbar
-https://github.com/jsdf/react-native-refreshable-listview
-https://github.com/jasonmerino/react-native-simple-store
-https://github.com/brentvatne/react-native-svg
-https://github.com/brentvatne/react-native-keyboard-spacer
-https://github.com/exponentjs/react-native-infinite-scroll-view
-https://github.com/exponentjs/react-native-refreshable-scroll-view
-https://github.com/react-native-fellowship/react-native-side-menu
-https://github.com/veddermatic/react-native-multipicker
-https://github.com/t4t5/react-native-router
-https://github.com/appintheair/react-native-looped-carousel
-https://github.com/nick/react-native-carousel
-https://github.com/siuying/react-native-htmltext
-https://github.com/appintheair/react-native-buyscreen
-https://github.com/lazaronixon/react-native-qrcode-reader
-https://github.com/exponentjs/react-native-invertible-scroll-view
-https://github.com/gcanti/tcomb-form-native
-https://github.com/NishanthShankar/react-native-android-statusbar
-https://github.com/GertjanReynaert/react-native-device
+https://github.com/expo/expo
+https://github.com/react-native-training/react-native-elements-app
 
-sqlite
-https://github.com/realm/realm-js
+评星
+https://github.com/Monte9/react-native-ratings
+自动更新
+https://github.com/redbooth/react-native-auto-updater
 
 tools
-https://github.com/roman01la/react-native-babel
 https://github.com/Shrugs/react-native-snippets
-https://github.com/almost/react-native-sqlite
 https://github.com/soliury/gulp-react-native-css
 
-https://github.com/Lobos/react-ui
-http://amazeui.org/react/components
 https://facebook.github.io/react-native/docs/animations.html
 
 http://react.rocks/
@@ -738,6 +1006,3 @@ https://evergreen.segment.com/components/
 
 https://github.com/akveo/kittenTricks
 https://github.com/FormidableLabs/victory-native
-
-动画
-https://github.com/react-native-community/lottie-react-native

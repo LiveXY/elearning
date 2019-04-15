@@ -740,3 +740,15 @@ document.body.appendChild(ifr);
 <input type=file accept="video/*">
 <input type=file accept="image/*">
 
+左边导航栏和右边分类内容都会滚动，这时设置整个页面和最外层view的样式为：
+page,.container{
+    height:100vh;
+}
+即设置整个页面为一屏的高度。
+
+内容超过一屏时，scroll-view产生滚动条，嗯，这严重影响美观，通过以下样式隐藏：
+::-webkit-scrollbar{
+  height: 0;
+  width: 0;
+  color: transparent;
+}

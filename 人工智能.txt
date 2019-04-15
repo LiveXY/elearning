@@ -1,3 +1,44 @@
+图片中文识别
+https://github.com/breezedeus/cnocr
+python3 scripts/cnocr_predict.py --file text.png
+文字处理
+https://github.com/hankcs/HanLP
+https://github.com/hankcs/pyhanlp
+分词
+hanlp segment <<< '欢迎新老师生前来就餐'
+句法分析
+hanlp parse <<< '欢迎新老师生前来就餐'
+关键词提取
+HanLP.extractKeyword('欢迎新老师生前来就餐', 2)
+自动摘要
+HanLP.extractSummary('欢迎新老师生前来就餐', 3)
+依存句法分析
+HanLP.parseDependency('欢迎新老师生前来就餐')
+语音识别
+https://github.com/nl8590687/ASRT_SpeechRecognition
+python3 asrserver.py
+
+文字转语音
+大声说一句：
+say {{"I like to ride my bike."}}
+大声朗读文件：
+say -f {{filename.txt}}
+播放自定义语音和语速的短语：
+say -v {{voice}} -r {{words_per_minute}} {{"I'm sorry Dave, I can't let you do that."}}
+列出可用的声音：
+say -v ?
+创建语音文本的音频文件：
+say -o {{filename.aiff}} {{"Here's to the Crazy Ones."}}
+
+清华大学自然语言处理
+https://github.com/thunlp/THULAC-Python
+python3 test.py
+python3 -m thulac input.txt output.txt
+结巴分词
+https://github.com/fxsjy/jieba
+处理中文文本内容
+https://github.com/isnowfy/snownlp
+
 Text-To-Speech
 ######
 多语言：
@@ -203,6 +244,8 @@ dataset/data_thchs30/test/*.wav
 dataset/ST-CMDS-20170001_1-OS/*.wav
 https://github.com/nl8590687/ASRT_SpeechRecognition/wiki
 
+https://github.com/apachecn/AiLearning
+https://feisky.xyz/machine-learning/
 自然语言处理 中文分词 词性标注 命名实体识别 依存句法分析 关键词提取 新词发现 短语提取 自动摘要 文本分类 拼音简繁 
 http://hanlp.com/
 https://github.com/hankcs/HanLP
@@ -213,15 +256,51 @@ hanlp --help
 hanlp segment <<< '欢迎新老师生前来就餐'
 hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。'
 https://github.com/fighting41love/cocoNLP
+
 https://github.com/PaddlePaddle/LARK/tree/develop/ERNIE
+pip3 install paddlepaddle
+https://mp.weixin.qq.com/s/nb3g1RV3fk2rm8a_v_ZUEA
+
+Synonyms 中文近义词工具包，可以用于自然语言理解的很多任务：文本对齐，推荐算法，相似度计算，语义偏移，关键字提取，概念提取，自动摘要，搜索引擎等
+https://github.com/huyingxi/Synonyms
+
+语言/知识表示工具
+https://github.com/PaddlePaddle/LARK
+
+句子、QA相似度匹配
+https://github.com/NTMC-Community/MatchZoo
 
 https://polyglot.readthedocs.io/en/latest/Installation.html
 https://github.com/aboSamoor/polyglot
 brew install polyglot
 pip3 install polyglot
 
+pyltp
+https://github.com/HIT-SCIR/pyltp
+https://mp.weixin.qq.com/s/gLzdYZVoegjAPmnMAUq19g
+pip3 install pyltp
+https://pyltp.readthedocs.io/zh_CN/develop/api.html
+
+反向传递: https://www.cnblogs.com/charlotte77/p/5629865.html
+CNN原理: http://www.cnblogs.com/charlotte77/p/7759802.html
+RNN原理: https://blog.csdn.net/qq_39422642/article/details/78676567
+LSTM深入浅出的好文: https://blog.csdn.net/roslei/article/details/61912618
+
 语音翻译 面对面翻译小程序
 https://github.com/Tencent/Face2FaceTranslator
+
+bert中文分类实践
+https://github.com/NLPScott/bert-Chinese-classification-task
+https://github.com/yuanxiaosc/BERT_Paper_Chinese_Translation
+https://github.com/terrifyzhao/bert-utils
+http://icrc.hitsz.edu.cn/info/1037/1162.htm
+
+经过预先训练的30多种语言的单词向量
+https://github.com/hcxiong/wordvectors
+人名、地址、邮箱、手机号、手机归属地 等信息的抽取，rake短语抽取算法。
+pip3 install cocoNLP
+清华大学XLORE:中英文跨语言百科知识图谱
+https://xlore.org/ttl/xlore.all.zip
 
 智能家居
 https://github.com/apanly/piRobot
@@ -422,7 +501,37 @@ phone国际手机、电话归属地查询 https://github.com/AfterShip/phone
 百度中文词法分析（分词+词性+专名）系统 https://github.com/baidu/lac
 https://github.com/baidu/AnyQ 百度FAQ自动问答系统
 https://github.com/baidu/Senta 百度情感识别系统
+Scattertext 文本可视化:https://github.com/JasonKessler/scattertext
+中文字符数据:https://github.com/skishore/makemeahanzi
+中文识别
+https://github.com/breezedeus/cnocr
+python3 scripts/cnocr_predict.py --file multi-line_cn1.png
+https://github.com/diaomin/crnn-mxnet-chinese-text-recognition
 
+语料
+https://github.com/codemayq/chaotbot_corpus_Chinese
+https://github.com/gunthercox/chatterbot-corpus
+https://github.com/MarkWuNLP/MultiTurnResponseSelection
+https://github.com/wb14123/couplet-dataset
+中文古诗自动作诗机器人
+https://github.com/jinfagang/tensorflow_poems
+python3 train.py
+python3 compose_poem.py
+python3 main.py -w poem --no-train
+
+基於向量匹配的情境式聊天機器人
+https://github.com/zake7749/Chatbot
+https://github.com/zake7749/PTT-Chat-Generator
+用于主题建模，文档索引 和大型语料库的相似性检索。目标受众是 自然语言处理（NLP）和信息检索（IR）社区。
+https://github.com/RaRe-Technologies/gensim
+PTT 八卦版問答中文語料
+https://github.com/zake7749/Gossiping-Chinese-Corpus
+
+处理中文文本内容
+https://github.com/isnowfy/snownlp
+文本相似度
+https://github.com/seatgeek/fuzzywuzzy
+https://github.com/sloria/TextBlob
 
 ocr
 http://apis.baidu.com/apistore/idlocr/ocr
@@ -866,6 +975,7 @@ https://github.com/MorvanZhou/tutorials
 http://sklearn.apachecn.org/cn/0.19.0/
 http://www.magedu.com/72257.html
 核心库
+https://github.com/scikit-image/scikit-image
 https://github.com/numpy/numpy
 https://github.com/scipy/scipy
 https://github.com/pandas-dev/pandas
@@ -889,6 +999,9 @@ http://sklearn.apachecn.org/cn/0.19.0/index.html
 https://github.com/keras-team/keras
 https://github.com/tensorflow/tensorflow
 https://www.tensorflow.org/install/
+https://github.com/pytorch/pytorch
+https://github.com/fastai/fastai
+https://github.com/apache/incubator-mxnet
 https://github.com/apache/incubator-mxnet
 https://github.com/Theano/Theano
 https://github.com/google-research/bert
@@ -907,6 +1020,7 @@ https://conda.io/miniconda.html
 
 自然语言处理 http://www.magedu.com/71122.html
 https://github.com/nltk/nltk
+训练中文詞向量
 https://github.com/RaRe-Technologies/gensim
 数据挖掘，统计学，爬虫
 https://github.com/scrapy/scrapy
@@ -933,6 +1047,9 @@ face_recognition --cpus 4 ./pictures_of_people_i_know/ ./unknown_pictures/
 
 人脸识别c++
 https://github.com/seetaface/SeetaFaceEngine
+
+自动识别
+https://github.com/nutonomy/nuscenes-devkit
 
 强化学习
 全新的基于 Tensorflow 的框架——Dopamine，旨在为 RL 研究人员提供灵活性、稳定性和可重复性
@@ -1086,4 +1203,141 @@ https://github.com/victordibia/handtracking
 
 姿势检测
 https://github.com/tensorflow/tfjs-models/tree/master/posenet
+
+用于从大规模图形结构数据生成嵌入的软件
+https://github.com/facebookresearch/PyTorch-BigGraph
+pip3 install torchbiggraph
+
+动漫人物图片自动修复，去马赛克，填补，去瑕疵
+https://github.com/youyuge34/Anime-InPainting
+https://github.com/knazeri/edge-connect
+http://places2.csail.mit.edu/download.html
+http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
+https://github.com/pathak22/context-encoder
+https://people.eecs.berkeley.edu/~pathak/context_encoder/
+
+微信机器人
+https://github.com/littlecodersh/ItChat
+https://itchat.readthedocs.io/zh/latest/
+https://github.com/youfou/wxpy
+https://wxpy.readthedocs.io/zh/latest/
+https://github.com/Urinx/WeixinBot
+https://github.com/node-webot/weixin-robot
+https://github.com/nodeWechat/wechat4u
+QQ机器人
+https://github.com/Yinzo/SmartQQBot
+逗音机器人
+https://github.com/wangshub/Douyin-Bot
+简单、灵活、优雅的中文语音对话机器人/智能音箱项目
+https://github.com/wzpan/wukong-robot
+https://wukong.hahack.com/#/install
+https://wukong.hahack.com/#/README
+聊天机器人，使用TensorFlow实现的Sequence to Sequence的聊天机器人模型
+https://github.com/zhaoyingjun/chatbot
+https://github.com/qhduan/Seq2Seq_Chatbot_QA
+机器人视觉 移动机器人 VS-SLAM ORB-SLAM2 深度学习目标检测 yolov3 行为检测 opencv PCL 机器学习 无人驾驶
+https://github.com/Ewenwan/MVision
+https://github.com/Ewenwan/AI-Security-Learning
+
+训练关键词
+https://github.com/kitt-ai/snowboy
+https://snowboy.kitt.ai/
+
+https://liuhuanyong.github.io/
+文本三元组抽取
+https://github.com/liuhuanyong/EventTriplesExtraction
+WordForm,针对中文词语的笔画拆解，偏旁查询，拼音转换接口
+https://github.com/liuhuanyong/ChineseCixing
+基于Textrank算法的文本摘要抽取与关键词抽取，基于TFIDF算法的关键词抽取
+https://github.com/liuhuanyong/KeyInfoExtraction
+事件三元组抽取
+https://github.com/liuhuanyong/EventTriplesExtraction
+
+医药领域知识图谱
+https://github.com/liuhuanyong/QASystemOnMedicalKG
+医疗领域知识图谱的问答系统
+https://github.com/zhihao-chen/QASystemOnMedicalGraph
+
+用于句子中时间词的抽取和转换
+https://github.com/zhanzecheng/Time_NLP
+100+ Chinese Word Vectors 上百种预训练中文词向量
+https://github.com/Embedding/Chinese-Word-Vectors
+最全中华古诗词数据库,  唐宋两朝近一万四千古诗人,  接近5.5万首唐诗加26万宋诗.  两宋时期1564位词人，21050首词。
+https://github.com/chinese-poetry/chinese-poetry
+csvSQL 可以让你通过SQL来查看csv文件数据
+https://github.com/jackeyGao/csvSQL
+https://github.com/alex/csv-sql
+古诗词语料库
+https://github.com/panhaiqi/AncientPoetry
+https://github.com/huangjianke/weapp-poem/
+简繁转换
+https://github.com/BYVoid/OpenCC
+brew install opencc
+opencc -i t2s.txt -o t2s.log -c t2s.json #繁體到簡體
+opencc -i s2t.txt -o s2t.log -c s2t.json #簡體到繁體
+s2t.json Simplified Chinese to Traditional Chinese 簡體到繁體
+t2s.json Traditional Chinese to Simplified Chinese 繁體到簡體
+s2tw.json Simplified Chinese to Traditional Chinese (Taiwan Standard) 簡體到臺灣正體
+tw2s.json Traditional Chinese (Taiwan Standard) to Simplified Chinese 臺灣正體到簡體
+s2hk.json Simplified Chinese to Traditional Chinese (Hong Kong Standard) 簡體到香港繁體（香港小學學習字詞表標準）
+hk2s.json Traditional Chinese (Hong Kong Standard) to Simplified Chinese 香港繁體（香港小學學習字詞表標準）到簡體
+s2twp.json Simplified Chinese to Traditional Chinese (Taiwan Standard) with Taiwanese idiom 簡體到繁體（臺灣正體標準）並轉換爲臺灣常用詞彙
+tw2sp.json Traditional Chinese (Taiwan Standard) to Simplified Chinese with Mainland Chinese idiom 繁體（臺灣正體標準）到簡體並轉換爲中國大陸常用詞彙
+t2tw.json Traditional Chinese (OpenCC Standard) to Taiwan Standard 繁體（OpenCC 標準）到臺灣正體
+t2hk.json Traditional Chinese (OpenCC Standard) to Hong Kong Standard 繁體（OpenCC 標準）到香港繁體（香港小學學習字詞表標準）
+在线工具
+https://github.com/jackeyGao/online_tools
+Convert your dayone journal to pdf book.
+https://github.com/jackeyGao/dayone2PDF
+一个测颜值的小程序，只为最美的你~
+https://github.com/zce/weapp-beauty/
+统计你的微信连接多少人，包括好友、群聊人数，并提供去重后的长图结果
+https://github.com/Bravest-Ptt/WxConn
+Scrapy抓取简书热门生成电子书发送到Kindle http://jackeygao.github.io/jianshuHot
+https://github.com/jackeyGao/jianshuHot
+Markdown
+https://github.com/joemccann/dillinger
+https://github.com/adam-p/markdown-here
+https://github.com/prettier/prettier
+https://github.com/knsv/mermaid
+https://github.com/GitbookIO/gitbook
+https://github.com/markedjs/marked
+https://github.com/jgm/pandoc
+https://github.com/benweet/stackedit
+https://github.com/BoostIO/Boostnote
+https://github.com/notable/notable
+https://github.com/marktext/marktext
+https://github.com/docsifyjs/docsify
+https://github.com/nhn/tui.editor
+正则工具
+https://github.com/gskinner/regexr/
+
+
+数据集
+http://www.ipcv.org/category/code-data/dataset/
+http://www.ifp.illinois.edu/~vuongle2/helen/
+http://www.robots.ox.ac.uk/~vgg/data/hands/index.html
+http://cogcomp.org/Data/Car/
+http://www.vision.caltech.edu/archive.html
+http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/
+http://vision.ics.uci.edu/datasets/
+http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/datasets/USA/
+https://engineering.purdue.edu/elab/eVDS/
+http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html
+http://image-net.org/download
+http://elderlab.yorku.ca/SOD/#download
+http://hlt.suda.edu.cn/index.php/Nlpcc-2019-shared-task
+https://voice.mozilla.org/en/datasets
+http://sighan.cs.uchicago.edu/bakeoff2005/
+https://dumps.wikimedia.org/zhwiki/
+https://dumps.wikimedia.org/zhwiki/20190401/zhwiki-20190401-pages-articles.xml.bz2
+
+http://kaldi-asr.org/models.html
+http://www.openslr.org/resources.php
+wget -c -t 0 http://www.openslr.org/resources/33/data_aishell.tgz
+axel -n 3 -av http://cn-mirror.openslr.org/resources/38/ST-CMDS-20170001_1-OS.tar.gz
+wget -c -t 0 http://119.28.8.46/data_aishell.tgz
+https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip
+
+
 

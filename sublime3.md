@@ -47,7 +47,7 @@ mac: brew install ctags
 	"product_key": "99e640-c9cf0b-4a2764-f641fa-984434"
 }
 ```
-* sublimelinter 错误语法
+* sublimelinter/SublimeLinter-eslint 错误语法
 * TrailingSpaces
 * theme - spacegray
 * Theme - Soda
@@ -97,7 +97,7 @@ lua.sublime-build
 ctrl + b 运行
 * Java​Script & Node​JS Snippets
 * AdvancedNewFile
-* TypeScript/Babel/React
+* TypeScript/Babel/React/ReactJS/react-native-snippets/react-native-css-snippets
 ###key
 ```
 —– BEGIN LICENSE —–
