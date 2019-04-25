@@ -136,7 +136,11 @@ SELECT concat('optimize table ', table_name, ';') FROM information_schema.tables
 ```
 select table_name,`engine`,table_rows,avg_row_length,data_length,index_length,table_collation from information_schema.tables where table_schema = 'dbname' order by table_rows desc;
 ```
-* 
+* 修改数据库表编码支持emoji表情
+```
+alter database xiaohun character set utf8mb4 collate utf8mb4_general_ci;
+alter table sys_user convert to character set utf8mb4 collate utf8mb4_general_ci;
+```
 * 
 * 
 * 

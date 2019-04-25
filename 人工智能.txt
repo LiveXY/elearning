@@ -1332,12 +1332,29 @@ http://sighan.cs.uchicago.edu/bakeoff2005/
 https://dumps.wikimedia.org/zhwiki/
 https://dumps.wikimedia.org/zhwiki/20190401/zhwiki-20190401-pages-articles.xml.bz2
 
+http://www.crowdhuman.org/download.html
+https://arxiv.org/abs/1805.00123
+
 http://kaldi-asr.org/models.html
 http://www.openslr.org/resources.php
 wget -c -t 0 http://www.openslr.org/resources/33/data_aishell.tgz
 axel -n 3 -av http://cn-mirror.openslr.org/resources/38/ST-CMDS-20170001_1-OS.tar.gz
 wget -c -t 0 http://119.28.8.46/data_aishell.tgz
 https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip
+
+
+https://linux.cn/article-10644-1.html
+https://www.raspbian.org/RaspbianFAQ
+https://www.raspberrypi.org/downloads/noobs/
+https://www.raspberrypi.org/documentation/installation/noobs.md
+https://www.raspberrypi.org/
+https://www.raspberrypi.org/products/
+
+https://opensource.com/article/17/3/logo-scratch-teach-programming-kids
+https://scratch.mit.edu/projects/editor/
+https://en.scratch-wiki.info/wiki/Scratch_2.0
+https://www.amazon.com/CanaKit-Raspberry-Starter-Premium-Black/dp/B07BCC8PK7/ref=pd_sim_14_5/139-8014457-4255447?_encoding=UTF8&pd_rd_i=B07BCC8PK7&pd_rd_r=88e72822-628a-11e9-b12e-253105b62179&pd_rd_w=5iOd5&pd_rd_wg=1rDxT&pf_rd_p=90485860-83e9-4fd9-b838-b28a9b7fda30&pf_rd_r=58ZZGY36WVQT3XC208V0&psc=1&refRID=58ZZGY36WVQT3XC208V0
+https://scratch.mit.edu/download/scratch2
 
 
 

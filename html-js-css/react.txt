@@ -189,12 +189,19 @@ https://github.com/brentvatne/react-native-video
 https://github.com/DylanVann/react-native-fast-image
 yarn add react-native-fast-image && react-native link react-native-fast-image
 
-照片浏览
+图片预览/照片浏览
 https://github.com/ascoders/react-native-image-viewer
 npm i react-native-image-zoom-viewer --save
 https://github.com/alwx/react-native-photo-view
 https://github.com/halilb/react-native-photo-browser
 https://github.com/merryjs/photo-viewer
+https://github.com/oblador/react-native-lightbox
+https://github.com/ascoders/react-native-image-zoom
+https://github.com/archriss/react-native-image-gallery
+https://github.com/Snapp-FidMe/react-native-photo-gallery
+https://github.com/anvilabs/react-native-image-carousel
+https://github.com/gre/gl-react-native-v2
+https://github.com/ladas-larry/react-native-responsive-image
 
 webview
 https://github.com/alinz/react-native-webview-bridge
@@ -560,15 +567,6 @@ https://github.com/jmurzy/react-native-foldview
 yarn add react-native-foldview
 https://github.com/prscX/react-native-shine-button
 
-图片预览
-https://github.com/oblador/react-native-lightbox
-https://github.com/ascoders/react-native-image-zoom
-https://github.com/archriss/react-native-image-gallery
-https://github.com/Snapp-FidMe/react-native-photo-gallery
-https://github.com/anvilabs/react-native-image-carousel
-https://github.com/gre/gl-react-native-v2
-https://github.com/ladas-larry/react-native-responsive-image
-
 飞行模式
 https://github.com/rgommezz/react-native-offline
 
@@ -578,7 +576,7 @@ https://github.com/iddan/react-native-canvas
 
 颜色选择
 https://github.com/netbeast/react-native-color-wheel
-拖到刷新
+拖动刷新
 https://github.com/react-native-china/react-native-drop-refresh
 水果机
 https://github.com/atlanteh/react-native-slot-machine

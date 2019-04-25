@@ -1440,4 +1440,22 @@ app.circle = function(selector) {
     background: -webkit-gradient(linear,left top,right bottom,color-stop(49.9%,#e4505d),color-stop(50.1%,transparent));
     background: linear-gradient(to right bottom,#e4505d 49.9%,transparent 50.1%);
 
+上下渐变2总色
+background: -webkit-linear-gradient(top,#ffffff 50%,#41c2a8 50%);
+background: linear-gradient(top,#ffffff 50%,#41c2a8 50%);
+
+position模式左右居中
+max-width: 480px; left: 50%; transform: translateX(-50%);
+
+漂亮的渐变色
+background-image: linear-gradient(45deg, #6d1386 0%, #3a2099 100%);
+background-image: linear-gradient(153deg, #3be2bc 0%, #1b96f1 95%);
+background-image: linear-gradient(153deg, #e64c4c 0%, #ef32fb 95%);
+background-image: linear-gradient(153deg, #ef33f2 0%, #3544dc 95%);
+background-image: linear-gradient(153deg, #8adc32 0%, #25c7a2 95%);
+background-image: linear-gradient(153deg, #e64c4c 0%, #fb8332 95%);
+background-image: linear-gradient(153deg, #fb8332 0%, #f8c332 95%);
+background-image: linear-gradient(153deg, #f5515f 0%, #9f046c 95%);
+background-image: linear-gradient(153deg, #8e2ef7 0%, #61dec7 95%);
+
 
