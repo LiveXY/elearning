@@ -51,3 +51,13 @@ aria2c --http-user=xxx --http-password=xxx https://download.owncloud.org/communi
 aria2c --ftp-user=xxx --ftp-password=xxx ftp://ftp.gnu.org/gnu/wget/wget-1.17.tar.gz
 ```
 
+httpie
+=======
+```
+yum install httpie
+http domain.com
+http --download https://www.domain.com/1.txt
+http --download https://www.domain.com/1.txt -o 2.txt
+#续传
+http --download --continue https://www.domain.com/1.txt -o 2.txt
+```

@@ -115,6 +115,15 @@ https://github.com/qingdie/qingdie-aliyun
 https://dysmsapi.aliyuncs.com/ #短信验证码
 https://dyvmsapi.aliyuncs.com/ #语音验证码
 
+https://github.com/kerlomz/captcha_trainer
+https://github.com/kerlomz/captcha_library_c
+https://github.com/kerlomz/captcha_demo_csharp
+https://github.com/kerlomz/captcha_platform
+https://mp.weixin.qq.com/s/6IAEus9OTg-hP9NGKJRm_Q
+
+机器学习
+https://github.com/eriklindernoren/ML-From-Scratch
+
 手机短信验证码语音验证码话费充值流量充值
 https://github.com/gitchenze/panguPhone
 http://www.miaodiyun.com/
@@ -260,6 +269,43 @@ https://github.com/fighting41love/cocoNLP
 https://github.com/PaddlePaddle/LARK/tree/develop/ERNIE
 pip3 install paddlepaddle
 https://mp.weixin.qq.com/s/nb3g1RV3fk2rm8a_v_ZUEA
+https://mp.weixin.qq.com/s/osfV54FRU1vw5c4CZuSR1A
+https://github.com/PaddlePaddle/book
+http://www.paddlepaddle.org/documentation/docs/zh/1.2/beginners_guide/quick_start/index.html
+
+https://github.com/explosion/spaCy
+
+https://github.com/visipedia/iwildcam_comp
+https://github.com/visipedia/inat_comp
+https://github.com/macaodha/inat_comp_2018
+https://github.com/Microsoft/AirSim
+https://www.microsoft.com/en-us/ai/ai-for-earth?activetab=pivot1%3aprimaryr6
+http://cocodataset.org/#download
+https://hackaday.io/project/159737-spectra-open-biomedical-imaging
+
+人工智能开发平台
+https://github.com/ifeegoo/Prometheus
+https://github.com/huanghe/ai
+https://mp.weixin.qq.com/s/-y_01EBYVxiCwLddCvyFfg
+https://github.com/intel-analytics/analytics-zoo
+https://analytics-zoo.github.io/0.4.0/
+
+以太坊智能合约+DApp 工作流实战案例：抽奖程序
+https://github.com/wangshijun/ethereum-lottery-dapp
+https://infura.io/project/08ed39a60be74cd78974ecfed000fe6f
+https://infura.io/docs/gettingStarted/authentication
+npm install wscat -g
+wscat -c wss://mainnet.infura.io/ws/v3/08ed39a60be74cd78974ecfed000ff
+> {"jsonrpc": "2.0", "id": 1, "method": "eth_blockNumber", "params": []}
+
+npm install -g solc truffle ganache-cli
+https://github.com/trufflesuite/ganache-cli
+https://truffleframework.com/ganache
+https://github.com/wangzukun/truffle4-demo
+truffle init
+
+推荐
+https://mp.weixin.qq.com/s/E6EH6aJjzTwN2UZf_4nwoA
 
 Synonyms 中文近义词工具包，可以用于自然语言理解的很多任务：文本对齐，推荐算法，相似度计算，语义偏移，关键字提取，概念提取，自动摘要，搜索引擎等
 https://github.com/huyingxi/Synonyms
@@ -467,6 +513,7 @@ pip install hyperlpr
 
 一款入门级的人脸、视频、文字检测以及识别的项目.
 https://github.com/vipstone/faceai
+https://github.com/bairdzhang/smallhardface
 
 pip3 install dlib
 训练模型用于是人脸识别的关键，用于查找图片的关键点。
@@ -1235,9 +1282,38 @@ https://wukong.hahack.com/#/README
 聊天机器人，使用TensorFlow实现的Sequence to Sequence的聊天机器人模型
 https://github.com/zhaoyingjun/chatbot
 https://github.com/qhduan/Seq2Seq_Chatbot_QA
+https://github.com/dingdang-robot/dingdang-robot
+https://github.com/RasaHQ/rasa_core
+https://github.com/RasaHQ/rasa
+https://github.com/littleredhat1997/chatbot-aiml-webqa
 机器人视觉 移动机器人 VS-SLAM ORB-SLAM2 深度学习目标检测 yolov3 行为检测 opencv PCL 机器学习 无人驾驶
 https://github.com/Ewenwan/MVision
 https://github.com/Ewenwan/AI-Security-Learning
+自动驾驶
+https://github.com/carla-simulator/carla
+https://github.com/commaai/openpilot
+https://comma.ai/
+https://github.com/jeankalud/neo/tree/tesla_giraffe/giraffe/tesla
+https://github.com/commaai/neo
+https://github.com/commaai/openpilot-tools
+https://github.com/ApolloAuto/apollo
+https://github.com/autonomousdrivingkr/Awesome-Autonomous-Driving
+https://github.com/sidroopdaska/SelfDrivingRCCar
+https://github.com/daviddao/deep-autonomous-driving-papers
+https://github.com/sagar448/Self-Driving-Car-3D-Simulator-With-CNN
+https://github.com/aleju/self-driving-truck
+https://github.com/Microsoft/AirSim
+https://github.com/wwoody827/cvpr-2018-autonomous-driving-autopilot-solution
+https://github.com/HadXu/auto-drive
+
+阿波罗指导计算机 - 或简称为“AGC”
+https://github.com/virtualagc/virtualagc
+http://www.ibiblio.org/apollo/
+
+强化学习
+https://github.com/rll/rllab
+https://github.com/keras-rl/keras-rl
+https://github.com/dennybritz/reinforcement-learning
 
 训练关键词
 https://github.com/kitt-ai/snowboy
@@ -1331,6 +1407,19 @@ https://voice.mozilla.org/en/datasets
 http://sighan.cs.uchicago.edu/bakeoff2005/
 https://dumps.wikimedia.org/zhwiki/
 https://dumps.wikimedia.org/zhwiki/20190401/zhwiki-20190401-pages-articles.xml.bz2
+http://shannon.cs.illinois.edu/DenotationGraph/
+http://cocodataset.org/#overview
+http://sidgan.me/technical/2016/01/09/Exploring-Datasets
+http://www.statmt.org/europarl/
+https://www.isi.edu/natural-language/download/hansard/
+http://www.statmt.org/
+
+https://rajpurkar.github.io/SQuAD-explorer/
+https://github.com/deepmind/rc-data
+http://jmcauley.ucsd.edu/data/amazon/qa/
+http://voxforge.org/
+http://www.openslr.org/12/
+https://catalog.ldc.upenn.edu/LDC93S1
 
 http://www.crowdhuman.org/download.html
 https://arxiv.org/abs/1805.00123
@@ -1350,11 +1439,101 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 https://www.raspberrypi.org/
 https://www.raspberrypi.org/products/
 
+
+SVG
+https://github.com/Kozea/pygal
+https://mp.weixin.qq.com/s/qHQ2Rd4X7hZpZTZUMJXC7w
+
+视觉库
+https://github.com/pytorch/vision
+https://github.com/chainer/chainercv
+https://github.com/kuangliu/torchcv
+http://host.robots.ox.ac.uk:8080/leaderboard/displaylb.php?challengeid=11&compid=3#KEY_FPNSSD
+https://github.com/python-pillow/Pillow
+https://github.com/uploadcare/pillow-simd
+https://github.com/pytorch/accimage
+https://python-pillow.org/pillow-perf/
+https://github.com/chainer/chainer
+https://github.com/mitmul/chainer-faster-rcnn
+https://github.com/rbgirshick/py-faster-rcnn
+https://github.com/ShaoqingRen/faster_rcnn
+https://keras.io/applications/
+https://github.com/keras-rl/keras-rl
+https://github.com/OlafenwaMoses/ImageAI
+https://github.com/OlafenwaMoses/IntelliP
+
+模型（model）：计算机层面的认知
+学习算法（learning algorithm），从数据中产生模型的方法
+数据集（data set）：一组记录的合集
+示例（instance）：对于某个对象的描述
+样本（sample）：也叫示例
+属性（attribute）：对象的某方面表现或特征
+特征（feature）：同属性
+属性值（attribute value）：属性上的取值
+属性空间（attribute space）：属性张成的空间
+样本空间/输入空间（samplespace）：同属性空间
+特征向量（feature vector）：在属性空间里每个点对应一个坐标向量，把一个示例称作特征向量
+维数（dimensionality）：描述样本参数的个数（也就是空间是几维的）
+学习（learning）/训练（training）：从数据中学得模型
+训练数据（training data）：训练过程中用到的数据
+训练样本（training sample）:训练用到的每个样本
+训练集（training set）：训练样本组成的集合
+假设（hypothesis）：学习模型对应了关于数据的某种潜在规则
+真相（ground-truth）:真正存在的潜在规律
+学习器（learner）：模型的另一种叫法，把学习算法在给定数据和参数空间的实例化
+预测（prediction）：判断一个东西的属性
+标记（label）：关于示例的结果信息，比如我是一个“好人”。
+样例（example）：拥有标记的示例
+标记空间/输出空间（label space）：所有标记的集合
+分类（classification）：预测是离散值，比如把人分为好人和坏人之类的学习任务
+回归（regression）：预测值是连续值，比如你的好人程度达到了0.9，0.6之类的
+二分类（binary classification）：只涉及两个类别的分类任务
+正类（positive class）：二分类里的一个
+反类（negative class）：二分类里的另外一个
+多分类（multi-class classification）：涉及多个类别的分类
+测试（testing）：学习到模型之后对样本进行预测的过程
+测试样本（testing sample）：被预测的样本
+聚类（clustering）：把训练集中的对象分为若干组
+簇（cluster）：每一个组叫簇
+监督学习（supervised learning）：典范--分类和回归
+无监督学习（unsupervised learning）：典范--聚类
+未见示例（unseen instance）：“新样本“，没训练过的样本
+泛化（generalization）能力：学得的模型适用于新样本的能力
+分布（distribution）：样本空间的全体样本服从的一种规律
+独立同分布（independent and identically distributed，简称i,i,d.）:获得的每个样本都是独立地从这个分布上采样获得的。
+
+儿童学习
+https://projects.raspberrypi.org/en/codeclub
+https://projects.raspberrypi.org/en/projects
+https://scratch.mit.edu/
+https://scratch.mit.edu/download
+https://scratch.mit.edu/projects/editor/?tutorial=getStarted
+https://github.com/backups123/Scratch-Project-Editor-With-Flash-Builder
+https://github.com/LLK/scratch-flash
+http://scratch.codepku.com/editor
+http://www.kidsprogram.com.cn/home/kp/KidsProgram.html
+https://www.tynker.com/ide/
+https://github.com/yst199324/scratch
+https://github.com/ustczhangyang/Programming-education-website
+https://github.com/sdu75/scratch
+
 https://opensource.com/article/17/3/logo-scratch-teach-programming-kids
 https://scratch.mit.edu/projects/editor/
 https://en.scratch-wiki.info/wiki/Scratch_2.0
 https://www.amazon.com/CanaKit-Raspberry-Starter-Premium-Black/dp/B07BCC8PK7/ref=pd_sim_14_5/139-8014457-4255447?_encoding=UTF8&pd_rd_i=B07BCC8PK7&pd_rd_r=88e72822-628a-11e9-b12e-253105b62179&pd_rd_w=5iOd5&pd_rd_wg=1rDxT&pf_rd_p=90485860-83e9-4fd9-b838-b28a9b7fda30&pf_rd_r=58ZZGY36WVQT3XC208V0&psc=1&refRID=58ZZGY36WVQT3XC208V0
 https://scratch.mit.edu/download/scratch2
 
-
-
+PaddleHub是基于PaddlePaddle开发的预训练模型管理工具，可以借助预训练模型更便捷地开展迁移学习工作。
+https://github.com/PaddlePaddle/PaddleHub
+https://github.com/PaddlePaddle/PaddleHub/wiki/PaddleHub%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7
+pip3 install paddlehub
+# 使用百度LAC词法分析工具进行分词
+$ hub run lac --input_text "今天是个好日子"
+# 使用百度Senta情感分析模型对句子进行预测
+$ hub run senta_bilstm --input_text "今天是个好日子"
+# 使用SSD检测模型对图片进行目标检测，检测结果如下图所示
+$ wget --no-check-certificate https://paddlehub.bj.bcebos.com/resources/test_img_bird.jpg
+$ hub run ssd_mobilenet_v1_pascal --input_path test_img_bird.jpg
+想了解更多PaddleHub已经发布的模型，请使用hub search命令查看所有已发布的模型。
+$ hub search
+模型：lac/senta/ssd/bert/ernie/resnet/mobilenet/nasnet

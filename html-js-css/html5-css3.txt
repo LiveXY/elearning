@@ -995,9 +995,6 @@ font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragin
 显示...
 overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 
-倾斜效果：transform:skewY(-2deg);
-https://www.gitbook.com/
-
 转圈圈效果：
 @keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 @-moz-keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
@@ -1458,4 +1455,31 @@ background-image: linear-gradient(153deg, #fb8332 0%, #f8c332 95%);
 background-image: linear-gradient(153deg, #f5515f 0%, #9f046c 95%);
 background-image: linear-gradient(153deg, #8e2ef7 0%, #61dec7 95%);
 
+斜线块非长方形（斜线背景）
+<div class="n-header-horizontal__shape"></div>
+.n-header-horizontal__shape:before {
+    display: block;
+    content: '';
+    width: 100%;
+    background-color: #422498;
+    position: relative;
+    height: 135px;
+}
+.n-header-horizontal__shape:after {
+    position: relative;
+    display: block;
+    box-sizing: padding-box;
+    width: 0;
+    height: 0;
+    content: '';
+    border-width: 40px 50vw;
+    border-style: solid;
+    border-color: #422498 transparent transparent #422498;
+}
+
+倾斜效果：transform:skewY(-2deg);
+https://www.gitbook.com/
+-webkit-transform: skew(0deg, -2deg);
+    -ms-transform: skew(0deg, -2deg);
+    transform: skew(0deg, -2deg);
 

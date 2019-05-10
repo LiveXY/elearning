@@ -637,3 +637,8 @@ WHISPER实验选项
 
 其他选项
 –help, -h    这个我们经常使用的展示帮助信息，即以上命令及详情介绍
+
+
+https://github.com/cryptocopycats/awesome-cryptokitties
+https://github.com/dapperlabs/cryptokitties-bounty
+https://github.com/HaJaeKyung/KittyExtension

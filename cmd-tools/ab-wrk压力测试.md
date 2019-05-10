@@ -52,3 +52,7 @@ ab测试结果分析：
 * Transfer rate:		//平均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题
 * Connection Times (ms) //网络上消耗的时间
 * Percentage of the requests served within a certain time (ms)//整个场景中所有请求的响应情况。
+
+wrk HTTP压力测试
+=======
+`wrk -t16 -c100 -d30s http://127.0.0.1:8080/rest/hello` 16个线程，进行并发100,持续30秒的测试
