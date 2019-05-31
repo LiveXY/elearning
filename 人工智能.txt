@@ -4,6 +4,7 @@ python3 scripts/cnocr_predict.py --file text.png
 文字处理
 https://github.com/hankcs/HanLP
 https://github.com/hankcs/pyhanlp
+https://github.com/ownthink/Jiagu
 分词
 hanlp segment <<< '欢迎新老师生前来就餐'
 句法分析
@@ -265,6 +266,8 @@ hanlp --help
 hanlp segment <<< '欢迎新老师生前来就餐'
 hanlp parse <<< '徐先生还具体帮助他确定了把画雄鹰、松鼠和麻雀作为主攻目标。'
 https://github.com/fighting41love/cocoNLP
+
+https://github.com/ownthink/Jiagu
 
 https://github.com/PaddlePaddle/LARK/tree/develop/ERNIE
 pip3 install paddlepaddle
@@ -655,6 +658,10 @@ https://github.com/isee15/Card-Ocr
 基于caffe的LSTM OCR案例，能够利用该案例完成序列的识别，包括验证码、车牌、身份证号码、地址等长序列动长的内容识别
 https://github.com/dlunion/CaffeLSTM-OCR
 
+物体识别
+https://github.com/open-mmlab/mmdetection
+https://github.com/HRNet/HRNet-Object-Detection
+
 CTC可以被用来训练端对端的语音识别系统
 https://github.com/baidu-research/warp-ctc
 git clone https://github.com/baidu-research/warp-ctc.git
@@ -997,6 +1004,7 @@ pip3 install -e .
 https://github.com/ansible/ansible
 并由 Facebook 作为其机器学习的框架发布由强 GPU 支持的加速张量计算（如 NumPy ），其深度神经网络是建立在基于磁盘的 autograd 包上
 https://github.com/pytorch/pytorch
+https://github.com/alibaba/MNN
 创新开发深度学习和强化学习的算法以用于生成歌曲、图像、绘图和其他素材
 https://github.com/tensorflow/magenta
 https://github.com/tensorflow/magenta-demos
@@ -1273,6 +1281,9 @@ https://github.com/node-webot/weixin-robot
 https://github.com/nodeWechat/wechat4u
 QQ机器人
 https://github.com/Yinzo/SmartQQBot
+https://github.com/newbe36524/Newbe.Mahua.Framework
+http://www.newbe.pro/2019/01/25/Newbe.Mahua/Start-With-Mahua-In-V2.0/
+http://www.newbe.pro/
 逗音机器人
 https://github.com/wangshub/Douyin-Bot
 简单、灵活、优雅的中文语音对话机器人/智能音箱项目
@@ -1431,15 +1442,6 @@ axel -n 3 -av http://cn-mirror.openslr.org/resources/38/ST-CMDS-20170001_1-OS.ta
 wget -c -t 0 http://119.28.8.46/data_aishell.tgz
 https://storage.googleapis.com/bert_models/2018_11_03/chinese_L-12_H-768_A-12.zip
 
-
-https://linux.cn/article-10644-1.html
-https://www.raspbian.org/RaspbianFAQ
-https://www.raspberrypi.org/downloads/noobs/
-https://www.raspberrypi.org/documentation/installation/noobs.md
-https://www.raspberrypi.org/
-https://www.raspberrypi.org/products/
-
-
 SVG
 https://github.com/Kozea/pygal
 https://mp.weixin.qq.com/s/qHQ2Rd4X7hZpZTZUMJXC7w
@@ -1523,6 +1525,16 @@ https://en.scratch-wiki.info/wiki/Scratch_2.0
 https://www.amazon.com/CanaKit-Raspberry-Starter-Premium-Black/dp/B07BCC8PK7/ref=pd_sim_14_5/139-8014457-4255447?_encoding=UTF8&pd_rd_i=B07BCC8PK7&pd_rd_r=88e72822-628a-11e9-b12e-253105b62179&pd_rd_w=5iOd5&pd_rd_wg=1rDxT&pf_rd_p=90485860-83e9-4fd9-b838-b28a9b7fda30&pf_rd_r=58ZZGY36WVQT3XC208V0&psc=1&refRID=58ZZGY36WVQT3XC208V0
 https://scratch.mit.edu/download/scratch2
 
+https://mp.weixin.qq.com/s/XZft9e5WH6zR3O7f8jc0UQ
+https://linux.cn/article-10644-1.html
+https://www.raspbian.org/RaspbianFAQ
+https://www.raspberrypi.org/downloads/noobs/
+https://www.raspberrypi.org/documentation/installation/noobs.md
+https://www.raspberrypi.org/
+https://www.raspberrypi.org/products/
+
+https://github.com/Drewsif/PiShrink
+
 PaddleHub是基于PaddlePaddle开发的预训练模型管理工具，可以借助预训练模型更便捷地开展迁移学习工作。
 https://github.com/PaddlePaddle/PaddleHub
 https://github.com/PaddlePaddle/PaddleHub/wiki/PaddleHub%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7
@@ -1537,3 +1549,4 @@ $ hub run ssd_mobilenet_v1_pascal --input_path test_img_bird.jpg
 想了解更多PaddleHub已经发布的模型，请使用hub search命令查看所有已发布的模型。
 $ hub search
 模型：lac/senta/ssd/bert/ernie/resnet/mobilenet/nasnet
+

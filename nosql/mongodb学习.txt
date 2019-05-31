@@ -19,7 +19,8 @@ rm /var/lib/mongo/ -rf
 vi /etc/mongod.conf
 远程访问：把bindIP改成 0.0.0.0所有的机器都可以访问，或者注释掉
 
-nohup mongod --auth --port 27017 --dbpath /home/mongo &
+nohup mongod --auth --port 27017 --maxConns 20000 --dbpath /home/mongo &
+db.serverStatus().connections 查看链接数
 
 systemctl start mongod.service #启动
 systemctl stop mongod.service #停止

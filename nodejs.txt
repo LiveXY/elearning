@@ -135,3 +135,14 @@ source-map-explorer foo.min.js --replace 'dist/' --with ''
 
 npm install -g bundle-buddy
 bundle-buddy my-app/public/*.map
+
+npm install svg2uwptiles -g
+svg2uwptiles
+svg2uwptiles -i myIcon.svg
+svg2uwptiles -i myIcon.svg -o "c:\assets"
+https://docs.microsoft.com/zh-cn/windows/uwp/design/style/app-icons-and-logos
+
+npm install -g electron-icon-maker
+electron-icon-maker --input=/absolute/path/file.png --output=./relative/path/to/folder
+./node_modules/.bin/electron-icon-maker --input=/absolute/path/file.png --output=./relative/path/to/folder
+

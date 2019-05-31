@@ -16,3 +16,508 @@ brew unlink solidity
 # Install 0.4.8
 brew install https://raw.githubusercontent.com/ethereum/homebrew-ethereum/77cce03da9f289e5a3ffe579840d3c5dc0a62717/solidity.rb
 
+
+
+Truffle
+http://truffle.tryblockchain.org/
+1,安装Solidity的开发框架Truffle
+npm install -g truffle
+2,创建并初始化项目
+mkdir dapp
+cd dapp
+truffle init
+contracts目录下存放合约文件，
+migrations下存放迁移部署脚本，
+test目录下存放测试文件，
+truffle.js和truffle-config.js为Truffle配置文件
+MetaCoin是一个简单的代币应用，以此为例
+mkdir metacoin
+cd metacoin
+truffle unbox metacoin
+contracts目录下存放合约文件
+其中Migrations.sol合约较为特殊，会在项目初始化的时候被创建，是Truffle框架里必须的文件，你运行的迁移历史记录会被他记录在区块链上。
+migrations下存放迁移部署脚本，用来帮助你把合约发布到以太坊网络中。
+test目录下存放测试脚本。Truffle内置自动化测试框架，让我们可以方便的测试自己的合约。该框架允许我们以两种不同的方式编写测试用例：1，使用Javascript编写测试用例，测试从外部执行合约  2，使用Solidity编写测试用例，测试从内部调用合约。
+truffle.js和truffle-config.js为Truffle配置文件，配置了运行网络等相关信息。
+合约Migrations.sol
+https://www.jianshu.com/p/f2cae0b1ff45
+block.blockhash(uint blockNumber) returns (bytes32)：指定区块的区块哈希——仅可用于最新的 256 个区块且不包括当前区块；而 blocks 从 0.4.22 版本开始已经不推荐使用，由 blockhash(uint blockNumber) 代替
+block.coinbase (address): 挖出当前区块的矿工地址
+block.difficulty (uint): 当前区块难度
+block.gaslimit (uint): 当前区块 gas 限额
+block.number (uint): 当前区块号
+block.timestamp (uint): 自 unix epoch 起始当前区块以秒计的时间戳
+gasleft() returns (uint256)：剩余的 gas
+msg.data (bytes): 完整的 calldata
+msg.gas (uint): 剩余 gas - 自 0.4.21 版本开始已经不推荐使用，由 gesleft() 代替
+msg.sender (address): 消息发送者（当前调用）
+msg.sig (bytes4): calldata 的前 4 字节（也就是函数标识符）
+msg.value (uint): 随消息发送的 wei 的数量
+now (uint): 目前区块时间戳（block.timestamp）
+tx.gasprice (uint): 交易的 gas 价格
+tx.origin (address): 交易发起者（完全的调用链）
+合约MetaCoin.sol
+库ConvertLib.sol
+该库提供了convert函数转换MetaCoin和ETH，一个MetaCoin值conversionRate个ETH。
+3,启动以太坊客户端
+本地开发可以使用Canache、Ethereumjs-testrpc、或者truffle自带的Truffle Develop。
+主网部署时使用Geth
+npm install -g ethereumjs-testrpc
+testrpc
+4,编译部署合约
+编辑配置文件truffle.js，保证配置文件中指定网络和你运行的网络一致。
+这里要注意的是：Ganache默认运行在7545端口，Ethereumjs-testrpc 默认运行在8545端口，Truffle Develop 默认运行在9545端口
+使用truffle compile命令编译，生成build文件夹
+truffle compile
+部署合约
+truffle migrate
+测试合约
+truffle test
+truffle console
+
+truffle unbox webpack
+truffle compile
+查看truffle.js可以看到webpack默认指定的网络是ganache
+https://truffleframework.com/ganache 下载
+部署合约到ganache
+truffle migrate --network ganache
+把服务运行起来
+npm run dev
+打开网页可以通过前端转账
+
+源码编译安装 太坊客户端
+git clone https://github.com/ethereum/go-ethereum.git
+cd go-ethereum
+make geth
+在以太坊公有链上运行一个全节点
+geth --fast --cache=512 --datadir "/home/zhujiantao/eth/net" console
+在以太坊测试网络上运行一个全节点
+geth --testnet --fast --cache=512 --datadir "/home/zhujiantao/eth/testnet" console
+
+以太坊私有链的搭建和运行
+新建工作目录并创建创世区块配置文件
+$ mkdir private-geth
+$ cd private-geth/
+$ gedit gensis.json
+{
+    "config": {
+        "chainId": 10,
+        "homesteadBlock": 0,
+        "eip155Block": 0,
+        "eip158Block": 0
+    },
+    "coinbase" : "0x0000000000000000000000000000000000000000",
+    "difficulty" : "0x66",
+    "extraData" : "",
+    "gasLimit" : "0xffffffff",
+    "nonce" : "0x0000000000000001",
+    "mixhash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "parentHash" : "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "timestamp" : "0x00",
+    "alloc" : {}
+}
+其中chainId指定了独立的区块链网络ID。网络ID在链接到其他节点的时候会用到，以太坊公网的网络ID是1，为了不与公有链网络冲突，要指定自己的网络ID。不同ID网络的节点无法相互连接。
+初始化
+$ geth --datadir "./db" init gensis.json
+再看工作目录，生成了keystore和geth目录，其中，chaindata存放区块数据，keystore存放账户数据
+启动节点
+$ geth --datadir "./db" --networkid 10 console
+进入JavaScript控制台
+通过attach命令，连接一个已经启动的节点，启动Js命令环境
+$ geth --datadir './db' attach ipc:./db/geth.ipc
+在以太坊的JavaScript控制台中内置了一些对象，通过这些对象我们可以方便地与以太坊交互，
+eth：提供操作区块链相关方法
+> eth
+{
+  accounts: [],
+  blockNumber: 0,
+  coinbase: undefined,
+  compile: {
+    lll: function(),
+    serpent: function(),
+    solidity: function()
+  },
+  defaultAccount: undefined,
+  defaultBlock: "latest",
+  gasPrice: 18000000000,
+  hashrate: 0,
+  mining: false,
+  pendingTransactions: [],
+  protocolVersion: "0x3f",
+  syncing: false,
+  call: function(),
+  contract: function(abi),
+  estimateGas: function(),
+  filter: function(options, callback, filterCreationErrorCallback),
+  getAccounts: function(callback),
+  getBalance: function(),
+  getBlock: function(),
+  getBlockNumber: function(callback),
+  getBlockTransactionCount: function(),
+  getBlockUncleCount: function(),
+  getCode: function(),
+  getCoinbase: function(callback),
+  getCompilers: function(),
+  getGasPrice: function(callback),
+  getHashrate: function(callback),
+  getMining: function(callback),
+  getPendingTransactions: function(callback),
+  getProtocolVersion: function(callback),
+  getRawTransaction: function(),
+  getRawTransactionFromBlock: function(),
+  getStorageAt: function(),
+  getSyncing: function(callback),
+  getTransaction: function(),
+  getTransactionCount: function(),
+  getTransactionFromBlock: function(),
+  getTransactionReceipt: function(),
+  getUncle: function(),
+  getWork: function(),
+  iban: function(iban),
+  icapNamereg: function(),
+  isSyncing: function(callback),
+  namereg: function(),
+  resend: function(),
+  sendIBANTransaction: function(),
+  sendRawTransaction: function(),
+  sendTransaction: function(),
+  sign: function(),
+  signTransaction: function(),
+  submitTransaction: function(),
+  submitWork: function()
+}
+net：提供查看p2p网络相关方法
+> net
+{
+  listening: true,
+  peerCount: 0,
+  version: "10",
+  getListening: function(callback),
+  getPeerCount: function(callback),
+  getVersion: function(callback)
+}
+
+admin：提供管理节点相关方法
+> admin
+{
+  datadir: "/home/zhujiantao/eth/private-geth/db",
+  nodeInfo: {
+    enode: "enode://1b034b641239a715e68806251af559208d254f9dc7c11bbb1457065db1b7a8f6f909de24da2a091809af262e99895c8a276d467eb939f56bdcdd05b4089a5e5f@[::]:30303",
+    id: "1b034b641239a715e68806251af559208d254f9dc7c11bbb1457065db1b7a8f6f909de24da2a091809af262e99895c8a276d467eb939f56bdcdd05b4089a5e5f",
+    ip: "::",
+    listenAddr: "[::]:30303",
+    name: "Geth/v1.8.12-stable-37685930/linux-amd64/go1.10.1",
+    ports: {
+      discovery: 30303,
+      listener: 30303
+    },
+    protocols: {
+      eth: {
+        config: {...},
+        difficulty: 102,
+        genesis: "0x559187669a7294b8d661a88bc6dca0ba8cd318263facbe01df17093d21b6e99d",
+        head: "0x559187669a7294b8d661a88bc6dca0ba8cd318263facbe01df17093d21b6e99d",
+        network: 10
+      }
+    }
+  },
+  peers: [],
+  addPeer: function(),
+  clearHistory: function(),
+  exportChain: function(),
+  getDatadir: function(callback),
+  getNodeInfo: function(callback),
+  getPeers: function(callback),
+  importChain: function(),
+  removePeer: function(),
+  sleep: function github.com/ethereum/go-ethereum/console.(*bridge).Sleep-fm(),
+  sleepBlocks: function github.com/ethereum/go-ethereum/console.(*bridge).SleepBlocks-fm(),
+  startRPC: function(),
+  startWS: function(),
+  stopRPC: function(),
+  stopWS: function()
+}
+
+miner：提供启动和停止挖矿方法
+> miner
+{
+  getHashrate: function(),
+  setEtherbase: function(),
+  setExtra: function(),
+  setGasPrice: function(),
+  start: function(),
+  stop: function()
+}
+personal：提供管理账户方法
+> personal
+{
+  listAccounts: [],
+  listWallets: [],
+  deriveAccount: function(),
+  ecRecover: function(),
+  getListAccounts: function(callback),
+  getListWallets: function(callback),
+  importRawKey: function(),
+  lockAccount: function(),
+  newAccount: function github.com/ethereum/go-ethereum/console.(*bridge).NewAccount-fm(),
+  openWallet: function github.com/ethereum/go-ethereum/console.(*bridge).OpenWallet-fm(),
+  sendTransaction: function(),
+  sign: function github.com/ethereum/go-ethereum/console.(*bridge).Sign-fm(),
+  signTransaction: function(),
+  unlockAccount: function github.com/ethereum/go-ethereum/console.(*bridge).UnlockAccount-fm()
+}
+
+txpool：提供查看交易内存池方法
+> txpool
+{
+  content: {
+    pending: {},
+    queued: {}
+  },
+  inspect: {
+    pending: {},
+    queued: {}
+  },
+  status: {
+    pending: 0,
+    queued: 0
+  },
+  getContent: function(callback),
+  getInspect: function(callback),
+  getStatus: function(callback)
+}
+
+web3：除了以上对象中有的方法，还包含一些单位换算等其他方法
+通过命令进行简单交互
+1，新建账户并挖矿
+> eth.accounts
+[]
+> personal.newAccount("zhujiantao")
+"0x49b70c9f35fbd0b39fd98418bfb9dc25e6e08121"
+> personal.newAccount("hejiawei")
+eth"0x86322ea53a15460f83a43ea3366974af37897e7c"
+> eth.accounts
+["0x49b70c9f35fbd0b39fd98418bfb9dc25e6e08121", "0x86322ea53a15460f83a43ea3366974af37897e7c"]
+> eth.getBalance(eth.accounts[0])
+0
+> eth.getBalance(eth.accounts[1])
+0
+> miner.setEtherbase(eth.accounts[0])
+true
+> eth.coinbase
+"0x49b70c9f35fbd0b39fd98418bfb9dc25e6e08121"
+> miner.start(2)
+
+2，解锁账户并交易
+> personal.unlockAccount(eth.accounts[0], "zhujiantao")
+true
+> personal.unlockAccount(eth.accounts[1], "hejiawei")
+true
+> eth.sendTransaction({from:eth.accounts[0], to:eth.accounts[1], value:web3.toWei(1,"ether")})
+"0x9feaa87c9aa9375cfbffc767b71c486c46919a17c91c8d6e3468d02fbfb11006"
+> eth.getBalance(eth.accounts[0])
+50000000000000000000
+> eth.getBalance(eth.accounts[1])
+0
+> txpool.status
+{
+  pending: 1,
+  queued: 0
+}
+> txpool.inspect.pending
+{
+  0x49b70C9F35FBD0b39Fd98418BFB9DC25e6e08121: {
+    0: "0x86322ea53A15460f83A43ea3366974AF37897e7c: 1000000000000000000 wei + 90000 gas × 18000000000 wei"
+  }
+}
+
+以上操作分别是解锁账户，发送交易，查看账户余额，查看交易池状态，查看pending交易详情
+接下来挖矿打包交易
+> miner.start(2);admin.sleepBlocks(1);miner.stop();
+交易结束后查看余额
+> eth.getBalance(eth.accounts[0])
+54000000000000000000
+> eth.getBalance(eth.accounts[1])
+1000000000000000000
+
+欸，发现交易成功了！！！
+还可以通过交易hash查看发起交易时交易详情和交易被打包进区块时的交易详情
+> eth.getTransaction("0x9feaa87c9aa9375cfbffc767b71c486c46919a17c91c8d6e3468d02fbfb11006")
+{
+  blockHash: "0x50ddba18e51f81a93bd22bbc74039e580960a235b444bfdff82cee9145fe6642",
+  blockNumber: 11,
+  from: "0x49b70c9f35fbd0b39fd98418bfb9dc25e6e08121",
+  gas: 90000,
+  gasPrice: 18000000000,
+  hash: "0x9feaa87c9aa9375cfbffc767b71c486c46919a17c91c8d6e3468d02fbfb11006",
+  input: "0x",
+  nonce: 0,
+  r: "0x60b4d86aaa5edd3fbfced5ec713ad2031df60496e12384b0a2a9106382aaa137",
+  s: "0x1b792f70cbbb42aacc05032794cfb3be8168ef2e75f1e263db62a61cfeaf4e5a",
+  to: "0x86322ea53a15460f83a43ea3366974af37897e7c",
+  transactionIndex: 0,
+  v: "0x38",
+  value: 1000000000000000000
+}
+> eth.getTransactionReceipt("0x9feaa87c9aa9375cfbffc767b71c486c46919a17c91c8d6e3468d02fbfb11006")
+{
+  blockHash: "0x50ddba18e51f81a93bd22bbc74039e580960a235b444bfdff82cee9145fe6642",
+  blockNumber: 11,
+  contractAddress: null,
+  cumulativeGasUsed: 21000,
+  from: "0x49b70c9f35fbd0b39fd98418bfb9dc25e6e08121",
+  gasUsed: 21000,
+  logs: [],
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  root: "0xc7b07a186147f10aea58412ec75d25412248f6d1d3335291d74794646900660e",
+  to: "0x86322ea53a15460f83a43ea3366974af37897e7c",
+  transactionHash: "0x9feaa87c9aa9375cfbffc767b71c486c46919a17c91c8d6e3468d02fbfb11006",
+  transactionIndex: 0
+}
+
+3，查看区块相关信息
+> eth.blockNumber
+11
+> eth.getBlock("latest")
+{
+  difficulty: 131072,
+  extraData: "0xd88301080c846765746888676f312e31302e31856c696e7578",
+  gasLimit: 4249054591,
+  gasUsed: 21000,
+  hash: "0x50ddba18e51f81a93bd22bbc74039e580960a235b444bfdff82cee9145fe6642",
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  miner: "0x49b70c9f35fbd0b39fd98418bfb9dc25e6e08121",
+  mixHash: "0xa9d585a50a989192e2c239f97f24e3283f13855f21c364bafebe531ba2bc0fc7",
+  nonce: "0x5ae360db4d1b56f7",
+  number: 11,
+  parentHash: "0x3470ce4807e6f1aba46fed960f3306526eac3085eb425b9e4cc74aa31fb1a14e",
+  receiptsRoot: "0x084e81eec67a61b4342ab5698d5798aadf822392a9579535d839d30e30388f85",
+  sha3Uncles: "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  size: 651,
+  stateRoot: "0x701abf15ddb892bcdfc3f2127984506602db25c98c74321f2f50128b97d68c03",
+  timestamp: 1532233119,
+  totalDifficulty: 1443686,
+  transactions: ["0x9feaa87c9aa9375cfbffc767b71c486c46919a17c91c8d6e3468d02fbfb11006"],
+  transactionsRoot: "0x932fd9feba26c3996a34a7a8b0d74f65826671921d181d7aadac5a3d37992c24",
+  uncles: []
+}
+> eth.getBlock(0)
+{
+  difficulty: 102,
+  extraData: "0x",
+  gasLimit: 4294967295,
+  gasUsed: 0,
+  hash: "0x559187669a7294b8d661a88bc6dca0ba8cd318263facbe01df17093d21b6e99d",
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  miner: "0x0000000000000000000000000000000000000000",
+  mixHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+  nonce: "0x0000000000000001",
+  number: 0,
+  parentHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+  receiptsRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  sha3Uncles: "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  size: 505,
+  stateRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  timestamp: 0,
+  totalDifficulty: 102,
+  transactions: [],
+  transactionsRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  uncles: []
+}
+
+以上操作分别是查询区块总数，查询最新区块，查询Number为0区块
+4，远程节点管理
+查看节点信息
+> admin.nodeInfo
+{
+  enode: "enode://1b034b641239a715e68806251af559208d254f9dc7c11bbb1457065db1b7a8f6f909de24da2a091809af262e99895c8a276d467eb939f56bdcdd05b4089a5e5f@[::]:30303",
+  id: "1b034b641239a715e68806251af559208d254f9dc7c11bbb1457065db1b7a8f6f909de24da2a091809af262e99895c8a276d467eb939f56bdcdd05b4089a5e5f",
+  ip: "::",
+  listenAddr: "[::]:30303",
+  name: "Geth/v1.8.12-stable-37685930/linux-amd64/go1.10.1",
+  ports: {
+    discovery: 30303,
+    listener: 30303
+  },
+  protocols: {
+    eth: {
+      config: {
+        chainId: 10,
+        eip150Hash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+        eip155Block: 0,
+        eip158Block: 0,
+        homesteadBlock: 0
+      },
+      difficulty: 1443686,
+      genesis: "0x559187669a7294b8d661a88bc6dca0ba8cd318263facbe01df17093d21b6e99d",
+      head: "0x50ddba18e51f81a93bd22bbc74039e580960a235b444bfdff82cee9145fe6642",
+      network: 10
+    }
+  }
+}
+
+添加其他节点，必须保证网络相同和相同的networkid
+> admin.addPeer("enode://1b034b641239a715e68806251af559208d254f9dc7c11bbb1457065db1b7a8f6f909de24da2a091809af262e99895c8a276d467eb939f56bdcdd05b4089a5e5f@[192.168.81.128]:30303")
+true
+
+查看已连接的远程节点
+> admin.peers
+
+
+Loom （或者称 Loom Network） 是一支探索区块链二层扩容方面技术的团队，他们在尝试构建可用于游戏等领域的二层网络（Layer2）平台，目前两个开发的两个重要产品是 Loom PlasmaChain 及 Loom SDK。
+Loom PlasmaChain
+Loom PlasmaChain 是一条实现了 Plasma Cash 框架模型的高性能 DPoS 侧链（提供 1–3 秒的交易确认时间）。
+wget https://private.delegatecall.com/loom/osx/stable/loom
+chmod +x loom
+mkdir loom-chain
+cd loom-chain
+loom init
+初始化命令会生成 genesis.json 和 chaindata 目录，genesis.json 是这条侧链的创世纪块配置，chaindata 目录用户保存区块数据。
+运行区块链
+使用以下的命令可以启动刚刚初始化的 DApp 侧链：
+loom run
+启动的侧链运行在端口 46658 上， 可以通过区块链浏览器 https://blockexplorer.loomx.io/?rpc=http://127.0.0.1:46658 , 查看这条测试链的出块数据
+链上记事本
+git clone git@github.com:xilibi2003/note_dapp.git
+npm install  # 安装相应的依赖
+Truffle 配置侧链网络
+npm install loom-truffle-provider --save
+https://learnblockchain.cn/2019/04/29/use-loom/
+创建测链账号
+loom 工具提供了选项来创建账号，在项目 note_dapp 目录下，执行如下命令：
+$ loom genkey -k priv_key -a pub_key
+部署到 DApp 侧链
+执行部署时（需要先确定链当前在运行），使用 —network 指定网络，命令如下：
+truffle migrate --network loom_dapp_chain
+与侧链上的智能合约进行交互
+启动控制台
+首先通过 --network 选项指定连接到 DApp 侧链 loom_dapp_chain， 进入控制台，命令如下：
+truffle console --network loom_dapp_chain
+获取合约实例
+truffle(loom_dapp_chain)> let instance = await NoteContract.deployed()
+truffle(loom_dapp_chain)> instance
+调用合约添加一条笔记：
+truffle(loom_dapp_chain)> instance.addNote("abc");
+获取当前账号（后面查看笔记数量函数需要使用账号作为参数，因此先获取下账号）：
+truffle(loom_dapp_chain)> let accounts = await web3.eth.getAccounts()
+truffle(loom_dapp_chain)> accounts[0]
+这时控制台会打印出账号地址：
+‘0x8b7A68cFf3725ca1b682XLb575bC891e381138ef8’
+查看这个下这个账号的笔记条数：
+truffle(loom_dapp_chain)> let noteNum = await instance.getNotesLen("0x8b7A68cFf3725ca1b682XLb575bC891e381138ef8")
+truffle(loom_dapp_chain)> noteNum.toNumber()
+https://learnblockchain.cn/2018/11/16/plasma-cash/
+
+
+零知识证明 - 从 QSP 到 QAP
+https://learnblockchain.cn/2019/05/07/qsp-qap/
+https://learnblockchain.cn/2019/04/18/learn-zkSNARK/
+https://learnblockchain.cn/2019/04/16/zero-knowledge-zksnark/
+白话布隆过滤器
+https://learnblockchain.cn/2019/04/30/bloom_filter/
+默克尔树Bucket Tree
+https://learnblockchain.cn/2019/04/24/bucket-tree/
+区块链上的随机性（二） - Algorand、Cardano、Dfinity、Randao 项目分析
+https://learnblockchain.cn/2019/04/22/randomness-blockchain-2/
+Raft 一致性算法
+https://learnblockchain.cn/2019/03/22/easy_raft/

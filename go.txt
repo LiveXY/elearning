@@ -1,9 +1,13 @@
+https://github.com/duolatech/xapimanager
+
 https://github.com/bmizerany/pat
 https://github.com/julienschmidt/httprouter
 https://github.com/zenazn/goji
 https://github.com/gin-gonic/gin
 github.com/astaxie/beego
 https://github.com/revel/revel
+
+https://github.com/bilibili/kratos
 
 http://www.golangnote.com/topic/87.html
 https://github.com/stripe/einhorn
@@ -38,3 +42,8 @@ https://github.com/astaxie/beedb
 https://github.com/go-chassis/go-chassis
 https://github.com/TruthHun/DocHub
 https://github.com/rodrigo-brito/gocity
+
+容器安全扫描
+https://github.com/knqyf263/trivy
+
+https://github.com/snail007/goproxy

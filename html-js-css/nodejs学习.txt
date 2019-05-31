@@ -95,6 +95,7 @@ https://github.com/NetEase/chatofpomelo-websocket
 https://github.com/socketio/socket.io
 https://github.com/mzabriskie/axios
 https://github.com/expressjs/express
+https://github.com/nestjs/nest
 https://github.com/GoogleChrome/puppeteer
 https://github.com/Unitech/pm2
 https://github.com/caolan/async
@@ -221,11 +222,22 @@ https://github.com/PicGo/PicGo-Core
 
 https://github.com/denoland/deno
 
+NODE打包工具
+https://github.com/zeit/pkg
+npm install -g pkg
+pkg app.js --options expose-gc
+pkg app.js --options max_old_space_size=4096
+https://github.com/zeit/ncc
+npm i -g @zeit/ncc
+ncc build input.js -o dist
+ncc run input.js
 
-
-
-
-
-
-
+截图对比工具
+https://github.com/eBay/modshot
+npm install -g phantomjs modshot
+modshot -i src/ui-modules -s .box -s .test -e temp
+modshot -u http://pages.ebay.com/sitemap.html -s h1 -s .btn -o screenshots
+modshot -i src/ui-modules -u http://pages.ebay.com/sitemap.html -o screenshots -t 15
+modshot -u http://pages.ebay.com/sitemap.html -p projectX -o screenshots
+modshot -u http://pages.ebay.com/sitemap.html -o screenshots -c "k=v; a=b" -d xyz.com
 
