@@ -9,6 +9,9 @@ https://github.com/Matt-Esch/virtual-dom
 https://github.com/rsuite/rsuite
 https://github.com/ant-design/ant-design
 https://github.com/ant-design/ant-design-pro
+https://github.com/infernojs/inferno
+https://github.com/elemefe/element-react
+https://github.com/mui-org/material-ui
 
 https://github.com/vuejs/vue
 https://github.com/heyui/heyui
@@ -17,6 +20,7 @@ https://github.com/PanJiaChen/vue-element-admin
 https://github.com/newpanjing/simpleui
 https://github.com/youzan/vant
 https://github.com/nuxt-community/nuxt7
+https://github.com/nmxiaowei/avue
 
 https://github.com/angular/angular
 https://github.com/primefaces/primeng
@@ -31,6 +35,13 @@ https://github.com/Tencent/weui
 React走的是另外一个流派，就是所谓的函数式，在这个里面，推崇的是单向数据流：给定原始界面（或数据），施加一个变化，就能推导出另外一个状态（界面或者数据的更新）。
 在这里需要额外提一下ReactiveJS，它的理念又有所不同，是基于Reactive的
 我们提到React的时候，就会听到Flux，Redux之类的东西
+
+去掉多余的CSS
+https://github.com/FullHuman/purgecss
+
+https://github.com/sveltejs/svelte
+https://github.com/phoboslab/jsmpeg
+https://github.com/waveform80/pistreaming
 
 混合APP开发
 https://github.com/facebook/react-native
@@ -90,7 +101,6 @@ https://github.com/mrholek/CoreUI-Free-Bootstrap-Admin-Template
 https://github.com/yahoo/pure/
 https://github.com/heyui/heyui
 https://github.com/facebookincubator/fbt
-https://github.com/rsuite/rsuite
 https://github.com/TalkingData/iview-weapp
 https://github.com/designmodo/Flat-UI
 https://github.com/tabler/tabler
@@ -382,6 +392,7 @@ https://github.com/luruke/barba.js
 https://github.com/spritejs/spritejs
 https://github.com/spritejs/sprite-wxapp
 https://github.com/syt123450/giojs
+https://github.com/fabricjs/fabric.js
 
 socket websocket webrtc
 https://github.com/socketio/socket.io
@@ -563,5 +574,10 @@ https://github.com/facebook/react-vr
 
 excel
 https://github.com/myliang/x-spreadsheet
+
+https://github.com/krausest/js-framework-benchmark
+
+vue
+https://github.com/halo-dev/halo-admin
 
 https://github.com/hcxiong?direction=desc&page=50&sort=stars&tab=stars

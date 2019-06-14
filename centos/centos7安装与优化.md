@@ -77,6 +77,11 @@ yum install mariadb-server mariadb -y
 rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 rpm --import http://rpms.famillecollet.com/RPM-GPG-KEY-remi
 
+安装ZIP组件
+yum install -y php70-php-pecl-zip
+vi /etc/php.ini
+zlib.output_compression = On
+extension=/opt/remi/php70/root/usr/lib64/php/modules/zip.so
 ```
 ##升级LNMP
 ```sh

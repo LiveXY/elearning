@@ -1550,3 +1550,6 @@ $ hub run ssd_mobilenet_v1_pascal --input_path test_img_bird.jpg
 $ hub search
 模型：lac/senta/ssd/bert/ernie/resnet/mobilenet/nasnet
 
+https://github.com/yangboz/LotteryPrediction
+https://github.com/google-research/lottery-ticket-hypothesis
+https://github.com/chengstone/LotteryPredict
