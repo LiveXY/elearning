@@ -1,27 +1,49 @@
-ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)”
+安装卸载brew
+xcode-select --install
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 rm -rf /usr/local/Cellar /usr/local/.git && brew cleanup
 
-brew tap homebrew/php
-brew tap josegonzalez/homebrew-php
+更新
 brew update
-brew install php55-yaf
+brew services list
+brew list
 
-brew search php55-
+安装PHP
+brew search php
+brew install wget nmap nginx mysql php php@7.1 php@7.2 brew-php-switcher pkg-config libmemcached
+brew-php-switcher 7.1
+php -m
+pecl install memcached
+brew services restart php
+brew services restart nginx
+brew services restart mysql
 
-brew install php55-imagick php55-igbinary php55-ev php55-gmagick php55-geoip php55-memcache php55-memcached php55-thrift php55-xdebug php55-sphinx composer
+初始化mysql数据库：
+mysql_install_db
+设置root账户和密码:
+mysql_secure_installation
 
+redis配置
+vi /usr/local/etc/redis.conf
+nginx配置
+ll /usr/local/etc/nginx/
+ll /usr/local/etc/php.ini
+ll /usr/local/etc/php-fpm.conf
 
-brew install mysql
-#start
-launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-#stop
-launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+删除MYSQL
 brew remove mysql
 brew cleanup --force
 launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 sudo rm -rf /usr/local/var/mysql
 
+其它数据库
+brew install mariadb
 brew install percona-server
+brew install mongodb
+brew install memcached
+brew install redis
+
+安装应用APP
 brew cask install mark-text
 brew cask install react-native-debugger

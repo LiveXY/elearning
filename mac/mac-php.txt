@@ -1,27 +1,7 @@
-brew untap josegonzalez/homebrew-php
-https://yq.aliyun.com/ziliao/1071
-http://www.jianshu.com/p/ae3f88d52e21
-
-http://www.cnblogs.com/argb/p/3604340.html
-http://www.tuicool.com/articles/YB7veia
-用户组，soket
-
-sudo -s 
-killall -9 php-fpm 
-php-fpm
-
-http://www.111cn.net/phper/linux-php/116804.htm
-
-http://blog.csdn.net/u010412301/article/details/52808419
-
-http://blog.csdn.net/yicixing7/article/details/65934467?locationNum=3&fps=1
-
-
-多版本 http://blog.csdn.net/geyuezhen/article/details/50716780
-
-fpm 开启
-/usr/local/Cellar/php70/7.0.19_11/sbin
-sudo sh php70-fpm start
+sudo su 和 sudo -s都是切换到root用户，不同的是：
+sudo su 环境用的是目标用户(root)的环境
+sudo -s 环境用的是当前用户本身的环境
+killall -9 php-fpm
 
 zend studio 不自动提示
 vi .buildpath
@@ -30,3 +10,61 @@ vi .buildpath
         <buildpathentry kind="src" path=""/>
         <buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 </buildpath>
+
+安装composer 修改源
+brew install composer
+composer config -g repo.packagist composer https://packagist.phpcomposer.com
+composer config -g repo.packagist composer https://packagist.laravel-china.org
+
+安装常用组件
+composer require sammyk/laravel-facebook-sdk
+composer require maatwebsite/excel
+composer require phpoffice/phpspreadsheet
+composer require mews/captch
+composer require jpush/jpush
+composer require simplesoftwareio/simple-qrcode
+
+创建项目
+composer global require "laravel/installer"
+laravel new blog
+或
+composer create-project laravel/laravel blog --prefer-dist
+composer create-project laravel/laravel blog58 5.8.* --prefer-dist
+
+更新
+composer update
+composer dump-autoload
+composer self-update
+或
+php ~/composer.phar self-update
+php ~/composer.phar install
+php ~/composer.phar update
+
+php ~/composer.phar require sammyk/laravel-facebook-sdk
+php ~/composer.phar require maatwebsite/excel
+php ~/composer.phar require phpoffice/phpspreadsheet
+php ~/composer.phar require jpush/jpush
+php ~/composer.phar require simplesoftwareio/simple-qrcode
+https://www.simplesoftware.io/docs/simple-qrcode/zh
+
+本地服务器
+php artisan serve
+
+nginx配置
+location / {
+	try_files $uri $uri/ /index.php?$query_string;
+}
+
+常用代码
+Laravel:https://phphub.org/topics/1211
+Cookie::queue('cookie_for_js', 'can you read me?', 99999999);
+Cookie::queue('cookie_for_js', 'can you read me?', $minutes = 99999999, $path = null, $domain = null, $secure = false, $httpOnly = false);
+Cookie::queued('user_id', 0)
+Cookie::unqueue('user_id');
+
+Session::put()
+Cache::
+DB::table('settings')->where('key', $key)->update(['value' => $value]);
+
+Log.info('test');
+

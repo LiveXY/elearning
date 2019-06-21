@@ -492,15 +492,6 @@ sudo gem install -n /usr/local/bin cocoapods
 /bin/bash: bad interpreter: Operation not permitted
 xattr -dr com.apple.quarantine ./*
 =========================================
-Spotlight 关闭掉
-sudo mdutil -a -i off
-sudo mdutil -a -i on
-cd /System/Library/CoreServices/
-sudo mv Search.bundle/ Search2.bundle/
-sudo mv Search2.bundle/ Search.bundle/
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
-=========================================
 vi ~/.bash_profile 或 ~/.bashrc
 shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
@@ -568,3 +559,29 @@ pecl version 查看版本信息
 pecl help 可以查看命令帮助
 pecl search xdebug  搜索可以安装的扩展信息
 pecl install xdebug 安装扩展
+
+=====================================
+mac启动项
+1，系统偏好设置->用户与群组->登录项 查看：cat ~/Library/Preferences/com.apple.loginitems.plist
+2，launch启动项
+ll ~/Library/LaunchAgents
+ll /Library/LaunchDaemons
+ll /Library/LaunchAgents
+ll /System/Library/LaunchDaemons
+ll /System/Library/LaunchAgents
+launchctl list
+launchctl load xxx.plist
+launchctl unload xxx.plist
+plist文件选项：RunAtLoad自动运行/KeepAlive持续运行/StartCalendarInterval设置定时执行
+3，/System/Library/StartupItems 和 /Library/StartupItems
+4，crontab -l
+5，关闭Spotlight系统偏好设置->聚焦
+=========================================
+Spotlight 关闭掉
+sudo mdutil -a -i off
+sudo mdutil -a -i on
+cd /System/Library/CoreServices/
+sudo mv Search.bundle/ Search2.bundle/
+sudo mv Search2.bundle/ Search.bundle/
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
