@@ -1,0 +1,34 @@
+awk
+
+`awk '$2>=90{print $0}' score.txt` #$2>=90 表示如果当前行的第2列的值大于90则处理当前行，否则不处理
+awk '{if($2>=90)print $0}' score.txt
+awk '{if($2>=90)print $1,"优秀"; else print $1,"良好"}' score.txt
+awk 'BEGIN{print "姓名 语文 数学 英语"}{printf "%-8s%-5d%-5d%-5d\n",$1,$2,$3,$4}' score.txt
+awk 'BEGIN{OFMT="%.2f";print 1.2567,12E-2}'
+echo ok | awk '{print $1}END{print "end"}'
+awk 'BEGIN{print "姓名 语文 数学 英语 总成绩"; \
+sum1=0;sum2=0;sum3=0;sumall=0} \
+{printf "%5s%5d%5d%5d%5d\n",$1,$2,$3,$4,$2+$3+$4;\
+sum1+=$2;sum2+=$3;sum3+=$4;sumall+=$2+$3+$4}\
+END{printf "%5s%5d%5d%5d%5d\n","总成绩",sum1,sum2,sum3,sumall}'\
+
+有用的内置变量
+NF:表示当前行有多少个字段，因此$NF就代表最后一个字段
+NR:表示当前处理的是第几行
+FILENAME：当前文件名
+OFMT：数字输出的格式，默认为％.6g。表示只打印小数点后6 位
+
+awk -F ':' '{print NR ") " $1}' demo.txt
+
+内置函数
+echo 1 2 | awk '{print $1+sqrt($2)}'
+echo 1 | awk 'BEGIN{srand()}{print rand()}'
+length(str)
+blength(str)
+tolower(str)
+toupper(str)
+substr(str,start,length)
+system(command)
+mktime(YYYY MM dd HH MM ss[DST])
+strftime(format, timestamp)
+systime()

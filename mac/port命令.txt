@@ -16,7 +16,7 @@ alias web_start='nginx_start;fpm_start'
 alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
 
 source ~/.bash_profile
-echo "$PATH”
+echo "$PATH"
 
 port更新
 sudo port -v selfupdate
@@ -45,6 +45,49 @@ cp /opt/local/etc/php70/php.ini-development /opt/local/etc/php70/php.ini
 cp /opt/local/etc/php70/php-fpm.conf.default /opt/local/etc/php70/php-fpm.conf
 cp /opt/local/etc/php70/php-fpm.d/www.conf.default /opt/local/etc/php70/php-fpm.d/www.conf
 
+NGINX配置目录
+ll /opt/local/etc/nginx/conf.d/
+简单配置
+server {
+	listen 8935;
+	server_name 127.0.0.1;
+	root /Users/hcxiong/git_pro/shopAdmin/public;
+
+	client_max_body_size 5m;
+
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Headers X-Requested-With;
+    add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+
+	location / {
+		index index.html index.htm index.php;
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	error_page 500 502 503 504 /50x.html;
+	location = /50x.html {
+		root html;
+	}
+
+	location ~ ^(.+.php)(.*)$ {
+		fastcgi_split_path_info ^(.+.php)(.*)$;
+		fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+		fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
+		include fastcgi.conf;
+		fastcgi_pass 127.0.0.1:9000;
+		fastcgi_index index.php;
+	}
+}
+PHP配置目录
+ll /opt/local/etc/php56/
+ll /opt/local/etc/php70/
+ll /opt/local/etc/php73/
+PHP扩展文件目录
+ll /opt/local/lib/php56/extensions
+ll /opt/local/lib/php70/extensions
+ll /opt/local/lib/php73/extensions
+日志目录
+ll /opt/local/var/log
 ===================================================
 gperf cannot be installed for the configured universal_archs 'x86_64 i386' because it only supports the arch(s) ''.
 port clean gperf && port install gperf

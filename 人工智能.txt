@@ -344,6 +344,46 @@ https://github.com/yuanxiaosc/BERT_Paper_Chinese_Translation
 https://github.com/terrifyzhao/bert-utils
 http://icrc.hitsz.edu.cn/info/1037/1162.htm
 
+https://github.com/ymcui/Chinese-BERT-wwm
+以TensorFlow版本为例，下载完毕后对zip文件进行解压得到：
+chinese_wwm_L-12_H-768_A-12.zip
+    |- bert_model.ckpt      # 模型权重
+    |- bert_model.meta      # 模型meta信息
+    |- bert_model.index     # 模型index信息
+    |- bert_config.json     # 模型参数
+    |- vocab.txt            # 词表
+https://github.com/ymcui/cmrc2018
+CMRC 2018数据集是哈工大讯飞联合实验室发布的中文机器阅读理解数据。根据给定问题，系统需要从篇章中抽取出片段作为答案，形式与SQuAD相同。
+https://github.com/DRCKnowledgeTeam/DRCD
+DRCD数据集由中国台湾台达研究院发布，其形式与SQuAD相同，是基于繁体中文的抽取式阅读理解数据集。
+https://github.com/shiyybua/NER
+中文命名实体识别（NER）任务中，我们采用了经典的人民日报数据以及微软亚洲研究院发布的NER数据。
+THUCNews
+http://thuctc.thunlp.org/
+由清华大学自然语言处理实验室发布的新闻数据集，需要将新闻分成10个类别中的一个。
+
+识别/塑造面部
+https://deepfakes.com.cn/
+https://deepfakes.com.cn/index.php/95.html
+https://deepfakes.com.cn/index.php/265.html
+https://deepfakes.com.cn/index.php/243.html
+https://github.com/deepfakes/faceswap
+https://github.com/deepfakes/faceswap/blob/master/INSTALL.md
+从您的安装文件夹中运行python faceswap.py extract。这将从src文件夹拍摄照片并将面部提取到extract文件夹中。
+从您的安装文件夹中运行python faceswap.py train。这将从包含两张脸的照片的两个文件夹中拍摄照片，并训练将保存在models文件夹内的模型。
+从您的安装文件夹中运行python faceswap.py convert。这将从original文件夹中拍摄照片并将新面孔应用到modified文件夹中。
+您可以通过运行来运行GUI python faceswap.py gui
+https://github.com/iperov/DeepFaceLab
+https://radek350.wordpress.com/2018/02/17/myfakeapp-fakeapp-alternative/
+https://github.com/sunattic/AISuperstar
+https://github.com/joshua-wu/deepfakes_faceswap
+https://github.com/llSourcell/deepfakes
+https://github.com/dfaker/df
+https://github.com/gsurma/face_generator
+
+CTR
+https://github.com/shenweichen/DeepCTR
+
 经过预先训练的30多种语言的单词向量
 https://github.com/hcxiong/wordvectors
 人名、地址、邮箱、手机号、手机归属地 等信息的抽取，rake短语抽取算法。
@@ -875,7 +915,15 @@ https://ntcore.com/files/CFF_Explorer.zip
 https://autohotkey.com/
 https://github.com/floowsnaake/Starcraft-1-Bot-thingy 星际争霸
 
-
+FB机器人
+https://github.com/facebookresearch/pyrobot
+cd ~
+mkdir -p low_cost_ws/src
+cd ~/low_cost_ws/src
+source ~/${virtualenv_name}/bin/activate
+git clone --recurse-submodules https://github.com/facebookresearch/pyrobot.git
+cd pyrobot/
+pip install .
 
 淘宝自动发货机器人
 https://github.com/localhost02/Taobao_order_robot
@@ -1434,6 +1482,43 @@ https://catalog.ldc.upenn.edu/LDC93S1
 
 http://www.crowdhuman.org/download.html
 https://arxiv.org/abs/1805.00123
+
+https://arxiv.org/pdf/1906.06337.pdf 这是一套端到端系统，生成的视频拥有与音频同步的唇部运动和自然的面部表情，例如眨眼和皱眉
+https://arxiv.org/pdf/1710.06425.pdf 用于机器人抓取的域随机化和模型生成
+https://arxiv.org/pdf/1809.10790.pdf 用于抓取家居物品的语义机器人抓取的深度物体姿态估计算法
+
+https://github.com/arcelien/pba
+有效学习增强政策
+
+https://mp.weixin.qq.com/s/dnnby0KNLFWITx_uugUrvQ
+降维：
+https://en.wikipedia.org/wiki/Dimensionality_reduction
+PCA：
+https://en.wikipedia.org/wiki/Principal_component_analysis
+协方差矩阵：
+https://en.wikipedia.org/wiki/Covariance_matrix
+特征向量：
+https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors
+多变量统计/多元统计：
+https://en.wikipedia.org/wiki/Multivariate_statistics
+高斯分布：
+https://en.wikipedia.org/wiki/Normal_distribution
+概率分布：
+https://en.wikipedia.org/wiki/Probability_distribution
+马氏距离：
+https://en.wikipedia.org/wiki/Mahalanobis_distance
+自动编码器：
+https://en.wikipedia.org/wiki/Autoencoder
+人工神经网络：
+https://en.wikipedia.org/wiki/Artificial_neural_network
+有效数据编码：
+https://en.wikipedia.org/wiki/Feature_learning
+无监督：
+https://en.wikipedia.org/wiki/Unsupervised_learning
+多层感知器：
+https://en.wikipedia.org/wiki/Multilayer_perceptron
+NASA 数据下载：
+http://data-acoustics.com/measurements/bearing-faults/bearing-4/
 
 http://kaldi-asr.org/models.html
 http://www.openslr.org/resources.php

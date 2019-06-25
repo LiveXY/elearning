@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
   - name: 上传配置文件 {{ stemplate | default('./templates/nginx-site.conf.j2') }}
-    template: src="{{ stemplate | default('./templates/nginx-site.conf.j2') }}" dest="{{ conf }}" force=true backup=yes
+    template: src="{{ stemplate | default('./templates/nginx-site.conf.j2') }}" dest="{{ conf }}" force=true backup=yes validate="/usr/sbin/nginx -t -c %s"
   - name: nginx重新加载
     service: name=nginx state=reloaded
 
