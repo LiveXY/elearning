@@ -1,0 +1,258 @@
+https://uniapp.dcloud.io/api/README
+https://uniapp.dcloud.io/component/README
+
+https://github.com/aben1188/awesome-uni-app
+
+uni.switchTab({url:"../fenlei/index"})
+uni.navigateTo({url:"../../pages/login/index"})
+uni.redirectTo({url:"../index/index"})
+
+uni.setStorageSync("token", v);
+uni.getStorageSync("token");
+uni.clearStorage()
+
+uni.getStorage({
+	key: 'accessToken',
+	success(res) { },
+	fail() { }
+})
+uni.setStorage({
+	key: 'accessToken',
+	data: data,
+	success() { }
+})
+
+this.$router.go(-1);
+uni.navigateBack({ delta:1 })
+
+uni.request({
+	url: url,
+	method: "GET",
+	data: data,
+	success: function(rs){ },
+	complete: function() { uni.hideLoading(); }
+})
+uni.request({
+	url: url,
+	data: data,
+	method: "POST",
+	header: { "content-type": "application/x-www-form-urlencoded" },
+	success: function(rs) { },
+	complete: function() { uni.hideLoading(); },
+	fail(res) {}
+})
+uni.request({
+	url,
+	method,
+	data,
+	success(res) { },
+	fail(res) { }
+})
+
+uni.showModal({
+	title: '请登录',
+	content: '请登录后继续操作',
+	confirmText: '去登录',
+	confirmColor: '#3296FA',
+	showCancel: false,
+	success: function(res) {
+		if (res.confirm) {
+			return false;
+		}
+	}
+})
+uni.showModal({
+	title: '未绑定手机，无法找回密码',
+	confirmText: '知道了',
+	content: '请联系客服处理,客服email: 2867557054@qq.com',
+	success: function(res) {}
+});
+uni.showLoading({ title: '登录中', icon: 'none' })
+uni.hideLoading()
+uni.login({
+	provider: 'weixin',
+	success: function(res) {
+
+	}
+}
+uni.showToast({
+	icon: 'none',
+	title: '账号长度必须为5-12个字符'
+});
+
+plus.screen.lockOrientation('portrait-primary');
+plus.runtime.openURL(openUrl);
+plus.zip.compressImage({
+		src: _image,//原始图片的路径
+		dst: _image,//压缩转换目标图片的路径(为了省事这里使用原路径)
+		overwrite: true,//使用原文件名并覆盖,如果想将原文件保留,并和压缩后图片同时上传,需要改为false,并修改dst
+		quality: 100,//1-100,压缩后质量,越低图片占用空间越小,越模糊
+		width: max_width+'px',//这里先写死800;height默认为auto,即根据width与源图宽的缩放比例计算
+	},
+	(res) => {
+
+	},
+	(e) => {
+
+	}
+)
+uni.getImageInfo({
+	src: _image,
+	success: res => {
+		resolve(res);
+	}
+})
+
+uni.getProvider({
+	service: 'push',
+	success: function(res) {
+		if (~res.provider.indexOf('igexin')) {
+			uni.subscribePush({
+				provider: 'igexin',
+				success: function(res) {}
+			});
+		}
+	}
+});
+uni.onPush({
+	provider: 'igexin',
+	callback: function(data) {
+		var title = '';
+		var jsondata = JSON.parse(data.data);
+		for (var a in jsondata) {
+			title += a + '=' + jsondata[a];
+		}
+		uni.showModal({
+			title: '提示',
+			content: title,
+			success: function(res) {
+				if (res.confirm) {
+				} else if (res.cancel) {
+				}
+			}
+		});
+	}
+});
+
+uni.chooseImage({
+	count: 1,
+	sizeType: ['original', 'compressed'],
+	sourceType: ['album'],
+	success: function(res) {
+		const tempFilePaths = res.tempFilePaths;
+		const uploadTask = uni.uploadFile({
+			url: url,
+			filePath: tempFilePaths[0],
+			name: 'file',
+			formData: {},
+			success: function(res) {}
+		}).onProgressUpdate(function(res) {
+			_self.percent = res.progress;
+			console.log('上传进度' + res.progress);
+			console.log('已经上传的数据长度' + res.totalBytesSent);
+			console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend);
+		});
+	}
+});
+
+this.$store.dispatch('getUserInfo',{accessToken:this.inputValue})
+
+var that = this;
+var query = uni.createSelectorQuery();
+query.selectAll('.m-item').boundingClientRect();
+query.select('#scrollview').boundingClientRect();
+query.exec(function (res) {
+	that.style.mitemHeight = 0;
+	res[0].forEach(function (rect) {
+		that.style.mitemHeight = that.style.mitemHeight + rect.height + 20;});
+
+	if (that.style.mitemHeight > that.style.contentViewHeight) {
+		that.scrollTop = that.style.mitemHeight - that.style.contentViewHeight;
+		}
+});
+
+uni.showActionSheet({
+	itemList:['保存图片到相册'],
+	success: () => {
+		plus.gallery.save('https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/app_download.png', function() {
+			uni.showToast({
+				title:'保存成功',
+				icon:'none'
+			})
+		}, function() {
+			uni.showToast({
+				title:'保存失败，请重试！',
+				icon:'none'
+			})
+		});
+	}
+})
+
+uni.getProvider({
+	service: 'share',
+	success: (e) => {
+		let data = [];
+		for (let i = 0; i < e.provider.length; i++) {
+			switch (e.provider[i]) {
+				case 'weixin':
+					data.push({
+						name: '分享到微信好友',
+						id: 'weixin'
+					})
+					data.push({
+						name: '分享到微信朋友圈',
+						id: 'weixin',
+						type: 'WXSenceTimeline'
+					})
+					break;
+				case 'qq':
+					data.push({
+						name: '分享到QQ',
+						id: 'qq'
+					})
+					break;
+				default:
+					break;
+			}
+		}
+		this.providerList = data;
+	},
+	fail: (e) => {
+		console.log('获取登录通道失败'+ JSON.stringify(e));
+	}
+});
+uni.share({
+	provider: this.providerList[res.tapIndex].id,
+	scene: this.providerList[res.tapIndex].type && this.providerList[res.tapIndex].type === 'WXSenceTimeline' ? 'WXSenceTimeline' : "WXSceneSession",
+	type: 0,
+	title:'欢迎体验uni-app',
+	summary: 'uni-app 是一个使用 Vue.js 开发跨平台应用的前端框架',
+	imageUrl:'https://img-cdn-qiniu.dcloud.net.cn/uploads/nav_menu/8.jpg',
+	href: "https://m3w.cn/uniapp",
+	success: (res) => {
+		console.log("success:" + JSON.stringify(res));
+	},
+	fail: (e) => {
+		uni.showModal({
+			content: e.errMsg,
+			showCancel:false
+		})
+	}
+});
+
+
+uni.getLocation({
+    type: 'wgs84',
+    success: function (res) {
+        console.log('当前位置的经度：' + res.longitude);
+        console.log('当前位置的纬度：' + res.latitude);
+    }
+});
+uni.chooseLocation({
+    success: function (res) {
+        console.log('位置名称：' + res.name);
+        console.log('详细地址：' + res.address);
+        console.log('纬度：' + res.latitude);
+        console.log('经度：' + res.longitude);
+    }
+});

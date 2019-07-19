@@ -40,6 +40,11 @@ https://github.com/fxsjy/jieba
 处理中文文本内容
 https://github.com/isnowfy/snownlp
 
+https://github.com/stacklikemind/deepnude_official
+https://github.com/lwlodo/deep_nude/
+https://github.com/emperorwushi/xi/
+https://github.com/NVIDIA/pix2pixHD
+
 Text-To-Speech
 ######
 多语言：

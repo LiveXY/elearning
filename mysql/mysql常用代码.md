@@ -125,11 +125,11 @@ order by r desc, score desc, uid asc
 * 索引碎片优化
 ```
 查询哪些表需要索引碎片优化
-SELECT table_schema, table_name, round((data_length+index_length)/1024/1024) as total_mb, round(data_length/1024/1024) as data_mb, round(index_length/1024/1024) as index_mb, round(data_free/1024/1024) AS data_free_MB, TABLE_ROWS FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free_MB desc;
+select table_schema, table_name, round((data_length+index_length)/1024/1024) as total_mb, round(data_length/1024/1024) as data_mb, round(index_length/1024/1024) as index_mb, round(data_free/1024/1024) AS data_free_MB, TABLE_ROWS from information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free_MB desc;
 生成优化SQL脚本
-SELECT concat('ALTER TABLE ', table_name, ' ENGINE=InnoDB;') FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
+select concat('ALTER TABLE ', table_name, ' ENGINE=InnoDB;') from information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
 或
-SELECT concat('optimize table ', table_name, ';') FROM information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
+select concat('optimize table ', table_name, ';') from information_schema.tables WHERE engine LIKE 'InnoDB' AND table_schema='dbname' AND data_free > 100*1024*1024 order by data_free asc;
 这个优化不能每天执行，最好是1个月执行一次，或更长，如果有碎片空间>100M才清理
 ```
 * 查看所有表记录情况按记录数排序
@@ -141,7 +141,11 @@ select table_name,`engine`,table_rows,avg_row_length,data_length,index_length,ta
 alter database xiaohun character set utf8mb4 collate utf8mb4_general_ci;
 alter table sys_user convert to character set utf8mb4 collate utf8mb4_general_ci;
 ```
-* 
+* 查询更改没有默认值的字段
+```
+select * from information_schema.columns WHERE table_schema='assess' and column_default is null and (column_key != 'PRI' and data_type != 'text')
+select concat('alter table `',table_schema,'`.`',table_name,'` change column `',column_name,'` `',column_name,'` ',column_type,' not null default ',case  when data_type='varchar' then '\'\'' else '0' end ,';') from information_schema.columns WHERE table_schema='assess' and column_default is null and (column_key != 'PRI' and data_type != 'text')
+```
 * 
 * 
 
@@ -276,8 +280,8 @@ mysqldiff --server1=root:pass@192.168.6.168 --server2=root:pass@192.168.6.168 --
 ```
 select table_name tabName from information_schema.tables where table_schema='qcloud'
 select distinct specific_name proName from information_schema.parameters where specific_schema='qcloud'
-SELECT COLUMN_NAME, DATA_TYPE, COLUMN_DEFAULT, IS_NULLABLE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, EXTRA, COLUMN_COMMENT
-FROM INFORMATION_SCHEMA.COLUMNS
+select COLUMN_NAME, DATA_TYPE, COLUMN_DEFAULT, IS_NULLABLE, CHARACTER_MAXIMUM_LENGTH, COLUMN_TYPE, COLUMN_KEY, EXTRA, COLUMN_COMMENT
+from INFORMATION_SCHEMA.COLUMNS
 WHERE table_name = 'activity'
 AND table_schema = 'qcloud'
 describe activity
@@ -291,8 +295,8 @@ show create function func_split
 ```
 增加dba管理员方法1:
 CREATE USER 'wound'@'%' IDENTIFIED BY '123456';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `wound`.* TO 'wound'@'%';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `research`.* TO 'wound'@'%';
+GRANT select, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `wound`.* TO 'wound'@'%';
+GRANT select, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `research`.* TO 'wound'@'%';
 FLUSH PRIVILEGES;
 
 drop user wound
@@ -302,7 +306,7 @@ select * from mysql.user where User='wound';
 
 GRANT USAGE ON *.* TO 'wound'@'%' IDENTIFIED BY PASSWORD '123456';
 FLUSH PRIVILEGES;
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `wound`.* TO 'wound'@'%';
+GRANT select, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW, TRIGGER,ALTER ROUTINE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON `wound`.* TO 'wound'@'%';
 FLUSH PRIVILEGES;
 
 show grants for 'wound'@'%';
@@ -313,7 +317,7 @@ grant all privileges on 'wound'.* to 'wound'@'%'
 grant all on *.* to 'wound'@'%'
 撤销权限
 revoke all on *.* from 'wound'@'%';
-REVOKE SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE VIEW,SHOW VIEW,EXECUTE,TRIGGER ON `wound`.* FROM 'wound'@'%';
+REVOKE select,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE VIEW,SHOW VIEW,EXECUTE,TRIGGER ON `wound`.* from 'wound'@'%';
 ```
 * 清理部分数据
 ```
