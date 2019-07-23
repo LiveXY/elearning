@@ -127,8 +127,52 @@ https://github.com/kerlomz/captcha_demo_csharp
 https://github.com/kerlomz/captcha_platform
 https://mp.weixin.qq.com/s/6IAEus9OTg-hP9NGKJRm_Q
 
+字典大全
+http://www.zd9999.com/
+https://github.com/GopherCoder/dictionary-of-chinese
+https://github.com/pwxcoo/chinese-xinhua
+
+古诗词
+https://github.com/chinese-poetry/chinese-poetry
+https://github.com/KomaBeyond/chinese-poetry-mysql
+https://github.com/Werneror/Poetry
+
+泼辣有图
+http://www.polayoutu.com/collections
+
+查天气
+https://github.com/tangjiahao/robotofwx/blob/master/robotmain.py
+https://api.seniverse.com/v3/weather/now.json?key=Skb40T46PiBDM35V2&location=%s&language=zh-Hans&unit=c
+https://free-api.heweather.net/s6/weather?location=%s&key=a3269a0918a44a62ae97c314dd24f02a
+
+酷狗音乐
+http://www.kugou.com/yy/index.php?r=play/getdata&hash=%s&album_id=%s&_=1497972864535
+https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=jQuery191014887140948582345_1557824383110&hash=%s&album_id=%s&dfid=0zpwSa44LtGp0D89Gr371MJb&mid=51eafc9b0e5eaca4e106b905175401ec&platid=4&_=1557824383112
+http://songsearch.kugou.com/song_search_v2?keyword=%spage=1&pagesize=3&userid=-1&clientver=&platform=WebFilter&tag=em&filter=2&iscorrection=1&privilege_filter=0
+https://github.com/tangjiahao/robotofwx/blob/master/robotmain.py
+
 机器学习
 https://github.com/eriklindernoren/ML-From-Scratch
+https://github.com/NELSONZHAO/zhihu
+
+机器翻译machine translation（NMT）
+https://github.com/tensorflow/nmt
+https://github.com/OpenNMT/OpenNMT-py
+http://opennmt.net/OpenNMT-py/speech2text.html
+https://github.com/OpenNMT/OpenNMT
+https://github.com/THUNLP-MT/MT-Reading-List
+https://github.com/xuwenshen/Machine-Translation
+https://github.com/foamliu/Machine-Translation-v2
+
+英汉词典
+https://github.com/ChestnutHeng/Wudao-dict
+https://github.com/program-in-chinese/vscode_english_chinese_dictionary
+https://github.com/skywind3000/ECDICT
+https://github.com/skywind3000/ECDICT/releases
+https://github.com/program-in-chinese/webextension_english_chinese_dictionary
+https://github.com/fxsjy/diaosi
+https://github.com/chienlungcheung/MyDict
+
 
 手机短信验证码语音验证码话费充值流量充值
 https://github.com/gitchenze/panguPhone
@@ -152,6 +196,14 @@ ffmpeg -y  -i aidemo.mp3  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
 // -acodec pcm_s16le pcm_s16le 16bits 编码器 // -f s16le 保存为16bits pcm格式 // -ac 1 单声道 // -ar 16000 16000采样率
 
 https://github.com/facebookresearch/wav2letter
+
+中文语音识别 AISHELL
+https://github.com/libai3/masr
+识别自己的语音
+brew install portaudio
+pip3 install pyaudio
+语言模型
+https://deepspeech.bj.bcebos.com/zh_lm/zh_giga.no_cna_cmn.prune01244.klm
 
 https://github.com/Uberi/speech_recognition
 pip install SpeechRecognition
@@ -342,6 +394,35 @@ LSTM深入浅出的好文: https://blog.csdn.net/roslei/article/details/61912618
 
 语音翻译 面对面翻译小程序
 https://github.com/Tencent/Face2FaceTranslator
+
+中英文翻译
+https://github.com/xuwenshen/Machine-Translation
+https://github.com/liuhuanyong/ChineseTextualInference
+https://github.com/quincyliang/nlp-public-dataset
+
+中文语料
+https://github.com/yanwii/machine-translation
+https://github.com/brightmart/nlp_chinese_corpus
+
+https://github.com/FeeiCN/dict
+
+http://www.iciba.com/
+http://www.iciba.com/hello
+https://github.com/justinyhuang/BashCiba
+
+https://github.com/Neoyyy/google-CommandLine-Translation-Tool
+https://translate.google.cn/translate_a/single?sl=zh-CN&tl=en&q=%E4%B8%AD%E5%9B%BD
+
+
+http://www.baidu.com/
+http://fanyi.baidu.com/basetrans
+https://github.com/AnuoF/TranslateTool
+
+http://fanyi.youdao.com/openapi?path=data-mode
+http://fanyi.youdao.com/openapi.do?keyfrom=wufeifei&key=716426270&type=data&doctype=json&version=1.1&q=测试
+
+代码安全审计
+https://github.com/WhaleShark-Team/cobra
 
 bert中文分类实践
 https://github.com/NLPScott/bert-Chinese-classification-task
@@ -558,6 +639,10 @@ echo "完成"
 识别车牌
 https://github.com/zeusees/HyperLPR
 pip install hyperlpr
+
+CNN的OCR车牌识别
+https://github.com/huxiaoman7/mxnet-cnn-plate-recognition
+
 
 一款入门级的人脸、视频、文字检测以及识别的项目.
 https://github.com/vipstone/faceai
@@ -794,6 +879,17 @@ face_recognition ./pictures_of_people_i_know/ ./unknown_pictures/ | cut -d ',' -
 face_recognition --cpus 4 ./pictures_of_people_i_know/ ./unknown_pictures/
 https://github.com/vipstone/faceai/blob/master/doc/faceRecognition.md
 
+https://github.com/foamliu/InsightFace-v2
+https://github.com/foamliu/InsightFace-v3
+https://github.com/deepinsight/insightface
+
+人脸属性
+https://github.com/foamliu/Face-Attributes
+CASIA-webface人脸数据集（vk36）
+https://pan.baidu.com/s/1cnnKrYQDheNfoEhcDoShyA
+https://www.jianshu.com/p/44311bccbbc6
+
+
 头像特效合成
 https://github.com/vipstone/faceai/blob/master/doc/compose.md
 
@@ -824,6 +920,22 @@ https://github.com/vipstone/faceai/blob/master/doc/inpaint.md
 
 https://github.com/davidsandberg/facenet
 pip3 install facenet
+
+https://github.com/deepinsight/insightface
+https://jiankangdeng.github.io/
+
+https://github.com/cmusatyalab/openface/
+https://github.com/ShiqiYu/libfacedetection
+https://github.com/OAID/Tengine/tree/master/examples/YuFaceDetectNet
+https://github.com/justadudewhohacks/face-api.js
+https://github.com/justadudewhohacks/face-recognition.js
+
+Open Pose 代表了第一个在单个图像上联合检测人体、手、面部和足部关键点（总共 135 个关键点）的实时多人系统。
+https://github.com/CMU-Perceptual-Computing-Lab/openpose
+https://github.com/TadasBaltrusaitis/OpenFace
+https://github.com/dlunion/OpenPose
+https://github.com/tensorlayer/openpose-plus
+https://github.com/ZhaoJ9014/face.evoLVe.PyTorch
 
 https://github.com/zangruirui/facenet_regonistant
 pip3 install -r requirements.txt
@@ -1201,8 +1313,16 @@ https://github.com/andabi/deep-voice-conversion
 将源图像转换成不同的发型、皮肤类型、年龄、性别和不同的情绪。
 https://github.com/yunjey/stargan
 Uber AI Labs 构建了这个深度概率编程库，用于简化其运输服务的预测和优化收益。 任何处理概率建模的人都会对这个库感兴趣。
+
 https://github.com/uber/pyro
 ParlAI 是一个用于在各种公开可用的对话数据集上训练和评估 AI 模型的框架。 ParlAI 是一个在为研究人员提供访问许多流行数据集的权限的同时，也可以共享和测试对话模型的统一框架。
+https://github.com/uber-research/plato-research-dialogue-system
+这是柏拉图对话系统，一个开发会话AI代理的灵活平台。
+https://github.com/uber/ludwig
+https://uber.github.io/ludwig/examples/
+Ludwig是一个基于TensorFlow构建的工具箱，可以训练和测试深度学习模型
+https://github.com/myleott/mnist_png
+
 https://github.com/facebookresearch/ParlAI
 Facets 一种可视化机器学习数据集的工具可视化的关键是跨多个数据集的异常检测和分布比较。 有趣的值（例如，大量的缺失数据，或跨多个数据集非常不同的特征分布）以红色突出显示。
 https://github.com/PAIR-code/facets
@@ -1217,11 +1337,7 @@ https://github.com/Microsoft/AirSim
 https://github.com/simondlevy/AirSimTensorFlow
 Deep Image Prior 是基于神经网络的修复图像工具 – 并不是机器学习。
 https://github.com/DmitryUlyanov/deep-image-prior
-Open Pose 代表了第一个在单个图像上联合检测人体、手、面部和足部关键点（总共 135 个关键点）的实时多人系统。
-https://github.com/CMU-Perceptual-Computing-Lab/openpose
-https://github.com/TadasBaltrusaitis/OpenFace
-https://github.com/dlunion/OpenPose
-https://github.com/tensorlayer/openpose-plus
+
 局部着色工具
 https://github.com/msracver/Deep-Exemplar-based-Colorization
 快速准确的神经网络训练
@@ -1628,18 +1744,279 @@ https://github.com/Drewsif/PiShrink
 PaddleHub是基于PaddlePaddle开发的预训练模型管理工具，可以借助预训练模型更便捷地开展迁移学习工作。
 https://github.com/PaddlePaddle/PaddleHub
 https://github.com/PaddlePaddle/PaddleHub/wiki/PaddleHub%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7
-pip3 install paddlehub
-# 使用百度LAC词法分析工具进行分词
-$ hub run lac --input_text "今天是个好日子"
-# 使用百度Senta情感分析模型对句子进行预测
-$ hub run senta_bilstm --input_text "今天是个好日子"
-# 使用SSD检测模型对图片进行目标检测，检测结果如下图所示
-$ wget --no-check-certificate https://paddlehub.bj.bcebos.com/resources/test_img_bird.jpg
-$ hub run ssd_mobilenet_v1_pascal --input_path test_img_bird.jpg
-想了解更多PaddleHub已经发布的模型，请使用hub search命令查看所有已发布的模型。
+pip3 search paddlepaddle paddlehub
+pip3 install paddlehub==1.0.1
+pip3 install paddlepaddle==1.5.1
+
+https://www.paddlepaddle.org.cn/hubdetail?name=lac&en_category=LexicalAnalysis
+https://github.com/PaddlePaddle/models
+
 $ hub search
-模型：lac/senta/ssd/bert/ernie/resnet/mobilenet/nasnet
+模型：
+lac词法分析 百度自建数据集
+Lexical Analysis of Chinese，简称 LAC，是一个联合的词法分析模型，能整体性地完成中文分词、词性标注、专名识别任务。在百度自建数据集上评测，LAC效果：Precision=88.0%，Recall=88.7%，F1-Score=88.4%。该PaddleHub Module支持预测。
+hub install lac==1.1.1
+# 使用百度LAC词法分析工具进行分词
+hub run lac --input_text "今天是个好日子"
+
+senta_bilstm 使用百度Senta情感分析模型对句子进行预测
+情感倾向分析（Sentiment Classification，简称Senta）针对带有主观描述的中文文本，可自动判断该文本的情感极性类别并给出相应的置信度，能够帮助企业理解用户消费习惯、分析热点话题和危机舆情监控，为企业提供有利的决策支持。该模型基于一个双向LSTM结构，情感类型分为积极、消极。该PaddleHub Module支持预测和Fine-tune。
+hub install senta_bilstm==1.0.1
+hub run senta_bilstm --input_text "这家餐厅很好吃"
+hub run senta_bilstm --input_text "今天是个好日子"
+hub run senta_bilstm --input_file test.txt
+
+senta_lstm
+情感倾向分析（Sentiment Classification，简称Senta）针对带有主观描述的中文文本，可自动判断该文本的情感极性类别并给出相应的置信度，能够帮助企业理解用户消费习惯、分析热点话题和危机舆情监控，为企业提供有利的决策支持。该模型基于一个LSTM结构，情感类型分为积极、消极。该PaddleHub Module支持预测和Fine-tune。
+hub install senta_lstm
+hub run senta_lstm --input_text "这家餐厅很好吃"
+
+senta_gru
+情感倾向分析（Sentiment Classification，简称Senta）针对带有主观描述的中文文本，可自动判断该文本的情感极性类别并给出相应的置信度，能够帮助企业理解用户消费习惯、分析热点话题和危机舆情监控，为企业提供有利的决策支持。该模型基于一个GRU结构，情感类型分为积极、消极。该PaddleHub Module支持预测和Fine-tune。
+hub install senta_gru
+hub run senta_gru --input_text "这家餐厅很好吃"
+
+senta_cnn
+情感倾向分析（Sentiment Classification，简称Senta）针对带有主观描述的中文文本，可自动判断该文本的情感极性类别并给出相应的置信度，能够帮助企业理解用户消费习惯、分析热点话题和危机舆情监控，为企业提供有利的决策支持。该模型基于一个CNN结构，情感类型分为积极、消极。该PaddleHub Module支持预测和Fine-tune。
+hub install senta_cnn
+hub run senta_cnn --input_text "这家餐厅很好吃"
+
+senta_bow
+情感倾向分析（Sentiment Classification，简称Senta）针对带有主观描述的中文文本，可自动判断该文本的情感极性类别并给出相应的置信度，能够帮助企业理解用户消费习惯、分析热点话题和危机舆情监控，为企业提供有利的决策支持。该模型基于一个BOW结构，情感类型分为积极、消极。该PaddleHub Module支持预测和Fine-tune。
+hub install senta_bow
+hub run senta_bow --input_text "这家餐厅很好吃"
+
+lm_lstm
+语言模型（Langauage Model，LM）采用了序列任务常用的RNN网络，网络结构为一个两层的LSTM网络，根据LSTM的结果去预测下一个词出现的概率。其预训练数据集为PTB数据集。PTB数据集的词汇表大小为10000，预训练的word embedding维度大小是200。该PaddleHub Module可支持预测。
+hub install lm_lstm
+hub run lm_lstm --input_text "the plant which is owned by <unk> & <unk> co. was under contract with <unk> to make the cigarette filter"
+
+word2vec_skipgram语义模型 海量百度搜索数据集
+Word2vec是常用的词嵌入（word embedding）模型。该PaddleHub Module基于Skip-gram模型，在海量百度搜索数据集下预训练得到中文单词预训练词嵌入。其支持Fine-tune。Word2vec的预训练数据集的词汇表大小为1700249，word embedding维度为128。
+hub install word2vec_skipgram
+
+simnet_bow 百度海量搜索数据
+SimNet是一个计算短文本相似度的模型，可以根据用户输入的两个文本，计算出相似度得分。该PaddleHub Module基于百度海量搜索数据进行训练，支持命令行和Python接口进行预测
+hub install simnet_bow
+hub run simnet_bow --text_1 "这道题太难了" --text_2 "这道题不简单"
+
+emotion_detection_textcnn
+对话情绪识别（Emotion Detection，简称EmoTect）专注于识别智能对话场景中用户的情绪，针对智能对话场景中的用户文本，自动判断该文本的情绪类别并给出相应的置信度，情绪类型分为积极、消极、中性。该模型基于TextCNN（多卷积核CNN模型），能够更好地捕捉句子局部相关性。该PaddleHub Module预训练数据集为百度自建数据集，支持预测和Fine-tune。
+hub install emotion_detection_textcnn
+hub run emotion_detection_textcnn --input_text "今天天气真好"
+https://www.paddlepaddle.org.cn/hubdetail?name=emotion_detection_textcnn&en_category=SentimentAnalysis
+
+ernie文本分类 百科类、资讯类、论坛对话类数据等中文语料
+ERNIE通过建模海量数据中的词、实体及实体关系，学习真实世界的语义知识。相较于BERT学习原始语言信号，ERNIE直接对先验语义知识单元进行建模，增强了模型语义表示能力，以Transformer为网络基本组件，以Masked Bi-Language Model和Next Sentence Prediction为训练目标，通过预训练得到通用语义表示，再结合简单的输出层，应用到下游的NLP任务，在多个任务上取得了SOTA的结果。其可用于文本分类、序列标注、阅读理解等任务。预训练数据集为百科类、资讯类、论坛对话类数据等中文语料。该PaddleHub Module可支持Fine-tune。
+hub install ernie==1.0.2
+https://www.paddlepaddle.org.cn/hubdetail?name=ernie&en_category=SemanticModel
+
+elmo语义模型 百科类数据集
+ELMo是重要的通用语义表示模型之一，以双向LSTM为网路基本组件，以Language Model为训练目标，基于百科类数据预训练，通过预训练得到通用的语义表示，将通用的语义表示作为Feature迁移到下游NLP任务中，会显著提升下游任务的模型性能。该PaddleHub Module仅支持Fine-tune。ELMo的预训练数据集的词汇表大小为52445，ELMo embedding维度为1024。
+hub install elmo
+
+bert_chinese_L-12_H-768_A-12 中文维基百科数据
+BERT是一个迁移能力很强的通用语义表示模型，以Transformer为网络基本组件，以Masked Bi-Language Model和Next Sentence Prediction为训练目标，通过预训练得到通用语义表示，再结合简单的输出层，应用到下游的NLP任务，在多个任务上取得了SOTA的结果。其可用于文本分类、序列标注、阅读理解的任务。预训练数据集为中文维基百科数据。该PaddleHub Module只支持Fine-tune。当该PaddleHub Module用于Fine-tune时，其输入是单文本（如Fine-tune的任务为情感分类等）或文本对（如Fine-tune任务为文本语义相似度匹配等）。
+hub install bert_chinese_L-12_H-768_A-12
+
+bert_cased_L-12_H-768_A-12 英文维基百科
+bert_uncased_L-12_H-768_A-12 英文维基百科
+bert_cased_L-24_H-1024_A-16 英文维基百科
+bert_uncased_L-24_H-1024_A-16 英文维基百科
+bert_multi_cased_L-12_H-768_A-12 每种语言对应的维基百科语料库
+
+ssd_mobilenet_v1_pascal图片目标检测
+# 使用SSD检测模型对图片进行目标检测，检测结果如下图所示
+hub run ssd_mobilenet_v1_pascal --input_path ../test-images/animal/3.jpg
+
+yolov3_coco2017对象诊断
+YOLOv3是由Joseph Redmon和Ali Farhadi提出的单阶段检测器, 该检测器与达到同样精度的传统目标检测方法相比，推断速度能达到接近两倍。 YOLOv3将输入图像分成S*S个格子，每个格子预测B个bounding box，每个bounding box预测内容包括: Location(x, y, w, h)、Confidence Score和C个类别的概率，因此YOLOv3输出层的channel数为S*S*B*(5 + C)。YOLOv3的loss函数由三部分组成：Location误差，Confidence误差和分类误差。该PaddleHub Module预训练数据集为COCO2017，可支持预测。
+速度和精度均衡的目标检测网络，相比于原作者darknet中的YOLO v3实现，PaddlePaddle实现参考了论文Bag of Tricks for Image Classification with Convolutional Neural Networks 增加了mixup，label_smooth等处理，精度(mAP(0.5：0.95))相比于原作者提高了4.7个绝对百分点，在此基础上加入synchronize batch normalization, 最终精度相比原作者提高5.9个绝对百分点。
+hub run yolov3_coco2017 --input_path ../test-images/animal/3.jpg
+https://www.paddlepaddle.org.cn/hubdetail?name=yolov3_coco2017&en_category=ObjectDetection
+
+faster_rcnn_coco2017
+Faster_RCNN是两阶段目标检测器。通过对图像生成候选区域，提取特征，判别特征类别并修正候选框位置。Faster_RCNN整体网络可以分为4个主要内容，一是ResNet-50作为基础卷积层，二是区域生成网络，三是Rol Align，四是检测层。Faster_RCNN是在MS-COCO数据集上预训练的模型。该PaddleHub Module可支持预测。
+hub install faster_rcnn_coco2017
+hub run faster_rcnn_coco2017 --input_path ../test-images/animal/3.jpg
+
+Mask-RCNN
+经典的两阶段框架，在Faster R-CNN模型基础上添加分割分支，得到掩码结果，实现了掩码和类别预测关系的解藕，可得到像素级别的检测结果。
+
+RetinaNet
+经典的一阶段框架，由ResNet主干网络、FPN结构、和两个分别用于回归物体位置和预测物体类别的子网络组成。在训练过程中使用Focal Loss，解决了传统一阶段检测器存在前景背景类别不平衡的问题，进一步提高了一阶段检测器的精度。
+
+pyramidbox_face_detection
+PyramidBox是一种基于SSD的单阶段人脸检测器，它利用上下文信息解决困难人脸的检测问题。PyramidBox在六个尺度的特征图上进行不同层级的预测。该工作主要包括以下模块：LFPN、PyramidAnchors、CPM、Data-anchor-sampling。该PaddleHub Module的预训练数据集为WIDER FACE数据集，可支持预测。
+PyramidBox 模型是百度自主研发的人脸检测模型，利用上下文信息解决困难人脸的检测问题，网络表达能力高，鲁棒性强。于18年3月份在WIDER Face数据集上取得第一名
+hub install pyramidbox_face_detection
+hub run pyramidbox_face_detection --input_path ../test-images/face/1.jpg
+hub run pyramidbox_face_detection --input_file test.txt
+https://github.com/PaddlePaddle/models/tree/develop/PaddleCV/face_detection
+
+vgg19_imagenet
+VGG是牛津大学计算机视觉组和DeepMind在2014年提出的一种图像分类模型。该系列模型探索了卷积神经网络的深度与其性能之间的关系，通过实验证明了增加网络的深度能够在一定程度上影响网络最终的性能，到目前为止，VGG仍然被许多其他图像任务用作特征提取的BackBone网络。该PaddleHub Module结构为VGG19，基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+在AlexNet的基础上使用3*3小卷积核，增加网络深度，具有很好的泛化能力
+hub install vgg19_imagenet==1.0.0
+hub install vgg16_imagenet==1.0.0
+hub install vgg13_imagenet==1.0.0
+hub install vgg11_imagenet==1.0.0
+hub run vgg19_imagenet --input_path ../test-images/fruit/1.jpg
+
+shufflenet_v2_imagenet
+ShuffleNet V2是由旷视科技在2018年提出的轻量级图像分类模型，该模型通过pointwise group convolution和channel shuffle两种方式，在保持精度的同时大大降低了模型的计算量。该PaddleHub Module结构为ShuffleNet V2，基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+ECCV2018，轻量级CNN网络，在速度和准确度之间做了很好地平衡。在同等复杂度下，比ShuffleNet和MobileNetv2更准确，更适合移动端以及无人车领域
+hub install shufflenet_v2_imagenet==1.0.0
+hub run shufflenet_v2_imagenet --input_path ../test-images/fruit/5.jpg
+
+se_resnext50_32x4d_imagenet
+Squeeze-and-Excitation Networks是由Momenta在2017年提出的一种图像分类结构。该结构通过对特征通道间的相关性进行建模，把重要的特征进行强化来提升准确率。SE_ResNeXt基于ResNeXt模型添加了SE Block，并获得了2017 ILSVR竞赛的冠军。该PaddleHub Module结构为SE_ResNeXt50_32x4d，基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+在ResNeXt 基础、上加入了SE（Sequeeze-and-Excitation） 模块，提高了识别准确率，在ILSVRC 2017 的分类项目中取得了第一名
+hub install se_resnext50_32x4d_imagenet==1.0.0
+hub install se_resnext101_32x4d_imagenet==1.0.0
+
+resnet_v2_50_imagenet
+ResNet系列模型是图像分类领域的重要模型之一，模型中提出的残差单元有效地解决了深度网络训练困难的问题，通过增加模型的深度提升了模型的准确率。该PaddleHub Module结构为ResNet50，基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+Residual Network，引入了新的残差结构，解决了随着网络加深，准确率下降的问题
+hub install resnet_v2_152_imagenet==1.0.1
+hub install resnet_v2_101_imagenet==1.0.1
+hub install resnet_v2_50_imagenet==1.0.1
+hub install resnet_v2_34_imagenet==1.0.0
+hub install resnet_v2_18_imagenet==1.0.0
+hub run resnet_v2_101_imagenet --input_path ./_/动物/597404831cc74b04390778603649be44.jpg
+hub run resnet_v2_152_imagenet --input_path ./_/动物/597404831cc74b04390778603649be44.jpg
+hub run resnet_v2_50_imagenet --input_path ./_/动物/597404831cc74b04390778603649be44.jpg
+
+ResNet-D
+融合最新多种对ResNet改进策略，ResNet50_vd的top1准确率达到79.84%
+
+Inception-v4
+将Inception模块与Residual Connection进行结合，通过ResNet的结构极大地加速训练并获得性能的提升
+
+pnasnet_imagenet
+PNASNet是Google通过AutoML自动训练出来的图像分类模型。该PaddleHub Module基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+hub install pnasnet_imagenet==1.0.1
+hub run pnasnet_imagenet --input_path ./_/动物/597404831cc74b04390778603649be44.jpg
+
+nasnet_imagenet
+NASNet是Google通过AutoML自动训练出来的图像分类模型。该PaddleHub Module基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+hub install nasnet_imagenet==1.0.1
+hub run nasnet_imagenet --input_path ./_/动物/597404831cc74b04390778603649be44.jpg
+
+mobilenet_v2_imagenet
+MobileNet V2是Mark Sandler, Andrew Howard等人在2018年提出的一个图像分类模型，该系列模型（MobileNet）是为移动和嵌入式设备提出的高效模型，在模型参数较少的情况下仍然保持了较高的分类准确率。该PaddleHub Module基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+将传统的卷积结构改造成两层卷积结构的网络，在基本不影响准确率的前提下大大减少计算时间，更适合移动端和嵌入式视觉应用
+MobileNet结构的微调，直接在thinner的bottleneck层上进行skip learning连接以及对bottleneck layer不进行ReLu非线性处理可取得更好的结果
+hub install mobilenet_v2_imagenet==1.0.1
+hub run mobilenet_v2_imagenet --input_path ./_/动物/597404831cc74b04390778603649be44.jpg
+
+googlenet_imagenet
+GoogleNet是图像分类中的经典模型。由Christian Szegedy等人在2014年提出，并获得了2014年ILSVRC竞赛冠军。该PaddleHub Module结构为GoogleNet，基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+在不增加计算负载的前提下增加了网络的深度和宽度，性能更加优越
+hub install googlenet_imagenet==1.0.0
+
+alexnet_imagenet
+AlexNet是图像分类中的经典模型。模型由Alex Krizhevsky于2012年提出，并在2012年ILSVRC比赛中夺得冠军。该PaddleHub Module结构为AlexNet，基于ImageNet-2012数据集训练，接受输入图片大小为224 x 224 x 3，支持直接通过命令行或者Python接口进行预测。
+首次在CNN中成功的应用了ReLU、Dropout和LRN，并使用GPU进行运算加速
+hub install alexnet_imagenet==1.0.0
+
+cyclegan_cityscapes 图像生成
+CycleGAN是生成对抗网络（Generative Adversarial Networks ）的一种，与传统的GAN只能单向生成图片不同，CycleGAN可以同时完成两个domain的图片进行相互转换。该PaddleHub Module使用Cityscapes数据集训练完成，支持图片从实景图转换为语义分割结果，也支持从语义分割结果转换为实景图。
+hub install cyclegan_cityscapes
+
+tsn_kinetics400 视频分类
+TSN（Temporal Segment Network）是视频分类领域经典的基于2D-CNN的解决方案。该方法主要解决视频的长时间行为判断问题，通过稀疏采样视频帧的方式代替稠密采样，既能捕获视频全局信息，也能去除冗余，降低计算量。最终将每帧特征平均融合后得到视频的整体特征，并用于分类。TSN的训练数据采用由DeepMind公布的Kinetics-400动作识别数据集。该PaddleHub Module可支持预测。
+hub install tsn_kinetics400
+TSM（Temporal Shift Module）是由MIT和IBM Watson AI Lab的JiLin，ChuangGan和SongHan等人提出的通过时间位移来提高网络视频理解能力的模块。TSM的训练数据采用由DeepMind公布的Kinetics-400动作识别数据集。该PaddleHub Module可支持预测。
+hub install tsm_kinetics400
+StNet模型框架为ActivityNet Kinetics Challenge 2018中夺冠的基础网络框架，是基于ResNet50实现的。该模型提出super-image的概念，在super-image上进行2D卷积，建模视频中局部时空相关性。另外通过temporal modeling block建模视频的全局时空依赖，最后用一个temporal Xception block对抽取的特征序列进行长时序建模。StNet的训练数据采用由DeepMind公布的Kinetics-400动作识别数据集。该PaddleHub Module可支持预测。
+hub install stnet_kinetics400
+Non-local Neural Networks是由Xiaolong Wang等研究者在2017年提出的模型，主要特点是通过引入Non-local操作来描述距离较远的像素点之间的关联关系。其借助于传统计算机视觉中的non-local mean的思想，并将该思想扩展到神经网络中，通过定义输出位置和所有输入位置之间的关联函数，建立全局关联特性。Non-local模型的训练数据采用由DeepMind公布的Kinetics-400动作识别数据集。该PaddleHub Module可支持预测。
+hub install nonlocal_kinetics400
+
+ICNet
+主要用于图像实时语义分割，能够兼顾速度和准确性，易于线上部署
+
+DeepLab V3+
+通过encoder-decoder进行多尺度信息的融合，同时保留了原来的空洞卷积和ASSP层， 其骨干网络使用了Xception模型，提高了语义分割的健壮性和运行速率
+
+Simple Baselines
+coco2018关键点检测项目亚军方案，网络结构非常简单，效果达到state of the art
+
+图像生成
+CGAN	条件生成对抗网络，一种带条件约束的GAN，使用额外信息对模型增加条件，可以指导数据生成过程	Mnist
+DCGAN	深度卷积生成对抗网络，将GAN和卷积网络结合起来，以解决GAN训练不稳定的问题	Mnist
+Pix2Pix	图像翻译，通过成对图片将某一类图片转换成另外一类图片，可用于风格迁移	Cityscapes
+CycleGAN	图像翻译，可以通过非成对的图片将某一类图片转换成另外一类图片，可用于风格迁移	Cityscapes
+StarGAN	多领域属性迁移，引入辅助分类帮助单个判别器判断多个属性，可用于人脸属性转换	Celeba
+AttGAN	利用分类损失和重构损失来保证改变特定的属性，可用于人脸特定属性转换	Celeba
+STGAN	人脸特定属性转换，只输入有变化的标签，引入GRU结构，更好的选择变化的属性	Celeba
+
+场景文字识别
+CRNN-CTC	使用CTC model识别图片中单行英文字符，用于端到端的文本行图片识别方法	单行不定长的英文字符串图片	错误率= 22.3%
+OCR Attention	使用attention 识别图片中单行英文字符，用于端到端的自然场景文本识别，	单行不定长的英文字符串图片	错误率 = 15.8%
+
+度量学习
+ResNet50未微调	使用arcmargin loss训练的特征模型	Stanford Online Product(SOP)	78.11%
+ResNet50使用triplet微调	在arcmargin loss基础上，使用triplet loss微调的特征模型	Stanford Online Product(SOP)	79.21%
+ResNet50使用quadruplet微调	在arcmargin loss基础上，使用quadruplet loss微调的特征模型	Stanford Online Product(SOP)	79.59%
+ResNet50使用eml微调	在arcmargin loss基础上，使用eml loss微调的特征模型	Stanford Online Product(SOP)	80.11%
+ResNet50使用npairs微调	在arcmargin loss基础上，使用npairs loss微调的特征模型	Stanford Online Product(SOP)	79.81%
+
+视频分类和动作定位
+TSN	ECCV'16提出的基于2D-CNN经典解决方案	Kinetics-400	Top-1 = 67%
+Non-Local	视频非局部关联建模模型	Kinetics-400	Top-1 = 74%
+stNet	AAAI'19提出的视频联合时空建模方法	Kinetics-400	Top-1 = 69%
+TSM	基于时序移位的简单高效视频时空建模方法	Kinetics-400	Top-1 = 70%
+Attention LSTM	常用模型，速度快精度高	Youtube-8M	GAP = 86%
+Attention Cluster	CVPR'18提出的视频多模态特征注意力聚簇融合方法	Youtube-8M	GAP = 84%
+NeXtVlad	2nd-Youtube-8M最优单模型	Youtube-8M	GAP = 87%
+C-TCN	2018年ActivityNet夺冠方案	ActivityNet1.3	MAP=31%
+
+阅读理解
+MRC(Machine Reading Comprehension)机器阅读理解(MRC)是自然语言处理(NLP)中的关键任务之一，开源的DuReader升级了经典的阅读理解BiDAF模型，去掉了char级别的embedding，在预测层中使用了pointer network，并且参考了R-NET中的一些网络结构，效果上有了大幅提升
+
+emotion_detection_ernie_finetune
+lexical_analysis
+lexical_analysis_finetuned
+dureader_machine_reading-bidaf
+simnet_bow_pairwise
+dmtk_models
+auto_dialogue_evaluation_matching_pretrained_model
+auto_dialogue_evaluation_seq2seq_naive_finetuned_model
+auto_dialogue_evaluation_seq2seq_att_finetuned_model
+auto_dialogue_evaluation_keywords_finetuned_model
+auto_dialogue_evaluation_human_finetuned_model
+
+下载目录：
+/Users/hcxiong/.paddlehub/cache/
+/Users/hcxiong/.paddlehub/modules/
+
+pip3 install torch==1.1.0.post2
+https://github.com/pytorch/hub
+下载目录：
+/Users/hcxiong/.cache/torch/hub/
+
+https://aistudio.baidu.com/aistudio/projectoverview
+
+垃圾邮件 数据集
+https://plg.uwaterloo.ca/cgi-bin/cgiwrap/gvcormac/foo06
+https://plg.uwaterloo.ca/cgi-bin/cgiwrap/gvcormac/trec06c.tgz
 
 https://github.com/yangboz/LotteryPrediction
 https://github.com/google-research/lottery-ticket-hypothesis
 https://github.com/chengstone/LotteryPredict
+
+图中文描述
+https://github.com/foamliu/Image-Captioning-v2
+https://challenger.ai/dataset/caption
+https://github.com/kelvinxu/arctic-captions
+https://github.com/foamliu/Image-Captioning-v2/releases/download/v1.0/BEST_checkpoint_.pth.tar
+https://github.com/tensorflow/models/tree/master/research/im2txt
+https://github.com/tensorflow/models/tree/master/research/slim#tensorflow-slim-image-classification-library
+https://python.ctolib.com/TimoYoung-im2txt_Chinese.html
+
+超分辨率网络
+https://github.com/foamliu/Super-Resolution-Net
+
+https://github.com/foamliu/Deep-Image-Matting

@@ -51,6 +51,7 @@ php ~/composer.phar require simplesoftwareio/simple-qrcode
 https://www.simplesoftware.io/docs/simple-qrcode/zh
 
 php ~/composer.phar -vvv require alibabacloud/sdk
+php ~/composer.phar -vvv require tecnickcom/tcpdf
 
 本地服务器
 php artisan serve

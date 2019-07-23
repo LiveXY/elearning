@@ -1,5 +1,7 @@
 python
 
+yum install -y python36 python36-pip
+
 brew install python3
 ln -s /usr/local/Cellar/python/3.7.0/bin/python3 /usr/local/bin/python3
 
