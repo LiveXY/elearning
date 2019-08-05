@@ -1088,6 +1088,10 @@ sshd:ip地址
 查看自启动服务 systemctl list-unit-files | grep enabled
 systemd-analyze blame，这个命令可以显示进程耗时，帮助我们发现耗时最长的进程。
 
+(1) 物理内存free值：# free -m | grep Mem | awk '{print $4}'
+(2) 缓冲区的free值：# free -m | grep - | awk '{print $4}'
+(3) Swap分区free值：# free -m | grep Swap | awk '{print $4}'
+
 显示10个消耗cpu最多的进程
 ps -auxf | sort -nr -k 3 | head -10
 显示10个消耗内存最多的进程

@@ -1,5 +1,7 @@
 html5 css3
 
+https://github.com/qdlaoyao/css-gif
+
 解决UIWebView旋转成横屏后字体会放大的策略
 -webkit-text-size-adjust: none;
 -webkit-font-smoothing: none;

@@ -424,7 +424,12 @@ http://fanyi.youdao.com/openapi.do?keyfrom=wufeifei&key=716426270&type=data&doct
 代码安全审计
 https://github.com/WhaleShark-Team/cobra
 
-bert中文分类实践
+XLNET/NLP预训练新方法
+自编码语言模型（Autoencoder LM）
+https://github.com/zihangdai/xlnet
+
+bert中文分类实践/ELMO
+自回归语言模型（Autoregressive LM）
 https://github.com/NLPScott/bert-Chinese-classification-task
 https://github.com/yuanxiaosc/BERT_Paper_Chinese_Translation
 https://github.com/terrifyzhao/bert-utils
@@ -913,6 +918,10 @@ https://github.com/hcxiong/faceai/blob/master/doc/emotion.md
 https://blog.csdn.net/ZWX2445205419/article/details/79086288
 https://blog.csdn.net/ZWX2445205419/article/details/79030001
 
+表情识别
+https://github.com/deepak-ucfknight/Emotion-Recognition
+https://github.com/YouYouExcellent/keras_emotion_classify
+
 视频对象提取
 https://github.com/vipstone/faceai/blob/master/doc/hsv-opencv.md
 图片修复
@@ -1203,6 +1212,14 @@ https://github.com/pandas-dev/pandas
 https://github.com/matplotlib/matplotlib
 https://github.com/mwaskom/seaborn
 https://github.com/bokeh/bokeh
+https://github.com/pyecharts/pyecharts
+from pyecharts import WordCloud
+name = data_10['关键词'].tolist()
+value = data_10['出现频率'].tolist()
+wordcloud = WordCloud(width=1300, height=620)
+wordcloud.add("", name, value, word_size_range=[20, 100])
+wordcloud.render('./参考案例HTML/关键词统计词云图.html')
+wordcloud
 https://github.com/plotly/plotly.py
 https://github.com/amueller/word_cloud
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud
@@ -1242,6 +1259,7 @@ https://conda.io/miniconda.html
 https://github.com/nltk/nltk
 训练中文詞向量
 https://github.com/RaRe-Technologies/gensim
+pip3 install --upgrade gensim
 数据挖掘，统计学，爬虫
 https://github.com/scrapy/scrapy
 https://github.com/statsmodels/statsmodels
@@ -1485,6 +1503,9 @@ https://github.com/aleju/self-driving-truck
 https://github.com/Microsoft/AirSim
 https://github.com/wwoody827/cvpr-2018-autonomous-driving-autopilot-solution
 https://github.com/HadXu/auto-drive
+
+自动驾驶数据集
+https://level5.lyft.com/dataset/?source=post_page---------------------------
 
 阿波罗指导计算机 - 或简称为“AGC”
 https://github.com/virtualagc/virtualagc
@@ -1997,7 +2018,10 @@ https://github.com/pytorch/hub
 下载目录：
 /Users/hcxiong/.cache/torch/hub/
 
+百度AI项目
 https://aistudio.baidu.com/aistudio/projectoverview
+公开的数据集
+https://aistudio.baidu.com/aistudio/datasetlist/2
 
 垃圾邮件 数据集
 https://plg.uwaterloo.ca/cgi-bin/cgiwrap/gvcormac/foo06
@@ -2020,3 +2044,58 @@ https://python.ctolib.com/TimoYoung-im2txt_Chinese.html
 https://github.com/foamliu/Super-Resolution-Net
 
 https://github.com/foamliu/Deep-Image-Matting
+
+吃鸡超级玛丽
+https://github.com/mroyale/mroyale-server
+https://github.com/Igoorx/PyRoyale
+
+那么哪里可以找到小程序的安装包？
+1、https://servicewechat.com/weapp/release/${appid}/${version_num}.wxapkg
+http://123.125.9.32/resstatic.servicewechat.com/weapp/release/${appid}/${version_num}.wxapkg
+
+2、在android手机中/data/data/com.tencent.mm/MicroMsg/${userid}/appband/pkg
+adb shell
+su
+cd /data/data/com.tencent.mm/MicroMsg/${userid}/appband/pkg
+adb pull /data/data/com.tencent.mm/MicroMsg/{User}/appbrand/pkg
+
+git clone https://github.com/thedreamwork/unwxapkg
+cd unwxapkg
+npm install && npm link
+
+细粒度图像识别
+https://github.com/JDAI-CV/DCL
+https://www.kaggle.com/datasets
+https://www.kaggle.com/c/ifood-2019-fgvc6/data
+https://www.kaggle.com/c/fieldguide-challenge-moths-and-butterflies/data
+https://www.kaggle.com/c/imaterialist-product-2019/data
+
+手写数字数据集MNIST：
+http://yann.lecun.com/exdb/mnist/
+
+https://github.com/onnx/tutorials
+https://github.com/onnx/models
+pip3 install onnx
+
+车识别
+https://github.com/michalgdak/car-recognition
+http://ai.stanford.edu/~jkrause/cars/car_dataset.html
+
+
+https://github.com/openai/gpt-2
+https://github.com/allenai/allennlp
+pip3 install allennlp
+https://github.com/zalandoresearch/flair
+https://github.com/huggingface/pytorch-transformers
+https://github.com/kimiyoung/transformer-xl
+https://github.com/google-research/bert
+https://github.com/brightmart/text_classification
+https://github.com/graykode/nlp-tutorial
+
+视频语义分割
+https://github.com/NVIDIA/semantic-segmentation
+
+https://www.paperswithcode.com/sota
+https://www.paperswithcode.com/area/computer-vision
+https://www.paperswithcode.com/paper/transformer-xl-attentive-language-models
+https://www.paperswithcode.com/paper/bert-pre-training-of-deep-bidirectional

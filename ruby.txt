@@ -1,0 +1,26 @@
+默认安装2.0的ruby
+yum install -y ruby rubygems
+
+更换ALIYUN源
+gem sources --add http://mirrors.aliyun.com/rubygems/ --remove https://rubygems.org/
+gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+
+安装RAM
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable
+source /etc/profile.d/rvm.sh
+
+升级ruby2.6
+rvm install 2.6
+
+rvm list
+
+gem install redis
+
+
+gem install fastlane -NV
+gem install fastlane --verbose
+fastlane spaceship
+gem install pry
+fastlane -v
+fastlane init
