@@ -58,3 +58,48 @@ pip3 install yagmail
 
 EXCEL
 https://github.com/ricklamers/gridstudio
+
+brew install rabbitmq
+brew services start rabbitmq
+brew install redis
+brew services start redis
+
+nameko 微服务
+pip3 install nameko
+
+vi nameko.py
+from nameko.rpc import rpc
+class GreetingService:
+	name = "nameko"
+	@rpc
+	def hello(self, name):
+		return "Hello, {}!".format(name)
+
+nameko run nameko
+nameko shell
+> n.rpc.nameko.hello(name="test")
+nameko shell --broker amqp://guest:guest@localhost
+
+celery 并行分布式框架
+pip3 install celery
+pip3 install redis
+
+vi tasks.py
+from celery import Celery
+import time
+#app = Celery('tasks', backend='amqp', broker='amqp://')
+app = Celery('tasks', broker='redis://127.0.0.1:6379/0', backend='redis://127.0.0.1:6379/0')
+#redis://:password@hostname:port/db_number
+@app.task
+def add(x, y):
+	time.sleep(5)
+	return x + y
+
+celery -A tasks worker --loglevel=info
+celery shell
+> from tasks import add
+> res = add.delay(4,4)
+> res.ready()
+> res.ready()
+> res.result
+

@@ -76,6 +76,10 @@ https://github.com/DragonComputer/Dragonfire
 https://github.com/r9y9/deepvoice3_pytorch
 git clone https://github.com/r9y9/deepvoice3_pytorch && cd deepvoice3_pytorch
 pip install -e ".[bin]"
+python synthesis.py --preset=20180505_deepvoice3_ljspeech.json \
+  20180505_deepvoice3_checkpoint_step000640000.pth \
+  sentences.txt \
+  output_dir
 python preprocess.py --preset=presets/deepvoice3_ljspeech.json ljspeech ~/data/LJSpeech-1.0
 python train.py --preset=presets/deepvoice3_ljspeech.json --data-root=./data/ljspeech
 python preprocess.py ljspeech ~/data/LJSpeech-1.0
@@ -206,9 +210,74 @@ pip3 install pyaudio
 https://deepspeech.bj.bcebos.com/zh_lm/zh_giga.no_cna_cmn.prune01244.klm
 
 https://github.com/Uberi/speech_recognition
-pip install SpeechRecognition
+https://pypi.org/project/pocketsphinx/
+pip3 install SpeechRecognition
+pip3 install https://github.com/bambocher/pocketsphinx-python/archive/master.zip
+brew install cmu-pocketsphinx cmu-sphinxbase cmu-sphinxtrain cmuclmtk
 https://realpython.com/python-speech-recognition/
 https://blog.csdn.net/weixin_40490238/article/details/84841825
+https://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/Mandarin/cmusphinx-zh-cn-5.2.tar.gz/download
+https://jaist.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Mandarin/cmusphinx-zh-cn-5.2.tar.gz
+解压到
+cd /usr/local/lib/python3.7/site-packages/speech_recognition/pocketsphinx-data
+mkdir -p zh-CN/acoustic-model
+zh_broadcastnews_16k_ptm256_8000.tar.bz2解压缩到zh-CN/acoustic-model
+zh_broadcastnews_utf8.dic重命名为pronounciation-dictionary.dict并放入\zh-CN文件夹
+SphinxBase工具将zh_broadcastnews_64000_utf8.DMP转换成language-model.lm.bin并放入\zh-CN文件夹下
+pocketsphinx_continuous -hmm /usr/local/lib/python3.7/site-packages/speech_recognition/pocketsphinx-data/zh-CN/acoustic-model/ -lm zh_broadcastnews_64000_utf8.DMP -dict pronounciation-dictionary.dic
+https://github.com/cmusphinx/sphinxbase
+.\sphinx_lm_convert.exe -i .\zh_broadcastnews_64000_utf8.DMP -o language-model.lm -ofmt arpa
+.\sphinx_lm_convert.exe -i .\language-model.lm -o language-model.lm.bin
+sphinx_lm_convert -i zh_broadcastnews_64000_utf8.DMP -o language-model.lm -ofmt arpa
+sphinx_lm_convert -i language-model.lm -o language-model.lm.bin
+https://www.cnblogs.com/henjay724/p/9576670.html
+http://www.speech.cs.cmu.edu/tools/lextool.html
+http://www.speech.cs.cmu.edu/tools/lmtool-new.html
+pip3 install cmudict
+vi test.txt
+窗口 ch uang k ou
+打开 d a k ai
+关闭 g uan b i
+记事本 j i sh ib b en
+浏览器 l iu l an q i
+音乐 y in uxs uxe
+http://www.speech.cs.cmu.edu/tools/lmtool-new.html
+pocketsphinx_continuous -lm 6177.lm -dict 6177.dic
+/usr/local/Cellar/cmu-pocketsphinx/0.8/share/pocketsphinx/model/hmm/en_US/hub4wsj_sc_8k
+pocketsphinx_continuous -hmm tdt_sc_8k -lm 6177.lm -dict 6177.dic
+/usr/local/share/pocketsphinx/model/hmm/zh/tdt_sc_8k/
+/usr/local/Cellar/cmu-pocketsphinx/0.8/share/pocketsphinx/model/hmm/zh/tdt_sc_8k/
+训练大文本数据的语言模型
+vi weather.txt
+<s> 天气 </s>
+<s> 有雨 </s>
+<s> 晴朗 </s>
+<s> 多云 </s>
+<s> 雷电 </s>
+产生词汇表vocabulary文件：
+text2wfreq < weather.txt | wfreq2vocab > weather.vocab
+命令text2wfreq：统计文本文件中每个词出现的次数，得到一个后缀为wfreq的文件
+命令wfreq2vocab：统计文本文件中含有多少个词，即有哪些词。
+生成 arpa格式的语言模型：
+text2idngram -vocab weather.vocab -idngram weather.idngram < weather.txt
+idngram2lm -vocab_type 0 -idngram weather.idngram -vocab weather.vocab -arpa weather.arpa
+转换为 CMU的二进制格式 (DMP)：
+sphinx_lm_convert -i weather.arpa -o weather.lm.DMP
+cp -a /usr/local/share/pocketsphinx/model/hmm/zh/tdt_sc_8k .
+sphinx_fe -argfile tdt_sc_8k/feat.params -samprate 16000 -c arctic20.fileids -di . -do . -ei wav -eo mfc -mswav yes
+https://www.cnblogs.com/qiuhong/articles/3671991.html
+sphinx_lm_convert -i model.lm -o model.dmp
+sphinx_lm_convert -i model.dmp -ifmt dmp -o model.lm -ofmt arpa
+http://www.voidcn.com/article/p-tiryhtrm-zk.html
+rec_wav.sh
+for i in `seq 1 12`; do
+       fn=`printf arctic_%04d $i`;
+       read sent; echo $sent;
+       rec -r 16000 -e signed-integer -b 16 -c 1 $fn.wav 2>/dev/null;
+done < arctic20.txt
+
+Raspberry PI语音控制-PocketSphinx
+https://my.oschina.net/RagingTyphoon/blog/493072
 
 IBM:
 https://github.com/watson-developer-cloud/speech-to-text-nodejs
@@ -491,6 +560,9 @@ http://www.pm25.in/api_doc
 https://www.faceplusplus.com.cn/
 pip3 install jieba tgrocery
 
+远程控制玩具车
+https://github.com/pjq/rpi
+
 sudo apt-get install libttspico-utils
 https://github.com/GwadaLUG/pico-read-speaker
 - libttspico-data (https://openrepos.net/content/mickaelh/libttspico-data)
@@ -664,6 +736,21 @@ https://github.com/hcxiong/faceai/blob/master/doc/videoOpenCV.md
 https://github.com/hcxiong/faceai/blob/master/doc/videoDlib.md
 https://github.com/hcxiong/faceai/blob/master/doc/faceRecognitionOutline.md
 
+人脸检测
+https://github.com/610265158/DSFD-tensorflow
+
+https://github.com/kpzhang93/MTCNN_face_detection_alignment
+https://github.com/ydwen/caffe-face
+https://github.com/deepinsight/insightface
+https://github.com/deepinsight/insightface/wiki/Model-Zoo
+MS1M-Arcface
+https://pan.baidu.com/s/1S6LJZGdqcZRle1vlcMzHOQ
+
+https://github.com/ZhaoJ9014/face.evoLVe.PyTorch
+https://github.com/Cadene/pretrained-models.pytorch
+
+2012年视觉对象课程挑战（VOC2012）
+http://host.robots.ox.ac.uk:8080/pascal/VOC/voc2012/index.html
 
 https://github.com/fighting41love/funNLP
 中英文敏感词过滤 https://github.com/observerss/textfilter
@@ -1332,6 +1419,16 @@ https://github.com/andabi/deep-voice-conversion
 https://github.com/yunjey/stargan
 Uber AI Labs 构建了这个深度概率编程库，用于简化其运输服务的预测和优化收益。 任何处理概率建模的人都会对这个库感兴趣。
 
+年龄和性别深度学习 --class_type gender
+https://github.com/dpressel/rude-carnie
+年龄
+python3 guess.py --model_type inception --model_dir ./22801 --filename test1.png
+性别
+python3 guess.py --model_type inception --model_dir ./21936 --filename test1.png
+下载后解压到本地工程里面的22801目录 http://pan.baidu.com/s/1mhLBIHy
+wget http://download.tensorflow.org/models/inception_v3_2016_08_28.tar.gz
+https://blog.csdn.net/nanjingdreamfly/article/details/62418036
+
 https://github.com/uber/pyro
 ParlAI 是一个用于在各种公开可用的对话数据集上训练和评估 AI 模型的框架。 ParlAI 是一个在为研究人员提供访问许多流行数据集的权限的同时，也可以共享和测试对话模型的统一框架。
 https://github.com/uber-research/plato-research-dialogue-system
@@ -1488,6 +1585,7 @@ https://github.com/littleredhat1997/chatbot-aiml-webqa
 https://github.com/Ewenwan/MVision
 https://github.com/Ewenwan/AI-Security-Learning
 自动驾驶
+https://github.com/ApolloAuto/apollo
 https://github.com/carla-simulator/carla
 https://github.com/commaai/openpilot
 https://comma.ai/
@@ -2099,3 +2197,200 @@ https://www.paperswithcode.com/sota
 https://www.paperswithcode.com/area/computer-vision
 https://www.paperswithcode.com/paper/transformer-xl-attentive-language-models
 https://www.paperswithcode.com/paper/bert-pre-training-of-deep-bidirectional
+
+价格上涨/下跌时通知机器人
+https://github.com/kwf2030/hiprice-chatbot
+
+自动将字幕与视频同步
+https://github.com/smacke/subsync
+自动编辑视频
+https://github.com/carykh/jumpcutter
+
+https://github.com/sfyc23/EverydayWechat
+[性感渣男在线教学] 一个教你说情话的网站.
+https://www.v2ex.com/t/569853
+https://api.lovelive.tools/api/SweetNothings
+GET https://api.lovelive.tools/api/SweetNothings/:count/Serialization/:serializationType
+GET https://api.lovelive.tools/api/SweetNothings/Serialization/:serializationType/:count
+GET https://api.lovelive.tools/api/SweetNothings/Serialization/:serializationType
+GET https://api.lovelive.tools/SweetNothings/:count
+GET https://api.lovelive.tools/api/SweetNothings/3/Serialization/Json
+https://chp.shadiao.app/
+https://chp.shadiao.app/api.php
+骂人宝典
+https://nmsl.shadiao.app/
+https://nmsl.shadiao.app/api.php
+https://nmsl.shadiao.app/api.php?level=min
+每日一言
+http://guozhivip.com/nav/yiyan.html
+http://guozhivip.com/nav/api/api.php
+https://www.juzimi.com/
+http://open.iciba.com/?c=api
+http://wufazhuce.com/
+天气
+https://www.sojson.com/blog/305.html
+AI人工智能机器人
+http://www.yige.ai/
+http://www.turingapi.com/
+http://api.qingyunke.com/
+查询天气：http://api.qingyunke.com/api.php?key=free&appid=0&msg=天气梅州
+ＩＰ查询：http://api.qingyunke.com/api.php?key=free&appid=0&msg=127.0.0.1
+手机查询：http://api.qingyunke.com/api.php?key=free&appid=0&msg=13430108888
+智能聊天：http://api.qingyunke.com/api.php?key=free&appid=0&msg=你好
+智能闲聊（腾讯）
+https://ai.qq.com/product/nlpchat.shtml
+https://www.tianapi.com/apiview/47
+https://ruyi.ai/
+星座屋
+https://www.xzw.com/
+万年历
+https://www.sojson.com/api/lunar.html
+
+从网易云音乐、QQ音乐、酷狗音乐、百度音乐、虾米音乐等搜索和下载歌曲
+https://github.com/0xHJK/music-dl
+pip3 install pymusic-dl
+music-dl --help
+music-dl -l -k "周杰伦"
+代理
+https://github.com/0xHJK/Proxies
+
+点击查询搜狗词库表
+https://gitee.com/tyoui/word
+https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/sogou
+常见的距离公式
+https://github.com/jtyoui/Jtyoui/tree/master/jtyoui/statistics/distance
+https://blog.csdn.net/jiangjiang_jian/article/details/77527855
+造句
+http://zaojv.com/
+百科
+https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/baidu/Encyclopedias.py
+翻译
+https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/jp/Japan.py
+https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/language/Translates.py
+
+图片对象检查
+git clone https://github.com/pjreddie/darknet
+cd darknet
+make
+pip install .
+wget https://pjreddie.com/media/files/yolov3.weights
+./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
+./darknet detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights data/dog.jpg
+./darknet detect cfg/yolov3.cfg yolov3.weights
+./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg -thresh 0
+wget https://pjreddie.com/media/files/yolov3-tiny.weights
+./darknet detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg
+./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights
+./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights <video file>
+wget https://pjreddie.com/media/files/darknet53.conv.74
+./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet53.conv.74
+wget https://pjreddie.com/media/files/yolov3-openimages.weights
+./darknet detector test cfg/openimages.data cfg/yolov3-openimages.cfg yolov3-openimages.weights
+https://pjreddie.com/darknet/yolo/
+flow --imgdir sample_img/ --model cfg/tiny-yolo.cfg --load bin/tiny-yolo.weights --json
+flow --model cfg/yolo-new.cfg --load bin/yolo-new.weights --demo videofile.avi
+flow --model cfg/yolo-new.cfg --load bin/yolo-new.weights --demo videofile.avi --gpu 1.0
+
+from darkflow.net.build import TFNet
+import cv2
+options = {"model": "cfg/yolo.cfg", "load": "bin/yolo.weights", "threshold": 0.1}
+tfnet = TFNet(options)
+imgcv = cv2.imread("./sample_img/sample_dog.jpg")
+result = tfnet.return_predict(imgcv)
+print(result)
+
+Raspberry Pi 3D打印
+https://github.com/nordprojects/lantern
+用于单板计算机的视频监控操作系统
+https://github.com/ccrisan/motioneyeos
+https://github.com/chrispcampbell/qrocodile
+
+https://github.com/jjwang/laibot-client/wiki/Jasper%E7%9A%84%E5%AE%89%E8%A3%85%E3%80%81%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8
+https://github.com/flyingtimes/image-recognition
+https://github.com/jasperproject/jasper-client/
+https://github.com/KhaosT/HAP-NodeJS
+https://github.com/nfarina/homebridge
+Raspberry PI3
+aplay -l
+arecord -l
+nano ~/.asoundrc
+arecord -t wav -f S16_LE -c 2 -d 10 -r 24000 temp.wav
+-t 录音文件的类型,这里录音文件类型为wav；
+-f 文件格式,格式为S16_LE；
+-c 声道,这里设为2，双声道；
+-r 设置波特率,波特率为24000；
+-d 录音时间,录音时间为10秒。
+b.使用aplay指令测试放音工作情况
+  $ aplay temp.wav
+
+wget -c http://sourceforge.net/projects/e-guidedog/files/Ekho/7.6/ekho-7.6.tar.xz
+cd ekho
+./configure
+make
+make install
+ekho "hello 123"
+http://www.eguidedog.net/cn/WebSpeech_cn.php
+http://120.24.87.124/cgi-bin/ekho2.pl?cmd=SPEAK&voice=BaiduMandarinFemale&speedDelta=0&pitchDelta=0&volumeDelta=0&text=%E5%90%AC%E5%88%B0%E5%A3%B0%E9%9F%B3%E4%BA%86%E5%90%976
+http://120.24.87.124/cgi-bin/ekho2.pl?cmd=SPEAK&voice=BaiduMandarinMale&speedDelta=0&pitchDelta=0&volumeDelta=0&text=%E5%90%AC%E5%88%B0%E5%A3%B0%E9%9F%B3%E4%BA%86%E5%90%97%EF%BC%9F
+http://120.24.87.124/cgi-bin/ekho2.pl?cmd=SPEAK&voice=iflytek&speedDelta=0&pitchDelta=0&volumeDelta=0&text=%E5%90%AC%E5%88%B0%E5%A3%B0%E9%9F%B3%E4%BA%86%E5%90%97%EF%BC%9F
+http://120.24.87.124/cgi-bin/ekho2.pl?cmd=SPEAK&voice=iflytekXiaomei&speedDelta=0&pitchDelta=0&volumeDelta=0&text=%E5%90%AC%E5%88%B0%E5%A3%B0%E9%9F%B3%E4%BA%86%E5%90%97%EF%BC%9F
+
+wget -c https://liquidtelecom.dl.sourceforge.net/project/e-guidedog/zhspeak/zhspeak_4.2.0_generic.tar.xz
+tar xJvf zhspeak_4.2.0_generic.tar.xz
+bin/zhspeak -xclip -zh
+bin/zhspeak -xclip -zhy
+
+用于音频和音乐分析的Python库
+https://github.com/librosa/librosa
+https://nbviewer.jupyter.org/github/librosa/librosa/blob/master/examples/LibROSA%20demo.ipynb
+https://nbviewer.jupyter.org/github/librosa/librosa/blob/master/examples/LibROSA%20audio%20effects%20and%20playback.ipynb
+
+中文数据集
+AISHELL-1
+178小时
+AISHELL-ASR0009录音文本涉及智能家居、无人驾驶、工业生产等11个领域。录制过程在安静室内环境中， 同时使用3种不同设备： 高保真麦克风（44.1kHz，16-bit）；Android系统手机（16kHz，16-bit）；iOS系统手机（16kHz，16-bit）。高保真麦克风录制的音频降采样为16kHz，用于制作AISHELL-ASR0009-OS1。400名来自中国不同口音区域的发言人参与录制。经过专业语音校对人员转写标注，并通过严格质量检验，此数据库文本正确率在95%以上。分为训练集、开发集、测试集。（支持学术研究，未经允许禁止商用。）
+AISHELL-2
+1000小时
+希尔贝壳中文普通话语音数据库AISHELL-2的语音时长为1000小时，其中718小时来自AISHELL-ASR0009-[ZH-CN]，282小时来自AISHELL-ASR0010-[ZH-CN]。录音文本涉及唤醒词、语音控制词、智能家居、无人驾驶、工业生产等12个领域。录制过程在安静室内环境中， 同时使用3种不同设备： 高保真麦克风（44.1kHz，16bit）；Android系统手机（16kHz，16bit）；iOS系统手机（16kHz，16bit）。AISHELL-2采用iOS系统手机录制的语音数据。1991名来自中国不同口音区域的发言人参与录制。经过专业语音校对人员转写标注，并通过严格质量检验，此数据库文本正确率在96%以上。（支持学术研究，未经允许禁止商用。）
+AISHELL-EVAL
+（AISHELL2-2018A-EVAL）
+TEST DATA: 5000 utterances from 10 speakers
+ DEV DATA: 2500 utterances from 5 speaker
+Sampling Rate :         16kHz
+Sample Format :        16bit
+Environment :             Indoor
+Speech Data Type :    PCM
+Channel Number :     1
+Recording Equipment :  iOS / Android / High Fidelity Microphone
+THCHS30
+30
+THCHS30是一个很经典的中文语音数据集了，包含了1万余条语音文件，大约40小时的中文语音数据，内容以文章诗句为主，全部为女声。它是由清华大学语音与语言技术中心（CSLT）出版的开放式中文语音数据库。原创录音于2002年由朱晓燕教授在清华大学计算机科学系智能与系统重点实验室监督下进行，原名为“TCMSD”，代表“清华连续”普通话语音数据库’。13年后的出版由王东博士发起，并得到了朱晓燕教授的支持。他们希望为语音识别领域的新入门的研究人员提供玩具级别的数据库，因此，数据库对学术用户完全免费。
+ST-CMDS
+500
+由Surlingtech（www.surking.ai）提供的免费中文普通话语料库，包含855个发言者的话语，102600个话语，该语料库是在室内用手机安静记录下来的。它有855个扬声器。每个演讲者有120个发言。所有的话语都被人仔细地抄写和核对过。保证了转录的准确性。
+Primewords Chinese Corpus Set 1
+100
+这套免费中文普通话语音语料库由上海普锐斯信息技术有限公司发布，语料库由296名母语为中文的智能手机录制。转录准确率大于98%，置信水平为95%。这是学术上的免费使用。成绩单和发言之间的映射是以JSON格式给出的。
+aidatatang
+Aidatatang_200zh是由北京数据科技有限公司（数据堂）提供的开放式中文普通话电话语音库。
+语料库长达200小时，由Android系统手机（16kHz，16位）和iOS系统手机（16kHz，16位）记录。邀请来自中国不同重点区域的600名演讲者参加录音，录音是在安静的室内环境或环境中进行，其中包含不影响语音识别的背景噪音。参与者的性别和年龄均匀分布。语料库的语言材料是设计为音素均衡的口语句子。每个句子的手动转录准确率大于98％。
+MAGICDATA Mandarin Chinese Read Speech Corpus
+Magic Data技术有限公司的语料库，语料库包含755小时的语音数据，其主要是移动终端的录音数据。邀请来自中国不同重点区域的1080名演讲者参与录制。句子转录准确率高于98％。录音在安静的室内环境中进行。数据库分为训练集，验证集和测试集，比例为51：1：2。诸如语音数据编码和说话者信息的细节信息被保存在元数据文件中。录音文本领域多样化，包括互动问答，音乐搜索，SNS信息，家庭指挥和控制等。还提供了分段的成绩单。该语料库旨在支持语音识别，机器翻译，说话人识别和其他语音相关领域的研究人员。因此，语料库完全免费用于学术用途。
+https://blog.ailemon.me/2018/11/21/free-open-source-chinese-speech-datasets/
+https://voice.mozilla.org/zh-CN/datasets
+https://www.datatang.com/webfront/opensource.html
+开源的中文语音合成数据，感谢标贝公司
+【数据下载】https://weixinxcxdb.oss-cn-beijing.aliyuncs.com/gwYinPinKu/BZNSYP.rar 【数据说明】http://www.data-baker.com/open_source.html
+英文数据集：
+1.LibriSpeech ASR corpus：该数据集是包含大约1000小时的英语语音的大型语料库。这些数据来自LibriVox项目的有声读物。它已被分割并正确对齐，如果你正在寻找一个起点，请查看已准备好的声学模型，这些模型在kaldi-asr.org和语言模型上进行了训练，适合评估。
+https://www.openslr.org/12
+Mini LibriSpeech ASR corpus：用于回归测试的一个子集 http://www.openslr.org/31/
+2.TED-LIUM：http://www.openslr.org/7/
+TED-LIUMv2：http://www.openslr.org/19/
+TED-LIUM Release 3：https://www.openslr.org/51/
+3.VoxForge：该数据集是带口音的语音清洁数据集，对测试模型在不同重音或语调下的鲁棒性非常有用。
+http://www.voxforge.org/
+https://voice.mozilla.org/zh-CN/data
+4.TIMIT数据集 百度云链接：https://pan.baidu.com/s/1YJNIFdBiSPqebTq_GyOdog 密码：sqw7
+5.Free ST American English Corpus：http://www.openslr.org/45/
+https://keithito.com/LJ-Speech-Dataset/

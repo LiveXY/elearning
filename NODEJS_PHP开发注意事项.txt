@@ -130,11 +130,11 @@ $un = @CacheManager::getUser(1)->username;
 - 不要写count(0)、count(*)等，应该count(第一个主键)，不建议使用SELECT *
 - 不会用left join和right join的一律使用inner join替代不用去兼容某些特殊情况
 - 使用同类型比较，int类型的比较不要写成 users > '5'/phone=13155667788，避免隐式转换;
-- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多，使用exist代替in（表中数据越多，exist的效率就比in要越大）
+- 使用union all 替代 in 或 or，所有的or可以用 in 代替，in的数量不要过多，使用exist代替in（表中数据越多，exist的效率就比in要越大），使用not exists代替not in
 - 多执行 select * from mysql.slow_log_view 主动发现慢查询并改进
 
 - 创建数据库是使用utf-8编码，InnoDB引擎，如果用户表的用户昵称用表情图片请使用utf8mb4编码
-- 建表一定要设置主键，所有字段都不要设置允许NULL
+- 建表一定要设置主键，尽可能把所有列定义为NOT NULL，避免使用ENUM类型，日期类型使用INT/TIMESTAMP类型替代，优先选择符合存储需要的最小的数据类型，优先使用无符号类型来存储，禁止在数据库中存储图片，文件等大的二进制数据，所有表和字段都需要添加注释
 - 强制使用索引 force index (indexname)，使用explain查看有没有按我们需要的索引走
 - InnoDB默认对主键建立聚簇索引。如果你不指定主键，InnoDB会用一个具有唯一且非空值的索引来代替。如果不存在这样的索引，InnoDB会定义一个隐藏的主键，然后对其建立聚簇索引。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比非聚簇索引中快。
 - 定期查看慢查询，优化慢查询
@@ -157,9 +157,14 @@ select * from table inner join (select lid from table order by lid desc limit 1,
 select * from table order by lid desc limit 1,10 注意：这个分页越到最后越慢
 - 禁止库名、表名、字段名使用MySQL保留字，如：code/root/type/order/time/date/add/all/alter/as/and/select/update/delete/before/between/int/both/by/call/case/char/check/column/create/dec/div等，如果使用了前后加`
 - IP使用INT类型，用inet_aton()和inet_ntoa()来转换
-- 不用外键由程序保证约束
+- 尽量避免使用外键约束由程序保证约束，但一定要在表与表之间的关联键上建立索引
 - 禁止使用分区表，还不是很成熟，而且对分区键有严格要求，分区表变大后对于表备份恢复都有很大困难，建议在业务端使用sharding技术。
 - 禁止在数据库中存储明文密码
+- 程序连接数据库账号，遵循权限最小原则，不准跨库，不准有drop权限
+- 对于大表使用pt-online-schema-change修改表结构
+- 避免使用子查询，可以把子查询优化为join操作，避免使用JOIN关联太多的表
+- 财务相关的金额类数据必须使用decimal类型
+- 尽量控制单表数据量的大小，建议控制在500万以内，可以用历史数据归档，分库分表等手段来控制数据量大小
 
 4、我们的代码目录结构
 - app/Console 计划任务：每小时/每分钟跑报表代码
