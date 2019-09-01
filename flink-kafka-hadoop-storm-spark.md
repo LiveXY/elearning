@@ -1,3 +1,13 @@
+java1.8 安装：
+```
+yum install ava-1.8.0-openjdk.x86_64
+```
+
+python36 安装
+```
+yum install python36 python36-pip
+```
+
 flink分布式流处理框架/大数据处理
 =====
 下载安装
@@ -610,4 +620,209 @@ export HIVE_HOME=~/hive
 
 sqoop-version
 ```
+
+pulsar 消息队列环境
+======
+下载安装
+```
+https://pulsar.apache.org/docs/zh-CN/standalone/
+https://juejin.im/post/5af414365188256717765441
+https://www.infoq.cn/article/1UaxFKWUhUKTY1t_5gPq
+
+需要安装JAVA1.8+PYTHON3环境 内存要求4G以上
+
+wget https://archive.apache.org/dist/pulsar/pulsar-2.4.0/apache-pulsar-2.4.0-bin.tar.gz # 下载pulsar安装包
+tar xvfz apache-pulsar-2.4.0-bin.tar.gz # 解压安装包
+cd apache-pulsar-2.4.0 # 打开pulsar目录
+bin/pulsar standalone  # 启动单机pulsar
+pulsar-daemon start standalone
+pulsar-daemon stop standalone
+
+bin/pulsar-client consume my-topic -s "first-subscription"
+bin/pulsar-client produce my-topic --messages "hello-pulsar" # 发送一条消息
+
+pip3 install pulsar-client
+```
+测试代码：
+```
+创建Pulsar消费者监听python3程序 consumer.py
+import pulsar
+client = pulsar.Client('pulsar://localhost:6650')
+consumer = client.subscribe('my-topic2', 'my-subscription')
+while True:
+    msg = consumer.receive()
+    try:
+        print("Received message '{}' id='{}'".format(msg.data(), msg.message_id()))
+        consumer.acknowledge(msg)
+    except:
+        consumer.negative_acknowledge(msg)
+client.close()
+
+创建Pulsar生产者python3程序 producer.py
+import pulsar
+client = pulsar.Client('pulsar://localhost:6650')
+producer = client.create_producer('my-topic2')
+for i in range(10):
+	producer.send(('Hello-%d' % i).encode('utf-8'))
+client.close()
+```
+
+beam 是一个统一的编程框架，支持批处理和流处理
+======
+下载安装
+```
+https://beam.apache.org/get-started/downloads/#2150-2019-08-22
+https://blog.csdn.net/qq_34777600/article/details/87165765
+https://www.linuxidc.com/Linux/2018-09/154074.htm
+https://www.infoq.cn/article/apache-beam-in-practice/
+https://www.cnblogs.com/smartloli/p/6685106.html
+https://blog.csdn.net/zjerryj/article/details/77970607
+
+pip3 install apache-beam
+
+单词出现的次数
+from __future__ import print_function
+import apache_beam as beam
+from apache_beam.options.pipeline_options import PipelineOptions
+with beam.Pipeline(options=PipelineOptions()) as p:
+    lines = p | 'Create' >> beam.Create(['cat dog', 'snake cat', 'dog'])
+    counts = (
+        lines
+        | 'Split' >> (beam.FlatMap(lambda x: x.split(' '))
+                      .with_output_types(unicode))
+        | 'PairWithOne' >> beam.Map(lambda x: (x, 1))
+        | 'GroupAndSum' >> beam.CombinePerKey(sum)
+    )
+    counts | 'Print' >> beam.ParDo(lambda (w, c): print('%s: %s' % (w, c)))
+```
+
+solr
+======
+
+http://lucene.apache.org/solr/downloads.html
+https://www.cnblogs.com/lsdb/p/9805347.html
+https://blog.csdn.net/qq_28601235/article/details/72779386
+https://www.iteblog.com/archives/2393.html
+
+./solr start
+./solr stop
+http://localhost:8983/solr
+# 创建core，-c指定创建的core名
+./solr create -c test_core1
+# 删除core，-c指定删除的core名
+./solr delete -c test_core1
+上传文件创建索引
+./post -c test_core1 ../example/example
+
+flume
+======
+
+https://www.mtyun.com/library/how-to-install-flume-on-centos7
+
+wget http://mirrors.hust.edu.cn/apache/flume/1.9.0/apache-flume-1.9.0-bin.tar.gz
+tar -zxvf apache-flume-1.9.0-bin.tar.gz
+cd apache-flume-1.9.0
+cp conf/flume-conf.properties.template conf/flume-conf.properties
+mkdir -p /tmp/log/flume
+bin/flume-ng agent --conf conf -f conf/flume-conf.properties -n agent&
+
+Anaconda
+======
+```
+yum install bzip2
+wget https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda2-2019.07-Linux-x86_64.sh
+
+bash Anaconda3-5.3.1-Linux-x86_64.sh
+bash Anaconda3-5.3.1-Linux-x86_64.sh -p /opt/anaconda3
+source ~/.bashrc
+```
+
+JupyterLab
+======
+```
+https://blog.csdn.net/jh0218/article/details/85104233
+https://blog.csdn.net/sqq513/article/details/80028675
+https://blog.csdn.net/weixin_41571493/article/details/88830458
+https://blog.csdn.net/weixin_34112208/article/details/86261660
+
+conda安装
+conda install -c conda-forge jupyterhub
+conda install -c conda-forge jupyterlab ipython
+
+pip安装
+python3 -m pip install jupyterhub
+npm install -g configurable-http-proxy
+pip3 install jupyterlab ipython
+
+jupyterhub -h
+configurable-http-proxy -h
+
+生成配置文件
+jupyter notebook --generate-config
+
+生成配置文件
+python3 -c 'from notebook.auth import passwd; print(passwd("usepassword"));'
+
+然后生成一个自签名认证的key
+openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout jkey.key -out jcert.pem
+
+修改配置文件
+vim ~/.jupyter/jupyter_notebook_config.py
+c.NotebookApp.allow_root = True
+# 设定ip访问，允许任意ip访问
+c.NotebookApp.ip = '0.0.0.0'
+# 不打开浏览器
+c.NotebookApp.open_browser = False
+# 用于访问的端口，设定一个不用的端口即可，这里设置为7000
+c.NotebookApp.port = 7000
+# 设置登录密码， 将刚刚复制的内容替换此处的xxx
+c.NotebookApp.password = 'sha1:<your-sha1-hash-value>'
+# 设置jupyter的工作路径
+c.NotebookApp.notebook_dir = '/xxx/jupyter'
+c.NotebookApp.certfile = '/home/user/jcert.pem'
+c.NotebookApp.keyfile = '/home/user/jkey.key'
+
+Jupyter Lab 插件安装
+jupyter labextension install @jupyterlab/toc
+jupyter labextension list
+jupyter lab
+Settings --> Advanced Settings Editor -> Extension Manager -> enabled=true
+
+启动
+jupyter notebook
+
+```
+
+KNIME一款强大开源的数据挖掘软件平台
+======
+```
+https://www.knime.com/knime-analytics-platform
+https://www.cnblogs.com/luweiseu/p/8487225.html
+```
+
+CockroachDB 是基于事务性和一致性键值存储而构建的分布式 SQL 数据库
+=======
+http://doc.cockroachchina.baidu.com
+http://doc.cockroachchina.baidu.com/#quick-start/install-cockorachdb/
+
+TiDB 是一款兼容 MySQL、支持混合事务和分析处理（HTAP）的分布式数据库
+=====
+https://blog.csdn.net/wjl7813/article/details/79044231
+https://www.jianshu.com/p/21dc274fe5ad
+
+Vitess 是通过分片实现 MySQL 水平扩展的数据库集群系统
+======
+https://www.cnblogs.com/davygeek/p/6433296.html
+
+git clone https://github.com/youtube/vitess.git
+cd src/github.com/youtube/vitess
+
+kubectl/minikube
+
+YugaByte DB 结合了分布式 ACID 事务、多区域部署、对 Cassandra 和 Redis API 的支持，对 PostgreSQL 的支持即将推出
+=====
+
+Neo4j 图形数据库在处理相关性网络的任务时，执行速度比 SQL 和 NoSQL 数据库更快，但图模型和 Cypher 查询语言需要进行专门的学习
+=====
 

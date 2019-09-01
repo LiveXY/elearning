@@ -18,6 +18,11 @@ HanLP.parseDependency('欢迎新老师生前来就餐')
 语音识别
 https://github.com/nl8590687/ASRT_SpeechRecognition
 python3 asrserver.py
+https://github.com/kaldi-asr/kaldi
+http://kaldi-asr.org/
+https://github.com/jackyyy0228/Chinese-ASR
+TTS
+https://github.com/espnet/espnet
 
 文字转语音
 大声说一句：
@@ -39,6 +44,7 @@ python3 -m thulac input.txt output.txt
 https://github.com/fxsjy/jieba
 处理中文文本内容
 https://github.com/isnowfy/snownlp
+https://github.com/tsroten/pynlpir
 
 https://github.com/stacklikemind/deepnude_official
 https://github.com/lwlodo/deep_nude/
@@ -503,6 +509,7 @@ https://github.com/NLPScott/bert-Chinese-classification-task
 https://github.com/yuanxiaosc/BERT_Paper_Chinese_Translation
 https://github.com/terrifyzhao/bert-utils
 http://icrc.hitsz.edu.cn/info/1037/1162.htm
+https://github.com/NVIDIA/Megatron-LM
 
 https://github.com/ymcui/Chinese-BERT-wwm
 以TensorFlow版本为例，下载完毕后对zip文件进行解压得到：
@@ -2268,6 +2275,10 @@ https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/baidu/Encyclopedias.py
 https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/jp/Japan.py
 https://github.com/jtyoui/Jtyoui/blob/master/jtyoui/language/Translates.py
 
+目标检测
+https://zhuanlan.zhihu.com/p/34142321
+https://yuanxiaosc.github.io/2019/04/30/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/
+
 图片对象检查
 git clone https://github.com/pjreddie/darknet
 cd darknet
@@ -2394,3 +2405,120 @@ https://voice.mozilla.org/zh-CN/data
 4.TIMIT数据集 百度云链接：https://pan.baidu.com/s/1YJNIFdBiSPqebTq_GyOdog 密码：sqw7
 5.Free ST American English Corpus：http://www.openslr.org/45/
 https://keithito.com/LJ-Speech-Dataset/
+
+绘画/风格转移/对象变形/季节转移/照片增强
+https://github.com/junyanz/CycleGAN
+brew install findutils coreutils luarocks
+https://github.com/phillipi/pix2pix
+https://github.com/junyanz/iGAN
+https://github.com/soumith/dcgan.torch
+https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
+
+信息抽取https://zhuanlan.zhihu.com/p/74803327
+中文命名实体识别：https://github.com/EOA-AILab/NER-Chinese
+中文分词与词性标注：https://github.com/EOA-AILab/Seg_Pos
+Jieba 分词 + BertNER 作自定义词典 + Pyltp 词性标注
+指代消解模型
+Stanford coreNLP/BertNER
+https://blog.csdn.net/macanv/article/details/85684284
+
+裸露检查
+https://github.com/gearsystems/nonude
+https://github.com/yuanxiaosc/DeepNude-an-Image-to-Image-technology
+https://github.com/zhengyima/DeepNude_NoWatermark_withModel
+
+合成人
+https://github.com/NVlabs/stylegan
+
+中文文本纠错工具
+https://github.com/shibing624/pycorrector
+pip3 install pycorrector
+wget http://kheafield.com/code/kenlm.tar.gz
+tar -xvf kenlm.tar.gz
+cd kenlm
+python3 setup.py install
+致命错误：Python.h：没有那个文件或目录
+yum install python36-devel.x86_64
+import pycorrector
+corrected_sent, detail = pycorrector.correct('少先队员因该为老人让坐')
+print(corrected_sent, detail)
+pycorrector.correct('少先队员因该为老人让坐')
+https://github.com/ccheng16/correction
+https://github.com/PengheLiu/Cn_Speck_Checker
+https://github.com/apanly/proofreadv1
+https://github.com/taozhijiang/chinese_correct_wsd
+https://github.com/beyondacm/Autochecker4Chinese
+https://github.com/SeanLee97/xmnlp
+http://norvig.com/spell-correct.html
+
+https://github.com/deepmipt/DeepPavlov
+https://github.com/RasaHQ/rasa
+https://github.com/gunthercox/ChatterBot
+https://github.com/baidu/AnyQ
+https://github.com/DouYishun/KB-QA
+https://github.com/warmheartli/ChatBotCourse
+
+淘宝模拟登录
+https://github.com/pig6/login_taobao
+
+https://github.com/Angel-ML/angel
+
+WIDER FACE(lsl3)
+https://pan.baidu.com/s/1sJTO7TcQ2576RUqR_IIhbQ#list/path=%2F
+http://mmlab.ie.cuhk.edu.hk/archive/CNN_FacePoint.htm
+https://github.com/kuaikuaikim/DFace
+
+Enterprise VPN server
+https://github.com/pritunl/pritunl
+sudo tee /etc/yum.repos.d/mongodb-org-4.0.repo << EOF
+[mongodb-org-4.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc
+EOF
+
+sudo tee /etc/yum.repos.d/pritunl.repo << EOF
+[pritunl]
+name=Pritunl Repository
+baseurl=https://repo.pritunl.com/stable/yum/centos/7/
+gpgcheck=1
+enabled=1
+EOF
+
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+gpg --armor --export 7568D9BB55FF9E5287D586017AE645C0CF8E292A > key.tmp; sudo rpm --import key.tmp; rm -f key.tmp
+sudo yum -y install pritunl mongodb-org
+sudo systemctl start mongod pritunl
+sudo systemctl enable mongod pritunl
+https://docs.pritunl.com/docs/connecting
+
+https://github.com/clockworkpi
+
+在线运行PYTHON代码
+https://trinket.io/
+https://tool.lu/coderunner/
+https://c.runoob.com/compile/6
+http://www.pythontip.com/coding/run
+https://colab.research.google.com/notebooks/welcome.ipynb
+https://aistudio.baidu.com/aistudio/usercenter
+https://jupyter.org/
+https://github.com/jupyter/jupyter
+pip3 install jupyter
+jupyter notebook
+jupyter notebook --generate-config
+https://blog.csdn.net/countofdane/article/details/82013676
+
+文本
+https://github.com/HCIILAB/Scene-Text-Detection
+https://github.com/tesseract-ocr/tesseract
+https://ocr.wdku.net/
+https://www.onlineocr.net/
+https://github.com/Calamari-OCR/calamari
+
+使用 CuPy 在 GPU 上运行
+pip3 install cupy
+
+

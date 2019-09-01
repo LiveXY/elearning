@@ -587,7 +587,7 @@ sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.pl
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
 =======================================
 mac chrome 书签位置
-cat '/Users/hcxiong/Library/Application Support/Google/Chrome/Default/Bookmarks'
+cp '/Users/hcxiong/Library/Application Support/Google/Chrome/Default/Bookmarks' '/Users/hcxiong/git_pro/Bookmarks'
 把Bookmarks文件删除，然后把Bookmarks.bak重命名为Bookmarks
 在Chrome浏览器中输入chrome://restart
 ==================================
