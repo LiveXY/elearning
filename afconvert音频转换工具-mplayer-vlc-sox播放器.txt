@@ -1,0 +1,572 @@
+afconvert
+
+https://www.jianshu.com/p/06843a0b02e2
+afconvert [option...] input_file [output_file]
+
+Audio file (-f) and the data formats (-d) which each supports:
+    '3gpp' = 3GP Audio (.3gp)
+               data_formats: 'Qclp' 'aac ' 'aace' 'aacf' 'aacg' 'aach'
+                             'aacl' 'aacp' 'samr'
+    '3gp2' = 3GPP-2 Audio (.3g2)
+               data_formats: 'Qclp' 'aac ' 'aace' 'aacf' 'aacg' 'aach'
+                             'aacl' 'aacp' 'samr'
+    'adts' = AAC ADTS (.aac, .adts)
+               data_formats: 'aac ' 'aach' 'aacp'
+    'ac-3' = AC3 (.ac3)
+               data_formats: 'ac-3'
+    'AIFC' = AIFC (.aifc, .aiff, .aif)
+               data_formats: I8 BEI16 BEI24 BEI32 BEF32 BEF64 UI8 'ulaw'
+                             'alaw' 'MAC3' 'MAC6' 'ima4' 'QDMC' 'QDM2'
+                             'Qclp' 'agsm'
+    'AIFF' = AIFF (.aiff, .aif)
+               data_formats: I8 BEI16 BEI24 BEI32
+    'amrf' = AMR (.amr)
+               data_formats: 'samr' 'sawb'
+    'm4af' = Apple MPEG-4 Audio (.m4a, .m4r)
+               data_formats: 'aac ' 'aace' 'aacf' 'aacg' 'aach' 'aacl'
+                             'aacp' 'ac-3' 'alac' 'ec-3' 'paac' 'pac3'
+                             'pec3'
+    'm4bf' = Apple MPEG-4 AudioBooks (.m4b)
+               data_formats: 'aac ' 'aace' 'aacf' 'aacg' 'aach' 'aacl'
+                             'aacp' 'paac'
+    'caff' = CAF (.caf)
+               data_formats: '.mp1' '.mp2' '.mp3' 'QDM2' 'QDMC' 'Qclp'
+                             'Qclq' 'aac ' 'aace' 'aacf' 'aacg' 'aach'
+                             'aacl' 'aacp' 'ac-3' 'alac' 'alaw' 'dvi8'
+                             'ec-3' 'flac' 'ilbc' 'ima4' I8 BEI16 BEI24
+                             BEI32 BEF32 BEF64 LEI16 LEI24 LEI32 LEF32
+                             LEF64 'ms\x00\x02' 'ms\x00\x11' 'ms\x001'
+                             'opus' 'paac' 'pac3' 'pec3' 'qaac' 'qac3'
+                             'qach' 'qacp' 'qec3' 'samr' 'ulaw' 'zaac'
+                             'zac3' 'zach' 'zacp' 'zec3'
+    'ec-3' = EC3 (.ec3)
+               data_formats: 'ec-3'
+    'flac' = FLAC (.flac)
+               data_formats: 'flac'
+    'MPG1' = MPEG Layer 1 (.mp1, .mpeg, .mpa)
+               data_formats: '.mp1'
+    'MPG2' = MPEG Layer 2 (.mp2, .mpeg, .mpa)
+               data_formats: '.mp2'
+    'MPG3' = MPEG Layer 3 (.mp3, .mpeg, .mpa)
+               data_formats: '.mp3'
+    'mp4f' = MPEG-4 Audio (.mp4)
+               data_formats: 'aac ' 'aace' 'aacf' 'aacg' 'aach' 'aacl'
+                             'aacp' 'ac-3' 'ec-3'
+    'NeXT' = NeXT/Sun (.snd, .au)
+               data_formats: I8 BEI16 BEI24 BEI32 BEF32 BEF64 'ulaw'
+    'Sd2f' = Sound Designer II (.sd2)
+               data_formats: I8 BEI16 BEI24 BEI32
+    'WAVE' = WAVE (.wav)
+               data_formats: UI8 LEI16 LEI24 LEI32 LEF32 LEF64 'ulaw'
+                             'alaw'
+    'RF64' = WAVE (.wav)
+               data_formats: UI8 LEI16 LEI24 LEI32 LEF32 LEF64 'ulaw'
+                             'alaw'
+
+-f 指的是 file format，也就是需要转换的目标格式;
+-d d指的是 data format，是数据格式的意思，理解这些参数的含义需要一定的音乐知识背景
+
+//将格式为 .m4a 的 input.m4a 文件转换成格式为 .m4b 的文件格式
+afconvert -f m4bf -d 'aac ' "input.m4a"
+afconvert -f m4bf -d 'aac ' "input.m4a" "output.m4b"
+经测试，.m4a格式的音频文件可以转换成.flac、.wav、.m4b、.mp4、.caf、.snd、.au等很多的格式。
+不能转换成.mp3的格式
+
+Convert an Audio MP3 File to an iPhone Ringtone (m4af file):
+$ afconvert input.mp3 ringtone.m4r --file m4af
+
+Convert an AAC audio file to the iPhone 'Core Audio File Format' (CAFF) at a low 32 kbs bitrate:
+$ afconvert --data aac --bitrate 32000 input.aac output.caf --file 'caff'
+
+Convert a WAV file to an MP4 file with lossy aac format at a high bitrate of 256 kbs:
+$ afconvert -d aac -b 256000 input.wav output.mp4 -f mp4f
+
+afinfo
+
+
+播放 DVD
+mplayer dvd://
+当播放电影文件时，你可以指定字幕文件：
+mplayer -sub
+在播放 DVD 电影时，你也可以通过指定语言代码来使用字幕：
+mplayer dvd:// -slang nl,en
+以下是 MPlayer 中一些有用的快捷键：
+
+f－当播放视频时，在全屏和窗口模式之间切换。你也可以在命令行中使用 -fs 选项，以便让 MPlayer 开始在全屏模式中播放。
+o－在播放视频时切换 OSD（OnScreen Display）模式。
+p 或 Space－暂停／继续播放。
+q 或 Esc－退出 MPlayer。在 GUI 模式时，Esc 不会退出，仅停止播放。
+/ 和 * 或 9 和 0－减小或增大音量。
+m－静音切换。
+T（通常是 Shift + t）－播放窗口置顶切换。
+b 和 j－在可用的字幕间循环。
+x 和 z－调整字幕的延迟时间。
+I（Shift + i）－显示播放电影的文件名称。
+1 和 2－调整对比度。
+3 和 4－调整亮度。
+5 和 6－调整色度。
+7 和 8－调整饱和度。
+如果你想让媒体文件循环播放，可以使用 -loop 选项：
+mplayer -loop 3
+上面的命令将播放 3 次，然后才退出。
+mplayer -loop 0
+上面的命令将永远重复播放 。
+改变播放速度
+你可以使用 -speed 选项来改变 MPlayer 播放媒体文件的速度。值为 1.0，意味着正常速度；0.5 意味着慢两倍；2.0 意味着快两倍。像这样指定选项：
+mplayer -speed 2.0
+改变采样率
+使用 -srate 选项你可以改变 MPlayer 输出的采样率：
+mplayer -srate 48000
+将音频输出为 wav 文件
+你可以将视频文件中的音频部分输出为 wav 文件：
+mplayer -ao pcm
+这将输出名为 audiodump.wav 的音频文件。你也可以为输出的 wav 文件指定名称：
+mplayer -ao pcm:file=.wav
+创建播放列表:
+$ ls $HOME/music > music.lst
+添加
+echo music.mp3 >> music.lst
+删除
+用编译器打开music.lst删除你想删除的
+播放
+$ mplayer -playlist music.lst
+
+循环播放
+mplayer -playlist <playlist.m3u> -loop <times>
+mplayer -loop 0 xxx.mp3  #循环单首歌曲
+片段循环
+mplayer -ss <循环开始的时间位置> -endpos <循环片段时间长度> -loop <循环次数>(0为无数次） -osdlevel 2 <要播放的文件的位置>
+mplayer -ss 00:02:00 -endpos 00:00:15 -loop 0 -osdlevel 2 che.rmvb
+mplayer -loop n 歌曲的目录名
+
+倒退与快进
+在播放文件的时候，你可以通过以下三组快捷键来对播放进程进行倒退与快进操作：
+左方向键和右方向键：分别执行倒退 10 秒和快进 10 秒操作
+下方向键和上方向键：分别执行倒退 1 分钟和快进 1 分钟操作
+下翻页键和上翻页键：分别执行倒退 10 分钟和快进 10 分钟操作
+
+/Applications/VLC.app/Contents/MacOS/VLC
+URL 语法:
+file:///路径/文件                               #纯媒体文件
+http://主机[:端口]/文件                           #HTTP URL
+ftp://主机[:端口]/文件                            #FTP URL
+mms://主机[:端口]/文件                            #MMS URL
+screen://                                       #屏幕捕获
+dvd://[设备]                                      #DVD 设备
+vcd://[设备]                                      #VCD 设备
+cdda://[设备]                                     #音频 CD 设备
+udp://[[<源地址>]@[<绑定地址>][:<绑定端口>]]       #流服务器发送的 UDP 流
+vlc://暂停:<秒数>                               #暂停播放列表一定时间
+vlc://退出                                        #指定退出 VLC 的项
+音频
+--audio, --no-audio                                 #开启音频 (默认开启)
+--spdif, --no-spdif                                 #在可能时使用 S/PDIF (默认关闭)
+--force-dolby-surround {0 (自动), 1 (开), 2 (关)}   #强制检测杜比环绕声
+--audio-replay-gain-mode {none,track,album}         #回放增益模式
+--audio-replay-gain-preamp <浮点>                 #回放预放大
+--audio-replay-gain-default <浮点>                    #默认回放增益
+--audio-time-stretch, --no-audio-time-stretch       #启用音频时间拉伸 (默认开启)
+--audio-filter <字串>                             #音频滤镜
+--audio-visual <字串>                             #音频可视化效果
+视频
+#全屏幕视频输出 (默认关闭)
+-f, --fullscreen, --no-fullscreen
+#总在最前 (默认关闭)
+--video-on-top, --no-video-on-top
+#开启壁纸模式 (默认关闭)
+--video-wallpaper, --no-video-wallpaper
+#在视频上显示媒体标题 (默认开启)
+--video-title-show, --no-video-title-show
+#显示视频标题 x 毫秒
+--video-title-timeout <整数 [-2147483648 .. 2147483647]>
+#视频标题的位置
+--video-title-position {0 (居中), 1 (左), 2 (右), 4 (上), 8 (下), 5 (左上), 6 (右上), 9 (左下), 10 (右下)}
+#在 x 毫秒后隐藏光标和全屏控制器
+--mouse-hide-timeout <整数 [-2147483648 .. 2147483647]>
+截图:
+--snapshot-path <字串>                        #视频截图目录 (或文件名)
+--snapshot-prefix <字串>                      #视频截图文件前缀
+--snapshot-format {png,jpg,tiff}                #视频截图格式
+--snapshot-preview, --no-snapshot-preview       #显示视频截图预览 (默认开启)
+--snapshot-sequential, --no-snapshot-sequential #使用顺序编号代替时间戳(默认关闭)
+窗口属性:
+#视频裁剪
+--crop <字串>
+#自定义裁剪比列表
+--custom-crop-ratios <字串>
+#源高宽比
+--aspect-ratio <字串>
+#视频自动缩放 (默认开启)
+--autoscale, --no-autoscale
+#视频缩放因数
+--scale <浮点>
+#自定义高宽比列表
+--custom-aspect-ratios <字串>
+#反交错
+--deinterlace {0 (关), -1 (自动), 1 (开)}
+#反交错模式
+--deinterlace-mode {discard,blend,mean,bob,linear,x,yadif,yadif2x,phosphor,ivtc}
+#视频滤镜模块
+--video-filter <字串>
+#视频分离器模块
+--video-splitter <字串>
+子画面
+1)屏幕显示:
+--osd, --no-osd            #屏幕显示 (默认开启)
+
+2)字幕:
+#使用字幕文件
+--sub-file <字串>
+#自动检测字幕文件 (默认开启)
+--sub-autodetect-file, --no-sub-autodetect-file
+
+3)覆盖:
+--sub-source <字串>      #子画面来源模块
+--sub-filter <字串>      #子画面滤镜模块
+
+4)轨道设置:
+#音频语言
+--audio-language <字串>
+#字幕语言
+--sub-language <字串>
+#首选视频分辨率
+--preferred-resolution {-1 (最佳可用), 1080 (Full HD (1080p)), 720 (HD (720p)), 576 (标清 (576 或 480 行)), 360 (低清晰度 (360 行)), 240 (极低清晰度 (240 行))}
+
+5)播放控制:
+#输入重复
+--input-repeat <整数 [-2147483648 .. 2147483647]>
+#快速寻找 (默认关闭)
+--input-fast-seek, --no-input-fast-seek
+#回放速度
+--rate <浮点>
+
+6)默认设备:
+--dvd <字串>              #DVD 设备
+--vcd <字串>              #VCD 设备
+--cd-audio <字串>        #音频 CD 设备
+7)高级:
+--input-title-format <字串>       #根据当前媒体更改标题
+#####8)输入
+
+--stream-filter <字串>        #串流滤镜模块
+
+播放列表
+1)性能选项:
+#永远随机播放文件 (默认关闭)
+-Z, --random, --no-random
+#全部重复 (默认关闭)
+-L, --loop, --no-loop
+#重复当前的项目 (默认关闭)
+-R, --repeat, --no-repeat
+#播放并退出 (默认关闭)
+--play-and-exit, --no-play-and-exit
+#播放与停止 (默认关闭)
+--play-and-stop, --no-play-and-stop
+#自动启动 (默认开启)
+--playlist-autostart, --no-playlist-autostart
+#音频通信时暂停 (默认开启)
+--playlist-cork, --no-playlist-cork
+#使用媒体库 (默认关闭)
+--media-library, --no-media-library
+#显示播放列表树 (默认关闭)
+--playlist-tree, --no-playlist-tree
+#默认流
+--open <字串>
+#自动预分析文件 (默认开启)
+--auto-preparse, --no-auto-preparse
+#专辑封面策略
+--album-art {0 (仅手动下载), 1 (在轨道开始播放时), 2 (在轨道被添加后)}
+#提示程度 (0,1,2)
+-v, --verbose <整数 [-2147483648 .. 2147483647]>
+#安静 (默认关闭)
+-q, --quiet, --no-quiet
+#写入进程 id 到文件中
+--pidfile <字串>
+#显示高级选项 (默认关闭)
+--advanced, --no-advanced
+#界面交互 (默认开启)
+--interact, --no-interact
+#界面模块
+-I, --intf <字串>
+#扩展界面模块
+--extraintf <字串>
+#控制界面
+--control <字串>
+
+2)热键
+#鼠标滚轮纵轴控制
+--hotkeys-mousewheel-mode {2 (忽略), 0 (音频控制), 1 (位置控制)}
+#全屏幕
+--global-key-toggle-fullscreen <字串>
+#全屏幕
+--key-toggle-fullscreen <字串>
+#退出全屏
+--global-key-leave-fullscreen <字串>
+#退出全屏
+--key-leave-fullscreen <字串>
+#播放/暂停
+--global-key-play-pause <字串>
+#播放/暂停
+--key-play-pause <字串>
+#较快
+--global-key-faster <字串>
+#较快
+--key-faster <字串>
+#较慢
+--global-key-slower <字串>
+#较慢
+--key-slower <字串>
+#正常比率
+--global-key-rate-normal <字串>
+#正常比率
+--key-rate-normal <字串>
+#较快 (好)
+--global-key-rate-faster-fine <字串>
+#较快 (好)
+--key-rate-faster-fine <字串>
+#较慢 (好)
+--global-key-rate-slower-fine <字串>
+#较慢 (好)
+--key-rate-slower-fine <字串>
+#下一个
+--global-key-next <字串>
+#下一个
+--key-next <字串>
+#上一个
+--global-key-prev <字串>
+#上一个
+--key-prev <字串>
+#停止
+--global-key-stop <字串>
+#停止
+--key-stop <字串>
+#非常短的向后跳转
+--global-key-jump-extrashort <字串>
+#非常短的向后跳转
+--key-jump-extrashort <字串>
+#非常短的向前跳转
+--global-key-jump+extrashort <字串>
+#非常短的向前跳转
+--key-jump+extrashort <字串>
+#短向后跳转
+--global-key-jump-short <字串>
+#短向后跳转
+--key-jump-short <字串>
+#短向前跳转
+--global-key-jump+short <字串>
+#短向前跳转
+--key-jump+short <字串>
+#中向后跳转
+--global-key-jump-medium <字串>
+#中向后跳转
+--key-jump-medium <字串>
+#中向前跳转
+--global-key-jump+medium <字串>
+#中向前跳转
+--key-jump+medium <字串>
+#长向后跳转
+--global-key-jump-long <字串>
+#长向后跳转
+--key-jump-long <字串>
+#长向前跳转
+--global-key-jump+long <字串>
+#长向前跳转
+--key-jump+long <字串>
+#下一帧
+--global-key-frame-next <字串>
+#下一帧
+--key-frame-next <字串>
+#退出
+--global-key-quit <字串>
+#退出
+--key-quit <字串>
+#音量上
+--global-key-vol-up <字串>
+#音量上
+--key-vol-up <字串>
+#音量下
+--global-key-vol-down <字串>
+#音量下
+--key-vol-down <字串>
+#静音
+--global-key-vol-mute <字串>
+#静音
+--key-vol-mute <字串>
+#切换音轨
+--global-key-audio-track <字串>
+#切换音轨
+--key-audio-track <字串>
+#在音频设备之间切换
+--global-key-audiodevice-cycle <字串>
+#在音频设备之间切换
+--key-audiodevice-cycle <字串>
+#切换字幕轨道
+--global-key-subtitle-track <字串>
+#切换字幕轨道
+--key-subtitle-track <字串>
+#遍历下一节目服务 ID
+--global-key-program-sid-next <字串>
+#遍历下一节目服务 ID
+--key-program-sid-next <字串>
+#遍历上一节目服务 ID
+--global-key-program-sid-prev <字串>
+#遍历上一节目服务 ID
+--key-program-sid-prev <字串>
+#切换源高宽比
+--global-key-aspect-ratio <字串>
+#切换源高宽比
+--key-aspect-ratio <字串>
+#切换视频剪辑
+--global-key-crop <字串>
+#切换视频剪辑
+--key-crop <字串>
+#打开或关闭自动缩放
+--global-key-toggle-autoscale <字串>
+#打开或关闭自动缩放
+--key-toggle-autoscale <字串>
+#增大缩放因数
+--global-key-incr-scalefactor <字串>
+#增大缩放因数
+--key-incr-scalefactor <字串>
+#减小缩放因数
+--global-key-decr-scalefactor <字串>
+#减小缩放因数
+--key-decr-scalefactor <字串>
+#切换反交错
+--global-key-deinterlace <字串>
+#切换反交错
+--key-deinterlace <字串>
+#切换反交错模式
+--global-key-deinterlace-mode <字串>
+#切换反交错模式
+--key-deinterlace-mode <字串>
+#全屏时显示控制器
+--global-key-intf-show <字串>
+#全屏时显示控制器
+--key-intf-show <字串>
+#在视频输出模式中切换壁纸输出
+--global-key-wallpaper <字串>
+#在视频输出模式中切换壁纸输出
+--key-wallpaper <字串>
+#随机顺序
+--global-key-random <字串>
+#随机顺序
+--key-random <字串>
+#普通/重复/循环
+--global-key-loop <字串>
+#普通/重复/循环
+--key-loop <字串>
+
+3)缩放:
+#1:4 四分之一
+--global-key-zoom-quarter <字串>
+#1:4 四分之一
+--key-zoom-quarter <字串>
+#1:2 二分之一
+--global-key-zoom-half <字串>
+#1:2 二分之一
+--key-zoom-half <字串>
+#1:1 原始
+--global-key-zoom-original <字串>
+#1:1 原始
+--key-zoom-original <字串>
+#2:1 双倍
+--global-key-zoom-double <字串>
+#2:1 双倍
+--key-zoom-double <字串>
+
+4)跳跃大小:
+#非常短的跳转长度
+--extrashort-jump-size <整数 [-2147483648 .. 2147483647]>
+#短跳转长度
+--short-jump-size <整数 [-2147483648 .. 2147483647]>
+#中跳转长度
+--medium-jump-size <整数 [-2147483648 .. 2147483647]>
+#长跳转长度
+--long-jump-size <整数 [-2147483648 .. 2147483647]>
+
+--bookmark1 <字串>       #播放列表书签 1
+--bookmark2 <字串>       #播放列表书签 2
+--bookmark3 <字串>       #播放列表书签 3
+--bookmark4 <字串>       #播放列表书签 4
+--bookmark5 <字串>       #播放列表书签 5
+--bookmark6 <字串>       #播放列表书签 6
+--bookmark7 <字串>       #播放列表书签 7
+--bookmark8 <字串>       #播放列表书签 8
+--bookmark9 <字串>       #播放列表书签 9
+--bookmark10 <字串>      #播放列表书签 10
+
+10.其他
+#打印 VLC 帮助
+#(可以和 --advanced 和--help-verbose 一起使用) (默认关闭)
+-h, --help, --no-help
+
+#VLC 和它模块的全面帮助 (默认关闭)
+-H, --full-help, --no-full-help
+#打印 VLC 和它全部模块的帮助
+#(可以和 --advanced 和 --help-verbose一起使用) (默认关闭)
+--longhelp, --no-longhelp
+#在显示帮助时询问是否显示额外的解释 (默认关闭)
+--help-verbose, --no-help-verbose
+
+#打印一份可用模块的列表(默认关闭)
+-l, --list, --no-list
+#打印一份带详细信息的可用模块列表(默认关闭)
+--list-verbose, --no-list-verbose
+
+#输出关于指定模块的帮助
+#(可以和--advanced 和 --help-verbose 一起使用)。
+#在模块名前面加 = 可严格匹配。
+-p, --module <字串>
+#没有设置选项将会被载入或被保存到设置文件中 (默认开启)
+--ignore-config, --no-ignore-config
+#重置当前的设置为默认值(默认关闭)
+--reset-config, --no-reset-config
+#重置当前插件的缓存 (默认关闭)
+--reset-plugins-cache, --no-reset-plugins-cache
+#打印版本信息 (默认关闭)
+--version, --no-version
+#使用可替换的设置文件
+--config <字串>
+
+sox
+sudo apt install sox
+sudo apt install lame
+sudo apt install libsox-fmt-all
+brew install sox
+
+消除立体声效应
+play file.mp3 earwax
+加入白噪声
+play file.wav dither 100
+回声
+play file.xxx echo 0.8 0.88 60 0.4
+play file.wav echo 0.8 0.88 1000 0.4
+
+播放音频
+play audiofile.wav
+查看音频信息
+soxi audiofile.wav
+sox audiofile.wav -n stat
+修改频率、通道数、位深
+sox infile.wav -r 48k -c 1 -b 16 outfile.wav
+如果输入是mp3也是一样的命令，sox会通过后缀进行判断。
+wav转为raw数据
+sox in.wav -b 16 -e signed-integer -c 1 -r 48k -t raw out.raw
+raw再转为wav
+sox -b 16 -e signed-integer -c 1 -r 48k -t raw out.raw out.wav
+两个单通道合成一个立体声
+sox -M input.l.wav input.r.wav output.wav
+提取第二通道的数据
+sox in.wav out.wav remix 2
+第一通道是1，从1开始递增。
+删除开始和结尾的250ms
+sox in.wav out.wav trim 0.25 trim 0 -0.25
+参数trim可以同时使用多次，单位是s。trim 0.25删除开头，trim 0 -0.25删除结尾。
+截取特定一段的命令格式是sox input output trim <start> <duration> 或者 sox input output trim <start> =<end>，以下命令都是截取自0.1s之后的0.8s
+sox in.wav out.wav trim 0.1 0.8
+sox in.wav out.wav trim 0:00.1 =00:00.9
+
+rec *.wav：录音功能
+rec -r 44100 -4 -u -c2 mp3 test.mp3
+

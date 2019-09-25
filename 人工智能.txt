@@ -486,7 +486,7 @@ http://www.iciba.com/hello
 https://github.com/justinyhuang/BashCiba
 
 https://github.com/Neoyyy/google-CommandLine-Translation-Tool
-https://translate.google.cn/translate_a/single?sl=zh-CN&tl=en&q=%E4%B8%AD%E5%9B%BD
+https://translate.google.cn/translate_a/single?hl=zh-CN&sl=zh-CN&tl=en&q=%E4%B8%AD%E5%9B%BD&client=tw-ob
 
 
 http://www.baidu.com/
@@ -1247,6 +1247,13 @@ say -v Alex -r 10 "Hello"
 say "さんをつけろよデコ助野郎！" -o say.m4a
 text2mp3:
 say -f script.txt -o greetings.aiff
+say 你好 -o 1.m4a
+say -v Sin-ji 你好。
+say -v Mei-Jia 你好。
+say -v Ting-Ting 你好。
+say -v ?
+
+MP3转换工具
 brew install lame
 lame -m m greetings.aiff greetings.mp3
 
@@ -2512,6 +2519,7 @@ jupyter notebook --generate-config
 https://blog.csdn.net/countofdane/article/details/82013676
 
 文本
+https://zhuanlan.zhihu.com/p/76912493
 https://github.com/HCIILAB/Scene-Text-Detection
 https://github.com/tesseract-ocr/tesseract
 https://ocr.wdku.net/
@@ -2521,4 +2529,331 @@ https://github.com/Calamari-OCR/calamari
 使用 CuPy 在 GPU 上运行
 pip3 install cupy
 
+http://www.18lou.net/tech_32988.html
+https://github.com/facebookresearch/FixRes
+https://github.com/facebookresearch/multigrain
+https://pytorch.org/hub/facebookresearch_WSL-Images_resnext/
+https://pytorch.org/hub/pytorch_vision_deeplabv3_resnet101/
+https://pytorch.org/hub/research-models
+
+微软翻译
+http://api.microsofttranslator.com/V2/Ajax.svc/Translate?appId=78280AF4DFA1CE1676AFE86340C690023A5AC139&from=en&to=zh&text=hello
+https://api.cognitive.microsofttranslator.com/translate?to=zh&text=hello
+
+http://peiyin.xunfei.cn/make/?ftype=1
+curl 'http://www.peiyinge.com/web-server/1.0/text_segment' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://peiyin.xunfei.cn/make/?ftype=1' -H 'Origin: http://peiyin.xunfei.cn' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36' -H 'Content-Type: application/json' --data-binary '{"req":"D4dQntyzB0uB+8r7u80/8d+tHs1r6VOFpEQxk2KEYVHVpZpe6Kc+59hggO2HFNCY40Kzi+MVlqO7DuWY26+pNnYx39GfFkkmRS3tToizC721xeVL146MV33P02dMFK7UXqb+fb5juqwNLm5CJ0scT0hjH1kg/6aszsvs4AJPZPJa81yBssJu1Rp+WqoasTCHxY8XFp5LmIHBgViR3+hSQJziwoHNCN6g0Yxf5SB08xV6U63uvGJYfLBm/x79h+++OWPutlzFPECZcxYaAmfeGV7gLefWYZx2qVc23BHgyjeuL16us5YIs6w2wQlFLvgpao21+k+W9YWuR6LFfN7M5kARhSjNiB5USzl6rerfffc="}' --compressed --insecure
+
+https://www.xfyun.cn/services/online_tts
+curl 'https://www.xfyun.cn/herapi/solution/synthesis/v2?challenge=adbb524b555e7cf3e886afa98fe4a5aa&validate=32c53e4906e596833fcf93e03c15e7a8&seccode=32c53e4906e596833fcf93e03c15e7a8%7Cjordan' -H 'sec-fetch-mode: cors' -H 'origin: https://www.xfyun.cn' -H 'accept-encoding: gzip, deflate, br' -H 'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8' -H 'x-requested-with: XMLHttpRequest' -H 'cookie: SESSION=1d46270c-45f0-4352-9680-e92599c9ab65; Hm_lvt_83a57cc9e205b0add91afc6c4f0babcc=1568866200; di_c_mti=6737d25a-106d-6a64-970d-3d102210b172; gr_user_id=b95e5bdb-8821-4646-8472-2fdd3502ce6d; 8473744dbcf62d60_gr_session_id=ccbc3156-44e1-4032-8da8-77d0a276a364; 8473744dbcf62d60_gr_session_id_ccbc3156-44e1-4032-8da8-77d0a276a364=true; grwng_uid=401880c3-f161-438f-a3e8-5b9008f9d610; _wafuid=31476926; ssoSessionId=null; account_id=null; pgv_pvi=8885302272; pgv_si=s792815616; Hm_lpvt_83a57cc9e205b0add91afc6c4f0babcc=1568867087; connect.sid=s%3Afs1044V-NXHYmsEVUfYnyvf37aVnCJav.V1Vq8eGsjzvEN26MEEMTBzZsou%2By%2BLm4joHH2YmUPu4' -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36' -H 'content-type: application/json; charset=UTF-8' -H 'accept: application/json, text/javascript, */*; q=0.01' -H 'referer: https://www.xfyun.cn/services/online_tts' -H 'authority: www.xfyun.cn' -H 'sec-fetch-site: same-origin' --data-binary '{"voice_name":"aisxping","volume":70,"speed":"50","text":"科大讯飞成立于1999年，是中国先进的智能化语音技术提供商，其语音核心技术代表世界先进水平。我们提供的语音合成效果，达到了真正可商用的标准，您可以在这里输入任意文本进行语音合成体验。","engine_type":"intp65"}' --compressed
+curl 'https://www.xfyun.cn/herapi/solution/synthesis/v2?challenge=6d07a0c03ab670b4be7a111e00c4011c&validate=516e202de774a8f944f9967f4b5b853c&seccode=516e202de774a8f944f9967f4b5b853c%7Cjordan' -H 'sec-fetch-mode: cors' -H 'origin: https://www.xfyun.cn' -H 'accept-encoding: gzip, deflate, br' -H 'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8' -H 'x-requested-with: XMLHttpRequest' -H 'cookie: SESSION=1d46270c-45f0-4352-9680-e92599c9ab65; Hm_lvt_83a57cc9e205b0add91afc6c4f0babcc=1568866200; di_c_mti=6737d25a-106d-6a64-970d-3d102210b172; gr_user_id=b95e5bdb-8821-4646-8472-2fdd3502ce6d; 8473744dbcf62d60_gr_session_id=ccbc3156-44e1-4032-8da8-77d0a276a364; 8473744dbcf62d60_gr_session_id_ccbc3156-44e1-4032-8da8-77d0a276a364=true; grwng_uid=401880c3-f161-438f-a3e8-5b9008f9d610; _wafuid=31476926; ssoSessionId=null; account_id=null; pgv_pvi=8885302272; pgv_si=s792815616; Hm_lpvt_83a57cc9e205b0add91afc6c4f0babcc=1568867087; connect.sid=s%3Afs1044V-NXHYmsEVUfYnyvf37aVnCJav.V1Vq8eGsjzvEN26MEEMTBzZsou%2By%2BLm4joHH2YmUPu4' -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36' -H 'content-type: application/json; charset=UTF-8' -H 'accept: application/json, text/javascript, */*; q=0.01' -H 'referer: https://www.xfyun.cn/services/online_tts' -H 'authority: www.xfyun.cn' -H 'sec-fetch-site: same-origin' --data-binary '{"voice_name":"x_xiaoyan","volume":70,"speed":"50","text":"科大讯飞成立于1999年，是中国先进的智能化语音技术提供商，其语音核心技术代表世界先进水平。我们提供的语音合成效果，达到了真正可商用的标准，您可以在这里输入任意文本进行语音合成体验。","engine_type":"intp65"}' --compressed
+<audio controls="controls" autobuffer="autobuffer" autoplay="autoplay">
+<source autoplay src="data:audio/mpeg;base64," />
+
+https://www.ffkuaidu.com/
+curl 'https://www.ffkuaidu.com/pc/api/synVox/speechSynth?T=1568873629137' -H 'sec-fetch-mode: cors' -H 'origin: https://www.ffkuaidu.com' -H 'accept-encoding: gzip, deflate, br' -H 'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8' -H 'authorization: null' -H 'cookie: UM_distinctid=16d47d15b0f164-0df9375420d3d5-38607501-1aeaa0-16d47d15b108f0; CNZZDATA1276553400=1308769637-1568866053-%7C1568866053; Hm_lvt_bf769641971db0cf47de095087a6a786=1568867966; Hm_lpvt_bf769641971db0cf47de095087a6a786=1568867966' -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36' -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' -H 'referer: https://www.ffkuaidu.com/' -H 'authority: www.ffkuaidu.com' -H 'sec-fetch-site: same-origin' --data-binary '{"bgVoxId":"","bgVoxPath":"","readerID":31,"duration":"","isStatistics":1,"openId":"","speed":50,"title":"","ttsContent":"%E8%AF%B7%E8%BE%93%E5%85%A5%E9%9C%80%E8%A6%81%E8%BD%AC%E8%AF%AD%E9%9F%B3%E7%9A%84%E6%96%87%E5%AD%97","unionId":"","volume":0,"way":2,"readerVolume":5,"pitch":50,"bgVoxType":1,"ipAddress":"219.139.206.147"}' --compressed
+
+https://ai.baidu.com/tech/speech/tts
+curl 'https://ai.baidu.com/aidemo' -H 'sec-fetch-mode: cors' -H 'origin: https://ai.baidu.com' -H 'accept-encoding: gzip, deflate, br' -H 'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8' -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36' -H 'content-type: application/x-www-form-urlencoded' -H 'accept: */*' -H 'referer: https://ai.baidu.com/tech/speech/tts' -H 'authority: ai.baidu.com' -H 'cookie: BAIDUID=DD2D4164660D9A45D9CA1C87672B4987:FG=1; PSTM=1565443054; BIDUPSID=343B79F60CF91639AD40AB15B66BC65A; BDUSS=URmeXZtODE2ZWNGSGNwOEYtcHdJSlJxSEttYjZoTk5WempnNjdDeHR6amlNNGRkRVFBQUFBJCQAAAAAAAAAAAEAAABkhRsAY2V4bzI1NQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOKmX13ipl9da; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; delPer=0; PSINO=7; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; H_PS_PSSID=1446_21114_20697_29522_29721_29568_29220; Hm_lvt_8b973192450250dd85b9011320b455ba=1566821657,1568867996; Hm_lpvt_8b973192450250dd85b9011320b455ba=1568867996' -H 'sec-fetch-site: same-origin' --data 'type=tns&spd=5&pit=5&vol=5&per=103&tex=%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8%E7%99%BE%E5%BA%A6AI%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0' --compressed
+
+http://tools.bugscaner.com/tts/
+https://developer.baidu.com/vcast
+
+pi百度语音TTS
+命令行播放器 mpg123
+sudo apt-get install mpg123
+pip install ilangbd
+ilang "你好，世界！"
+https://translate.google.cn/translate_tts?ie=UTF-8&q=hello%20world&tl=en&client=tw-ob
+
+https://translate.google.com.vn/translate_tts?ie=UTF-8&q=hello world&tl=en&client=tw-ob
+https://translate.google.com.vn/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%A5%BD%E5%90%97%EF%BC%9F&tl=zh-CN&client=tw-ob
+https://translate.google.com.vn/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%A5%BD%E5%90%97%EF%BC%9F&tl=en&client=tw-ob
+sudo apt-get install festival
+echo “Just what do you think you're doing, Dave?” | festival --tts
+speak RPi’s IP address:
+hostname -I | festival -tts
+sudo apt-get install espeak
+espeak -ven+f3 -k5 -s150 "I've just picked up a fault in the AE35 unit"
+sudo nano /etc/mplayer/mplayer.conf
+nolirc=yes
+nano speech.sh
+#!/bin/bash
+say() { local IFS=+;/usr/bin/mplayer -ao alsa -really-quiet -noconsolecontrols "http://translate.google.com/translate_tts?tl=en&q=$*"; }
+say $*
+chmod u+x speech.sh
+./speech.sh Look Dave, I can see you're really upset about this.
+$ apt-get install festival
+$ festival -v
+festival: Festival Speech Synthesis System: 2.1:release November 2010
+echo 'hello boy' |festival --tts
+
+$ wget http://www.cstr.ed.ac.uk/downloads/festival/1.95/festvox_us1.tar.gz
+$ tar -xzvf festvox_us1.tar.gz
+festival/lib/voices/english/us1_mbrola/festvox/us1_mbrola.scm
+festival/lib/voices/english/us1_mbrola/festvox/usdurtreeZ.scm
+festival/lib/voices/english/us1_mbrola/usradio
+$ cp festival/lib/voices/english/us1_mbrola /usr/share/festival/voices/english/ -R
+#
+$ wget http://tcts.fpms.ac.be/synthesis/mbrola/dba/us1/us1-980512.zip
+$ unzip us1_mbrola.zip -d /usr/share/festival/voices/english/us1_mbrola/
+festival> (voice.list)
+(us1_mbrola kal_diphone)
+festival> (voice_us1_mbrola)
+us1_mbrola
+festival> (SayText "hello boy")
+
+$ apt-get install festlex-cmu
+cd /usr/share/festival/voices/english/
+#这个压缩包100多M
+sudo wget -c http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_clb_arctic-0.95-release.tar.bz2
+sudo tar jxf cmu_us_clb_arctic-0.95-release.tar.bz2
+sudo ln -s cmu_us_clb_arctic cmu_us_clb_arctic_clunits
+
+festival> (voice_cmu_us_clb_arctic_clunits)
+cmu_us_clb_arctic_clunits
+festival> (SayText "hello boy")
+
+sudo cp /etc/festival.scm /etc/festival.scm.backup
+sudo echo "(set! voice_default 'voice_cmu_us_clb_arctic_clunits)" >> /etc/festival.scm      
+
+$ apt-get install mpg123
+$ mpg123 'http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q=today+is+sunday'
+
+单声道、16位、16000HZ采样率
+arecord -r 16000 -c 1 -t wav -f S16_LE test.wav
+
+输入设备是麦克风，输出可以是HDMI、耳机或音响，我这里用了音响。下面是我的树莓派照片。4个USB接口分别连了无线网卡、无线键盘、麦克风、音响供电。
+arecord -D "plughw:1" -f S16_LE -r 16000 test.wav
+
+apt-get install arecord ffmpeg omxplayer
+arecord -D "plughw:1,0" -d 5 file.wav
+ffmpeg -i file.wav -ar 16000 -acodec flac file.flac
+wget -q -U "Mozilla/5.0" --post-file file.flac --header "Content-Type: audio/x-flac; rate=16000" -O - "[color=blue !important]http://www.google.com/speech-api/v1/recognize?lang=zh-cn&client=chromium"
+所以要选择Analog输出，这里就需要做一些配置:安装声卡服务
+sudo apt-get install alsa-utils
+sudo modprobe snd_bcm2835
+设置Analog输出模式:
+sudo amixer cset numid=3 1
+sudo aplay test.wav
+检查是否识别出了 USB 设备
+lsusb
+dmesg | grep USB
+安装 ALSA 的录音应用软件
+sudo apt-get -y  install  alsa-utils   pulseseaudio
+arecord  -L
+arecord –device=hw:1,0 –format S16_LE –rate 44100 -c1 test.wav
+–device=hw:1,0 是定义录音的设备. –format S16_LE 是定义 signed 16-bit (S16_LE) 音频. 码率是: 44100 Hz (--rate 44100) 后面的参数是定义为mono 格式 (-c1) , 文件名为: test.wav
+aplay –device=plughw:1,0 test.wav
+调节麦克风音量
+alsamixer -c 1
+http://www.52pi.net/archives/1596
+Python开发的语音控制框架
+https://github.com/jasperproject/jasper-client
+树莓派、荔枝派、NanoPi、香蕉派、香橙派
+树莓派3B并安装Raspbian jessie系统
+对麦克风来说，比较重要的几个指标有拾音距离、回声消除、拾音角度、灵敏度等PlayStation Eye和ReSpeaker 2 Mics Pi HAT
+音响havit/海威特 M13无线蓝牙音箱手机迷你音响便携户外低音小钢炮49.9元
+aplay -l
+card 0是树莓派自带的声卡，3.5mm接口的音箱设备，也就是我插的这个音箱，用的是这个声卡，其设备编号为device 0。 device 1则是HDMI的音频输出用到的，这里可以忽略。如果你用具有声音输出的HDMI显示设备，那么可能就需要关注这个device 1了。
+nano /home/pi/.asoundrc
+pcm.!default {
+    type asym
+        playback.pcm {
+            type plug
+            slave.pcm "hw:0,0"
+        }
+        capture.pcm {
+            type plug
+            slave.pcm "hw:1,0"
+        }
+}
+ctl.!default {
+    type hw
+    card 2
+}
+arecord -d 3 temp.wav
+aplay temp.wav
+https://post.smzdm.com/p/595414/
+sudo apt-get update
+sudo apt-get upgrade --yes
+sudo apt-get install sox libsox-fmt-mp3 git-core python-dev bison libasound2-dev libportaudio-dev python-pyaudio libatlas-base-dev python-pymad --yes
+sudo easy_install pip
+https://github.com/wzpan/dingdang-robot
+https://github.com/dingdang-robot/dingdang-robot
+https://github.com/wzpan/wukong-robot
+https://github.com/musistudio/wukong-robot-install-script
+http://www.turingapi.com/
+https://github.com/jasperproject/jasper-client
+https://github.com/yunxiyinzhe/jasper-client
+
+http://www.yfworld.com/?p=2416
+树莓派的默认登录密码是什么？
+A: 用户名: pi，密码: raspberry。
+#设置root密码
+$sudo passwd root
+#解锁root用户
+$sudo passwd --unlock root
+#切换当前用户到root
+$su root
+启动树莓派的图形界面
+命令行中输入startx。如果要设置开机启动默认为图形模式，可使用 raspi-config 命令进行配置
+Q: 如何格式化输出当前系统时间？
+A: 使用 date -d today +“格式化参数” 。如下例所示，引号内为格式化字符串，可自行修改为需要的格式：
+date -d today +"%Y-%m-%d %H:%M:%S"
+A: 查看CPU温度（读数除以1000）：
+$cat /sys/class/thermal/thermal_zone0/temp
+查看GPU温度：
+$/opt/vc/bin/vcgencmd measure_temp
+如何修改树莓派HDMI显示的分辨率？
+A: 修改SD卡中的 config.txt  配置文件，配置方法见此处。
+树莓派如何设置静态IP地址？
+A: 修改 /etc/network/interfaces  配置文件，配置方法为：
+iface eth0 inet static
+address 192.168.1.100  # Static IP Address
+netmask 255.255.255.0  # Netmask
+gateway 192.168.1.1    # Gateway
+Q: 如何查看树莓派已载入的模块和已加载的USB设备？
+A: 分别使用 lsmod 和 lsusb 命令。如果要查看所有加载的设备，直接输入 ls /dev 查看设备虚拟文件夹。
+Q: 树莓派支持哪些USB摄像头？
+A: 见 RPi USB Webcameras。支持的较好的还是罗技和微软的低分辨率型号。有些摄像头功耗较大，需要外部供电。
+http://elinux.org/RPi_USB_Webcams
+Q: 树莓派支持哪些USB无线网卡？
+A: 见 RPi USB Wi-Fi Adaptors。推荐EDUP的迷你WiFi网卡以及树莓派官方销售的配套网卡。
+https://elinux.org/RPi_USB_Wi-Fi_Adapters
+Q: 树莓派如何配置无线网络？
+A: 分为两步：1、设置wlan0接口，2、设置WiFi配置文件。
+第一步，在树莓派命令行中输入：sudo vim /etc/network/interfaces
+在打开的文件中添加：
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+第二步，在树莓派命令行中输入：sudo vim /etc/wpa_supplicant/wpa_supplicant.conf
+在打开的文件中末尾添加WiFi ssid和密码：
+network={
+ssid="无线网络ssid"
+psk="无线网络密码"
+proto=RSN
+key_mgmt=WPA-PSK
+pairwise=CCMP
+auth_alg=OPEN
+}
+插入无线网卡，重启树莓派即可。
+Q: 树莓派兼容的SD卡？
+A: 该页面给出了所有树莓派可以使用的SD卡型号和大小：RPi_SD_cards。
+https://elinux.org/RPi_SD_cards
+sudo apt-get install mplayer
+Q: 树莓派如何播放视频？
+A: 安装 omxplayer，支持 1080P 的 AVI 和 MP4 硬解码。
+$sudo apt-get install libopencv-dev python-opencv
+
+sudo apt-get install libavahi-compat-libdnssd-dev
+sudo npm install -g --unsafe-perm homebridge
+sudo npm install -g homebridge-homeassistant
+sudo pip3 install homeassistant
+mkdir ~/.homeassistant
+vi ~/.homeassistant/configuration.yaml
+sudo hass --open-ui
+
+Snowboy唤醒
+　　1、一个支持 Snowboy，并带有麦克风的设备；
+　　2、一个训练好的模型，可以从 https://snowboy.kitt.ai/dashboard 获取，可以自己训练，也可以下载训练好的模型，但是下载的时候，需要自己录入自己的语音。
+下载安装
+https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0-1.2.0.tar.bz2
+获取源代码：$ git clone https://github.com/Kitt-AI/snowboy.git
+编译 Python3 绑定：$ cd snowboy/swig/Python3 && make
+$ sudo apt-get install pulseaudio
+sudo apt-get install sox
+sox -d -d
+sudo apt-get install python3-pyaudio
+sudo apt-get install swig
+sudo apt-get install libatls-base-dev
+wget http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
+tar -zxf pa_stable_v190600_20161030.tgz
+#解压之后的文件夹名称是 portaudio
+cd portaudio
+sudo ./configure
+sudo make && make install
+pip install pyaudio
+rec temp.wav
+python demo.py snowboy.pmdl
+输入 sudo apt-get install vim
+sudo apt-get update
+更换源
+sudo vim /etc/apt/sources.list
+deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+sudo apt-get update
+sudo vim /etc/apt/sources.list.d/raspi.list
+deb http://mirror.tuna.tsinghua.edu.cn/raspberrypi/ stretch main ui
+deb-src http://mirror.tuna.tsinghua.edu.cn/raspberrypi/ stretch main ui
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get -y install ttf-wqy-zenhei
+sudo raspi-config
+选择 Localisation Options 然后再选 Change Locale
+去掉 en_GB.UTF-8 UTF-8 ，勾上 en_US.UTF-8 UTF-8 和zh_CN.UTF-8 UTF-8 和 zh_CN.GBK GBK ，然后按下Tab键，选确定，然后选zh_CN.UTF-8
+安装拼音输入法
+sudo apt-get -y install scim-pinyin
+安装五笔输入法
+sudo apt-get -y install scim-tables-zh
+sudo reboot
+vi ~/.asoundrc 更改声卡设置
+type asym
+   playback.pcm {
+     type plug
+     slave.pcm "hw:0,0"
+   }
+   capture.pcm {
+     type plug
+     slave.pcm "hw:1,0"
+   }
+}
+进入官方示例目录 snowboy/examples/Python3 并运行以下命令：
+$ python3 demo.py resources/models/snowboy.umdl
+然后对着麦克风清晰地讲出“snowboy”，如果可以听到“滴”的声音，则安装配置成功。
+PS：官方源代码使用 Python3 测试有报错，经测试需修改 snowboy/examples/Python3 目录下的 snowboydecoder.py 文件。
+将第 5 行代码 from * import snowboydetect 改为 import snowboydetect 即可直接运行。
+https://www.cnblogs.com/lovesKey/p/11080448.html
+
+Phabricator ，据说是 Facebook 内部使用的 Code Review 平台。我在搭建试用了几分钟后就觉得这个就是我们要的平台：
+基于 LAMP 架构，部署简单；
+无需像 Gerrit 那样强绑定代码仓库；
+多次 commit 自动合并成一个；
+提供了配套的 CLI 工具 Arcanist；
+平台开放 API （尽管不怎么完善）；
+类似 Facebook 的 UI，颜值够高，容易上手。
+
+pip3 install myqr
+myqr http://weixin.qq.com/r/khy5oY7EN9NIrcrC90mA
+myqr http://weixin.qq.com/r/khy5oY7EN9NIrcrC90mA -n Python3X.jpg -d E:\
+myqr http://weixin.qq.com/r/khy5oY7EN9NIrcrC90mA  -v 10 -l M
+-v ：定义二维码的大小，范围为 1 ~ 40，默认大小取决于输入的内容。
+-l ： 定义二维码纠错率，也就是说二维码被遮挡一部分仍然被识别出来，有四个等级，分别是L(7%)、M(15%)、Q(25%)、H(30%)。默认情况是最高等级的H
+myqr http://weixin.qq.com/r/khy5oY7EN9NIrcrC90mA -p peiqi.jpg -c
+myqr http://weixin.qq.com/r/khy5oY7EN9NIrcrC90mA -p pig.gif -n Python3X.gif -c
+
+TF模型
+https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md#coco-trained-models-coco-models
+中文书写字数据集
+http://www.nlpr.ia.ac.cn/databases/handwriting/Home.html
+
+
+https://github.com/SkalskiP/yolov3
+https://github.com/ultralytics/yolov3
+pip3 install -U -r requirements.txt
+
+python3 detect.py --source ...
+Image: --source file.jpg
+Video: --source file.mp4
+Directory: --source dir/
+Webcam: --source 0
+RTSP stream: --source rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa
+HTTP stream: --source http://wmccpinetop.axiscam.net/mjpg/video.mjpg
+python3 detect.py --cfg cfg/yolov3.cfg --weights weights/yolov3.weights
+python3 detect.py --cfg cfg/yolov3-tiny.cfg --weights weights/yolov3-tiny.weights
+python3 detect.py --cfg cfg/yolov3-spp.cfg --weights weights/yolov3-spp.weights
+
+https://drive.google.com/drive/folders/1uxgUBemJVw9wZsdpboYbzUN4bcRhsuAI
+
+https://github.com/ultralytics/xview-yolov3
 

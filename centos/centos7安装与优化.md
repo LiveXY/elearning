@@ -1119,3 +1119,31 @@ useradd -g root test1
 visudo 然后增加：test1         ALL=(ALL)       ALL
 创建一个有效的缓冲30天用户：useradd -e 2019-01-01 -f 30 test
 改用户名：usermod -l test88 test //-l 新的用户名
+
+设置SSH空闲超时退出时间
+/etc/ssh/sshd_config
+ClientAliveInterval 900
+ClientAliveCountMax 3
+确保rsyslog服务已启用
+systemctl enable rsyslog
+systemctl start rsyslog
+强制用户不重用最近使用的密码，降低密码猜测攻击风险
+在/etc/pam.d/password-auth和/etc/pam.d/system-auth中password sufficient pam_unix.so 这行的末尾配置remember参数为5-24之间，原来的内容不用更改，只在末尾加了remember=5。
+密码复杂度检查
+编辑/etc/security/pwquality.conf，把minlen（密码最小长度）设置为9-32位，把minclass（至少包含小写字母、大写字母、数字、特殊字符等4类字符中等3类或4类）设置为3或4。如：
+minlen=10
+minclass=3
+安全启动memcached
+/usr/bin/memcached -u memcached -p 11211 –U 0 -l 127.0.0.1/192.168.6.268 -m 64 -c 1024
+vi /usr/lib/systemd/system/memcached.service
+ExecStart=/usr/bin/memcached -u $USER -p $PORT -U 0 -l 127.0.0.1 -m $CACHESIZE -c $MAXCONN $OPTIONS
+systemctl daemon-reload
+systemctl restart memcached.service
+systemctl status memcached.service
+参数详解
+$USER
+$PORT
+$CACHESIZE
+$MAXCONN
+$MAINPID
+$OPTIONS

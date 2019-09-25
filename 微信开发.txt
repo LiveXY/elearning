@@ -53,3 +53,49 @@ scope	 是	 应用授权作用域，snsapi_base （不弹出授权页面，直�
 小程序授权
 https://blog.csdn.net/qq_34827048/article/details/77990510
 
+H5跳小程序
+<script src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+wx.miniProgram.navigateTo({url:'/pages/home/homepage'})
+wx.miniProgram.getEnv(function (res) {
+    console.log(res)   //如果没有配置会{miniprogram:false}
+    if (res.miniprogram) {
+        wx.miniProgram.switchTab({url: '/pages/home/homepage'});
+    }
+});
+<a data-miniprogram-appid="wx123456789" data-miniprogram-path="/pages/home/homepage" href="">点击文字跳转小程序</a>
+公众号需要关联小程序
+
+H5跳公众号
+https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwMTAzNTAwMA==#wechat_redirect
+__biz=base64(appid)
+或者使用微信公众号二维码放在引导页面长按跳转
+公众号需要关联小程序
+
+小程序跳H5
+<web-view src="https://zgl.seamo.cn/zglh5/kjzjlist1.html"></web-view>
+小程序需要设置业务域名和安全域名
+
+公众号菜单跳转小程序
+type: miniprogram
+name: miniprogram
+url: http://mp.weixin.qq.com
+appid: 小程序appid值 ，进入小程序后台获取
+pagepath: 小程序页面路径 如： pages/index/index
+公众号需要关联小程序
+
+其它类型菜单
+{
+    "button": [
+    	{ "name": "扫码", "sub_button": [
+            { "type": "scancode_waitmsg", "name": "扫码带提示", "key": "rselfmenu_0_0", "sub_button": [ ] },
+            { "type": "scancode_push", "name": "扫码推事件", "key": "rselfmenu_0_1", "sub_button": [ ] }
+    	]}, { "name": "发图", "sub_button": [
+            { "type": "pic_sysphoto", "name": "系统拍照发图", "key": "rselfmenu_1_0", "sub_button": [ ] },
+            { "type": "pic_photo_or_album", "name": "拍照或者相册发图", "key": "rselfmenu_1_1", "sub_button": [ ] },
+            { "type": "pic_weixin", "name": "微信相册发图", "key": "rselfmenu_1_2", "sub_button": [ ] }
+        ]}, { "name": "发送位置", "type": "location_select", "key": "rselfmenu_2_0" },
+        { "type": "media_id", "name": "图片", "media_id": "MEDIA_ID1" },
+        { "type": "view_limited", "name": "图文消息", "media_id": "MEDIA_ID2" }
+    ]
+}
+

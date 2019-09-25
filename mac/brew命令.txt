@@ -34,6 +34,8 @@ brew services restart php
 brew services restart nginx
 brew services restart mysql
 
+brew install mysql
+
 初始化mysql数据库：
 mysql_install_db
 设置root账户和密码:
@@ -45,6 +47,12 @@ nginx配置
 ll /usr/local/etc/nginx/
 ll /usr/local/etc/php.ini
 ll /usr/local/etc/php-fpm.conf
+
+/usr/local/lib/php/pecl/20170718
+ll /usr/local/etc/php/7.2/php.ini
+
+pecl install mcrypt-1.0.1
+/usr/local/Cellar/php@7.2/7.2.19_1/pecl/20170718/mcrypt.so
 
 删除MYSQL
 brew remove mysql

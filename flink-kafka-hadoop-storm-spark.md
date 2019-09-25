@@ -309,6 +309,14 @@ source /etc/profile
 ./yarn-daemon.sh start historyserver
 ```
 
+其它工具
+```
+数据转换工具Sqoop
+文件收集框架Flume
+任务调度框架Oozie
+大数据WEB工具Hue
+```
+
 zookeeper一个分布式的，开源的分布式应用程序协调服务，实现数据发布与订阅、负载均衡、命名服务、分布式协调与通知、集群管理、Leader选举、分布式锁、分布式队列等功能
 =====
 下载安装
