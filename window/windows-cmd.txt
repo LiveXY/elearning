@@ -18,12 +18,27 @@ netsh interface portproxy add v4tov4 listenaddress=119.81.8.235 listenport=80 co
 如果是2008，必须要以管理员身份启动命令行
 
 
+wmic process list brief
+wmic process list full
+wmic process list instance
+wmic process list status
+
+wmic process where "Name='FG_MiniGameLoader.exe'" get Name,ExecutionState,Status,ExecutablePath,ProcessId,CommandLine /value
 
 
+tasklist /fi "windowtitle eq E:\new_server_git\kwx\runtimeqstar_kwx\game_pdk\FG_MiniGameLoader.exe"
+tasklist /fi "windowtitle eq E:\new_server_git\kwx\runtimeqstar_kwx\game_nn\FG_MiniGameLoader.exe"
 
 
+FindWindow/FindWindowEx
+IsHungAppWindow
+SendMessageTimeout
 
-
+using System.Runtime.InteropServices;
+[DllImport("user32.dll", EntryPoint = "FindWindow")]
+private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
+IntPtr hwnd = FindWindow(null, "计算器");
+if (hwnd != IntPtr.Zero) 
 
 
 

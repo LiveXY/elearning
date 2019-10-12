@@ -67,6 +67,7 @@ netstat实例：
 * 找查较多的SYN连接：`netstat -an | grep SYN | awk '{print $5}' | awk -F: '{print $1}' | sort | uniq -c | sort -nr | more`
 * 输出正在占用UDP和TCP端口的所有程序连带计时器信息：`netstat -putona`：
 * 查看指定IP的连接：`netstat -nat | grep "192.168.1.222"`：
+* `netstat -tunlpean`
 
 php检查
 * 计算开启worker进程数目 ps -ef | grep 'php-fpm'|grep -v 'master'|grep -v 'grep' |wc -l

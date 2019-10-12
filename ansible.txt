@@ -831,7 +831,10 @@ test{{ i }}
 
 bind_address=10.0.90.27:{{ PORT | default(3306) }}
 
-
-
-
+ansible一键部署高可用Kubernetes
+https://github.com/zhangguanzhang/Kubernetes-ansible
+https://github.com/feiskyer/kubernetes-handbook
+https://kubernetes.feisky.xyz/
+https://github.com/bravist/lnmp-docker
+https://github.com/bcicen/ctop
 

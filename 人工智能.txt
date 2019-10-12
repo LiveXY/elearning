@@ -1465,6 +1465,7 @@ AirSim 是一款基于 Unreal Engine 的无人机，汽车的模拟器
 https://github.com/Microsoft/AirSim
 https://github.com/simondlevy/AirSimTensorFlow
 Deep Image Prior 是基于神经网络的修复图像工具 – 并不是机器学习。
+去噪、去水印、超分辨率
 https://github.com/DmitryUlyanov/deep-image-prior
 
 局部着色工具
@@ -2265,6 +2266,12 @@ https://github.com/0xHJK/music-dl
 pip3 install pymusic-dl
 music-dl --help
 music-dl -l -k "周杰伦"
+https://github.com/darknessomi/musicbox
+https://github.com/YongHaoWu/NeteaseCloudMusicFlac
+https://github.com/EvilCult/Video-Downloader
+https://github.com/soimort/you-get
+电影美剧搜索
+https://github.com/EvilCult/moviecatcher
 代理
 https://github.com/0xHJK/Proxies
 
@@ -2856,4 +2863,200 @@ python3 detect.py --cfg cfg/yolov3-spp.cfg --weights weights/yolov3-spp.weights
 https://drive.google.com/drive/folders/1uxgUBemJVw9wZsdpboYbzUN4bcRhsuAI
 
 https://github.com/ultralytics/xview-yolov3
+
+图片生成
+https://github.com/nuno-faria/tiler
+https://github.com/youyuge34/PI-REC
+
+人脸变形
+pip3 install pychubby
+https://github.com/jankrepl/pychubby
+pc list
+pc perform Smile INPUT_IMG_PATH
+pc perform Smile INPUT_IMG_PATH OUTPUT_IMG_PATH
+
+自动问答游戏
+https://github.com/googlearchive/dialogflow-trivia-game-nodejs
+
+测试网速
+pip3 install speedtest-cli
+speedtest-cli -h
+
+高质量的动漫视频实时升频器
+https://github.com/bloc97/Anime4K
+
+MACOS开源应用
+https://github.com/serhii-londar/open-source-mac-os-apps
+
+重复图像查找
+https://github.com/idealo/imagededup
+pip3 install imagededup
+from imagededup.methods import PHash
+phasher = PHash()
+encodings = phasher.encode_images(image_dir='path/to/image/directory')
+duplicates = phasher.find_duplicates(encoding_map=encodings)
+from imagededup.utils import plot_duplicates
+plot_duplicates(image_dir='path/to/image/directory', duplicate_map=duplicates, filename='ukbench00120.jpg')
+
+配置同步工具（OSX/LINUX）
+https://github.com/lra/mackup
+https://github.com/alichtman/shallow-backup
+
+开源工具
+https://github.com/geeeeeeeeek/electronic-wechat
+https://github.com/overtake/TelegramSwift
+https://github.com/dbeaver/dbeaver
+https://dbeaver.io/download/
+https://github.com/Studio3T/robomongo
+https://github.com/Paxa/postbird
+https://github.com/Uncommon/Xit
+https://github.com/onmyway133/IconGenerator
+https://github.com/agalwood/Motrix
+https://github.com/qilin-editor/qilin-app
+https://github.com/wellsjo/JSON-Splora
+https://github.com/wesnoth/wesnoth
+https://github.com/gragrance/CaptuocrToy
+https://github.com/onmyway133/GifCapture
+https://github.com/BafS/Material-Colors-native
+https://github.com/objective-see/LuLu
+https://github.com/shadowsocks/ShadowsocksX-NG
+https://github.com/eczarny/spectacle
+https://github.com/threatland/TL-BOTS
+https://github.com/threatland/TL-TROJAN
+https://github.com/threatland/TL-FRAUD
+https://github.com/Awesome-Windows/Awesome
+https://github.com/luong-komorebi/Awesome-Linux-Software
+https://github.com/luong-komorebi/Awesome-Linux-Software/blob/master/README_zh-CN.md
+https://github.com/yadox666/The-Hackers-Hardware-Toolkit
+https://github.com/zhaoolee/StarsAndClown
+https://github.com/hzlzh/Best-App
+https://github.com/Louiszhai/tool
+https://github.com/Mortennn/Dozer
+https://github.com/wting/autojump
+https://github.com/Louiszhai/IHeader
+http://wproxy.org/whistle/install.html
+https://github.com/webtorrent/webtorrent
+https://github.com/iikira/BaiduPCS-Go
+
+https://github.com/zhaoolee/ChromeAppHeroes
+https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
+https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?utm_source=chrome-ntp-icon
+https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc
+https://chrome.google.com/webstore/detail/page-ruler/emliamioobfffbgcfdchabfibonehkme
+https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
+https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc
+https://chrome.google.com/webstore/detail/adblock/gighmmpiobklfepjocnamgkkbiglidom
+https://chrome.google.com/webstore/detail/blipshot-one-click-full-p/mdaboflcmhejfihjcbmdiebgfchigjcf
+
+学习
+https://github.com/imhuay/Algorithm_Interview_Notes-Chinese
+https://github.com/apachecn/AiLearning
+https://github.com/0voice/interview_internal_reference
+https://github.com/wangzheng0822/algo
+https://github.com/WenDesi/lihang_book_algorithm
+https://github.com/yuanxiaosc/DeepNude-an-Image-to-Image-technology
+https://github.com/QUANTAXIS/QUANTAXIS
+https://github.com/apachecn/sklearn-doc-zh
+https://github.com/SmirkCao/Lihang
+https://github.com/Jack-Lee-Hiter/AlgorithmsByPython
+https://github.com/apachecn/pytorch-doc-zh
+https://github.com/makelove/OpenCV-Python-Tutorial
+https://github.com/yoyoyo-yo/Gasyori100knock
+https://github.com/daliansky/XiaoMi-Pro-Hackintosh
+https://github.com/scutan90/DeepLearning-500-questions
+https://github.com/unknwon/the-way-to-go_ZH_CN
+https://github.com/Snailclimb/JavaGuide
+
+个人微信机器人
+https://github.com/littlecodersh/ItChat
+https://github.com/youfou/wxpy
+https://github.com/Urinx/WeixinBot
+https://github.com/offu/WeRoBot
+https://github.com/littlecodersh/itchatmp
+
+爬虫
+https://github.com/testerSunshine/12306
+https://github.com/Jack-Cherish/python-spider
+https://github.com/jhao104/proxy_pool
+https://github.com/pjialin/py12306
+https://github.com/zhaipro/easy12306
+https://github.com/sfyc23/EverydayWechat
+https://github.com/pwxcoo/chinese-xinhua
+https://github.com/wangshub/Douyin-Bot
+https://github.com/houtianze/bypy
+https://github.com/shengqiangzhang/examples-of-web-crawlers
+https://github.com/PeterDing/iScript
+https://github.com/lining0806/PythonSpiderNotes
+https://github.com/chyroc/WechatSogou
+https://github.com/Kr1s77/Python-crawler-tutorial-starts-from-zero
+https://github.com/XuShaohua/bcloud
+https://github.com/Nyloner/Nyspider
+https://github.com/lanbing510/DouBanSpider
+https://github.com/loadchange/amemv-crawler
+https://github.com/xianhu/PSpider
+https://github.com/jumper2014/lianjia-beike-spider
+https://github.com/moyuanz/DevilYuan
+
+https://github.com/qq547276542/Agriculture_KnowledgeGraph
+实时获取新浪 / 腾讯 的免费股票行情 / 集思路的分级基金行情
+https://github.com/shidenggui/easyquotation
+链家二手房租房在线数据，存量房交易服务平台数据，详细数据分析教程
+https://github.com/XuefengHuang/lianjia-scrawler
+owllook-在线网络小说阅读网站&小说搜索引擎&小说推荐系统[搜索、追书、收藏、追更、小说API]
+https://www.owllook.net/
+https://github.com/howie6879/owllook
+https://github.com/howie6879/NIYT
+https://github.com/howie6879/owllook_gui
+https://github.com/howie6879/owllook_api
+股票量化框架，支持行情获取以及交易
+https://github.com/shidenggui/easyquant
+Bilibili 用户爬虫
+https://github.com/airingursb/bilibili-user
+一个拍照做题程序。输入一张包含数学计算题的图片，输出识别出的数学计算式以及计算结果
+https://github.com/Roujack/mathAI
+中文命名实体识别
+https://github.com/Determined22/zh-NER-TF
+https://github.com/ymcui/Chinese-BERT-wwm
+
+动态二维码
+https://github.com/sylnsfar/qrcode
+pip3 install myqr
+myqr https://github.com
+myqr https://github.com -v 10 -l Q
+myqr https://github.com -n github_qr.jpg -d .../paths/
+myqr https://github.com -p github.jpg
+myqr https://github.com -p github.jpg -c
+myqr https://github.com -p github.jpg [-c] -con 1.5 -bri 1.6
+
+https://ai.qq.com/doc/detectface.shtml
+https://api.ai.qq.com/fcgi-bin/face/face_detectface
+https://api.ai.qq.com/fcgi-bin/face/face_detectmultiface
+
+陌陌风控系统
+https://github.com/momosecurity/aswan
+
+使用spring boot打造文件文档在线预览项目解决方案，支持doc、docx、ppt、pptx、xls、xlsx、zip、rar、mp4，mp3以及众多类文本如txt、html、xml、java、properties、sql、js、md、json、conf、ini、vue、php、py、bat、gitignore等文件在线预览
+https://github.com/kekingcn/kkFileView
+ERP
+https://github.com/osbzr/gooderp_addons
+
+把萌萌哒的看板娘抱回家
+https://github.com/stevenjoezhang/live2d-widget
+https://github.com/fghrsh/live2d_api
+表情包
+https://github.com/zhaoolee/ChineseBQB
+女装
+https://github.com/komeiji-satori/Dress
+压缩图片
+https://github.com/GoogleChromeLabs/squoosh/
+思源黑体 | 思源黑體 | 思源黑體字体
+https://github.com/adobe-fonts/source-han-sans
+
+纯 Go 写的直播服务器
+https://github.com/gwuhaolin/livego
+syncd是一款开源的代码部署工具
+https://github.com/dreamans/syncd
+扩展企业安全测试主动诱导型开源蜜罐框架系统
+https://github.com/hacklcx/HFish
 

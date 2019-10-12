@@ -591,3 +591,78 @@ cp '/Users/hcxiong/Library/Application Support/Google/Chrome/Default/Bookmarks' 
 把Bookmarks文件删除，然后把Bookmarks.bak重命名为Bookmarks
 在Chrome浏览器中输入chrome://restart
 ==================================
+已损坏，打不开。您应该将它移到废纸篓
+sudo spctl --master-disable
+sudo spctl --master-enable
+==================================
+java -jar ~/compiler.jar --js "$descPath/jsfile.max.js" --create_source_map "$descPath/jsfile.min.js.map" --source_map_format=V3 --js_output_file "$descPath/jsfile.min.js"
+==================================
+brew install mediainfo
+mediainfo 1.png
+https://github.com/MediaArea/MediaInfo
+brew cask install qlimagesize
+https://github.com/Nyx0uf/qlImageSize/releases/latest
+qlmanage -r
+https://github.com/Nyx0uf/qlImageSize
+brew cask install phew
+https://github.com/sveinbjornt/Phew
+==================================
+diskutil list 或 fdisk -l #查看当前系统所有硬盘及分区情况
+diskutil info /dev/disk0 #查看具体分区参数
+fdisk /dev/disk2 #在指定的硬盘（例：/dev/sda）上创建分区：查看帮助（h），新建分区（n），删除分区（d），查看分区情况（p），分区成功后，写分区表并退出（w）
+mkfs.ext4 /dev/sdb1 #对新建分区（例：/dev/sda1）进行格式化
+mkdir -p /dfs/dn1 #创建分区挂接目录
+mount /dev/sdb1 /dfs/dn1 #挂接分区
+vi /etc/fstab
+/dev/sdb1 /dfs/dn1 ext4 defaults 0 0
+或者
+brew install e2fsprogs
+brew install https://raw.githubusercontent.com/yalp/homebrew-core/fuse-ext2/Formula/fuse-ext2.rb
+mke2fs
+brew cask install osxfuse
+brew install ext2fuse
+brew install ext4fuse
+挂载
+sudo ext2fuse /dev/disk2s2 ~/Desktop/usbdisk -o rw+
+sudo ext4fuse /dev/disk2s2 ~/Desktop/usbdisk -o rw+
+sudo mount -t fuse-ext2 /dev/disk2s2 ~/Desktop/usbdisk
+格式化ext4，一定要取消挂载后格式化
+sudo mkfs.ext4 /dev/disk2s2
+sudo umount ~/Desktop/usbdisk
+
+brew install ntfs-3g
+mount -t ntfs-3g
+mount -t ntfs-3g /dev/sdb1 /mnt/ntfs_disk
+ntfs-3g /dev/sdb1 /mnt/ntfs_disk
+vi /etc/fstab
+ntfs-3g silent,umask=0,locale=zh_CN.utf8 0 0
+
+MACOS磁盘分区
+https://www.jianshu.com/p/6a1f365617ad
+diskutil listFilesystems #支持的文件系统
+diskutil eraseDisk MS-DOS raspberrypi disk2 #将优盘数据擦除并格式化为 FAT32 格式
+diskutil eraseDisk ExFAT raspberrypi disk2 #将优盘数据擦除并格式化为 ExFAT 格式
+diskutil eraseDisk HFS+ raspberrypi disk2 #将优盘数据擦除并格式化为 Apple_HFS 格式
+diskutil eraseDisk ExFAT raspberrypi MBR disk2 #擦除磁盘时指定分区表类型 NTFS 格式
+#创建分区：优盘（disk2）上创建了 3 个分区，第一个（F01）格式为 FAT32，大小是 3 Gb。第二个（F02）格式为 JHFS+，大小为 3 Gb。最后一个是『自由空间』，大小为剩余的容量。
+diskutil partitionDisk disk2 3 MBR MS-DOS F01 3G JHFS+ F02 3G HFS+ F03 0
+diskutil partitionDisk disk2 2 ExFAT rpi 30G ExFAT data 0
+#分割分区：优盘的第二个分区（disk2s2）又分割成了两个更小的分区，分别是 FAT32 格式的 F01（disk2s2），和 JHFS+ 格式的 F02（disk2s3）。虽然命令中指定了 F02 的大小是 3G，因为是最后一个分区，所以自动扩展到占用剩余的磁盘空间。最后它的实际大小是 4.5G。
+diskutil splitPartition disk2s2 2 MS-DOS F02 1.5g JHFS+ F04 1.5g
+#合并分区：disk2s2 disk2s3
+diskutil mergePartitions JHFS+ Starky disk2s2 disk2s3
+#调整分区大小（无损）
+diskutil resizeVolume disk2s2 4g
+
+LINUX磁盘分区
+fdisk -l
+fdisk /dev/disk2 #在指定的硬盘（例：/dev/sda）上创建分区：查看帮助（h），新建分区（n），删除分区（d），查看分区情况（p），分区成功后，写分区表并退出（w）
+[New]--[Primary]--手动输入分区容量，以M为单位。回车，创建成功。
+mkfs.ext4 /dev/sdb1
+e2label 分区路径 卷标名
+mount -t /dev/sdb1 /mnt/sdb1
+umount /dev/sdb1
+vi /etc/fstab
+/dev/sdb1          /mnt/sdb1          ext4     defaults     0 2
+chmod 777 /mnt/sdb1
+
