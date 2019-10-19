@@ -231,6 +231,10 @@ zh_broadcastnews_16k_ptm256_8000.tar.bz2解压缩到zh-CN/acoustic-model
 zh_broadcastnews_utf8.dic重命名为pronounciation-dictionary.dict并放入\zh-CN文件夹
 SphinxBase工具将zh_broadcastnews_64000_utf8.DMP转换成language-model.lm.bin并放入\zh-CN文件夹下
 pocketsphinx_continuous -hmm /usr/local/lib/python3.7/site-packages/speech_recognition/pocketsphinx-data/zh-CN/acoustic-model/ -lm zh_broadcastnews_64000_utf8.DMP -dict pronounciation-dictionary.dic
+pocketsphinx_continuous -hmm zh_broadcastnews_ptm256_8000 -lm zh_broadcastnews_64000_utf8.DMP -dict zh_broadcastnews_utf8.dic -infile myfile-16000.wav > myfile.txt
+pocketsphinx_continuous -inmic yes -hmm ../share/pocketsphinx/model/cmusphinx-zh-cn-5.2/zh_cn.cd_cont_5000 -lm ../share/pocketsphinx/model/cmusphinx-zh-cn-5.2/zh_cn.lm.bin -dict ../share/pocketsphinx/model/cmusphinx-zh-cn-5.2/zh_cn.dic
+pocketsphinx_continuous -inmic yes -hmm /usr/local/pocketsphinx/share/pocketsphinx/model/cmusphinx-zh-cn-5.2/zh_cn.cd_cont_5000 -lm ./4648.lm -dict ./4648.dic
+
 https://github.com/cmusphinx/sphinxbase
 .\sphinx_lm_convert.exe -i .\zh_broadcastnews_64000_utf8.DMP -o language-model.lm -ofmt arpa
 .\sphinx_lm_convert.exe -i .\language-model.lm -o language-model.lm.bin
@@ -752,6 +756,7 @@ https://github.com/deepinsight/insightface
 https://github.com/deepinsight/insightface/wiki/Model-Zoo
 MS1M-Arcface
 https://pan.baidu.com/s/1S6LJZGdqcZRle1vlcMzHOQ
+https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB
 
 https://github.com/ZhaoJ9014/face.evoLVe.PyTorch
 https://github.com/Cadene/pretrained-models.pytorch
@@ -2762,6 +2767,7 @@ mkdir ~/.homeassistant
 vi ~/.homeassistant/configuration.yaml
 sudo hass --open-ui
 
+brew install swig portaudio sox
 Snowboy唤醒
 　　1、一个支持 Snowboy，并带有麦克风的设备；
 　　2、一个训练好的模型，可以从 https://snowboy.kitt.ai/dashboard 获取，可以自己训练，也可以下载训练好的模型，但是下载的时候，需要自己录入自己的语音。
@@ -2771,10 +2777,19 @@ https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0
 编译 Python3 绑定：$ cd snowboy/swig/Python3 && make
 $ sudo apt-get install pulseaudio
 sudo apt-get install sox
-sox -d -d
-sudo apt-get install python3-pyaudio
-sudo apt-get install swig
-sudo apt-get install libatls-base-dev
+sox -d -d #对着麦克风说话，确认可以听到自己的声音
+sudo apt-get install python3-pyaudio python-pyaudio libasound2-dev
+sudo apt-get install swig3.0
+wget http://downloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+sudo apt-get install libpcre3 libpcre3-dev
+./configure --prefix=/usr                  \
+        --without-clisp                    \
+        --without-maximum-compile-warnings &&
+make
+make install &&
+install -v -m755 -d /usr/share/doc/swig-3.0.10 &&
+cp -v -R Doc/* /usr/share/doc/swig-3.0.10
+sudo apt-get install libmagic-dev libatls-base-dev
 wget http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
 tar -zxf pa_stable_v190600_20161030.tgz
 #解压之后的文件夹名称是 portaudio
@@ -2784,6 +2799,18 @@ sudo make && make install
 pip install pyaudio
 rec temp.wav
 python demo.py snowboy.pmdl
+如果使用的是树莓派，你还需要在~/.asoundrc更改声卡设置：
+  type asym
+   playback.pcm {
+     type plug
+     slave.pcm "hw:0,0"
+   }
+   capture.pcm {
+     type plug
+     slave.pcm "hw:1,0"
+   }
+}
+python3 demo.py resources/models/snowboy.umdl
 输入 sudo apt-get install vim
 sudo apt-get update
 更换源

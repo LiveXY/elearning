@@ -1,0 +1,1063 @@
+树莓派4B安装指南
+=====
+
+一，电脑制作PI4系统启动盘
+======
+* 显示屏驱动下载：http://www.lcdwiki.com/Main_Page
+* 无线网卡驱动下载：https://elinux.org/RPi_VerifiedPeripherals#USB_Wi-Fi_Adapters
+* RPI官方下载地址：https://www.raspberrypi.org/downloads/
+* 无桌面最新版本下载地址：https://downloads.raspberrypi.org/raspbian_lite_latest
+* 桌面版本：https://downloads.raspberrypi.org/rpd_x86_latest
+* windows可使用win32diskimager工具制作系统盘
+* 使用MAC电脑制作系统盘
+```
+diskutil list #查看当前SD卡/USB盘设备ID
+diskutil eraseDisk ExFAT raspberrypi disk2 #将disk2数据擦除并格式化为ExFAT格式
+diskutil unmountdisk disk2 #取消挂载disk2
+sudo dd if=2019-09-26-raspbian-buster-lite.img of=/dev/disk2 bs=1m #制作disk2系统盘
+```
+
+二，配置SSH/WI-FI（系统盘制作好了之后）
+======
+1，配置SSH：打开boot盘，然后在里面创建一个ssh空内容文件（不带后缀）
+```
+vi /boot/ssh
+```
+2，配置默认链接的WI-FI
+```
+
+vi /boot/wpa_supplicant.conf
+
+country=CN
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+  ssid="shiguang"
+  psk="shiguang123"
+  key_mgmt=WPA-PSK
+  priority=1
+}
+network={
+  ssid="XD2019"
+  psk="dx2019@1"
+  key_mgmt=WPA-PSK
+  priority=2
+}
+wpa_passphrase shiguang shiguang123 #生成密文
+如果无线网没有密码或者采用WEP加密方式的话，key_mgmt应设为NONE，密码字段由psk改成wep_key0即可。
+sudo ifdown wlan0 && sudo ifup wlan0 #重启无线网卡wlan0
+```
+3，修改配置
+```
+#查看配置命令
+vcgencmd get_config int
+vcgencmd get_config str
+tvservice -m CEA #查看电视支持的分辨率
+tvservice -m DMT #查看电脑支持的分辨率
+hdmi_cvt 宽 高 刷新频率 比例(1=4:3, 2=14:9, 3=16:9, 4=5:4, 5=16:10, 6=15:9)
+参考：https://elinux.org/RPiconfig
+
+sudo cp /boot/config.txt /boot/config.txt.bak
+sudo nano /boot/config.txt
+#设置hdmi显示的分辨率
+hdmi_force_hotplug=1 #启用HDMI热插拔功能。
+config_hdmi_boost=7 #启用加强HDMI信号
+
+hdmi_drive=2 #音频从HDMI接口输出（1是DVI输出，2是HDMI输出）
+hdmi_group=2 #设置HDMI类型 1CEA适用电视屏 2DMT适用电脑屏
+hdmi_mode=87 #自定义分辨率模式
+hdmi_cvt 1024 600 60 6 0 0 0 #自定义分辨率1024x600
+
+hdmi_ignore_edid=0xa5000080 #允许系统忽略EDID显示数据
+disable_overscan=1 #禁止黑边
+
+#硬件接口
+dtparam=i2c_arm=on #开启树莓派的I2C接口
+dtparam=i2s=on #开启树莓派的I2C接口
+dtparam=spi=on #开启树莓派的SPI接口
+enable_uart=1
+dtparam=audio=on #开启树莓派的音频接口
+
+#关掉硬盘提示灯(绿灯)
+#dtparam=act_led_trigger=none
+#dtparam=act_led_activelow=off
+#关掉电源提示灯(红灯)
+#dtparam=pwr_led_trigger=none
+#dtparam=pwr_led_activelow=off
+
+start_x=1 #启用摄像头模块
+disable_camera_led=1 #录制视频或拍摄静态图片时，关闭红色的相机LED
+gpu_mem=256 #供相机使用的最小GPU内存
+
+#disable_audio_dither=1 #在PWM音频算法上禁用抖动。如果您在音频插孔上遇到白噪声问题，请尝试此操作
+
+#使用大电流
+max_usb_current=1
+current_limit_override=0x5A000020
+avoid_warnings=2
+
+scaling_kernel=8
+
+sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
+sudo nano /boot/cmdline.txt
+后面增加：(这里有空格) net.ifnames=0 biosdevname=0
+防止USB网卡名称不是 wlan1
+```
+
+三，启动系统
+```
+将制作好系统SD卡插入树莓派。
+将USB接口的键盘和鼠标接上树莓派。
+将HDMI线连接树莓派和电视或显示器。如果你的显示器是VGA接口输出，那么还需要一根HDMI转VGA线缆。
+将网线连接树莓派和路由器。
+接上电源线，并打开电源。
+检查网线灯是否亮起（网线必须在断电时插入网口，启动过程中插网线不被识别），检查树莓派红色电源指示灯是否亮起，系统启动的时候边上绿色指示灯会闪烁。
+启动过程显示器有显示自检内容，成功后提示登陆，默认账号是pi，密码是raspberry
+无显示器需要现在局域网扫描工具扫描系统是否启动，或者猜测系统是否启动家里的宽带默认IP是重192.168.0.101开始的，查看一下自己的IP然后+1或+2到+n执行ping操作，如果拼通就执行 ssh pi@192.168.0.102 看是否可以登陆，可以使用arp -a命令查看新增加的IP
+```
+
+四，配置系统，默认登陆账号是pi，密码是raspberry
+基础命令
+```
+uname -a #系统版本
+gpio readall #查看PI版本
+cat /etc/rpi-issue #最新的系统时间
+vcgencmd version #系统固件版本
+cat /sys/class/thermal/thermal_zone0/temp #查看CPU温度（读数除以1000）
+vcgencmd measure_temp #查看CPU温度
+cat /proc/cpuinfo #查看CPU信息
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq #当前的 CPU 频率 vcgencmd get_config arm_freq
+python3 -V #查看python3版本
+pip3 -V #查看pip3版本
+lsusb #检查是否识别出了 USB 设备
+dmesg | grep -i memory
+dmesg | grep -i dma
+dmesg | grep -i usb ##检查是否识别出了 USB 设备
+dmesg | grep -i tty
+dmesg | grep -E "memory|dma|usb|tty"
+tvservice -s
+sudo modprobe uvcvideo
+iwlist scan #查看树莓派无线网卡检测到的wifi信号，ESSID就是wifi名称
+arp -a #查看网内的所有IP，新增加的可能就是树莓派的IP
+startx #启动图形化界面
+top #查看系统的运行情况
+free -h #查看内存分配情况
+sudo df -h #查看磁盘使用情况
+sudo du -sh #查看当前目录
+vcgencmd measure_volts core #查看电压
+vcgencmd codec_enabled H264/MPG2/WVC1/MPG4/WMV9 #查看解码器是否开启
+vcgencmd commands #显示 vcgencmd 可接的指令
+```
+1，优化操作
+```sh
+#设置上下键选择历史命令
+sudo nano ~/.inputrc
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+配置后需要执行exit，重新登陆生效
+
+#设置ll命令
+sudo nano ~/.bashrc
+alias ll='ls -l'
+source ~/.bashrc #生效
+```
+2，修改密码解锁root用户
+```
+sudo passwd pi #修改pi密码
+sudo passwd root #修改root密码
+sudo passwd --unlock root #解锁root用户，不用每次sudo
+su root #su root后不用每次sudo了
+```
+3，使用WIFI链接+固定IP（树莓派自带无线网卡无需单独购买USB无线网卡）
+```
+sudo nano /etc/dhcpcd.conf
+#插网线配置
+auto lo
+iface lo inet loopback
+iface eth0 inet dhcp
+#内置无线网卡配置
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+#USB无线网卡配置
+auto wlan1
+allow-hotplug wlan1
+iface wlan1 inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+#插网线配置固定IP
+interface eth0
+static ip_address=192.168.0.168/24
+static routers=192.168.0.1
+static domain_name_servers=114.114.114.114 8.8.8.8
+#WI-FI配置固定IP
+interface wlan0
+static ip_address=192.168.0.168/24
+static routers=192.168.0.1
+static domain_name_servers=114.114.114.114 8.8.8.8
+#USB无线网卡配置固定IP
+interface wlan1
+static ip_address=192.168.0.168/24
+static routers=192.168.0.1
+static domain_name_servers=114.114.114.114 8.8.8.8
+```
+4，配置语言、时区、USB启动、摄像头
+```
+#安装拼音输入法
+sudo apt install scim-pinyin -y
+sudo apt install fcitx fcitx-table fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin -y
+#安装中文字体
+sudo apt install ttf-wqy-zenhei ttf-wqy-microhei -y
+sudo apt install fonts-wqy-microhei fonts-wqy-zenhei xfonts-wqy -y
+#配置语言、时区、摄像头
+sudo raspi-config
+Localisation Options -> Change Locale -> zh_CN.UTF-8 UTF-8
+Localisation Options -> Change TimeZone -> Asia -> Shanghai
+Interfacing Options -> Camera -> yes
+Interfacing Options -> SSH -> yes
+Interfacing Options -> VNC -> yes
+Interfacing Options -> SPI -> yes
+Interfacing Options -> I2C -> yes
+Interfacing Options -> Serial -> yes
+Interfacing Options -> 1-Wire -> yes
+Advanced Options -> Audio
+#SSH自动启动（在/etc/rc.conf文件中添加启动指令）
+sudo systemctl enable ssh
+sudo systemctl restart ssh
+```
+4，配置源、更新系统
+```
+#先备份配置文件
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+sudo cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.list.bak
+
+sudo nano /etc/apt/sources.list
+#阿里云的源
+deb https://mirrors.aliyun.com/raspbian/raspbian/ buster main contrib non-free rpi firmware
+deb-src https://mirrors.aliyun.com/raspbian/raspbian/ buster main contrib non-free rpi firmware
+#清华源
+deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+#中科大的源
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+
+sudo nano /etc/apt/sources.list.d/raspi.list
+#阿里云的源
+deb https://mirrors.aliyun.com/raspbian/raspbian/ buster main ui
+deb-src https://mirrors.aliyun.com/raspbian/raspbian/ buster main ui
+#清华源
+deb http://mirror.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui
+deb-src http://mirror.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui
+#中科大的源
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main ui
+deb-src http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main ui
+
+#更新系统
+sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
+sudo rpi-update
+sudo apt -f install
+#重启树莓派
+sudo reboot
+sudo shutdown -r
+#关机树莓派
+sudo shutdown now
+sudo shutdown 11:00
+sudo shutdown +10
+```
+5，安装 LNMP 运行环境
+```
+#安装memcached
+sudo apt install memcached -y
+sudo systemctl enable memcached
+sudo systemctl restart memcached
+sudo service memcached restart
+#安装nginx
+sudo apt install nginx -y
+sudo nano /etc/nginx/conf.d/site.conf
+server {
+    listen 99;
+    server_name _;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary off;
+    gzip_disable "MSIE [1-6]\.";
+
+    root /home/web/public;
+    index index.html index.htm index.php;
+
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Headers X-Requested-With;
+    add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+    location ~ ^(.+.php)(.*)$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+        expires      30d;
+    }
+    location ~ .*\.(js|css)?$ {
+        expires      12h;
+    }
+}
+sudo systemctl enable nginx
+sudo systemctl restart nginx
+sudo service nginx restart
+#安装php
+sudo apt install php7.1 php7.1-dev php7.1-fpm php7.1-mysql php7.1-common php7.1-gd php7.1-mbstring php7.1-mcrypt php7.1-xml php7.1-xmlrpc php7.1-opcache php7.1-pdo php7.1-curl php7.1-imap php7.1-json php7.1-sqlite -y
+sudo nano /etc/php/7.1/fpm/pool.d/www.conf
+listen = 9000
+sudo apt install libmemcached-dev
+sudo git clone https://github.com/php-memcached-dev/php-memcached.git
+cd php-memcached/
+git checkout php7
+phpize  # 如果未安装php-dev需先安装
+./configure --disable-memcached-sasl
+make
+sudo make install
+sudo nano /etc/php/7.1/fpm/php.ini
+[Memcached]
+extension=memcached.so
+sudo systemctl enable php7.1-fpm
+sudo systemctl restart php7.1-fpm
+sudo service php7.1-fpm restart
+#安装mysql
+sudo apt install default-mysql-client default-mysql-server -y
+或
+sudo apt install mariadb-client mariadb-server -y
+sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+bind-address            = 0.0.0.0
+#启动
+sudo systemctl enable mariadb
+sudo systemctl restart mariadb
+#修改密码
+sudo mysqladmin -u root -p password
+#开启root远程登录权限
+sudo mysql -uroot -p
+use mysql;
+select Host,User,plugin,password from mysql.user where User='root';
+update mysql.user set plugin='mysql_native_password';
+update mysql.user set password=PASSWORD("newlife") where User='root';
+grant all privileges on mysql.user to 'root'@'%' identified by 'root' with grant option;
+flush privileges;
+sudo systemctl restart mariadb
+```
+6，其它工具
+```
+sudo apt install sqlite3 -y
+sudo apt install mplayer -y
+sudo apt install pulseaudio -y
+sudo apt install sox -y
+sudo apt install swig -y
+sudo apt install mpg123 -y
+sudo apt install ffmpeg omxplayer -y
+sudo apt install cmake -y
+sudo apt install fswebcam -y
+
+#安装文件共享盘，无需账号登陆
+sudo apt install samba samba-common-bin -y
+sudo mkdir /home/share
+sudo chmod 777 -R /home/share
+sudo nano /etc/samba/smb.conf
+[global]
+   security = user
+[share]
+   comment = share
+   path = /home/share
+   browseable = yes
+   guest ok = yes
+   writable = yes
+sudo systemctl enable smbd
+sudo systemctl restart smbd
+sudo service smbd restart
+#增加用户，必须是Linux用户
+sudo smbpasswd -a pi
+
+vi ~/.asoundrc 更改声卡设置
+type asym
+   playback.pcm {
+     type plug
+     slave.pcm "hw:0,0"
+   }
+   capture.pcm {
+     type plug
+     slave.pcm "hw:1,0"
+   }
+}
+
+fswebcam 10 test.jpg #延时10帧 拍摄
+
+调节麦克风音量
+arecord -L
+alsamixer -c 1
+
+aplay -l
+arecord -l
+arecord -t wav -f S16_LE -c 2 -d 10 -r 24000 temp.wav
+aplay temp.wav
+mpg123 'http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q=today+is+sunday'
+单声道、16位、16000HZ采样率
+arecord -r 16000 -c 1 -t wav -f S16_LE test.wav
+输入设备是麦克风，输出可以是HDMI、耳机或音响，我这里用了音响。下面是我的树莓派照片。4个USB接口分别连了无线网卡、无线键盘、麦克风、音响供电。
+arecord -D "plughw:1" -f S16_LE -r 16000 test.wav
+arecord -D "plughw:1,0" -d 5 file.wav
+ffmpeg -i file.wav -ar 16000 -acodec flac file.flac
+arecord –device=hw:1,0 –format S16_LE –rate 44100 -c1 test.wav
+–device=hw:1,0 是定义录音的设备. –format S16_LE 是定义 signed 16-bit (S16_LE) 音频. 码率是: 44100 Hz (--rate 44100) 后面的参数是定义为mono 格式 (-c1) , 文件名为: test.wav
+aplay –device=plughw:1,0 test.wav
+
+实时监控还需 安装 motion
+sudo apt install motion
+sudo vi /etc/defualt/motion
+start_motion_daemon = yes
+sudo vi /etc/motion/motion.conf
+daemon = no
+stream_localhost = off
+sudo motion
+
+```
+7，Python3/Pip3
+```
+#pip更改源
+mkdir ~/.pip/
+sudo nano ~/.pip/pip.conf
+[global]
+trusted-host=mirrors.aliyun.com
+index-url=https://mirrors.aliyun.com/pypi/simple/
+#安装常用工具
+
+
+#python-opencv安装
+sudo apt install libopencv-dev -y
+sudo apt install python-opencv -y
+pip3 install opencv-python
+sudo apt install libatlas-base-dev gfortran -y
+sudo apt install libjasper-dev -y
+sudo apt install libqt4-test -y
+sudo apt install libjpeg8-dev -y
+sudo apt install libtiff5-dev -y
+sudo apt install libpng12-dev -y
+sudo apt install libgtk2.0-dev -y
+sudo apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev -y
+sudo apt install build-essential pkg-config -y
+```
+
+使用xrdp远程桌面
+```
+sudo apt install xrdp -y
+sudo apt install tightvncserver -y
+开启windows自带的远程登录桌面工具mstsc，输入你的树莓派IP地址远程登录
+```
+
+分辨率参考
+```
+
+CEA分辨率，以下是CEA规定的电视规格分辨率，hdmi_group = 1（CEA）
+hdmi_mode = 1 VGA
+hdmi_mode = 2 480p 60 Hz
+hdmi_mode = 3 480p 60 Hz H
+hdmi_mode = 4 720p 60 Hz
+hdmi_mode = 5 1080i 60 Hz
+hdmi_mode = 6 480i 60 Hz
+hdmi_mode = 7 480i 60 Hz H
+hdmi_mode = 8 240p 60 Hz
+hdmi_mode = 9 240p 60 Hz H
+hdmi_mode = 10 480i 60 Hz 4x
+hdmi_mode = 11 480i 60 Hz 4x H.
+hdmi_mode = 12 240p 60 Hz 4x
+hdmi_mode = 13 240p 60 Hz 4x H.
+hdmi_mode = 14 480p 60 Hz 2x
+hdmi_mode = 15 480p 60 Hz 2x H.
+hdmi_mode = 16 1080p 60 Hz
+hdmi_mode = 17 576p 50 Hz
+hdmi_mode = 18 576p 50 Hz H
+hdmi_mode = 19 720p 50 Hz
+hdmi_mode = 20 1080i 50 Hz
+hdmi_mode = 21 576i 50 Hz
+hdmi_mode = 22 576i 50 Hz H
+hdmi_mode = 23 288p 50 Hz
+hdmi_mode = 24 288p 50 Hz H
+hdmi_mode = 25 576i 50 Hz 4x
+hdmi_mode = 26 576i 50 Hz 4x H.
+hdmi_mode = 27 288p 50 Hz 4x
+hdmi_mode = 28 288p 50 Hz 4x H.
+hdmi_mode = 29 576p 50 Hz 2x
+hdmi_mode = 30 576p 50 Hz 2x H.
+hdmi_mode = 31 1080p 50 Hz
+hdmi_mode = 32 1080p 24 Hz
+hdmi_mode = 33 1080p 25 Hz
+hdmi_mode = 34 1080p 30 Hz
+hdmi_mode = 35 480p 60 Hz 4x
+hdmi_mode = 36 480p 60 Hz 4xH
+hdmi_mode = 37 576p 50 Hz 4x
+hdmi_mode = 38 576p 50 Hz 4x H.
+hdmi_mode = 39 1080i 50 Hz减少消隐
+hdmi_mode = 40 1080i 100 Hz
+hdmi_mode = 41 720p 100 Hz
+hdmi_mode = 42 576p 100 Hz
+hdmi_mode = 43 576p 100 Hz H
+hdmi_mode = 44 576i 100 Hz
+hdmi_mode = 45 576i 100 Hz H
+hdmi_mode = 46 1080i 120 Hz
+hdmi_mode = 47 720p 120 Hz
+hdmi_mode = 48 480p 120 Hz
+hdmi_mode = 49 480p 120 Hz H
+hdmi_mode = 50 480i 120 Hz
+hdmi_mode = 51 480i 120 Hz H
+hdmi_mode = 52 576p 200 Hz
+hdmi_mode = 53 576p 200 Hz H
+hdmi_mode = 54 576i 200 Hz
+hdmi_mode = 55 576i 200 Hz H
+hdmi_mode = 56 480p 240 Hz
+hdmi_mode = 57 480p 240 Hz H
+hdmi_mode = 58 480i 240 Hz
+hdmi_mode = 59 480i 240 Hz H
+H表示16：9变体（通常为4：3模式）。
+2x表示像素加倍（即更高的时钟频率，每个像素重复两次）
+4倍意味着像素翻了四倍（即更高的时钟频率，每个像素重复四次）
+如果hdmi_group = 2（DMT），这些值有效
+注意：根据http://www.raspberrypi.org/phpBB3/viewtopic.php?f=26&t=20155&p=195417&hilit=2560x1600#p195443
+
+DMT分辨率，以下是计算机显示器使用的分辨率：
+hdmi_mode = 1 640x350 85 Hz
+hdmi_mode = 2 640x400 85 Hz
+hdmi_mode = 3 720x400 85 Hz
+hdmi_mode = 4 640x480 60 Hz
+hdmi_mode = 5 640x480 72 Hz
+hdmi_mode = 6 640x480 75 Hz
+hdmi_mode = 7 640x480 85 Hz
+hdmi_mode = 8 800x600 56 Hz
+hdmi_mode = 9 800x600 60 Hz
+hdmi_mode = 10 800x600 72 Hz
+hdmi_mode = 11 800x600 75 Hz
+hdmi_mode = 12 800x600 85 Hz
+hdmi_mode = 13 800x600 120 Hz
+hdmi_mode = 14 848x480 60 Hz
+hdmi_mode = 15 1024x768 43 Hz请勿使用
+hdmi_mode = 16 1024x768 60 Hz
+hdmi_mode = 17 1024x768 70 Hz
+hdmi_mode = 18 1024x768 75 Hz
+hdmi_mode = 19 1024x768 85 Hz
+hdmi_mode = 20 1024x768 120 Hz
+hdmi_mode = 21 1152x864 75 Hz
+hdmi_mode = 22 1280x768减少消隐
+hdmi_mode = 23 1280x768 60 Hz
+hdmi_mode = 24 1280x768 75 Hz
+hdmi_mode = 25 1280x768 85 Hz
+hdmi_mode = 26 1280x768 120 Hz减少消隐
+hdmi_mode = 27 1280x800减少消隐
+hdmi_mode = 28 1280x800 60 Hz
+hdmi_mode = 29 1280x800 75 Hz
+hdmi_mode = 30 1280x800 85 Hz
+hdmi_mode = 31 1280x800 120 Hz减少消隐
+hdmi_mode = 32 1280x960 60 Hz
+hdmi_mode = 33 1280x960 85 Hz
+hdmi_mode = 34 1280x960 120 Hz减少消隐
+hdmi_mode = 35 1280x1024 60 Hz
+hdmi_mode = 36 1280x1024 75 Hz
+hdmi_mode = 37 1280x1024 85 Hz
+hdmi_mode = 38 1280x1024 120 Hz减少消隐
+hdmi_mode = 39 1360x768 60 Hz
+hdmi_mode = 40 1360x768 120 Hz减少消隐
+hdmi_mode = 41 1400x1050减少消隐
+hdmi_mode = 42 1400x1050 60 Hz
+hdmi_mode = 43 1400x1050 75 Hz
+hdmi_mode = 44 1400x1050 85 Hz
+hdmi_mode = 45 1400x1050 120 Hz减少消隐
+hdmi_mode = 46 1440x900减少消隐
+hdmi_mode = 47 1440x900 60 Hz
+hdmi_mode = 48 1440x900 75 Hz
+hdmi_mode = 49 1440x900 85 Hz
+hdmi_mode = 50 1440x900 120 Hz减少消隐
+hdmi_mode = 51 1600x1200 60 Hz
+hdmi_mode = 52 1600x1200 65 Hz
+hdmi_mode = 53 1600x1200 70 Hz
+hdmi_mode = 54 1600x1200 75 Hz
+hdmi_mode = 55 1600x1200 85 Hz
+hdmi_mode = 56 1600x1200 120 Hz减少消隐
+hdmi_mode = 57 1680x1050减少消隐
+hdmi_mode = 58 1680x1050 60 Hz
+hdmi_mode = 59 1680x1050 75 Hz
+hdmi_mode = 60 1680x1050 85 Hz
+hdmi_mode = 61 1680x1050 120 Hz减少消隐
+hdmi_mode = 62 1792x1344 60 Hz
+hdmi_mode = 63 1792x1344 75 Hz
+hdmi_mode = 64 1792x1344 120 Hz减少消隐
+hdmi_mode = 65 1856x1392 60 Hz
+hdmi_mode = 66 1856x1392 75 Hz
+hdmi_mode = 67 1856x1392 120 Hz减少消隐
+hdmi_mode = 68 1920x1200减少消隐
+hdmi_mode = 69 1920x1200 60 Hz
+hdmi_mode = 70 1920x1200 75 Hz
+hdmi_mode = 71 1920x1200 85 Hz
+hdmi_mode = 72 1920x1200 120 Hz减少消隐
+hdmi_mode = 73 1920x1440 60 Hz
+hdmi_mode = 74 1920x1440 75 Hz
+hdmi_mode = 75 1920x1440 120 Hz减少消隐
+hdmi_mode = 76 2560x1600减少消隐
+hdmi_mode = 77 2560x1600 60 Hz
+hdmi_mode = 78 2560x1600 75 Hz
+hdmi_mode = 79 2560x1600 85 Hz
+hdmi_mode = 80 2560x1600 120 Hz减少消隐
+hdmi_mode = 81 1366x768 60 Hz
+hdmi_mode = 82 1080p 60 Hz
+hdmi_mode = 83 1600x900减少消隐
+hdmi_mode = 84 2048x1152减少消隐
+hdmi_mode = 85 720p 60 Hz
+hdmi_mode = 86 1366x768减少消隐
+
+```
+
+DNS 服务器
+https://www.ionos.com/digitalguide/server/configuration/how-to-make-your-raspberry-pi-into-a-dns-server/
+针对黑客的蜜罐陷阱
+https://github.com/mattymcfatty/HoneyPi
+打印服务器
+https://opensource.com/article/18/3/print-server-raspberry-pi
+
+dmesg
+umount /dev/sda1
+sudo mkfs.ext4 /dev/sda1
+sudo mkdir /home/shares/public/disk1
+sudo chown -R root:users /home/shares/public/disk1
+sudo chmod -R ug=rwx,o=rx /home/shares/public/dis
+sudo mount /dev/sda1 /home/shares/public/disk1
+sudo nano /etc/fstab
+/dev/sda1 /home/shares/public/disk1 auto noatime,nofail 0 0
+
+数字标牌
+https://blog.capterra.com/7-free-and-open-source-digital-signage-software-options-for-your-next-event/
+目录和信息亭:它直接引导到 Chromium 的全屏版本 —— 这非常适合导购、图书馆目录等
+https://github.com/guysoft/FullPageOS
+https://github.com/guysoft/CustomPiOS
+
+用于构建OctoPi的脚本，这是一个用于通过Web控制3D打印机的Raspberry PI发行版
+https://github.com/guysoft/OctoPi
+https://octoprint.org/
+https://github.com/Ultimaker/CuraEngine
+https://github.com/foosel/OctoPrint
+
+媒体中心
+https://osmc.tv/download/
+https://raspbian-france.fr/media-center-raspberry-pi-osmc-xbmc/
+
+摄像头监控
+https://raspbian-france.fr/video-surveillance-raspberry-pi-camera/
+sudo apt install motion
+sudo modprobe bcm2835-v4l2
+echo 'bcm2835-v4l2' | sudo tee -a /etc/modules
+vi / etc / default / motion
+start_motion_daemon = YES
+vi /etc/motion.conf 或 /etc/motion/motion.conf
+#On active le daemon
+daemon on
+#On utilise le fichier /tmp/motion.log pour stocker les logs
+logfile /tmp/motion.log
+#On règle la résolution (adapter la résolution à celle de votre camera. Ici, nous avons réglé pour la caméra de la raspberry pi)
+width 1280
+height 720
+#On règle le nombre d'images prises par seconde
+framerate 2
+#On règle le nombre d'images enregistrées avant et après un mouvement (ici 2 avant 2 après)
+pre_capture 2
+post_capture 2
+#On règle le code, pour une lecture sur de nombreux médias
+ffmpeg_video_codec msmpeg4
+#On autorise la lecture du flux depuis internet pour permettre l'accès en ligne à la vidéo-surveillance
+stream_localhost off
+
+https://github.com/jacksonliam/mjpg-streamer
+
+http://www.karlrunge.com/x11vnc/
+
+
+启用树莓派的I2C功能
+sudo apt install -y python-smbus
+sudo apt install -y i2c-tools
+sudo raspi-config
+http://shumeipai.nxez.com/2019/04/29/use-the-ssd1306-oled-display-on-the-raspberry-pi.html
+
+安装 Adafruit-SSD1306 库
+Adafruit-SSD1306 是基于 Python 的 OLED 库，可以用于 128×64、128×32 像素 SSD1306 芯片控制的屏幕。
+使用下面的命令安装。
+sudo python -m pip install --upgrade pip setuptools wheel
+注意，如果这一步出现错误提示“TypeError: unsupported operand type(s) for -=: ‘Retry’ and ‘int’”，可以尝试卸载后重新安装 pip 来解决。
+sudo apt remove python-pip python3-pip
+sudo apt install python-pip python3-pip
+sudo apt install python-pil python3-pil
+sudo pip install Adafruit-SSD1306
+git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git
+cd Adafruit_Python_SSD1306
+sudo python setup.py install
+下面通过命令检测是否识别到 I2C 设备。
+sudo i2cdetect -y 1
+sudo i2cdetect -y 0
+设置开机运行
+sudo nano /etc/rc.local
+sudo python /home/pi/stats.py &
+sudo reboot
+
+openwrt lede
+https://github.com/coolsnowwolf/lede
+
+
+显示系统的硬盘设备以及分区
+sudo fdisk -l  ＃显示设备名，例如/dev/sda1
+树莓派默认不支持NTFS文件系统，如果需要支持则要安装相应的软件包
+sudo apt install ntfs-3g #安装支持NTFS文件系统的软件包
+sudo reboot
+在树莓派上建立挂载点
+sudo mkdir /media/usbhdd #建立挂载目录
+sudo chown pi:pi /media/usbhdd #设置目录的所有人和所有组
+挂载/dev/sda1设备硬盘
+sudo mount -t auto -o uid=pi,gid=pi /dev/sda1 /media/usbhdd
+卸载
+sudo umount /media/usbhdd
+实现开机自动挂接
+修改/etc/fstab文件，增加如下的内容
+/dev/sda1  /media/usbhdd  vfat  rw,defaults  0   0
+获取硬盘的UUID值
+sudo blkid
+UUID="1599-28FA"   /media/usbhdd  auto  rw,defaults   0    0
+sudo reboot
+硬盘文件系统的种类
+vfat   fat32
+ntfs       ntfs
+ext3     古老的Linux文件系统
+ext4     当前的linux文件系统
+sudo mount -a
+
+放入TF内存卡启动系统登陆默认用户名pi和密码raspberry
+cmdline.txt或config.txt文件增加
+空格program_usb_boot_mode=1
+成功进入后关机sudo halt 拔下TF卡
+brew cask install balenaetcher
+https://github.com/balena-io/etcher
+USB启动大约要比TF卡多花费10秒钟
+
+=================================================================
+https://dietpi.com/
+https://github.com/MichaIng/DietPi
+http://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Buster.7z
+root/dietpi
+
+写入SD卡
+umount /dev/sdb
+dd if=/path/to/DietPi_vXX.img=/dev/sdb
+
+配置WI-FI
+vi /boot/dietpi.txt
+
+#配置wifi
+AUTO_SETUP_NET_WIFI_ENABLED=1
+AUTO_SETUP_NET_WIFI_SSID=shiguang
+AUTO_SETUP_NET_WIFI_KEY=shiguang123
+
+#静态ip
+AUTO_SETUP_NET_USESTATIC=1
+AUTO_SETUP_NET_STATIC_IP=192.168.0.168
+AUTO_SETUP_NET_STATIC_MASK=255.255.255.0
+AUTO_SETUP_NET_STATIC_GATEWAY=192.168.0.1
+AUTO_SETUP_NET_STATIC_DNS=114.114.114.114
+
+# 软件源
+CONFIG_APT_RASPBIAN_MIRROR=http://mirrors.ustc.edu.cn/raspbian/raspbian/
+CONFIG_APT_DEBIAN_MIRROR=http://mirrors.ustc.edu.cn/archive.raspberrypi.org/
+
+树莓派4B 更新wiringPi库到2.52的方法
+最新发布的树莓派4B在烧录了官方系统buster以后，如果直接使用gpio readall去查看GPIO会出现错误。无法识别的情况，需要根据以下步骤进行wiringPi的更新：
+cd /tmp
+wget https://project-downloads.drogon.net/wiringpi-latest.deb
+sudo dpkg -i wiringpi-latest.deb
+gpio -v
+gpio readall
+
+=================================================================
+
+想要从USB启动系统，需要自己去改cmdline.txt的rootpartuuid
+https://www.itanger.cn/2019/10/%E8%AE%B0%E5%BD%95-%E6%A0%91%E8%8E%93%E6%B4%BE4b%E9%80%9A%E8%BF%87sd%E5%8D%A1%E8%BE%85%E5%8A%A9usb%E5%BC%95%E5%AF%BC%E7%B3%BB%E7%BB%9F/
+https://www.quarkbook.com/?p=638
+sudo blkid
+我们需要记录下SSD/闪存盘下的rootfs文件系统的PARTUUID
+sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
+sudo nano /boot/cmdline.txt
+将里面的PARTUUID修改成上面记录的那个
+更新fstab
+sudo lsblk -o name,label,partuuid
+找到mmcblk0里面,label为boot对应的partuuid.
+然后新开一个控制台:
+sudo nano /etc/fstab
+找到 /boot 字段前面对应的那个partuuid,并用上一步的SD卡的boot对应的partuuid替换!
+然后Ctrl+X,并回车保存.
+调整文件系统的大小
+sudo fdisk /dev/sda
+p
+在如上信息中,我们需要记录下/dev/sda2 的起始地址,如上示例中就是540672.接下来，我们需要删除并重新创建更大的分区.
+d #删除分区
+2 #删除第二个分区
+n #新建分区
+p #主分区
+2 #分区号
+540672 #上面记录的起始位置
+默认回车选择整块驱动器
+n #不删除签名
+w #写入磁盘
+然后重启系统。重启系统后继续输入：
+sudo resize2fs /dev/sda2
+df -h
+测速
+curl https://raw.githubusercontent.com/TheRemote/PiBenchmarks/master/Storage.sh | sudo bash
+
+findmnt -n -o SOURCE / #以确保根分区已如下所示切换到/dev/sda2而不是/dev/mmcblk0p2
+sudo nano /etc/fstab
+将boot分区PARTUUID替换为内存卡的PARTUUID，启动后默认挂载的是外置存储器中的引导分区，尽管这个分区并没有用，所以要替换为内存卡中的引导分区PARTUUID，因为我们使用的是内存卡里面的引导分区。
+内存卡引导分区可以通过命令sudo blkid查看。
+
+如果看到所有的PARTUUID都是相同的话，就不用编辑cmdline.txt文件了。Shell中执行：
+sudo fdisk /dev/mmcblk0
+然后输入‘d’，再选择2，删除第二分区之后，输入‘w’。保存退出之后重启树莓派。
+sudo fdisk /dev/sda
+然后输入‘d’，再选择1，删除第一分区之后，输入‘w’。保存退出之后重启树莓派。 此时内存卡中只有个启动分区，外置储存设备中只有rootfs系统分区了。
+
+如果系统启动报错： end Kernel panic - not syncing:vfs unable to mount root fs on unknown -block(179,2)，则可能是你在SD卡中做完系统格式化剩余盘导致的，不要选择格式化，再插入树莓派中重新启动即可。
+拿到了树莓派板子就想用远程SSH的功能，网上看到了一些教程都是用默认用户pi做SSH，我自己建立的用户每次都是Permission denied, please try again.
+sudo nano /etc/ssh/sshd_config
+PasswordAuthentication yes
+
+
+使用webiopi远程控制树莓派
+sudo apt install python-dev
+Google Code项目地址：https://sourceforge.net/projects/raspberry-gpio-python/
+wget http://webiopi.googlecode.com/files/WebIOPi-0.5.3.tar.gz
+tar xvzf WebIOPi-0.5.3.tar.gz
+cd WebIOPi-0.5.3
+sudo ./setup.sh
+首先设置或修改webopio的密码
+sudo webiopi-passwd
+webiopi/raspberry
+sudo python3 -m webiopi 8000
+sudo /etc/init.d/webiopi start
+sudo /etc/init.d/webiopi stop
+设置webopio随系统启动
+sudo update-rc.d webiopi defaults
+用浏览器打开IP地址访问管理界面
+
+git clone https://github.com/Kitt-AI/snowboy.git
+snowboy/swig/Python3 && make
+sudo apt install pulseaudio
+sudo apt install sox
+sox -d -d
+sudo apt install python3-pyaudio
+sudo apt install swig
+sudo apt install libatls-base-dev
+wget http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
+tar -zxf pa_stable_v190600_20161030.tgz
+#解压之后的文件夹名称是 portaudio
+cd portaudio
+sudo ./configure
+sudo make && make install
+pip install pyaudio
+rec temp.wav
+python demo.py snowboy.pmdl
+
+sudo pip3 install pyserial
+sudo pip3 install psutil
+sudo pip3 install flask
+sudo pip3 install flask_socketio
+
+
+
+
+wget -q -U "Mozilla/5.0" --post-file file.flac --header "Content-Type: audio/x-flac; rate=16000" -O - "[color=blue !important]http://www.google.com/speech-api/v1/recognize?lang=zh-cn&client=chromium"
+所以要选择Analog输出，这里就需要做一些配置:安装声卡服务
+sudo apt install alsa-utils
+sudo modprobe snd_bcm2835
+设置Analog输出模式:
+sudo amixer cset numid=3 1
+
+sudo apt install sox libsox-fmt-mp3 git-core python-dev bison libasound2-dev libportaudio-dev python-pyaudio libatlas-base-dev python-pymad --yes
+
+
+安装Docker:
+curl -sL get.docker.com | sed 's/9)/10)/' | sh
+pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+sudo pip3 install docker-compose
+更换Docker清华镜像
+sudo vim /etc/apt/sources.list.d/docker.list:
+deb [arch=armhf] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/raspbian buster stable
+
+打造树莓派路由器
+https://github.com/billz/raspap-webgui
+sudo docker run -d --name=gitea -p 1008x:3000 -v /var/lib/gitea:/data --restart unless-stopped kunde21/gitea-arm:latest
+打造私人git服务器,安装Gitea https://docs.gitea.io/zh-cn/install-with-docker/
+docker pull gitea/gitea:latest
+sudo usermod -aG docker $USER
+sudo mkdir -p /var/lib/gitea
+docker run -d --name=gitea -p 10022:22 -p 10080:3000 -v /var/lib/gitea:/data gitea/gitea:latest
+浏览器中访问 http://hostname:10080 就可以看到界面了
+git clone ssh://git@hostname:10022/username/repo.git
+
+go get -d -u code.gitea.io/gitea 下载源码
+cd %GOPATH%/src/code.gitea.io/gitea 跳至目录
+go build 编译,产出一个叫gitea的文件
+gitea cmd下在当前路径，直接跑
+localhost:3000
+
+打造家用云服务器
+安装NextCloudPi
+# Start docker with custom storage volume with:
+sudo mkdir /media/ncdata
+# 主机80端口已被raspap-webgui占用
+docker run -d -p 4443:4443 -p 443:443 -p 81:80 -v /media/ncdata:/data --name nextcloudpi ownyourbits/nextcloudpi-armhf $DOMAIN
+# 观察nextcloudpi的安装进度
+docker logs -f nextcloudpi
+
+https://gogs.io/
+https://gitea.io/zh-cn/
+https://github.com/go-gitea/gitea/
+
+NAS系统搭建
+sudo apt install ntfs-3g
+modprobe fuse
+fdis -l
+ntfs-3g /dev/sda1 /mnt
+vim /etc/fsta
+# 最后一行添加，重启生效
+/dev/sda1 /mnt ntfs-3g defaults,noexec,umask=0000 0 0
+cd /mnt
+ls
+安装samba
+apt install samba samba-common-bin
+# 过程中需要安装额外的包 确定即可
+# 在/mnt下 创建一个文件 设置权限
+mkdir data
+chown -R root:users /mnt/data
+chmod -R ug=rwx,o=rx /mnt/data
+# 修改samba配置
+vim /etc/samba/smb.conf
+#修改Authentication
+security = user
+修改home下的read
+read only = no
+最后
+[public]
+# 说明信息
+comment = public storage
+# 共享文件的路径
+path = /mnt/data
+# 可以访问的用户
+valid users = @users
+force group = users
+# 新建文件权限
+create mask = 0660
+# 新建目录权限
+directory mask = 0771
+read only = no
+重启smb服务
+/etc/init.d/samba-ad-dc restart
+有问题可以试试这个：
+# 重启服务: sudo /etc/init.d/smbd restart
+# 重启服务: sudo /etc/init.d/nmbd restart
+添加用户
+smbpasswd -a pi
+#输入密码即可
+sudo samba restart
+sudo chmod -R 777 /mnt/udisk
+访问
+\\192.168.1.37\public
+smb://192.168.1.37/public
+
+
+检查是否存在USB摄像头设备
+lsusb
+ls /dev
+可以看到 红框中有 video0 设备 也可以说明 usb摄像头 正常运行
+sudo apt install cmake libjpeg8-dev
+wget https://github.com/jacksonliam/mjpg-streamer/archive/master.zip
+unzip master.zip
+cd mjp*g-*
+cd mjpg-*
+make
+sudo make install
+/usr/local/bin/mjpg_streamer -i "/usr/local/lib/mjpg-streamer/input_uvc.so -n -f 30 -r 1280x720" -o "/usr/local/lib/mjpg-streamer/output_http.so -p 8080 -w /usr/local/share/mjpg-streamer/www"
+http://<树莓派ip>:<port>/javascript.html
+http://172.19.8.102:8080/?action=snapshot
+下载摄像头采集源码
+https://github.com/yijiesun/pi4B_work
+
+
+打开http://www.oray.com,点击顶部的“注册”，申请一个花生壳护照
+花生壳安装步骤都需要在管理员（Root）权限下运行
+wget -c http://hsk.oray.com/download/download?id=25
+dpkg -i phddns_rapi_3.0.1.armhf.deb #安装
+dpkg -r phddns #卸载
+phddns start（启动）| stop（停止）| restart（重启）
+phddns status（状态）| version（版本）|reset（重置）
+cat /var/log/phddns
+配置
+打开：b.oray.com
+输入安装花生壳时生成的SN码及默认密码admin进入
+
+nat123官网-端口映射软件.免费内网穿透工具
+http://www.nat123.com/ 注册账号
+安装nat123 客户端
+sudo apt install mono-complete
+wget http://www.nat123.com/down/nat123linux.tar.gz
+tar -zxvf nat123linux.tar.gz
+cd nat123
+mono nat123linux.sh
+sudo  mono  nat123linux.sh service
+配置 内网映射
+a. 登陆网站：http://www.nat123.com
+b. 添加端口映射
+
+确定当前的 CPU 频率
+cat /proc/cpuinfo
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+vcgencmd get_config arm_freq
+超频
+sudo nano /boot/config.txt
+arm_freq=800
+sdram_freq=500
+然后重启设备，但修改的配置并不总是能工作
+sudo sync
+sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
+sudo cp config.txt config.txt.save
+sudo cp config.txt config.txt.save.1
+sudo sync; sync; exit; exit
+这个将导致你退出终端窗口，重新打开终端窗口然后执行：
+sudo sync; sync;
+sudo shutdown -h now
+现在你的树莓派可以关闭了，拔掉电源，然后重新插入。
+vcgencmd get_config arm_freq
+或者
+sudo apt update && sudo apt install raspberrypi* raspi-config
+sudo raspi-config
+overclock -> Modest
+vcgencmd get_config arm_freq
+vcgencmd get_config int
+
+raspivid可以将视频流通过TCP或者UDP转发到一个IP地址上
+raspivid -w 640 -h 480 -t 5000 -o tcp://192.168.1.101:3333
+持续录制
+raspivid -w 640 -h 480 -t 0 -o tcp://192.168.1.101:3333
+
