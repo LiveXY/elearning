@@ -108,6 +108,7 @@ systemctl start memcached.service
 systemctl enable nginx.service
 systemctl enable mariadb.service
 systemctl enable php-fpm.service
+systemctl enable memcached.service
 
 systemctl enable mariadb.service #加入随系统启动
 systemctl start mariadb.service #启动 mariadb 守护进程
@@ -241,6 +242,8 @@ SELINUX=disabled
 ```sh
 服务器端配置：
 yum install nfs-utils -y
+systemctl enable nfs.service
+systemctl start nfs.service
 
 vi /etc/exports
 /home 10.0.0.0/8(rw,sync,no_root_squash)
@@ -248,6 +251,10 @@ exportfs -r #使配置生效
 
 mount -t nfs 10.0.0.10:/home /home #其它服务器挂载
 umount /home nfs #取消挂载
+#自动挂载
+vi /etc/rc.local
+mount -t nfs 10.0.0.10:/home /home
+chmod u+x /etc/rc.local
 
 注：配置文件说明：
 /home/test/ 为共享的目录，使用绝对路径。
@@ -910,6 +917,8 @@ backend kwxlb
 ```
 rpm -Uvh https://rpm.nodesource.com/pub_5.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
 yum install nodejs -y
+npm config set registry https://registry.npm.taobao.org
+
 yum install "gcc-c++.x86_64"
 若提示  Requires: libhttp_parser.so.2()(64bit)  Requires: http-parser >= 2.7.0
 sudo rpm -ivh https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm
@@ -931,10 +940,16 @@ node -v
 npm: relocation error: npm: symbol SSL_set_cert_cb, version libssl.so.10 not defined in file libssl.so.10 with link time reference
 yum update openssl
 npm install n -g
+n 6.12.2
 n 8.10.0
+n 12.13.1
 node -v
 ln -s /usr/local/bin/node /usr/bin/node
 ln -s /usr/local/bin/npm /usr/bin/npm
+
+自动启动
+pm2 save
+pm2 startup
 ```
 
 #ffmpeg
@@ -970,9 +985,9 @@ active/s：每秒本地发起的TCP连接数，既通过connect调用创建的TC
 passive/s：每秒远程发起的TCP连接数，即通过accept调用创建的TCP连接；
 retrans/s：每秒TCP重传数量；
 * `pmap -d pid` 查看进程占内存详情
-* `ps auxw|head -1;ps auxw|sort -rn -k3|head -10` 或 `ps auxw --sort=%cpu` CPU占用最多的前10个进程
-* `ps auxw|head -1;ps auxw|sort -rn -k4|head -10` 或 `ps auxw --sort=rss` 内存消耗最多的前10个进程
-* `ps auxw|head -1;ps auxw|sort -rn -k5|head -10` 虚拟内存使用最多的前10个进程
+* `ps auxw|head -1;ps auxw|sort -rn -k3|head -50` 或 `ps auxw --sort=%cpu` CPU占用最多的前50个进程
+* `ps auxw|head -1;ps auxw|sort -rn -k4|head -50` 或 `ps auxw --sort=rss` 内存消耗最多的前50个进程
+* `ps auxw|head -1;ps auxw|sort -rn -k5|head -50` 虚拟内存使用最多的前50个进程
 * `ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' | grep node |  sort -nrk5` 查看node内存
 * `strace -p $(pgrep php-fpm |head -1)` `strace -T -tt -F -e trace=all -p $(pgrep php-fpm |head -1)` 跟踪php-fpm进程执行时的系统调用和所接收的信号
 file_get_contents 会导致：select(7, [6], [6], [], {15, 0}) = 1 (out [6], left {15, 0}) poll([{fd=6, events=POLLIN}], 1, 0) = 0 (Timeout) CPU100%
@@ -987,11 +1002,16 @@ bt 查看线程调用。
 ```
 * 按状态查看连接连接数量：`ss -ant | awk '{++s[$1]} END {for(k in s) print k,s[k]}'`
 * 列出大文件和目录 `du -h | grep -P "^\S*G"` 或 `find . -type f -size +10M`
+* 目录大小 `du -h -d 1`
 * 显示下2行 `cat test.log | grep test -A 2`
 * 显示上2行 `cat test.log | grep test -B 2`
 * 显示上下2行 `cat test.log | grep test -C 2`
 * 查看所有监听端口 `netstat -tulpn`
 * 抓取访问服务器80的IP数 `tcpdump -tnn dst port 80 -c 100 | awk -F"." '{print $1"."$2"."$3"."$4}' | sort | uniq -c | sort -n -r |head -20`
+* 排查PHP-FPM进程系统调用 `strace -o ./output.txt -T -tt -F -e trace=all -p 12345`
+* 查看连接80端口最多的的IP地址：`netstat -nat | grep ':80' | awk '{print $5}' | awk -F: '{print $1}' | sort | uniq -c | sort -nr | head -20`
+* 按IP查看连接数量：`netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n`或`netstat -antu | awk '$5 ~ /[0-9]:/{split($5, a, ":"); ips[a[1]]++} END {for (ip in ips) print ips[ip], ip | "sort -k1 -nr"}'`
+* 查看CPU核数：`grep processor /proc/cpuinfo | wc -l`
 
 
 #CentOS安全分析

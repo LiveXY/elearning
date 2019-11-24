@@ -147,6 +147,7 @@ sudo du -sh #查看当前目录
 vcgencmd measure_volts core #查看电压
 vcgencmd codec_enabled H264/MPG2/WVC1/MPG4/WMV9 #查看解码器是否开启
 vcgencmd commands #显示 vcgencmd 可接的指令
+alsamixer #可调节麦克风/音响的音量
 ```
 1，优化操作
 ```sh
@@ -391,6 +392,14 @@ sudo systemctl restart smbd
 sudo service smbd restart
 #增加用户，必须是Linux用户
 sudo smbpasswd -a pi
+
+#备份SD卡镜像
+sudo dd bs=4m if=/dev/disk2 of=rpi-bak.img
+#还原镜像到新SD卡
+sudo diskutil umount /dev/disk3s1
+sudo dd bs=4m if=rpi-bak.img of=/dev/disk3
+#两个SD卡对拷
+sudo dd bs=4m if=/dev/disk2 of=/dev/disk3
 
 vi ~/.asoundrc 更改声卡设置
 type asym
@@ -719,6 +728,13 @@ sudo reboot
 openwrt lede
 https://github.com/coolsnowwolf/lede
 
+换新卡，支持exfat
+sudo apt install exfat-fuse
+sudo mkdir /media/1GB_USB_flash
+sudo mount -o uid=pi,gid=pi /dev/sda1 /media/1GB_USB_flash
+dd bs=4M if=/dev/mmcblk0 of=/dev/sda
+sudo raspi-config
+Advanced Options -> Expand Filesystem
 
 显示系统的硬盘设备以及分区
 sudo fdisk -l  ＃显示设备名，例如/dev/sda1

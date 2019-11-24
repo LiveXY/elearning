@@ -1,5 +1,5 @@
 mac备份
-1，备份工具：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015
+1，备份工具：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015/Apple Configurator 2/
 2，备份配置文件目录：
 /opt/local/etc/nginx/conf.d/
 /Library/Services/
@@ -665,4 +665,21 @@ umount /dev/sdb1
 vi /etc/fstab
 /dev/sdb1          /mnt/sdb1          ext4     defaults     0 2
 chmod 777 /mnt/sdb1
+===============================================
+如何修复拆分的融合硬盘
+https://support.apple.com/zh-cn/HT207584
+
+制做系统启动盘
+下载macos-mojave系统：
+https://apps.apple.com/cn/app/macos-mojave/id1398502828?aosid=p239&cid=aos-cn-aff-ir&clickid=3k5zbeSSCxyJU5U0EBxnPXevUknzXx3DDUbp2I0&irchannel=13654&ircid=7639&irgwc=1&irpid=1244234&mt=12
+格式化U盘MACOS扩展(日志式)，名称为：Mojave
+制作系统盘：
+sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/Mojave /Applications/Install\ macOS\ Mojave.app —nointeraction
+开机出现闪烁的问号文件夹解决方法
+Command (⌘)-R 重新安装您的 Mac 上装有的最新 macOS（建议操作）
+Option-⌘-R 升级到与您的 Mac 兼容的最新 macOS
+Shift-Option-Command-R 重新安装 Mac 随附的 macOS 或与它最接近且仍在提供的版本。
+================================================================
+sqlite3 ~/Library/Containers/com.tencent.QQMusicMac/Data/Library/Application\ Support/QQMusicMac/qqmusic.sqlite
+select replace(singer||'-'||name,x'0a',','), file from NEWFOLDERSONGS as a inner join NEWFOLDERS as b on a.seq=b.seq and a.seq=199 inner join SONGS as c on c.id=a.id;
 

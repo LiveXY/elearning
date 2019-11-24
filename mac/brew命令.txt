@@ -29,12 +29,22 @@ brew search php
 brew install wget nmap nginx mysql php php@7.1 php@7.2 brew-php-switcher pkg-config libmemcached
 brew-php-switcher 7.1
 php -m
+php -ini
+
 pecl install memcached
 brew services restart php
 brew services restart nginx
 brew services restart mysql
 
 brew install mysql
+
+brew tap exolnet/homebrew-deprecated
+brew install php@7.0 -vvv
+brew services start exolnet/deprecated/php@7.0
+/usr/local/etc/php/7.0/
+echo 'export PATH="/usr/local/opt/php@7.0/bin:$PATH"' >> ~/.bash_profile
+echo 'export PATH="/usr/local/opt/php@7.0/sbin:$PATH"' >> ~/.bash_profile
+brew-php-switcher 7.0
 
 初始化mysql数据库：
 mysql_install_db
@@ -71,3 +81,25 @@ brew install redis
 安装应用APP
 brew cask install mark-text
 brew cask install react-native-debugger
+
+Mac Chrome调试 iPhone
+brew update
+brew unlink libimobiledevice ios-webkit-debug-proxy usbmuxd
+brew uninstall --force libimobiledevice ios-webkit-debug-proxy usbmuxd
+brew install --HEAD usbmuxd
+brew install --HEAD libimobiledevice
+brew install --HEAD ios-webkit-debug-proxy
+npm install remotedebug-ios-webkit-adapter -g
+*Iphone => 设置 => Safari 浏览器 => 高级 => web检查器 => 启用*
+将Iphone手机连接电脑，必须点击“信任”，并打开 itunes, 以确保手机连接。
+打开chrome, 输入网址： chrome://inspect/#devices
+
+remotedebug_ios_webkit_adapter --port=9001
+Discover network targets
++ localhost:9001
+
+ios_webkit_debug_proxy -f chrome-devtools://devtools/bundled/inspector.html
+打开：http://localhost:9221 查看设备：localhost:9222 ******
+Port forwarding
++ 9222 localhost:9222
+chrome-devtools://devtools/bundled/inspector.html?ws=localhost:9221/devtools/page/1
