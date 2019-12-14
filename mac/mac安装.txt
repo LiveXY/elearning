@@ -10,7 +10,7 @@ mac备份
 ~/.inputrc
 ~/Library/MonoDevelop-Unity-5.0/
 
-
+xcode-select --install
 brew cask install mark-text
 
 mac安装
@@ -682,4 +682,123 @@ Shift-Option-Command-R 重新安装 Mac 随附的 macOS 或与它最接近且仍
 ================================================================
 sqlite3 ~/Library/Containers/com.tencent.QQMusicMac/Data/Library/Application\ Support/QQMusicMac/qqmusic.sqlite
 select replace(singer||'-'||name,x'0a',','), file from NEWFOLDERSONGS as a inner join NEWFOLDERS as b on a.seq=b.seq and a.seq=199 inner join SONGS as c on c.id=a.id;
+=========================================================
+安装Cocospods
+更新系统的gem版本：打开终端，输入：sudo gem update --system；
+设置国内gem源：gem sources --list输出为https://gems.ruby-china.org/请略过此步；否则先删除官方源再添加gems国内源：gem sources --remove https://rubygems.org/; gem sources --add https://gems.ruby-china.org/；
+安装Cocospods：sudo gem install cocoapods。
+=========================================================
+rvictl
+在使用rvictl对手机进行抓包时报错: rvictl: command not found
+1>. xcode没有安装Command Line Tools,执行命令 xcode-select --install 安装一下然后重启终端，对我无效
+2>. 进入/usr/bin，看有没有rvictls安装。没有的话,进入下面两个目录，安装下两个pkg。
+a. Xcode.app/Contents/Resources/Packages/MobileDevice.pkg
+b. Xcode.app/Contents/Resources/Packages/MobileDeviceDevelopment.pkg
+然后重启下终端，再调用rvictls -s,检查该命令是否生效
+我的系统升级为10.15.1后发现常用的上述两个方法依然无法使用,查阅相关资料后发现,是由于该命令被放到其他路径所导致。
+将该路径添加到环境path中即可:
+vi /etc/paths
+添加 /Library/Apple/usr/bin/
 
+system_profiler SPUSBDataType | grep "Serial Number:.*" | sed s#".*Serial Number: "##
+
+rvictl -s 00008020-0004342E3C28002E
+rvictl -x 00008020-0004342E3C28002E
+=====================================================
+Wireshark
+过滤关系：eq == ne != gt > lt < ge >= le <= matches ~ bitwise_and & not ! or || and && xor ^^ [...] in contains
+过滤条件：
+ip.host==192.168.0.158
+ip.dst==192.168.0.158 or ip.src==192.168.0.158 and tcp
+ip.src==192.168.0.158 and tcp
+eth.addr==E0:33:8E:AB:E6:91
+ip.src==192.168.0.0/16
+tcp.port==8230
+tcp.port==80 || udp.port==80
+tcp.dstport==80 || tcp.srcport==80
+tcp.port >= 1 and tcp.port <= 80
+tcp.len>=20
+icmp
+icmp[0]==8
+icmp[0]==0
+http.request.method==GET
+http.request.method==POST
+http contains HTTP
+http.content_length <=20
+http.request.urimatches "vipscu"
+
+telnet arp snmp dns icmp
+protocol：可能值http、https、ftp、udp、tcp、ipv4、ipv6、arp、icmp等协议
+direction：可能的值 src、dst、src and dst、src or dst 默认src or dst
+host(s):可能的值 net、port、host、portrange 默认host
+logical operation（逻辑运算）：not and or not具有最高优先级，and or优先级相同，运算从左向右
+
+
+TCP连接:SYN ACK RST UTG PSH FIN
+三次握手：发送端发送一个SYN=1，ACK=0标志的数据包给接收端，请求进行连接，这是第一次握手；
+接收端收到请求并且允许连接的话，就会发送一个SYN=1，ACK=1标志的数据包给发送端，告诉它，可以通讯了，并且让发送端发送一个确认数据包，这是第二次握手；
+最后，发送端发送一个SYN=0，ACK=1的数据包给接收端，告诉它连接已被确认，这就是第三次握手。之后，一个TCP连接建立，开始通讯。
+*SYN：同步标志
+同步序列编号(Synchronize Sequence Numbers)栏有效。该标志仅在三次握手建立TCP连接时有效。它提示TCP连接的服务端检查序列编号，该序列编号为TCP连接初始端(一般是客户端)的初始序列编号。
+在这里，可以把 TCP序列编号看作是一个范围从0到4，294，967，295的32位计数器。通过TCP连接交换的数据中每一个字节都经过序列编号。
+在TCP报头中的序列编号栏包括了TCP分段中第一个字节的序列编号。
+*ACK：确认标志
+确认编号(Acknowledgement Number)栏有效。大多数情况下该标志位是置位的。TCP报头内的确认编号栏内包含的确认编号(w+1，Figure-1)为下一个预期的序列编号，同时提示远端系统已经成功接收所有数据。
+*RST：复位标志
+复位标志有效。用于复位相应的TCP连接。
+*URG：紧急标志
+紧急(The urgent pointer) 标志有效。紧急标志置位，
+*PSH：推标志
+该标志置位时，接收端不将该数据进行队列处理，而是尽可能快将数据转由应用处理。在处理 telnet 或 rlogin 等交互模式的连接时，该标志总是置位的。
+*FIN：结束标志
+带有该标志置位的数据包用来结束一个TCP回话，但对应端口仍处于开放状态，准备接收后续数据。
+TCP的几个状态对于我们分析所起的作用。在TCP层，有个FLAGS字段，这个字段有以下几个标识：SYN, FIN, ACK, PSH, RST, URG.其中，对于我们日常的分析有用的就是前面的五个字段。它们的含义是：SYN表示建立连接，FIN表示关闭连接，ACK表示响应，PSH表示有 DATA数据传输，RST表示连接重置。
+其中，ACK是可能与SYN，FIN等同时使用的，比如SYN和ACK可能同时为1，它表示的就是建立连接之后的响应，如果只是单个的一个SYN，它表示的只是建立连接。
+TCP的几次握手就是通过这样的ACK表现出来的。但SYN与FIN是不会同时为1的，因为前者表示的是建立连接，而后者表示的是断开连接。
+RST一般是在FIN之后才会出现为1的情况，表示的是连接重置。一般地，当出现FIN包或RST包时，我们便认为客户端与服务器端断开了连接；
+而当出现SYN和SYN＋ACK包时，我们认为客户端与服务器建立了一个连接。
+PSH为1的情况，一般只出现在DATA内容不为0的包中，也就是说PSH为1表示的是有真正的TCP数据包内容被传递。TCP的连接建立和连接关闭，都是通过请求－响应的模式完成的。
+========================================================
+xcodebuild -project JGKWX.xcodeproj clean
+xcodebuild -project JGKWX.xcodeproj build
+xcodebuild archive -project JGKWX.xcodeproj build -scheme JGKWX -archivePath ./archive/dsqp.xcarchive
+xcodebuild -exportArchive -archivePath ./archive/dsqp.xcarchive -exportPath ./archive/dsqp.ipa -exportOptionsPlist ./archive/dsqp.plist
+
+xcodebuild archive -project JGKWX.xcodeproj build -scheme JGKWX -archivePath ./archive/app.xcarchive -configuration Ad-hoc -sdk iphoneos
+xcodebuild -exportArchive -archivePath ./archive/app.xcarchive -exportPath ./archive/app.ipa -exportOptionsPlist ./archive/app.plist
+
+vi dsqp.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>compileBitcode</key>
+    <false/>
+    <key>method</key>
+    <string>enterprise</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.laisan.jgkwx</key>
+        <string>package_dep</string>
+    </dict>
+</dict>
+</plist>
+
+xcodebuild -target JGKWX build
+xcodebuild -scheme shemename -workspace xxx.xcworkspace build
+xcrun -sdk iphoneos PackageApplication -v dsqp.app -o dsqp.ipa
+security cms -D -i package_dep.mobileprovision
+security cms -D -i package_dis.mobileprovision
+
+altool --validate-app -f file -u username [-p password] [--output-format xml]
+altool --upload-app -f file -u username [-p password] [--output-format xml]
+
+sudo gem install fastlane
+fastlane gym --export_method ad-hoc
+fastlane gym --workspace ./Demo.xcworkspace --scheme Demo --clean --configuration Adhoc --archive_path ./archive/Demo.xcarchive" --export_method ad-hoc --output_directory ./ipa --output_name demo.ipa
+fastlane gym --project ./JGKWX.xcodeproj --scheme JGKWX --clean --archive_path ./archive/JGKWX.xcarchive --output_directory ./archive --output_name app --export_xcargs -allowProvisioningUpdates
+
+gem install fir-cli
+fir login XXX_YOUR_API_TOKEN_XXX
+fir publish APP_FILE_PATH
+fir publish ${ipa_path} -T "XXX_YOUR_API_TOKEN_XXX" -c "${commit_msg}"

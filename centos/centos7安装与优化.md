@@ -959,6 +959,64 @@ sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release
 yum install -y ffmpeg
 ```
 
+#docker安装GIT服务器gogs
+```
+数据库设置不正确:Error 1071: Specified key was too long; max key length is ?
+create schema gogs default character set utf8mb4;
+show variables like '%storage_engine%';
+show variables like '%character_set%';
+show variables like '%innodb_large_prefix%';
+show variables like '%innodb_file_format%';
+set global innodb_large_prefix=on;
+set global innodb_file_format=Barracuda;
+set global innodb_file_format_max=Barracuda;
+
+yum install docker -y
+systemctl restart docker.service
+systemctl status docker.service
+systemctl enable docker.service
+
+Failed at step LIMITS spawning /usr/bin/dockerd-current: Operation not permitted
+rm -rf /var/lib/docker
+systemctl daemon-reload
+systemctl restart docker.service
+
+docker pull gogs/gogs
+mkdir -p /home/gogs
+docker run --name=gogs -p 258:22 -p 10080:3000 -v /home/gogs:/data gogs/gogs
+docker ps
+docker start gogs
+docker logs 8e117704e92b
+
+vi /home/nginx/conf.d/git.conf
+server {
+   listen 80;
+   server_name git.domain.com;
+   client_max_body_size 0;
+   proxy_request_buffering off;
+   location / {
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header Cookies $http_cookie;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_buffering off;
+      proxy_pass http://10.0.0.10:10080/;
+    }
+}
+
+打开 http://git.domain.cn 安装
+安装完成后注册账号(注册第一个账号就是管理员账号)
+
+配置文件：
+vi /home/gogs/gogs/conf/app.ini
+[server]
+SSH_PORT         = 258
+[service]
+DISABLE_REGISTRATION   = true
+
+docker restart gogs
+```
+
 #安全策略
 禁止所有可连接端口后开启外网的22;80;443端口，开启内网可访问的所有端口。
 

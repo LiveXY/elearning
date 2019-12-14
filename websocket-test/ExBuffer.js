@@ -4,7 +4,7 @@ var ExBuffer = function (bufferLength) {
 	var self = this;
 	var headLen = 2;
 	var endian = 'B';
-	var inBuffer = new Buffer(bufferLength || 512);
+	var inBuffer = Buffer.alloc(bufferLength || 512);
 	var readOffset = 0;
 	var putOffset = 0;
 	var dlen = 0;
@@ -66,7 +66,7 @@ var ExBuffer = function (bufferLength) {
 		//当前缓冲区已经不能满足次数数据了,这里我们保证尾部至少有一个位置永远空余，避免读写指针重叠
 		if (len + getLen() > inBuffer.length - 1) {
 			var ex = Math.ceil((len + getLen())/(1024));//每次扩展1kb
-			var tmp = new Buffer(ex * 1024);
+			var tmp = Buffer.alloc(ex * 1024);
 			var exlen = tmp.length - inBuffer.length;
 			inBuffer.copy(tmp);
 			//fix bug : superzheng
@@ -114,7 +114,7 @@ var ExBuffer = function (bufferLength) {
 					}
 					readOffset += headLen;
 				} else {
-					var hbuf = new Buffer(headLen);
+					var hbuf = Buffer.alloc(headLen);
 					var rlen = 0;
 					for (var i = 0, l = (inBuffer.length - readOffset); i < l; i++) {
 						hbuf[i] = inBuffer[readOffset++];
@@ -126,7 +126,7 @@ var ExBuffer = function (bufferLength) {
 				}
 			}
 			if (getLen() >= dlen) {
-				var dbuff = new Buffer(dlen);
+				var dbuff = Buffer.alloc(dlen);
 				if (readOffset + dlen > inBuffer.length) {
 					var len1 = inBuffer.length - readOffset;
 					if (len1 > 0) inBuffer.copy(dbuff, 0, readOffset, readOffset + len1);
