@@ -58,3 +58,20 @@ tomcat home:
 git clone https://github.com/apache/flink.git
 cd flink
 mvn clean package -DskipTests # this will take up to 10 minutes
+
+JDK命令行工具
+jps	显示指定系统内所有的HotSpot虚拟机的进程
+jstat	用于收集HotSpot虚拟机各方面的运行数据
+jinfo	显示虚拟机配置信息
+jmap	生成虚拟机的内存转存储快照（heapdump文件），利用这个文件就可以分析内存等情况
+jhat	用于分析上面jmap生成的heapdump文件，它会建立一个HTTP/HTML服务器，让用户可以在浏览器上查看分析结果
+jstack	显示虚拟机的线程快照
+
+jps [选项] [主机id]
+jps -l
+jps -v
+
+jinfo [选项] pid
+jmap [选项] vmid
+jstack [选项] vmid
+jstat [选项 vmid [interval[s|ms] [count]]]

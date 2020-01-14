@@ -143,6 +143,13 @@ yum install -y subversion
 ```sh
 yum install memcached -y
 systemctl start memcached.service
+
+vi /usr/lib/systemd/system/memcached.service
+ExecStart=/usr/bin/memcached -u $USER -p $PORT -U 0 -l 10.0.0.10 -m $CACHESIZE -c $MAXCONN $OPTIONS
+ExecStart=/usr/bin/memcached -u $USER -p $PORT -U 0 -l 10.0.0.10 -m 128 -c $MAXCONN $OPTIONS
+systemctl restart memcached.service
+systemctl daemon-reload
+
 ```
 ##配置站点
 ```sh

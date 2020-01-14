@@ -109,7 +109,7 @@ var fdllOpen = $('#fdllOpen').click(function(){
 zhihu://answers/{id} 回答
 zhihu://people/{id} 用户页
 微信
-weixin://dl/scan 扫一扫
+weixin://scanqrcode 扫一扫
 weixin://dl/feedback 反馈
 weixin://dl/moments 朋友圈
 weixin://dl/settings 设置
@@ -125,6 +125,9 @@ weixin://dl/features 功能插件
 腾讯微博：TencentWeibo://
 淘宝：taobao://
 支付宝：alipay://
+支付宝扫一扫：alipayqr://platformapi/startapp?saId=10000007
+alipayqr://platformapi/startapp?saId=10000007&qrcode=HTTPS%3a%2f%2fQR.ALIPAY.COM%2fFKX09099VQZDCJ1QFGXA9F
+
 微博：sinaweibo://
 weico微博：weico://
 QQ浏览器：mqqbrowser://

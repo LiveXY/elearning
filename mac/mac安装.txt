@@ -802,3 +802,51 @@ gem install fir-cli
 fir login XXX_YOUR_API_TOKEN_XXX
 fir publish APP_FILE_PATH
 fir publish ${ipa_path} -T "XXX_YOUR_API_TOKEN_XXX" -c "${commit_msg}"
+==================================================================
+ANDROID签名
+sudo jarsigner -tsa http://timestamp.digicert.com -sigalg SHA1withRSA -digestalg SHA1 -keystore nerve-android.keystore -storepass 123456 -signedjar android-release-signed.apk android-release-unsigned.apk nerve
+jarsigner -verbose -keystore nerve-android.keystore -storepass 123456 -signedjar android-release-signed.apk -digestalg SHA1 -sigalg MD5withRSA android-release-unsigned.apk nerve
+压缩APK包
+zipalign -z 4 android-release-signed.apk nerve.apk
+IOS重新签名
+ausign_linux -email cq@qq.com -p 123456
+ausign_linux -login cq@qq.com -p 123456
+ausign_linux -password 123456789 -o 123456
+普通签名例子
+ausign_linux -sign cq.ipa -p 123 -c cq.p12 -m cq.mobileprovision -o cq2.ipa
+-dt 自动删除锁签名
+-at 20191212 自动插入时间锁
+-id com.tencent.wechat22222222 修改应用id后签名
+ausign_linux -sign 2.ipa -c my.p12 -m my.mobileprovision -p “123” -o resign-555.ipa -id “com.tencent.wechat3” -n “微信马甲3” -v “1.0.0” -dt -at 20190902
+自动删除时间锁，自动插入时间锁设置到期日期20190902，然后把id修改为自己的com.tencent.wechat3，把名字修改为微信马甲3,把版本号改成1.0.0
+ausign -apps #查看先有的应用列表
+修改应用信息签名到期时间
+ausign -app 3aa99adf-72e7-441a-be5b-518c050a79b2 -k expire_time -v 20190801
+expire_time（到期时间，格式20190102）,is_bid(是否被禁用,1表示禁用,0不禁用),is_deleted(是否删除),alert_msg(app过期提醒信息),description(应用的备注),contact(应用的联系人信息)
+修改应用描述信息
+ausign -app 3aa99adf-72e7-441a-be5b-518c050a79b2 -k description -v "微信马甲最新版收150元"
+修改应用到期提醒信息
+ausign -app 3aa99adf-72e7-441a-be5b-518c050a79b2 -k alert_msg -v "签名已经到期，请联系qq2462611616"
+删除app
+ausign -app 3aa99adf-72e7-441a-be5b-518c050a79b2 -k is_deleted -v 1
+禁用app
+ausign -app 3aa99adf-72e7-441a-be5b-518c050a79b2 -k is_bid -v 1
+给app设置个联系人信息
+ausign -app 3aa99adf-72e7-441a-be5b-518c050a79b2 -k contact -v "张三qq2462611616"
+修改统一的签名到期提醒
+ausign -user alert_msg -v "签名到期了，请联系xxx"
+设置到期后弹窗提示后再闪退
+ausign -user expired_alert -v 1
+设置到期后直接闪退奔溃
+ausign -user expired_alert -v 0
+更新应用安装量和运行量报告
+ausign -user report -v 1
+激活软件
+ausign -user code -v "aa99adf-72e7-441"
+校验证书密码是否正确
+ausign -check my.p12 -p 123456
+http://s.kxapp.com/
+http://sign.applicationloader.net/
+=================================================================
+yum install sshpass
+sshpass -p 123456 ssh root@10.0.0.10 'll /home'

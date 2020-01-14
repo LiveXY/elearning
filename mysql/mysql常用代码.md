@@ -173,9 +173,9 @@ mysql命令
   * service mysqld stop
   * mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
   * mysql -u root mysql
-    * update user set Password=PASSWORD('123456') where User='root'; 或 update user set Password=PASSWORD('123456') where User='root' and Host='%';
-    * flush privileges;
-    * quit
+	* update user set Password=PASSWORD('123456') where User='root'; 或 update user set Password=PASSWORD('123456') where User='root' and Host='%';
+	* flush privileges;
+	* quit
   * mysql -uroot -p
 * `/innochecksum /var/lib/mysql/ibdata1` 或 `innodb_space -f /var/lib/mysql/ibdata1 space-summary | grep UNDO_LOG | wc -l` 检查什么被存储到了 ibdata1 里
 * db备份还原:
@@ -340,19 +340,28 @@ alter table log_round_212_bak3 change column `lxid` `lxid` int(11) unsigned not 
 * 死锁改表名
 ```
 delimiter $$
-create definer=`root`@`%` procedure `killrename`(tname varchar(50))
+create definer=`root`@`%` procedure `killrename`(dbname varchar(50), tablename varchar(50))
 begin
-  declare pid int(11) default 0;
-  select ID into pid from information_schema.processlist where info not like '%processlist%' and info like concat('%',tname,'%');
-    while (pid > 0) do
-    kill pid;
-        select ID into pid from information_schema.processlist where info not like '%processlist%' and info like concat('%',tname,'%');
-    end while;
-    call crontab_exec(concat('alter table `', tname, '` rename to `', tname, '_bak`'));
+	declare pid int(11) default 0;
+	set @inc = 0;
+	select ID into pid from information_schema.processlist
+	where DB=dbname and info not like '%information_schema.processlist%' and info like concat('%',tablename,'%') limit 1;
+
+	while (pid > 0) do
+		kill pid;
+
+		select ID into pid from information_schema.processlist
+		where DB=dbname and info not like '%information_schema.processlist%' and info like concat('%',tablename,'%') limit 1;
+
+		set @inc = @inc + 1;
+	end while;
+
+	select @inc count;
+	call crontab_exec(concat('alter table `', tablename, '` rename to `', tablename, '_bak`'));
 end$$
 delimiter ;
 
-call killrename('table_name')
+call killrename('dbname', table_name')
 ```
 * `select * from mysql.slow_log_view` 查看慢查询
 * 

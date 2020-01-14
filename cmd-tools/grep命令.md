@@ -59,6 +59,11 @@ grep实例
 * `grep php /home/sh_laravel/public/upload/ -r` 或者 `find /home/sh_laravel/public/ -name *.php` 查看上传目录是否被别人上传木马
 * `find /home/sh_laravel/ -name *.php | xargs grep -RPnDskip "(php|passthru|shell_exec|system|phpinfo|base64_decode|chmod|mkdir|fopen|fclose|readfile) *\("` 查看文件内容是否包含不安全代码
 grep -Hrv ";" /etc/php.ini | grep "extension="
+* `grep -5 'parttern' INPUT_FILE` ： #打印匹配行的前后5行
+* `grep -C 5 'parttern' INPUT_FILE` ： #打印匹配行的前后5行
+* `grep -A 5 'parttern' INPUT_FILE` ： #打印匹配行的后5行
+* `grep -B 5 'parttern' INPUT_FILE` ： #打印匹配行的前5行
+* `grep -A -15  --color 1010061938 *` ： #查找后着色
 
 使用类名, 可以使用国际模式匹配的类名：
 * `[[:upper:]]`   [A-Z]

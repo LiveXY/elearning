@@ -57,6 +57,26 @@ sudo docker commit -m="Added json gem" -a="xionghc" \
 0b2616b0e5a8 xionghc/sinatra:v2
 4f177bd27a9ff0f6dc2a830403925b5360bfe0b93d476f7fc3231110e7f71b1c
 
+常用
+docker images
+docker search redis
+docker pull redis
+docker run -p 10.0.0.10:6379:6379 --restart=always --name redis -d redis
+docker run -p 10.0.0.10:6379:6379 --restart=always --name redis -d redis redis-server -v /home/redis/data:/data --appendonly yes
+docker exec -it container-id redis-cli
+
+docker pull memcached
+docker run -p 10.0.0.10:11211:11211 --restart=always --name memcached -d memcached
+docker run -p 10.0.0.10:11211:11211 --restart=always --name memcached -d memcached memcached -m 128
+
+docker pull mongo
+docker run -p 10.0.0.10:27017:27017 --restart=always --name mongo -d mongo --auth
+docker run -p 10.0.0.10:27017:27017 --restart=always --name mongo -d mongo -v /home/mongodb:/data/db -v /home/mongobackup:/data/backup --auth
+docker exec -it mongo mongo admin
+db.createUser({ user:'admin',pwd:'123456',roles:[ { role:'userAdminAnyDatabase', db: 'admin'}]});
+db.auth('admin', '123456')
+docker exec mongo sh -c 'exec var=`date +%Y%m%d%H%M` &amp;&amp; mongodump -h localhost --port 27017 -u admin -p 123456 -d dbname -o /data/backup/$var_dbname.bak'
+
 使用Dockerfile创建镜像
 $ mkdir sinatra
 $ cd sinatra
