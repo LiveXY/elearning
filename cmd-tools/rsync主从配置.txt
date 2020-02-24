@@ -346,3 +346,24 @@ rsync --delete-before -avH --progress --stats /root/empty/ /tmp/test/log/
 rsync -ratoglp /home/upload/ /opt/bak/upload/
 完全一致备份
 rsync -ratoglp --delete /home/upload/ /opt/bak/upload/
+
+
+Syncthing
+=====
+https://syncthing.net/downloads/
+https://github.com/syncthing/syncthing/releases/download/v1.3.3/syncthing-linux-amd64-v1.3.3.tar.gz
+https://github.com/syncthing/syncthing/releases/download/v1.3.3/syncthing-macos-amd64-v1.3.3.tar.gz
+tar -zxvf syncthing-linux-amd64-v1.3.3.tar.gz
+cd syncthing-linux-amd64-v1.3.3
+cp syncthing /usr/local/bin/
+syncthing
+vim ~/.config/syncthing/config.xml
+
+Stow
+=====
+yum install epel-release
+yum install stow -y
+ll /usr/local/stow/
+cd /usr/local/stow/
+stow hello
+stow --delete hello

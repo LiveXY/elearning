@@ -206,6 +206,7 @@ ffmpeg -y  -i aidemo.mp3  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
 // -acodec pcm_s16le pcm_s16le 16bits 编码器 // -f s16le 保存为16bits pcm格式 // -ac 1 单声道 // -ar 16000 16000采样率
 
 https://github.com/facebookresearch/wav2letter
+https://github.com/brightmart/roberta_zh
 
 https://github.com/facebookresearch/SlowFast 视频分类/视频理解/行为检测
 
@@ -3098,3 +3099,5 @@ https://github.com/awslabs/autogluon/
 https://alim0x.gitbooks.io/awesome-linux-software-zh_cn/content/
 LINUX常用软件
 
+https://gitee.com/zfj1128/ZFJObsLib_dmg
+IOS包混淆工具

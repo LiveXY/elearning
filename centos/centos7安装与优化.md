@@ -624,6 +624,8 @@ systemctl start xinetd
 * haproxy:
 ```
 yum install haproxy -y
+systemctl enable haproxy.service
+systemctl restart haproxy.service
 
 vi /etc/haproxy/haproxy.cfg
 global

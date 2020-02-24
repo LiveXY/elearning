@@ -88,3 +88,16 @@ server {
 	}
 }
 ```
+
+TCP代理 nginx1.9版本
+```
+stream {
+       upstream ds_nodejs {
+               server 10.10.0.11:8008;
+       }
+       server {
+               listen 8008;
+               proxy_pass ds_nodejs;
+       }
+}
+```
