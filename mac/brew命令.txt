@@ -1,6 +1,6 @@
 安装卸载brew
 xcode-select --install
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 rm -rf /usr/local/Cellar /usr/local/.git && brew cleanup
 
 更新aliyun源
@@ -26,8 +26,10 @@ brew list
 
 安装PHP
 brew search php
-brew install wget nmap nginx mysql php php@7.1 php@7.2 brew-php-switcher pkg-config libmemcached
-brew-php-switcher 7.1
+brew install telnet wget nmap nginx mysql php php@7.2 php@7.3 brew-php-switcher pkg-config libmemcached
+brew-php-switcher 7.2
+echo 'export PATH="/usr/local/opt/php@7.2/bin:$PATH"' >> ~/.bash_profile
+echo 'export PATH="/usr/local/opt/php@7.2/sbin:$PATH"' >> ~/.bash_profile
 php -m
 php -ini
 
@@ -35,16 +37,21 @@ pecl install memcached
 brew services restart php
 brew services restart nginx
 brew services restart mysql
-
-brew install mysql
+brew services restart memcached
 
 brew tap exolnet/homebrew-deprecated
-brew install php@7.0 -vvv
+brew install php@7.0 php@7.1 -vvv
 brew services start exolnet/deprecated/php@7.0
+brew services start exolnet/deprecated/php@7.1
 /usr/local/etc/php/7.0/
 echo 'export PATH="/usr/local/opt/php@7.0/bin:$PATH"' >> ~/.bash_profile
 echo 'export PATH="/usr/local/opt/php@7.0/sbin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
 brew-php-switcher 7.0
+
+cat /usr/local/var/log/php-fpm.log
+dyld: Library not loaded: /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib
+brew switch openssl 1.1.1f
 
 初始化mysql数据库：
 mysql_install_db
@@ -78,9 +85,26 @@ brew install mongodb
 brew install memcached
 brew install redis
 
+brew install webkit2png
+brew install ImageMagick
+brew install nmap wget
+brew install mono
+brew install python
+
+brew install ansible
+sudo mkdir /etc/ansible
+sudo chmod u+w /etc/ansible
+sudo vi /etc/ansible/ansible.cfg
+[defaults]
+deprecation_warnings = False
+host_key_checking = False
+
 安装应用APP
 brew cask install mark-text
 brew cask install react-native-debugger
+
+删除
+brew uninstall nginx
 
 Mac Chrome调试 iPhone
 brew update
@@ -103,3 +127,17 @@ ios_webkit_debug_proxy -f chrome-devtools://devtools/bundled/inspector.html
 Port forwarding
 + 9222 localhost:9222
 chrome-devtools://devtools/bundled/inspector.html?ws=localhost:9221/devtools/page/1
+
+#zookeeper
+brew install zookeeper
+zkServer start
+zkServer
+zkServer status
+zkCli
+vi /usr/local/etc/zookeeper/zoo.cfg
+
+#redis
+brew install redis
+redis-server /usr/local/etc/redis.conf
+=============================================
+

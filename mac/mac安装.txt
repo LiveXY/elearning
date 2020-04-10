@@ -1,5 +1,5 @@
 mac备份
-1，备份工具：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015/Apple Configurator 2/
+1，备份：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015/Apple Configurator 2/
 2，备份配置文件目录：
 /opt/local/etc/nginx/conf.d/
 /Library/Services/
@@ -8,10 +8,9 @@ mac备份
 ~/.bash_profile
 ~/.bashrc
 ~/.inputrc
-~/Library/MonoDevelop-Unity-5.0/
 
+sudo xcodebuild -license
 xcode-select --install
-brew cask install mark-text
 
 mac安装
 #商店安装：Go2Shell/Google Chrome/New File Free/PDF Reader X/QQ/QQ音乐/RAR Extractor Free/Thunder/Xcode/Dr. Cleaner/MPlayerX/Color Picker/iHex/Base64Anywhere/App2Dmg/微信/
@@ -64,143 +63,14 @@ export HISTTIMEFORMAT='%F %T '
 
 source ~/git_pro/server/servers.alias
 
-#nginx
-alias nginx_start='sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist'
-alias nginx_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist'
-alias nginx_restart='nginx_stop; nginx_start;'
-
-#php-fpm
-alias fpm_start='sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist'
-alias fpm_stop='sudo launchctl unload -w /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist'
-alias fpm_restart='fpm_stop; fpm_start'
-
-#mysql
-alias mysql='sudo /usr/local/mysql/bin/mysql'
-alias mysqladmin='sudo usr/local/mysql/bin/mysqladmin'
-
-#web
-alias web_start='nginx_start;fpm_start'
-alias web_restart='nginx_stop;fpm_stop;fpm_start;nginx_start'
-
-#alias
-alias port='sudo /opt/local/bin/port'
-alias php='/opt/local/bin/php56'
-
 export CLICOLOR=1
 export LSCOLORS=gxfxaxdxcxegedabagacad
 ```
 source ~/.bash_profile
 
+安装BREW
 #homebrew(http://brew.sh/index_zh-cn.html)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
-#port
-port install nginx php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php-memcached php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
-port select --list php
-port select php php70
-
-cp /opt/local/etc/php70/php.ini-development /opt/local/etc/php70/php.ini
-cp /opt/local/etc/php70/php-fpm.conf.default /opt/local/etc/php70/php-fpm.conf
-cp /opt/local/etc/php70/php-fpm.d/www.conf.default /opt/local/etc/php70/php-fpm.d/www.conf
-fpm_restart
-
-port install nginx php56 php56-fpm php56-mysql php56-sqlite php56-curl php56-gd php56-iconv php56-mbstring php56-mcrypt php-memcached php56-opcache php56-openssl php56-intl php56-gettext php56-imap php56-xmlrpc php56-sockets php56-zip php56-tidy php56-xsl
-
-sudo cp /opt/local/etc/php56/php.ini-development /opt/local/etc/php56/php.ini
-sudo cp /opt/local/etc/php56/php-fpm.conf.default /opt/local/etc/php56/php-fpm.conf
-fpm_restart
-
-vi /opt/local/etc/nginx/nginx.conf
-```
-
-#user  nobody;
-worker_processes  1;
-
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
-
-#pid        logs/nginx.pid;
-
-
-events {
-    worker_connections  1024;
-}
-
-
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-
-    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-    #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
-    #access_log  logs/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    #keepalive_timeout  0;
-    keepalive_timeout  65;
-
-    gzip  on;
-
-    include conf.d/*.conf;
-
-}
-```
-vi /opt/local/etc/nginx/conf.d/default.conf
-```
-server {
-	listen 80;
-	server_name test.starcloudcasino.com;
-	root /Users/hcxiong/git_pro/starcloud;
-
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-    gzip on;
-    gzip_min_length 1k;
-    gzip_buffers 4 16k;
-    gzip_http_version 1.0;
-    gzip_comp_level 2;
-    gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
-    gzip_vary off;
-    gzip_disable "MSIE [1-6]\.";
-
-    add_header Access-Control-Allow-Origin *;
-    add_header Access-Control-Allow-Headers X-Requested-With;
-    add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
-
-    rewrite  ^/mobile/shareapp21?(.*)$  /index.html last;
-    rewrite  ^/mobile/shareApp21?(.*)$  /index.html last;
-
-    if ($http_user_agent ~ MSIE) {
-        rewrite  ^/mobile  /index.html last;
-    }
-
-	location / {
-		index index.html index.htm index.php;
-		try_files $uri $uri/ /index.php?$args;
-	}
-
-	error_page 500 502 503 504 /50x.html;
-	location = /50x.html {
-		root html;
-	}
-
-	location ~ ^(.+.php)(.*)$ {
-		fastcgi_split_path_info ^(.+.php)(.*)$;
-		fastcgi_param SCRIPT_NAME $fastcgi_script_name;
-		fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
-		include fastcgi.conf;
-		fastcgi_pass 127.0.0.1:9000;
-		fastcgi_index index.php;
-	}
-}
-```
 
 
 chrome 插件
@@ -210,7 +80,6 @@ chrome://extensions/ 开启 开发者模式 加载已解压的扩展程序 选�
 git clone https://github.com/ETCExtensions/Edit-This-Cookie
 https://chrome.google.com/webstore/detail/bcjindcccaagfpapjjmafapmmgkkhgoa
 https://chrome.google.com/webstore/detail/edit-this-cookie/fngmhnnpilhplaeedifhccceomclgfbg
-
 ```
 
 #npm
@@ -218,13 +87,6 @@ sudo npm install cnpm -g -ddd
 sudo npm install -g cordova -ddd
 sudo npm install -g ionic -ddd
 sudo npm install uglify-js uglifycss -g
-
-#brew
-brew install webkit2png
-brew install ImageMagick
-brew install nmap wget
-brew install mono
-brew install python
 
 #centos7 webkit2png
 git clone https://github.com/adamn/python-webkit2png.git
@@ -243,166 +105,6 @@ chmod a+r ~/.ssh/known_hosts
 #安装JDK：http://www.oracle.com/technetwork/java/javase/downloads/index.html
 #安装mysql-workbench：http://dev.mysql.com/downloads/workbench/
 
-#laravel
-curl -sS https://getcomposer.org/installer | php
-php ~/composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
-
-http://down.golaravel.com/laravel/laravel-v5.2.15.zip
-php ~/composer.phar install
-
-php artisan key:generate #生成秘钥
-php artisan serve #启动server
-php artisan make:middleware OldMiddleware #创建中间件
-php artisan app:name SocialNet #设置命名空间
-php artisan make:provider RiakServiceProvider #服务提供者
-php artisan make:migration create_users_table
-php artisan migrate --seed
-
-https://phpunit.de/
-php ~/phpunit.phar  --bootstrap bootstrap/autoload.php tests/TestCase.php
-
-#percona mysql
-port install percona percona-server percona-toolkit
-vi ~/.bash_profile
-export PATH=/opt/local/lib/percona/bin:$PATH
-source ~/.bash_profile
-sudo ln -s ~/Documents/configs/MySQL/fat-tony.local/percona-server.my.cnf /opt/local/etc/percona/my.cnf
-sudo -u _mysql /opt/local/lib/percona/bin/mysql_install_db
-
-cd /opt/local ; /opt/local/lib/percona/bin/mysqld_safe &
-cd mysql-test ; perl mysql-test-run.pl
-
-sudo port load percona-server
-sudo port unload percona-server
-sudo /opt/local/lib/percona/bin/mysql_secure_installation
-sudo /opt/local/lib/percona/bin/mysql_upgrade -uroot -p
-
-vi /opt/local/etc/percona/my.cnf
-```
-[mysql]
-
-# CLIENT #
-port                           = 3306
-socket                         = /opt/local/var/run/percona/mysql.sock
-
-# Set utf8 as the default character set
-character-set=utf8
-
-[mysqld]
-
-# GENERAL #
-user                           = mysql
-default-storage-engine         = MyISAM
-socket                         = /opt/local/var/run/percona/mysql.sock
-pid-file                       = /opt/local/var/db/percona/mysql.pid
-
-# MyISAM #
-key-buffer-size                = 6G
-myisam-recover                 = FORCE,BACKUP
-
-# SAFETY #
-max-allowed-packet             = 16M
-max-connect-errors             = 1000000
-
-# DATA STORAGE #
-datadir                        = /opt/local/var/db/percona/
-
-# BINARY LOGGING #
-log-bin                        = /opt/local/var/db/percona/mysql-bin
-expire-logs-days               = 14
-sync-binlog                    = 1
-
-# CACHES AND LIMITS #
-tmp-table-size                 = 32M
-max-heap-table-size            = 32M
-query-cache-type               = 0
-query-cache-size               = 0
-max-connections                = 500
-thread-cache-size              = 50
-open-files-limit               = 65535
-table-definition-cache         = 1024
-table-open-cache               = 2048
-
-# INNODB #
-innodb-flush-method            = O_DIRECT
-innodb-log-files-in-group      = 2
-innodb-log-file-size           = 32M
-innodb-flush-log-at-trx-commit = 1
-innodb-file-per-table          = 1
-innodb-buffer-pool-size        = 32M
-
-# LOGGING #
-log-error                      = /opt/local/var/db/percona/mysql-error.log
-log-queries-not-using-indexes  = 1
-slow-query-log                 = 1
-slow-query-log-file            = /opt/local/var/db/percona/mysql-slow.log
-
-# CUSTOMIZED OPTIONS #
-# Set utf8 as the default character set
-character-set-server=utf8
-collation_server = utf8_general_ci
-
-# Eliminate stop words
-ft_stopword_file=
-
-# Set minimum index length to 2 characters
-ft_min_word_len=2
-
-[mysqldump]
-
-# CUSTOMIZED OPTIONS #
-# Set utf8 as the default character set
-character-set=utf8
-```
-show variables like '%func%';
-set global log_bin_trust_function_creators=1;
-
-#memcached
-port install memcached
-memecached -d
-memecached -vv
-
-#zookeeper
-brew install zookeeper
-zkServer start
-zkServer
-zkServer status
-zkCli
-vi /usr/local/etc/zookeeper/zoo.cfg
-
-#redis
-brew install redis
-redis-server /usr/local/etc/redis.conf
-
-#luadec
-port install gcc47 +universal
-port select --set gcc mp-gcc47
-
-git clone https://github.com/viruscamp/luadec
-cd luadec
-git submodule update --init lua-5.2
-cd lua-5.2
-make macosx
-cd ../luadec
-make LUAVER=5.2
-
-git clone https://github.com/viruscamp/luadec
-cd luadec
-git submodule update --init lua-5.1
-cd lua-5.1
-make linux
-cd ../luadec
-make LUAVER=5.1
-
-luadec abc.lua
-luadec -pn test.lua
-
-luadec filename.luac > filename.lua
-luadec -d test.lua > test_src.lua
-luadec -dis filename.luac
-
-luadec.exe test.lua > test-dec.lua
-luadec5.1.exe Hall.lua > Hall-dec.lua
 
 ======================================
 brew install php70 php70-ast phan
@@ -462,41 +164,6 @@ defaults delete com.torusknot.SourceTreeNotMAS "NSSplitView Subview Frames repow
 “Shimo.app”已损坏，打不开。 您应该将它移到废纸篓。
 sudo spctl --master-disable
 
-=============================================
-Can't open index file for source: rsync://rsync.macports.org/macports/release/tarballs/ports.tar
-vi /opt/local/etc/macports/sources.conf
-http://www.macports.org/files/ports.tar.gz [default]
-sudo port -v selfupdate
-=============================================
-/opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist: Path had bad ownership/permissions
-sudo chown root /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist
-sudo chown root /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist
-sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.nginx/org.macports.nginx.plist
-sudo launchctl load -w /opt/local/etc/LaunchDaemons/org.macports.php56-fpm/org.macports.php56-fpm.plist
-
-sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-sudo xcodebuild -license
-=============================================
-brew install nginx
-brew services start nginx
-brew services stop nginx
-nginx
-nginx -s reload
-nginx -s stop
-brew uninstall nginx
-vi /usr/local/etc/nginx/nginx.conf
-
-brew update
-brew tap homebrew/dupes
-brew tap josegonzalez/homebrew-php
-brew install php70 php70-fpm php70-mysql php70-sqlite php70-curl php70-gd php70-iconv php70-mbstring php70-mcrypt php70-memcached php70-opcache php70-openssl php70-intl php70-gettext php70-imap php70-xmlrpc php70-sockets php70-zip php70-tidy php70-xsl
-
-brew install php70 --with-imap --with-tidy --with-debug --with-mysql --with-fpm
-
-export PATH="$(brew --prefix php70)/bin:$PATH"
-
-vi /usr/local/etc/php/7.0/php-fpm.conf
-
 =========================================
 sudo gem install -n /usr/local/bin cocoapods
 =========================================
@@ -540,12 +207,13 @@ react-native 工程时，出错：xcrun: error: unable to find utility "instrume
 注意：前提是你已经安装了xcode
 =======================================
 
-brew install wget nmap nginx mysql php@7.1 brew-php-switcher pkg-config libmemcached
-brew-php-switcher 7.1
+brew install wget nmap nginx mysql php@7.2 brew-php-switcher pkg-config libmemcached
+brew-php-switcher 7.2
 php -m
 pecl install memcached
 brew services restart php
 brew services restart nginx
+brew services restart memcached
 
 pecl version 查看版本信息
 pecl help 可以查看命令帮助

@@ -5,7 +5,9 @@ sublime3
 
 ###安装install package ctrl+` 输入以下代码：
 ```
-import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+https://packagecontrol.io/installation
+Win/Linux: ctrl+shift+p, Mac: cmd+shift+p
+Install Package Control
 ```
 
 ###ctrl+shift+p输入install package回车后可搜索并安装如下插件：

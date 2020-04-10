@@ -53,6 +53,26 @@ https://www.simplesoftware.io/docs/simple-qrcode/zh
 php ~/composer.phar -vvv require alibabacloud/sdk
 php ~/composer.phar -vvv require tecnickcom/tcpdf
 
+
+#laravel
+curl -sS https://getcomposer.org/installer | php
+php ~/composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
+
+http://down.golaravel.com/laravel/laravel-v5.2.15.zip
+php ~/composer.phar install
+
+php artisan key:generate #生成秘钥
+php artisan serve #启动server
+php artisan make:middleware OldMiddleware #创建中间件
+php artisan app:name SocialNet #设置命名空间
+php artisan make:provider RiakServiceProvider #服务提供者
+php artisan make:migration create_users_table
+php artisan migrate --seed
+
+https://phpunit.de/
+php ~/phpunit.phar  --bootstrap bootstrap/autoload.php tests/TestCase.php
+
+
 本地服务器
 php artisan serve
 
