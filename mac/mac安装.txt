@@ -105,37 +105,6 @@ chmod a+r ~/.ssh/known_hosts
 #安装JDK：http://www.oracle.com/technetwork/java/javase/downloads/index.html
 #安装mysql-workbench：http://dev.mysql.com/downloads/workbench/
 
-
-======================================
-brew install php70 php70-ast phan
-phan -h
-
------------ 从 PNG 转换到 JPG -----------
-$ ls -1 *.png | xargs -n 1 bash -c 'convert "$0" "${0%.png}.jpg"'
------------ 从 JPG 转换到 PNG -----------
-$ ls -1 *.jpg | xargs -n 1 bash -c 'convert "$0" "${0%.jpg}.png"'
-brew install parallel
------------ 从 PNG 转换到 JPG -----------
-$ parallel convert '{}' '{.}.jpg' ::: *.png
------------ 从 JPG 转换到 PNG -----------
-$ parallel convert '{}' '{.}.png' ::: *.jpg
------------ 从 PNG 转换到 JPG -----------
-$ ls -1 *.png | parallel convert '{}' '{.}.jpg'
------------ 从 JPG 转换到 PNG -----------
-$ ls -1 *.jpg | parallel convert '{}' '{.}.png'
------------ 从 PNG 转换到 JPG -----------
-$ bash -c 'for image in *.png; do convert "$image" "${image%.png}.jpg"; echo “image $image converted to ${image%.png}.jpg ”; done'
------------ 从 JPG 转换到 PNG -----------
-$ bash -c 'for image in *.jpg; do convert "$image" "${image%.jpg}.png"; echo “image $image converted to ${image%.jpg}.png ”; done'
-vi convert.sh
-#!/bin/bash
-#convert
-for image in *.png; do
-        convert  "$image"  "${image%.png}.jpg"
-        echo “image $image converted to ${image%.png}.jpg ”
-done
-exit 0
-
 ===============================================
 foremost恢复文件
 rm test.jpg

@@ -1580,4 +1580,51 @@ onent_point_load .point_focus:after {
     }
 }
 
+全阴影卡片
+.card {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
+}
+.card {
+    border: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 6px;
+    color: #333;
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #eee;
+    border-radius: .25rem;
+}
+.card {
+    font-size: .875rem;
+}
 
+图片前面放个渐变背景显示文字比较清晰
+.recommend-block::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,0)),color-stop(30%,rgba(0,0,0,0)),to(rgba(0,0,0,0.5)));
+    background: linear-gradient(rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.5) 100%);
+    content: '';
+    pointer-events: none;
+}
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
