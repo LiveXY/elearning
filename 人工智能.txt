@@ -74,6 +74,7 @@ https://github.com/buriburisuri/speech-to-text-wavenet
 https://github.com/readbeyond/aeneas
 http://espeak.sourceforge.net/test/latest.html
 https://github.com/Kyubyong/tacotron
+完全端到端的文本到语音合成模型，主要是将文本转化为语音，使用了预训练模型(pre-trained)技术
 https://github.com/keithito/tacotron
 https://keithito.com/LJ-Speech-Dataset/
 https://librivox.org/
@@ -204,7 +205,7 @@ ffmpeg -y -f s16le -ac 1 -ar 44100 -i test44.pcm  -acodec pcm_s16le -f s16le -ac
 mp3 文件转 16K 16bits 位深的单声道 pcm文件
 ffmpeg -y  -i aidemo.mp3  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
 // -acodec pcm_s16le pcm_s16le 16bits 编码器 // -f s16le 保存为16bits pcm格式 // -ac 1 单声道 // -ar 16000 16000采样率
-
+Facebook AI Research的自动语音识别工具包
 https://github.com/facebookresearch/wav2letter
 https://github.com/brightmart/roberta_zh
 
@@ -547,6 +548,7 @@ https://github.com/deepfakes/faceswap/blob/master/INSTALL.md
 从您的安装文件夹中运行python faceswap.py train。这将从包含两张脸的照片的两个文件夹中拍摄照片，并训练将保存在models文件夹内的模型。
 从您的安装文件夹中运行python faceswap.py convert。这将从original文件夹中拍摄照片并将新面孔应用到modified文件夹中。
 您可以通过运行来运行GUI python faceswap.py gui
+换脸/换头
 https://github.com/iperov/DeepFaceLab
 https://radek350.wordpress.com/2018/02/17/myfakeapp-fakeapp-alternative/
 https://github.com/sunattic/AISuperstar
@@ -1354,7 +1356,7 @@ https://github.com/google-research/bert
 DeepCreamPy 是一款基于深度学习的工具，通过使用深度神经网络去除马赛克
 https://github.com/deeppomf/DeepCreamPy
 https://github.com/facebookresearch/Horizon
-https://github.com/jantic/DeOldify 颜色恢复
+https://github.com/jantic/DeOldify 照片颜色恢复
 https://github.com/tensorflow/adanet AUTOML
 https://github.com/deepmind/graph_nets
 https://github.com/M-J-Murray/MAMEToolkit
@@ -3189,3 +3191,102 @@ https://github.com/zhanghang1989/ResNeSt
 
 https://github.com/Adamdad/keras-YOLOv3-mobilenet
 https://github.com/rafaelpadilla/Object-Detection-Metrics
+
+聊天机器人
+https://github.com/ideamark/roby-chatbot
+https://github.com/cisco/mindmeld
+简繁中文拼写检查工具 中文拼写检错 / 中文拼写纠错 / 中文拼写检查
+https://github.com/iqiyi/FASPell
+
+开源矢量相似度搜索引擎
+https://github.com/milvus-io/milvus
+VR 图像合成系统
+https://github.com/facebookresearch/DeepFocus
+对象检测工具
+https://github.com/open-mmlab/mmdetection
+https://github.com/open-mmlab/mmcv
+12306验证码识别
+https://github.com/aaronshan/12306-captcha
+端到端自动语音识别（ASR）
+https://github.com/paddlepaddle/DeepSpeech
+人脸识别算法
+https://github.com/wy1iu/sphereface
+
+实时隐身
+https://github.com/jasonmayes/Real-Time-Person-Removal
+https://codepen.io/jasonmayes/pen/GRJqgma
+https://github.com/zllrunning/video-object-removal
+
+目标跟踪/目标检测
+https://github.com/Stephenfang51/tracklite
+https://github.com/facebookresearch/moco
+https://github.com/ucas-vg/TinyBenchmark
+https://github.com/WXinlong/SOLO
+
+用于多语言无监督或受监督词嵌入的库
+https://github.com/facebookresearch/MUSE
+用于快速最近邻居搜索
+https://github.com/facebookresearch/faiss
+用于快速文本表示和分类的库
+https://github.com/facebookresearch/fastText/
+https://fasttext.cc/docs/en/crawl-vectors.html
+
+https://github.com/facebookresearch/LASER
+https://github.com/facebookresearch/UnsupervisedMT
+https://github.com/facebookresearch/XLM
+
+
+https://github.com/PyTorchLightning/pytorch-lightning
+alfred-py：深度学习实用程序库，用于可视化和传感器融合
+https://github.com/jinfagang/alfred
+https://github.com/jinfagang/thor
+https://github.com/NVIDIA/runx
+基于PyTorch的计算机视觉深度学习框架 https://pytorchcv.com
+https://github.com/donnyyou/torchcv
+
+移动视觉模型和代码
+https://github.com/facebookresearch/mobile-vision
+https://github.com/facebookresearch/ClassyVision
+
+对象检测和分割平台
+https://github.com/facebookresearch/detectron2
+https://github.com/facebookresearch/Detectron
+推理系统
+https://github.com/facebookresearch/ReAgent
+自然语言建模框架
+https://github.com/facebookresearch/pytext
+Minecraft中的虚拟助手机器人
+https://github.com/facebookresearch/craftassist
+PyRobot：开源机器人研究平台
+https://github.com/facebookresearch/pyrobot
+
+人像卡通化探索项目
+https://github.com/minivision-ai/photo2cartoon
+
+声音分离
+https://github.com/google-research/sound-separation
+
+https://github.com/PKUbahuangliuhe/CBNet
+https://github.com/VDIGPKU/CBNet
+https://github.com/PaddlePaddle/PaddleDetection
+https://github.com/tensorflow/tpu/tree/master/models/official/detection
+
+https://github.com/google/automl/tree/master/efficientdet
+https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch
+3D人体姿态与形态估计
+https://github.com/mkocabas/VIBE
+
+StyleGAN 人脸合成
+https://github.com/podgorskiy/ALAE
+
+https://github.com/HRNet/HRNet-Object-Detection
+https://github.com/HRNet/HRNet-Image-Classification
+https://github.com/HRNet/HRNet-Facial-Landmark-Detection
+密集场景检测新方法：一个候选框，多个预测结果
+https://github.com/Purkialo/CrowdDet
+
+YOLOv4
+https://github.com/pjreddie/darknet
+https://github.com/AlexeyAB/darknet
+
+https://github.com/google-research/google-research

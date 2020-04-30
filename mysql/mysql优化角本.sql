@@ -120,8 +120,8 @@ mysqldumpslow -s r -t 20 /var/lib/mysql/sg3-slow.log
 -- 按照时间返回前 10 条里面含有左连接的 sql 语句
 mysqldumpslow -t 10 -s t -g "LEFT JOIN" /var/lib/mysql/sg3-slow.log
 IO大的SQL(Rows exammine项)/未命中索引的SQL(Rows	examine和Rows Send的对比):
---分析本地的慢查询文件
-pt-query-digest --user=root --password=test@123 /data/dbdata/localhost-slow.log
+--分析本地的慢查询文件 最近一个星期内
+pt-query-digest --user=root --password=test@123 /data/dbdata/localhost-slow.log --since=148h
 ==========================================
 show global status like 'table_locks%' -- Table_locks_immediate 表示立即释放MySQL表锁数，Table_locks_waited 表示需要等待的MySQL表锁数如果Table_locks_waited的值比较高，则说明存在着较严重的表级锁争用情况。这时，需要我们对应用做进一步的检查，来确定问题所在。
 show status like 'innodb_row_lock%'; -- 分析系统上的行锁的争夺情况

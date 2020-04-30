@@ -1628,3 +1628,59 @@ onent_point_load .point_focus:after {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.highlight-features .bg-1 {
+    background: url(https://iina.io/images/text-bg-1.png) no-repeat;
+    background-clip: text;
+    background-position: left;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.highlight-features .bg-3 {
+    background: url(https://iina.io/images/text-bg-3.png) no-repeat;
+    background-clip: text;
+    background-position: left;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.highlight-features .bg-large-l {
+    background: url(https://iina.io/images/text-bg-large-l.png) no-repeat;
+    background-clip: text;
+    background-position: left;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-position: right;
+}
+.highlight--macos .highlight-features .bg-large-r {
+    background: url(https://iina.io/images/text-bg-large-r.png) no-repeat;
+    background-clip: text;
+    background-position: left;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-position: left;
+}
+
+
+trello滚动条样式
+.u-fancy-scrollbar {-webkit-overflow-scrolling: touch;-webkit-transform: translateZ(0)}
+.u-fancy-scrollbar::-webkit-scrollbar {height: 8px;width: 8px}
+.u-fancy-scrollbar::-webkit-scrollbar-button:end:increment,.u-fancy-scrollbar::-webkit-scrollbar-button:start:decrement {background: transparent;display: none}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece {background: rgba(9,30,66,.08)}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:vertical:start {border-radius: 4px 4px 0 0}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:vertical:end {border-radius: 0 0 4px 4px}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:horizontal:start {border-radius: 4px 0 0 4px}
+.u-fancy-scrollbar::-webkit-scrollbar-track-piece:horizontal:end {border-radius: 0 4px 4px 0}
+.u-fancy-scrollbar::-webkit-scrollbar-thumb:horizontal,.u-fancy-scrollbar::-webkit-scrollbar-thumb:vertical {background: rgba(9,30,66,.13);border-radius: 4px;display: block;height: 48px}
+
+#board::-webkit-scrollbar {height: 12px;width: 12px}
+#board::-webkit-scrollbar-thumb:horizontal,#board::-webkit-scrollbar-thumb:vertical {background: hsla(0,0%,100%,.4)}
+#board::-webkit-scrollbar-track-piece {background: rgba(0,0,0,.15)}
+#board::-webkit-scrollbar-button {display: block;height: 4px;width: 4px}
+
+.u-fancy-scrollbar { -webkit-overflow-scrolling: initial }
+
+

@@ -77,6 +77,16 @@ db.createUser({ user:'admin',pwd:'123456',roles:[ { role:'userAdminAnyDatabase',
 db.auth('admin', '123456')
 docker exec mongo sh -c 'exec var=`date +%Y%m%d%H%M` &amp;&amp; mongodump -h localhost --port 27017 -u admin -p 123456 -d dbname -o /data/backup/$var_dbname.bak'
 
+docker network create -d bridge my-bridge #创建一个网桥
+docker network ls #显示所有 bridge
+docker run --name mynginx2 --network my-bridge -p 8080:80 -d nginx:latest
+docker inspect mynginx2
+docker inspect my-bridge
+docker network connect my-bridage test2 #手动将某个容器加入网桥
+
+yml文件
+
+
 使用Dockerfile创建镜像
 $ mkdir sinatra
 $ cd sinatra

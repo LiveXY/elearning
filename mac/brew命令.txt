@@ -167,3 +167,11 @@ for image in *.png; do
 done
 exit 0
 ======================================
+在 macOS 预览图片时显示图片尺寸大小
+brew cask install qlimagesize mdimagesizemdimporter
+brew cask uninstall qlimagesize mdimagesizemdimporter
+=================================================================
+Darktable 是 Adobe Lightroom 的开源替代品，它是一款帮助专业摄影师的进行照片管理及后期处理的图形工具，用户可以通过该软件查看和编辑照片。
+brew cask install darktable
+==============================================================
+brew cask install zenmap

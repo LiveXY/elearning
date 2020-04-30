@@ -693,5 +693,26 @@ vi /etc/sysconfig/iptables
 service iptables restart
 iphone使用SuperWingy MAC使用ShadowsocksX.app
 ```
-
+###Outline
+```
+#安装docker
+yum install docker -y
+systemctl restart docker.service
+systemctl status docker.service
+systemctl enable docker.service
+Failed at step LIMITS spawning /usr/bin/dockerd-current: Operation not permitted
+rm -rf /var/lib/docker
+systemctl daemon-reload
+systemctl restart docker.service
+#部署 Outline
+wget -qO- https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh | bash
+会生成一串 "apiUrl","cerSha256" 的 json 配置文件
+#下载 Outline Manager
+https://github.com/Jigsaw-Code/outline-releases/tree/master/manager
+复制输入上面生成的“apiUrl”，“certSha256”即可开始使用
+选择 "GET CONNECTED" 生成 ss 链接自己本地使用
+#下载 Outline
+iphone: https://itunes.apple.com/us/app/outline-app/id1356177741
+macos: https://itunes.apple.com/us/app/outline-app/id1356178125
+```
 
