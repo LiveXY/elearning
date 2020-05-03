@@ -572,6 +572,9 @@ Centos：
 总结：经过这八个步骤，大概就已经实现了私有云的基本功能，其实Docker能做的事情远不如此，本人才疏学浅，使用不久，这里只阐述想到的这一种方案。
 
 
+docker pull alpine
+docker run -it alpine sh
+
 
 
 
