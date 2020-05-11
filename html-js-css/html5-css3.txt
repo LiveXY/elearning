@@ -1612,6 +1612,16 @@ onent_point_load .point_focus:after {
     font-size: .875rem;
 }
 
+body { background-color: #f4f4f4; }
+.post-card {
+    background-color: #fff;
+    -webkit-box-shadow: 0 0.3px 0.9px rgba(0,0,0,.108), 0 1.6px 3.6px rgba(0,0,0,.132);
+    -moz-box-shadow: 0 .3px .9px rgba(0,0,0,.108),0 1.6px 3.6px rgba(0,0,0,.132);
+    box-shadow: 0 0.3px 0.9px rgba(0,0,0,.108), 0 1.6px 3.6px rgba(0,0,0,.132);
+    border-radius: 2px;
+    padding: 20px 40px 0;
+}
+
 图片前面放个渐变背景显示文字比较清晰
 .recommend-block::before {
     position: absolute;
@@ -1683,4 +1693,80 @@ trello滚动条样式
 
 .u-fancy-scrollbar { -webkit-overflow-scrolling: initial }
 
+ANDROID按钮动画
+.link {
+    width: 218px;
+    height: 54px;
+    line-height: 52px;
+    margin-top: 380px;
+    font-size: 22px;
+    border-radius: 28px;
+    border: 1px solid #fff;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.link::after {
+    content: '';
+    width: 100%;
+    padding-top: 100%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: ripple 1.3s infinite;
+}
+@-webkit-keyframes ripple {
+    0% {
+        width: 0%;
+        padding-top: 0%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
 
+    100% {
+        width: 100%;
+        padding-top: 100%;
+        background-color: transparent;
+    }
+}
+@-moz-keyframes ripple {
+    0% {
+        width: 0%;
+        padding-top: 0%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        width: 100%;
+        padding-top: 100%;
+        background-color: transparent;
+    }
+}
+@-ms-keyframes ripple {
+    0% {
+        width: 0%;
+        padding-top: 0%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        width: 100%;
+        padding-top: 100%;
+        background-color: transparent;
+    }
+}
+@keyframes ripple {
+    0% {
+        width: 0%;
+        padding-top: 0%;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        width: 100%;
+        padding-top: 100%;
+        background-color: transparent;
+    }
+}

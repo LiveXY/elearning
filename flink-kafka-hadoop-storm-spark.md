@@ -834,3 +834,9 @@ YugaByte DB 结合了分布式 ACID 事务、多区域部署、对 Cassandra 和
 Neo4j 图形数据库在处理相关性网络的任务时，执行速度比 SQL 和 NoSQL 数据库更快，但图模型和 Cypher 查询语言需要进行专门的学习
 =====
 
+Pravega 分布式流存储
+http://pravega.io/docs/latest/getting-started/
+https://github.com/pravega/pravega
+
+
+

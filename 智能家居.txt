@@ -1,0 +1,119 @@
+
+安装 Homebridge
+https://github.com/homebridge/homebridge
+https://github.com/oznu/homebridge-config-ui-x
+
+sudo npm install -g --unsafe-perm homebridge homebridge-config-ui-x
+sudo hb-service install --user homebridge
+sudo hb-service install --user homebridge --service-name homebridge-two --port 8080
+启动
+sudo hb-service start
+sudo hb-service logs
+sudo hb-service restart
+
+cd ~/.homebridge/
+vi config.json
+{
+    "bridge": {
+        "name": "HB-Mac",
+        "username": "CC:22:3D:E3:CE:30",
+        "port": 51826,
+        "pin": "123-45-678"
+    },
+	"platforms": [
+	    {
+	      "platform": "config",
+	      "name": "Config",
+	      "port": 8080,
+	      "restart": "sudo -n systemctl restart homebridge homebridge-config-ui-x",
+	      "log": {
+	        "method": "custom",
+	        "command": "sudo -n tail -n 100 -f /var/log/homebridge.log"
+	      }
+	      "sudo": false
+	    }
+	]
+}
+"sudo": true
+vi /etc/sudoers
+homebridge    ALL=(ALL) NOPASSWD: ALL
+
+
+登录到Homebridge Config UI X 默认用户admin使用密码admin
+http://localhost:8581
+
+如何卸载Homebridge
+sudo hb-service uninstall
+sudo npm uninstall -g homebridge homebridge-config-ui-x
+
+安装插件
+https://www.npmjs.com/search?q=homebridge-plugin
+
+添加 HomeKit 配件
+首先打开「家庭」App，选择「添加配件」。第一次会自动搜索到桥接器配件（可重命名），或者手动输入密码 123-45-678 进行添加。
+这就是上文配置的默认 HB 桥接器，它可以把关联的第三方设备模拟成 HomeKit 认证配件。
+
+小米空气净化器
+npm install -g homebridge-mi-air-purifier miio
+通过 miio 命令获取空气净化器的信息：
+miio discover --sync
+vi ~/.homebridge/config.json
+"accessories": 增加
+{
+    "accessory": "MiAirPurifier",
+    "name": "Bed Room Air Purifier",
+    "ip": "192.168.1.8",
+    "token": "6f7a65786550386c700a6b526666744d",
+    "showTemperature": true,
+    "showHumidity": true,
+    "showAirQuality": true,
+    "showLED": true,
+    "showBuzzer": true
+}
+
+在 AC86U 上执行命令：
+核心温度：cat /sys/class/thermal/thermal_zone0/temp
+2.4G温度：wl -i eth5 phy_tempsense
+5G温度：wl -i eth6 phy_tempsense
+#!/usr/bin/env python
+#coding=utf-8
+def application(environ, start_response):
+    import telnetlib
+    Host = '192.168.1.1'
+    username = 'username'
+    password = 'password'
+    tn = telnetlib.Telnet(Host, port=23, timeout=10)
+    tn.read_until('login:'.encode('utf-8'))
+    tn.write((username + '\n').encode('utf-8'))
+    tn.read_until('Password:'.encode('utf-8'))
+    tn.write((password + '\n').encode('utf-8'))
+    tn.read_until('#'.encode('utf-8'))
+    tn.write(('cat /sys/class/thermal/thermal_zone0/temp'+'\n').encode('utf-8'))
+    tn.read_until('\n'.encode('utf-8'))
+    temp = tn.read_until('\n'.encode('utf-8'))
+    temp_i = int(temp[:5])
+    temp_i = round(temp_i/1000)
+    output = '{"temperature": ' + str(temp_i) + '}'
+    tn.close()
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain'),('Content-Length', str(len(output)))]
+    start_response(status, response_headers)
+    return output
+
+sudo apt-get install libapache2-mod-wsgi
+sudo apt-get install libapache2-mod-wsgi-py3
+
+npm install -g homebridge-httptemperaturehumidity
+"accessories": [
+    {
+        "accessory": "HttpTemphum",
+        "name": "Living Room Weather",
+        "url": "http://192.168.1.210/weather",
+        "httpMethod": "GET",
+        "humidity": true,
+        "cacheExpiration": 60
+    }
+]
+
+sudo npm install -g --unsafe-perm homebridge-mi-aqara
+

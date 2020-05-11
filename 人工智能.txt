@@ -3222,6 +3222,9 @@ https://github.com/Stephenfang51/tracklite
 https://github.com/facebookresearch/moco
 https://github.com/ucas-vg/TinyBenchmark
 https://github.com/WXinlong/SOLO
+https://github.com/youngwanLEE/vovnet-detectron2
+https://github.com/youngwanLEE/centermask2
+https://github.com/aim-uofa/AdelaiDet
 
 用于多语言无监督或受监督词嵌入的库
 https://github.com/facebookresearch/MUSE
@@ -3290,3 +3293,9 @@ https://github.com/pjreddie/darknet
 https://github.com/AlexeyAB/darknet
 
 https://github.com/google-research/google-research
+
+BlockPi树莓派图形化编程
+https://github.com/alienzhangyw/BlockPi
+
+
+

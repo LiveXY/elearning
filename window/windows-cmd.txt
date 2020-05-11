@@ -41,6 +41,29 @@ IntPtr hwnd = FindWindow(null, "计算器");
 if (hwnd != IntPtr.Zero) 
 
 
+https://www.cnblogs.com/xuanyuan/p/12799773.html
+- OllyDbg
+- WinDbg
+- IDA
+- APIMonitor
+- PCHunter
+- ProcExp
+- ProcMon
+- dex2jar
+- jd-gui
+- Mimikatz https://www.cnblogs.com/Scholar-liu/p/11379950.html https://www.freebuf.com/articles/web/176796.html
+
+- WireShark
+- Fiddler
+- nmap/zenmap
+- netcat
+- Nessus
+- SQLMap
+- hydra
+- shodan JAWS/1.0
+- zoomeye
+- metasploit
+msfconsole
 
 
 

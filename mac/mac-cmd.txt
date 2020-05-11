@@ -181,6 +181,11 @@ sips -Z 800 ~/Pictures/*.JPG
 sips -r 90 ~/Pictures/*.JPG
 #垂直反转
 sips -f vertical ~/Pictures/*.JPG
+
+cwebp -q 80 image.png -o image.webp
+把 PNG 图片文件转换为质量参数为 80 的 WebP 图片
+convert pixel.png pixel.webp
+
 =====================================================
 设置打开文件数
 $sudo launchctl limit maxfiles 100000 500000

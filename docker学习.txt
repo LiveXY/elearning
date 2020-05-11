@@ -574,7 +574,8 @@ Centos：
 
 docker pull alpine
 docker run -it alpine sh
-
+私有同步网盘
+docker run -d -p 8080:80 nextcloud
 
 
 

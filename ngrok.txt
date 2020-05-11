@@ -1,0 +1,90 @@
+ngrok
+=====
+内网穿透工具
+
+注册官方账号免费获得密钥
+https://dashboard.ngrok.com/signup
+下载ngrok
+https://ngrok.com/download
+https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip
+https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm64.tgz
+https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip
+启动
+./ngrok authtoken xxxxx
+./ngrok http 8080
+
+自建ngrok服务实现内网穿透
+1，安全组开放端口
+2，域名解析ngrok.xxxx.com 和 *.ngrok.xxxx.com
+3，配置dockerfile
+FROM golang:1.7.1-alpine
+ADD build.sh /
+RUN apk add --no-cache git make openssl
+RUN git clone https://github.com/inconshreveable/ngrok.git --depth=1 /ngrok
+RUN sed -i "109,109s/tcp/tcp4/g" /ngrok/src/ngrok/server/tunnel.go
+RUN sed -i  "57,57s/tcp/tcp4/g" /ngrok/src/ngrok/conn/conn.go
+RUN sh /build.sh
+EXPOSE 8081
+VOLUME [ "/ngrok" ]
+CMD [ "/ngrok/bin/ngrokd"]
+文件build.sh内容如下
+export NGROK_DOMAIN="ngrok.xxxx.com"
+cd /ngrok/
+openssl genrsa -out rootCA.key 2048
+openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=$NGROK_DOMAIN" -days 5000 -out rootCA.pem
+openssl genrsa -out device.key 2048
+openssl req -new -key device.key -subj "/CN=$NGROK_DOMAIN" -out device.csr
+openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000
+cp rootCA.pem assets/client/tls/ngrokroot.crt
+cp device.crt assets/server/tls/snakeoil.crt
+cp device.key assets/server/tls/snakeoil.key
+
+make release-server
+GOOS=linux GOARCH=386 make release-client
+GOOS=linux GOARCH=amd64 make release-client
+GOOS=windows GOARCH=386 make release-client
+GOOS=windows GOARCH=amd64 make release-client
+GOOS=darwin GOARCH=386 make release-client
+GOOS=darwin GOARCH=amd64 make release-client
+GOOS=linux GOARCH=arm make release-client
+4，生成镜像
+docker build -t ngrok .
+5，启动容器
+docker run -it -p 8081:8081 -p 4443:4443 -p 4445:4445  -d ngrok /ngrok/bin/ngrokd -domain="ngrok.xxxx.com" -httpAddr=":8081"
+docker run -it  -p 80:80 -p 443:443 -p 4443:4443 -d ngrok /ngrok/bin/ngrokd -domain="ngrok.xxxx.com" -tlsKey="/ngrok/assets/server/tls/snakeoil.key" -tlsCrt="/ngrok/assets/server/tls/snakeoil.crt"
+6，下载客户端
+docker inspect c71b99a242fa #查看这个容器的具体信息
+进入到挂载的原目录、再进入Bin下、这里就是客户端
+下载到本地
+scp -P 258 -r root@你的服务端ip地址:/var/lib/docker/volumes/6e5383924c5caf1b1b61250f31aa002308dcb371ebd9a7efad2419e20107a362/_data/bin/darwin_amd64/ngrok ./ngrok
+vi config.yml
+server_addr: "ngrok.xxxx.com:4443"
+trust_host_root_certs: false
+tunnels:
+  webapp:
+   proto:
+     http: 8081
+   subdomain: test
+  tcp12345:
+    remote_port: 4445
+    proto:
+      tcp: 12345
+启动客户端
+./ngrok  -config=config.yml start-all
+
+
+NGINX内网穿透
+=======
+
+服务器安装NGINX
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+      proxy_pass http://127.0.0.1:8999;
+    }
+}
+内网机器的服务端口是8080，反向代理到外网机器的8999端口
+ssh -fCNR 8999:localhost:8080 -o ServerAliveInterval=60 root@123.123.123.123 -p 22
+
