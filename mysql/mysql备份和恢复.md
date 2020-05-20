@@ -165,10 +165,29 @@ mysql -uroot -p123456 < file.sql
 ======
 ```
 chmod 755 /var/lib/mysql
-chown -R mysql:mysql /var/lib/mysql/dbname/
-chmod 755 /var/lib/mysql/dbname/
+chown -R mysql:mysql /var/lib/mysql/
+chmod 755 /var/lib/mysql/*
 chmod 644 /var/lib/mysql/dbname/*
 chmod 644 /var/lib/mysql/ib*
+
+mysql_install_db --datadir=/var/lib/mysql --user=root
+mysql_install_db --datadir=/home/mysql --user=root
+ln -s /home/mysql /var/lib/mysql
+
+重新安装
+rm -rf /etc/my.cnf
+rm -rf /etc/my.cnf.d/
+rpm -qa | grep mariadb
+yum remove mariadb*
+yum install mariadb*
+
+启动超时，延长超时时间
+vi /usr/lib/systemd/system/mariadb.service
+TimeoutSec=3600
+systemctl daemon-reload
+systemctl start mariadb
+
+
 ```
 
 binlog2sql
@@ -190,5 +209,17 @@ mysqlbinlog恢复数据
 show master status;
 mysqlbinlog --start-datetime='2017-01-10 14:00:00' --stop-datetime='2017-01-10 14:00:00' cdb70405_binmysqlbin.000297 > test.sql
 
+
+mysqlfrm 恢复
+======
+wget https://cdn.mysql.com/archives/mysql-utilities/mysql-utilities-1.6.5.tar.gz
+tar -xvzf mysql-utilities-1.6.5.tar.gz
+cd mysql-utilities-1.6.5
+python ./setup.py build
+python ./setup.py install
+
+mysqlfrm --basedir=/home/mysql /home/mysql/rmsxjg/llk_users.frm --port=3434 --user=mysql --diagnostic
+mysqlfrm --basedir=/home/mysql /home/mysql/rmsxjg/log_user_llk.frm --port=3434 --user=mysql --diagnostic
+mysqlfrm --basedir=/home/mysql /home/mysql/rmsxjg/report_llk_award.frm --port=3434 --user=mysql --diagnostic
 
 

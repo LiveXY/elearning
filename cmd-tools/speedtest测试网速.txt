@@ -18,3 +18,9 @@ speedtest-cli --server 5083
 ./speedtest-cli
 ```
 
+fast-cli
+```
+npm install --global fast-cli
+fast
+fast -u
+```

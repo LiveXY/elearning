@@ -1770,3 +1770,16 @@ ANDROID按钮动画
         background-color: transparent;
     }
 }
+
+.download-section .download-btn{display:inline-block;margin-top:16px;padding:8px;width:320px;height:80px;-webkit-border-radius:40px;-moz-border-radius:40px;border-radius:40px;background:#247ddc;background:-webkit-linear-gradient(315deg,#9732ee,#9733ee 16%,#636df2 32%,#379df5 40%,#08d2f9 48%,#08d2f9 50%,#08d2f9 54%,#379df5 64%,#636df2 72%,#9732ee 82%,#9732ee);background:-moz-linear-gradient(315deg,#9732ee 0,#9733ee 16%,#636df2 32%,#379df5 40%,#08d2f9 48%,#08d2f9 50%,#08d2f9 54%,#379df5 64%,#636df2 72%,#9732ee 82%,#9732ee 100%);background:-o-linear-gradient(315deg,#9732ee 0,#9733ee 16%,#636df2 32%,#379df5 40%,#08d2f9 48%,#08d2f9 50%,#08d2f9 54%,#379df5 64%,#636df2 72%,#9732ee 82%,#9732ee 100%);background:linear-gradient(135deg,#9732ee,#9733ee 16%,#636df2 32%,#379df5 40%,#08d2f9 48%,#08d2f9 50%,#08d2f9 54%,#379df5 64%,#636df2 72%,#9732ee 82%,#9732ee);-webkit-background-size:200% 200%;-moz-background-size:200%;background-size:200%;-webkit-transition:background-position .4s;-o-transition:background-position .4s;-moz-transition:background-position .4s;transition:background-position .4s}.download-section .download-btn .title{font-size:24px;line-height:40px}.download-section .download-btn .sub-title{font-size:14px;color:hsla(0,0%,100%,.8)}
+.download-section .download-btn:hover{background-position:100% 0}
+.download-section .download-btn2:hover{background-position:50%}
+
+.linear-link{line-height:64px;font-size:20px;background:#247ddc;background-image:-webkit-gradient(linear,left top,right top,from(#9733ee),color-stop(50%,#08d2f9),to(#9733ee));background-image:-webkit-linear-gradient(left,#9733ee,#08d2f9 50%,#9733ee);background-image:-moz-linear-gradient(left,#9733ee 0,#08d2f9 50%,#9733ee 100%);background-image:-o-linear-gradient(left,#9733ee 0,#08d2f9 50%,#9733ee 100%);background-image:linear-gradient(90deg,#9733ee,#08d2f9 50%,#9733ee);-webkit-background-size:200% 200%;-moz-background-size:200%;background-size:200%;background-position:100% 0;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:rgba(0,0,0,0);-webkit-transition:background-position .2s;-o-transition:background-position .2s;-moz-transition:background-position .2s;transition:background-position .2s}.linear-link:hover{background-position:0 0}
+.linear-link .nox-icon-arrowright{font-size:12px;vertical-align:middle}
+
+http://mumu.163.com/ 波纹效果
+<canvas id="wave" class="wave" width="438" height="360" style="width: 219px; height: 180px;"></canvas>
+https://www.tweenmax.com.cn/
+https://mumu.res.netease.com/pc/gw/20180108155132/js/lib/TweenMax.min_8ca83be.js
+https://mumu.res.netease.com/pc/gw/20180108155132/js/app/wave_1faa56c.js

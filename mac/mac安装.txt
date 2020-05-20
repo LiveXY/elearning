@@ -132,6 +132,7 @@ defaults delete com.torusknot.SourceTreeNotMAS "NSSplitView Subview Frames repow
 ==============================================
 “Shimo.app”已损坏，打不开。 您应该将它移到废纸篓。
 sudo spctl --master-disable
+sudo xattr -d com.apple.quarantine Shimo.app
 
 =========================================
 sudo gem install -n /usr/local/bin cocoapods

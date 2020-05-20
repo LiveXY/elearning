@@ -146,3 +146,8 @@ npm install -g electron-icon-maker
 electron-icon-maker --input=/absolute/path/file.png --output=./relative/path/to/folder
 ./node_modules/.bin/electron-icon-maker --input=/absolute/path/file.png --output=./relative/path/to/folder
 
+漂亮的面板
+https://github.com/pipiliang/docker-dashboard
+https://github.com/chjj/blessed
+https://github.com/yaronn/blessed-contrib
+https://github.com/inversify/InversifyJS
