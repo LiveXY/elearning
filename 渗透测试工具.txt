@@ -919,3 +919,9 @@ https://openwall.info/wiki/john/johnny
 https://github.com/shinnok/johnny
 https://openwall.info/wiki/_media/john/johnny/johnny_2.2_win.zip
 https://openwall.info/wiki/_media/john/johnny/johnny_2.2_osx.zip
+
+OneForAll是一款功能强大的子域收集工具
+https://github.com/shmilylty/OneForAll
+https://github.com/blechschmidt/massdns
+
+https://github.com/angryip/ipscan

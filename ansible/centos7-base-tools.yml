@@ -21,6 +21,10 @@
       - iptraf-ng
       - nethogs
       - iftop
+      - unzip
+      - lsof
+      - telnet
+      - git
   - name: 同步上海时区
     shell: ntpdate us.pool.ntp.org && date -R && cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 

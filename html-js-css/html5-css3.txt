@@ -1622,6 +1622,28 @@ body { background-color: #f4f4f4; }
     padding: 20px 40px 0;
 }
 
+box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.108), 0px 1.6px 3.6px rgba(0, 0, 0, 0.132);
+background-color: rgb(255, 255, 255);
+background-color: #faf9f8;
+
+.team__img {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    border: 10px solid #fff;
+    box-shadow: 0 2px 7px 0 hsla(0,0%,65.9%,.5);
+}
+.card-container {
+    height: 100%;
+    padding: 1rem;
+    border-radius: 4px;
+    background: #fefefe;
+    box-shadow: 0 2px 7px 0 hsla(0,0%,65.9%,.5);
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+
 图片前面放个渐变背景显示文字比较清晰
 .recommend-block::before {
     position: absolute;
@@ -1783,3 +1805,6 @@ http://mumu.163.com/ 波纹效果
 https://www.tweenmax.com.cn/
 https://mumu.res.netease.com/pc/gw/20180108155132/js/lib/TweenMax.min_8ca83be.js
 https://mumu.res.netease.com/pc/gw/20180108155132/js/app/wave_1faa56c.js
+
+文字阴影
+text-shadow: 5px 5px 5px #cccccc;

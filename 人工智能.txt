@@ -3139,6 +3139,9 @@ https://github.com/AliaksandrSiarohin/first-order-model
 https://github.com/alievk/avatarify
 https://github.com/mcreed/zoombot
 https://github.com/sdkcarlos/artyom.js/
+git clone https://github.com/alievk/avatarify.git
+cd avatarify
+bash scripts/install_mac.sh
 
 物体识别检测
 https://github.com/google/automl
@@ -3296,9 +3299,141 @@ https://github.com/HRNet/HRNet-Facial-Landmark-Detection
 密集场景检测新方法：一个候选框，多个预测结果
 https://github.com/Purkialo/CrowdDet
 
+对象检测
+https://github.com/ShuLiu1993/PANet
+https://github.com/qijiezhao/M2Det
+https://github.com/ruinmessi/ASFF
+https://github.com/google/automl/tree/master/efficientdet
+https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch
+https://github.com/ifzhang/FairMOT
+
 YOLOv4
 https://github.com/pjreddie/darknet
 https://github.com/AlexeyAB/darknet
+cd darknet
+vi Makefile
+GPU=0
+CUDNN=0
+CUDNN_HALF=0
+OPENCV=1
+make -j8
+make -j$(sysctl -n hw.ncpu)
+
+clang: fatal error: unsupported option '-fopenmp'
+brew install gcc
+brew link --overwrite gcc
+brew install llvm
+ln -s /usr/local/opt/llvm/bin/clang /usr/local/bin/clang
+ln -s /usr/local/opt/llvm/bin/clang++ /usr/local/bin/clang++
+
+
+检测单张图像
+./darknet detector test cfg/coco.data cfg/yolov4.cfg models/yolov4.weights -thresh 0.25
+检测给定路径的单张图像（参数最后的路径需要写待检测图像的路径
+./darknet detector test cfg/coco.data cfg/yolov4.cfg models/yolov4.weights -ext_output ./test.jpg
+检测给定路径的单个视频
+./darknet detector demo cfg/coco.data cfg/yolov4.cfg models/yolov4.weights -ext_output ./test.mp4
+检测给定路径的单个视频，并将检测结果保存为视频
+./darknet detector demo cfg/coco.data cfg/yolov4.cfg models/yolov4.weights ./test.mp4 -out_filename res.avi
+利用摄像机实时检测（YOLOv4）
+./darknet detector demo cfg/coco.data cfg/yolov4.cfg models/yolov4.weights -c 0
+利用摄像机实时检测（YOLOv3-Tiny）
+./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg models/yolov3-tiny.weights -c 0
+在GPU1上检测给定路径的单个视频
+./darknet detector demo cfg/coco.data cfg/yolov3-tiny.cfg models/yolov3-tiny.weights -i 1 test.mp4
+检测列表data/train.txt中图像，并将结果保存在result.json
+./darknet detector test cfg/coco.data cfg/yolov4.cfg models/yolov4.weights -ext_output -dont_show -out result.json < data/train.txt
+检测列表data/train.txt中图像，并将结果保存在result.txt
+./darknet detector test cfg/coco.data cfg/yolov4.cfg models/yolov4.weights -dont_show -ext_output < data/train.txt > result.txt
+./darknet detector demo data/coco.data yolov4.cfg yolov4.weights http://192.168.0.80:8080/video?dummy=param.mjpg -i 0
+
+./darknet detector demo cfg/coco.data cfg/yolov4.cfg yolov4.weights test.mp4 -dont_show -ext_output
+./darknet detector demo cfg/coco.data cfg/yolov4.cfg yolov4.weights test.mp4 -benchmark
+
+下载数据集标注工具：(https://pan.baidu.com/s/1EE52cDStjIxsRgM_a9pWQQ) (password: 4b2q) 或者 http://121.36.68.10/tools/ImageLabelTools-4.1.7.zip.
+数据集管理软件github地址：https://github.com/jario-jin/spire-image-manager
+https://mp.weixin.qq.com/s/nKpijexBnMJIf8FhTXktwQ
+https://pjreddie.com/darknet/yolo/
+https://pjreddie.com/darknet/train-cifar/
+
+./darknet detector train data/test3/yolov4-test3.data cfg/yolov4-c3.cfg models/yolov4.conv.137
+ mosaic=1 - compile Darknet with OpenCV for using mosaic=1
+修改：cfg/yolov4-test3.cfg 文件 mosaic=0
+
+./darknet classifier train cfg/cifar.data cfg/cifar_small.cfg
+./darknet classifier valid cfg/cifar.data cfg/cifar_small.cfg backup/cifar_small.backup
+./darknet classifier train cfg/cifar.data cfg/cifar_small.cfg backup/cifar_small.backup
+./darknet classifier valid cfg/cifar.data cfg/cifar_small.cfg backup/cifar_small.backup
+./darknet classifier predict cfg/cifar.data cfg/cifar_small.cfg backup/cifar_small.weights 0_cat.png
+
+./darknet detector train data/VOC2007/voc.data cfg/yolov3-voc.cfg models/darknet53.conv.74
+# 从0开始训练
+./darknet detector train data/VOC2007/voc.data cfg/yolov3-voc.cfg
+# 加载预训练模型
+# wget https://pjreddie.com/media/files/darknet53.conv.74
+./darknet detector train data/VOC2007/voc.data cfg/yolov3-voc.cfg darknet53.conv.74
+# 多GPU训练
+./darknet detector train data/VOC2007/voc.data cfg/yolov3-voc.cfg -gpu 0,1,2,3,4,5,6
+# 断点训练
+./darknet detector train data/VOC2007/voc.data cfg/yolov3-voc.cfg backup/xxx.backup
+
+./darknet detector train data/hat/yolov4-hat.data cfg/yolov4-test3.cfg models/yolov4.conv.137
+./darknet detector train data/hat/yolov4-hat.data cfg/yolov4-test3.cfg backup/yolov4-test3.backup
+./darknet detector test data/hat/yolov4-hat.data cfg/yolov4-test3.cfg backup/yolov4.weights -ext_output ./test.jpg
+
+find `pwd`/train -name \*.png > train.list
+find `pwd`/train -name \*.jpg > train.list
+
+labelImg
+https://github.com/tzutalin/labelImg
+brew install qt
+brew install libxml2
+or using pip
+pip3 install pyqt5 lxml
+make qt5py3
+python3 labelImg.py
+python3 labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
+
+pip3 install labelImg
+labelImg
+
+https://github.com/wkentaro/labelme
+brew install pyqt  # maybe pyqt5
+pip install labelme  # both python2/3 should work
+# or install standalone executable / app
+# NOTE: this only installs the `labelme` command
+brew install wkentaro/labelme/labelme
+brew cask install wkentaro/labelme/labelme
+labelme  # just open gui
+# tutorial (single image example)
+cd examples/tutorial
+labelme apc2016_obj3.jpg  # specify image file
+labelme apc2016_obj3.jpg -O apc2016_obj3.json  # close window after the save
+labelme apc2016_obj3.jpg --nodata  # not include image data but relative image path in JSON file
+labelme apc2016_obj3.jpg \
+  --labels highland_6539_self_stick_notes,mead_index_cards,kong_air_dog_squeakair_tennis_ball  # specify label list
+# semantic segmentation example
+cd examples/semantic_segmentation
+labelme data_annotated/  # Open directory to annotate all images in it
+labelme data_annotated/ --labels labels.txt  # specify label list with a file
+
+https://rectlabel.com/
+http://www.jinglingbiaozhu.com/
+
+https://github.com/opencv/cvat
+https://github.com/microsoft/VoTT
+https://github.com/Labelbox/Labelbox
+http://www.robots.ox.ac.uk/~vgg/software/via/
+https://gitlab.com/vgg/via/tree/master
+https://github.com/abreheret/PixelAnnotationTool
+https://github.com/AlexeyAB/Yolo_mark
+https://github.com/puzzledqs/BBox-Label-Tool
+https://github.com/lanbing510/ImageLabel
+https://github.com/drainingsun/ybat
+https://github.com/springzfx/point-cloud-annotation-tool
+https://github.com/cvondrick/vatic
+https://github.com/cvhciKIT/sloth
+https://github.com/tzutalin/ImageNet_Utils
 
 https://github.com/google-research/google-research
 
@@ -3311,4 +3446,34 @@ https://github.com/yemount/pose-animator/
 
 人脸检测YOLOv3
 https://github.com/ouyanghuiyu/darknet_face_with_landmark
+./darknet detector test ./data/face.data  ./cfg/mbv2_yolov3_face.cfg  ./models/mbv2_yolov3_face_final.weights  ./test_imgs/input/selfie.jpg  -dont_show
+
+https://github.com/huawei-noah/Disout
+
+vn.py是一套基于Python的开源量化交易系统开发框架
+https://github.com/vnpy/vnpy
+
+kkfileview 文件在线预览
+https://github.com/kekingcn/kkFileView
+docker pull keking/kkfileview
+docker run -it -p 8012:8012 keking/kkfileview
+
+视频补帧工具 DAIN
+https://github.com/baowenbo/DAIN
+分辨率提升工具 ESRGAN
+https://github.com/xinntao/ESRGAN
+黑白图像着色工具 DeOldify
+https://github.com/jantic/DeOldify
+
+Python生成测试数据
+pip install Faker
+https://github.com/joke2k/faker
+https://github.com/fzaninotto/Faker
+from faker import Faker
+fake = Faker(['zh_CN'])
+
+https://github.com/apple/coremltools
+https://github.com/ultralytics/yolov3
+https://github.com/likedan/Awesome-CoreML-Models
+
 

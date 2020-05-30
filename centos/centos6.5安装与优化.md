@@ -715,4 +715,140 @@ https://github.com/Jigsaw-Code/outline-releases/tree/master/manager
 iphone: https://itunes.apple.com/us/app/outline-app/id1356177741
 macos: https://itunes.apple.com/us/app/outline-app/id1356178125
 ```
+###V2RAY
+```
+bash <(curl -L -s https://install.direct/go.sh)
+vi /etc/v2ray/config.json
+"port": 51888, => 7070
+"method": "aes-256-gcm" => "aes-128-cfb"
+"password": "123456"
+service v2ray restart
+https://github.com/yanue/V2rayU/releases
+https://github.com/v2ray/v2ray-core/releases
+或者
+docker pull v2ray/official
+mkdir /etc/v2ray/
+http://www.ofmonkey.com/transfer/guid
+生成配置文件：https://intmainreturn0.com/v2ray-config-gen/
+vi /etc/v2ray/config.json
+{
+	"log": {
+		"access": "/var/log/v2ray/access.log",
+		"error": "/var/log/v2ray/error.log",
+		"loglevel": "warning"
+	},
+	"inbound": {
+		"port": 80,
+		"protocol": "vmess",
+		"settings": {
+			"clients": [{
+				"id": "01947a19-d50f-40ad-a3e0-7d25081f82a7",
+				"level": 1,
+				"alterId": 100
+			}]
+		},
+		"streamSettings": {
+			"network": "tcp",
+			"tcpSettings": {
+				"header": {
+					"request": {
+						"path": [
+							"/"
+						],
+						"version": "1.1",
+						"method": "GET",
+						"headers": {
+							"Host": "www.baidu.com",
+							"Connection": [
+								"keep-alive"
+							],
+							"Accept-Encoding": [
+								"gzip, deflate"
+							],
+							"Pragma": "no-cache",
+							"User-Agent": [
+								"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
+								"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
+							]
+						}
+					},
+					"type": "http",
+					"response": {
+						"status": "200",
+						"headers": {
+							"Transfer-Encoding": [
+								"chunked"
+							],
+							"Connection": [
+								"keep-alive"
+							],
+							"Content-Type": [
+								"application/octet-stream",
+								"video/mpeg"
+							],
+							"Pragma": "no-cache"
+						},
+						"reason": "OK",
+						"version": "1.1"
+					}
+				},
+				"connectionReuse": true
+			}
+		}
+	},
+	"outbound": {
+		"protocol": "freedom",
+		"settings": {}
+	},
+	"outboundDetour": [{
+		"protocol": "blackhole",
+		"settings": {},
+		"tag": "blocked"
+	}],
+	"routing": {
+		"strategy": "rules",
+		"settings": {
+			"rules": [{
+				"type": "field",
+				"ip": [
+					"0.0.0.0/8",
+					"10.0.0.0/8",
+					"100.64.0.0/10",
+					"127.0.0.0/8",
+					"169.254.0.0/16",
+					"172.16.0.0/12",
+					"192.0.0.0/24",
+					"192.0.2.0/24",
+					"192.168.0.0/16",
+					"198.18.0.0/15",
+					"198.51.100.0/24",
+					"203.0.113.0/24",
+					"::1/128",
+					"fc00::/7",
+					"fe80::/10"
+				],
+				"outboundTag": "blocked"
+			}]
+		}
+	}
+}
+docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:80 v2ray/official v2ray -config=/etc/v2ray/config.json
+docker container start v2ray
+docker container stop v2ray
+docker container restart v2ray
+docker container logs v2ray
+更新配置后，需要重新部署容器，命令如下
+docker container stop v2ray
+docker container rm v2ray
+docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 8888:80 v2ray/official v2ray -config=/etc/v2ray/config.json
+https://github.com/2dust/v2rayNG/releases/download/1.2.6/v2rayNG_1.2.6_armeabi-v7a.apk
+https://github.com/yanue/V2rayU/releases/download/2.1.0/V2rayU.dmg
+https://github.com/Cenmrev/V2RayX/releases/download/v1.5.1/V2RayX.app.zip
+https://tlanyan.me/v2ray-clients-download/
+https://github.com/v2ray/v2ray-core/releases
+
+https://github.com/shadowsocks/ShadowsocksX-NG/releases
+https://github.com/shadowsocksr-backup/ShadowsocksX-NG/releases
+```
+
 

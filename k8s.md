@@ -39,11 +39,30 @@ firewall-cmd --permanent --add-port=10255/tcp
 firewall-cmd --reload
 ```
 
+时间同步
+```
+timedatectl set-timezone Asia/Shanghai
+ntpdate cn.pool.ntp.org
+```
+
+设置文件数限制
+```
+tee /etc/security/limits.conf <<-'EOF'
+root soft nofile 102400
+root hard nofile 102400
+* soft nofile 102400
+* hard nofile 102400
+EOF
+```
+
 设置路由
 ```
 cat <<EOF > /etc/sysctl.d/k8s.conf
 vm.swappiness = 0
-net.ipv4.ip_forward = 1
+vm.overcommit_memory = 1
+vm.panic_on_oom = 0
+fs.inotify.max_user_watches = 89100
+
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.ipv6.conf.default.forwarding = 1
@@ -51,11 +70,50 @@ net.ipv6.conf.all.forwarding = 1
 net.ipv6.conf.all.disable_ipv6 = 0
 net.ipv6.conf.default.disable_ipv6 = 0
 net.ipv6.conf.lo.disable_ipv6 = 0
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.forwarding = 1
+
 EOF
+modprobe br_netfilter
 sysctl -p /etc/sysctl.d/k8s.conf
+
+echo "modprobe br_netfilter" >> /etc/rc.local
+lsmod | grep br_netfilter
+
+vi /etc/sysctl.conf
+fs.file-max = 2000000
+fs.nr_open = 122880
+
+net.ipv4.neigh.default.gc_stale_time=120
+net.ipv4.conf.all.rp_filter=0
+net.ipv4.conf.default.rp_filter=0
+net.ipv4.conf.default.arp_announce = 2
+net.ipv4.conf.all.arp_announce=2
+net.ipv4.conf.lo.arp_announce=2
+net.ipv4.tcp_max_tw_buckets = 5000
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_max_syn_backlog = 1024
+net.ipv4.tcp_synack_retries = 2
+
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.ip_local_port_range = 1024 65535
+net.ipv4.tcp_syn_retries = 2
+net.ipv4.tcp_max_orphans = 3276800
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_max_syn_backlog = 262144
+net.core.netdev_max_backlog =  262144
+net.core.somaxconn = 262144
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+kernel.sysrq=1
+
 sysctl --system
 sysctl net.ipv4.ip_forward=1
-
 ```
 
 关闭系统的Swap
@@ -89,6 +147,10 @@ yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 yum makecache fast
 yum -y install docker-ce
+
+vi /etc/docker/daemon.json
+"registry-mirrors": ["https://容器镜像服务->镜像加速器获得.mirror.aliyuncs.com"]
+systemctl daemon-reload
 systemctl restart docker.service
 systemctl status docker.service
 systemctl enable docker.service
@@ -732,4 +794,4 @@ https://www.cnblogs.com/fawaikuangtu123/p/11296382.html
 
 
 buster10(2020) stretch9(2017) jessie8(2015) wheezy7(2013) squeeze6 都是 Debian 发行版本的代称
-带 slim 的就是瘦身版
+带 slim 的就是瘦身版 Debian 和 glibc

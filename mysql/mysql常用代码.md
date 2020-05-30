@@ -364,7 +364,11 @@ delimiter ;
 call killrename('dbname', table_name')
 ```
 * `select * from mysql.slow_log_view` 查看慢查询
-* 
+* 问题：Client does not support authentication protocol requested by server; consider upgrading MySQL client
+```
+alter user 'root'@'%' identified with mysql_native_password by '123456';
+FLUSH PRIVILEGES;
+```
 * 
 * 
 * 
