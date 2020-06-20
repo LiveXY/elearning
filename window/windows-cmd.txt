@@ -5,6 +5,8 @@ tasklist /fi "PID eq 7164"
 Tasklist /s 218.22.123.26 /u jtdd /p 12345678
 tasklist /fi "windowtitle eq D:\server\runtime\fg_gameloader_bacc\FG_MiniGameLoader.exe"
 
+tasklist /v /fo csv | find "Z_runtimeqstar" > test1.log
+
 taskkill /IM notepad.exe
 taskkill /f /pid processID
 taskkill /fi "windowtitle eq D:\server\runtime\fg_gameloader_bacc\FG_MiniGameLoader.exe"

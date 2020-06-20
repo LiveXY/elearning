@@ -1,0 +1,82 @@
+logrotate
+======
+/etc/logrotate.d/haproxy
+/var/log/haproxy.log {
+    daily
+    rotate 10
+    missingok
+    notifempty
+    compress
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
+        /bin/kill -HUP `cat /var/run/rsyslogd.pid 2> /dev/null` 2> /dev/null || true
+    endscript
+}
+
+vi /etc/logrotate.d/nginx
+/var/log/nginx/*log {
+    create 0644 nginx nginx
+    daily
+    rotate 10
+    missingok
+    notifempty
+    compress
+    sharedscripts
+    postrotate
+        /bin/kill -USR1 `cat /run/nginx.pid 2>/dev/null` 2>/dev/null || true
+    endscript
+}
+
+/etc/logrotate.d/php-fpm
+/var/log/php-fpm/*log {
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+        /bin/kill -SIGUSR1 `cat /run/php-fpm/php-fpm.pid 2>/dev/null` 2>/dev/null || true
+    endscript
+}
+
+/etc/logrotate.d/syslog
+/var/log/cron
+/var/log/maillog
+/var/log/messages
+/var/log/secure
+/var/log/spooler
+{
+    missingok
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
+    endscript
+}
+
+/etc/logrotate.d/yum
+/var/log/yum.log {
+    missingok
+    notifempty
+    size 30k
+    yearly
+    create 0600 root root
+}
+
+/etc/logrotate.d/bootlog
+/var/log/boot.log
+{
+    missingok
+    daily
+    copytruncate
+    rotate 7
+    notifempty
+}
+/etc/logrotate.d/chrony
+/var/log/chrony/*.log {
+    missingok
+    nocreate
+    sharedscripts
+    postrotate
+        /usr/bin/chronyc cyclelogs > /dev/null 2>&1 || true
+    endscript
+}

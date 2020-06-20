@@ -190,6 +190,15 @@ pecl help 可以查看命令帮助
 pecl search xdebug  搜索可以安装的扩展信息
 pecl install xdebug 安装扩展
 
+dyld: Library not loaded: /usr/local/opt/icu4c/lib/libicui18n.64.dylib
+icu4c 66.1 降级到 64.2
+cd $(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
+git log --follow icu4c.rb
+git checkout -b icu4c-62.1 896d1018c7a4906f2c3fa1386aaf283497db60a2
+brew reinstall ./icu4c.rb
+或
+brew info icu4c
+brew switch icu4c 64.2
 =====================================
 mac启动项
 1，系统偏好设置->用户与群组->登录项 查看：cat ~/Library/Preferences/com.apple.loginitems.plist

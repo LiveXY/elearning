@@ -221,6 +221,9 @@ kubectl apply -f kube-flannel.yml
 
 配置
 ```
+vi /etc/sysconfig/kubelet
+KUBE_PROXY_MODE=ipvs
+
 kubectl edit cm kube-proxy -n kube-system
 mode: "ipvs"
 
@@ -396,6 +399,7 @@ kubectl exec -it nginx -- nginx -v
 kubectl exec -it nginx -- sh
 kubectl create deployment nginx --image=nginx
 kubectl expose deployment nginx --port=80 --type=NodePort --name=nginx-service
+kubectl expose deploy nginx --port=80 --target-port=80 --name=http-svc
 kubectl get pod,svc
 扩容：
 kubectl scale deployment nginx-deployment --replicas 10
@@ -522,6 +526,8 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl taint nodes k8s-01 node-role.kubernetes.io/master=:NoSchedule
 kubectl taint nodes k8s-02 node-role.kubernetes.io/master=:PreferNoSchedule
 kubectl taint nodes k8s-03 node-role.kubernetes.io/master=:PreferNoSchedule
+
+kubectl taint node k8s-master node-role.kubernetes.io/master=""
 ```
 
 启动CURL镜像
@@ -786,6 +792,8 @@ sudo cat /etc/kubernetes/manifests/kube-controller-manager.yaml | grep -i cluste
 kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
 kubectl get node k8s-node1 -o yaml | grep podCIDR
 kubectl patch node k8s-node1 -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
+kubectl patch svc http-svc -p '{"spec":{"type": "LoadBalancer"}}'
+kubectl patch svc http-svc -p '{"spec":{"type": "NodePort"}}'
 kubectl get configmap -n kube-system
 kubectl get configmap kube-flannel-cfg -o json -n kube-system
 kubectl edit configmap kube-flannel-cfg -n kube-system

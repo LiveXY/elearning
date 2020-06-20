@@ -3476,4 +3476,67 @@ https://github.com/apple/coremltools
 https://github.com/ultralytics/yolov3
 https://github.com/likedan/Awesome-CoreML-Models
 
+https://github.com/ouyanghuiyu/chineseocr_lite
+https://github.com/chineseocr/chineseocr
+https://github.com/chineseocr/darknet-ocr
+cd darknet && cp Makefile-cpu Makefile && make
+sudo pip3 install -r requirements.txt
+python3 app.py 8080
+https://github.com/WenmuZhou/PSENet.pytorch
+https://github.com/chineseocr/table-ocr
 
+物体检测End-to-End Object Detection with Transformers
+https://github.com/facebookresearch/detr
+飞船生成器
+https://github.com/a1studmuffin/SpaceshipGenerator
+
+https://github.com/openai/gpt-3
+
+https://github.com/wangyuxin87/ContourNet
+https://github.com/joe-siyuan-qiao/DetectoRS
+https://github.com/ultralytics/yolov5
+https://github.com/JuliaLang/julia
+https://github.com/scipy/scipy
+https://github.com/penrose/penrose
+红警1 游戏开源
+https://github.com/electronicarts/CnC_Remastered_Collection
+拯救渣画质，马赛克图秒变高清
+https://github.com/adamian98/pulse
+
+https://github.com/amusi/CVPR2020-Code
+https://github.com/AdamKortylewski/CompositionalNets
+https://github.com/shenyunhang/NA-fWebSOD/
+https://github.com/caiqi/sample-weighting-network
+https://github.com/JialeCao001/D2Det
+https://github.com/Anymake/DRN_CVPR2020
+https://github.com/jshilong/SEPC
+https://github.com/Sense-X/TSD
+https://github.com/jshilong/SEPC
+https://github.com/megvii-model/CrowdDetection
+https://github.com/NVlabs/wetectron
+https://github.com/sfzhang15/ATSS
+https://github.com/ZiweiWangTHU/BiDet
+https://github.com/chaoqichen/HTCN
+https://github.com/KiveeDong/CentripetalNet
+https://github.com/ggjy/HitDet.pytorch
+https://github.com/google/automl/tree/master/efficientdet
+https://github.com/skyhehe123/SA-SSD
+https://github.com/NUAAXQ/MLCVNet
+https://github.com/tomztyang/3DSSD
+https://github.com/mileyan/pseudo-LiDAR_e2e
+https://github.com/zju3dv/disprcn
+https://github.com/chenyilun95/DSGN
+https://github.com/yinjunbo/3DVID
+https://github.com/sshaoshuai/PV-RCNN
+https://github.com/WeijingShi/Point-GNN
+https://github.com/Scalsol/mega.pytorch
+https://github.com/ohhhyeahhh/SiamCAR
+https://github.com/alanlukezic/d3s
+https://github.com/skyoung/ROAM
+https://github.com/VisualComputingInstitute/SiamR-CNN
+https://github.com/MasterBin-IIAU/CSA
+https://github.com/Daikenan/LTMU
+https://github.com/vision4robotics/AutoTrack
+https://github.com/visionml/pytracking
+https://github.com/zlai0/MAST
+https://github.com/hqucv/siamban
