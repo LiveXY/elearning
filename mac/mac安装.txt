@@ -489,3 +489,7 @@ http://sign.applicationloader.net/
 =================================================================
 yum install sshpass
 sshpass -p 123456 ssh root@10.0.0.10 'll /home'
+
+=================================================================
+CleanMyMacX 无法打开
+codesign -f -s - --deep /Applications/CleanMyMac\ X.app

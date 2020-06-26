@@ -1331,6 +1331,25 @@ wordcloud = WordCloud(width=1300, height=620)
 wordcloud.add("", name, value, word_size_range=[20, 100])
 wordcloud.render('./参考案例HTML/关键词统计词云图.html')
 wordcloud
+图像词云
+from PIL import Image
+import numpy as np
+from wordcloud import WordCloud, ImageColorGenerator
+# 读取原始文本
+with open('linuxmi.txt', mode='rt', encoding='utf-8') as fi:
+    source_text = fi.read()
+# 创建蒙板图像
+mask_array = np.array(Image.open('linuxmi.com.jpg'))
+image_color = ImageColorGenerator(mask_array)
+# 创建词云
+wc = WordCloud(mask=mask_array, color_func=image_color, background_color='white').generate(source_text)
+# 直接保存在文件中的情况下，用to_file方法
+wc.to_file('linuxmi.com.png')
+# 用PIL表示
+#image_array = wc.to_array()
+#img = Image.fromarray(image_array)
+#img.show()
+
 https://github.com/plotly/plotly.py
 https://github.com/amueller/word_cloud
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud
@@ -3540,3 +3559,32 @@ https://github.com/vision4robotics/AutoTrack
 https://github.com/visionml/pytracking
 https://github.com/zlai0/MAST
 https://github.com/hqucv/siamban
+https://github.com/Alpha-Video/AlphaVideo
+
+https://ftp.gnu.org/gnu/octave
+brew install octave
+https://octave.sourceforge.io/packages.php
+http://www.gnu.org/software/octave/
+https://wiki.octave.org/Octave_for_macOS
+https://github.com/octave-app/octave-app/releases/download/v4.4.1-u1/Octave-4.4.1-u1.dmg
+https://octave-app.org/Download.html
+https://octave-app.org/Developer-Downloads.html
+https://julialang.org/downloads/
+https://github.com/JuliaLang/julia
+https://www.scilab.org/download/6.1.0
+http://www.7d-soft.com/
+
+TensorFlow、PyTorch、Apache MXNet、Chainer、Keras、Gluon、Horovod、Scikit-learn 和 Deep Graph Library
+
+计数项目：https://sites.google.com/view/repnet
+论文：http://openaccess.thecvf.com/content_CVPR_2020/papers/Dwibedi_Counting_Out_Time_Class_Agnostic_Video_Repetition_Counting_in_the_CVPR_2020_paper.pdf
+Countix 数据集：https://storage.googleapis.com/deepmind-media/Datasets/countix.tar.gz
+Colab Notebook：https://colab.research.google.com/github/google-research/google-research/blob/master/repnet/repnet_colab.ipynb
+
+https://github.com/apache/incubator-mxnet
+https://github.com/deepinsight/insightface
+
+https://github.com/supervisely/supervisely
+https://github.com/huawei-noah/ghostnet
+https://github.com/open-mmlab/OpenSelfSup
+https://github.com/aim-uofa/AdelaiDet

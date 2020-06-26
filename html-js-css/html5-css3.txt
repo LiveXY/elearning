@@ -1808,3 +1808,60 @@ https://mumu.res.netease.com/pc/gw/20180108155132/js/app/wave_1faa56c.js
 
 文字阴影
 text-shadow: 5px 5px 5px #cccccc;
+
+可以把 块容器 中的内容限制为指定的行数。并且在超过行数后，在最后一行显示"..."
+display: -webkit-box; /*值必须为-webkit-box或者-webkit-inline-box*/
+-webkit-box-orient: vertical; /*值必须为vertical*/
+-webkit-line-clamp: 2; /*值为数字，表示一共显示几行*/
+overflow: hidden;
+
+all
+将除却 unicode-bidi 与 direction 之外的所有属性重设至其初始值，或继承值。
+all: unset; /*initial | inherit | unset*/
+initial 改变该元素所有属性的值至初始值。
+inherit 改变该元素的值 至 从父元素继承的值
+unset 如果该元素的属性的值是可继承的，重置为父元素的继承的值，反之则改变为初始值。
+
+用来定义插入光标（caret）的颜色，这里说的插入光标，就是那个在网页的可编辑器区域内，用来指示用户的输入具体会插入到哪里的那个一闪一闪的形似竖杠 | 的东西。
+caret-color: red;
+
+clip-path 属性使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏。类似的裁剪还有 svg 的 clipPath。
+clip-path 的取值有以下几种图形
+inset(xxx): 裁剪为长方形
+circle(xx): 裁剪为原型
+ellipse(xxx): 裁剪为椭圆
+polygon(xx): 裁剪为多边形
+none: 不裁剪
+
+object-fit / object-position
+object-fit 属性指定可替换元素的内容应该如何适应到其使用的高度和宽度确定的框。
+object-position 属性来指定被替换元素的内容对象在元素框内的对齐方式。
+注: 其中可替换元素有 iframe，video，embed，img，还有一些在特性情况也是可替换元素，option，audio，canvas，object
+object-fit: fill;
+object-fit: contain;
+object-fit: cover;
+object-fit: none;
+object-fit: scale-down;
+
+font-stretch
+为字体定义一个正常或经过伸缩变形的字体外观，它仅仅意味着当有多种字体可供选择时，会为字体选择最适合的大小。
+normal 默认字体
+semi-condensed, condensed, extra-condensed, ultra-condensed 小于默认字体
+semi-expanded, expanded, extra-expanded, ultra-expanded 大于默认字体
+
+scroll-behavior
+当用户通过 API 触发滚动操作时，CSS 属性 scroll-behavior 为一个滚动框指定滚动行为， 平滑到达还是立即到达
+
+max() / min()
+max 在两者这件取最大；min 函数在两者之间取最小。
+max，min 可以用在任何可以设置 <length>, <frequency>, <angle>, <time>, <percentage>, <number>, or <integer> 等值的地方
+width: max(50vw, 300px);
+width: min(50vw, 300px);
+
+clamp()
+clamp 函数会在定义的 三个值之间，取中间的那个值，是大小在中间，不是位置在中间，
+font-size: clamp(1px, 3px, 2px);    //中间值为2px
+font-size: clamp(1px, 3px, 5px);    //中间值为3px
+font-size: clamp(4px, 3px, 5px);    //中间值为4px
+width: clamp(200rem, 25vw, 150px); //在这三个之间取中间值
+

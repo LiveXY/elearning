@@ -23,6 +23,8 @@ lock tables tablename write;
 rename table tablename to temp_tablename, new_tablename to tablename;
 unlock tables;
 ```
+* `select ... lock in share mode;` 添加读锁
+* `select ... for update；` 添加写锁
 * `create index indexname on tablename (field1, field2);` 或 `alter table tablename add index indexname(field1, field2);` 创建(添加)索引
 * `alter table tablename drop index indexname;` 删除索引
 * `show create table tablename\G;` 显示建表完整表结构

@@ -76,7 +76,19 @@ Using temporary，表示需要创建临时表以满足需求，通常是因为GR
 Using filesort，表示无法利用索引完成排序，也有可能是因为多表连接时，排序字段不是驱动表中的字段，因此也没办法利用索引完成排序，建议添加适当的索引。
 Using where，通常是因为全表扫描或全索引扫描时（type 列显示为 ALL 或 index），又加上了WHERE条件，建议添加适当的索引。
 Using index、Using index condition、Using index for group-by 则都还好
-system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL
+性能从好到坏依次是 system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL
+system： 当表仅有一行记录时(系统表)，数据量很少，往往不需要进行磁盘IO，速度非常快。
+const：表示查询时命中 primary key 主键或者 unique 唯一索引，或者被连接的部分是一个常量(const)值。这类扫描效率极高，返回数据量少，速度非常快。
+eq_ref：查询时命中主键primary key 或者 unique key索引， type 就是 eq_ref。
+ref：区别于eq_ref ，ref表示使用非唯一性索引，会找到很多个符合条件的行。
+ref_or_null：这种连接类型类似于 ref，区别在于 MySQL会额外搜索包含NULL值的行。
+index_merge：使用了索引合并优化方法，查询使用了两个以上的索引。
+unique_subquery：替换下面的 IN子查询，子查询返回不重复的集合。
+index_subquery：区别于unique_subquery，用于非唯一索引，可以返回重复值。
+range：使用索引选择行，仅检索给定范围内的行。简单点说就是针对一个有索引的字段，给定范围检索数据。在where语句中使用 bettween...and、<、>、<=、in 等条件查询 type 都是 range。
+index：Index 与ALL 其实都是读全表，区别在于index是遍历索引树读取，而ALL是从硬盘中读取。
+ALL：将遍历全表以找到匹配的行，性能最差。
+
 ==========================================
 profiling -- 分析查询
 select @@profiling; -- 查看是否开启profiling
