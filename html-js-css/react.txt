@@ -158,6 +158,12 @@ yarn add react-native-permissions && react-native link react-native-permissions
 https://github.com/itinance/react-native-fs
 yarn add react-native-fs && react-native link react-native-fs
 
+React Native调试工具
+https://github.com/WeBankFinTech/wt-console
+yarn add @webank/wt-console
+https://github.com/Tencent/vConsole
+npm install vconsole
+
 键盘显示时自动滚动到焦点TextInput
 https://github.com/APSL/react-native-keyboard-aware-scroll-view
 yarn add react-native-keyboard-aware-scroll-view && react-native link react-native-keyboard-aware-scroll-view

@@ -134,4 +134,6 @@ for i in range(101):
     progress(i)
     sleep(0.1)
 
+并行处理
+https://github.com/luispedro/jug
 

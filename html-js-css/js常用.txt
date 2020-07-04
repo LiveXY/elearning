@@ -7,6 +7,7 @@ https://github.com/developit/preact
 https://github.com/facebook/react
 https://github.com/Matt-Esch/virtual-dom
 https://github.com/rsuite/rsuite
+https://rsuitejs.com/design/default/
 https://github.com/ant-design/ant-design
 https://github.com/ant-design/ant-design-pro
 https://github.com/infernojs/inferno

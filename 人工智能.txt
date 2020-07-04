@@ -1913,6 +1913,7 @@ pip3 install paddlepaddle==1.5.1
 
 https://www.paddlepaddle.org.cn/hubdetail?name=lac&en_category=LexicalAnalysis
 https://github.com/PaddlePaddle/models
+https://www.paddlepaddle.org.cn/hublist
 
 $ hub search
 模型：
@@ -2096,6 +2097,23 @@ StNet模型框架为ActivityNet Kinetics Challenge 2018中夺冠的基础网络�
 hub install stnet_kinetics400
 Non-local Neural Networks是由Xiaolong Wang等研究者在2017年提出的模型，主要特点是通过引入Non-local操作来描述距离较远的像素点之间的关联关系。其借助于传统计算机视觉中的non-local mean的思想，并将该思想扩展到神经网络中，通过定义输出位置和所有输入位置之间的关联函数，建立全局关联特性。Non-local模型的训练数据采用由DeepMind公布的Kinetics-400动作识别数据集。该PaddleHub Module可支持预测。
 hub install nonlocal_kinetics400
+
+OCR文字识别
+支持中英文数字组合识别、竖排文本识别、长文本识别，可以支持直接预测
+chinese_ocr_db_crnn_server
+chinese_ocr_db_crnn_mobile
+视频分类
+videotag_tsn_lstm
+stnet_kinetics400
+动物识别
+resnet50_vd_animals
+mobilenet_v2_animals
+口罩检测
+pyramidbox_lite_mobile_mask
+pyramidbox_lite_server_mask
+肺炎CT影像分析
+Pneumonia_CT_LKM_PP
+
 
 ICNet
 主要用于图像实时语义分割，能够兼顾速度和准确性，易于线上部署
@@ -3154,6 +3172,7 @@ https://github.com/amzn/computer-vision-basics-in-microsoft-excel
 机器人聊天
 https://github.com/jiangdongguo/ChitChatAssistant
 
+变脸
 https://github.com/AliaksandrSiarohin/first-order-model
 https://github.com/alievk/avatarify
 https://github.com/mcreed/zoombot
@@ -3458,7 +3477,7 @@ https://github.com/google-research/google-research
 
 BlockPi树莓派图形化编程
 https://github.com/alienzhangyw/BlockPi
-
+视频补帧 AI 工具 DAIN
 https://github.com/baowenbo/DAIN
 POSE动画
 https://github.com/yemount/pose-animator/
@@ -3561,6 +3580,11 @@ https://github.com/zlai0/MAST
 https://github.com/hqucv/siamban
 https://github.com/Alpha-Video/AlphaVideo
 
+Anaconda Installers
+https://www.anaconda.com/products/individual
+https://github.com/spyder-ide/spyder
+pip3 install spyder
+spyder3
 https://ftp.gnu.org/gnu/octave
 brew install octave
 https://octave.sourceforge.io/packages.php
@@ -3573,6 +3597,7 @@ https://julialang.org/downloads/
 https://github.com/JuliaLang/julia
 https://www.scilab.org/download/6.1.0
 http://www.7d-soft.com/
+http://www.gnuplot.info/download.html
 
 TensorFlow、PyTorch、Apache MXNet、Chainer、Keras、Gluon、Horovod、Scikit-learn 和 Deep Graph Library
 
@@ -3588,3 +3613,37 @@ https://github.com/supervisely/supervisely
 https://github.com/huawei-noah/ghostnet
 https://github.com/open-mmlab/OpenSelfSup
 https://github.com/aim-uofa/AdelaiDet
+
+离线IP地址定位库
+https://github.com/lionsoul2014/ip2region
+
+https://github.com/amusi/YOLO-Reproduce-Summary
+PyTorch
+https://github.com/Tianxiaomo/pytorch-YOLOv4
+https://github.com/bubbliiiing/yolov4-pytorch
+TensorFlow
+https://github.com/hunglc007/tensorflow-yolov4-tflite
+https://github.com/rrddcc/YOLOv4_tensorflow
+Keras
+https://github.com/david8862/keras-YOLOv3-model-set
+https://github.com/miemie2013/Keras-YOLOv4
+https://github.com/bubbliiiing/yolov4-keras
+https://github.com/Ma-Dan/keras-yolo4
+PaddlePaddle
+https://github.com/miemie2013/Paddle-YOLOv4
+Caffe
+https://github.com/ChenYingpeng/caffe-yolov3
+https://github.com/ChenYingpeng/darknet2caffe
+TensorRT
+https://github.com/CaoWGG/TensorRT-YOLOv4
+tkDNN
+https://github.com/ceccocats/tkDNN
+
+换女装
+https://github.com/clovaai/stargan-v2
+人体姿势
+https://github.com/ildoonet/tf-pose-estimation
+
+https://github.com/didi/athena
+https://github.com/didi/ChineseNLP
+https://github.com/didi/delta
