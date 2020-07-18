@@ -493,3 +493,8 @@ sshpass -p 123456 ssh root@10.0.0.10 'll /home'
 =================================================================
 CleanMyMacX 无法打开
 codesign -f -s - --deep /Applications/CleanMyMac\ X.app
+sudo xattr -d com.apple.quarantine /Applications/CleanMyMac\ X.app
+================================================================
+dscl . -list /Users UniqueID           //查看用户
+dscl . -list /Groups  PrimaryGroupID   //查看用户组
+================================================================

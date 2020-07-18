@@ -1,0 +1,702 @@
+
+pfctl
+https://www.jianshu.com/p/6052831a8e91
+
+防火墙规则
+vi /etc/pf.conf
+
+sudo sysctl -w net.inet.ip.forwarding=1
+sudo sysctl -w net.inet6.ip6.forwarding=1
+sysctl -a | grep forward
+
+开启：sudo pfctl -E
+关闭：sudo pfctl -d
+
+vi /etc/pf.anchors/http
+
+将流入数据的端口从80转发到8080
+rdr pass on en0 inet proto tcp from any to any port 80 -> 127.0.0.1 port 8080
+rdr pass on lo0 inet proto tcp from any to any port 80 -> 127.0.0.1 port 8080
+
+将本地发往192.168.1.8:80的数据丢弃
+block drop out proto tcp from any to 192.168.1.8 port 80
+block in log proto tcp from 192.168.1.136 to any
+
+将本地发往192.168.1.6:80的数据转发到192.168.1.7:8080
+1.将特定数据流从en0->lo0, 2.将lo0的数据进行转发
+rdr pass log on lo0 proto tcp from any to 192.168.1.6 port 80 -> 192.168.1.7 port 8080
+pass out on en0 route-to lo0 proto tcp from en0 to 192.168.1.6 port 80 keep state
+
+校验/etc/pf.anchors/http配置是否正确
+sudo pfctl -vnf /etc/pf.anchors/http
+
+vi /etc/pf.conf
+在 rdr-anchor "com.apple/*" 下添加
+rdr-anchor "http-forwarding"
+在 load anchor "com.apple" from "/etc/pf.anchors/com.apple" 下添加
+load anchor "http-forwarding" from "/etc/pf.anchors/http"
+sudo pfctl -ef /etc/pf.conf
+
+table <blockedips> persist file "/etc/pf.blocked.ip.conf"
+block in log proto tcp from <blockedips> to any
+block in quick from <blockedips>
+
+vi /etc/pf.blocked.ip.conf
+218.240.39.102
+#218.240.39.121
+192.168.1.0/24
+pfctl -f /etc/pf.conf
+显示
+pfctl -t blockedips -T show
+增加
+pfctl -t blockedips -T add 69.248.133.153
+pfctl -t blockedips -T add 91.196.232.0/22
+删除
+pfctl -t blockedips -T delete 91.196.232.0/22
+pfctl -t blockedips -T delete 69.248.133.153
+
+block in quick on egress proto tcp to port ssh
+pass  in all
+
+# pfctl -f /etc/pf.conf  载入 pf.conf 文件
+# pfctl -nf /etc/pf.conf 解析文件，但不载入
+# pfctl -Nf /etc/pf.conf 只载入文件中的NAT规则
+# pfctl -Rf /etc/pf.conf 只载入文件中的过滤规则
+# pfctl -sn 显示当前的NAT规则
+# pfctl -sr 显示当前的过滤规则
+# pfctl -ss 显示当前的状态表
+# pfctl -si 显示过滤状态和计数
+# pfctl -sa 显示任何可显示的 pfctl -s all / pfctl -sa -v -v
+
+要使 pfctl的过滤规则开机即启动，需要修改/System/Library/LaunchDaemons/com.apple.pfctl.plist
+修改前
+<string>pfctl</string>
+<string>-f</string>
+<string>/etc/pf.conf</string>
+修改后
+<string>pfctl</string>
+<string>-e</string>
+<string>-f</string>
+<string>/etc/pf.conf</string>
+
+
+10.0.0.0/8 (10.0.0.0 - 10.255.255.255)
+172.16.0.0/12 (172.16.0.0 - 172.31.255.255)
+192.168.0.0/16 (192.168.0.0 - 192.168.255.255)
+172.16.1.0/24 (172.16.1.0 - 172.16.1.255)
+192.168.1.0/24 (192.168.1.0 - 192.168.1.255)
+
+proto protocol
+protocol4层协议: tcp udp icmp icmp6
+
+block in all
+block out all
+或
+block all
+
+block in on rl0
+pass in quick log on rl0 proto tcp to port 22 keep state
+第一条规则阻塞rl0上从任意到任意的进入数据包，第二条规则允许rl0上端口22的TCP流量通过。
+
+# 允许本地网络192.168.0.0/24流量通过dc0接口进入访问openbsd机器的IP地址
+#192.168.0.1，同时也允许返回的数据包从dc0接口出去。
+pass in on dc0 from 192.168.0.0/24 to 192.168.0.1
+pass out on dc0 from 192.168.0.1 to 192.168.0.0/24
+
+PF通过antispoof关键字提供一些防止地址欺骗的保护。
+antispoof [log] [quick] for interface [af]
+log
+指定匹配的数据包应该被pflogd进行日志记录
+quick
+如果数据包匹配这条规则，则这是最终的规则，不再进行其他规则集的检查。
+interface
+激活要进行欺骗保护的网络接口。也可以是接口的列表。
+af
+激活进行欺骗保护的地址族，inet代表Ipv4，inet6代表Ipv6。
+实例:
+antispoof for fxp0 inet
+http://blog.chinaunix.net/uid-20674714-id-90862.html
+
+pass quick on lo0 all
+
+默认情况下，PF阻塞带有IP选项得数据包。这可以使得类似nmap得操作系统识别软件工作困难。如果应用程序需要通过这样的数据包，例如多播或者IGMP，可以使用allow-opts关键字
+pass in quick on fxp0 all allow-opts
+
+nat on tl0 from 192.168.1.0/24 to any -> 24.5.0.5
+这条规则是说对从tl0网络接口上到来的所有192.168.1.0/24网络的数据包进行NAT，将源地址转换为24.5.0.5。
+尽管上面的规则是正确的，但却不是推荐的形式。因为维护起来有困难，当内部或者外部网络有变化时都要修改这一行。比较一下下面这条比较容易维护的规则：（tl0时外部，dc0是内部）：
+nat on tl0 from dc0:network to any -> tl0
+优点是相当明显的，可以任意改变2个接口的IP地址而不用改变这条规则。
+
+
+block in quick on tl0 inet from 127.0.0.0/8 to any
+block in quick on tl0 inet from 192.168.0.0/16 to any
+block in quick on tl0 inet from 172.16.0.0/12 to any
+block in quick on tl0 inet from 10.0.0.0/8 to any
+block out quick on tl0 inet from any to 127.0.0.0/8
+block out quick on tl0 inet from any to 192.168.0.0/16
+block out quick on tl0 inet from any to 172.16.0.0/12
+block out quick on tl0 inet from any to 10.0.0.0/8
+
+看看下面更简单的例子：
+
+block in quick on tl0 inet from { 127.0.0.0/8, 192.168.0.0/16, \
+172.16.0.0/12, 10.0.0.0/8 } to any
+block out quick on tl0 inet from any to { 127.0.0.0/8, \
+192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 }
+
+这个规则集从8行减少到2行。如果联合使用宏，还会变得更好：
+
+NoRouteIPs = "{ 127.0.0.0/8, 192.168.0.0/16, 172.16.0.0/12, \
+10.0.0.0/8 }"
+ExtIF = "tl0"
+block in quick on $ExtIF from $NoRouteIPs to any
+block out quick on $ExtIF from any to $NoRouteIPs
+
+注意虽然宏和列表简化了pf.conf文件，但是实际是这些行会被pfctl（8）扩展成多行，因此，上面的例子实际扩展成下面的规则：
+
+block in quick on tl0 inet from 127.0.0.0/8 to any
+block in quick on tl0 inet from 192.168.0.0/16 to any
+block in quick on tl0 inet from 172.16.0.0/12 to any
+block in quick on tl0 inet from 10.0.0.0/8 to any
+block out quick on tl0 inet from any to 10.0.0.0/8
+block out quick on tl0 inet from any to 172.16.0.0/12
+block out quick on tl0 inet from any to 192.168.0.0/16
+block out quick on tl0 inet from any to 127.0.0.0/8
+
+可以看到，PF扩展仅仅是简化了编写和维护pf.conf文件，实际并不简化pf(4)对于规则的处理过程。
+
+用于阻塞数据包，回应TCP RST或者ICMP不可到达的规则集可以这么写：
+
+block in all
+block return-rst in proto tcp all
+block return-icmp in proto udp all
+block out all
+block return-rst out proto tcp all
+block return-icmp out proto udp all
+
+可以简化为：:
+
+block return
+
+
+完整规则集
+
+# macros
+int_if = "fxp0"
+ext_if = "ep0"
+
+tcp_services = "{ 22, 113 }"
+icmp_types = "echoreq"
+
+priv_nets = "{ 127.0.0.0/8, 192.168.0.0/16, 172.16.0.0/12, 10.0.0.0/8 }"
+
+comp3 = "192.168.0.3"
+
+# options
+set block-policy return
+set loginterface $ext_if
+
+# scrub
+scrub in all
+
+# nat/rdr
+nat on $ext_if from $int_if:network to any -> ($ext_if)
+rdr on $int_if proto tcp from any to any port 21 -> 127.0.0.1 \
+port 8021
+rdr on $ext_if proto tcp from any to any port 80 -> $comp3
+
+# filter rules
+block all
+
+pass quick on lo0 all
+
+block drop in quick on $ext_if from $priv_nets to any
+block drop out quick on $ext_if from any to $priv_nets
+
+pass in on $ext_if inet proto tcp from any to ($ext_if) \
+port $tcp_services flags S/SA keep state
+
+pass in on $ext_if proto tcp from any to $comp3 port 80 \
+flags S/SA synproxy state
+
+pass in inet proto icmp all icmp-type $icmp_types keep state
+
+pass in on $int_if from $int_if:network to any keep state
+pass out on $int_if from any to $int_if:network keep state
+
+pass out on $ext_if proto tcp all modulate state flags S/SA
+pass out on $ext_if proto { udp, icmp } all keep state
+
+
+
+# Temporarily block all RST packets so Scapy can handle the SYN-ACKs
+echo "block drop proto tcp all flags R/R" | sudo tee -a /etc/pf.conf
+sudo pfctl -f /etc/pf.conf
+
+
+https://github.com/stefancaspersz/pf-setup
+
+
+pfctl -aswitchyard  -srules
+
+block drop on proto tcp from any port 22 to any port 22
+pfctl -a switchyard -f- < rules.txt
+pfctl -a switchyard -F rules
+pfctl -t switchyard -F r
+
+pfctl -aswitchyard -Fr
+pfctl -X token
+
+
+
+#从内部子网删除不允许的所有内容
+#与因特网的其他部分通信
+# rule 1
+deny ip src 192.168.42.0/24 dst any
+# rule 2
+deny ip src any dst 192.168.42.0/24
+
+#允许来自内部web服务器的流量
+#可供外部主机访问
+# rule 3
+permit tcp src 192.168.13.13 srcport 80 dst any dstport any
+# rule 4
+permit tcp src any srcport any dst 192.168.13.13 dstport 80
+
+#允许DNS（udp端口53）流量进出网络
+# rule 5
+permit udp src 192.168.0.0/16 srcport any dst any dstport 53
+# rule 6
+permit udp src any srcport 53 dst 192.168.0.0/16 dstport any
+
+#允许内部主机访问web（tcp端口80和443）
+#速率限制http流量为100 kB/s（12500字节/秒），但是
+#不要限制任何加密的HTTP流量。
+# rule 7
+permit tcp src 192.168.0.0/16 srcport any dst any dstport 80 ratelimit 12500
+# rule 8
+permit tcp src any srcport any dst 172.16.42.0/24 dstport 80 ratelimit 12500
+# rule 9
+permit tcp src 192.168.0.0/16 srcport any dst any dstport 443
+# rule 10
+permit tcp src any srcport any dst 172.16.42.0/24 dstport 443
+
+#允许，但会影响某些交通流
+# rule 11
+permit tcp src 192.168.0.0/24 srcport any dst any dstport 8000 impair
+
+#允许，但速率限制icmp为100字节/秒
+# rule 12
+permit icmp src any dst any ratelimit 100
+
+#封锁其他一切
+# rule 13
+deny ip src any dst any
+
+
+block out on fxp0 from 10.5.32.6 to any
+
+table <spammers> persist file "/etc/spammers"
+block in on fxp0 from <spammers> to any
+pfctl -t spammers -T add 218.70.0.0/16
+pfctl -t spammers -T show
+pfctl -t spammers -T delete 218.70.0.0/16
+
+table <goodguys> { 172.16.0.0/16, !172.16.1.0/24, 172.16.1.100 }
+ block in on dc0 all
+ pass in on dc0 from <goodguys> to any
+
+[permit|deny] ip src [srcnet|any] dst [dstnet|any]
+[permit|deny| icmp src [srcnet|any] dst [dstnet|any]
+[permit|deny] [udp|tcp] src [srcnet|any] srcport [portno|any] dst [dstnet|any] dstport [portno|any]
+
+阻止源地址为10.0.0.1的任何数据包
+deny ip src 10.0.0.1 dst any
+#src 10.0.0.1允许但速率限制数据包
+#发送到前缀192.168.0.0/16中的任何地址
+#限制为1250字节/秒（10 kbit/s）
+permit ip src 10.0.0.1 dst 192.168.0.0/16 ratelimit 1000
+#允许，但降级提供给数据包的服务
+#从源代码10.0.0.1发送到
+#192.168.0.0/16。
+permit ip src 10.0.0.1 dst 192.168.0.0/16 impair
+
+过滤
+action [direction] [log] [quick] [on interface] [af] [proto protocol]
+       [from src_addr [port src_port]] [to dst_addr [port dst_port]]
+       [flags tcp_flags] [state]
+NAT
+nat [pass] [log] on interface [af] from src_addr [port src_port] to \
+        dst_addr [port dst_port] -> ext_addr [pool_type] [static-port]
+action
+pass 使符合条件的包通过
+block 阻挡符合条件的包，可进一步指定block drop或者block return
+direction in/out 包通过interface的方向
+af, 协议家族 inet表示IPv4
+proto protocol, 指定包协议，例如：TCP UDP ICMP ICMP6
+
+查看 NAT状态 pfctl -s state
+pass out on tl0 from 192.168.1.0/24 to any nat-to 198.51.100.1
+将通过t10传出的，IP源地址为192.168.1.0/24 的IP包，允许通过。将IP源地址NAT替换为198.51.100.1
+web_serv_int = "192.168.1.100" web_serv_ext = "198.51.100.6"
+pass on tl0 from $web_serv_int to any binat-to $web_serv_ext
+binat-to 双向映射 Bidirectional mapping
+
+pass in on egress proto tcp from any to any port 80 rdr-to 192.168.1.20
+将任意源地址/端口，通过egress传入，并且目标端口是80的IP包，重定向到192.168.1.20
+类似于egress是一个网关，192.168.1.20是内网的一个服务器。
+pass in on egress proto tcp from 203.0.113.14 to any port 80 rdr-to 192.168.1.20
+pass in on egress proto tcp from 198.51.100.89 to any port 80 rdr-to 192.168.1.22
+pass in on egress proto tcp from 198.51.100.178 to any port 80 rdr-to 192.168.1.23
+server = 192.168.1.40
+pass in on egress proto tcp from any to egress port 80 rdr-to $server port 80
+
+
+# Load the pf.conf file
+pfctl -f  /etc/pf.conf
+
+# 192.168.0.0/24 发往 192.168.0.1 的包放行
+pass in on dc0 from 192.168.0.0/24 to 192.168.0.1
+# 192.168.0.1 发往 192.168.0.0/24 的包放行
+pass out on dc0 from 192.168.0.1 to 192.168.0.0/24
+
+# 屏蔽 8.8.8.8 发过来的包
+block in on dc0 from 8.8.8.8 to any 192.168.0.1/24
+
+# 重定向 80 端口的 tcp 流量到 192.168.1.20 的 80 端口
+rdr on tl0 proto tcp from any to any port 80 -> 192.168.1.20
+
+
+LINUX 屏蔽IP出站
+iptables -I OUTPUT 1 -d {host} -j DROP
+取消屏蔽
+iptables -D OUTPUT 1
+
+FWREV_URL='http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt'
+
+#restart iptables to clean (base) state
+/etc/init.d/iptables restart
+
+#download emergingthreats
+curl -k ${FWREV_URL} -o /tmp/emerging-Block-IPs.txt
+
+#refresh fwlist.sh
+echo "" > /tmp/fwlist.sh
+
+#process fwlist
+for ip in `awk '$1 !~ /#/ {print $1}' /tmp/emerging-Block-IPs.txt | grep -v '^$'`;
+	do echo "iptables -A INPUT -s $ip -j DROP" >> /tmp/fwlist.sh
+done
+
+bash /tmp/fwlist.sh
+
+exit 1
+
+
+MACOS 屏蔽IP出站
+vi /etc/pf.anchors/org.pi-lot
+block drop out from any to {ip}
+vi /etc/pf.conf
+anchor "org.pi-lot"
+load anchor "org.pi-lot" from "/etc/pf.anchors/org.pi-lot"
+sudo pfctl -F all -f /etc/pf.conf
+取消
+vi /etc/pf.conf
+删除
+anchor "org.pi-lot"
+load anchor "org.pi-lot" from "/etc/pf.anchors/org.pi-lot"
+sudo pfctl -F all -f /etc/pf.conf
+
+
+# -------------------------- variables section --------------------------
+# udp for dns(53),dhcp(67,68),time(123) etc
+udp_ports = "{ 53, 67, 68, 123 }"
+
+# icmp for echo reply, destination unreachable, echo, time exceeded ...etc
+icmp_types= "{ 0, 3, 8, 11 }"
+
+# allowed ports (comma separated) note: airplay(554,3689,5353)
+allowed_tcp_ports = "{ 22, 8080, 554, 3689 }"
+allowed_udp_ports = "{ 554, 5353 }"
+
+# allowed IPs (comma separated)
+allowed_ips = "{ 192.168.1.0/24 }"
+
+# create a table for dynamically adding trusted hosts on the fly
+table <dynamic_ips> persist
+
+# -------------------------- settings section --------------------------
+# DEBUG:
+# urgent -debug messages generated for serious errors
+# misc - debug messages generated for various errors
+# loud - debug messages generated for common conditions
+#set debug loud
+set debug urgent
+
+# A TCP RST is returned for blocked TCP packets, an ICMP unreachable is
+# returned for blocked UDP packets, and all other packets are silently dropped
+set block-policy return
+
+# list interfaces for which packets should not be filtered.
+set skip on lo0
+
+# Load fingerprints of known operating systems for 'os' variable used below
+set fingerprints "/etc/pf.os"
+
+# Optimize state timeouts for a normal network environment.
+set optimization normal
+
+# floating - states can match packets on any interface. As long as the packet
+# matches a state entry and is passing in the same direction as it was on
+# the interface when the state was created, it does not matter what interface
+# it's crossing, it will pass
+set state-policy floating
+
+# DENY rouge redirection
+no rdr
+
+# -------------------------- start of rules --------------------------
+# block and log everything by default
+block log all
+
+# we dont want to talk to winblows of any kind :)
+# list of os from "sudo pfctl -so"
+#block in log quick proto tcp from any os "Windows"
+
+# once the traffic is permitted on an interface, let it go 'out'.
+pass out quick
+
+# allow the necessary udp ports we need
+pass in proto udp to any port $udp_ports
+
+# allow ICMP traffic
+pass in inet proto icmp to any icmp-type $icmp_types
+
+# allow hosts that we trust for tcp and udp list of ports
+pass in proto tcp from $allowed_ips to any port $allowed_tcp_ports
+pass in proto udp from $allowed_ips to any port $allowed_udp_ports
+
+# create an anchor for adding trusted IPs on the fly
+anchor "white_list" {
+  pass in proto tcp from <dynamic_ips> to any port $allowed_tcp_ports
+  pass in proto udp from <dynamic_ips> to any port $allowed_udp_ports
+}
+
+
+结束清理规则
+#!/bin/bash
+
+control_c()
+{
+    pfctl -a com.apple/250.ApplicationFirewall -F rules
+    pfctl -X $token
+    exit $?
+}
+
+# Trap keyboard interrupt (control-c)
+trap control_c SIGINT
+
+token=$(pfctl -E  2>&1 | awk 'END{print $NF}')
+
+echo "block out on en0 inet6 proto udp to any port 5353" | pfctl -a com.apple/250.ApplicationFirewall -f -
+
+sysctl -w net.inet6.ip6.forwarding=1
+
+vi update-et.sh
+#!/bin/sh
+wc -l /opt/pf/emerging-Block-IPs.txt | logger -t pf -p 5
+curl http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt -o /tmp/emerging-Block-IPs.txt
+cp /tmp/emerging-Block-IPs.txt /opt/pf
+chmod 444 /opt/pf/emerging-Block-IPs.txt
+wc -l /opt/pf/emerging-Block-IPs.txt | logger -t pf -p 5
+rm /tmp/emerging-Block-IPs.txt
+pfctl -f /etc/pf.conf
+
+测试配置
+sudo pfctl -v -n -f /etc/pf.conf
+重新加载配置
+sudo pfctl -e -f /etc/pf.conf
+sudo pfctl -sr
+vi /etc/pf.conf
+anchor "emerging-threats" all
+sudo pfctl -a 'emerging-threats' -t 'emerging_threats' -Tshow
+Wireshark 查看 pflog0
+sudo ifconfig pflog0 create
+tcpdump -lnettti pflog0
+
+
+这样，一种可能的解决方案是在“首选项”面板中禁用防火墙，并将此部分添加到/etc/pf.conf文件末尾：
+# Do not filter anything on private interfaces
+set skip on lo0
+set skip on vboxnet0
+set skip on vboxnet1
+
+# Allow all traffic between host and docker VM
+table <docker> const { 192.168.99/24 }
+docker_if = "{" bridge0  vboxnet0  vboxnet1 "}"
+pass quick on $docker_if inet proto icmp from <docker> to <docker>
+pass quick on $docker_if inet proto udp from <docker> to <docker> keep state
+pass quick on $docker_if inet proto tcp from <docker> to <docker> keep state
+
+# Allow icmp
+pass in quick inet  proto icmp
+pass in quick inet6 proto ipv6-icmp
+
+# Bonjour
+pass in quick proto udp from any to any port 5353
+
+# DHCP Client
+pass in quick proto udp from any to any port 68
+
+# Block all incoming traffic by default
+block drop in
+pass out quick
+
+<string>pfctl</string>
+<string>-E</string>
+<string>-f</string>
+<string>/etc/pf.conf</string>
+sudo launchctl load -w /Library/LaunchDaemons/com.yourcompany.pfctl.plist
+
+sudo pfctl -s info
+sudo pfctl -s rules
+
+
+iptables -nL INPUT | grep "IP4BOGONS" &>/dev/null
+if [[ $? -ne 0 ]]; then
+  iptables -N IP4BOGONS; iptables -F IP4BOGONS
+  iptables -A IP4BOGONS -s 10.0.0.0/8 -j RETURN
+  iptables -A IP4BOGONS -s 172.16.0.0/12 -j RETURN
+  iptables -A IP4BOGONS -s 192.168.0.0/16 -j RETURN
+  iptables -A IP4BOGONS -m set --match-set fullbogons-ipv4 src -j DROP
+  iptables -I INPUT ! -i lo -j IP4BOGONS
+fi
+
+
+#!/bin/bash
+
+# Check if chain exists and create one if required
+if [ `iptables -L | grep -c "Chain BLACKLIST-INPUT"` -lt 1 ]; then
+  /sbin/iptables -N BLACKLIST-INPUT
+  /sbin/iptables -I INPUT 1 -j BLACKLIST-INPUT
+fi
+
+# Empty the chain
+/sbin/iptables -F BLACKLIST-INPUT
+wget -qO - http://www.voipbl.org/update/ |\
+  awk '{print "if [ ! -z \""$1"\" -a \""$1"\" !=  \"#\" ]; then /sbin/iptables -A BLACKLIST-INPUT -s \""$1"\" -j DROP;fi;"}' | sh
+
+#!/bin/bash
+
+URL="http://www.voipbl.org/update/"
+
+set -e
+echo "Downloading rules from VoIP Blacklist"
+wget -qO - $URL -O /tmp/voipbl.txt
+
+echo "Loading rules..."
+
+# Check if rule set exists and create one if required
+if ! $(/usr/sbin/ipset list voipbl > /dev/null 2>&1); then
+  ipset -N voipbl iphash
+fi
+
+#Check if rule in iptables
+if ! $(/sbin/iptables -w --check INPUT -m set --match-set voipbl src -j DROP > /dev/null 2>&1); then
+ /sbin/iptables -I INPUT 1 -m set --match-set voipbl src -j DROP
+fi
+
+# Create temporary chain
+ipset destroy voipbl_temp > /dev/null 2>&1 || true
+ipset -N voipbl_temp iphash hashsize 131072 maxelem 260000
+
+cat /tmp/voipbl.txt |\
+  awk '{print "if ! [[ \""$1"\" =~ ^#$|^0.0.0.0 ]]; then /usr/sbin/ipset -A voipbl_temp \""$1"\" ; fi;"}' | sh
+
+ipset swap voipbl_temp voipbl
+ipset destroy voipbl_temp || true
+
+echo "Done! Rules loaded"
+
+
+# Macros
+public_ifs = "{en0, en7}"
+macports = "{131.188.12.211}"
+icloud = "{17.167.143.12, 17.172.100.70, 17.167.143.14, 17.172.100.75}"
+
+# Options
+set skip on lo0
+scrub in on $public_ifs all fragment reassemble
+
+# Default policies: block all
+block in log all
+#block out log all
+pass out all
+
+# emerging threads
+# when match, block quickly
+# source: http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt
+table <emerging_threats> persist file "/etc/pf.anchors/emerging-Block-IPs.txt"
+block log quick from <emerging_threats> to any label "threat in"
+block log quick from any to <emerging_threats> label "threat out"
+
+# dhcp
+pass in on $public_ifs proto {tcp, udp} from any port 67:68 to any port 67:68
+pass in on $public_ifs proto {tcp, udp} from any port 137 to any port 137
+
+# bonjour
+pass in on $public_ifs proto udp from any port 5353 to any port 5353
+
+#ELK
+# Kibana
+#pass in on $public_ifs proto {tcp, udp} from any to any port 5601
+# LOGSTASH DEMO
+#pass in on $public_ifs proto {tcp, udp} from any to any port 5044 label "Logstash beats"
+
+# surfing
+#pass out quick on $public_ifs proto {tcp, udp} from any to any port http label "surfing"
+#pass out quick on $public_ifs proto {tcp, udp} from any to 45.32.236.39 port 8080
+#pass out quick on $public_ifs proto {tcp, udp} from any to any port https label "surfing ssl"
+#pass out quick on $public_ifs proto {tcp, udp} from any to any port 53 label "surfing dns"
+
+# HOSTING
+# lordbytes server on vultr.com
+#pass out on $public_ifs proto {tcp, udp} from any to 45.32.184.159 port 9003
+# sakura-ternat.dev administration
+#pass out on $public_ifs proto {tcp, udp} from any to 141.138.169.209 port 2222
+#pass out on $public_ifs proto {tcp, udp} from any to 141.138.169.219 port 2223
+
+# transmission torrents (TODO: change port)
+# Only works with NAT activated on the router
+#pass out on $public_ifs proto {tcp, udp} from any port 56700 to any label "transmission out"
+#pass in on $public_ifs proto {tcp, udp} from any to any port 56700 label "transmission in"
+
+# SMTP with icloud
+#pass out on $public_ifs proto {tcp, udp} from any to $icloud port 25
+#pass out on $public_ifs proto {tcp, udp} from any to $icloud port 465
+#pass out on $public_ifs proto {tcp, udp} from any to $icloud port 587
+
+# IMAP with icloud
+#pass out on $public_ifs proto {tcp, udp} from any to $icloud port 993
+
+# Allow outgoing SSH
+#pass out on $public_ifs proto {tcp, udp} from any to any port ssh
+
+# Allow rsync for MacPorts (rsync.macports.org)
+#pass out on $public_ifs proto {tcp, udp} from any to $macports port rsync
+
+# Outgoing FTP
+#pass out on $public_ifs proto {tcp, udp} from any to any port ftp label "FTP out"
+
+# Outgoing ping
+#pass out on $public_ifs inet proto icmp from any to any icmp-type { echoreq } label "Ping out"
+
+#pass out on $public_ifs proto {tcp, udp} from any to any port 1024
+
+
+
+
+
+
+

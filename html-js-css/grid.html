@@ -1,0 +1,500 @@
+<style>
+body { background-color: #f4f4f7 }
+:root {
+	--tile-border-radius: 30px;
+	--tile-header-padding: 40px;
+	--tile-content-padding: 70px;
+	--grid-gutter: 25px;
+	--tile-padding: 40px
+}
+
+@media only screen and (max-width: 1068px) {
+	:root {
+		--tile-border-radius: 25px;
+		--tile-content-padding: 60px;
+		--grid-gutter: 20px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	:root {
+		--tile-border-radius: 20px;
+		--tile-header-padding: 30px;
+		--grid-gutter: 15px;
+		--tile-padding: 30px;
+	}
+}
+
+@media only screen and (max-width: 374px) {
+	:root {
+		--tile-border-radius: 0px
+	}
+}
+
+.grid-container {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	max-width: 1440px;
+	display: grid;
+	grid-gap: var(--grid-gutter);
+	padding: 0 var(--grid-gutter);
+	margin: var(--grid-gutter) auto;
+	grid-template-columns: repeat(12, 1fr);
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-container {
+		max-width: calc(400px + var(--grid-gutter) * 2);
+	}
+}
+
+@media only screen and (max-width: 374px) {
+	.grid-container {
+		padding-left: 0;
+		padding-right: 0
+	}
+}
+
+.grid-item {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-color: #fff;
+	border-radius: var(--tile-border-radius);
+	min-height: 780px;
+	z-index: 0
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item {
+		min-height: 650px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item {
+		min-height: 600px;
+	}
+}
+
+.grid-item.span-4-col {
+	grid-column: span 4
+}
+
+.grid-item.span-5-col {
+	grid-column: span 5
+}
+
+.grid-item.span-6-col {
+/* grid-column:span 6 */
+}
+
+.grid-item.span-7-col {
+	grid-column: span 7
+}
+
+.grid-item.span-8-col {
+	grid-column: span 8
+}
+
+.grid-item.span-12-col {
+	grid-column: span 12
+}
+
+@media only screen and (min-width: 735px) and (max-width: 1068px) {
+	.grid-item.span-6-col-medium {
+		grid-column: span 6
+	}
+}
+
+@media only screen and (min-width: 735px) and (max-width: 1068px) {
+	.grid-item.span-12-col-medium {
+		grid-column: span 12
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item.span-12-col-small {
+		grid-column: span 12;
+	}
+}
+
+.grid-item-copy {
+	max-width: 655px
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item-copy {
+		max-width: 600px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-copy {
+		max-width: none
+	}
+}
+
+.grid-item-header {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: var(--tile-header-padding);
+	padding-bottom: 0
+}
+
+.grid-item-header .grid-item-violator {
+	color: #bf4800;
+	position: absolute;
+	top: 23px
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-header .grid-item-violator {
+		top: 22px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-header .grid-item-violator {
+		top: 13px
+	}
+}
+
+.grid-item-content {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	padding: var(--tile-content-padding) 0;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center
+}
+
+.no-v-align-center .grid-item-content {
+	-webkit-box-align: initial;
+	-ms-flex-align: initial;
+	align-items: initial
+}
+
+.no-content-pad .grid-item-content {
+	padding: 0
+}
+
+.no-content-pad-top .grid-item-content {
+	padding-top: 0
+}
+
+.no-content-pad-bottom .grid-item-content {
+	padding-bottom: 0
+}
+
+.grid-item-content .align-self-end {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-item-align: end;
+	align-self: flex-end
+}
+
+.grid-item-content .one-up-hardware {
+	margin-top: -10px;
+	margin-bottom: -108px
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item-content .one-up-hardware {
+		margin-top: -7px;
+		margin-bottom: -84px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-content .one-up-hardware {
+		margin-top: 3px
+	}
+}
+
+.grid-item-content .two-up-hardware {
+	margin-top: -10px;
+	margin-bottom: -118px
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item-content .two-up-hardware {
+		margin-top: -8px;
+		margin-bottom: -84px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-content .two-up-hardware {
+		margin-top: 2px;
+		margin-bottom: -80px
+	}
+}
+
+.grid-item-content .three-up-hardware {
+	margin-top: -10px;
+	margin-bottom: -118px
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item-content .three-up-hardware {
+		margin-top: -13px;
+		margin-bottom: -88px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-content .three-up-hardware {
+		margin-top: 2px;
+		margin-bottom: -80px
+	}
+}
+
+.grid-item-content .landscape-hardware {
+	margin-top: -22px;
+	margin-bottom: -184px
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item-content .landscape-hardware {
+		margin-top: -28px;
+		margin-bottom: -178px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-content .landscape-hardware {
+		margin-top: -42px;
+		margin-bottom: -216px
+	}
+}
+
+@media only screen and (max-width: 1068px) {
+	.grid-item-content .zoomed-hardware {
+		margin-top: -15px
+	}
+}
+
+@media only screen and (min-width: 1069px) and (max-width: 1440px) {
+	.grid-item.span-4-col .grid-item-content-blockquote {
+		-webkit-box-align: start;
+		-ms-flex-align: start;
+		align-items: flex-start
+	}
+}
+
+.grid-item-content-blockquote {
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	padding: var(--tile-header-padding)
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-content-blockquote {
+		-webkit-box-align: start;
+		-ms-flex-align: start;
+		align-items: flex-start
+	}
+}
+
+
+
+.image-overview-translate-conversation-mode {
+	width: 919px;
+	height: 540px;
+	background-size: 919px 540px;
+	background-repeat: no-repeat;
+	background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode__ehjvozlcgfki_large.jpg")
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 1.5dppx), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+	.image-overview-translate-conversation-mode {
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode__ehjvozlcgfki_large_2x.jpg")
+	}
+}
+
+@media only screen and (max-width: 1068px) {
+	.image-overview-translate-conversation-mode {
+		width: 930px;
+		height: 521px;
+		background-size: 930px 521px;
+		background-repeat: no-repeat;
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode__ehjvozlcgfki_medium.jpg")
+	}
+}
+
+@media only screen and (max-width: 1068px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 1068px) and (min-resolution: 1.5dppx), only screen and (max-width: 1068px) and (min-resolution: 144dpi) {
+	.image-overview-translate-conversation-mode {
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode__ehjvozlcgfki_medium_2x.jpg")
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.image-overview-translate-conversation-mode {
+		width: 828px;
+		height: 466px;
+		background-size: 828px 466px;
+		background-repeat: no-repeat;
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode__ehjvozlcgfki_small.jpg")
+	}
+}
+
+@media only screen and (max-width: 734px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 734px) and (min-resolution: 1.5dppx), only screen and (max-width: 734px) and (min-resolution: 144dpi) {
+	.image-overview-translate-conversation-mode {
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode__ehjvozlcgfki_small_2x.jpg")
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.image-overview-translate-conversation-mode-static {
+		width: 400px;
+		height: 466px;
+		background-size: 400px 466px;
+		background-repeat: no-repeat;
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode_static__dyhc1pw5enu6_small.jpg")
+	}
+}
+
+@media only screen and (max-width: 734px) and (-webkit-min-device-pixel-ratio: 1.5), only screen and (max-width: 734px) and (min-resolution: 1.5dppx), only screen and (max-width: 734px) and (min-resolution: 144dpi) {
+	.image-overview-translate-conversation-mode-static {
+		background-image: url("https://www.apple.com/v/ios/ios-14-preview/b/images/overview/translate/conversation_mode_static__dyhc1pw5enu6_small_2x.jpg")
+	}
+}
+
+.grid-item-conversation {
+	--image-space-side: -124px;
+	--image-space-top: 17px;
+	--direction: ltr
+}
+
+@media only screen and (min-width: 735px) {
+	.grid-item-conversation .image-overview-translate-conversation-mode {
+		position: relative;
+		left: 50%;
+		margin-left: -459.5px
+	}
+}
+
+@media only screen and (min-width: 735px) and (max-width: 1068px) {
+	.grid-item-conversation .image-overview-translate-conversation-mode {
+		left: 50%;
+		margin-left: -465px
+	}
+}
+
+@media only screen and (min-width: 735px) and (max-width: 734px) {
+	.grid-item-conversation .image-overview-translate-conversation-mode {
+		left: 50%;
+		margin-left: -414px
+	}
+}
+
+@media only screen and (max-width: 734px) {
+	.grid-item-conversation .image-overview-translate-conversation-mode {
+		position: relative;
+		-webkit-transform-origin: left center;
+		transform-origin: left center;
+		top: calc(var(--image-space-top) * -1);
+		min-width: 828px
+	}
+
+	html.no-js .grid-item-conversation .image-overview-translate-conversation-mode,html.aow .grid-item-conversation .image-overview-translate-conversation-mode,html.reduced-motion .grid-item-conversation .image-overview-translate-conversation-mode,html.no-js .grid-item-conversation .image-overview-translate-conversation-mode,html.aow .grid-item-conversation .image-overview-translate-conversation-mode,html.reduced-motion .grid-item-conversation .image-overview-translate-conversation-mode,html.no-js .grid-item-conversation .image-overview-translate-conversation-mode,html.aow .grid-item-conversation .image-overview-translate-conversation-mode,html.reduced-motion .grid-item-conversation .image-overview-translate-conversation-mode {
+		visibility: hidden;
+		position: absolute
+	}
+}
+
+.grid-item-conversation .image-overview-translate-conversation-mode-static {
+	visibility: hidden
+}
+
+@media only screen and (max-width: 734px) {
+	html.no-js .grid-item-conversation .image-overview-translate-conversation-mode-static,html.aow .grid-item-conversation .image-overview-translate-conversation-mode-static,html.reduced-motion .grid-item-conversation .image-overview-translate-conversation-mode-static,html.no-js .grid-item-conversation .image-overview-translate-conversation-mode-static,html.aow .grid-item-conversation .image-overview-translate-conversation-mode-static,html.reduced-motion .grid-item-conversation .image-overview-translate-conversation-mode-static,html.no-js .grid-item-conversation .image-overview-translate-conversation-mode-static,html.aow .grid-item-conversation .image-overview-translate-conversation-mode-static,html.reduced-motion .grid-item-conversation .image-overview-translate-conversation-mode-static {
+		visibility: visible;
+		position: relative;
+		top: calc(var(--image-space-top) * -1)
+	}
+}
+
+
+</style>
+<div class="grid-container">
+				<div class="grid-item span-8-col span-12-col-medium span-12-col-small grid-item-conversation" data-anim-scroll-group="conversation" data-component-list="DeviceTranslate" data-anim-name="conversation-mode">
+					<div class="grid-item-header">
+						<h3 class="grid-item-headline typography-subsection-headline">
+							Conversation mode
+						</h3>
+						<p class="grid-item-copy typography-subsection-copy">With Translate, conversations are easy by design. Just turn your phone to landscape and tap the single microphone button to say&nbsp;something.</p>
+					</div>
+					<div class="grid-item-content">
+						<figure class="image-overview-translate-conversation-mode translate-device landscape-hardware" style="transform: matrix(1, 0, 0, 1, -332, 0);" data-anim-lazy-image-download-complete=""></figure>
+						<figure class="image-overview-translate-conversation-mode-static landscape-hardware" data-anim-lazy-image-download-complete=""></figure>
+					</div>
+					<div class="grid-modal ">
+						<label tabindex="0" class="modal-cta" for="modal-toggle-conversation">
+	</label>
+						<div class="modal-content" role="group" aria-label="More content about Conversation mode">
+							<div class="grid-item-header" id="content-toggle-conversation">
+								<h3 class="grid-item-headline typography-subsection-headline modal-headline">Conversation mode</h3>
+								<div class="modal-copy-wrap fade-transform-in">
+									<p class="modal-copy">Automatic language detection transcribes the original and translated text on the appropriate sides of the screen, followed by translated audio. Translate uses advanced on-device machine learning and the powerful Apple&nbsp;Neural&nbsp;Engine to enable natural‑sounding conversations.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="grid-item span-4-col span-6-col-medium span-12-col-small grid-item-offline-translation" data-anim-scroll-group="offline-translation">
+					<div class="grid-item-header">
+						<h3 class="grid-item-headline typography-subsection-headline">
+							On‑device mode
+						</h3>
+						<p class="grid-item-copy typography-subsection-copy">Enable a fully offline experience for Translate. Use all the app features for downloaded languages and keep your translations private without needing to turn off your phone’s internet&nbsp;connection.</p>
+					</div>
+					<div class="grid-item-content">
+						<figure class="image-overview-translate-offline-translation one-up-hardware" data-anim-lazy-image-download-complete=""></figure>
+					</div>
+				</div>
+				<div class="grid-item span-4-col span-6-col-medium span-12-col-small grid-item-phrases" data-anim-scroll-group="phrases">
+					<div class="grid-item-header">
+						<h3 class="grid-item-headline typography-subsection-headline">
+							Favorites
+						</h3>
+						<p class="grid-item-copy typography-subsection-copy">Save translations in the Favorites tab for easy access later. You can also view your recent history and save phrases you just&nbsp;translated.</p>
+					</div>
+					<div class="grid-item-content">
+						<figure class="image-overview-translate-favorite-phrases one-up-hardware" data-anim-lazy-image-download-complete=""></figure>
+					</div>
+				</div>
+				<div class="grid-item span-8-col span-12-col-medium span-12-col-small grid-item-enlarged-view" data-anim-scroll-group="enlarged-view" data-component-list="DeviceTranslate" data-anim-name="attention-mode">
+					<div class="grid-item-header">
+						<h3 class="grid-item-headline typography-subsection-headline">
+							Attention mode
+						</h3>
+						<p class="grid-item-copy typography-subsection-copy">Enlarge translated text in landscape view, making it easier to read and more effective at getting someone’s&nbsp;attention.</p>
+					</div>
+					<div class="grid-item-content">
+						<figure class="image-overview-translate-enlarged-view translate-device landscape-hardware" style="" data-anim-lazy-image-download-complete=""></figure>
+						<figure class="image-overview-translate-enlarged-view-static landscape-hardware" data-anim-lazy-image-download-complete=""></figure>
+					</div>
+				</div>
+			</div>

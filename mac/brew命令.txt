@@ -11,6 +11,20 @@ git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
 echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
 source ~/.bash_profile
 
+aliyun安装
+git clone https://github.com/Homebrew/install brew-install
+sed -i "" "s/BREW_REPO=\"https:\/\/github.com\/Homebrew\/brew\"/BREW_REPO=\"https:\/\/mirrors.aliyun.com\/homebrew\/brew.git\"/g" ./brew-install/install.sh
+/bin/bash -c "$(cat ./brew-install/install.sh)"
+或者
+cd /usr/local/
+git clone -b stable https://mirrors.aliyun.com/homebrew/brew.git Homebrew
+cd /usr/local/Homebrew/Library/Taps/homebrew/
+git clone -b master https://mirrors.aliyun.com/homebrew/homebrew-core.git homebrew-core
+git clone -b master https://mirrors.ustc.edu.cn/homebrew-cask.git homebrew-cask
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
+source ~/.bash_profile
+/usr/local/Homebrew/brew update --force
+
 更新中科大源
 cd "$(brew --repo)"
 git remote set-url origin https://mirrors.ustc.edu.cn/brew.git

@@ -113,3 +113,20 @@ reconfigure with override
 GO
 
 
+
+BACKUP DATABASE mirror
+    TO DISK = '\\SQLServer-1\backup\mirror.bak'
+    WITH FORMAT
+GO
+BACKUP LOG mirror
+    TO DISK = '\\SQLServer-1\backup\mirror.bak'
+GO
+RESTORE DATABASE TESTPROJECT
+FROM DISK = N'\\SQLServer-1\Backup\mirror.bak'
+with NORECOVERY
+GO
+
+RESTORE LOG AdventureWorks
+    FROM DISK = '\\SQLServer-1\Backup\mirror.bak'
+    WITH FILE=1, NORECOVERY
+GO
