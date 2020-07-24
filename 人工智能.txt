@@ -3274,6 +3274,7 @@ https://github.com/AlexeyAB/darknet
 https://mp.weixin.qq.com/s/PY3-EMZrtnfacslLUNLDcg
 https://github.com/jario-jin/spire-image-manager
 https://github.com/bfshi/DGAM-Weakly-Supervised-Action-Localization
+https://github.com/TuSimple/simpledet
 
 用于多语言无监督或受监督词嵌入的库
 https://github.com/facebookresearch/MUSE
@@ -3647,3 +3648,27 @@ https://github.com/ildoonet/tf-pose-estimation
 https://github.com/didi/athena
 https://github.com/didi/ChineseNLP
 https://github.com/didi/delta
+
+https://github.com/Media-Smart/vedastr
+
+目标感知
+https://github.com/researchmm/TracKit
+
+https://lionbridge.ai/datasets/tensorflow-datasets-machine-learning/
+https://medium.com/better-programming/the-22-most-used-python-packages-in-the-world-7020a904b2e
+
+https://github.com/google/tsunami-security-scanner
+https://mp.weixin.qq.com/s/z9fe3upFmoZBbFQOJlrAww
+https://opensource.com/article/20/6/kubernetes-raspberry-pi
+
+OCR
+https://github.com/JaidedAI/EasyOCR
+https://github.com/clovaai/CRAFT-pytorch
+https://github.com/clovaai/deep-text-recognition-benchmark
+pip install easyocr
+pip install git+git://github.com/jaidedai/easyocr.git
+import easyocr
+reader = easyocr.Reader(['ch_sim','en'])
+reader.readtext('chinese.jpg')
+easyocr -l ch_sim en -f chinese.jpg --detail=1 --gpu=True
+

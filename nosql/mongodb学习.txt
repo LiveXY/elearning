@@ -436,3 +436,7 @@ mongoimport -u root -p rbnewlife --port 27017 --authenticationDatabase admin -d 
 创建oplog
 use local
 db.createCollection("oplog.rs", {"capped" : true, "size" : 10000000})
+
+centos 7 ansible 安装 mongodb 集群
+https://blog.csdn.net/liangkiller/article/details/100761623
+https://blog.csdn.net/qq_39570637/article/details/103744284
