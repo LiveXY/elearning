@@ -30,21 +30,33 @@ server {
 	gzip_vary off;
 	gzip_disable "MSIE [1-6]\.";
 
-	location ~ \.db {
+	location ~ ^(.+.db)(.*)$ {
 		deny all;
 	}
-	location ~ /\.git {
+	location ~ ^(.+.sql)(.*)$ {
 		deny all;
 	}
-	location ~ /\.svn {
+	location ~ ^(.+.bak)$ {
+		deny all;
+	}
+	location ~ /\.(.*)$ {
+		deny all;
+	}
+	location ~ ^(.*)\.(ini|config|conf|sh|bat|py)$ {
 		deny all;
 	}
 
 	location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico|JPG|GIF|PNG|BMP|SWF|ICO)$ {
 		expires 30d;
+		access_log off;
 	}
 	location ~ .*\.(js|css|JS|CSS)$ {
 		expires 12h;
+		access_log off;
+	}
+	location ~ .*\.(lua|pb|ab)$ {
+		expires 30d;
+		access_log off;
 	}
 }
 

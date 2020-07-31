@@ -52,6 +52,7 @@ gitlab-ctl status
 gitlab-rake gitlab:check
 gitlab-ctl restart unicorn
 gitlab-ctl tail unicorn
+gitlab-ctl show-config
 
 gitlab-rake gitlab:env:info
 gitlab-ctl tail
@@ -105,3 +106,20 @@ gitlab-rake gitlab:check --trace
 wrong or missing hooks
 sudo -u git -H /opt/gitlab/embedded/service/gitlab-shell/bin/create-hooks
 gitlab-rake db:migrate:status --trace
+
+SSH无法登陆
+ll /opt/gitlab/embedded/service/gitlab-shell/config.yml
+ll /var/opt/gitlab/gitlab-shell/config.yml
+stat config.yml
+chmod 640 config.yml
+ssh -Tvvv git@GITURL
+查看git账号是否禁用
+cat /etc/passwd | grep git
+锁定账号 git
+passwd -l git
+usermod -L git
+解除对 git 的锁定
+passwd -u git
+usermod -U git
+
+ssh-keygen -R GITURL

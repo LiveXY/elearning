@@ -3347,6 +3347,10 @@ https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch
 https://github.com/ifzhang/FairMOT
 
 YOLOv4
+https://github.com/WongKinYiu/PyTorch_YOLOv4
+https://github.com/ultralytics/yolov3
+https://github.com/amusi/YOLO-Reproduce-Summary
+
 https://github.com/pjreddie/darknet
 https://github.com/AlexeyAB/darknet
 cd darknet
@@ -3672,3 +3676,7 @@ reader = easyocr.Reader(['ch_sim','en'])
 reader.readtext('chinese.jpg')
 easyocr -l ch_sim en -f chinese.jpg --detail=1 --gpu=True
 
+https://github.com/UZ-SLAMLab/ORB_SLAM3
+github.com/VDIGPKU/DADA
+
+https://github.com/Shawn-Shan/fawkes
