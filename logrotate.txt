@@ -1,5 +1,18 @@
 logrotate
 ======
+/etc/logrotate.d/pm2jh
+/root/.pm2/logs/jh-out.log {
+    daily
+    dateext
+    rotate 10
+    missingok
+    notifempty
+    compress
+    copytruncate
+}
+logrotate /etc/logrotate.conf
+logrotate -vf /etc/logrotate.d/pm2jh
+
 /etc/logrotate.d/haproxy
 /var/log/haproxy.log {
     daily

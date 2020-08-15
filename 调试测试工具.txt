@@ -67,3 +67,380 @@ https://www.cnblogs.com/lidabo/p/5490200.html
 truss -fa -t open -p `ps -ef | grep inetd | grep -v grep | awk '{print $2}'`
 
 ltrace
+
+
+编译阶段
+nm                 获取二进制文件包含的符号信息
+strings           获取二进制文件包含的字符串常量
+strip               去除二进制文件包含的符号
+readelf           显示目标文件详细信息
+objdump         尽可能反汇编出源代码
+addr2line        根据地址查找代码行
+运行阶段
+gdb                强大的调试工具
+ldd                 显示程序需要使用的动态库和实际使用的动态库
+strace            跟踪程序当前的系统调用
+ltrace             跟踪程序当前的库函数
+time               查看程序执行时间、用户态时间、内核态时间
+gprof              显示用户态各函数执行时间
+valgrind          检查内存错误
+mtrace           检查内存错误
+
+02 编译阶段
+
+nm（获取二进制文件里面包含的符号）
+符号：函数、变量
+
+参数：
+
+-C           把C++函数签名转为可读形式
+-A           列出符号名的时候同时显示来自于哪个文件。
+-a           列出所有符号（这将会把调试符号也列出来。默认状态下调试符号不会被列出）
+-l            列出符号在源代码中对应的行号（指定这个参数后，nm将利用调试信息找出文件名以及符号的行号。对于一个已定义符号，将会找出这个符号定义的行号，对于未定义符号,显示为空）
+-n           根据符号的地址来排序（默认是按符号名称的字母顺序排序的）
+-u           只列出未定义符号
+strings（获取二进制文件里面的字符串常量）
+功能：
+
+获取二进制文件里面的字符串常量
+
+用途：
+
+比较重要的是检查KEY泄露
+
+eg：strings <your_proc> | grep '^.\{16\}$' 查找<your_proc>中是否存在一行有16个字符的行，并显示出来。
+
+选项：
+
+-a 不只是扫描目标文件初始化和装载段, 而是扫描整个文件。
+-f 在显示字符串之前先显示文件名。
+-n min-len打印至少min-len字符长的字符串.默认的是4。
+#strings /lib/tls/libc.so.6 | grep GLIBC
+GLIBC_2.0
+GLIBC_2.1
+GLIBC_2.1.1
+……
+这样就能看到glibc支持的版本。
+
+strip（去除二进制文件里面包含的符号）
+用途：
+
+可执行程序减肥（通常只在已经调试和测试过的生成模块上，因为不能调试了）
+
+反编译、反跟踪
+
+readelf（显示目标文件详细信息）
+nm 程序可用于列举符号及其类型和值，但是，要更仔细地研究目标文件中这些命名段的内容，需要使用功能更强大的工具。其中两种功能强大的工具是objdump和readelf。
+
+readelf工具使用来显示一个或多个ELF格式文件信息的GNU工具。使用不同的参数可以查看ELF文件不同的的信息。
+
+readelf <option> <elffile>
+
+-a           显示所有ELF文件的信息
+-h           显示ELF文件的文件头
+-l            显示程序头（program-header）和程序段（segment）和段下面的节
+-S           显示较为详细的节信息（section）
+-s           显示符号信息，
+-n           显示标识信息（如果有）
+-r            显示重定位信息(如果有)
+-u           显示展开函数信息（如果有）
+-d           显示动态节信息，一般是动态库的信息
+objdump（尽可能反汇编出源代码）objdump –S <exe>
+
+尽可能反汇编出源代码，尤其当编译的时候指定了-g参数时，效果比较明显。
+
+addr2line（根据地址查找代码行）
+当某个进程崩溃时，日志文件（/var/log/messages）中就会给出附加的信息，包括程序终止原因、故障地址，以及包含程序状态字（PSW）、通用寄存器和访问寄存器的简要寄存器转储。
+
+eg：Mar 31 11:34:28 l02 kernel: failing address: 0
+
+如果可执行文件包括调试符号（带-g编译的），使用addr2line，可以确定哪一行代码导致了问题。
+
+eg：addr2line –e exe addr
+
+其实gdb也有这个功能，不过addr2line的好处是，很多时候，bug很难重现，我们手上只有一份crash log。这样就可以利用addr2line找到对应的代码行，很方便。
+
+注意：
+
+该可执行程序用-g编译，使之带调试信息。
+如果crash在一个so里面，那addr2line不能直接给出代码行。
+参数：
+
+-a     在显示函数名或文件行号前显示地址
+-b     指定二进制文件格式
+-C     解析C++符号为用户级的名称,可指定解析样式
+-e     指定二进制文件
+-f      同时显示函数名称
+-s     仅显示文件的基本名，而不是完整路径
+-i      展开内联函数
+-j      读取相对于指定节的偏移而不是绝对地址
+-p     每个位置都在一行显示
+
+03 运行阶段
+
+调试程序的常见步骤：
+
+1、确定运行时间主要花在用户态还是内核态（比较土的一个方法：程序暂时屏蔽daemon()调用，hardcode收到n个请求后exit(0)，time一下程序……）。
+
+2、如果是用户态，则使用gprof进行性能分析。
+
+3、如果是内核态，则使用strace进行性能分析，另外可以使用其他工具（比如ltrace等）辅助。
+
+ldd（显示程序需要使用的动态库和实际使用的动态库）
+# ldd /bin/ls
+linux-gate.so.1 =>  (0xbfffe000)
+librt.so.1 => /lib/librt.so.1 (0xb7f0a000)
+libacl.so.1 => /lib/libacl.so.1 (0xb7f04000)
+libc.so.6 => /lib/libc.so.6 (0xb7dc3000)
+libpthread.so.0 => /lib/libpthread.so.0 (0xb7dab000)
+/lib/ld-linux.so.2 (0xb7f1d000)
+libattr.so.1 => /lib/libattr.so.1 (0xb7da6000)
+第一栏：需要用什么库；第二栏：实际用哪个库文件；第三栏：库文件装载地址。
+
+如果缺少动态库，就会没有第二栏。
+
+strace（跟踪当前系统调用）
+结果默认输出到2。
+
+-p <pid> attach到一个进程
+-c 最后统计各个system call的调用情况
+-T 打印system call的调用时间
+-t/-tt/-ttt 时间格式
+-f/-F 跟踪由fork/vfork调用所产生的子进程
+-o <file>，将strace的输出定向到file中。
+如：strace -f -o ~/<result_file> <your_proc>
+
+-e expr 指定一个表达式，用来控制如何跟踪，格式如下:
+-e open等价于-e trace=open，表示只跟踪open调用
+使用 strace –e open ./prg 来看程序使用了哪些配置文件或日志文件，很方便。
+
+-e trace=<set> 只跟踪指定的系统调用
+例如：-e trace=open,close,rean,write 表示只跟踪这四个系统调用.
+
+-e trace=file只跟踪有关文件操作的系统调用
+-e trace=process只跟踪有关进程控制的系统调用
+-e trace=network跟踪与网络有关的所有系统调用
+-e strace=signal 跟踪所有与系统信号有关的系统调用
+-e trace=ipc跟踪所有与进程通讯有关的系统调用
+ltrace（跟踪当前库函数）
+参数和strace很接近
+
+time（查看程序执行时间、用户态时间、内核态时间）
+# time ps aux | grep 'hi'
+1020 21804 0.0 0.0 1888 664 pts/6 S+ 17:46 0:00 grep hi
+real 0m0.009s
+user 0m0.000s
+sys 0m0.004s
+注意：
+
+time只跟踪父进程，所以不能fork
+
+gprof（显示用户态各函数执行时间）
+gprof原理：
+
+在编译和链接程序的时候（使用 -pg 编译和链接选项），gcc在你应用程序的每个函数中都加入了一个名为mcount（or“_mcount”, or“__mcount”）的函数，也就是说-pg编译的应用程序里的每一个函数都会调用mcount, 而mcount会在内存中保存一张函数调用图，并通过函数调用堆栈的形式查找子函数和父函数的地址。这张调用图也保存了所有与函数相关的调用时间，调用次数等等的所有信息。
+使用步骤：
+
+1、使用 -pg 编译和链接应用程序
+
+gcc -pg -o exec exec.c
+
+如果需要库函数调用情况：
+
+gcc -lc_p -gp -o exec exec.c
+
+2、执行应用程序使之生成供gprof 分析的数据gmon.out
+
+3、使用gprof 程序分析应用程序生成的数据
+
+gprof exec gmon.out > profile.txt
+
+注意：
+
+程序必须通过正常途径退出（exit()、main返回），kill无效。对后台常驻程序的调试——我的比较土方法是，屏蔽daemon()调用，程序hardcode收到n个请求后exit(0)。
+
+有时不太准。
+
+只管了用户态时间消耗，没有管内核态消耗。
+
+gdb core exec （gdb查看core文件） 准备生成core：
+
+启动程序前，ulimit -c unlimited，设置core文件不限制大小。（相反，ulimit -c 0，可以阻止生成core文件）
+
+默认在可执行程序的路径，生成的是名字为core的文件，新的core会覆盖旧的。
+
+设置core文件名字：
+
+/proc/sys/kernel/core_uses_pid 可以控制产生的core文件的文件名中是否添加pid作为扩展，1为扩展，否则为0。
+
+proc/sys/kernel/core_pattern 可以设置格式化的core文件保存位置或文件名，比如原来文件内容是core，可以修改为：
+
+echo "/data/core/core-%e-%p-%t" > core_pattern
+
+以下是参数列表:
+
+%p - insert pid into filename 添加pid
+%u - insert current uid into filename 添加当前uid
+%g - insert current gid into filename 添加当前gid
+%s - insert signal that caused the coredump into the filename 添加导致产生core的信号
+%t - insert UNIX time that the coredump occurred into filename 添加core文件生成时的unix时间
+%h - insert hostname where the coredump happened into filename 添加主机名
+%e - insert coredumping executable name into filename 添加命令名
+使用gdb查看core：
+
+gdb <program> <core文件>
+
+opprofile （查看CPU耗在哪）
+常用命令
+
+使用oprofile进行cpu使用情况检测，需要经过初始化、启动检测、导出检测数据、查看检测结果等步骤，以下为常用的oprofile命令。
+
+初始化
+
+opcontrol --no-vmlinux : 指示oprofile启动检测后，不记录内核模块、内核代码相关统计数据
+opcontrol --init : 加载oprofile模块、oprofile驱动程序
+检测控制
+
+opcontrol --start : 指示oprofile启动检测
+opcontrol --dump : 指示将oprofile检测到的数据写入文件
+opcontrol --reset : 清空之前检测的数据记录
+opcontrol -h : 关闭oprofile进程
+查看检测结果
+
+opreport : 以镜像(image)的角度显示检测结果，进程、动态库、内核模块属于镜像范畴
+opreport -l : 以函数的角度显示检测结果
+opreport -l test : 以函数的角度，针对test进程显示检测结果
+opannotate -s test : 以代码的角度，针对test进程显示检测结果
+opannotate -s /lib64/libc-2.4.so : 以代码的角度，针对libc-2.4.so库显示检测结果
+linux # opreport
+CPU: Core 2, speed 2128.07 MHz (estimated) Counted CPU_CLK_UNHALTED events (Clock cycles when not halted) with a unit mask of 0x00 (Unhalted core cycles) count 100000CPU_CLK_UNHAL
+T.........|   samples |           %| ------------------------   31645719     87.6453      no-vmlinux       4361113     10.3592      libend.so       7683      0.1367      libpython2.4.so.1.0        7046      0.1253      op_test
+valgrind（检查内存错误）
+使用步骤：
+
+1、官网下载并安装valgrind。
+
+2、-g编译的程序都可以使用。
+
+官网的示例代码test.c
+
+#include <stdlib.h>
+void f(void)
+{
+  int* x = malloc(10 * sizeof(int));
+  x[10] = 0;        // problem 1: heap block overrun
+}                    // problem 2: memory leak -- x not freed
+
+int main(void)
+{
+  f();
+  return 0;
+}
+编译程序gcc -Wall -g -o test test.c
+
+3、valgrind启动程序，屏幕输出结果。
+
+valgrind --tool=memcheck --leak-check=full ./test
+
+注意：
+
+valgrind只能查找堆内存的访问错误，对栈上的对象和静态对象没办法。
+
+valgrind会影响进程性能，据说可能慢20倍，所以在性能要求高的情况下，只能使用mtrace这种轻量级的工具了（但是mtrace只能识别简单的内存错误）。
+
+如果程序生成的core的堆栈是错乱的，那么基本上是stackoverflow了。这种情况，可以通过在编译的时候，加上 –fstack-protector-all 和 -D_FORTIFY_SOURCE=2 来检测。Stack-protector-all 会在每个函数里加上堆栈保护的代码，并在堆栈上留上指纹。（记录下，没用过）
+
+因为valgrind 查不了栈和静态对象的内存访问越界，这类问题，可以通过使用gcc的-fmudflap –lmudflap 来检测。（记录下，没用过）
+
+全局变量的类型不一致的问题，现在还找到比较好的方法，这从另一个方面说明全局对象不是个好的设计，这给调试带来了麻烦。
+
+mtrace（检查内存错误）
+mtrace是glibc內提供的工具，原理很简单，就是把你程序中malloc()和free()的位置全部下來，最后两辆配对，沒有配对到的就是memory leak。
+
+使用的步骤如下：
+
+1、代码中添加mtrace()
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(void)
+{
+  int *p;
+  int i;
+#ifdef DEBUG
+  setenv("MALLOC_TRACE", "./memleak.log", 1);
+  mtrace();
+#endif
+  p=(int *)malloc(1000);
+  return 0;
+}
+这段代码malloc了一个空间，却沒有free掉。我们添加9-12行的mtrace调用。
+
+2、编译gcc -g -DDEBUG -o test1 test1.c
+
+3、执行./test1，在目录里会发现./memleak.log。
+
+4、使用mtrace <your_proc> memleak.log 查看信息。
+
+# mtrace test1 memleak.log
+- 0x0804a008 Free 3 was never alloc'd 0xb7e31cbe
+- 0x0804a100 Free 4 was never alloc'd 0xb7ec3e3f
+- 0x0804a120 Free 5 was never alloc'd 0xb7ec3e47
+
+Memory not freed:
+-----------------
+Address     Size     Caller
+0x0804a4a8    0x3e8  at /home/illidanliu/test1.c:14
+可以看到test1.c没有对应的free()。
+
+04 其他
+proc文件系统
+内核的窗口。
+
+proc文件系统是一个伪文件系统，它存在内存当中，而不占用外存空间。
+
+用户和应用程序可以通过proc得到系统的信息，并可以改变内核的某些参数。
+
+proc/目录结构（部分）：
+
+cmdline                 内核命令行
+cpuinfo                  关于Cpu信息
+devices                 可以用到的设备（块设备/字符设备）
+filesystems           支持的文件系统
+interrupts               中断的使用
+ioports                  I/O端口的使用
+kcore                    内核核心映像
+kmsg                    内核消息
+meminfo　　　　 内存信息
+mounts                 加载的文件系统
+stat                       全面统计状态表
+swaps                   对换空间的利用情况
+version                  内核版本
+uptime                  系统正常运行时间
+net                        网络信息
+sys                       可写，可以通过它来访问或修改内核的参数
+proc/<pid>/目录结构（部分）：
+
+cmdline                 命令行参数
+environ                  环境变量值
+fd                         一个包含所有文件描述符的目录
+mem                     进程的内存被利用情况
+stat                       进程状态
+status                   Process status in human readable form
+cwd                      当前工作目录的链接
+exe                       Link to the executable of this process
+maps                    内存映像
+statm                    进程内存状态信息
+root                       链接此进程的root目录
+系统日志
+/var/log/下的日志文件：
+
+/var/log/messages        整体系统信息，其中也包含系统启动期间的日志。此外，mail、cron、daemon、kern和auth等内容也记录在var/log/messages日志中。
+/var/log/auth.log            系统授权信息，包括用户登录和使用的权限机制等。
+/var/log/boot.log            系统启动时的日志。
+/var/log/daemon.log       各种系统后台守护进程日志信息。
+/var/log/lastlog                     记录所有用户的最近信息。这不是一个ASCII文件，因此需要用lastlog命令查看内容。
+/var/log/user.log            记录所有等级用户信息的日志。
+/var/log/cron                 每当cron进程开始一个工作时，就会将相关信息记录在这个文件中。
+/var/log/wtmp或utmp    登录信息。
+/var/log/faillog               用户登录失败信息。此外，错误登录命令也会记录在本文件中。

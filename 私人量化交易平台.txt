@@ -1,0 +1,486 @@
+
+文章介绍：
+https://zhuanlan.zhihu.com/p/26368398
+https://zhuanlan.zhihu.com/p/95562285
+https://www.jianshu.com/p/bf6c4a9818c1
+
+优矿 - 通联量化实验室
+https://uqer.datayes.com/
+https://www.datayes.com/
+https://m.datayes.com/
+https://apidoc.datayes.com/app/overview
+
+聚宽 - 量化回测平台
+https://www.joinquant.com/
+pip install jqdatasdk
+
+pip install akshare
+https://github.com/jindaxiang/akshare
+
+bigquant 你的人工智能量化平台 - 可以无门槛地使用机器学习、人工智能开发量化策略，基于python，提供策略自动生成器
+https://bigquant.com/
+https://bigquant.com/docs/data.html
+
+镭矿 - 基于量化回测平台
+http://raquant.com/
+
+发明者
+https://www.fmz.com/
+https://www.fmz.com/api
+
+果仁网 - 回测量化平台
+https://guorn.com/
+
+Ricequant - 量化交易平台
+https://www.ricequant.com/welcome/
+https://www.ricequant.com/doc/rqdata/python/
+
+况客 - 基于R语言量化回测平台
+https://qutke.com/
+
+掘金量化 - 支持C/C++、C#、MATLAB、Python和R的量化交易平台
+https://www.myquant.cn/
+
+http://www.digquant.com.cn/
+http://www.smartquant.cn/
+https://github.com/QuantBox/OpenQuant-Esunny
+
+Factors - 数库多因子量化平台
+http://factors.chinascope.com/
+
+
+Quantopian 研究、回测、算法众包平台
+https://www.quantopian.com/home
+QuantConnect 研究、回测和投资交易
+https://www.quantconnect.com/
+Quantstart 研究、回测和投资交易、数据科学网站
+https://www.quantstart.com/
+ASC 研究、交易平台
+http://alphasecurecapital.com/
+zulutrade 自动交易平台
+https://japan.zulutrade.com/
+quantpedia 研究、策略平台
+https://quantpedia.com/
+algotrading101 策略研究平台
+https://algotrading101.com/
+investopedia 可以股票、外汇模拟交易的财经网站
+https://www.investopedia.com/
+Amibroker 提供系统交易工具的一家公司
+http://www.amibroker.com/
+AlgoTrades 股票、ETF、期货自动交易系统
+https://www.algotrades.net/
+Numerai 数据工程师众包的一家对冲基金
+https://numer.ai/
+WealthFront 财富管理平台
+https://www.wealthfront.com/
+Betterment 个人投资平台
+https://www.betterment.com/
+TradeLink 量化交易平台
+https://tradelinkllc.com/
+ActiveQuant 基于JavaScript开源交易开发框架
+https://github.com/activequant
+
+
+https://www.multicharts.cn/
+文华赢智 、TB、金字塔、MultiCharts 中国版 - 程序化交易软件、MT4、TradeStation
+Auto-Trader - 基于MATLAB的量化交易平台
+BotVS - 云端在线量化平台
+
+MT4
+https://www.metatrader4.com/
+
+开源框架
+Pandas - 数据分析包
+https://github.com/pandas-dev/pandas
+Zipline - 一个Python的回测框架
+https://github.com/quantopian/zipline
+vnpy - 基于python的开源交易平台开发框架
+https://github.com/vnpy/vnpy
+tushare - 财经数据接口包
+https://pypi.org/project/tushare/
+easytrader - 进行自动的程序化股票交易
+https://github.com/shidenggui/easytrader
+pyalgotrade - 一个Python的事件驱动回测框架
+https://github.com/gbeced/pyalgotrade
+pyalgotrade-cn - Pyalgotrade-cn在原版pyalgotrade的基础上加入了A股历史行情回测，并整合了tushare提供实时行情。
+https://github.com/Yam-cn/pyalgotrade-cn
+zwPython - 基于winpython的集成式python开发平台
+https://github.com/ziwang-com/
+quantmod - 量化金融建模
+https://github.com/joshuaulrich/quantmod
+rqalpha - 基于Python的回测引擎
+https://github.com/ricequant/rqalpha/
+quantdigger - 基于python的量化回测框架
+https://github.com/QuantFans/quantdigger
+pyktrader - 基于pyctp接口，并采用vnpy的eventEngine，使用tkinter作为GUI的python交易平台
+https://github.com/harveywwu/pyktrader
+QuantConnect/Lean - Lean Algorithmic Trading Engine by QuantConnect (C#, Python, F#, VB, Java)
+https://github.com/QuantConnect/Lean
+QUANTAXIS - 量化金融策略框架
+https://github.com/QUANTAXIS/QUANTAXIS
+https://github.com/yutiansut/QUANTAXIS
+
+https://github.com/ccxt/ccxt
+https://github.com/lballabio/QuantLib
+https://github.com/zvtvz/zvt
+https://github.com/QuantFans/quantdigger
+https://github.com/QuantEcon/QuantEcon.py
+https://github.com/fasiondog/hikyuu
+https://github.com/gbeced/pyalgotrade
+
+https://github.com/zhangshuiyong/nodequant
+
+股票信息抓取
+https://github.com/waditu/tushare
+https://tushare.pro
+http://tushare.org/
+pip install tushare --upgrade
+import tushare as ts
+ts.get_hist_data('600848') #一次性获取全部数据
+另外，参考get_k_data函数
+ts.get_hist_data('600848',start='2015-01-05',end='2015-01-09')
+ts.get_h_data('002337') #前复权
+ts.get_h_data('002337',autype='hfq') #后复权
+ts.get_h_data('002337',autype=None) #不复权
+ts.get_h_data('002337',start='2015-01-01',end='2015-03-16') #两个日期之间的前复权数据
+一次性获取最近一个日交易日所有股票的交易数据（结果显示速度取决于网速）
+ts.get_today_all()
+获取历史分笔数据
+import tushare as ts
+df = ts.get_tick_data('600848',date='2014-01-09')
+df.head(10)
+获取实时交易数据(Realtime Quotes Data)
+df = ts.get_realtime_quotes('000581') #Single stock symbol
+df[['code','name','price','bid','ask','volume','amount','time']]
+请求多个股票方法（一次最好不要超过30个）：
+ts.get_realtime_quotes(['600848','000980','000981']) #symbols from a list
+ts.get_realtime_quotes(df['code'].tail(10)) #from a Series
+
+pip install baostock
+pip install --upgrade baostock
+
+https://github.com/DTShare/dtshare
+pip install dtshare
+
+backtrader
+https://github.com/mementum/backtrader
+https://www.backtrader.com/docu/quickstart/quickstart/
+cerebro
+https://zhuanlan.zhihu.com/p/111011337
+
+https://www.vnpy.com/demo
+brew install ta-lib
+pip3 install vnpy qtpy
+pip3 install pyqt5
+
+https://robomongo.org/download
+
+https://github.com/pegasusTrader/PandoraTrader
+https://github.com/physercoe/starquant
+
+数据源：
+BigQuant- A股、期权期货等多市场数据-免费
+https://bigquant.com/docs/data.html
+https://bigquant.com/docs/datasource/data_basic_info_CN_STOCK_A.html
+TuShare - 中文财经数据接口包
+https://tushare.pro
+https://tushare.pro/document/2
+Quandl - 国际金融和经济数据
+https://www.quandl.com/
+https://www.quandl.com/search
+Wind资讯-经济数据库 - 收费
+https://www.wind.com.cn/NewSite/edb.html
+东方财富 Choice金融数据研究终端 - 收费
+http://choice.eastmoney.com/
+iFinD 同花顺金融数据终端 - 收费
+http://www.51ifind.com/
+http://quantapi.10jqka.com.cn/
+朝阳永续 Go-Goal数据终端 - 收费
+http://www.go-goal.cn/
+天软数据 - 收费
+国泰安数据服务中心 - 收费
+http://www.gtarsc.com/#/index
+锐思数据 - 收费
+http://www.resset.cn/
+恒生API - 收费
+https://www.hs.net/
+Bloomberg API - 收费
+数库金融数据和深度分析API服务 - 收费
+https://www.chinascope.com/
+Historical Data Sources - 一个数据源索引
+https://quantpedia.com/links-tools/?category=historical-data
+预测者网 - 收费
+https://www.yucezhe.com/product/data/trading
+巨潮资讯 - 收费
+http://www.cninfo.com.cn/new/index
+通联数据商城 - 收费
+https://www.datayes.com/
+通达信 - 免费
+https://www.tdx.com.cn/
+新浪、雅虎、东方财富网 - 免费
+聚合数据、数粮 、数据宝 - 收费
+
+Virtualapi (For CTP)仿真回测接口
+CTP期货行情采集服务器（实时数据采集系统和Tick数据本地回放接口）
+期货历史行情TICK数据下载
+http://www.virtualapi.cn/download.html
+
+mdshare
+http://www.mdshare.cn/
+http://www.quicklib.cn/
+http://www.mdshare.cn/comm/topic/2750/%E9%87%8F%E5%8C%96%E7%88%B1%E5%A5%BD%E8%80%85%E7%A6%8F%E5%88%A9%E8%B4%B4-2012-2015%E5%B9%B43%E5%B9%B4%E6%9C%9F%E8%B4%A7%E5%85%A8%E5%93%81%E7%A7%8Dtick%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB
+
+时序数据库
+https://www.dolphindb.cn/
+https://github.com/taurusai/kungfu
+
+manahl/arctic: High performance datastore for time series and tick data - 基于mongodb和python的高性能时间序列和tick数据存储
+https://github.com/man-group/arctic
+kdb | The Leader in High-Performance Tick Database Technology | Kx Systems - 收费的高性能金融序列数据库解决方案
+https://kx.com/
+MongoDB Blog - 用mongodb存储时间序列数据
+https://www.mongodb.com/blog/post/schema-design-for-time-series-data-in-mongodb
+InfluxDB – Time-Series Data Storage | InfluxData - Go写的分布式时间序列数据库
+https://www.influxdata.com/products/
+OpenTSDB/opentsdb: A scalable, distributed Time Series Database. - 基于HBase的时间序列数据库
+https://github.com/OpenTSDB/opentsdb
+kairosdb/kairosdb: Fast scalable time series database - 基于Cassandra的时间序列数据库
+https://github.com/kairosdb/kairosdb
+SQLite Home Page
+https://www.sqlite.org/index.html
+
+算法：
+https://www.quantopian.com/algorithms/
+https://github.com/myquant/strategy
+
+策略
+https://github.com/QUANTAXIS/QUANTAXIS
+https://github.com/vnpy/vnpy
+https://github.com/shinnytech/tqsdk-python
+https://www.myquant.cn/docs/downloads/309
+
+因子选股
+
+回测
+jqfactor：猜测是聚宽修改的alphalens ，提供了一些数据下载功能。
+talib：一个指标库
+https://github.com/quantopian/alphalens
+https://github.com/quantopian/zipline
+https://github.com/ricequant/rqalpha
+https://github.com/gbeced/pyalgotrade
+https://github.com/Yam-cn/pyalgotrade-cn
+https://github.com/QuantFans/quantdigger
+https://github.com/joshuaulrich/quantmod
+
+交易
+https://github.com/QuantBox/XAPI2
+https://github.com/shidenggui/easytrader
+https://github.com/ctpbee/ctpbee
+https://github.com/pegasusTrader/PandoraTrader
+https://github.com/harveywwu/pyktrader
+https://github.com/vnpy/vnpy
+
+SimNow仿真交易
+http://simnow.com.cn/
+
+
+https://zhuanlan.zhihu.com/p/143144116
+经典策略
+羊驼1（每天持有收益率前n的股票）：http://www.joinquant.com/post/26
+羊驼2（表现最优入池）：http://www.joinquant.com/post/19
+羊驼3（随机入池）：http://www.joinquant.com/post/20
+羊驼和均线策略的结合：http://www.joinquant.com/post/30
+海龟交易系统：http://www.joinquant.com/post/49
+Dual Thrust 交易策略：http://www.joinquant.com/post/274
+Volume-weighted Moving Average 交易策略：http://www.joinquant.com/post/274
+周规则交易策略（使用分级移动止盈、移动止盈方法）：http://www.joinquant.com/post/274
+网格交易：http://www.joinquant.com/post/539
+滚动复利策略的量化实现：http://www.joinquant.com/post/50
+
+线性回归
+线性回归的趋势跟踪系统：http://www.joinquant.com/post/212
+
+均线策略
+行业龙头股均线（收益率填坑优化版）：http://www.joinquant.com/post/258
+多均线策略：http://www.joinquant.com/post/243
+简单的多均线择时策略：http://www.joinquant.com/post/570
+
+钟摆策略系列
+钟摆理论的量化模型实现：http://www.joinquant.com/post/287
+【钟摆理论2】价值中枢：http://www.joinquant.com/post/457
+【钟摆系列3】单股票价值中枢动态调仓：http://www.joinquant.com/post/477
+【钟摆系列4】多股票市值中枢动态平衡：http://www.joinquant.com/post/505
+
+轮动
+银行股低PB轮换策略：http://www.joinquant.com/post/152
+银行pe、pb轮动策略：http://www.joinquant.com/post/587
+指数轮动模型：http://www.joinquant.com/post/451
+二八轮动：http://www.joinquant.com/post/512
+动量度量-ETF轮动：http://www.joinquant.com/post/464
+基于卡尔曼滤波器的银行搬砖：http://www.joinquant.com/post/391
+
+热点分析
+赶上牛市打新股策略好的不要不要的：http://www.joinquant.com/post/265
+举牌概念：http://www.joinquant.com/post/322
+熔断的历史数据统计：http://www.joinquant.com/post/432
+春节红包行情：http://www.joinquant.com/post/432
+如果明天大盘开始反弹，你选哪只股票？：http://www.joinquant.com/post/563
+月底容易暴跌，特别是25日以后！：http://www.joinquant.com/post/57
+
+
+
+感谢以下优秀的网站提供的公开披露数据：
+[上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/)：市场数据;
+[深证证券交易所网站](http://www.szse.cn/)：市场数据;
+[中国金融期货交易所网站](http://www.cffex.com.cn/)：期货数据;
+[上海期货交易所网站](http://www.shfe.com.cn/)：期货数据;
+[大连商品交易所网站](http://www.dce.com.cn/)：期货数据;
+[郑州商品交易所网站](http://www.czce.com.cn/)：期货数据;
+[上海国际能源交易中心网站](http://www.ine.com.cn/)：期货数据;
+[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)：外汇数据;
+[中国证券投资基金业协会](http://gs.amac.org.cn/)：私募基金数据;
+[新浪财经网站](https://finance.sina.com.cn/)：综合金融数据;
+[东方财富网站](http://data.eastmoney.com/jgdy/)：市场数据;
+[生意社网站](http://www.100ppi.com/)：有色金属数据;
+[中国银行间市场交易商协会网站](http://www.nafmii.org.cn/)：银行间交易数据;
+[99期货网站](http://www.99qh.com/)：期货数据;
+[英为财情网站](https://cn.investing.com/)：行情数据;
+[金十数据网站](https://www.jin10.com/)：新闻资讯数据;
+[交易法门网站](https://www.jiaoyifamen.com/)：行情数据;
+[和讯财经网站](http://www.hexun.com/)：行情数据;
+[智道智科网站](https://www.ziasset.com/)：指数市场数据;
+[timeanddate网站](https://www.timeanddate.com/)：日出和日落数据;
+[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/)：河北省空气质量数据;
+[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)：期货指数数据;
+[Economic Policy Uncertainty网站](http://www.nanhua.net/nhzc/varietytrend.html)经济政策不确定性(EPU)指数数据;
+[微博指数](https://data.weibo.com/index/newindex)：微博指数数据;
+[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/)：小商品交易数据;
+[中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741)：宏观数据;
+[网易新闻](https://news.163.com/special/epidemic/)：新闻资讯数据;
+[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)：疫情数据;
+[百度网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)：大数据;
+[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0)：大数据;
+[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message)：疫情数据;
+[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)：疫情数据;
+[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)：市场数据;
+[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)：慈善数据;
+[百度指数](http://index.baidu.com/v2/main/index.html)：百度指数数据;
+[谷歌指数](https://trends.google.com/trends/?geo=US)：谷歌趋势指数数据;
+[申万指数](http://www.swsindex.com/idx0120.aspx?columnid=8832)：行业指数数据;
+[AQI空气质量数据](https://www.aqistudy.cn/)：空气质量数据;
+[财富网站](http://www.fortunechina.com/)：财富企业世界500强数据;
+[猫眼电影](https://maoyan.com/board/1)：实时票房数据;
+[Expatistan网站](https://www.expatistan.com/cost-of-living)：世界各大城市生活成本数据;
+[国家金融与发展实验室网站](http://www.nifd.cn/)：宏观杠杆率;
+[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)：碳排放行情数据;
+[IT桔子](https://www.itjuzi.com)：投融资数据;
+http://hao.199it.com/jrsj.html 大数据导航
+
+[生意社网站](http://www.100ppi.com/);
+[奇货可查网站](https://qhkch.com/);
+[智道智科网站](https://www.ziasset.com/);
+[中国银行间市场交易商协会网站](http://www.nafmii.org.cn/);
+[99期货网站](http://www.99qh.com/);
+[英为财情网站](https://cn.investing.com/);
+[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/);
+[金十数据网站](https://www.jin10.com/);
+[交易法门网站](https://www.jiaoyifamen.com/);
+[和讯财经网站](http://www.hexun.com/);
+[新浪财经网站](https://finance.sina.com.cn/);
+[Oxford-Man Institute 网站](https://realized.oxford-man.ox.ac.uk/);
+[DACHENG-XIU 网站](https://dachxiu.chicagobooth.edu/);
+[上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/);
+[深证证券交易所网站](http://www.szse.cn/);
+[中国金融期货交易所网站](http://www.cffex.com.cn/);
+[上海期货交易所网站](http://www.shfe.com.cn/);
+[大连商品交易所网站](http://www.dce.com.cn/);
+[郑州商品交易所网站](http://www.czce.com.cn/);
+[上海国际能源交易中心网站](http://www.ine.com.cn/);
+[Timeanddate 网站](https://www.timeanddate.com/);
+[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/);
+[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html);
+[Economic Policy Uncertainty 网站](http://www.nanhua.net/nhzc/varietytrend.html);
+[微博指数网站](https://data.weibo.com/index/newindex);
+[百度指数网站](http://index.baidu.com/v2/main/index.html);
+[谷歌指数网站](https://trends.google.com/trends/?geo=US);
+[申万指数网站](http://www.swsindex.com/idx0120.aspx?columnid=8832);
+[真气网网站](https://www.zq12369.com/);
+[财富网站](http://www.fortunechina.com/);
+[中国证券投资基金业协会网站](http://gs.amac.org.cn/);
+[猫眼电影网站](https://maoyan.com/board/1);
+[Expatistan 网站](https://www.expatistan.com/cost-of-living);
+[北京市碳排放权电子交易平台网站](https://www.bjets.com.cn/article/jyxx/);
+[国家金融与发展实验室网站](http://www.nifd.cn/);
+[IT桔子网站](https://www.itjuzi.com);
+[东方财富网站](http://data.eastmoney.com/jgdy/);
+[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/);
+[中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741);
+[163网站](https://news.163.com/special/epidemic/);
+[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0);
+[百度新型肺炎网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1);
+[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0);
+[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message);
+[新型肺炎-小区查询网站](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0);
+[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/);
+[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html);
+[思知网站](https://www.ownthink.com/);
+[Currencyscoop网站](https://currencyscoop.com/);
+[新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);
+[中国期货市场监控中心](http://index.cfmmc.com/index/views/index.html);
+[宽客在线](https://www.quantinfo.com/Argus/);
+
+
+国外：
+AQR - Alternative Investments https://www.aqr.com/
+http://epchan.blogspot.jp
+FOSS Trading http://blog.fosstrading.com/
+wilmott.com - Forum https://forum.wilmott.com/
+Traders Magazine: The stock dealers and institutional traders complete interactive news and information service http://www.tradersmagazine.com/
+http://practicalquant.blogspot.jp/?view=classic
+http://www.thewholestreet.com/
+Implementing QuantLib http://www.implementingquantlib.com/
+http://tradingwithpython.blogspot.jp/
+Coding the markets https://etrading.wordpress.com/category/coding/
+Quantivity https://quantivity.wordpress.com/page/2/
+Quant Mashup | Quantocracy http://quantocracy.com/
+On a long enough timeline the survival rate for everyone drops to zero http://www.zerohedge.com/
+Keplerian Finance - exploring the boundaries of quantitative finance http://keplerianfinance.com/
+The Journal of Trading: Home http://www.iijournals.com/toc/jot/current
+All things finance and technology... https://mhittesdorf.wordpress.com/
+Quant News http://www.quantnews.com/
+Quantitative Trading Strategies | Numerical Method Inc. http://numericalmethod.com/quantitative-trading-strategies/
+Nuclear Phynance http://www.nuclearphynance.com/
+Elite Trader https://www.elitetrader.com/et/
+Meb Faber Research - Stock Market and Investing Blog http://mebfaber.com/
+Portfolio Workstation by Alpha Level http://www.portfolioworkstation.com/
+http://falkenblog.blogspot.jp/
+Quantitative Finance Stack Exchange http://quant.stackexchange.com/
+The mathematics of investing and markets https://www.reddit.com/r/quantfinance/
+QuantNet Community https://www.quantnet.com/
+QUANTITATIVE RESEARCH AND TRADING - The latest theories, models and investment strategies in quantitative research and trading http://jonathankinlay.com/
+QUSMA - Quantitative Systematic Market Analysis http://qusma.com/
+https://abnormalreturns.com/
+CSSA https://cssanalytics.wordpress.com/
+http://www.tradingtheodds.com/
+Quantitative Trading, Statistical Arbitrage, Machine Learning and Binary Options http://gekkoquant.com/
+Collective2 - The platform that connects investors with top-traders https://trade.collective2.com/
+Alvarez Quant Trading http://alvarezquanttrading.com/
+The Marketplace For Algorithmic Trading Systems | Quantiacs https://www.quantiacs.com/
+Quantitative Finance http://www.tandfonline.com/action/showMostReadArticles%3FjournalCode%3Drquf20
+Quantopian Lectures https://www.quantopian.com/lectures
+Kitces.com - Advancing Knowledge in Financial Planning https://www.kitces.com/
+Forex Factory https://www.forexfactory.com/
+The R Trader http://www.thertrader.com/
+How to be a Quant http://www.turingfinance.com/how-to-be-a-quant/
+关于交易策略的机器学习 https://www.udacity.com/course/machine-learning-for-trading--ud501
+scikit-learn: machine learning in Python http://scikit-learn.org/stable/
+Paul Wilmott https://www.wilmott.com/blogs/paul/index.cfm
+The Trend is your Friend http://www.the-trend-is-your-friend.com/
+Practical Quant http://practicalquant.blogspot.com/
+John Mauldin's Outside the Box http://www.investorsinsight.com/blogs/john_mauldins_outside_the_box/default.aspx
+Quantum Financier https://quantumfinancier.wordpress.com/
+Quantified Strategies http://www.quantifiedstrategies.com/
+BlackRock Blog https://www.blackrockblog.com/
+Quant at Risk http://www.quantatrisk.com/
+
+

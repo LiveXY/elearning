@@ -3680,3 +3680,99 @@ https://github.com/UZ-SLAMLab/ORB_SLAM3
 github.com/VDIGPKU/DADA
 
 https://github.com/Shawn-Shan/fawkes
+
+妆造数据集：
+http://www.antitza.com/makeup-datasets.html
+http://liusi-group.com/projects/BeautyGAN
+
+https://github.com/MCG-NKU/Sal100K
+https://github.com/geekxh/hello-algorithm
+https://github.com/Oneflow-Inc/oneflow
+https://github.com/yangyanli/DO-Conv
+https://github.com/iduta/pyconv
+https://github.com/Nandan91/ULSAM
+https://github.com/zhoudaquan/rethinking_bottleneck_design
+https://github.com/zhuogege1943/dgc
+https://github.com/eccv2020-4574/DCANet
+https://github.com/d-li14/PSConv
+https://github.com/megvii-model/WeightNet
+https://github.com/ZHANGDONG-NJUST/FPT
+
+https://www.kaggle.com/
+https://github.com/microsoft/PowerToys/releases/
+
+https://github.com/jshilong/SEPC
+https://github.com/williamhyin/yolov5s_bdd100k
+https://github.com/nerminsamet/ppdet
+https://github.com/PyTorchLightning/pytorch-lightning
+FFA 去雾算法
+https://github.com/zhilin007/FFA-Net
+
+Jupyter Notebook 的 28 个技巧
+https://mp.weixin.qq.com/s/LbXAoon8xbjjAR_gywOXew
+
+https://github.com/calebcheng00/nba_predictions/blob/master/nba.ipynb
+流程自动化工具
+https://github.com/mcg-helper/mcg-helper
+将图像和视频转换成卡通
+https://github.com/experience-ml/cartoonize
+https://algorithmia.com/developers
+pip install gunicorn
+gunicorn --bind 0.0.0.0:8080 --workers 1 --threads 8 --timeout 0 app:app
+https://github.com/SystemErrorWang/White-box-Cartoonization
+https://github.com/SystemErrorWang/FacialCartoonization
+https://github.com/nagadomi/lbpcascade_animeface
+https://github.com/nagadomi/animeface-2009
+
+Snowflake（雪花）是Twitter开源的高性能ID生成算法（服务）
+https://github.com/twitter-archive/snowflake/tree/scala_28
+https://github.com/zjcscut/framework-mesh/tree/master/java-snowflake
+
+https://github.com/google/tensorflow-recorder
+
+中文依存句法分析
+https://github.com/baidu/DDParser
+
+逆向工程
+https://github.com/blackberry/pe_tree
+https://github.com/NationalSecurityAgency/ghidra
+python自动检查
+https://github.com/facebook/pyre-check
+入侵检测
+https://github.com/snort3/snort3
+C#代码反编译
+https://github.com/icsharpcode/ILSpy/releases/tag/v6.1
+PcapXray 是一个网络取证工具，它可以捕获网络数据包，并可视化为包括设备标识的网络图，并突出显示重要的通信和文件操作
+https://github.com/Srinivas11789/PcapXray
+是一个旁路部署的全流量、实时、高性能网络安全监控引擎，基于DPDK开发，集成了DDOS检测和IDPS模块
+https://github.com/iqiyi/qnsm
+Linux 资源监视器，可以显示处理器、内存、磁盘、网络和进程的使用情况与状态
+https://github.com/aristocratos/bashtop
+WatchAD 是 360 公司在面临高级域渗透活动的威胁下，研发出的一款威胁检测产品
+https://github.com/0Kee-Team/WatchAD
+https://www.bigyoung.cn/posts/23/
+自动格式化PY代码
+https://github.com/hhatto/autopep8
+pip install --upgrade autopep8
+autopep8 --in-place --aggressive --aggressive <filename>
+autopep8 --in-place --recursive .
+检查你的代码
+pip install flake8
+
+https://github.com/rancher/k3s
+GO文件在线预览
+https://github.com/leeli73/goFileView
+Jessibuca是一款开源的纯H5直播流播放器
+https://github.com/langhuihui/jessibuca
+http://jessibuca.monibuca.com/
+
+pytorch常用预训练模型
+https://github.com/pytorch/vision/tree/master/torchvision/models
+https://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-models/
+Vearch 是一个分布式向量搜索系统，可以用来计算向量相似度，或用于机器学习领域，如：图像识别、视频识别或自然语言处理等各个领域
+https://vearch.readthedocs.io/en/latest/
+https://github.com/vearch/vearch
+为 VTOL 和无人机设计的开源自主飞行开发框架
+https://www.gaas.dev/
+https://github.com/generalized-intelligence/GAAS
+

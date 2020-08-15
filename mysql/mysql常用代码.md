@@ -35,6 +35,11 @@ unlock tables;
 * `show global variables like 'slow%';`, `show variables like 'long%';`, `show global status like 'table_locks%'`, `show status like 'innodb_row_lock%';` 查看变量，状态值
 * `set xxxx=value;`, `set global xxxx=value;` 修改配置
 * `create schema databasename default character set utf8;` 或 `create database databasename default charset utf8;` 新建数据库
+* `insert into table set ?`
+* `insert into table set ? on duplicate key update ?`
+* `replace into yly_online set ?`
+* `update table set ? where lid=?`
+* `select * from table1 inner join table2 using(uid) where uid=?`
 * `insert into report_churn(day,value) values(today, 0) on duplicate key update value=0;` #不存在添加，存在修改
 * `insert into table select * from oldtable;` #复制数据(锁select表) ignore
 * `create table newtable like oldtable;`, `create table if not exists newtable like oldtable;` 只复制结构、索引、约束、主键
@@ -179,6 +184,13 @@ mysql命令
 	* flush privileges;
 	* quit
   * mysql -uroot -p
+或者
+  * use mysql;
+  * update user set host = '%' where user = 'root'  and host='localhost';
+  * select host, user from user;
+  * flush privileges;
+或者
+  * grant all privileges on *.* to 'root'@'10.0.0.10' identified by 'root' with grant option;
 * `/innochecksum /var/lib/mysql/ibdata1` 或 `innodb_space -f /var/lib/mysql/ibdata1 space-summary | grep UNDO_LOG | wc -l` 检查什么被存储到了 ibdata1 里
 * db备份还原:
 ```
