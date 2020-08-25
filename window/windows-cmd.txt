@@ -40,7 +40,7 @@ using System.Runtime.InteropServices;
 [DllImport("user32.dll", EntryPoint = "FindWindow")]
 private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
 IntPtr hwnd = FindWindow(null, "计算器");
-if (hwnd != IntPtr.Zero) 
+if (hwnd != IntPtr.Zero)
 
 
 https://www.cnblogs.com/xuanyuan/p/12799773.html
@@ -68,15 +68,138 @@ https://www.cnblogs.com/xuanyuan/p/12799773.html
 msfconsole
 
 
+echo 创建安全策略
+Netsh IPsec static add policy name = APU安全策略
+echo 创建筛选器是阻止的操作
+Netsh IPsec static add filteraction name = stop action = block
+echo 创建筛选器是允许的操作
+Netsh IPsec static add filteraction name = open action = permit
+echo 建立一个筛选器可以访问的终端列表
+Netsh IPsec static add filterlist name = 可访问的终端列表
+Netsh IPsec static add filter filterlist = 可访问的终端列表 srcaddr = 203.86.32.248 dstaddr = me dstport = 3389 description = 部门1访问 protocol = TCP mirrored = yes
+echo 建立一个筛选器可以访问的终端列表
+Netsh ipsec static add filter filterlist = 可访问的终端列表 Srcaddr = 203.86.31.0 srcmask=255.255.255.0 dstaddr = 60.190.145.9 dstport = 0 description = 部门2访问 protocol =any mirrored = yes
+echo 建立策略规则
+Netsh ipsec static add rule name = 可访问的终端策略规则 Policy = APU安全策略 filterlist = 可访问的终端列表 filteraction = stop
+echo 激活策略
+netsh ipsec static set policy name = APU安全策略 assign = y
+pause
 
 
+Netsh ipsec static add policy name = 默认策略名称
+Netsh ipsec static add filteraction name = 阻止操作 action = block
+Netsh ipsec static add filteraction name = 允许操作 action = permit
+Netsh ipsec static add filterlist name = 访问列表
+Netsh ipsec static add filterlist name = 阻止列表
+Netsh ipsec static add filter filterlist = 访问列表1 srcaddr = 203.86.32.248 dstaddr = me dstport = 3389 description = 部门1访问 protocol = TCP mirrored = yes
+Netsh ipsec static add filter filterlist = 访问列表2 srcaddr = 203.86.31.0 srcmask = 255.255.255.0  dstaddr = 60.190.145.9 dstport = 0 description = 部门2访问 protocol = any mirrored = yes
+Netsh ipsec static add rule name = 可访问的终端策略规则 Policy = 默认策略名称 filterlist = 访问列表1 filteraction = 阻止操作
+Netsh ipsec static add rule name = 可访问的终端策略规则 Policy = 默认策略名称 filterlist = 访问列表2 filteraction = 阻止操作
+netsh ipsec static set policy name = 默认策略名称 assign = y
+pause
 
 
+REM =================开始================
+netsh ipsec static add policy name=safedog
+REM 添加2个动作，block和permit
+netsh ipsec static add filteraction name=Permit action=permit
+netsh ipsec static add filteraction name=Block action=block
+REM 首先禁止所有访问
+netsh ipsec static add filterlist name=AllAccess
+netsh ipsec static add filter filterlist=AllAccess srcaddr=Me dstaddr=Any
+netsh ipsec static add rule name=BlockAllAccess policy=safedog  filterlist=AllAccess filteraction=Block
+REM 开放某些IP无限制访问
+netsh ipsec static add filterlist name=UnLimitedIP
+netsh ipsec static add filter filterlist=UnLimitedIP srcaddr=61.128.128.67 dstaddr=Me
+netsh ipsec static add rule name=AllowUnLimitedIP policy=safedog  filterlist=UnLimitedIP filteraction=Permit
+REM 开放某些端口
+netsh ipsec static add filterlist name=OpenSomePort
+netsh ipsec static add filter filterlist=OpenSomePort srcaddr=Any dstaddr=Me dstport=20 protocol=TCP
+netsh ipsec static add filter filterlist=OpenSomePort srcaddr=Any dstaddr=Me dstport=21 protocol=TCP
+netsh ipsec static add filter filterlist=OpenSomePort srcaddr=Any dstaddr=Me dstport=80 protocol=TCP
+netsh ipsec static add filter filterlist=OpenSomePort srcaddr=Any dstaddr=Me dstport=3389 protocol=TCP
+netsh ipsec static add rule name=AllowOpenSomePort policy=safedog  filterlist=OpenSomePort filteraction=Permit
+REM 开放某些ip可以访问某些端口
+netsh ipsec static add filterlist name=SomeIPSomePort
+netsh ipsec static add filter filterlist=SomeIPSomePort srcaddr=Me dstaddr=Any dstport=80 protocol=TCP
+netsh ipsec static add filter filterlist=SomeIPSomePort srcaddr=61.128.128.68 dstaddr=Me dstport=1433 protocol=TCP
+netsh ipsec static add rule name=AllowSomeIPSomePort policy=safedog  filterlist=SomeIPSomePort filteraction=Permit
 
 
+REM Windows 2003 IPsec rule for IPSec
+REM del all ipsec policy and start (清掉所有ipsec设置，添加IPSec的一个策略）
+netsh ipsec static del all
+netsh ipsec static add policy name="IPSec" description="default IPsec policy"
+REM add two action block and permit (设置二个规则允许和禁止)
+netsh ipsec static add filteraction name=Permit action=permit
+netsh ipsec static add filteraction name=Block action=block
+REM Frist block all （首先设禁止所有入站访问）
+netsh ipsec static add filterlist name=othersdeny description="the defalt rule for other access to server"
+netsh ipsec static add filter filterlist=othersdeny srcaddr=me dstaddr=any description="the defalt access ‘s deny"
+netsh ipsec static add rule name=blockallaccess policy="IPSec" filterlist=othersdeny filteraction=Block
+REM allow ip addrss（允许内网192.168.0.1/24 和202.80.19.12这些IP无限制访问）
+netsh ipsec static add filterlist name=allowip description="allow the ip access to server"
+netsh ipsec static add filter filterlist=allowip srcaddr=127.0.0.1 dstaddr=me description="the local access"
+netsh ipsec static add filter filterlist=allowip srcaddr=192.168.0.1 srcmask=255.255.255.0 dstaddr=me description="allow lan access"
+netsh ipsec static add filter filterlist=allowip srcaddr=202.80.19.12 dstaddr=me description="the admin access"
+netsh ipsec static add rule name=ruleallowip policy="IPSec" filterlist=allowip filteraction=Permit
+REM allow tcp/udp port icmp(对外开放80/3389和允许ping)
+netsh ipsec static add filterlist name=allowport description="allow all to access the port of server"
+netsh ipsec static add filter filterlist=allowport srcaddr=Any dstaddr=Me protocol=icmp description="allow all to ping"
+netsh ipsec static add filter filterlist=allowport srcaddr=Any dstaddr=Me dstport=80 protocol=TCP description="allow all to access the server’s web"
+netsh ipsec static add filter filterlist=allowport srcaddr=Any dstaddr=Me dstport=3389 protocol=TCP description="allow all to access the server’s RDP"
+netsh ipsec static add rule name=allowopenport policy="IPSec" filterlist=allowport filteraction=Permit
+REM allow ip and limit tcp/udp port (允许218.209.98.11访问mysql的3306)
+REM netsh ipsec static add filterlist name=ipopenport
+REM netsh ipsec static add filter filterlist=ipopenport srcaddr=218.209.98.11 dstaddr=Me dstport=3306 protocol=TCP
+REM netsh ipsec static add rule name=allowipopenport policy="IPSec" filterlist=ipopenport filteraction=Permit
+REM allow icmp/dns resqust/web access(允许服务器上网 可以打开网站 80及443 允许DNS查询)
+netsh ipsec static add filterlist name=output description="Out allow rule"
+netsh ipsec static add filter filterlist=output srcaddr=me dstaddr=any protocol=tcp mirrored=yes dstport=80 description="allow web access"
+netsh ipsec static add filter filterlist=output srcaddr=me dstaddr=any protocol=tcp mirrored=yes dstport=443 description="allow https access"
+netsh ipsec static add filter filterlist=output srcaddr=me dstaddr=any protocol=tcp mirrored=yes dstport=53 description="allow tcp dns access "
+netsh ipsec static add filter filterlist=output srcaddr=me dstaddr=any protocol=udp mirrored=yes dstport=53 description="allow udp dns access "
+netsh ipsec static add filter filterlist=output srcaddr=me dstaddr=any protocol=icmp description="allow ping out"
+netsh ipsec static add rule name=output policy="IPSec" filterlist=output filteraction=Permit
+REM apply ipsec policy "IPSec" (关键的一步，启用ipsec规则）
+netsh ipsec static set policy name="IPSec" assign=y
 
+@rem 配置windows2003系统的IP安全策略
+netsh ipsec static add policy name=drop
+netsh ipsec static add filterlist name=drop_port
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=21 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=22 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=23 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=25 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=53 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=80 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=135 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=139 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=443 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=445 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=1314 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=1433 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=1521 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=2222 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=3306 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=3433 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=3389 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=4899 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=8080 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any dstport=18186 protocol=TCP mirrored=no
+netsh ipsec static add filter filterlist=drop_port srcaddr=me dstaddr=any protocol=UDP mirrored=no
+netsh ipsec static add filteraction name=denyact action=block
+netsh ipsec static add rule name=kill policy=drop filterlist=drop_port filteraction=denyact
+netsh ipsec static set policy name=drop assign=y
 
-
+@rem 配置windows2008系统的IP安全策略
+@rem version 3.0 time:2014-5-12
+@rem 重置防火墙使用默认规则
+netsh firewall reset
+netsh firewall set service remotedesktop enable all
+@rem 配置高级windows防火墙
+netsh advfirewall firewall add rule name="drop" protocol=TCP dir=out remoteport="21,22,23,25,53,80,135,139,443,445,1433,1314,1521,2222,3306,3433,3389,4899,8080,18186" action=block
+netsh advfirewall firewall add rule name="dropudp" protocol=UDP dir=out remoteport=any action=block
 
 
 

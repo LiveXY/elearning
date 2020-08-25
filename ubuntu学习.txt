@@ -1226,9 +1226,17 @@ xxx@xxx:/$ sudo mount /dev/sdb1 /xhome
 xxx@xxx:/$ sudo vim /etc/fstab # edit file fstab according to the file's original contents.
 xxx@xxx:/$ sudo mount -a  #check if the disk is mounted correctly.
 
+ufw enable
+ufw deny out proto tcp to any port 21,22,23,25,53,80,135,139,443,445
+ufw deny out proto tcp to any port 1433,1314,1521,2222,3306,3433,3389,4899,8080,18186
+ufw deny out proto udp to any
+ufw status
 
-
-
+service iptables start
+iptables -I OUTPUT 1 -p tcp -m multiport --dport 21,22,23,25,53,80,135,139,443,445 -j DROP
+iptables -I OUTPUT 2 -p tcp -m multiport --dport 1433,1314,1521,2222,3306,3433,3389,4899,8080,18186 -j DROP
+iptables -I OUTPUT 3 -p udp -j DROP
+iptables -nvL
 
 
 

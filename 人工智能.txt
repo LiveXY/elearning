@@ -3533,7 +3533,11 @@ https://github.com/facebookresearch/detr
 飞船生成器
 https://github.com/a1studmuffin/SpaceshipGenerator
 
+https://github.com/openai/gpt-2
 https://github.com/openai/gpt-3
+https://github.com/openai/image-gpt
+https://github.com/karpathy/minGPT
+https://github.com/huggingface/transformers
 
 https://github.com/wangyuxin87/ContourNet
 https://github.com/joe-siyuan-qiao/DetectoRS
@@ -3775,4 +3779,16 @@ https://github.com/vearch/vearch
 为 VTOL 和无人机设计的开源自主飞行开发框架
 https://www.gaas.dev/
 https://github.com/generalized-intelligence/GAAS
+
+https://github.com/microsoft/computervision-recipes
+https://github.com/microsoft/computervision-recipes/blob/master/scenarios
+https://github.com/microsoft/computervision-recipes/blob/master/utils_cv
+
+将 Python 计算代码转换为 Latex 公式
+https://github.com/connorferster/handcalcs
+链式跟踪算法
+https://github.com/pjl1995/CTracker
+JS代码转TypeScript
+https://github.com/airbnb/ts-migrate
+
 
