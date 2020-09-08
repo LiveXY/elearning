@@ -1239,7 +1239,18 @@ iptables -I OUTPUT 3 -p udp -j DROP
 iptables -nvL
 
 
-
+Pantheon
+Pantheon是Elementary OS的默认桌面环境。它是用户友好和快速处理桌面环境。
+如何在Ubuntu上安装Pantheon
+首先，安装存储库：
+sudo add-apt-repository ppa:elementary-os/daily
+sudo add-apt-repository ppa:elementary-os/os-patches
+sudo add-apt-repository ppa:elementary-os/testing
+sudo add-apt-repository ppa:mpstark/elementary-tweaks-daily
+sudo apt update
+sudo apt dist-upgrade
+现在在Ubuntu上安装pantheon：
+sudo apt-get install elementary-theme elementary-icon-theme elementary-default-settings elementary-desktop elementary-tweaks
 
 
 

@@ -384,9 +384,13 @@ sudo nano /etc/samba/smb.conf
 [share]
    comment = share
    path = /home/share
-   browseable = yes
    guest ok = yes
+   public = yes
+   browseable = yes
    writable = yes
+   create mask=0777
+   directory mask=0777
+
 sudo systemctl enable smbd
 sudo systemctl restart smbd
 sudo service smbd restart
@@ -1077,3 +1081,40 @@ raspivid -w 640 -h 480 -t 5000 -o tcp://192.168.1.101:3333
 持续录制
 raspivid -w 640 -h 480 -t 0 -o tcp://192.168.1.101:3333
 
+sudo nano -w /etc/network/interfaces
+#设置静态IP
+iface eth0 inet static
+address 192.168.1.100
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+
+挂载外部磁盘
+dmesg #查找设备
+sudo apt-get install autofs
+sudo nano -w /etc/auto.master
+/misc /etc/auto.misc
+sudo nano -w /etc/auto.misc
+storage -fstype=ext4:/dev/sda1
+sudo /etc/init.d/autofs restart
+ls -lat /misc/storage
+ln -s /misc/storage /storage
+
+打印服务器
+sudo apt-get install cups hplip-cups
+Listen 192.168.1.10:631
+<Location />
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+<Location /admin>
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+<Location /admin/conf>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+sudo /etc/init.d/cups restart

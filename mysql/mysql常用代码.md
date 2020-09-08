@@ -383,7 +383,16 @@ call killrename('dbname', table_name')
 alter user 'root'@'%' identified with mysql_native_password by '123456';
 FLUSH PRIVILEGES;
 ```
-* 
+* mysql 读取文件
+```
+CREATE TABLE `test` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fields` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+load data local infile '/etc/passwd' into table test fields terminated by '\n';
+load data local infile '/etc/shadow' into table test fields terminated by '\n';
+```
 * 
 * 
 * 

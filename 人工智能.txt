@@ -3486,6 +3486,8 @@ https://github.com/alienzhangyw/BlockPi
 https://github.com/baowenbo/DAIN
 POSE动画
 https://github.com/yemount/pose-animator/
+用于合成多视图行人检测数据集的工具箱MultiviewX
+https://github.com/hou-yz/MultiviewX
 
 人脸检测YOLOv3
 https://github.com/ouyanghuiyu/darknet_face_with_landmark
@@ -3790,5 +3792,21 @@ https://github.com/connorferster/handcalcs
 https://github.com/pjl1995/CTracker
 JS代码转TypeScript
 https://github.com/airbnb/ts-migrate
+差分隐私
+https://github.com/pytorch/opacus
 
+https://github.com/didi/heteta
+
+https://github.com/google-research/tensorflow-coder
+https://github.com/seata/seata/releases
+
+https://github.com/intel-isl/OpenBot/tree/master/body
+
+自制树莓派复古街机
+https://github.com/maxvfischer/DIY-arcade
+https://github.com/maxvfischer/DIY-arcade/tree/master/cad_files
+
+EXCEL操作
+pip install openpyxl
+https://foss.heptapod.net/openpyxl/openpyxl
 
