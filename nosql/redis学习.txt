@@ -54,3 +54,63 @@ daemonize yes
 
 原本 redis-server 是裝在 /usr/sbin 新的是裝在 /usr/bin 把 /usr/sbin/redis-server 覆蓋過去
 sudo mv /usr/bin/redis-server /usr/sbin/
+
+#创建集群主节点
+redis-cli --cluster create 10.10.3.22:6379 10.10.3.22:6380 10.10.3.22:6381
+#创建集群主从节点，--cluster-replicas 参数为数字，1表示每个主节点需要1个从节点
+redis-cli --cluster create 10.10.3.22:6379 10.10.3.22:6380 10.10.3.22:6381 10.10.3.22:6382 10.10.3.22:6383 10.10.3.22:6384 --cluster-replicas 1
+#添加集群主节点
+redis-cli --cluster add-node 10.10.3.22:6385 10.10.3.22:6379
+#删除节点
+redis-cli --cluster del-node 10.10.3.22:6385 e6e92e84dd3b2e7d1e7c39a9d5819d1c64be6abb
+#添加集群从节点 c9f32d755fc22d016cce04b8ef3e114c8d564e19 是10.10.3.22:6379的ID
+redis-cli --cluster add-node 10.10.3.22:6385 10.10.3.22:6379 --cluster-slave --cluster-master-id c9f32d755fc22d016cce04b8ef3e114c8d564e19
+#检查集群状态
+redis-cli --cluster check 10.10.3.22:6379
+redis-cli --cluster check 10.10.3.22:6379 --cluster-search-multiple-owners
+redis-cli --cluster info 10.10.3.22:6379
+
+#连接至集群某个节点
+redis-cli -c -h 10.10.3.22 -p 6379
+#查看集群信息
+cluster info
+#查看集群结点信息
+cluster nodes
+#写入数据
+set name test
+# 读取数据
+get name
+
+#修复集群和槽的重复分配问题
+redis-cli --cluster fix 10.10.3.22:6379 --cluster-search-multiple-owners
+设置集群的超时时间
+redis-cli --cluster set-timeout 10.10.3.22:6379 10000
+集群中执行相关命令
+redis-cli --cluster call 10.10.3.22:6379 config set cluster-node-timeout 12000
+redis-cli --cluster call 10.10.3.22:6379 config set requirepass cc
+redis-cli --cluster call 10.10.3.22:6379 config set masterauth cc
+redis-cli --cluster call 10.10.3.22:6379 config rewrite
+在线迁移slot 一是根据提示来进行操作
+redis-cli --cluster reshard 10.10.3.22:6379
+二是根据参数进行操作
+redis-cli --cluster reshard 10.10.3.22:6379 --cluster-from 117457eab5071954faab5e81c3170600d5192270 --cluster-to 815da8448f5d5a304df0353ca10d8f9b77016b28 --cluster-slots 10 --cluster-yes --cluster-timeout 5000 --cluster-pipeline 10 --cluster-replace
+平衡集群中各个节点的slot数量
+redis-cli --cluster rebalance 192.168.163.132:6379
+根据集群中各个节点设置的权重等平衡slot数量（不执行，只模拟）
+redis-cli --cluster rebalance --cluster-weight 117457eab5071954faab5e81c3170600d5192270=5 815da8448f5d5a304df0353ca10d8f9b77016b28=4 56005b9413cbf225783906307a2631109e753f8f=3 --cluster-simulate 192.168.163.132:6379
+导入集群
+redis-cli --cluster import 192.168.163.132:6379 --cluster-from 192.168.163.132:9021 --cluster-replace
+
+集群测试
+https://github.com/panjiang/redisbench
+测试单个实例
+./redisbench -a 127.0.0.1:6379 -c 500 -n 2000 -d 3
+测试集群
+./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3
+使用多个测试节点
+./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002 -mo 1&
+./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002 -mo 2
+./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002,192.168.10.11:9003 -mo 1 &
+./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002,192.168.10.11:9003 -mo 2 &
+./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002,192.168.10.11:9003 -mo 3
+

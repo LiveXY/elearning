@@ -1093,6 +1093,7 @@ https://127.0.0.1:9392
 
 https://github.com/xenkuo/comNG
 comNG 是一款具有现代化 UI 设计并且功能强大的串口助手软件。
+https://github.com/itas109/CommLite
 
 蚁剑
 https://github.com/AntSwordProject/AntSword-Loader
@@ -1136,4 +1137,15 @@ ln --symbolic ~/graudit/graudit ~/bin/graudit
 alias graudit="~/bin/graudit"
 graudit -h
 graudit -d ~/gradit/signatures/js.db /path/
+安全列表
+https://github.com/danielmiessler/SecLists
+https://tools.kali.org/
+https://tools.kali.org/tools-listing
+
+loic DDOS压力测试
+https://sourceforge.net/projects/loic/files/loic/loic-1.0.8/
+https://github.com/NewEraCracker/LOIC
+
+通用的数据生成工具
+https://github.com/easysoft/zendata
 

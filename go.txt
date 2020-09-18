@@ -54,3 +54,14 @@ https://github.com/douyu/jupiter
 
 命令行解析
 https://github.com/alecthomas/kingpin
+日期操作
+https://github.com/golang-module/carbon
+
+生成GO文件过大问题2.3M变900K
+go build -ldflags -w go-safe-hosts.go
+upx压缩
+https://github.com/upx/upx/releases
+brew install upx
+upx -9 -k go-safe-hosts
+
+go mod init etms

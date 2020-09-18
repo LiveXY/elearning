@@ -1674,16 +1674,108 @@ HISTTIMEFORMAT=”%Y-%m-%d %H:%M:%S”
 export HISTTIMEFORMAT
 
 
+yum install -y wireless-tools
+Linux Wireless Extensions(LWE) 无线网络配置工具
+1、iwlist 命令：用于对/proc/net/wireless文件进行分析，得出无线网卡相关信息
+# iwlist wlan0 scanning 搜索当前无线网络
+# iwlist wlan0 frequen 显示频道信息
+# iwlist wlan0 rate 显示连接速度
+# iwlist wlan0 power 显示电源模式
+# iwlist wlan0 txpower 显示功耗
+# iwlist wlan0 retry 显示重试连接次数(网络不稳定查看)
+# iwlist wlan0 ap 显示热点信息
+# iwlist --help 显示帮助信息
+# iwlist --version 显示版本信息
+2、iwconfig 系统配置无线网络设备或显示无线网络设备信息。iwconfig 命令类似于ifconfig命令，但是他配置对象是无线网卡，它对网络设备进行无线操作，如设置无线通信频段
+auto 自动模式
+essid 设置ESSID
+nwid 设置网络ID
+freq 设置无线网络通信频段
+chanel 设置无线网络通信频段
+sens 设置无线网络设备的感知阀值
+mode 设置无线网络设备的通信设备
+ap 强迫无线网卡向给定地址的接入点注册
+nick<名字> 为网卡设定别名
+rate<速率> 设定无线网卡的速率
+rts<阀值> 在传输数据包之前增加一次握手，确信信道在正常的
+power 无线网卡的功率设置
+3、iw 是一种新的基于 nl80211 的用于无线设备的CLI配置实用程序。它支持最近已添加到内核所有新的驱动程序。采用无线扩展接口的旧工具iwconfig已被废弃，强烈建议切换到 iw 和 nl80211。
+Linux内核的其余部分，iw 仍处于开发阶段。功能被随时添加。 iw 的唯一文档就是此页和“iw help”的输出。 请帮助扩大这个页面。
+有一个页面列出iwconfig和iw的用例：替换 iwconfig.
+# iw help # 帮助
+# iw ibss leave # 查看WiFi是否打开状态
+# iw list # 获得所有设备的功能，如带宽信息（2.4GHz，和5GHz），和802.11n的信息
+# iw dev wlan0 scan # 扫描
+# iw event # 监听事件
+# iw dev wlan0 link # 获得链路状态
+# iw wlan0 connect foo # 连接到已禁用加密的AP，这里它的SSID是foo
+# iw wlan0 connect foo 2432 # 假设你有两个AP SSID 都是 foo ，你知道你要连接的是在 2432 频道
+# iw wlan0 connect foo keys 0:abcde d:1:0011223344 # 连接到使用WEP的AP
+# iw dev wlan1 station dump # 获取station 的统计信息
+# iw dev wlan1 station get # 获得station对应的peer统计信息
+# iw wlan0 set bitrates legacy-2.4 12 18 24 # 修改传输比特率
+# iw dev wlan0 set bitrates mcs-5 4 # 修改tx HT MCS的比特率
+# iw dev wlan0 set bitrates mcs-2.4 10
+# iw dev wlan0 set bitrates mcs-5 # 清除所有 tx 比特率和设置的东西来恢复正常
+# iw dev set txpower [] #设置传输功率
+# iw phy set txpower [] #设置传输功率
+# iw dev wlan0 set power_save on #设置省电模式
+# iw dev wlan0 get power_save #查询当前的节电设定
+# iw phy phy0 interface add moni0 type monitor #添加一个 monitor 接口
 
+(1)首先关闭开发板的有线网卡
+ifconfig eth0 down
+(2)加载USB WiFi无线网卡
+ifconfig wlan0 up
+(3)扫描可用的无线网络
+iwlist scanning | grep ESSID
+lo        Interface doesn't support scanning.
+eth0      Interface doesn't support scanning.
+wmaster0  Interface doesn't support scanning.
+                    ESSID:"FRIENDLY-ARM"
+                    ESSID:"NETGEAR"
+                    ESSID:"TP-LINK"
+(4)选择要连接的无线网络
+iwconfig wlan0 essid "FRIENDLY-ARM"
+(5)输入该网络的安全密码
+iwconfig wlan0 key s:12345
+(6)连接到指定的AP(无线路由)
+iwconfig wlan0 ap auto
+(7)设置无线网卡的IP地址
+ifconfig wlan0 192.168.1.120
+ifconfig wlan0 192.168.1.30 netmask 255.255.255.0
+(8)使用 ping 命令检测无线网连通状况
+ping 192.168.1.1
+PING 192.168.1.1 (192.168.1.1): 56 data bytes
+64 bytes from 192.168.1.1: seq=0 ttl=64 time=42.804 ms
+64 bytes from 192.168.1.1: seq=1 ttl=64 time=5.020 ms
 
-
-
-
-
-
-
-
-
+iwconfig 的弊端是只支持WEP认证方式，要想支持WPA,需要移植wpa_supplicant工具
+iw wlan0 up
+SIOCSIFFLAGS: Operation not possible due to RF-kill
+https://blog.csdn.net/weixin_39584758/article/details/80622675
+rfkill list all #列出所有无线设备的当前状态
+rfkill unblock wifi
+设置上网
+ifconfig wlan0 192.168.1.xxx
+route add default gw 192.168.1.1
+vi /etc/resolv.conf
+nameserver 192.168.1.1
+vi /etc/wpa_supplicant/wpa_supplicant.conf
+network={
+    ssid="ssid的名字"
+    psk="密码"
+}
+设置加密密码
+wpa_passphrase yourWifi WifiPassword >> /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+设置成开机自动连上路由上网方法：
+vi /etc/sysconfig/network-scripts/ifcfg-wlan0
+IPADDR=192.168.1.xxx
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+vi /etc/rc.local
+wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
 
 
 
