@@ -137,3 +137,5 @@ for i in range(101):
 并行处理
 https://github.com/luispedro/jug
 
+debugging
+https://github.com/cool-RR/pysnooper

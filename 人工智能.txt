@@ -3523,7 +3523,7 @@ https://github.com/xinntao/ESRGAN
 黑白图像着色工具 DeOldify
 https://github.com/jantic/DeOldify
 
-Python生成测试数据
+Python生成测试数据 伪数据包
 pip install Faker
 https://github.com/joke2k/faker
 https://github.com/fzaninotto/Faker
@@ -3844,3 +3844,62 @@ https://github.com/easysoft/zendata
 comNG 是一款具有现代化 UI 设计并且功能强大的串口助手软件。
 https://github.com/itas109/CommLite
 https://github.com/xenkuo/comNG
+
+人脸识别
+https://github.com/biubug6/Pytorch_Retinaface
+
+实例分割
+https://github.com/aim-uofa/AdelaiDet
+https://github.com/longrongyang/LNCIS
+https://github.com//IPIU-detection/SEANet
+https://github.com/WXinlong/SOLO
+https://github.com/sabarim/STEm-Seg
+https://github.com/JialeCao001/SipMask
+https://github.com/fanq15/FewX
+https://github.com/twangnh/SimCal
+https://github.com/Kainmueller-Lab/PatchPerPix
+https://github.com/csrhddlam/axial-deeplab
+目标检测
+https://github.com/CoCoPIE-Pruning/CoCoPIE-ModelZoo/tree/master/YOLObile
+https://github.com/Megvii-BaseDetection/BorderDet
+https://github.com/Duankaiwen/CPNDet
+https://github.com/dbolya/tide
+https://github.com/pjl1995/CTracker
+https://github.com/open-mmlab/mmdetection
+https://github.com/wwdkl/AABO
+https://github.com/hkzhang95/DynamicRCNN
+https://github.com/aosokin/os2d
+https://github.com/kkhoot/PAA
+https://github.com/nerminsamet/houghnet
+https://github.com/tensorflow/tpu/tree/master/models/official/detection
+https://github.com/justimyhxu/Dense-RepPoints
+https://github.com/clobotics/piou
+https://github.com/Thinklab-SJTU/CSL_RetinaNet_Tensorflow
+https://github.com/jiangzhengkai/LSTS
+https://github.com/youthHan/HVRNet
+https://github.com/shenyunhang/DRN-WSOD
+https://github.com/NVlabs/wetectron
+https://github.com/mikuhatsune/wsod_transfer
+https://github.com/GanlongZhao/CST_DA_detection
+https://github.com/chengchunhsu/EveryPixelMatters
+https://github.com/jiaxi-wu/MPSR
+https://github.com/Peterchen111/FERNet
+https://github.com/yijingru/BBAVectors-Oriented-Object-Detection
+https://github.com/dog-qiuqiu/Yolo-Fastest
+https://github.com/kuanhungchen/awesome-tiny-object-detection
+
+单张图像去噪的空间自适应网络
+https://github.com/JimmyChame/SADNet
+
+提升标准ResNet50精度
+https://github.com/szq0214/MEAL-V2
+https://github.com/rwightman/pytorch-image-models
+
+人像照片卡通化
+https://github.com/AliaksandrSiarohin/first-order-model
+https://github.com/NVlabs/stylegan2
+https://github.com/manicman1999/StyleGAN2-Tensorflow-2.0
+Wav2Lip 项目地址：
+https://github.com/Rudrabha/Wav2Lip
+Lip2Wav 项目地址：
+https://github.com/Rudrabha/Lip2Wav
