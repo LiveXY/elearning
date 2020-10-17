@@ -1252,6 +1252,25 @@ sudo apt dist-upgrade
 现在在Ubuntu上安装pantheon：
 sudo apt-get install elementary-theme elementary-icon-theme elementary-default-settings elementary-desktop elementary-tweaks
 
+时间同步
+apt install systemd-timesyncd
+vi /etc/systemd/timesyncd.conf
+[Time]
+NTP=ntp7.aliyun.com
+NTP=ntp6.aliyun.com
+sudo systemctl restart systemd-timesyncd.service
+如果以上systemd-timesyncd.service因为什么原因而不存在，则可通过以下命令修复：
+sudo dpkg-reconfigure systemd-timesyncd
+timedatectl status
+
+ntp1.aliyun.com
+ntp2.aliyun.com
+ntp3.aliyun.com
+ntp4.aliyun.com
+ntp5.aliyun.com
+ntp6.aliyun.com
+ntp7.aliyun.com
+
 
 
 

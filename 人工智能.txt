@@ -3361,6 +3361,7 @@ https://github.com/ifzhang/FairMOT
 
 YOLOv4
 https://github.com/WongKinYiu/PyTorch_YOLOv4
+https://github.com/argusswift/YOLOv4-PyTorch
 https://github.com/ultralytics/yolov3
 https://github.com/amusi/YOLO-Reproduce-Summary
 
@@ -3903,3 +3904,15 @@ Wav2Lip 项目地址：
 https://github.com/Rudrabha/Wav2Lip
 Lip2Wav 项目地址：
 https://github.com/Rudrabha/Lip2Wav
+
+https://github.com/nidhaloff/igel
+英伟达开源「Imaginaire」！九大图像及视频合成方法
+https://github.com/NVlabs/imaginaire
+
+Latex工具包
+https://github.com/connorferster/handcalcs
+识别「幻影」
+https://github.com/ymirsky/GhostBusters
+语义分割
+https://github.com/mrgloom/awesome-semantic-segmentation
+

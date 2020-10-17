@@ -1,2 +1,13 @@
 
 apt-get install systemsettings
+
+多点触控
+$ sudo dpkg -i touchegg_*.deb
+$ sudo apt -f install
+$ touchegg
+
+$ sudo yum localinstall touchegg-*.rpm
+
+lshw -short -C disk
+lshw -C disk
+lshw -short | awk ‘{print substr($0,36,13)}’ | tail -n +3 | sort | uniq -c

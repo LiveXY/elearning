@@ -1,5 +1,11 @@
 rm -rf删除恢复
 
+testdisk恢复
+apt install testdisk
+yum install testdisk
+cd /home/recovery
+testdisk
+
 1.ext3grep:https://code.google.com/p/ext3grep/
 ext3grep /dev/vgdata/LogVol00 --restore-all
 ext3grep /dev/vgdata/LogVol00 --restore-file var/lib/mysql/aqsh/tb_b_attench.MYD

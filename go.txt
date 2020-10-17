@@ -65,3 +65,10 @@ brew install upx
 upx -9 -k go-safe-hosts
 
 go mod init etms
+GO代码检测
+curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin latest
+https://github.com/securego/gosec
+gosec -help
+time gosec ./...
+gosec -include=G101,G203,G401 ./...
+gosec -exclude=G303 ./...

@@ -114,3 +114,11 @@ https://github.com/panjiang/redisbench
 ./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002,192.168.10.11:9003 -mo 2 &
 ./redisbench -cluster=true -a 192.168.10.11:7000,192.168.10.11:7001 -c 500 -n 2000 -d 3 -ma 192.168.10.11:9001,192.168.10.11:9002,192.168.10.11:9003 -mo 3
 
+# 命令执行超过5毫秒记录慢日志
+CONFIG SET slowlog-log-slower-than 5000
+# 只保留最近1000条慢日志
+CONFIG SET slowlog-max-len 1000
+SLOWLOG get 5查询最近5条慢日志：
+SLOWLOG get 5
+扫描bigkey的方法：
+redis-cli --bigkeys -i 0.01

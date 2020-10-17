@@ -498,3 +498,7 @@ sudo xattr -d com.apple.quarantine /Applications/CleanMyMac\ X.app
 dscl . -list /Users UniqueID           //查看用户
 dscl . -list /Groups  PrimaryGroupID   //查看用户组
 ================================================================
+sudo mdutil -i off #关闭索引
+sudo mdutil -E #清理索引
+sudo mdutil -i o #打开索引
+================================================================

@@ -139,3 +139,13 @@ https://github.com/luispedro/jug
 
 debugging
 https://github.com/cool-RR/pysnooper
+
+在线pyc,pyo反编译python反编译
+http://tools.bugscaner.com/decompyle/
+
+使用pyinstaller加密打包exe
+其实只要在打包时加个key参数就能加密
+pyinstaller.exe -F --key 123456 xxx.py
+反编译测试
+那么我们再来测试一下加密打包的exe还能不能被反编译。再次执行pyinstxtractor.py
+python pyinstxtractor.py .\main-encrypt.exe

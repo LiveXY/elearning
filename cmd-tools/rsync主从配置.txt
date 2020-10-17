@@ -367,3 +367,11 @@ ll /usr/local/stow/
 cd /usr/local/stow/
 stow hello
 stow --delete hello
+
+rdiff-backup 备份
+rdiff-backup /home/tux/ /run/media/tux/my_backup_drive/
+rdiff-backup /home/tux/ tux@example.com::/my_backup_drive/
+恢复一个文件在四天前的版本
+rdiff-backup --restore-as-of 4D /run/media/tux/foo.txt ~/foo_4D.txt
+最新版本
+rdiff-backup --restore-as-of now /run/media/tux/foo.txt ~/foo_4D.txt

@@ -903,6 +903,18 @@ https://github.com/ac-pm/Inspeckage
 
 https://me.csdn.net/Eastmount
 
+系统审计
+git clone https://github.com/CISOfy/lynis.git
+cd lynis/
+./lynis -h
+./lynis show version
+./lynis show commands
+审计你的系统的安全
+./lynis audit system
+./lynis show details TEST-ID
+./lynis show details SSH-7408
+
+
 Lynis 是安全审计、合规性测试和系统强化的强大工具。当然，你也可以将其用于漏洞检测和渗透测试。
 brew install lynis
 brew install wpscan
