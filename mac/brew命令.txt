@@ -189,7 +189,7 @@ Darktable 是 Adobe Lightroom 的开源替代品，它是一款帮助专业摄�
 brew cask install darktable
 ==============================================================
 brew cask install zenmap
-
+brew cask install texmacs
 ==============================================================
 Redis Desktop Manager
 brew tap caskroom/cask

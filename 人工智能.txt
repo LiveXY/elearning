@@ -1,4 +1,5 @@
 图片中文识别
+https://github.com/PaddlePaddle/PaddleOCR
 https://github.com/breezedeus/cnocr
 python3 scripts/cnocr_predict.py --file text.png
 文字处理
@@ -1010,7 +1011,9 @@ https://github.com/foamliu/Face-Attributes
 CASIA-webface人脸数据集（vk36）
 https://pan.baidu.com/s/1cnnKrYQDheNfoEhcDoShyA
 https://www.jianshu.com/p/44311bccbbc6
-
+人脸识别数据集：Glint360K
+https://github.com/deepinsight/insightface/tree/master/recognition/partial_fc#glint360k
+https://github.com/deepinsight/insightface
 
 头像特效合成
 https://github.com/vipstone/faceai/blob/master/doc/compose.md
@@ -1332,6 +1335,7 @@ https://github.com/scikit-image/scikit-image
 https://github.com/numpy/numpy
 https://github.com/scipy/scipy
 https://github.com/pandas-dev/pandas
+https://github.com/vaexio/vaex
 可视化 http://www.magedu.com/70783.html
 https://github.com/matplotlib/matplotlib
 https://github.com/mwaskom/seaborn
@@ -3905,6 +3909,9 @@ https://github.com/Rudrabha/Wav2Lip
 Lip2Wav 项目地址：
 https://github.com/Rudrabha/Lip2Wav
 
+肖像画，完美复刻人物细节
+https://github.com/NathanUA/U-2-Net
+
 https://github.com/nidhaloff/igel
 英伟达开源「Imaginaire」！九大图像及视频合成方法
 https://github.com/NVlabs/imaginaire
@@ -3915,4 +3922,80 @@ https://github.com/connorferster/handcalcs
 https://github.com/ymirsky/GhostBusters
 语义分割
 https://github.com/mrgloom/awesome-semantic-segmentation
+
+https://github.com/spotify/klio
+https://github.com/huiyang865/plugnet
+股票交易
+https://github.com/freqtrade/freqtrade
+自动续订 Let’s Encrypt 的免费 SSL 证书
+https://github.com/jaygreco/PA_SSL_AutoRenew
+机器翻译
+https://github.com/pytorch/fairseq/tree/master/examples/m2m_100
+
+上海交大开源医疗版MNIST数据集
+https://github.com/MedMNIST/MedMNIST
+
+https://github.com/lfwa/carbontracker
+
+开源飞行模拟器飞机
+https://www.flightgear.org/download/
+视频会议
+https://github.com/jitsi/jitsi
+https://github.com/jitsi/jitsi-meet
+https://meet.jit.si/
+
+https://github.com/HiLab-git/SSL4MIS
+人脸识别的可解释性(XFR)
+https://github.com/stresearch/xfr
+
+图像分类是图像分割、目标检测的基础
+https://github.com/PaddlePaddle/PaddleClas
+
+编程网站，边玩游戏，边学Python
+https://www.codingame.com/
+https://codecombat.com/play
+https://checkio.org/
+http://www.codewars.com/
+
+词向量 Word2vec GloVe
+https://github.com/danielfrg/word2vec
+https://github.com/stanfordnlp/GloVe
+https://github.com/maciejkula/glove-python
+
+FGVC 算法本质上是一个基于光流法的视频修复算法。
+https://github.com/vt-vl-lab/FGVC
+https://github.com/princeton-vl/RAFT#requirements
+
+https://github.com/valuesimplex/FinBERT
+https://github.com/ymcui/Chinese-BERT-wwm/
+https://github.com/huggingface/transformers
+
+YOLOv5在建筑工地中安全帽佩戴检测的应用
+https://github.com/PeterH0323/Smart_Construction
+https://github.com/njvisionpower/Safety-Helmet-Wearing-Dataset
+https://mp.weixin.qq.com/s/zt2U9vcLmoA5chumz2eP8Q
+https://github.com/yitu-opensource/ConvBert
+
+小型 Autograd Tensor 库 tinygrad
+https://github.com/geohot/tinygrad
+
+移动端 Anchor-free 目标检测模型
+https://github.com/RangiLyu/nanodet
+
+中文分词
+https://github.com/XiaoMi/MiNLP/tree/main/minlp-tokenizer
+爬虫：目前支持数据源包括GitHub、QQ邮箱、网易邮箱、阿里邮箱、新浪邮箱、Hotmail邮箱、Outlook邮箱、京东、淘宝、支付宝、中国移动、中国联通、中国电信、知乎、哔哩哔哩、网易云音乐、QQ好友、QQ群、生成朋友圈相册、浏览器浏览历史、12306、博客园、CSDN博客、开源中国博客、简书
+https://github.com/kangvcar/InfoSpider
+https://mp.weixin.qq.com/s/N5Wc_KoXl0Ze1Qo4TRnH3w
+数据可视化
+https://mp.weixin.qq.com/s/ABAzeK8HkuQdZJ8LLjclTQ
+数据降纬
+https://mp.weixin.qq.com/s/wGiZVopNJtCwRaJj8wFCQg
+数据增广
+https://mp.weixin.qq.com/s/Xt6oeSe-ugBRbMeaQbUUoA
+
+
+
+
+
 

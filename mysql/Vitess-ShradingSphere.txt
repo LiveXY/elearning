@@ -1,0 +1,20 @@
+https://blog.csdn.net/shardingsphere/article/details/99317150
+https://blog.csdn.net/kingice1014/article/details/52344297
+
+Cobar MyCAT TDDL DRDS
+
+Vitess
+https://github.com/vitessio/vitess
+https://my.oschina.net/u/4385788/blog/3587897
+https://vitess.io/zh/
+https://vitess.io/docs/contributing/build-on-centos/
+
+ShardingSphere
+
+Kingshard Atlas
+
+MaxScale MySQLRoute
+
+Oceanus
+
+OneProxy

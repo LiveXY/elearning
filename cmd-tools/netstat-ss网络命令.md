@@ -162,6 +162,32 @@ dstat是一款用途广泛的工具（用python语言编写），它可以监控
 collectl以一种类似dstat的格式报告系统的统计信息；与dstat一样，它也收集关于系统不同资源（如处理器、内存和网络等）的统计信息。这里给出的一个简单例子显示了如何使用collectl来报告网络使用/带宽。
 $ collectl -sn -oT -i0.5
 
+ping gping
+Nmap nc瑞士军刀
+nc -vz 192.168.1.2 8080
+nc -v -v -w3 -z 192.168.1.2 8080-8083
 
+tcpdump
+tracert和traceroute
+
+My Traceroute (MTR)
+apt install mtr
+yum install mtr
+mtr qq.com
+mtr -s 100 qq.com
+mtr -c 100 qq.com
+mtr -n qq.com
+mtr -r qq.com
+
+Mockoon
+Wireshark
+OpenVAS
+Grey Matter
+Dig命令
+DNS和NS查找工具 nslookup
+Speedtest-Plotter
+Batfish
+Fiddler
+New Relic And Pingdom
 
 

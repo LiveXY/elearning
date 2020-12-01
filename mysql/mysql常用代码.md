@@ -158,7 +158,7 @@ select concat('alter table `',table_schema,'`.`',table_name,'` change column `',
 
 mysql命令
 =========
-
+* `mysqladmin -u root password '123456'` `mysqladmin -h 192.168.1.168 -u root password '123456'` 修改root密码
 * `mysqlcheck -uroot -p123456 db -c;` 检查整个库那些表损坏
 * `mysqlcheck -uroot -p123456 db table1 table2 -c;` 检查整个库那些表损坏
 * `mysqlcheck -uroot -p123456 db -r;` 修复整个数据库表损坏

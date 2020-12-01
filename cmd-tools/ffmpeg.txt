@@ -1,4 +1,9 @@
 
+合并MP3文件
+cat 1.mp3 2.mp3 3.mp3 4.mp3 4.mp3 > all.mp3
+ffmpeg -i "concat:1.mp3|2.mp3|3.mp3|4.mp3|4.mp3" -acodec copy all2.mp3
+
+
 ffmpeg -i in.mov -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > out.gif
 
 https://segmentfault.com/a/1190000002502526

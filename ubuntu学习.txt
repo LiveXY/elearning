@@ -74,6 +74,21 @@ sudo apt-get install apache2 mysql-server mysql-client php5 php5-gd php5-mysql
 
 find . -type d -name .svn | xargs rm -rf
 
+APT 缓存的位置是 /var/lib/apt/lists/ 目录。缓存哪些仓库元数据取决于你的源列表中 /etc/apt/sources.list 文件中添加的仓库，以及位于 /etc/apt/sources.list.d 目录下的额外仓库文件。
+sudo apt update
+apt-cache search package_name
+apt-cache search --names-only package_name
+apt-cache show package_name
+apt-cache showpkg package_name
+apt-cache depends package
+apt-cache unmet
+apt-cache pkgnames | wc -l
+
+sudo apt-get clean
+sudo apt-get autoclean
+APT 包管理器会以 .deb 格式下载软件包及其依赖关系，并将其保存在 /var/cache/apt/archives 文件夹中。
+下载时，apt 将 deb 包保存在 /var/cache/apt/archives/partial 目录下。当 deb 包完全下载完毕后，它会被移到 /var/cache/apt/archives 目录下。
+
 
 ubuntu 11.10有了客人会话模式，于是有人便有了这个问题：能不能像Windows那样可以禁用或启用来宾账户(Guest)登录呢？
 在windows下是很简单，但是这个在ubuntu 11.10下该怎么办呢。看到中文论坛上的解决方法：

@@ -15,7 +15,9 @@ mysql -uroot -ppass -e "grant reload,lock tables,replication client on *.* to 'b
 ```
 安装：
 ```
-rpm -ivh http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm
+#最新版本：https://www.percona.com/downloads/percona-toolkit/LATEST/
+
+rpm -ivh https://www.percona.com/downloads/percona-toolkit/3.2.1/binary/redhat/7/x86_64/percona-toolkit-3.2.1-1.el7.x86_64.rpm
 yum install percona-xtrabackup -y
 ```
 xtrabackup参数：

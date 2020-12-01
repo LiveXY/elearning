@@ -66,6 +66,19 @@ find / -printf "%k %p\n"|sort -g -k 1,1|\awk '{if($1>50000) print $1/1024 "MB" "
 从当前目录开始, 查找本目录下大于10M的文件并显示详细信息：
 find . -size +10000000c -exec ls -lh {} \;
 
+find . ( -name "*.txt"-o -name "*.pdf") -print
+find . -regex ".*(.txt|.pdf)$"
+find . ! -name "*.txt"
+find . -maxdepth 1 -type f
+find . -type d -print  //只列出所有目录
+find . -atime 7 -type f -print
+find . -type f -size +2k
+find . -type f -perm 644
+find . -type f -user weber -print //找用户weber所拥有的文件
+find . -type f -name "*.swp" -delete //删除当前目录下所有的swp文件：
+find . -type f -user root -exec chown weber {} ; //将当前目录下的所有权变更为weber
+find . -type f -mtime +10 -name "*.txt" -exec cp {} OLD ; //将找到的文件全都copy到另一个目录
+
 du -h
 du -h --max-depth=1 快速的了解哪些目录变得比较大
 du -hm --max-depth=2 | sort -nr | head -12

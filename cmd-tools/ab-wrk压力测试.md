@@ -56,3 +56,10 @@ ab测试结果分析：
 wrk HTTP压力测试
 =======
 `wrk -t16 -c100 -d30s http://127.0.0.1:8080/rest/hello` 16个线程，进行并发100,持续30秒的测试
+
+bombardier
+====
+```
+go get -u github.com/codesenberg/bombardier
+bombardier -c 125 -n 500000 http://localhost:8080/v1/api/todos
+```
