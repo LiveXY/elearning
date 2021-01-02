@@ -1,13 +1,13 @@
 SET STATISTICS IO ON
 SET STATISTICS TIME ON
-SET SHOWPLAN_ALL ON 
+SET SHOWPLAN_ALL ON
 
 dbo.SP_LOCKINFO 0,1
 dbo.SP_LOCKINFO 1,1
 
 
 -- 发EMAIL
-msdb.dbo.sp_send_dbmail 
+msdb.dbo.sp_send_dbmail
 	@recipients='cexo255@163.com',
 	@body=N'这是测试邮件',
 	@subject=N'这是测试邮件内容',
@@ -18,16 +18,16 @@ select top 50 total_worker_time/1000 as [总耗CPU时间(MS)],
 	execution_count [执行次数],
 	qs.total_worker_time/qs.execution_count/1000 as [平均耗CPU时间(MS)],
 	SUBSTRING(
-		qt.text, 
+		qt.text,
 		qs.statement_start_offset/2+1, (
-			case when qs.statement_end_offset=-1 then datalength(qt.text) 
+			case when qs.statement_end_offset=-1 then datalength(qt.text)
 			else qs.statement_end_offset end - qs.statement_start_offset
 		)/2 + 1
 	) as [使用CPU语法],
 	qt.text [完整语法],
 	qt.dbid, dbname = DB_NAME(qt.dbid),
 	qt.objectid, OBJECT_NAME(qt.objectid, qt.dbid) ObjectName
-from sys.dm_exec_query_stats qs cross apply sys.dm_exec_sql_text(qs.sql_handle) as qt 
+from sys.dm_exec_query_stats qs cross apply sys.dm_exec_sql_text(qs.sql_handle) as qt
 where DB_NAME(qt.dbid) is not null and DB_NAME(qt.dbid)!=N'msdb'
 order by total_worker_time/execution_count desc
 
@@ -38,14 +38,14 @@ select t1.resource_type as [资源锁定类型],
 	t1.request_mode as [等待者需求的锁定类型],
 	t1.request_session_id as [等待者SID],
 	t2.wait_duration_ms as [等待时间],(
-		select text 
+		select text
 		from sys.dm_exec_requests as r cross apply sys.dm_exec_sql_text(r.sql_handle)
 		where r.session_id=t1.request_session_id
 	) as [等待者要执行的批处理],(
 		select SUBSTRING(qt.text, r.statement_start_offset/2+1, (
-			case when r.statement_end_offset=-1 then DATALENGTH(qt.text) 
+			case when r.statement_end_offset=-1 then DATALENGTH(qt.text)
 			else r.statement_end_offset end - r.statement_start_offset
-		)/2+1) 
+		)/2+1)
 		from sys.dm_exec_requests as r cross apply sys.dm_exec_sql_text(r.sql_handle) as qt
 		where r.session_id=t1.request_session_id
 	) as [等待者正要执行的语法]
@@ -59,9 +59,9 @@ select DB_NAME(i.database_id) db,
 	io_stall [用户等待文件完成I/O的总时间(MS)],
 	io_type [I/O要求的类型],
 	io_pending_ms_ticks [个别I/O在队列(Pending queue)等待的总时间]
-from sys.dm_io_virtual_file_stats(null, null) i 
-join sys.dm_io_pending_io_requests as p on i.file_handle=p.io_handle 
-join sys.master_files m on m.database_id=i.database_id and m.file_id=i.file_id 
+from sys.dm_io_virtual_file_stats(null, null) i
+join sys.dm_io_pending_io_requests as p on i.file_handle=p.io_handle
+join sys.master_files m on m.database_id=i.database_id and m.file_id=i.file_id
 
 -- 查询最消耗I/O资源的SQL语法
 select total_logical_reads/execution_count as [平均逻辑读取次数],
@@ -69,28 +69,28 @@ select total_logical_reads/execution_count as [平均逻辑读取次数],
 	total_physical_reads/execution_count as [平均物理读取次数],
 	execution_count as [执行次数],
 	SUBSTRING(qt.text, r.statement_start_offset/2 + 1, (
-		case when r.statement_end_offset = -1 then DATALENGTH(qt.text) 
+		case when r.statement_end_offset = -1 then DATALENGTH(qt.text)
 		else r.statement_end_offset end - r.statement_start_offset
 	)/2 + 1) as [执行语法]
 from sys.dm_exec_query_stats as r cross apply sys.dm_exec_sql_text(r.sql_handle) as qt
 order by (total_logical_reads+total_logical_writes) desc
 
 --SQL语句执行时间
-SELECT 
-      total_cpu_time, 
+SELECT
+      total_cpu_time,
       total_execution_count,
       number_of_statements,
       s2.text
       --(SELECT SUBSTRING(s2.text, statement_start_offset / 2, ((CASE WHEN statement_end_offset = -1 THEN (LEN(CONVERT(NVARCHAR(MAX), s2.text)) * 2) ELSE statement_end_offset END) - statement_start_offset) / 2) ) AS query_text
-FROM 
-      (SELECT TOP 100 
-            SUM(qs.total_worker_time) AS total_cpu_time, 
+FROM
+      (SELECT TOP 100
+            SUM(qs.total_worker_time) AS total_cpu_time,
             SUM(qs.execution_count) AS total_execution_count,
-            COUNT(*) AS  number_of_statements, 
+            COUNT(*) AS  number_of_statements,
             qs.sql_handle --,
-            --MIN(statement_start_offset) AS statement_start_offset, 
+            --MIN(statement_start_offset) AS statement_start_offset,
             --MAX(statement_end_offset) AS statement_end_offset
-      FROM 
+      FROM
             sys.dm_exec_query_stats AS qs
       GROUP BY qs.sql_handle
       ORDER BY SUM(qs.total_worker_time) DESC) AS stats
@@ -100,15 +100,15 @@ FROM
 SELECT TOP 50
 total_worker_time/execution_count AS [Avg CPU Time],
 (SELECT SUBSTRING(text,statement_start_offset/2,(CASE WHEN statement_end_offset = -1 then LEN(CONVERT(nvarchar(max), text)) * 2 ELSE statement_end_offset end -statement_start_offset)/2) FROM sys.dm_exec_sql_text(sql_handle)) AS query_text, *
-FROM sys.dm_exec_query_stats 
+FROM sys.dm_exec_query_stats
 ORDER BY [Avg CPU Time] DESC
 
 --显示用于找出过多编译/重新编译的 DMV 查询。
 select * from sys.dm_exec_query_optimizer_info
-where 
+where
       counter = 'optimizations'
       or counter = 'elapsed time'
-      
+
 --显示已重新编译的前 25 个存储过程。plan_generation_num 指示该查询已重新编译的次数。
 select top 25
       sql_text.text,
@@ -116,26 +116,26 @@ select top 25
       plan_generation_num,
       execution_count,
       dbid,
-      objectid 
+      objectid
 from sys.dm_exec_query_stats a
       cross apply sys.dm_exec_sql_text(sql_handle) as sql_text
 where plan_generation_num > 1
 order by plan_generation_num desc
 
 --显示哪个查询占用了最多的 CPU 累计使用率。
-SELECT 
-    highest_cpu_queries.plan_handle, 
+SELECT
+    highest_cpu_queries.plan_handle,
     highest_cpu_queries.total_worker_time,
     q.dbid,
     q.objectid,
     q.number,
     q.encrypted,
     q.[text]
-from 
-    (select top 50 
-        qs.plan_handle, 
+from
+    (select top 50
+        qs.plan_handle,
         qs.total_worker_time
-    from 
+    from
         sys.dm_exec_query_stats qs
     order by qs.total_worker_time desc) as highest_cpu_queries
     cross apply sys.dm_exec_sql_text(plan_handle) as q
@@ -143,10 +143,10 @@ order by highest_cpu_queries.total_worker_time desc
 
 --显示一些可能占用大量 CPU 使用率的运算符（例如 ‘%Hash Match%’、‘%Sort%’）以找出可疑对象。
 select *
-from 
+from
       sys.dm_exec_cached_plans
       cross apply sys.dm_exec_query_plan(plan_handle)
-where 
+where
       cast(query_plan as nvarchar(max)) like '%Sort%'
       or cast(query_plan as nvarchar(max)) like '%Hash Match%'
 
@@ -171,7 +171,7 @@ go
 sp_configure 'query wait'
 go
 运行下面的 DMV 查询以查看 CPU、计划程序内存和缓冲池信息。
-select 
+select
 	cpu_count,
 	hyperthread_ratio,
 	scheduler_count,
@@ -185,19 +185,19 @@ from sys.dm_os_sys_info
 I/O 瓶颈
 检查闩锁等待统计信息以确定 I/O 瓶颈。运行下面的 DMV 查询以查找 I/O 闩锁等待统计信息。
 select wait_type, waiting_tasks_count, wait_time_ms, signal_wait_time_ms, wait_time_ms / waiting_tasks_count
-from sys.dm_os_wait_stats  
+from sys.dm_os_wait_stats
 where wait_type like 'PAGEIOLATCH%'  and waiting_tasks_count > 0
 order by wait_type
 
 如果 waiting_task_counts 和 wait_time_ms 与正常情况相比有显著变化，则可以确定存在 I/O 问题。获取 SQL Server 平稳运行时性能计数器和主要 DMV 查询输出的基线非常重要。
 这些 wait_types 可以指示您的 I/O 子系统是否遇到瓶颈。
 使用以下 DMV 查询来查找当前挂起的 I/O 请求。请定期执行此查询以检查 I/O 子系统的运行状况，并隔离 I/O 瓶颈中涉及的物理磁盘。
-select 
-	database_id, 
-	file_id, 
+select
+	database_id,
+	file_id,
 	io_stall,
 	io_pending_ms_ticks,
-	scheduler_address 
+	scheduler_address
 from  sys.dm_io_virtual_file_stats(NULL, NULL)t1,
 	sys.dm_io_pending_io_requests as t2
 where t1.file_handle = t2.io_handle
@@ -214,19 +214,19 @@ from sys.dm_exec_query_stats
 order by (total_logical_reads + total_logical_writes)/execution_count Desc
 
 下面的 DMV 查询可用于查找哪些批处理/请求生成的 I/O 最多。如下所示的 DMV 查询可用于查找可生成最多 I/O 的前五个请求。调整这些查询将提高系统性能。
-select top 5 
+select top 5
     (total_logical_reads/execution_count) as avg_logical_reads,
     (total_logical_writes/execution_count) as avg_logical_writes,
     (total_physical_reads/execution_count) as avg_phys_reads,
-     Execution_count, 
-    statement_start_offset as stmt_start_offset, 
-    sql_handle, 
+     Execution_count,
+    statement_start_offset as stmt_start_offset,
+    sql_handle,
     plan_handle
-from sys.dm_exec_query_stats  
+from sys.dm_exec_query_stats
 order by  (total_logical_reads + total_logical_writes) Desc
 阻塞
 运行下面的查询可确定阻塞的会话。
-select blocking_session_id, wait_duration_ms, session_id 
+select blocking_session_id, wait_duration_ms, session_id
 from sys.dm_os_waiting_tasks
 where blocking_session_id is not null
 使用此调用可找出 blocking_session_id 所返回的 SQL。例如，如果 blocking_session_id 是 87，则运行此查询可获得相应的 SQL。
@@ -239,17 +239,17 @@ order by wait_time_ms desc
 若要找出哪个 spid 正在阻塞另一个 spid，可在数据库中创建以下存储过程，然后执行该存储过程。此存储过程会报告此阻塞情况。键入 sp_who 可找出 @spid；@spid 是可选参数。
 create proc dbo.sp_block (@spid bigint=NULL)
 as
-select 
+select
     t1.resource_type,
     'database'=db_name(resource_database_id),
     'blk object' = t1.resource_associated_entity_id,
     t1.request_mode,
     t1.request_session_id,
-    t2.blocking_session_id    
-from 
-    sys.dm_tran_locks as t1, 
+    t2.blocking_session_id
+from
+    sys.dm_tran_locks as t1,
     sys.dm_os_waiting_tasks as t2
-where 
+where
     t1.lock_owner_address = t2.resource_address and
     t1.request_session_id = isnull(@spid,t1.request_session_id)
 以下是使用此存储过程的示例。
@@ -277,7 +277,7 @@ SELECT ID=IDENTITY(INT,1,1),
        用户ID=UID,
        用户名=LOGINAME,
        累计CPU时间=CPU,
-       登陆时间=LOGIN_TIME,打开事务数=OPEN_TRAN,        
+       登陆时间=LOGIN_TIME,打开事务数=OPEN_TRAN,
        进程状态=STATUS,
        工作站名=HOSTNAME,
        应用程序名=PROGRAM_NAME,
@@ -336,7 +336,7 @@ BEGIN
                         IF @@ROWCOUNT=0 INSERT #T1(A) VALUES(NULL)
                         SET @I=@I+1
                 END
-        SELECT 进程的SQL语句=B.EVENTINFO,A.* 
+        SELECT 进程的SQL语句=B.EVENTINFO,A.*
         FROM #T A JOIN #T1 B ON A.ID=B.ID
         where 进程状态<>'sleeping' and B.EVENTINFO is not null
         ORDER BY 进程的SQL语句 desc
@@ -389,492 +389,492 @@ DROP TABLE #TempUnusedIndexes
 
 
 查看连接当前数据库的SPID所加的锁
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT DB_NAME(resource_database_id) AS DatabaseName 
-	, request_session_id 
-	, resource_type 
-	, CASE WHEN resource_type = 'OBJECT' THEN OBJECT_NAME(resource_associated_entity_id) 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT DB_NAME(resource_database_id) AS DatabaseName
+	, request_session_id
+	, resource_type
+	, CASE WHEN resource_type = 'OBJECT' THEN OBJECT_NAME(resource_associated_entity_id)
 		WHEN resource_type IN ('KEY', 'PAGE', 'RID') THEN (
-			SELECT OBJECT_NAME(OBJECT_ID) 
-			FROM sys.partitions p 
-			WHERE p.hobt_id = l.resource_associated_entity_id) 
-		END AS resource_type_name 
-	, request_status 
-	, request_mode 
-FROM sys.dm_tran_locks l 
-WHERE request_session_id !=@@spid 
-ORDER BY request_session_id 
+			SELECT OBJECT_NAME(OBJECT_ID)
+			FROM sys.partitions p
+			WHERE p.hobt_id = l.resource_associated_entity_id)
+		END AS resource_type_name
+	, request_status
+	, request_mode
+FROM sys.dm_tran_locks l
+WHERE request_session_id !=@@spid
+ORDER BY request_session_id
 如果像查看更多的锁，调整where条件即可
 
 查看没关闭事务的空闲Session
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT es.session_id, es.login_name, es.host_name, est.text 
-  , cn.last_read, cn.last_write, es.program_name 
-FROM sys.dm_exec_sessions es 
-INNER JOIN sys.dm_tran_session_transactions st ON es.session_id = st.session_id 
-INNER JOIN sys.dm_exec_connections cn ON es.session_id = cn.session_id 
-CROSS APPLY sys.dm_exec_sql_text(cn.most_recent_sql_handle) est 
-LEFT OUTER JOIN sys.dm_exec_requests er ON st.session_id = er.session_id AND er.session_id IS NULL         
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT es.session_id, es.login_name, es.host_name, est.text
+  , cn.last_read, cn.last_write, es.program_name
+FROM sys.dm_exec_sessions es
+INNER JOIN sys.dm_tran_session_transactions st ON es.session_id = st.session_id
+INNER JOIN sys.dm_exec_connections cn ON es.session_id = cn.session_id
+CROSS APPLY sys.dm_exec_sql_text(cn.most_recent_sql_handle) est
+LEFT OUTER JOIN sys.dm_exec_requests er ON st.session_id = er.session_id AND er.session_id IS NULL
 
 查看被阻塞的语句和它们的等待时间
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT 
-  Waits.wait_duration_ms / 1000 AS WaitInSeconds 
-  , Blocking.session_id as BlockingSessionId 
-  , DB_NAME(Blocked.database_id) AS DatabaseName 
-  , Sess.login_name AS BlockingUser 
-  , Sess.host_name AS BlockingLocation 
-  , BlockingSQL.text AS BlockingSQL 
-  , Blocked.session_id AS BlockedSessionId 
-  , BlockedSess.login_name AS BlockedUser 
-  , BlockedSess.host_name AS BlockedLocation 
-  , BlockedSQL.text AS BlockedSQL 
-  , SUBSTRING (BlockedSQL.text, (BlockedReq.statement_start_offset/2) + 1, 
-    ((CASE WHEN BlockedReq.statement_end_offset = -1 
-      THEN LEN(CONVERT(NVARCHAR(MAX), BlockedSQL.text)) * 2 
-      ELSE BlockedReq.statement_end_offset 
-      END - BlockedReq.statement_start_offset)/2) + 1) 
-                    AS [Blocked Individual Query] 
-  , Waits.wait_type 
-FROM sys.dm_exec_connections AS Blocking                          
-INNER JOIN sys.dm_exec_requests AS Blocked ON Blocking.session_id = Blocked.blocking_session_id 
-INNER JOIN sys.dm_exec_sessions Sess ON Blocking.session_id = sess.session_id  
-INNER JOIN sys.dm_tran_session_transactions st ON Blocking.session_id = st.session_id 
-LEFT OUTER JOIN sys.dm_exec_requests er ON st.session_id = er.session_id AND er.session_id IS NULL 
-INNER JOIN sys.dm_os_waiting_tasks AS Waits ON Blocked.session_id = Waits.session_id 
-CROSS APPLY sys.dm_exec_sql_text(Blocking.most_recent_sql_handle) AS BlockingSQL 
-INNER JOIN sys.dm_exec_requests AS BlockedReq ON Waits.session_id = BlockedReq.session_id 
-INNER JOIN sys.dm_exec_sessions AS BlockedSess ON Waits.session_id = BlockedSess.session_id 
-CROSS APPLY sys.dm_exec_sql_text(Blocked.sql_handle) AS BlockedSQL 
-ORDER BY WaitInSeconds 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+  Waits.wait_duration_ms / 1000 AS WaitInSeconds
+  , Blocking.session_id as BlockingSessionId
+  , DB_NAME(Blocked.database_id) AS DatabaseName
+  , Sess.login_name AS BlockingUser
+  , Sess.host_name AS BlockingLocation
+  , BlockingSQL.text AS BlockingSQL
+  , Blocked.session_id AS BlockedSessionId
+  , BlockedSess.login_name AS BlockedUser
+  , BlockedSess.host_name AS BlockedLocation
+  , BlockedSQL.text AS BlockedSQL
+  , SUBSTRING (BlockedSQL.text, (BlockedReq.statement_start_offset/2) + 1,
+    ((CASE WHEN BlockedReq.statement_end_offset = -1
+      THEN LEN(CONVERT(NVARCHAR(MAX), BlockedSQL.text)) * 2
+      ELSE BlockedReq.statement_end_offset
+      END - BlockedReq.statement_start_offset)/2) + 1)
+                    AS [Blocked Individual Query]
+  , Waits.wait_type
+FROM sys.dm_exec_connections AS Blocking
+INNER JOIN sys.dm_exec_requests AS Blocked ON Blocking.session_id = Blocked.blocking_session_id
+INNER JOIN sys.dm_exec_sessions Sess ON Blocking.session_id = sess.session_id
+INNER JOIN sys.dm_tran_session_transactions st ON Blocking.session_id = st.session_id
+LEFT OUTER JOIN sys.dm_exec_requests er ON st.session_id = er.session_id AND er.session_id IS NULL
+INNER JOIN sys.dm_os_waiting_tasks AS Waits ON Blocked.session_id = Waits.session_id
+CROSS APPLY sys.dm_exec_sql_text(Blocking.most_recent_sql_handle) AS BlockingSQL
+INNER JOIN sys.dm_exec_requests AS BlockedReq ON Waits.session_id = BlockedReq.session_id
+INNER JOIN sys.dm_exec_sessions AS BlockedSess ON Waits.session_id = BlockedSess.session_id
+CROSS APPLY sys.dm_exec_sql_text(Blocked.sql_handle) AS BlockedSQL
+ORDER BY WaitInSeconds
 
 查看超过30秒等待的查询
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT 
-	Waits.wait_duration_ms / 1000 AS WaitInSeconds 
-	, Blocking.session_id as BlockingSessionId 
-	, Sess.login_name AS BlockingUser 
-	, Sess.host_name AS BlockingLocation 
-	, BlockingSQL.text AS BlockingSQL 
-	, Blocked.session_id AS BlockedSessionId 
-	, BlockedSess.login_name AS BlockedUser 
-	, BlockedSess.host_name AS BlockedLocation 
-	, BlockedSQL.text AS BlockedSQL 
-	, DB_NAME(Blocked.database_id) AS DatabaseName 
-FROM sys.dm_exec_connections AS Blocking                         
-INNER JOIN sys.dm_exec_requests AS Blocked ON Blocking.session_id = Blocked.blocking_session_id 
-INNER JOIN sys.dm_exec_sessions Sess ON Blocking.session_id = sess.session_id  
-INNER JOIN sys.dm_tran_session_transactions st ON Blocking.session_id = st.session_id 
-LEFT OUTER JOIN sys.dm_exec_requests er ON st.session_id = er.session_id AND er.session_id IS NULL 
-INNER JOIN sys.dm_os_waiting_tasks AS Waits ON Blocked.session_id = Waits.session_id 
-CROSS APPLY sys.dm_exec_sql_text(Blocking.most_recent_sql_handle) AS BlockingSQL 
-INNER JOIN sys.dm_exec_requests AS BlockedReq ON Waits.session_id = BlockedReq.session_id 
-INNER JOIN sys.dm_exec_sessions AS BlockedSess ON Waits.session_id = BlockedSess.session_id 
-CROSS APPLY sys.dm_exec_sql_text(Blocked.sql_handle) AS BlockedSQL 
-WHERE Waits.wait_duration_ms > 30000 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+	Waits.wait_duration_ms / 1000 AS WaitInSeconds
+	, Blocking.session_id as BlockingSessionId
+	, Sess.login_name AS BlockingUser
+	, Sess.host_name AS BlockingLocation
+	, BlockingSQL.text AS BlockingSQL
+	, Blocked.session_id AS BlockedSessionId
+	, BlockedSess.login_name AS BlockedUser
+	, BlockedSess.host_name AS BlockedLocation
+	, BlockedSQL.text AS BlockedSQL
+	, DB_NAME(Blocked.database_id) AS DatabaseName
+FROM sys.dm_exec_connections AS Blocking
+INNER JOIN sys.dm_exec_requests AS Blocked ON Blocking.session_id = Blocked.blocking_session_id
+INNER JOIN sys.dm_exec_sessions Sess ON Blocking.session_id = sess.session_id
+INNER JOIN sys.dm_tran_session_transactions st ON Blocking.session_id = st.session_id
+LEFT OUTER JOIN sys.dm_exec_requests er ON st.session_id = er.session_id AND er.session_id IS NULL
+INNER JOIN sys.dm_os_waiting_tasks AS Waits ON Blocked.session_id = Waits.session_id
+CROSS APPLY sys.dm_exec_sql_text(Blocking.most_recent_sql_handle) AS BlockingSQL
+INNER JOIN sys.dm_exec_requests AS BlockedReq ON Waits.session_id = BlockedReq.session_id
+INNER JOIN sys.dm_exec_sessions AS BlockedSess ON Waits.session_id = BlockedSess.session_id
+CROSS APPLY sys.dm_exec_sql_text(Blocked.sql_handle) AS BlockedSQL
+WHERE Waits.wait_duration_ms > 30000
 ORDER BY WaitInSeconds
 
 buffer中缓存每个数据库所占的buffer
-SET TRAN ISOLATION LEVEL READ UNCOMMITTED 
-SELECT 
-    ISNULL(DB_NAME(database_id), 'ResourceDb') AS DatabaseName 
-    , CAST(COUNT(row_count) * 8.0 / (1024.0) AS DECIMAL(28,2)) AS [Size (MB)] 
-FROM sys.dm_os_buffer_descriptors 
-GROUP BY database_id 
+SET TRAN ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    ISNULL(DB_NAME(database_id), 'ResourceDb') AS DatabaseName
+    , CAST(COUNT(row_count) * 8.0 / (1024.0) AS DECIMAL(28,2)) AS [Size (MB)]
+FROM sys.dm_os_buffer_descriptors
+GROUP BY database_id
 ORDER BY DatabaseName
 
 当前数据库中每个表所占缓存的大小和页数
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT  
-     OBJECT_NAME(p.[object_id]) AS [TableName] 
-     , (COUNT(*) * 8) / 1024   AS [Buffer size(MB)] 
-     , ISNULL(i.name, '-- HEAP --') AS ObjectName 
-     ,  COUNT(*) AS NumberOf8KPages 
-FROM sys.allocation_units AS a 
-INNER JOIN sys.dm_os_buffer_descriptors AS b ON a.allocation_unit_id = b.allocation_unit_id 
-INNER JOIN sys.partitions AS p 
-INNER JOIN sys.indexes i ON p.index_id = i.index_id AND p.[object_id] = i.[object_id] ON a.container_id = p.hobt_id 
-WHERE b.database_id = DB_ID() AND p.[object_id] > 100 
-GROUP BY p.[object_id], i.name 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+     OBJECT_NAME(p.[object_id]) AS [TableName]
+     , (COUNT(*) * 8) / 1024   AS [Buffer size(MB)]
+     , ISNULL(i.name, '-- HEAP --') AS ObjectName
+     ,  COUNT(*) AS NumberOf8KPages
+FROM sys.allocation_units AS a
+INNER JOIN sys.dm_os_buffer_descriptors AS b ON a.allocation_unit_id = b.allocation_unit_id
+INNER JOIN sys.partitions AS p
+INNER JOIN sys.indexes i ON p.index_id = i.index_id AND p.[object_id] = i.[object_id] ON a.container_id = p.hobt_id
+WHERE b.database_id = DB_ID() AND p.[object_id] > 100
+GROUP BY p.[object_id], i.name
 ORDER BY NumberOf8KPages DESC
 
 数据库级别等待的IO
-SET TRAN ISOLATION LEVEL READ UNCOMMITTED 
-SELECT DB_NAME(database_id) AS [DatabaseName] 
-	, SUM(CAST(io_stall / 1000.0 AS DECIMAL(20,2))) AS [IO stall (secs)] 
-	, SUM(CAST(num_of_bytes_read / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [IO read (MB)] 
-	, SUM(CAST(num_of_bytes_written / 1024.0 / 1024.0  AS DECIMAL(20,2))) AS [IO written (MB)] 
-	, SUM(CAST((num_of_bytes_read + num_of_bytes_written) / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [TotalIO (MB)] 
-FROM sys.dm_io_virtual_file_stats(NULL, NULL) 
-GROUP BY database_id 
+SET TRAN ISOLATION LEVEL READ UNCOMMITTED
+SELECT DB_NAME(database_id) AS [DatabaseName]
+	, SUM(CAST(io_stall / 1000.0 AS DECIMAL(20,2))) AS [IO stall (secs)]
+	, SUM(CAST(num_of_bytes_read / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [IO read (MB)]
+	, SUM(CAST(num_of_bytes_written / 1024.0 / 1024.0  AS DECIMAL(20,2))) AS [IO written (MB)]
+	, SUM(CAST((num_of_bytes_read + num_of_bytes_written) / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [TotalIO (MB)]
+FROM sys.dm_io_virtual_file_stats(NULL, NULL)
+GROUP BY database_id
 ORDER BY [IO stall (secs)] DESC
 
 按文件查看IO情况
-SET TRAN ISOLATION LEVEL READ UNCOMMITTED 
-SELECT DB_NAME(database_id) AS [DatabaseName] 
-	, file_id 
-	, SUM(CAST(io_stall / 1000.0 AS DECIMAL(20,2))) AS [IO stall (secs)] 
-	, SUM(CAST(num_of_bytes_read / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [IO read (MB)] 
-	, SUM(CAST(num_of_bytes_written / 1024.0 / 1024.0  AS DECIMAL(20,2))) AS [IO written (MB)] 
-	, SUM(CAST((num_of_bytes_read + num_of_bytes_written) / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [TotalIO (MB)] 
-FROM sys.dm_io_virtual_file_stats(NULL, NULL) 
-GROUP BY database_id, file_id 
+SET TRAN ISOLATION LEVEL READ UNCOMMITTED
+SELECT DB_NAME(database_id) AS [DatabaseName]
+	, file_id
+	, SUM(CAST(io_stall / 1000.0 AS DECIMAL(20,2))) AS [IO stall (secs)]
+	, SUM(CAST(num_of_bytes_read / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [IO read (MB)]
+	, SUM(CAST(num_of_bytes_written / 1024.0 / 1024.0  AS DECIMAL(20,2))) AS [IO written (MB)]
+	, SUM(CAST((num_of_bytes_read + num_of_bytes_written) / 1024.0 / 1024.0 AS DECIMAL(20,2))) AS [TotalIO (MB)]
+FROM sys.dm_io_virtual_file_stats(NULL, NULL)
+GROUP BY database_id, file_id
 ORDER BY [IO stall (secs)] DESC
 
 查看被缓存的查询计划
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-    st.text AS [SQL] 
-    , cp.cacheobjtype 
-    , cp.objtype 
-    , COALESCE(DB_NAME(st.dbid), DB_NAME(CAST(pa.value AS INT))+'*', 'Resource') AS [DatabaseName] 
-    , cp.usecounts AS [Plan usage] 
-    , qp.query_plan 
-FROM sys.dm_exec_cached_plans cp                       
-CROSS APPLY sys.dm_exec_sql_text(cp.plan_handle) st 
-CROSS APPLY sys.dm_exec_query_plan(cp.plan_handle) qp 
-OUTER APPLY sys.dm_exec_plan_attributes(cp.plan_handle) pa 
-WHERE pa.attribute = 'dbid' AND st.text LIKE '%这里是查询语句包含的内容%'   
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+    st.text AS [SQL]
+    , cp.cacheobjtype
+    , cp.objtype
+    , COALESCE(DB_NAME(st.dbid), DB_NAME(CAST(pa.value AS INT))+'*', 'Resource') AS [DatabaseName]
+    , cp.usecounts AS [Plan usage]
+    , qp.query_plan
+FROM sys.dm_exec_cached_plans cp
+CROSS APPLY sys.dm_exec_sql_text(cp.plan_handle) st
+CROSS APPLY sys.dm_exec_query_plan(cp.plan_handle) qp
+OUTER APPLY sys.dm_exec_plan_attributes(cp.plan_handle) pa
+WHERE pa.attribute = 'dbid' AND st.text LIKE '%这里是查询语句包含的内容%'
 可以根据查询字段来根据关键字查看缓冲的查询计划。
 
 查看某一查询是如何使用查询计划的
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-	SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,       
-	((CASE WHEN qs.statement_end_offset = -1 
-		THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-		ELSE qs.statement_end_offset 
-	END - qs.statement_start_offset)/2) + 1) AS [Individual Query] 
-	, qt.text AS [Parent Query] 
-	, DB_NAME(qt.dbid) AS DatabaseName 
-	, qp.query_plan 
-FROM sys.dm_exec_query_stats qs 
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
-WHERE SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1, 
-  ((CASE WHEN qs.statement_end_offset = -1 
-    THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-    ELSE qs.statement_end_offset 
-    END - qs.statement_start_offset)/2) + 1) 
-LIKE '%指定查询包含的字段%'   
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+	SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+	((CASE WHEN qs.statement_end_offset = -1
+		THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+		ELSE qs.statement_end_offset
+	END - qs.statement_start_offset)/2) + 1) AS [Individual Query]
+	, qt.text AS [Parent Query]
+	, DB_NAME(qt.dbid) AS DatabaseName
+	, qp.query_plan
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+WHERE SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+  ((CASE WHEN qs.statement_end_offset = -1
+    THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+    ELSE qs.statement_end_offset
+    END - qs.statement_start_offset)/2) + 1)
+LIKE '%指定查询包含的字段%'
 
 查看数据库中跑的最慢的前20个查询以及它们的执行计划
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-	CAST(qs.total_elapsed_time / 1000000.0 AS DECIMAL(28, 2)) AS [Total Duration (s)] 
-	, CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% CPU] 
-	, CAST((qs.total_elapsed_time - qs.total_worker_time)* 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% Waiting] 
-	, qs.execution_count 
-	, CAST(qs.total_elapsed_time / 1000000.0 / qs.execution_count AS DECIMAL(28, 2)) AS [Average Duration (s)] 
-	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,      
-	((CASE WHEN qs.statement_end_offset = -1 
-	  THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-	  ELSE qs.statement_end_offset 
-	  END - qs.statement_start_offset)/2) + 1) AS [Individual Query 
-	, qt.text AS [Parent Query] 
-	, DB_NAME(qt.dbid) AS DatabaseName 
-	, qp.query_plan 
-FROM sys.dm_exec_query_stats qs 
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
-WHERE qs.total_elapsed_time > 0 
-ORDER BY qs.total_elapsed_time DESC                     
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+	CAST(qs.total_elapsed_time / 1000000.0 AS DECIMAL(28, 2)) AS [Total Duration (s)]
+	, CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% CPU]
+	, CAST((qs.total_elapsed_time - qs.total_worker_time)* 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% Waiting]
+	, qs.execution_count
+	, CAST(qs.total_elapsed_time / 1000000.0 / qs.execution_count AS DECIMAL(28, 2)) AS [Average Duration (s)]
+	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+	((CASE WHEN qs.statement_end_offset = -1
+	  THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+	  ELSE qs.statement_end_offset
+	  END - qs.statement_start_offset)/2) + 1) AS [Individual Query
+	, qt.text AS [Parent Query]
+	, DB_NAME(qt.dbid) AS DatabaseName
+	, qp.query_plan
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+WHERE qs.total_elapsed_time > 0
+ORDER BY qs.total_elapsed_time DESC
 
 查看数据库中哪个查询最耗费资源有助于你解决问题
 
 被阻塞时间最长的前20个查询以及它们的执行计划
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-	CAST((qs.total_elapsed_time - qs.total_worker_time) /  1000000.0 AS DECIMAL(28,2)) AS [Total time blocked (s)] 
-	, CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28,2)) AS [% CPU] 
-	, CAST((qs.total_elapsed_time - qs.total_worker_time)* 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% Waiting] 
-	, qs.execution_count 
-	, CAST((qs.total_elapsed_time  - qs.total_worker_time) / 1000000.0  / qs.execution_count AS DECIMAL(28, 2)) AS [Blocking average (s)] 
-	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,     
-	((CASE WHEN qs.statement_end_offset = -1 
-	THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-	ELSE qs.statement_end_offset 
-	END - qs.statement_start_offset)/2) + 1) AS [Individual Query] 
-	, qt.text AS [Parent Query] 
-	, DB_NAME(qt.dbid) AS DatabaseName 
-	, qp.query_plan 
-FROM sys.dm_exec_query_stats qs 
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
-WHERE qs.total_elapsed_time > 0 
-ORDER BY [Total time blocked (s)] DESC                       
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+	CAST((qs.total_elapsed_time - qs.total_worker_time) /  1000000.0 AS DECIMAL(28,2)) AS [Total time blocked (s)]
+	, CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28,2)) AS [% CPU]
+	, CAST((qs.total_elapsed_time - qs.total_worker_time)* 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% Waiting]
+	, qs.execution_count
+	, CAST((qs.total_elapsed_time  - qs.total_worker_time) / 1000000.0  / qs.execution_count AS DECIMAL(28, 2)) AS [Blocking average (s)]
+	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+	((CASE WHEN qs.statement_end_offset = -1
+	THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+	ELSE qs.statement_end_offset
+	END - qs.statement_start_offset)/2) + 1) AS [Individual Query]
+	, qt.text AS [Parent Query]
+	, DB_NAME(qt.dbid) AS DatabaseName
+	, qp.query_plan
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+WHERE qs.total_elapsed_time > 0
+ORDER BY [Total time blocked (s)] DESC
 找出这类查询也是数据库调优的必须品
 
-最耗费CPU的前20个查询以及它们的执行计划 
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-	CAST((qs.total_worker_time) / 1000000.0 AS DECIMAL(28,2)) AS [Total CPU time (s)] 
-	, CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28,2)) AS [% CPU] 
-	, CAST((qs.total_elapsed_time - qs.total_worker_time)* 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% Waiting] 
-	, qs.execution_count 
-	, CAST((qs.total_worker_time) / 1000000.0 / qs.execution_count AS DECIMAL(28, 2)) AS [CPU time average (s)] 
-	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,      
-	((CASE WHEN qs.statement_end_offset = -1 
-	  THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-	  ELSE qs.statement_end_offset 
-	  END - qs.statement_start_offset)/2) + 1) AS [Individual Query] 
-	, qt.text AS [Parent Query] 
-	, DB_NAME(qt.dbid) AS DatabaseName 
-	, qp.query_plan 
-FROM sys.dm_exec_query_stats qs 
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
-WHERE qs.total_elapsed_time > 0 
-ORDER BY [Total CPU time (s)] DESC          
+最耗费CPU的前20个查询以及它们的执行计划
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+	CAST((qs.total_worker_time) / 1000000.0 AS DECIMAL(28,2)) AS [Total CPU time (s)]
+	, CAST(qs.total_worker_time * 100.0 / qs.total_elapsed_time AS DECIMAL(28,2)) AS [% CPU]
+	, CAST((qs.total_elapsed_time - qs.total_worker_time)* 100.0 / qs.total_elapsed_time AS DECIMAL(28, 2)) AS [% Waiting]
+	, qs.execution_count
+	, CAST((qs.total_worker_time) / 1000000.0 / qs.execution_count AS DECIMAL(28, 2)) AS [CPU time average (s)]
+	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+	((CASE WHEN qs.statement_end_offset = -1
+	  THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+	  ELSE qs.statement_end_offset
+	  END - qs.statement_start_offset)/2) + 1) AS [Individual Query]
+	, qt.text AS [Parent Query]
+	, DB_NAME(qt.dbid) AS DatabaseName
+	, qp.query_plan
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+WHERE qs.total_elapsed_time > 0
+ORDER BY [Total CPU time (s)] DESC
 
 
 最占IO的前20个查询以及它们的执行计划
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-	[Total IO] = (qs.total_logical_reads + qs.total_logical_writes) 
-	, [Average IO] = (qs.total_logical_reads + qs.total_logical_writes) / qs.execution_count 
-	, qs.execution_count 
-	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,      
-	((CASE WHEN qs.statement_end_offset = -1 
-	THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-	ELSE qs.statement_end_offset 
-	END - qs.statement_start_offset)/2) + 1) AS [Individual Query] 
-	, qt.text AS [Parent Query] 
-	, DB_NAME(qt.dbid) AS DatabaseName 
-	, qp.query_plan 
-FROM sys.dm_exec_query_stats qs 
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
-ORDER BY [Total IO] DESC                                   
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+	[Total IO] = (qs.total_logical_reads + qs.total_logical_writes)
+	, [Average IO] = (qs.total_logical_reads + qs.total_logical_writes) / qs.execution_count
+	, qs.execution_count
+	, SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+	((CASE WHEN qs.statement_end_offset = -1
+	THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+	ELSE qs.statement_end_offset
+	END - qs.statement_start_offset)/2) + 1) AS [Individual Query]
+	, qt.text AS [Parent Query]
+	, DB_NAME(qt.dbid) AS DatabaseName
+	, qp.query_plan
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+ORDER BY [Total IO] DESC
 
 能帮助找出占IO的查询
 查找被执行次数最多的查询以及它们的执行计划
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT TOP 20 
-    qs.execution_count 
-    , SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,   
-    ((CASE WHEN qs.statement_end_offset = -1 
-      THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2 
-      ELSE qs.statement_end_offset 
-      END - qs.statement_start_offset)/2) + 1) AS [Individual Query] 
-    , qt.text AS [Parent Query] 
-    , DB_NAME(qt.dbid) AS DatabaseName 
-    , qp.query_plan 
-FROM sys.dm_exec_query_stats qs 
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp 
-ORDER BY qs.execution_count DESC;     
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+    qs.execution_count
+    , SUBSTRING (qt.text,(qs.statement_start_offset/2) + 1,
+    ((CASE WHEN qs.statement_end_offset = -1
+      THEN LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+      ELSE qs.statement_end_offset
+      END - qs.statement_start_offset)/2) + 1) AS [Individual Query]
+    , qt.text AS [Parent Query]
+    , DB_NAME(qt.dbid) AS DatabaseName
+    , qp.query_plan
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+ORDER BY qs.execution_count DESC;
 可以针对用的最多的查询语句做特定优化。
 
 特定语句的最后运行时间
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT DISTINCT TOP 20 
-    qs.last_execution_time 
-    , qt.text AS [Parent Query] 
-    , DB_NAME(qt.dbid) AS DatabaseName 
-FROM sys.dm_exec_query_stats qs                       
-CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt 
-WHERE qt.text LIKE '%特定语句的部分%' 
-ORDER BY qs.last_execution_time DESC 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT DISTINCT TOP 20
+    qs.last_execution_time
+    , qt.text AS [Parent Query]
+    , DB_NAME(qt.dbid) AS DatabaseName
+FROM sys.dm_exec_query_stats qs
+CROSS APPLY sys.dm_exec_sql_text(qs.sql_handle) as qt
+WHERE qt.text LIKE '%特定语句的部分%'
+ORDER BY qs.last_execution_time DESC
 
 查看那些被大量更新，却很少被使用的索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT                                                    
-    DB_NAME() AS DatabaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , s.user_updates 
-    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage] 
-	INTO #TempUnusedIndexes 
-FROM   sys.dm_db_index_usage_stats s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE 1=2 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    DB_NAME() AS DatabaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , s.user_updates
+    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage]
+	INTO #TempUnusedIndexes
+FROM   sys.dm_db_index_usage_stats s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE 1=2
 
-EXEC sp_MSForEachDB 'USE [?];                           
-INSERT INTO #TempUnusedIndexes 
-SELECT TOP 20 
-    DB_NAME() AS DatabaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , s.user_updates 
-    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage] 
-FROM   sys.dm_db_index_usage_stats s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE s.database_id = DB_ID() 
-	AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0 
-	AND s.user_seeks = 0 AND s.user_scans = 0  AND s.user_lookups = 0 
-	AND i.name IS NOT NULL 
-ORDER BY s.user_updates DESC'                            
-SELECT TOP 20 * FROM #TempUnusedIndexes ORDER BY [user_updates] DESC 
+EXEC sp_MSForEachDB 'USE [?];
+INSERT INTO #TempUnusedIndexes
+SELECT TOP 20
+    DB_NAME() AS DatabaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , s.user_updates
+    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage]
+FROM   sys.dm_db_index_usage_stats s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE s.database_id = DB_ID()
+	AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0
+	AND s.user_seeks = 0 AND s.user_scans = 0  AND s.user_lookups = 0
+	AND i.name IS NOT NULL
+ORDER BY s.user_updates DESC'
+SELECT TOP 20 * FROM #TempUnusedIndexes ORDER BY [user_updates] DESC
 DROP TABLE #TempUnusedIndexes
 这类索引应该被Drop掉
 
- 
+
 最高维护代价的索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT                                                     
-    DB_NAME() AS DatabaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , (s.user_updates ) AS [update usage] 
-    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Retrieval usage] 
-    , (s.user_updates) - 
-      (s.user_seeks + s.user_scans + s.user_lookups) AS [Maintenance cost] 
-    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage] 
-    , s.last_user_seek 
-    , s.last_user_scan 
-    , s.last_user_lookup 
-INTO #TempMaintenanceCost 
-FROM   sys.dm_db_index_usage_stats s 
-INNER JOIN sys.indexes i ON  s.[object_id] = i.[object_id] 
-    AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE 1=2 
-EXEC sp_MSForEachDB 'USE [?];                              
-INSERT INTO #TempMaintenanceCost 
-SELECT TOP 20 
-    DB_NAME() AS DatabaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , (s.user_updates ) AS [update usage] 
-    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Retrieval usage] 
-    , (s.user_updates) - (s.user_seeks + user_scans + s.user_lookups) AS [Maintenance cost] 
-    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage] 
-    , s.last_user_seek 
-    , s.last_user_scan 
-    , s.last_user_lookup 
-FROM   sys.dm_db_index_usage_stats s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] 
-    AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE s.database_id = DB_ID() 
-    AND i.name IS NOT NULL 
-    AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0 
-    AND (s.user_seeks + s.user_scans + s.user_lookups) > 0 
-ORDER BY [Maintenance cost] DESC'                        
-SELECT top 20 * FROM #TempMaintenanceCost ORDER BY [Maintenance cost] DESC 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    DB_NAME() AS DatabaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , (s.user_updates ) AS [update usage]
+    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Retrieval usage]
+    , (s.user_updates) -
+      (s.user_seeks + s.user_scans + s.user_lookups) AS [Maintenance cost]
+    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage]
+    , s.last_user_seek
+    , s.last_user_scan
+    , s.last_user_lookup
+INTO #TempMaintenanceCost
+FROM   sys.dm_db_index_usage_stats s
+INNER JOIN sys.indexes i ON  s.[object_id] = i.[object_id]
+    AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE 1=2
+EXEC sp_MSForEachDB 'USE [?];
+INSERT INTO #TempMaintenanceCost
+SELECT TOP 20
+    DB_NAME() AS DatabaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , (s.user_updates ) AS [update usage]
+    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Retrieval usage]
+    , (s.user_updates) - (s.user_seeks + user_scans + s.user_lookups) AS [Maintenance cost]
+    , s.system_seeks + s.system_scans + s.system_lookups AS [System usage]
+    , s.last_user_seek
+    , s.last_user_scan
+    , s.last_user_lookup
+FROM   sys.dm_db_index_usage_stats s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id]
+    AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE s.database_id = DB_ID()
+    AND i.name IS NOT NULL
+    AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0
+    AND (s.user_seeks + s.user_scans + s.user_lookups) > 0
+ORDER BY [Maintenance cost] DESC'
+SELECT top 20 * FROM #TempMaintenanceCost ORDER BY [Maintenance cost] DESC
 DROP TABLE #TempMaintenanceCost
 Maintenance cost高的应该被Drop掉
 
 使用频繁的索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT                                           
-    DB_NAME() AS DatabaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Usage] 
-    , s.user_updates 
-    , i.fill_factor 
-INTO #TempUsage 
-FROM sys.dm_db_index_usage_stats s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] 
-    AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE 1=2 
-EXEC sp_MSForEachDB 'USE [?];                               
-INSERT INTO #TempUsage 
-SELECT TOP 20 
-    DB_NAME() AS DatabaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Usage] 
-    , s.user_updates 
-    , i.fill_factor 
-FROM   sys.dm_db_index_usage_stats s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE s.database_id = DB_ID() 
-    AND i.name IS NOT NULL 
-    AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0 
-ORDER BY [Usage] DESC'                                    
-SELECT TOP 20 * FROM #TempUsage ORDER BY [Usage] DESC 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    DB_NAME() AS DatabaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Usage]
+    , s.user_updates
+    , i.fill_factor
+INTO #TempUsage
+FROM sys.dm_db_index_usage_stats s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id]
+    AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE 1=2
+EXEC sp_MSForEachDB 'USE [?];
+INSERT INTO #TempUsage
+SELECT TOP 20
+    DB_NAME() AS DatabaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , (s.user_seeks + s.user_scans + s.user_lookups) AS [Usage]
+    , s.user_updates
+    , i.fill_factor
+FROM   sys.dm_db_index_usage_stats s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE s.database_id = DB_ID()
+    AND i.name IS NOT NULL
+    AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0
+ORDER BY [Usage] DESC'
+SELECT TOP 20 * FROM #TempUsage ORDER BY [Usage] DESC
 DROP TABLE #TempUsage
 这类索引需要格外注意，不要在优化的时候干掉
 
 碎片最多的索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT                                                     
-    DB_NAME() AS DatbaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , ROUND(s.avg_fragmentation_in_percent,2) AS [Fragmentation %] 
-INTO #TempFragmentation 
-FROM sys.dm_db_index_physical_stats(db_id(),null, null, null, null) s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE 1=2 
-EXEC sp_MSForEachDB 'USE [?];                                
-INSERT INTO #TempFragmentation 
-SELECT TOP 20 
-    DB_NAME() AS DatbaseName 
-    , SCHEMA_NAME(o.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(s.[object_id]) AS TableName 
-    , i.name AS IndexName 
-    , ROUND(s.avg_fragmentation_in_percent,2) AS [Fragmentation %] 
-FROM sys.dm_db_index_physical_stats(db_id(),null, null, null, null) s 
-INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id 
-INNER JOIN sys.objects o ON i.object_id = O.object_id    
-WHERE s.database_id = DB_ID() 
-  AND i.name IS NOT NULL 
-  AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0 
-ORDER BY [Fragmentation %] DESC'                          
-SELECT top 20 * FROM #TempFragmentation ORDER BY [Fragmentation %] DESC 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    DB_NAME() AS DatbaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , ROUND(s.avg_fragmentation_in_percent,2) AS [Fragmentation %]
+INTO #TempFragmentation
+FROM sys.dm_db_index_physical_stats(db_id(),null, null, null, null) s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE 1=2
+EXEC sp_MSForEachDB 'USE [?];
+INSERT INTO #TempFragmentation
+SELECT TOP 20
+    DB_NAME() AS DatbaseName
+    , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+    , OBJECT_NAME(s.[object_id]) AS TableName
+    , i.name AS IndexName
+    , ROUND(s.avg_fragmentation_in_percent,2) AS [Fragmentation %]
+FROM sys.dm_db_index_physical_stats(db_id(),null, null, null, null) s
+INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
+INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE s.database_id = DB_ID()
+  AND i.name IS NOT NULL
+  AND OBJECTPROPERTY(s.[object_id], ''IsMsShipped'') = 0
+ORDER BY [Fragmentation %] DESC'
+SELECT top 20 * FROM #TempFragmentation ORDER BY [Fragmentation %] DESC
 DROP TABLE #TempFragmentation
 这类索引需要Rebuild,否则会严重拖累数据库性能
 
 自上次SQL Server重启后，找出完全没有使用的索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT                                                 
-    DB_NAME() AS DatbaseName 
-    , SCHEMA_NAME(O.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(I.object_id) AS TableName 
-    , I.name AS IndexName 
-INTO #TempNeverUsedIndexes 
-FROM sys.indexes I INNER JOIN sys.objects O ON I.object_id = O.object_id 
-WHERE 1=2 
-EXEC sp_MSForEachDB 'USE [?];                           
-INSERT INTO #TempNeverUsedIndexes 
-SELECT 
-    DB_NAME() AS DatbaseName 
-    , SCHEMA_NAME(O.Schema_ID) AS SchemaName 
-    , OBJECT_NAME(I.object_id) AS TableName 
-    , I.NAME AS IndexName 
-FROM sys.indexes I INNER JOIN sys.objects O ON I.object_id = O.object_id 
-LEFT OUTER JOIN sys.dm_db_index_usage_stats S ON S.object_id = I.object_id 
-	AND I.index_id = S.index_id 
-	AND DATABASE_ID = DB_ID() 
-WHERE OBJECTPROPERTY(O.object_id,''IsMsShipped'') = 0 
-	AND I.name IS NOT NULL 
-	AND S.object_id IS NULL' 
-SELECT * FROM #TempNeverUsedIndexes                         
-ORDER BY DatbaseName, SchemaName, TableName, IndexName 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    DB_NAME() AS DatbaseName
+    , SCHEMA_NAME(O.Schema_ID) AS SchemaName
+    , OBJECT_NAME(I.object_id) AS TableName
+    , I.name AS IndexName
+INTO #TempNeverUsedIndexes
+FROM sys.indexes I INNER JOIN sys.objects O ON I.object_id = O.object_id
+WHERE 1=2
+EXEC sp_MSForEachDB 'USE [?];
+INSERT INTO #TempNeverUsedIndexes
+SELECT
+    DB_NAME() AS DatbaseName
+    , SCHEMA_NAME(O.Schema_ID) AS SchemaName
+    , OBJECT_NAME(I.object_id) AS TableName
+    , I.NAME AS IndexName
+FROM sys.indexes I INNER JOIN sys.objects O ON I.object_id = O.object_id
+LEFT OUTER JOIN sys.dm_db_index_usage_stats S ON S.object_id = I.object_id
+	AND I.index_id = S.index_id
+	AND DATABASE_ID = DB_ID()
+WHERE OBJECTPROPERTY(O.object_id,''IsMsShipped'') = 0
+	AND I.name IS NOT NULL
+	AND S.object_id IS NULL'
+SELECT * FROM #TempNeverUsedIndexes
+ORDER BY DatbaseName, SchemaName, TableName, IndexName
 DROP TABLE #TempNeverUsedIndexes
 这类索引应该小心对待，不能一概而论，要看是什么原因导致这种问题
 
 查看索引统计的相关信息
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
-SELECT 
-    ss.name AS SchemaName 
-    , st.name AS TableName 
-    , s.name AS IndexName 
-    , STATS_DATE(s.id,s.indid) AS 'Statistics Last Updated' 
-    , s.rowcnt AS 'Row Count' 
-    , s.rowmodctr AS 'Number Of Changes' 
-    , CAST((CAST(s.rowmodctr AS DECIMAL(28,8))/CAST(s.rowcnt AS DECIMAL(28,2)) * 100.0) AS DECIMAL(28,2)) AS '% Rows Changed' 
-FROM sys.sysindexes s 
-INNER JOIN sys.tables st ON st.[object_id] = s.[id] 
-INNER JOIN sys.schemas ss ON ss.[schema_id] = st.[schema_id] 
-WHERE s.id > 100 AND s.indid > 0 AND s.rowcnt >= 500 
-ORDER BY SchemaName, TableName, IndexName 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+    ss.name AS SchemaName
+    , st.name AS TableName
+    , s.name AS IndexName
+    , STATS_DATE(s.id,s.indid) AS 'Statistics Last Updated'
+    , s.rowcnt AS 'Row Count'
+    , s.rowmodctr AS 'Number Of Changes'
+    , CAST((CAST(s.rowmodctr AS DECIMAL(28,8))/CAST(s.rowcnt AS DECIMAL(28,2)) * 100.0) AS DECIMAL(28,2)) AS '% Rows Changed'
+FROM sys.sysindexes s
+INNER JOIN sys.tables st ON st.[object_id] = s.[id]
+INNER JOIN sys.schemas ss ON ss.[schema_id] = st.[schema_id]
+WHERE s.id > 100 AND s.indid > 0 AND s.rowcnt >= 500
+ORDER BY SchemaName, TableName, IndexName
 因为查询计划是根据统计信息来的，索引的选择同样取决于统计信息，所以根据统计信息更新的多寡可以看出数据库的大体状况，20%的自动更新对于大表来说非常慢。
 
 SELECT TOP 20
@@ -890,7 +890,7 @@ INNER JOIN sys.objects o ON i.object_id = O.object_id
 WHERE s.database_id = DB_ID()
 AND i.name IS NOT NULL
 AND OBJECTPROPERTY(s.[object_id],  'IsMsShipped' ) = 0
-ORDER BY [Fragmentation %] DESC 
+ORDER BY [Fragmentation %] DESC
 
 wait type查询1：
 SELECT TOP 20
@@ -940,7 +940,7 @@ AND s.user_seeks = 0
 AND s.user_scans = 0
 AND s.user_lookups = 0
 AND i.name IS NOT NULL
-ORDER BY s.user_updates DESC 
+ORDER BY s.user_updates DESC
 
 Maintenance查询3：
 SELECT TOP 20
@@ -983,4 +983,33 @@ INNER JOIN sys.dm_db_missing_index_group_stats s
 ON s.group_handle = g.index_group_handle
 INNER JOIN sys.dm_db_missing_index_details d
 ON d.index_handle = g.index_handle
-ORDER BY [Total Cost] DESC 
+ORDER BY [Total Cost] DESC
+
+SELECT   a.id as [对象Id],
+      CASE WHEN a.colorder = 1 THEN d.name ELSE '' END AS [表名称],
+      CASE WHEN a.colorder = 1 THEN isnull(f.value, '') ELSE '' END AS [表备注],
+      a.colorder AS [字段顺序号], a.name AS [字段名称],
+       CASE WHEN COLUMNPROPERTY(a.id,
+      a.name, 'IsIdentity') = 1 THEN '√' ELSE '' END AS [是否标识列],
+      CASE WHEN EXISTS
+          (SELECT 1
+         FROM dbo.sysindexes si INNER JOIN
+               dbo.sysindexkeys sik ON si.id = sik.id AND si.indid = sik.indid INNER JOIN
+               dbo.syscolumns sc ON sc.id = sik.id AND sc.colid = sik.colid INNER JOIN
+               dbo.sysobjects so ON so.name = si.name AND so.xtype = 'PK'
+         WHERE sc.id = a.id AND sc.colid = a.colid) THEN '√' ELSE '' END AS [是否主键],
+      b.name AS [字段类型], a.length AS [字段长度], COLUMNPROPERTY(a.id, a.name, 'PRECISION')
+      AS [字段精度], ISNULL(COLUMNPROPERTY(a.id, a.name, 'Scale'), 0) AS [字段小数位数],
+      CASE WHEN a.isnullable = 1 THEN '√' ELSE '' END AS [是否允许null], ISNULL(e.text, '')
+      AS [字段默认值], ISNULL(g.[value], '') AS [字段备注], d.crdate AS [对象创建时间],
+      CASE WHEN a.colorder = 1 THEN d.refdate ELSE NULL END AS [对象修改时间]
+FROM dbo.syscolumns a LEFT OUTER JOIN
+      dbo.systypes b ON a.xtype = b.xusertype INNER JOIN
+      dbo.sysobjects d ON a.id = d.id AND d.xtype = 'U' AND
+      d.status >= 0 LEFT OUTER JOIN
+      dbo.syscomments e ON a.cdefault = e.id LEFT OUTER JOIN
+      sys.extended_properties g ON a.id = g.major_id AND a.colid = g.minor_id AND
+      g.name = 'MS_Description' LEFT OUTER JOIN
+      sys.extended_properties f ON d.id = f.major_id AND f.minor_id = 0 AND
+      f.name = 'MS_Description'
+ORDER BY d.name, [字段顺序号]

@@ -202,9 +202,11 @@ netsh firewall set service remotedesktop enable all
 netsh advfirewall firewall add rule name="drop" protocol=TCP dir=out remoteport="21,22,23,25,53,80,135,139,443,445,1433,1314,1521,2222,3306,3433,3389,4899,8080,18186" action=block
 netsh advfirewall firewall add rule name="dropudp" protocol=UDP dir=out remoteport=any action=block
 
-
-
-
+数据库备份还原
+sqlcmd -S . -E -Q "BACKUP DATABASE 数据库名 TO DISK='d:\数据库名.bak'";
+sqlcmd -S . -E -Q "RESTORE DATABASE 数据库名 FROM DISK='d:\数据库名.bak'";
+sqlcmd -S .\sqlexpress -E -Q "RESTORE DATABASE 数据库名 FROM DISK='D:\数据库名.bak' WITH MOVE '数据库名' TO 'D:\MyData\数据库名_Data.mdf', Move '数据库名_log' TO 'D:\MyData\数据库名_log.ldf'";
+sqlcmd -S .\sqlexpress -E -Q "RESTORE FILELISTONLY FROM DISK='d:\数据库名.bak'";
 
 
 

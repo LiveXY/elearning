@@ -1,0 +1,133 @@
+CENTOS
+https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-centos
+https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet-publish
+https://docs.microsoft.com/zh-cn/dotnet/standard/frameworks
+https://docs.microsoft.com/zh-cn/dotnet/core/tools/dotnet
+https://dotnet.microsoft.com/download/dotnet-core
+https://dotnet.microsoft.com/download/dotnet/5.0
+
+rpm -Uvh https://packages.microsoft.com/config/centos/8/packages-microsoft-prod.rpm
+rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm
+yum search dotnet-sdk
+dotnet-sdk-2.2
+dotnet-sdk-3.0
+dotnet-sdk-3.1
+dotnet-sdk-5.0
+yum install dotnet-sdk-5.0 -y
+dnf install dotnet-sdk-5.0
+dotnet --info
+
+dnf install aspnetcore-runtime-5.0
+dnf install dotnet-runtime-5.0
+
+dotnet new -l
+console winforms web mvc webapp webapi react webconfig sln
+
+mkdir test && cd test
+dotnet new webapi
+dotnet publish -c Release -f net5.0 -o bin/Release/net5.0/v1 -r linux-x64
+dotnet publish -c Release -r linux-x64 --no-self-contained ./test.csproj
+dotnet publish -c Release -r osx-x64 -p:PublishReadyToRun=true -p:PublishSingleFile=true
+dotnet publish -c Release -r win-x64 -p:PublishReadyToRun=true
+dotnet publish -c Release -f netcoreapp3.1
+dotnet publish -c Release -f net48
+dotnet publish --configuration Release
+dotnet bin/Release/net5.0/publish/test.dll
+
+mkdir apptest1 && cd apptest1
+dotnet new console -lang "C#"
+dotnet add package Figgle
+Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Hello, World!"));
+dotnet run
+dotnet restore
+
+dotnet new classlib -lang C# -o MyLibrary
+
+dotnet new sln
+dotnet sln add apptest1.csproj
+dotnet sln add MyLibrary/MyLibrary.csproj
+dotnet sln list
+dotnet sln apptest1.sln list
+dotnet sln remove MyLibrary/MyLibrary.csproj
+dotnet sln todo.sln add **/*.csproj
+
+dotnet build -c Release
+dotnet clean -c Release
+dotnet msbuild -property:Configuration=Release
+
+dotnet add reference lib1/lib1.csproj lib2/lib2.csproj
+dotnet add app/app.csproj reference lib/lib.csproj
+dotnet add app/app.csproj reference **/*.csproj
+dotnet list app/app.csproj reference
+dotnet list reference
+
+dotnet list package
+dotnet add package Newtonsoft.Json
+dotnet add ToDo.csproj package Microsoft.Azure.DocumentDB.Core -v 1.0.0
+
+dotnet --list-runtimes
+dotnet --list-sdks
+
+Install-Package BeetleX -Version 1.6.3
+dotnet add package BeetleX --version 1.6.3
+<PackageReference Include="BeetleX" Version="1.6.3" />
+paket add BeetleX --version 1.6.3
+
+Install-Package BeetleX.Redis -Version 1.0.1
+dotnet add package BeetleX.Redis --version 1.0.1
+<PackageReference Include="BeetleX.Redis" Version="1.0.1" />
+paket add BeetleX.Redis --version 1.0.1
+
+
+%Msbuild% /ds /clp:ShowTimestamp;Summary /m %sln% /t:Clean;Build /p:OutDir=%OutDir%,DebugSymbols=True
+
+rem windows远程复制
+set ip_addr=172.16.10.108
+rem 连接到远程服务器172.16.10.108
+net use \\%ip_addr%\c$ password /user:administrator
+rem 更新复制到远程服务器C盘test目录下
+xcopy D:\computer\system\win_server\*.exe \\%ip_addr%\c$\test /D /E /Y /H /K
+rem 复制并创建文件夹（如果文件夹不存在将会创建文件夹，使用/I参数时，如果share下面有多文件，则默认share为文件夹）
+xcopy D:\computer\system\win_server\share \\%ip_addr%\c$\test\share /D /E /Y /H /K /I
+
+
+rem 04-20-2015之后的文件全部复制（即使目标文件较新，也会被覆盖）
+xcopy D:\computer\system\win_server\share \\%ip_addr%\c$\test\share /D:04-20-2015 /E /Y /H /K
+copy /y zipFileName \\%ip_addr%\c$\iisweb\copyFolder\ylxt.zip
+rem 删除连接
+net use \\%ip_addr%\c$ /delete
+pause
+
+C:\Windows\Microsoft.NET\Framework\v3.5\Msbuild.exe F:\download\MSBuildDemo1\MSBuildDemo.sln /t:Clean;Build /p:OutDir=H:\testweb\
+C:\Windows\Microsoft.NET\Framework\v3.5\Msbuild.exe F:\download\MSBuildDemo\BFL.MSBuildDemo.WebApp\BFL.MSBuildDemo.WebApp.csproj /t:Clean;Build;_CopyWebApplication /p:OutDir=H:\testweb\
+
+不用 PublishProfile
+
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\msbuild.exe" ./WebApi.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:DeployTarget=MsDeployPublish /p:MsDeployServiceUrl=192.168.xxx.xxx /p:AllowUntrustedCertificate=True /p:MSDeployPublishMethod=WMSvc /p:UserName="xxxxx" /p:Password="xxxxx" /p:DeployIISAppPath="xxxxx" /p:VisualStudioVersion=16.0
+
+用 PublishProfile
+
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\msbuild.exe" ./WebApi.csproj /p:Configuration=Release /p:CreatePackageOnPublish=True /p:DeployOnBuild=true /p:PublishProfile=./Properties/PublishProfiles/FolderProfile.pubxml  /p:VisualStudioVersion=16.0 /p:Password="xxxxx"
+
+msbuild AspNetRazor3WebSite\website.publishproj /p:PublishUrl="bin\Release\PublishOutput" /p:DeployOnBuild=true /p:Configuration=Release /p:WebPublishMethod=FileSystem /p:DeployTarget=WebPublish /p:AutoParameterizationWebConfigConnectionStrings=false /p:SolutionDir="."
+
+msbuild AspNetRazor3WebSite\website.publishproj /p:PackageLocation="bin\Release\PublishOutputZip" /p:DeployOnBuild=true /p:Configuration=Release /p:WebPublishMethod=Package /p:DeployTarget=WebPublish /p:AutoParameterizationWebConfigConnectionStrings=false /p:PackageAsSingleFile=true /p:DeployIisAppPath="Default Web Site" /p:SolutionDir="."
+
+msbuild .\WebService\website.publishproj /p:DeployOnBuild=true /p:OutputPath=c:\out\ /p:Configuration=Release /p:AutoParameterizationWebConfigConnectionStrings=False
+
+@echo off
+cd C:\Develop\Traingo.LMS\Traingo.LMS.StudyWebV2 & C:
+rd /s /q ..\..\publish\WebSite\demo\StudyWebV2\
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe" .\website.publishproj /t:Rebuild /p:DeployOnBuild=true /p:Configuration=Release /P:_PackageTempDir="..\..\publish\WebSite\demo\StudyWebV2" /p:CreatePackageOnPublish=True /p:PublishProfile=".\App_Data\PublishProfiles\StudyWebV2.pubxml" /p:SolutionDir="."
+cd "%~dp0" & %~d0
+pause
+
+你NuGet.exe的恢复你的包。运行的每个项目。
+nuget install packages.config
+或用NuGet的2.7可以恢复所有包中的行。
+nuget restore YourSolution.sln
+
+PM> Install-Package NuGetPowerTools
+PM> Enable-PackageRestore
+Update-Package -Reinstall
+Update-Package -ProjectName 'YourProjectNameGoesHere' -Reinstall

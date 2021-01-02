@@ -130,3 +130,103 @@ RESTORE LOG AdventureWorks
     FROM DISK = '\\SQLServer-1\Backup\mirror.bak'
     WITH FILE=1, NORECOVERY
 GO
+
+--整完备份
+Backup Database NorthwindCS
+To disk='G:\Backup\NorthwindCS_Full_20070908.bak'
+
+--差异备份
+Backup Database NorthwindCS
+To disk='G:\Backup\NorthwindCS_Diff_20070908.bak'
+With Differential
+
+--日记备份，认默截断日记
+Backup Log NorthwindCS
+To disk='G:\Backup\NorthwindCS_Log_20070908.bak'
+
+--日记备份，不截断日记
+Backup Log NorthwindCS
+To disk='G:\Backup\NorthwindCS_Log_20070908.bak'
+With No_Truncate
+
+--截断日记不保存
+Backup Log NorthwindCS
+With No_Log
+
+--或者
+Backup Log NorthwindCS
+With Truncate_Only
+--截断后之日记文件不会变小
+--有须要可以行进缩收
+
+    每日一道理
+我拽着春姑娘的衣裙，春姑娘把我带到了绿色的世界里。
+
+--文件备份
+Exec Sp_Helpdb NorthwindCS --看查据数文件
+Backup Database NorthwindCS
+File='NorthwindCS'   --据数文件的逻辑名
+To disk='G:\Backup\NorthwindCS_File_20070908.bak'
+
+--文件组备份
+Exec Sp_Helpdb NorthwindCS --看查据数文件
+Backup Database NorthwindCS
+FileGroup='Primary'   --据数文件的逻辑名
+To disk='G:\Backup\NorthwindCS_FileGroup_20070908.bak'
+With init
+
+--割分备份到多个目标
+--恢复的时候不允许丧失任何一个目标
+Backup Database NorthwindCS
+To disk='G:\Backup\NorthwindCS_Full_1.bak'
+     ,disk='G:\Backup\NorthwindCS_Full_2.bak'
+
+--镜像备份
+--个每目标都是雷同的
+Backup Database NorthwindCS
+To disk='G:\Backup\NorthwindCS_Mirror_1.bak'
+Mirror
+To disk='G:\Backup\NorthwindCS_Mirror_2.bak'
+With Format --第一次做镜像备份的时候格式化目标
+
+--镜像备份到地本和近程
+Backup Database NorthwindCS
+To disk='G:\Backup\NorthwindCS_Mirror_1.bak'
+Mirror
+To disk='\\192.168.1.200\Backup\NorthwindCS_Mirror_2.bak'
+With Format
+
+--天每生成一个备份文件
+Declare @Path Nvarchar(2000)
+Set @Path ='G:\Backup\NorthwindCS_Full_'
++Convert(Nvarchar,Getdate(),112)+'.bak'
+
+Backup Database NorthwindCS
+To disk=@Path
+
+--从NoRecovery或者
+--Standby模式恢复据数库为可用
+Restore Database NorthwindCS_Bak
+With Recovery
+
+--看查目标备份中的备份集
+Restore HeaderOnly
+From Disk ='G:\Backup\NorthwindCS_Full_20070908.bak'
+
+--看查目标备份的第一个备份集的息信
+Restore FileListOnly
+From Disk ='G:\Backup\NorthwindCS_Full_20070908_2.bak'
+With File=1
+
+--看查目标备份的卷标
+Restore LabelOnly
+From Disk ='G:\Backup\NorthwindCS_Full_20070908_2.bak'
+
+--备份设置码密保护备份
+Backup Database NorthwindCS
+To disk='G:\Backup\NorthwindCS_Full_20070908.bak'
+With Password = '123',init
+
+Restore Database NorthwindCS
+From disk='G:\Backup\NorthwindCS_Full_20070908.bak'
+With Password = '123'

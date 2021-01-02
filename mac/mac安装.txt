@@ -502,3 +502,6 @@ sudo mdutil -i off #关闭索引
 sudo mdutil -E #清理索引
 sudo mdutil -i o #打开索引
 ================================================================
+Error: Permission denied @ apply2files - /usr/local/lib/docker/cli-plugins
+sudo chown -R $(whoami) $(brew --prefix)/*
+
