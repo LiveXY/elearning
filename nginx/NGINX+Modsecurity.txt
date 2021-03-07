@@ -1,0 +1,182 @@
+NGINX+ModSecurity
+
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload
+
+nginx -V
+nginx version: nginx/1.18.0
+built by gcc 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC)
+built with OpenSSL 1.0.2k-fips  26 Jan 2017
+TLS SNI support enabled
+configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib64/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -pie'
+
+yum install -y wget epel-release
+yum -y install gcc-c++ flex bison yajl yajl-devel curl-devel curl GeoIP-devel doxygen zlib-devel libtool autoconf automake libxml2-devel libgo-devel openssl-devel
+
+git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity modsecurity-v3.0.4
+cd modsecurity-v3.0.4
+git submodule init
+git submodule update
+./build.sh
+./configure
+make && make install
+或
+wget http://www.modsecurity.cn/download/modsecurity/modsecurity-v3.0.4.tar.gz
+tar -zxvf modsecurity-v3.0.4.tar.gz
+cd modsecurity-v3.0.4
+
+git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git modsecurity-nginx
+
+cd nginx-1.18.0
+./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib64/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -pie' --add-module=../naxsi-1.3/naxsi_src/ --add-module=../modsecurity-nginx
+make
+
+#cp objs/ngx_http_modsecurity_module.so /usr/lib64/nginx/modules/
+#ll /usr/lib64/nginx/modules/
+
+systemctl stop nginx
+cp /usr/sbin/nginx /usr/sbin/nginx.bak
+cp ./objs/nginx /usr/sbin/nginx
+
+验证是否成功
+nginx -V
+systemctl start nginx
+nginx -t
+
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+cat /etc/selinux/config | grep SELINUX
+
+mkdir -p /var/cache/nginx/client_temp
+chown nginx:nginx /var/cache/nginx/client_temp
+
+默认配置文件
+wget https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended -O /etc/nginx/modsecurity.conf
+cp -p /root/owasp/modsecurity-v3.0.4/unicode.mapping /etc/nginx/unicode.mapping
+
+核心规则
+git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git
+cp -R owasp-modsecurity-crs/rules /usr/local/nginx/conf/
+cp owasp-modsecurity-crs/crs-setup.conf.example /usr/local/nginx/conf/crs-setup.conf
+vim /usr/local/nginx/conf/modsecurity.conf
+include crs-setup.conf
+include rules/*.conf
+
+基本配置
+vi /etc/nginx/nginx.conf
+pid        /var/run/nginx.pid;
+#顶部添加modsecurity动态库加载
+load_module /usr/lib64/nginx/modules/ngx_http_modsecurity_module.so;
+
+server {
+	listen 80;
+	server_name domain.com;
+	location / {
+		modsecurity on;
+		modsecurity_rules_file /home/nginx/conf.d/modsecurity/modsecurity.conf;
+
+		#ModSecurityEnabled on;
+		#ModSecurityConfig /home/nginx/conf.d/modsecurity/modsecurity.conf;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header Cookies $http_cookie;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_buffering off;
+		proxy_pass http://10.1.1.91:80;
+
+	}
+	location /RequestDenied {
+		return 403;
+	}
+}
+systemctl restart nginx
+lsof -i:80
+
+curl "http://127.0.0.1/" -I
+curl "http://127.0.0.1/?id=1 AND 1=1" -I
+cat /var/log/modsec_audit.log
+
+SQL Injection (SQLi)：阻止SQL注入
+Cross Site Scripting (XSS)：阻止跨站脚本攻击
+Local File Inclusion (LFI)：阻止利用本地文件包含漏洞进行攻击
+Remote File Inclusione(RFI)：阻止利用远程文件包含漏洞进行攻击
+Remote Code Execution (RCE)：阻止利用远程命令执行漏洞进行攻击
+PHP Code Injectiod：阻止PHP代码注入
+HTTP Protocol Violations：阻止违反HTTP协议的恶意访问
+HTTPoxy：阻止利用远程代理感染漏洞进行攻击
+Sshllshock：阻止利用Shellshock漏洞进行攻击
+Session Fixation：阻止利用Session会话ID不变的漏洞进行攻击
+Scanner Detection：阻止黑客扫描网站
+Metadata/Error Leakages：阻止源代码/错误信息泄露
+Project Honey Pot Blacklist：蜜罐项目黑名单
+GeoIP Country Blocking：根据判断IP地址归属地来进行IP阻断
+
+modsecurity owasp详细规则解释：
+
+第一部分：基础规则集
+
+modsecurity_crs_20_protocol_violations.conf HTTP协议规范相关规则
+modsecurity_crs_21_protocol_anomalies.conf HTTP协议规范相关规则
+modsecurity_crs_23_request_limits.conf HTTP协议大小长度限制相关规则
+modsecurity_crs_30_http_policy.conf HTTP协议白名单相关规则
+modsecurity_crs_35_bad_robots.conf 恶意扫描器与爬虫规则
+modsecurity_crs_40_generic_attacks.conf 常见的攻击例如命令执行，代码执行，注入，文件包含、敏感信息泄露、会话固定、HTTP响应拆分等相关规则
+modsecurity_crs_41_sql_injection_attacks.conf SQL注入相关规则（竟然有一条MongoDB注入的规则，很全）
+modsecurity_crs_41_xss_attacks.conf XSS相关规则
+modsecurity_crs_42_tight_security.conf 目录遍历相关规则
+modsecurity_crs_45_trojans.conf webshell相关规则
+modsecurity_crs_47_common_exceptions.conf Apache异常相关规则
+modsecurity_crs_49_inbound_blocking.conf 协同防御相关规则
+modsecurity_crs_50_outbound.conf 检测response_body中的错误信息，警告信息，列目录信息
+modsecurity_crs_59_outbound_blocking.conf 协同防御相关规则
+modsecurity_crs_60_correlation.conf 协同防御相关规则
+
+第二部分：SLR规则集
+
+来自确定APP的PoC，不会误报，检测方法是先检查当前请求的文件路径是否出现在data文件中，若出现再进行下一步测试，否则跳过该规则集的检测
+modsecurity_crs_46_slr_et_joomla_attacks.conf JOOMLA应用的各种漏洞规则
+modsecurity_crs_46_slr_et_lfi_attacks.conf 各种APP的本地文件包含相关规则
+modsecurity_crs_46_slr_et_phpbb_attacks.conf PHPBB应用的各种漏洞规则
+modsecurity_crs_46_slr_et_rfi_attacks.conf 各种APP的远程文件包含相关规则
+modsecurity_crs_46_slr_et_sqli_attacks.conf 各种APP的SQL注入相关规则
+modsecurity_crs_46_slr_et_wordpress_attacks.conf WORDPRESS应用的各种漏洞规则
+modsecurity_crs_46_slr_et_xss_attacks.conf 各种APP的XSS相关规则
+
+第三部分：可选规则集
+
+modsecurity_crs_10_ignore_static.conf 静态文件不过WAF检测的相关规则
+modsecurity_crs_11_avs_traffic.conf AVS（授权的漏洞扫描器）的IP白名单规则
+modsecurity_crs_13_xml_enabler.conf 请求体启用XML解析处理
+modsecurity_crs_16_authentication_tracking.conf 记录登陆成功与失败的请求
+modsecurity_crs_16_session_hijacking.conf 会话劫持检测
+modsecurity_crs_16_username_tracking.conf 密码复杂度检测
+modsecurity_crs_25_cc_known.conf CreditCard验证
+modsecurity_crs_42_comment_spam.conf 垃圾评论检测
+modsecurity_crs_43_csrf_protection.conf 与modsecurity_crs_16_session_hijacking.conf联合检测，使用内容注入动作append注入CSRF Token
+modsecurity_crs_46_av_scanning.conf 使用外部脚本扫描病毒
+modsecurity_crs_47_skip_outbound_checks.conf modsecurity_crs_10_ignore_static.conf的补充
+modsecurity_crs_49_header_tagging.conf 将WAF规则命中情况配合Apache RequestHeader指令注入到请求头中，以供后续应用进一步处理
+modsecurity_crs_55_application_defects.conf 安全头(X-XSS-Protection,X-FRAME-OPTIONS,X-Content-Type-Options)设置,安全Cookie设置（Domain，httponly,secure)，字符集设置等规则
+modsecurity_crs_55_marketing.conf记录MSN/Google/Yahoo robot情况
+
+第四部分：实验性规则集
+
+modsecurity_crs_11_brute_force.conf 防御暴力破解相关规则
+modsecurity_crs_11_dos_protection.conf 防DoS攻击相关规则
+modsecurity_crs_11_proxy_abuse.conf 检测X-Forwarded-For是否是恶意代理IP，IP黑名单
+modsecurity_crs_11_slow_dos_protection.conf Slow HTTP DoS攻击规则
+modsecurity_crs_25_cc_track_pan.conf 检测响应体credit card信息
+modsecurity_crs_40_http_parameter_pollution.conf 检测参数污染
+modsecurity_crs_42_csp_enforcement.conf CSP安全策略设置
+modsecurity_crs_48_bayes_analysis.conf 使用外部脚本采取贝叶斯分析方法分析HTTP请求，区分正常与恶意请求
+modsecurity_crs_55_response_profiling.conf 使用外部脚本将响应体中的恶意内容替换为空
+modsecurity_crs_56_pvi_checks.conf使用外部脚本检测 REQUEST_FILENAME是否在osvdb漏洞库中
+modsecurity_crs_61_ip_forensics.conf 使用外部脚本收集IP的域名、GEO等信息
+modsecurity_crs_40_appsensor_detection_point_2.0_setup.conf APPSENSOR检测设置文件
+modsecurity_crs_40_appsensor_detection_point_3.0_end.conf APPSENSOR检测设置文件
+modsecurity_crs_16_scanner_integration.conf 对扫描器设置IP白名单，并调用扫描器API来进行检测
+modsecurity_crs_46_scanner_integration.conf
+使用modsecurity_crs_40_appsensor_detection_point_2.0_setup.conf，modsecurity_crs_40_appsensor_detection_point_3.0_end.conf 来跟踪XSS漏洞参数与SQLI漏洞参数
+modsecurity_crs_40_appsensor_detection_point_2.1_request_exception.conf 使用外部脚本检测请求方法，参数个数，参数名字，参数长度，参数字符等限制
+modsecurity_crs_40_appsensor_detection_point_2.9_honeytrap.conf 使用隐藏参数设置蜜罐

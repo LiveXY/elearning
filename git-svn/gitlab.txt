@@ -123,3 +123,20 @@ passwd -u git
 usermod -U git
 
 ssh-keygen -R GITURL
+
+取消访问限制Forbidden
+gitlab_rails['rack_attack_git_basic_auth'] = {
+   'enabled' => true,
+   'ip_whitelist' => ["127.0.0.1"],
+   'maxretry' => 300,
+   'findtime' => 60,
+   'bantime' => 3600
+}
+gitlab-ctl reconfigure
+gitlab-ctl restart
+
+vi /etc/gitlab/gitlab.rb
+external_url 'http://git.test.com'
+nginx['listen_port'] = 9091
+
+/var/opt/gitlab/nginx/conf/gitlab-http.conf

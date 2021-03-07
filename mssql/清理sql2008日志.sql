@@ -230,3 +230,28 @@ With Password = '123',init
 Restore Database NorthwindCS
 From disk='G:\Backup\NorthwindCS_Full_20070908.bak'
 With Password = '123'
+
+backup database test to disk='' with checksum, compression, buffercount = 50, maxtransfersize = 4194304
+backup database [Traingo_IP] to disk='C:\DBBackup\Traingo_IPTest.bak' with checksum, compression, buffercount = 50, maxtransfersize = 4194304
+restore database [Traingo_IPTest] from disk='C:\DBBackup\Traingo_IPTest.bak'
+
+create database [Traingo_IPTest] on primary (
+    name='Traingo_IPTest_data',
+    filename='C:\DataBaseFile\Traingo_IPTest_data.mdf',
+    size=5mb, maxsize=unlimited, filegrowth=1mb
+) LOG ON (
+    name='Traingo_IPTest_log',
+    filename='C:\DataBaseFile\Traingo_IPTest_log.ldf',
+    size=1mb, maxsize=10gb, filegrowth=10%
+)
+GO
+
+use [Traingo_IPTest]
+GO
+
+SELECT 'backup database [' + DB_NAME(database_id) + '] to disk=''C:\\DBBackup\\' + 
+    DB_NAME(database_id) + '.bak'' with checksum, compression, buffercount = 50, maxtransfersize = 4194304;'
+FROM sys.master_files where DB_NAME(database_id) not in ('master', 'model', 'msdb', 'tempdb')
+  and right(Physical_Name, 4)='.mdf'
+order by size asc
+

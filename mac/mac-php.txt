@@ -35,9 +35,13 @@ composer create-project laravel/laravel blog --prefer-dist
 composer create-project laravel/laravel blog58 5.8.* --prefer-dist
 
 更新
+composer config -g repo.packagist composer https://packagist.phpcomposer.com
+composer config -g --unset repos.packagist
+
 composer update
 composer dump-autoload
 composer self-update
+COMPOSER_MEMORY_LIMIT=-1 composer update
 或
 php ~/composer.phar self-update
 php ~/composer.phar install

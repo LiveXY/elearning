@@ -197,3 +197,16 @@ brew install caskroom/cask/brew-cask
 brew cask install rdm
 http://docs.redisdesktop.com/en/latest/install/#build-from-source
 git clone --recursive https://github.com/uglide/RedisDesktopManager.git -b 2020 rdm && cd ./rdm
+==============================================================
+brew install masscan
+masscan -p80,8000-8100 10.0.0.0/8 2603:3001:2d00:da00::/112
+masscan -p80,8000-8100 10.0.0.0/8 2603:3001:2d00:da00::/112 --echo > xxx.conf
+masscan -c xxx.conf --rate 1000
+masscan 10.0.0.0/8 -p80 --banners --source-ip 192.168.1.200
+masscan 2a00:1450:4007:810::/112 -p80 --banners --source-ip 2603:3001:2d00:da00:91d7:b54:b498:859d
+masscan 10.0.0.0/8 -p80 --banners --source-port 61000
+masscan 10.0.0.0/8 -p80 --banners --source-port 40000
+masscan 0.0.0.0/0 -p0-65535
+masscan 0.0.0.0/0 -p0-65535 --excludefile exclude.txt
+masscan 0.0.0.0/0 -p0-65535 -oX scan.xml
+masscan 0.0.0.0/0 -p0-65535 --max-rate 100000

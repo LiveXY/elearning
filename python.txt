@@ -149,3 +149,18 @@ pyinstaller.exe -F --key 123456 xxx.py
 反编译测试
 那么我们再来测试一下加密打包的exe还能不能被反编译。再次执行pyinstxtractor.py
 python pyinstxtractor.py .\main-encrypt.exe
+
+pip3 install webssh
+# 直接运行wssh，使用默认8888端口
+wssh
+
+# 通过绑定IP地址和端口启动
+wssh --address='192.168.83.129' --port=8888
+wssh --address='0.0.0.0' --port=8888
+
+# 通过绑定IP地址和端口启动，只允许本地地址访问
+wssh --address='127.0.0.1' --port=8888
+
+https://github.com/tqdm/tqdm
+https://github.com/dbcli/pgcli
+https://github.com/dbcli/mycli

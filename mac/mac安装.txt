@@ -35,6 +35,15 @@ vi ~/.inputrc
 set completion-ignore-case On
 ```
 
+vi ~/.zshrc
+```
+if [ -f ~/.bash_profile ]; then
+	source ~/.bash_profile
+fi
+bindkey '\e[B' history-search-forward
+bindkey '\e[A' history-search-backward
+```
+
 vi ~/.bash_profile
 ```
 #alias
@@ -504,4 +513,8 @@ sudo mdutil -i o #打开索引
 ================================================================
 Error: Permission denied @ apply2files - /usr/local/lib/docker/cli-plugins
 sudo chown -R $(whoami) $(brew --prefix)/*
+===============================================================
+brew install smartmontools
+查询硬盘信息
+smartctl -a disk0
 

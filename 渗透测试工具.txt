@@ -1164,4 +1164,16 @@ https://github.com/easysoft/zendata
 反编译利器：Jadx
 https://github.com/skylot/jadx
 
+内网穿透工具
+https://github.com/inlets/inlets
+# 安装到当前目录
+curl -sLS https://get.inlets.dev | sh
+# 安装到 /usr/local/bin/
+curl -sLS https://get.inlets.dev | sudo sh
+# 使用brew安装
+brew install inlets
+https://github.com/inlets/inlets/releases
+inlets server --port=8090
+python -m http.server 3000
+inlets client --remote=192.168.244.1:8090 --upstream=http://127.0.0.1:3000
 

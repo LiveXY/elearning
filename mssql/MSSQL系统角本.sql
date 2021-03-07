@@ -5,6 +5,20 @@ SET SHOWPLAN_ALL ON
 dbo.SP_LOCKINFO 0,1
 dbo.SP_LOCKINFO 1,1
 
+--查看SQL执行时间
+SET STATISTICS PROFILE ON
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+GO
+select * from TC_ExamPaperResultDetail where ResultID>1220 and ResultID<10000
+GO
+SET STATISTICS PROFILE OFF
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+
+select name from master.dbo.sysdatabases
+SELECT table_name FROM information_schema.tables
+select name from dbo.sysobjects where xtype='U'
 
 -- 发EMAIL
 msdb.dbo.sp_send_dbmail
@@ -102,6 +116,198 @@ total_worker_time/execution_count AS [Avg CPU Time],
 (SELECT SUBSTRING(text,statement_start_offset/2,(CASE WHEN statement_end_offset = -1 then LEN(CONVERT(nvarchar(max), text)) * 2 ELSE statement_end_offset end -statement_start_offset)/2) FROM sys.dm_exec_sql_text(sql_handle)) AS query_text, *
 FROM sys.dm_exec_query_stats
 ORDER BY [Avg CPU Time] DESC
+
+--不能存在没有主键的表
+SELECT name FROM sys.tables
+EXCEPT
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE CONSTRAINT_TYPE = 'PRIMARY KEY'
+
+--不能存在允许空的字段
+select TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, COLUMN_DEFAULT
+from INFORMATION_SCHEMA.COLUMNS
+where TABLE_NAME in (select name from sysobjects where type = 'U')
+and IS_NULLABLE='YES'
+
+--碎片
+SELECT  DB_NAME(ps.database_id) AS '数据库名', OBJECT_NAME(ps.OBJECT_ID) AS '表名',
+        b.name as '索引名', ps.index_id as '索引ID', fill_factor as '填充因子',
+        ps.avg_fragmentation_in_percent as '碎片率'
+FROM    sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, NULL) AS ps
+        INNER JOIN sys.indexes AS b ON ps.OBJECT_ID = b.OBJECT_ID AND ps.index_id = b.index_id
+--WHERE   ps.database_id = DB_ID('Traingo.LMS_test')
+ORDER BY ps.avg_fragmentation_in_percent DESC
+-- >30重建索引
+SELECT  'alter index all on ' + OBJECT_NAME(ps.OBJECT_ID) + ' rebuild;', ps.avg_fragmentation_in_percent
+FROM    sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, NULL) AS ps
+        INNER JOIN sys.indexes AS b ON ps.OBJECT_ID = b.OBJECT_ID AND ps.index_id = b.index_id
+WHERE   ps.avg_fragmentation_in_percent > 30
+ORDER BY ps.avg_fragmentation_in_percent DESC
+
+create procedure [dbo].[clearDBFragmentation](@dbname varchar(100)) as
+begin
+  declare @@execSql nvarchar(max), @@execSql2 nvarchar(max)
+
+  set @@execSql = '
+    use [' + @dbname + '];
+    select table_schema + ''.'' + object_name(ps.object_id) 表名, round(ps.avg_fragmentation_in_percent, 0) 碎片率, b.name as 索引名
+    from sys.dm_db_index_physical_stats(db_id(), null, null, null, null) as ps 
+    inner join sys.indexes as b on ps.OBJECT_ID = b.OBJECT_ID and ps.index_id = b.index_id 
+    inner join information_schema.tables as c on c.table_name=object_name(ps.object_id)
+    where ps.avg_fragmentation_in_percent > 50
+    order by ps.avg_fragmentation_in_percent desc'
+  exec(@@execSql);
+
+  set @@execSql = '
+    use [' + @dbname + '];
+    (select @execSql2=stuff((
+      select distinct ''alter index all on '' + table_schema + ''.'' + object_name(ps.object_id) + '' rebuild;'' 
+      from sys.dm_db_index_physical_stats(db_id(), null, null, null, null) as ps 
+      inner join sys.indexes as b on ps.OBJECT_ID = b.OBJECT_ID and ps.index_id = b.index_id 
+      inner join information_schema.tables as c on c.table_name=object_name(ps.object_id)
+      where ps.avg_fragmentation_in_percent > 50
+    FOR xml path('''')) , 1 , 0 , ''''))'
+  exec sp_executesql @@execSql, N'@execSql2 nvarchar(max) out', @@execSql2 out
+  if @@execSql2 is not null begin
+    set @@execSql = 'use [' + @dbname + '];' + @@execSql2
+    exec(@@execSql);
+    print @dbname + '=>' + ltrim(str(@@error)) + '=>' + @@execSql
+  end
+end
+create procedure [dbo].[clearAllDBFragmentation] as
+begin
+  declare @@dbname varchar(200)
+  declare @@dbs int, @@i int
+  if object_id(N'tempdb..#all_databases',N'U') is null begin
+    create table #all_databases([id] [INT] identity(1,1) not null, [dbname] varchar(255) not null);
+  end
+
+  truncate table #all_databases
+  insert into #all_databases(dbname)
+  select name from master.dbo.sysdatabases where name not in ('master', 'model', 'msdb', 'tempdb')
+
+  set @@dbs = (select max(id) from #all_databases)
+  set @@i=1
+  while @@i<=@@dbs
+  begin
+    set @@dbname = (select dbname from #all_databases where id=@@i)
+    print @@dbname
+    exec clearDBFragmentation @@dbname
+    set @@i=@@i+1
+  end
+end
+exec clearAllDBFragmentation
+
+
+--重建索引
+--avg_fragmentation_in_percent >5% and <=30%： 重组索引（ALTER INDEX REORGANIZE）；
+ALTER INDEX ALL ON Employee REORGANIZE
+--avg_fragmentation_in_percent >30%： 重建索引（ALTER INDEX REBUILD）；
+ALTER INDEX ALL ON Employee REBUILD
+-- partition=all with (FILLFACTOR = 80, ONLINE = OFF, DATA_COMPRESSION = PAGE )
+-- WITH (FILLFACTOR = 60, SORT_IN_TEMPDB = ON,STATISTICS_NORECOMPUTE = ON);
+dbcc showconfig('LMS_RewardIntegralLog')
+dbcc dbreindex('LMS_RewardIntegralLog', '', 80)
+dbcc indexdefrag('LMS_RewardIntegralLog', '', 80)
+dbcc cleantable('LMS_RewardIntegralLog', '')
+
+--缺失索引
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT TOP 20
+  ROUND(s.avg_total_user_cost * s.avg_user_impact * (s.user_seeks + s.user_scans),0) AS [Total Cost]
+  , d.[statement] AS [Table Name]
+  , equality_columns
+  , inequality_columns
+  , included_columns
+FROM sys.dm_db_missing_index_groups g INNER JOIN sys.dm_db_missing_index_group_stats s ON s.group_handle = g.index_group_handle
+  INNER JOIN sys.dm_db_missing_index_details d ON d.index_handle = g.index_handle
+ORDER BY [Total Cost] DESC
+
+--没有用的索引
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+SELECT
+  DB_NAME() AS DatabaseName
+  , SCHEMA_NAME(o.Schema_ID) AS SchemaName
+  , OBJECT_NAME(s.[object_id]) AS TableName
+  , i.name AS IndexName
+  , s.user_updates
+  , s.system_seeks + s.system_scans + s.system_lookups AS [System usage]
+  INTO #TempUnusedIndexes
+FROM sys.dm_db_index_usage_stats s INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
+  INNER JOIN sys.objects o ON i.object_id = O.object_id
+WHERE 1=2
+
+--表记录数量
+SELECT A.NAME ,B.ROWS FROM sysobjects A JOIN sysindexes B ON A.id = B.id WHERE A.xtype = 'U' AND B.indid IN(0,1) ORDER BY B.ROWS DESC
+--表记录数量2
+create table #tb(表名 sysname,记录数 int ,保留空间 varchar(10),使用空间 varchar(10),索引使用空间 varchar(10),未用空间 varchar(10))
+truncate table #tb
+insert into #tb exec sp_MSForEachTable 'EXEC sp_spaceused ''?'''
+select * from #tb order by 记录数 desc
+select * from #tb order by cast(replace(使用空间,'KB','') as int) desc
+
+
+--查看数据库大小
+Exec master.dbo.xp_fixeddrives -- 剩余空间
+Exec sp_spaceused
+dbcc sqlperf(logspace) with no_infomsgs
+select name, convert(float,size) * (8192.0/1024.0)/1024. from dbo.sysfiles
+insert into dbo.DbLogSize execute('dbcc sqlperf(logspace) with no_infomsgs')
+
+SELECT DB_NAME(database_id) AS DatabaseName, Name AS Logical_Name, (size*8)/1024 SizeMB, Physical_Name
+FROM sys.master_files where DB_NAME(database_id) not in ('master', 'model', 'msdb', 'tempdb')
+  and right(Physical_Name, 4)='.ldf'
+order by SizeMB desc
+
+清理LOG
+create procedure [dbo].[clearDBLog](@dbname varchar(100)) as
+begin
+  declare @@execSql varchar(max)
+  set @@execSql = '
+    select db_name(database_id) 数据库, Name 逻辑文件, (size*8)/1024 大小M, Physical_Name 物理文件
+    from sys.master_files where DB_NAME(database_id) = ''' + @dbname + ''''
+  exec(@@execSql)
+  set @@execSql = '
+    alter database [' + @dbname + '] set recovery simple with no_wait;
+    alter database [' + @dbname + '] set recovery simple;
+    dbcc shrinkdatabase([' + @dbname + '], 1, truncateonly);
+    alter database [' + @dbname + '] set recovery full with no_wait;
+    alter database [' + @dbname + '] set recovery full;'
+  exec(@@execSql)
+  print @dbname + '=>' + ltrim(str(@@error))
+  if @@error<>0 begin
+    set @@execSql = '
+      alter database [' + @dbname + '] set recovery full with no_wait;
+      alter database [' + @dbname + '] set recovery full;'
+    exec(@@execSql)
+  end
+end
+exec clearDBLog 'Traingo.LY_test'
+create procedure [dbo].[clearAllDBLog] as
+begin
+  declare @@dbname varchar(200)
+  declare @@dbs int, @@i int
+  if object_id(N'tempdb..#all_databases',N'U') is null begin
+    create table #all_databases([id] [INT] identity(1,1) not null, [dbname] varchar(255) not null);
+  end
+
+  truncate table #all_databases
+  insert into #all_databases(dbname)
+  select distinct DB_NAME(database_id)
+  from sys.master_files where DB_NAME(database_id) not in ('master', 'model', 'msdb', 'tempdb')
+  and right(Physical_Name, 4)='.ldf' and size>1024*1024/8
+
+  set @@dbs = (select max(id) from #all_databases)
+  set @@i=1
+  while @@i<=@@dbs
+  begin
+    set @@dbname = (select dbname from #all_databases where id=@@i)
+    --select @@dbname
+    exec clearDBLog @@dbname
+    set @@i=@@i+1
+  end
+end
+exec clearAllDBLog
 
 --显示用于找出过多编译/重新编译的 DMV 查询。
 select * from sys.dm_exec_query_optimizer_info
@@ -342,32 +548,6 @@ BEGIN
         ORDER BY 进程的SQL语句 desc
 END
 
-
---缺失索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
-SELECT TOP 20
-	ROUND(s.avg_total_user_cost * s.avg_user_impact	* (s.user_seeks + s.user_scans),0) AS [Total Cost]
-	, d.[statement] AS [Table Name]
-	, equality_columns
-	, inequality_columns
-	, included_columns
-FROM sys.dm_db_missing_index_groups g INNER JOIN sys.dm_db_missing_index_group_stats s ON s.group_handle = g.index_group_handle
-	INNER JOIN sys.dm_db_missing_index_details d ON d.index_handle = g.index_handle
-ORDER BY [Total Cost] DESC
-
---没有用的索引
-SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
-SELECT
-	DB_NAME() AS DatabaseName
-	, SCHEMA_NAME(o.Schema_ID) AS SchemaName
-	, OBJECT_NAME(s.[object_id]) AS TableName
-	, i.name AS IndexName
-	, s.user_updates
-	, s.system_seeks + s.system_scans + s.system_lookups AS [System usage]
-	INTO #TempUnusedIndexes
-FROM sys.dm_db_index_usage_stats s INNER JOIN sys.indexes i ON s.[object_id] = i.[object_id] AND s.index_id = i.index_id
-	INNER JOIN sys.objects o ON i.object_id = O.object_id
-WHERE 1=2
 
 EXEC sp_MSForEachDB 'USE [?];
 INSERT INTO #TempUnusedIndexes

@@ -2588,6 +2588,7 @@ pip3 install jupyter
 jupyter notebook
 jupyter notebook --generate-config
 https://blog.csdn.net/countofdane/article/details/82013676
+https://github.com/mwouts/jupytext
 
 文本
 https://zhuanlan.zhihu.com/p/76912493
@@ -3994,8 +3995,129 @@ https://mp.weixin.qq.com/s/wGiZVopNJtCwRaJj8wFCQg
 数据增广
 https://mp.weixin.qq.com/s/Xt6oeSe-ugBRbMeaQbUUoA
 
+使用机器学习放大 图片/视频/GIF
+https://github.com/AaronFeng753/Waifu2x-Extension-GUI
+
+超轻量级中文ocr，支持竖排文字识别, 支持ncnn推理 ( dbnet(1.8M) + crnn(2.5M) + anglenet(378KB)) 总模型仅4.7M
+https://github.com/microsoft/onnxruntime
+https://github.com/ouyanghuiyu/chineseocr_lite
+https://github.com/alisen39/TrWebOCR
+https://github.com/ouyanghuiyu/yolo-face-with-landmark
+
+https://github.com/Uniswap/uniswap-v2-core
+https://github.com/Uniswap/uniswap-v2-periphery
+https://github.com/Basis-Cash/basiscash-protocol
+https://github.com/api3dao/airnode
+https://github.com/NEST-Protocol/NEST-Oracle-V3
+https://github.com/smartcontractkit/chainlink
+
+https://github.com/mwaskom/seaborn
+
+https://github.com/odashi/latexify_py #生成 LaTeX 公式
+https://github.com/csxmli2016/DFDNet
+
+https://github.com/laekov/fastmoe
+无人机渗透测试
+https://github.com/dhondta/dronesploit
+生成高质量、多样化和逼真的图像
+https://github.com/RameenAbdal/StyleFlow
+https://github.com/NVlabs/stylegan2-ada
+视觉识别
+https://github.com/openai/CLIP
+以太坊GPU挖矿软件
+https://github.com/ethereum-mining/ethminer
+去中心化的分布式微博
+https://github.com/tootsuite/mastodon
+Protobuf 编码
+https://github.com/protocolbuffers/protobuf
+视频上传与分享服务 去中心化
+https://github.com/Chocobozzz/PeerTube
+区块链技术的新型无广告Web浏览
+https://github.com/brave/brave-browser
+神经网络的可视化工具和绘图软件
+https://github.com/HarisIqbal88/PlotNeuralNet
+面向物联网的嵌入式实时操作系统 构建简单的传感器网络、可穿戴设备以及小型物联网无线网关
+https://github.com/zephyrproject-rtos/zephyr
+安全帽佩戴检测
+https://github.com/PeterH0323/Smart_Construction
+对王之王——对穿肠
+https://github.com/wb14123/seq2seq-couplet
+文本多分类任务
+https://github.com/percent4/keras_bert_text_classification
+自监督模型 物体检测、分割和图像分类等任务上优于最新的自监督
+https://github.com/facebookresearch/vissl
+旋转目标检测新方法
+https://github.com/yangxue0827/RotationDetection
+https://github.com/implus/GFocalV2
+人脸多属性篡改
+https://github.com/imlixinyang/HiSD
+无卷积！金字塔视觉Transformer(PVT)：用于密集预测的多功能backbone
+https://github.com/whai362/PVT
+基于Transformer的DALL-E
+https://github.com/openai/DALL-E
+https://github.com/sacmehta/delight
+https://github.com/yitu-opensource/T2T-ViT
+通过视频-文本对匹配的视频预训练模型
+https://github.com/MCG-NJU/CPD-Video
+
+https://github.com/WeChatCV/opencv_3rdparty
+https://github.com/opencv/opencv_contrib
+
+https://github.com/ultralytics/yoloV5
+https://github.com/Akbonline/Social-Distancing-using-YOLOv5
+基于细粒度动态网络的目标检测器
+https://github.com/StevenGrove/DynamicHead
+https://github.com/Vegeta2020/CIA-SSD
+https://github.com/Banconxuan/RTS3D
+https://github.com/Thinklab-SJTU/R3Det_Tensorflow
+https://github.com/nightsnack/YOLObile
+行人重识别
+https://github.com/naver-ai/relabel_imagenet
+https://github.com/JDAI-CV/fast-reid
+https://github.com/mangye16/ReID-Survey
+
+OCTA-500数据集下载地址
+https://ieee-dataport.org/open-access/octa-500
+https://www.paperswithcode.com/datasets
+https://google.github.io/aistplusplus_dataset/
 
 
+SoftPool：一种新的池化方法
+https://github.com/alexandrosstergiou/SoftPool
+刷爆AI圈的DALL·E
+https://github.com/lucidrains/DALLE-pytorch
+目标跟踪 支持单/多目标跟踪、视频目标检测
+https://github.com/open-mmlab/mmtracking
 
+Transformers是2020年在Papers with Code上被访问最多的代码库
+Transformers — Hugging Face — https://github.com/huggingface/transformers
+PyTorch Image Models — Ross Wightman — https://github.com/rwightman/pytorch-image-models
+Detectron2 — FAIR — https://github.com/facebookresearch/detectron2
+InsightFace — DeepInsight — https://github.com/deepinsight/insightface
+Imgclsmob — osmr — https://github.com/osmr/imgclsmob
+DarkNet — pjreddie — https://github.com/pjreddie/darknet
+PyTorchGAN — Erik Linder-Norén — https://github.com/eriklindernoren/PyTorch-GAN
+MMDetection — OpenMMLab — https://github.com/open-mmlab/mmdetection
+FairSeq — PyTorch — https://github.com/pytorch/fairseq
+Gluon CV — DMLC — https://github.com/dmlc/gluon-cv
 
+ImageNet是2020年在Papers with Code上访问最多的benchmark
+ImageNet — Image Classification — https://paperswithcode.com/sota/image-classification-on-imagenet
+COCO — Object Detection / Instance Segmentation — https://paperswithcode.com/sota/object-detection-on-coco
+Cityscapes — Semantic Segmentation — https://paperswithcode.com/sota/semantic-segmentation-on-cityscapes
+CIFAR-10 — Image Classification — https://paperswithcode.com/sota/image-classification-on-cifar-10
+CIFAR-100 — Image Classification — https://paperswithcode.com/sota/image-classification-on-cifar-100
+PASCAL VOC 2012 — Semantic Segmentation — https://paperswithcode.com/sota/semantic-segmentation-on-pascal-voc-2012
+MPII Human Pose — Pose Estimation — https://paperswithcode.com/sota/pose-estimation-on-mpii-human-pose
+Market-1501 — Person Re-Identification — https://paperswithcode.com/sota/person-re-identification-on-market-1501
+MNIST — Image Classification — https://paperswithcode.com/sota/image-classification-on-mnist
+Human 3.6M — Human Pose Estimation -https://paperswithcode.com/sota/pose-estimation-on-mpii-human-pose
+
+https://github.com/microsoft/EdgeML
+目标检测
+https://github.com/Megvii-BaseDetection/AutoAssign
+https://github.com/fundamentalvision/Deformable-DETR
+https://github.com/Megvii-BaseDetection/DeFCN
+去除阴影
+https://github.com/kavyamusty/Shading-removal-of-images
 

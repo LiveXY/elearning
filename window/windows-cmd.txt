@@ -15,6 +15,8 @@ taskkill /fi "windowtitle eq D:\server\runtime\fg_gameloader_bacc\FG_MiniGameLoa
 ntsd -c q -p 1332
 ntsd -c q -pn aa.exe
 
+netstat -an | find "ESTABLISHED" /c
+
 
 windows 下的端口映射
 netsh interface portproxy add v4tov4 listenaddress=119.81.8.235 listenport=80 connectaddress=119.81.27.72 connectport=8802

@@ -1390,3 +1390,301 @@ Value or default (值或者默认值)
 JavaScript 代码:
 const valueOrDefault = (value, d) => value || d;
 // valueOrDefault(NaN, 30) -> 30
+
+1. 类型检查小工具
+JavaScript 不是强类型语言，对此我推荐的最佳解决方案是 TypeScript。但有时你只是想要一个简单的类型检查，这种时候 JavaScript 允许你使用“typeof”关键字。
+“typeof”的问题在于，将其用于某些原语和函数时效果很好，但对于数组和对象来说，由于它们都被视为“对象”，因此很难把握它们之间的区别。
+const isOfType = (() => {
+  // create a plain object with no prototype
+  const type = Object.create(null);
+
+  // check for null type
+  type.null = x => x === null;
+  // check for undefined type
+  type.undefined = x => x === undefined;
+  // check for nil type. Either null or undefined
+  type.nil = x => type.null(x) || type.undefined(x);
+  // check for strings and string literal type. e.g: 's', "s", `str`, new String()
+  type.string = x => !type.nil(x) && (typeof x === 'string' || x instanceof String);
+  // check for number or number literal type. e.g: 12, 30.5, new Number()
+  type.number = x => !type.nil(x) 
+    && (// NaN & Infinity have typeof "number" and this excludes that
+      (!isNaN(x) && isFinite(x)
+      && typeof x === 'number'
+    ) || x instanceof Number);
+  // check for boolean or boolean literal type. e.g: true, false, new Boolean()
+  type.boolean = x => !type.nil(x) && (typeof x === 'boolean' || x instanceof Boolean);
+  // check for array type
+  type.array = x => !type.nil(x) && Array.isArray(x);
+  // check for object or object literal type. e.g: {}, new Object(), Object.create(null)
+  type.object = x => ({}).toString.call(x) === '[object Object]';
+  // check for provided type instance
+  type.type = (x, X) => !type.nil(x) && x instanceof X;
+  // check for set type
+  type.set = x => type.type(x, Set);
+  // check for map type
+  type.map = x => type.type(x, Map);
+  // check for date type
+  type.date = x => type.type(x, Date);
+
+  return type;
+})();
+2. 检查是否为空
+有时你需要知道某些内容是否为空，并根据结果决定要使用的方法，例如检查长度、大小或是否包含任何子元素。下面这个工具打包了这些功能，你可以用它检查 String、Object、Array、Map 和 Set 的大小。
+function isEmpty(x) {
+  if(Array.isArray(x)
+    || typeof x === 'string'
+    || x instanceof String
+   ) {
+    return x.length === 0;
+  }
+
+  if(x instanceof Map || x instanceof Set) {
+    return x.size === 0;
+  }
+
+  if(({}).toString.call(x) === '[object Object]') {
+    return Object.keys(x).length === 0;
+  }
+
+  return false;
+}
+3. 获取列表最后一项
+其他语言里这个功能被做成了可以在数组上调用的方法或函数，但在 JavaScript 里面，你得自己做点工作。
+function lastItem(list) {
+  if(Array.isArray(list)) {
+    return list.slice(-1)[0];
+  }
+
+  if(list instanceof Set) {
+    return Array.from(list).slice(-1)[0];
+  }
+
+  if(list instanceof Map) {
+    return Array.from(list.values()).slice(-1)[0];
+  }
+}
+4. 带有范围的随机数生成器
+有时你需要生成随机数，但希望这些数字在一定范围内，那就可以用这个工具。
+function randomNumber(max = 1, min = 0) {
+  if(min >= max) {
+    return max;
+  }
+
+  return Math.floor(Math.random() * (max - min) + min);
+}
+5. 随机 ID 生成器
+有时你只是需要一些 ID？除非你要的是更复杂的 ID 生成器（例如 UUID），否则用不着为此安装什么新库，下面这个选项足够了。你可以从当前时间（以毫秒为单位）或特定的整数和增量开始生成，也可以从字母生成 ID。
+// create unique id starting from current time in milliseconds
+// incrementing it by 1 everytime requested
+const uniqueId = (() => {
+  const id = (function*() {
+    let mil = new Date().getTime();
+
+    while (true)
+      yield mil += 1;
+  })();
+
+  return () => id.next().value;
+})();
+// create unique incrementing id starting from provided value or zero
+// good for temporary things or things that id resets
+const uniqueIncrementingId = ((lastId = 0) => {
+  const id = (function*() {
+    let numb = lastId;
+
+    while (true)
+      yield numb += 1;
+  })()
+
+  return (length = 12) => `${id.next().value}`.padStart(length, '0');
+})();
+// create unique id from letters and numbers
+const uniqueAlphaNumericId = (() => {
+  const heyStack = '0123456789abcdefghijklmnopqrstuvwxyz';
+  const randomInt = () => Math.floor(Math.random() * Math.floor(heyStack.length))
+
+  return (length = 24) => Array.from({length}, () => heyStack[randomInt()]).join('');
+})();
+6. 创建一个范围内的数字
+Python 里我很喜欢的一个功能是 range 函数，而在 JavaScript 里我经常需要自己写这个功能。下面是一个简单的实现，非常适合 for…of 循环以及需要特定范围内数字的情况。
+function range(maxOrStart, end = null, step = null) { 
+  if(!end) {
+    return Array.from({length: maxOrStart}, (_, i) => i)
+  }
+
+  if(end <= maxOrStart) {
+    return [];
+  }
+
+  if(step !== null) {
+    return Array.from(
+      {length: Math.ceil(((end - maxOrStart) / step))}, 
+      (_, i) => (i * step) + maxOrStart
+    );
+  }
+
+  return Array.from(
+    {length: Math.ceil((end - maxOrStart))}, 
+    (_, i) => i + maxOrStart
+  );
+}
+7. 格式化 JSON 字符串，stringify 任何内容
+我在使用 NodeJs 将对象记录到控制台时经常使用这种方法。JSON.stringify 方法需要第三个参数，该参数必须有多个空格以缩进行。第二个参数可以为 null，但你可以用它来处理 function、Set、Map、Symbol 之类 JSON.stringify 方法无法处理或完全忽略的内容。
+图片
+const stringify = (() => {
+  const replacer = (key, val) => {
+    if(typeof val === 'symbol') {
+      return val.toString();
+    }
+    if(val instanceof Set) {
+      return Array.from(val);
+    }
+    if(val instanceof Map) {
+      return Array.from(val.entries());
+    }
+    if(typeof val === 'function') {
+      return val.toString();
+    }
+    return val;
+  }
+
+  return (obj, spaces = 0) => JSON.stringify(obj, replacer, spaces)
+})();
+8. 顺序执行 promise
+如果你有一堆异步或普通函数都返回 promise，要求你一个接一个地执行，这个工具就会很有用。它会获取函数或 promise 列表，并使用数组 reduce 方法按顺序解析它们。
+const asyncSequentializer = (() => {
+  const toPromise = (x) => {
+    if(x instanceof Promise) { // if promise just return it
+      return x;
+    }
+
+    if(typeof x === 'function') {
+      // if function is not async this will turn its result into a promise
+      // if it is async this will await for the result
+      return (async () => await x())();
+    }
+
+    return Promise.resolve(x)
+  }
+
+  return (list) => {
+    const results = [];
+
+    return list
+      .reduce((lastPromise, currentPromise) => {
+        return lastPromise.then(res => {
+          results.push(res); // collect the results
+          return toPromise(currentPromise);
+        });
+      }, toPromise(list.shift()))
+      // collect the final result and return the array of results as resolved promise
+      .then(res => Promise.resolve([...results, res]));
+  }
+})();
+9. 轮询数据
+如果你需要持续检查数据更新，但系统中没有 WebSocket，则可以使用这个工具来执行操作。它非常适合上传文件时，想要持续检查文件是否已完成处理的情况，或者使用第三方 API（例如 dropbox 或 uber）并且想要持续检查过程是否完成或骑手是否到达目的地的情况。
+async function poll(fn, validate, interval = 2500) {
+  const resolver = async (resolve, reject) => {
+    try { // catch any error thrown by the "fn" function
+      const result = await fn(); // fn does not need to be asynchronous or return promise
+      // call validator to see if the data is at the state to stop the polling
+      const valid = validate(result);
+      if (valid === true) {
+        resolve(result);
+      } else if (valid === false) {
+        setTimeout(resolver, interval, resolve, reject);
+      } // if validator returns anything other than "true" or "false" it stops polling
+    } catch (e) {
+      reject(e);
+    }
+  };
+  return new Promise(resolver);
+}
+10. 等待所有 promise 完成
+这个算不上是代码解决方案，更多是对 Promise API 的强化。这个 API 在不断进化，以前我还为“allSettled”“race”和“any”做了代码实现，现在直接用 API 的就好了。
+图片
+11. 交换数组值的位置
+ES6 开始，从数组中的不同位置交换值变得容易多了。这个做起来不难，但是了解一下也不错，
+图片
+12. 条件对象键
+我最喜欢这条技巧了，我在使用 React 更新状态时经常用它。你可以将条件包装在括号中来有条件地将一个键插入一个 spread 对象。
+图片
+13. 使用变量作为对象键
+当你有一个字符串变量，并想将其用作对象中的键以设置一个值时可以用它。
+图片
+14. 检查对象里的键
+这是一个很好的技巧，可以帮助你检查对象键。
+图片
+15. 删除数组重复项
+数组中经常有重复的值，你可以使用 Set 数据结构来消除它。它适用于许多数据类型，并且 set 有多种检查相等性的方法，很好用。对于不同实例或对象的情况，你还是可以使用 Set 来跟踪特定事物并过滤出重复的对象。
+图片
+16. 在 ArrayforEach 中执行“break”和“continue”
+我真的很喜欢使用数组“.forEach”方法，但有时我需要提早退出或继续进行下一个循环，而不想用 for...loop。你可以复制“continue”语句行为来提前返回，但如果要复制“break”行为，则需要使用数组“.some”方法。
+图片
+17. 使用别名和默认值来销毁
+Destructuring（销毁）是 JavaScript 最好用的功能之一，而且你可以使用“冒号”设置别名，并使用“等号”设置属性默认值。
+图片
+18. 可选链和空值合并
+深入检查对象属性并处理 null 和 undefined 值时，你可以使用几个非常好用的 JavaScript 功能来解决常见的问题。
+图片
+19. 用函数扩展类
+我经常对别人讲，JavaScript 类只是构造函数和底层的原型，不是像 Java 中那样的真实概念。一个证据是，你可以只使用一个构造函数来扩展一个类。在私有内容里这个很好用，在类里“#”这些看着很奇怪，并且用于 babel 或 WebPack 时，编译出来的代码更少。
+图片
+20. 扩展构造函数
+类的一个问题是你只能扩展一个其他类。使用构造函数，你可以使用多个构造函数来构成一个函数，这样就会灵活多了。你可以使用函数原型的.apply 或.call 方法来实现。你甚至可以只扩展函数的一部分，只要它是一个对象即可。
+图片
+21. 循环任何内容
+有时，你需要循环任何可迭代的内容（Set、Map、Object、Array、String 等）。这个非常简单的 forEach 函数工具就可以做到这一点。如果回调返回 true，它将退出循环。
+function forEach(list, callback) {
+  const entries = Object.entries(list);
+  let i = 0;
+  const len = entries.length;
+
+  for(;i < len; i++) {
+    const res = callback(entries[i][1], entries[i][0], list);
+
+    if(res === true) break;
+  }
+}
+22. 使函数参数为 required
+这是一种确保函数调用了完成工作所需内容的绝佳方法。你可以使用默认参数值的特性来调用函数，然后就会抛出一个错误。如果调用该函数时带上了它需要的值，则该值将替换该函数，并且什么也不会发生。使用 undefined 调用也有相同的效果。
+function required(argName = 'param') {
+  throw new Error(`"${argName}" is required`)
+}
+function iHaveRequiredOptions(arg1 = required('arg1'), arg2 = 10) {
+  console.log(arg1, arg2)
+}
+iHaveRequiredOptions(); // throws "arg1" is required
+iHaveRequiredOptions(12); // prints 12, 10
+iHaveRequiredOptions(12, 24); // prints 12, 24
+iHaveRequiredOptions(undefined, 24); // throws "arg1" is required
+23. 创建模块或单例
+很多时候，你需要在加载时初始化某些内容，设置它需要的各种事物，然后就可以在应用程序中到处使用它，而无需再做什么补充工作。你可以使用 IIFE 函数来做到这一点，这个函数太好用了。这种模块模式用来隔离事物非常好用，它可以只暴露需要交互的内容。
+图片
+24. 深度克隆对象
+开发人员通常会安装一些类似“lodash”的库来执行这一操作，但使用纯 JavaScript 来实现确实也很容易。这是一个简单的递归函数：只要是一个对象，就使用函数的构造器将其重新初始化为一个克隆，然后对所有属性重复该过程。
+const deepClone = obj => {
+  let clone = obj;
+  if (obj && typeof obj === "object") {
+    clone = new obj.constructor();
+
+    Object.getOwnPropertyNames(obj).forEach(
+      prop => (clone[prop] = deepClone(obj[prop]))
+    );
+  }
+  return clone;
+};
+25. 深度冻结对象
+如果你喜欢不变性，那么这个工具你一定要常备。
+const deepClone = obj => {
+  let clone = obj;
+  if (obj && typeof obj === "object") {
+    clone = new obj.constructor();
+
+    Object.getOwnPropertyNames(obj).forEach(
+      prop => (clone[prop] = deepClone(obj[prop]))
+    );
+  }
+  return clone;
+};
