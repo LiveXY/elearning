@@ -924,3 +924,38 @@ https://squoosh.app/manifest.json
     }
   }
 }
+
+WEBAPP
+<meta charSet="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HarmonyOS 鸿蒙系统 | 鸿蒙学堂</title>
+<meta name="description" content="鸿蒙系统（HarmonyOS、鸿蒙OS）是一款面向全场景的分布式操作系统 ，其开源项目为OpenHarmony。2019年8月，华为在开发者大会上正式发布鸿蒙系统。2020年9月，华为在开发者大会上发布鸿蒙2.0，并面向应用开发者发布Beta版本。2020年12月，华为发布鸿蒙OS 2.0手机开发者Beta版 。
+鸿蒙学堂是一个系统资讯和技术分享的第三方平台，为广大开发者和爱好者提供信息分享和经验交流空间。"/>
+<meta name="author" content="鸿蒙学堂"/>
+<meta name="generator" content="Starfield Technologies; Go Daddy Website Builder 8.0.0000"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="apple-touch-icon" sizes="57x57" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:57,h:57,m"/>
+<link rel="apple-touch-icon" sizes="60x60" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:60,h:60,m"/>
+<link rel="apple-touch-icon" sizes="72x72" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:72,h:72,m"/>
+<link rel="apple-touch-icon" sizes="114x114" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:114,h:114,m"/>
+<link rel="apple-touch-icon" sizes="120x120" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:120,h:120,m"/>
+<link rel="apple-touch-icon" sizes="144x144" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:144,h:144,m"/>
+<link rel="apple-touch-icon" sizes="152x152" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:152,h:152,m"/>
+<link rel="apple-touch-icon" sizes="180x180" href="//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:180,h:180,m"/>
+<meta property="og:url" content="https://hmxt.org/"/>
+<meta property="og:site_name" content="HM"/>
+<meta property="og:title" content="鸿蒙学堂"/>
+<meta property="og:description" content="分享系统资讯与技术的第三方平台"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://img1.wsimg.com/isteam/ip/bc2bf02b-5e6a-441e-b955-a49c2535530a/orion-nebula-11107-0001.jpg"/>
+<meta property="og:locale" content="zh_SG"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HM"/>
+<meta name="twitter:description" content="鸿蒙学堂"/>
+<meta name="twitter:image" content="https://img1.wsimg.com/isteam/ip/bc2bf02b-5e6a-441e-b955-a49c2535530a/orion-nebula-11107-0001.jpg"/>
+<meta name="twitter:image:alt" content="HM"/>
+<meta name="theme-color" content="#202731"/>
+
+https://hmxt.org/manifest.webmanifest
+{"scope":"/","start_url":"/","display":"standalone","icons":[{"sizes":"192x192","type":"image/png","src":"//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:192,h:192,m"},{"sizes":"512x512","type":"image/png","src":"//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:512,h:512,m"}],"name":"鸿蒙学堂","short_name":"鸿蒙学堂","theme_color":"#202731","background_color":"#202731"}

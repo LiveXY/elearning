@@ -12,6 +12,22 @@ sudo xrandr --newmode "1920x1080_60.0"  173.00 1920 2048 2248 2576  1080 1083 10
 sudo xrandr --addmode Virtual1 "1920x1080_60.00"  #MitchellChu'Blog:添加完之后，需要做的就是将分辨率应用到指定的输出设备。
 sudo xrandr --output Virtual1 --mode "1920x1080_60.00"  #MitchellChu'Blog: 至此，你可以看到你的显示器分辨率已经按照定制的分辨率来显示了。
 
+与 Mac OS X 的 Dock 非常相似
+apt install plank
+漂亮的墙纸
+https://github.com/cheesecakeufo/komorebi/releases
+
+Pantheon
+https://ubuntuqa.com/article/1768.html
+https://zhidao.baidu.com/question/493954228752781892.html
+sudo apt-add-repository ppa:elementary-os/stable
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install elementary-desktop
+sudo apt-add-repository ppa:versable/elementary-update
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install elementary-tweaks
+
+
 sudo apt-get install mysql-server
 sudo apt-get install php5
 sudo apt-get install apache2

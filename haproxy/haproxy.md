@@ -11,6 +11,9 @@ SYSLOGD_OPTIONS="-r -m 0 -c 2"
 systemctl restart haproxy
 systemctl restart rsyslog
 
+vi /etc/logrotate.d/haproxy
+/var/log/haproxy/haproxy.log
+
 tailf -f -n 1000 /var/log/haproxy/haproxy.log
 
 

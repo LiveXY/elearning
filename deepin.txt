@@ -11,3 +11,16 @@ $ sudo yum localinstall touchegg-*.rpm
 lshw -short -C disk
 lshw -C disk
 lshw -short | awk ‘{print substr($0,36,13)}’ | tail -n +3 | sort | uniq -c
+
+Pantheon
+sudo apt install apt-transport-https software-properties-common wget
+wget https://gandalfn.ovh/debian/pool/main/p/pantheon-debian-repos/pantheon-debian-repos_0.4-0+pantheon+stretch+loki1_all.deb
+sudo dpkg -i pantheon-debian-repos_0.4-0+pantheon+stretch+loki1_all.deb
+sudo apt update
+sudo apt install pantheon
+sudo apt install elementary-tweaks indicator-application indicator-systemtray-unity indicator-multiload
+
+安装vscode之后，打开一切都是用vscode，这是因为vscode 抢掉了文件管理器的默认设置
+用如下命令可以恢复
+xdg-mime default dde-file-manager.desktop inode/directory
+

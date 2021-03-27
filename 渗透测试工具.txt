@@ -1177,3 +1177,21 @@ inlets server --port=8090
 python -m http.server 3000
 inlets client --remote=192.168.244.1:8090 --upstream=http://127.0.0.1:3000
 
+https://github.com/qeeqbox/social-analyzer
+特点
+字符串&名称分析
+使用多种技术(HTTPS库和Webdriver)查找
+多层检测(OCR，普通，高级和特殊)
+搜索引擎查找(谷歌API-可选)
+自定义搜索查询(谷歌API和DuckDuckGo API-可选)
+个人资料截图，标题，信息和网站描述
+通过语言查找名字的来源、相似之处和常见词汇
+自定义用户代理、代理、超时和隐式等待
+Python CLI和NodeJS CLI(仅限于FindUserProfilesFast选项)
+Grid选项用于更快的检查(仅限于docker-compose)
+转储日志到文件夹或终端
+调整查找\获取配置文件工作者(默认15)
+重新检查失败的概要文件的选项
+pip3 install social-analyzer
+python3 -m social-analyzer --cli --mode "fast" --username "johndoe" --websites "youtube pinterest tumblr" --output "pretty" --metadata --extract --trim
+

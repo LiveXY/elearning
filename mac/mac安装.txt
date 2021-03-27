@@ -517,4 +517,60 @@ sudo chown -R $(whoami) $(brew --prefix)/*
 brew install smartmontools
 查询硬盘信息
 smartctl -a disk0
+==============================================================
+启动盘制作工具
+brew install balenaetcher
+=============================================================
+rEFind
+https://github.com/topics/refind-theme
+https://github.com/techysy/rEFInd
+http://www.rodsbooks.com/refind/
+
+https://www.ithome.com/0/425/537.htm
+http://www.jiyiyq.com/zixun_3/2632135.html
+https://baijiahao.baidu.com/s?id=1663958483995327870&wfr=spider&for=pc
+
+debian
+sudo apt-add-repository ppa:rodsmith/refind
+sudo apt-get update
+sudo apt-get install refind
+https://newcontinuum.dl.sourceforge.net/project/refind/0.11.4/refind_0.11.4-1_amd64.deb
+sudo dpkg -i refind_0.11.4-1_amd64.deb
+sudo refind-install
+Refind所有的配置信息位于/boot/efi/EFI/refind/refind.conf。
+Deepin，引导文件位于deepin/grubx64.efi
+Windows引导文件，位于Microsoft/Boot/bootmgfw.efi
+而我们需要保留的就这两个，其他的一律屏蔽，屏蔽的命令:
+dont_scan_files /EFI/ubuntu/grubx64.efi,XXX,XXX
+# 启动吧，屏蔽内核检查的指令如下：
+scan_all_linux_kernels false
+涉及到refind的主题美化的方面，指令内容为：
+include  themes/rEFInd-minimal/theme.config
+
+hideui singleuser,hints,arrows,label,badges
+icons_dir themes/rEFInd-minimal/icons
+banner themes/rEFInd-minimal/background.png
+banner_scale fillscreen
+selection_bigthemes/rEFInd-minimal/selection_big.png
+selection_small themes/rEFInd-minimal/selection_small.png
+showtools shutdown
+
+win10
+https://msdn.itellyou.cn/
+https://www.microsoft.com/zh-cn/windows
+https://www.microsoft.com/zh-cn/software-download/windows10ISO
+Ubuntu
+https://www.ubuntu.com/download
+https://mirror.lzu.edu.cn/ubuntu-releases/20.10/ubuntu-20.10-desktop-amd64.iso
+
+OpenCore
+https://oc.skk.moe/
+https://www.jianshu.com/p/da68e410612f
+https://blog.csdn.net/weixin_50656679/article/details/109504308
+==================================
+brew install aria2 aria2gui
+
+brew install go #v1.16.2
+brew install go@1.15
+
 

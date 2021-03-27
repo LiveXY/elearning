@@ -25,6 +25,9 @@ https://github.com/jackyyy0228/Chinese-ASR
 TTS
 https://github.com/espnet/espnet
 
+预训练模型镜像
+https://coggle.club/note/dl/pretrained-models
+
 文字转语音
 大声说一句：
 say {{"I like to ride my bike."}}
@@ -4120,4 +4123,22 @@ https://github.com/fundamentalvision/Deformable-DETR
 https://github.com/Megvii-BaseDetection/DeFCN
 去除阴影
 https://github.com/kavyamusty/Shading-removal-of-images
+
+无人驾驶数据集
+http://www.orca-tech.cn/datasets
+
+语音识别、说话者识别、语音增强、多麦克风信号处理和语音识别系统等，且拥有相当出色的性能
+https://github.com/speechbrain/speechbrain
+ 3D 全息图
+https://github.com/liangs111/tensor_holography
+
+https://github.com/xingyizhou/CenterNet2
+https://github.com/genforce/sefa
+https://github.com/FederatedAI/FedVision
+人脸数据集
+https://www.face-benchmark.org
+
+
+
+
 

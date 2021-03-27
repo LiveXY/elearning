@@ -11,3 +11,5 @@ https://rufus.ie/
 
 https://github.com/microsoft/winget-cli/releases
 
+https://docs.microsoft.com/zh-cn/sysinternals/
+https://docs.microsoft.com/zh-cn/sysinternals/downloads/

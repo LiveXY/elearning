@@ -1,4 +1,6 @@
-
+halog -srv -H < /var/log/haproxy/haproxy.log | column -t
+halog -srv -hs 404 < /var/log/messages | column -t
+halog -ua -H -q < /var/log/messages | column -t
 
 haproxy的配置文件分为两个部分：全局设定和对代理的设定，五段：global，defaults，frontend，backend，listen
 
