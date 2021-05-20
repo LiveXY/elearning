@@ -15,6 +15,9 @@ vi ~/.m2/setting.xml
     </mirror>
 </mirrors>
 
+https://mvnrepository.com/artifact/org.apache.lucene
+https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser/8.8.1
+
 mvn clean package
 copy ./target/test.war /usr/local/Cellar/tomcat/9.0.14/libexec/webapps/test.war
 catalina run

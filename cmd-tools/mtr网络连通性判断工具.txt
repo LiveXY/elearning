@@ -3,6 +3,49 @@ mtr网络连通性判断工具
 Mtr是 Linux中有一个非常棒的网络连通性判断工具，它结合了ping, traceroute,nslookup 的相关特性。
 apt-get install mtr -y
 
+mtr（My traceroute）几乎是所有Linux发行版本预装的网络测试工具。其将ping和traceroute的功能合并，所以功能更强大。mtr默认发送ICMP数据包进行链路探测。您也可以通过-u参数来指定使用UDP数据包进行探测。相对于traceroute只会做一次链路跟踪测试，mtr会对链路上的相关节点做持续探测并给出相应的统计信息。所以，mtr能避免节点波动对测试结果的影响，所以其测试结果更正确，建议优先使用。
+
+用法说明
+
+mtr [-BfhvrwctglxspQomniuT46] [--help] [--version] [--report]
+                [--report-wide] [--report-cycles=COUNT] [--curses] [--gtk]
+                [--csv|-C] [--raw] [--xml] [--split] [--mpls] [--no-dns] [--show-ips]
+                [--address interface] [--filename=FILE|-F]
+                [--ipinfo=item_no|-y item_no]
+                [--aslookup|-z]
+                [--psize=bytes/-s bytes] [--order fields]
+                [--report-wide|-w] [--inet] [--inet6] [--max-ttl=NUM] [--first-ttl=NUM]
+                [--bitpattern=NUM] [--tos=NUM] [--udp] [--tcp] [--port=PORT] [--timeout=SECONDS]
+                [--interval=SECONDS] HOSTNAME
+常见可选参数说明
+
+--report：以报告模式显示输出。
+--split：将每次追踪的结果分别列出来，而非统计整个结果。
+--psize：指定ping数据包的大小。
+--no-dns：不对IP地址做域名反解析。
+--address：主机有多个IP地址时，设置发送数据包的IP地址。
+-4：只使用IPv4协议。
+-6：只使用IPv6协议。
+另外，也可以在mtr运行过程中，输入类似如下的字母用于快速切换模式。
+
+？或h：显示帮助菜单。
+d：切换显示模式。
+n：启用或禁用DNS域名解析。
+u：切换使用ICMP或UDP数据包进行探测。
+命令输出示例
+
+
+返回结果说明
+
+默认配置下，返回结果中各数据列的说明如下：
+
+第一列（Host）：节点IP地址和域名。按n键可切换显示。
+第二列（Loss%）：节点丢包率。
+第三列（Snt）：每秒发送数据包数。默认值是10，可以通过-c参数指定。
+第四列（Last）：最近一次的探测延迟。
+第五、六、七列（Avg、Best、Worst）：分别是探测延迟的平均值、最小值和最大值。
+第八列（StDev）：标准偏差，越大说明相应节点越不稳定。
+
 2.Mtr的相关参数：
 mtr -s
 用来指定ping数据包的大小
@@ -57,3 +100,57 @@ Keys:  Help   Display mode   Restart statistics   Order of fields   quit
 第六列:是最好或者说时延最短的
 第七列:是最差或者说时延最常的
 第八列:是标准偏差
+
+traceroute命令
+traceroute也是几乎所有Linux发行版本预装的网络测试工具，用于跟踪Internet协议（IP）数据包传送到目标地址时经过的路径。
+
+首先，traceroute先发送小的具有最大存活时间值（Max_TTL）的UDP探测数据包。
+然后，侦听从网关开始的整个链路上的ICMP TIME_EXCEEDED响应。探测从TTL=1开始，TTL值逐步增加，直至接收到ICMP PORT_UNREACHABLE消息。
+说明：
+ICMP PORT_UNREACHABLE消息用于标识目标主机已经被定位，或命令已经达到允许跟踪的最大TTL值。
+traceroute默认发送UDP数据包进行链路探测，可以通过-I参数来指定使用ICMP数据包进行探测。
+用法说明
+
+traceroute [-I] [ -m Max_ttl ] [ -n ] [ -p Port ] [ -q Nqueries ] [ -r ] [ -s SRC_Addr ] [ -t TypeOfService ] [ -f flow ] [ -v ] [ -w WaitTime ] Host [ PacketSize ]
+常见可选参数说明
+
+-d：使用Socket层级的排错功能。
+-f：设置第一个检测数据包的存活数值TTL的大小。
+-F：设置不要分段标识。
+-g：设置来源路由网关，最多可设置8个。
+-i：主机有多个网卡时，使用指定的网卡发送数据包。
+-I：使用ICMP数据包替代UDP数据包进行探测。
+-m：设置检测数据包的最大存活数值TTL的大小。
+-n：直接使用IP地址而非主机名称（禁用DNS反查）。
+-p：设置UDP传输协议的通信端口。
+-r：忽略普通的Routing Table，直接将数据包发送到目标主机上。
+-s：设置本地主机发送数据包的IP地址。
+-t：设置检测数据包的TOS数值。
+-v：详细显示指令的执行过程。
+-w：设置等待远端主机回包时间。
+-x：开启或关闭数据包的正确性检验。
+
+
+WinMTR（建议优先使用）
+WinMTR是mtr工具在Windows环境下的图形化实现，但进行了功能简化，只支持部分mtr的参数。WinMTR默认发送ICMP数据包进行探测，无法切换，和mtr一样。相比tracert，WinMTR能避免节点波动对测试结果的影响，所以测试结果更正确。所以在WinMTR可用的情况下，建议优先使用WinMTR进行链路测试。
+
+
+tracert命令行工具
+tracert（Trace Route）是Windows自带的网络诊断命令行程序，用于跟踪Internet协议（IP）数据包传送到目标地址时经过的路径。 tracert通过向目标地址发送ICMP数据包来确定到目标地址的路由。在这些数据包中，tracert使用了不同的IP生存期，即TTL值。由于要求沿途的路由器在转发数据包前必须至少将TTL减少1，因此TTL实际上相当于一个跃点计数器（hop counter）。当某个数据包的TTL达到0时，相应节点就会向源计算机发送一个ICMP超时的消息。 
+
+tracert第一次发送TTL为1的数据包，并在每次后续传输时将TTL增加1，直到目标地址响应或达到TTL的最大值。中间路由器发送回来的ICMP超时消息中包含了相应节点的信息。
+
+用法说明
+
+tracert [-d] [-h maximum_hops] [-j host-list] [-w timeout] [-R] [-S srcaddr] [-4] [-6] target_name
+常见可选参数说明
+
+-d：不要将地址解析为主机名（禁用DNS反解）。
+-h：maximum_hops，指定搜索目标地址时的最大跃点数。
+-j： host-list，指定沿主机列表的松散源路由。
+-w：timeout，等待每个回复的超时时间（以毫秒为单位）。
+-R：跟踪往返行程路径（仅适用于IPv6）。
+-S：srcaddr，要使用的源地址（仅适用于IPv6）。
+-4：强制使用IPv4。
+-6：强制使用IPv6。
+target_host：目标主机域名或IP地址。

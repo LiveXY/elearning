@@ -573,4 +573,222 @@ brew install aria2 aria2gui
 brew install go #v1.16.2
 brew install go@1.15
 
+https://github.com/oott123/WinMTR
+brew install mtr
+mtr -r baidu.com
+mtr -r -c 50 baidu.com
 
+brew install starship
+vi ~/.bashrc
+eval "$(starship init bash)"
+vi ~/.zshrc
+eval "$(starship init zsh)"
+
+删除重复文件 RUST开发
+brew install gtk+3
+brew install rust cargo
+cargo install czkawka_gui
+cargo install czkawka_cli
+
+brew install youtube-dl
+
+brew install tcpkali
+tcpkali --ws -c 100 -m 'hello world!' -r 10k localhost:8081
+
+brew install elasticsearch
+brew services restart elasticsearch
+elasticsearch-keystore list
+elasticsearch-keystore add s3.client.default.secret_key
+elasticsearch-keystore remove s3.client.default.secret_key
+elasticsearch-keystore create -p
+elasticsearch-keystore passwd
+
+brew install openjdk
+vim ~/.bash_profile
+export JAVA_HOME=/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home
+export PATH=$JAVA_HOME/bin:$PATH
+source ~/.bash_profile
+echo $JAVA_HOME
+/usr/libexec/java_home
+
+brew install mysql mysql-client
+brew services stop mysql
+mysqld_safe --skip-grant-tables &
+mysql
+> use mysql
+> update user set host='%' where user='root';
+> update user set host='%' where host='localhost';
+> ALTER USER 'root'@'%' IDENTIFIED BY '123456' PASSWORD EXPIRE NEVER;
+> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+> flush privileges;
+> ALTER USER 'root'@'%' IDENTIFIED BY '123456';
+> flush privileges;
+> quit
+vi /usr/local/etc/my.cnf
+# Default Homebrew MySQL server config
+[mysqld]
+# Only allow connections from localhost
+bind-address = 0.0.0.0
+mysqlx-bind-address = 0.0.0.0
+
+MySQL 连接出现 Authentication plugin 'caching_sha2_password' cannot be loaded
+> ALTER USER 'root'@'%' IDENTIFIED BY '123456' PASSWORD EXPIRE NEVER;
+> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+> flush privileges;
+
+brew install postgresql
+brew postgresql-upgrade-database
+brew services start postgresql
+initdb /usr/local/var/postgres/data -E utf8 --locale=zh_CN.UTF-8
+pg_ctl -D /usr/local/var/postgres/data -l logfile start
+pg_ctl -D /usr/local/var/postgres/data stop -s -m fast
+lsof -i:5432
+createuser root -P
+createdb etms -O root -E UTF8 -e
+psql -l
+psql -U root -d etms -h 127.0.0.1
+CREATE TABLE users(id int NOT NULL, name varchar(20) NOT NULL, age int NOT NULL, PRIMARY KEY ("id"));
+CREATE TABLE users(id int PRIMARY KEY NOT NULL, name varchar(20) NOT NULL, age int NOT NULL);
+
+INSERT INTO users(id, name, age) VALUES(1, 'name', 16);
+SELECT * FROM users WHERE id = 1;
+UPDATE users SET name = '11111' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
+DROP TABLE users;
+DROP DATABASE etms;
+dropdb -U root etms
+
+记得加 "--locale=zh_CN.UTF-8" 选项，不然会报以下错误：
+lc_collate cluster values do not match: old "zh_CN.UTF-8", new "en_US.UTF-8"
+
+pg_upgrade 进行数据迁移：
+pg_upgrade -b /usr/local/Cellar/postgresql/9.2.4/bin/ -B /usr/local
+
+批量下载m3u8文件
+pip install -U caterpillar-hls
+caterpillar manifest.txt
+https://example.com/hls/1.m3u8  1.mp4
+$ caterpillar --intermediate-format ts 'http://test.com/playlist.m3u8' output.ts
+
+ffmpeg -i 1.mp4 -qscale 0 1.mpg
+ffmpeg -i 2.mp4 -qscale 0 2.mpg
+cat 1.mpg 2.mpg | ffmpeg -f mpeg -i - -qscale 0 -vcodec mpeg4 output.mp4
+mp4box.exe -add video1.mp4 -cat video2.mp4 destvideo.mp4
+ffmpeg -i opening.mkv -i episode.mkv -i ending.mkv \
+-filter_complex "[0:v] [0:a] [1:v] [1:a] [2:v] [2:a] \
+concat=n=3:v=1:a=1 [v] [a]" \
+-map "[v]" -map "[a]" output.mkv
+cat mylist.txt
+file '/path/to/file1'
+file '/path/to/file2'
+file '/path/to/file3'
+$ ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
+(echo file 'first file.mp4' & echo file 'second file.mp4' )>list.txt
+ffmpeg -safe 0 -f concat -i list.txt -c copy output.mp4
+ffmpeg -i "concat:input1|input2" -codec copy output.mkv
+
+brew install pgloader
+
+mysqldump --compatible=postgresql --default-character-set=utf8 -r traingo.mysql -u root traingo
+mysqldump --skip-opt --compatible=ansi --compact --default-character-set=utf8 -r -u root traingo > traingo.sql
+
+mysqldump -h 127.0.0.1 -u root -p --compatible=postgresql -r traingo > traingo.sql
+psql -h 127.0.0.1 -d traingo -U root -f ./traingo.sql
+
+pip3 install sqlacrossover[MySQL,PostgreSQL] sqlalchemy
+sqlacrossover 'mysql+pymysql://root:123456@127.0.0.1:3306/traingo?charset=utf8mb4' 'postgresql://root:123456@127.0.0.1:5432/traingo?sslmode=disable' --create-all
+sqlacrossover 'mysql+pymysql://root:123456@127.0.0.1:3306/traingo?charset=utf8mb4' 'postgresql://root:123456@127.0.0.1:5432/traingo?sslmode=disable'
+createdb traingo -O root -E UTF8 -e
+psql -U root -d traingo -h 127.0.0.1
+select tablename from pg_tables where schemaname='public'
+\d tb_test;
+explain (analyze,verbose,timing,costs,buffers) select * from t_hash where info in (select info from t_hash limit 1);
+
+go get -u github.com/aktau/gomig
+gomig generate-config
+gomig migrate -f config.yml
+
+
+JET / MS Access database (MDB) tools
+brew install mdbtools
+apt-get install mdbtools
+dnf install mdbtools
+yum install mdbtools
+
+for TT in $(mdb-tables file.mdb); do
+     mdb-export -Q -d '\t' -D '%Y-%m-%d %H:%M:%S' file.mdb "$TT" > "${TT}.tsv"
+done
+for TT in $(mdb-tables file.mdb); do
+     mdb-export -D '%Y-%m-%d %H:%M:%S' file.mdb "$TT" > "${TT}.csv"
+done
+mdb-tables -1 file.mdb| while read TT
+do
+     mdb-export -D '%Y-%m-%d %H:%M:%S' file.mdb "$TT" > "${TT}.csv"
+done
+
+vi access2psql.sh
+#!/bin/sh -e
+
+mdbfn=$1
+schemafn=$2
+fkfn=$3
+datafn=$4
+schema=$5
+
+tf=$(tempfile)
+
+pre=""
+[ -n "${schema}" ] && pre="\"${schema}\"."
+
+mdb-schema "${mdbfn}" postgres > "${tf}"
+
+# Schema file
+echo "BEGIN;\n" > "${schemafn}"
+
+sp=""
+[ -n "${schema}" ] && echo "CREATE SCHEMA \"${schema}\";\n" >> "${schemafn}"
+[ -n "${schema}" ] && sp="SET search_path = \"${schema}\", pg_catalog;\n" 
+
+echo ${sp} >> "${schemafn}"
+
+awk '($0 !~ /^ALTER TABLE.*FOREIGN KEY.*REFERENCES/) {print;}' "${tf}" >> "${schemafn}"
+
+echo "\nEND;" >> "${schemafn}"
+
+# Foreign keys file
+echo "BEGIN;\n" > "${fkfn}"
+echo ${sp} >> "${fkfn}"
+
+awk '($0 ~ /^ALTER TABLE.*FOREIGN KEY.*REFERENCES/) {print;}' "${tf}" >> "${fkfn}"
+
+echo "\nEND;" >> "${fkfn}"
+
+# Data file
+echo "BEGIN;\n" > "${datafn}"
+echo "SET CONSTRAINTS ALL DEFERRED;\n" >> "${datafn}"
+
+mdb-tables -1 "${mdbfn}" | while read TT
+do
+    mdb-export -Q -d '\t' -D '%Y-%m-%d %H:%M:%S' "${mdbfn}" "$TT" > "${tf}"
+
+    awk -v pre="${pre}" -v TT="${TT}" \
+    '(NR==1) {gsub(/\t/,"\",\""); print "COPY " pre "\"" TT "\"(\"" $0 "\") FROM stdin;";}' "${tf}" >> "${datafn}"
+    awk '(NR>1) {gsub(/\t\t/,"\t\\N\t"); gsub(/\t$/,"\t\\N"); gsub(/\t\t/,"\t\\N\t"); print;}' "${tf}" >> "${datafn}"
+
+    echo "\\.\n" >> "${datafn}"
+done
+
+echo "END;" >> "${datafn}"
+
+rm -f "${tf}"
+
+access2psql.sh file.mdb schema.sql foreignkeys.sql data.sql pg_schema_name
+psql -f schema.sql pg_db_name
+psql -f data.sql pg_db_name
+psql -f foreignkeys.sql pg_db_name
+
+
+pip3 install pg_chameleon
+https://www.convert-in.com/mysql-to-postgres.htm
+FULL CONVERT
+https://wiki.postgresql.org/wiki/Converting_from_other_Databases_to_PostgreSQL

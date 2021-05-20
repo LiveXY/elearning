@@ -164,3 +164,6 @@ wssh --address='127.0.0.1' --port=8888
 https://github.com/tqdm/tqdm
 https://github.com/dbcli/pgcli
 https://github.com/dbcli/mycli
+
+pip install rich
+

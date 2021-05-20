@@ -131,3 +131,53 @@ PM> Install-Package NuGetPowerTools
 PM> Enable-PackageRestore
 Update-Package -Reinstall
 Update-Package -ProjectName 'YourProjectNameGoesHere' -Reinstall
+
+dotnet restore test.csproj
+nuget restore
+:: =========== Solution ===============
+msbuild ASPNetPublishSamples.sln /p:PublishUrl="bin\Release\PublishOutput" /p:DeployOnBuild=true /p:Configuration=Release /p:WebPublishMethod=FileSystem /p:DeployTarget=WebPublish /p:AutoParameterizationWebConfigConnectionStrings=false /p:SolutionDir="."
+:: =========== WebSite ===============
+REM ASP.NET Razor 3 Web Site.
+msbuild AspNetRazor3WebSite\website.publishproj /p:PublishUrl="bin\Release\PublishOutput" /p:DeployOnBuild=true /p:Configuration=Release /p:WebPublishMethod=FileSystem /p:DeployTarget=WebPublish /p:AutoParameterizationWebConfigConnectionStrings=false /p:SolutionDir="."
+
+:: =========== Solution ===============
+msbuild ASPNetPublishSamples.sln /p:PackageLocation="bin\Release\PublishOutputZip" /p:DeployOnBuild=true /p:Configuration=Release /p:WebPublishMethod=Package /p:DeployTarget=WebPublish /p:AutoParameterizationWebConfigConnectionStrings=false /p:PackageAsSingleFile=true /p:DeployIisAppPath="Default Web Site" /p:SolutionDir="." /p:DesktopBuildPackageLocation="PublishOutputZip\MsDeployPackage.zip"
+:: =========== WebSite ===============
+REM ASP.NET Razor 3 Web Site.
+msbuild AspNetRazor3WebSite\website.publishproj /p:PackageLocation="bin\Release\PublishOutputZip" /p:DeployOnBuild=true /p:Configuration=Release /p:WebPublishMethod=Package /p:DeployTarget=WebPublish /p:AutoParameterizationWebConfigConnectionStrings=false /p:PackageAsSingleFile=true /p:DeployIisAppPath="Default Web Site" /p:SolutionDir="."
+
+
+
+
+必备
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Dapper
+dotnet add package MySql.EntityFrameworkCore
+dotnet add package MySqlConnector
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package NPOI
+dotnet add package StackExchange.Redis
+
+dotnet add package MySql.Data.EntityFrameworkCore
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+
+dotnet tool install -g dotnet-ef
+dotnet tool install --global dotnet-ef
+dotnet ef dbcontext scaffold "server=127.0.0.1;userid=root;pwd=123456;port=3306;database=etms;sslmode=none;" MySql.EntityFrameworkCore -o Models -f
+dotnet ef dbcontext scaffold "server=127.0.0.1;userid=root;pwd=123456;port=3306;database=etms;sslmode=none;" MySql.EntityFrameworkCore -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
+dotnet ef dbcontext scaffold "Server=127.0.0.1;Database=etms;User Id=root;Password=123456;" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
+dotnet ef dbcontext scaffold "Server=115.239.209.204;Database=test2;User Id=TraingoSaDb;Password=TraingoSa201708QAZ!@#456D;encrypt=disable;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
+
+
+或者
+Scaffold-DbContext "server=localhost;userid=root;pwd=123456;port=3306;database=ame_data;sslmode=none;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -UseDatabaseNames -Force
+
+Scaffold-DbContext "Data Source=127.0.0.1;Initial Catalog=CoreTest;User=sa;Password=lxy.1998" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+dotnet ef migrations add CreateSchoolDB <- just a label 
+dotnet ef migrations list   <- to verify it is pending
+dotnet ef database update   <- the database will be created/updated
+dotnet ef migrations list   <- to verify
+
+

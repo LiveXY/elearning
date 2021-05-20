@@ -185,6 +185,7 @@ ES/Kibana是一个开源的分析和可视化平台
 下载安装
 ```
 https://www.elastic.co/cn/downloads/kibana
+https://www.elastic.co/cn/downloads/elasticsearch
 https://www.elastic.co/guide/en/kibana/current/settings.html
 https://www.cnblogs.com/yiwangzhibujian/p/7137546.html
 https://www.cnblogs.com/cjsblog/p/9476813.html
@@ -205,6 +206,54 @@ tar -zvxf kibana-7.1.1-linux-x86_64.tar.gz
 
 ./bin/kibana
 http://localhost:5601
+```
+
+elasticsearch安装
+```
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.0-linux-x86_64.tar.gz
+tar -zxvf elasticsearch-7.12.0-linux-x86_64.tar.gz
+
+vi elasticearch.yml
+cluster.name: test-elasticsearch
+node.name: es-node0
+path.data: /usr/local/elasticsearch-7.5.1/data
+path.logs: /usr/local/elasticsearch-7.5.1/logs
+network.host: 内网IP地址
+cluster.initial_master_nodes: ["es-node0"]
+
+vim config/jvm.options
+-Xms1g
+-Xmx1g
+es不允许使用root用户操作，需要单独添加用户
+groupadd elsearch
+useradd elsearch -g elsearch
+chown -R elsearch:elsearch /usr/local/elasticsearch-7.5.1
+passwd elsearch
+su elsearch
+前台启动：./elasticsearch
+后台启动：./elasticsearch -d
+启动成功日志
+[es-node0] publish_address {192.168.*.*:9200}, bound_addresses {[::]:9200}
+[es-node0] started
+vi vi /etc/security/limits.conf
+* soft nproc 102400
+* hard nproc 102400
+* soft nofile 102400
+* hard nofile 102400
+vi /etc/sysctl.conf
+vm.max_map_count=262145
+sysctl -p
+
+jps
+
+git clone git://github.com/mobz/elasticsearch-head.git
+cd elasticsearch-head
+npm install
+npm run start
+
+curl -X PUT 'localhost:9200/test'
+{"test":true}
+
 ```
 
 hadoop分布式计算平台:HDFS和MapReduce共同组成了Hadoop分布式系统体系结构的核心。HDFS在集群上实现分布式文件系统，MapReduce在集群上实现了分布式计算和任务处理
@@ -838,5 +887,9 @@ Pravega 分布式流存储
 http://pravega.io/docs/latest/getting-started/
 https://github.com/pravega/pravega
 
+
+APM，应用程序性能监视系统
+https://github.com/apache/skywalking
+https://github.com/pinpoint-apm/pinpoint
 
 

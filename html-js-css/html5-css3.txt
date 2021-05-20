@@ -2015,3 +2015,12 @@ body:lang(zh-TW) {
 }
 
 <html lang="en-US">
+
+空心字
+letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    text-shadow: #fe9c00 1px 1px, #fe9c00 1px -1px, #fe9c00 -1px 1px, #fe9c00 -1px -1px, #fe9c00 0px 1.4px, #fe9c00 0px -1.4px, #fe9c00 -1.4px 0px, #fe9c00 1.4px 0px;
+
+

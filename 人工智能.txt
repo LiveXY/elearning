@@ -413,7 +413,7 @@ https://github.com/nl8590687/ASRT_SpeechRecognition/wiki
 
 https://github.com/apachecn/AiLearning
 https://feisky.xyz/machine-learning/
-自然语言处理 中文分词 词性标注 命名实体识别 依存句法分析 关键词提取 新词发现 短语提取 自动摘要 文本分类 拼音简繁 
+自然语言处理 中文分词 词性标注 命名实体识别 依存句法分析 关键词提取 新词发现 短语提取 自动摘要 文本分类 拼音简繁
 http://hanlp.com/
 https://github.com/hankcs/HanLP
 https://github.com/hankcs/pyhanlp
@@ -2689,7 +2689,7 @@ cmu_us_clb_arctic_clunits
 festival> (SayText "hello boy")
 
 sudo cp /etc/festival.scm /etc/festival.scm.backup
-sudo echo "(set! voice_default 'voice_cmu_us_clb_arctic_clunits)" >> /etc/festival.scm      
+sudo echo "(set! voice_default 'voice_cmu_us_clb_arctic_clunits)" >> /etc/festival.scm
 
 $ apt-get install mpg123
 $ mpg123 'http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q=today+is+sunday'
@@ -4137,6 +4137,118 @@ https://github.com/genforce/sefa
 https://github.com/FederatedAI/FedVision
 人脸数据集
 https://www.face-benchmark.org
+无需锚框（Anchor-Free）的行人搜索框架
+https://github.com/daodaofr/AlignPS
+聊天机器人
+https://rasa.com/docs/rasa/installation/
+https://github.com/happilyeverafter95/demo-bot
+去马赛克
+https://github.com/beurtschipper/Depix
+绘制不同期刊格式图表
+https://github.com/garrettj403/SciencePlots
+GAN生成图像可以卡音效 音画同步
+https://github.com/mikaelalafriz/lucid-sonic-dreams
+https://github.com/justinpinkney/awesome-pretrained-stylegan2
+from lucidsonicdreams import LucidSonicDream
+L = LucidSonicDream(song = 'chemical_love.mp3', style = 'abstract photos')
+L.hallucinate(file_name = 'chemical_love.mp4')
+from lucidsonicdreams import show_styles
+show_styles()
+L = LucidSonicDream('pancake_feet.mp3', style = 'modern art')
+L.hallucinate(file_name = 'pancake_feet.mp4',
+              speed_fpm = 0,
+              motion_react = 0.8,
+              contrast_strength = 0.5,
+              flash_strength = 0.7)
+L = LucidSonicDream(song = 'raspberry.mp3', style = 'VisionaryArt.pkl')
+L.hallucinate(file_name = 'raspberry.mp4',
+              pulse_react = 1.2,
+              motion_react = 0.7,
+              contrast_strength = 0.5,
+              flash_strength = 0.5)
+L = LucidSonicDream(song = 'lucidsonicdreams_main.mp3',
+                    pulse_audio = 'lucidsonicdreams_pulse.mp3',
+                    class_audio = 'lucidsonicdreams_class.mp3',
+                    style = 'wikiart')
+
+L.hallucinate('lucidsonicdreams.mp4', 
+              pulse_react = 0.25,
+              motion_react = 0,
+              classes = [1,5,9,16,23,27,28,30,50,68,71,89],
+              dominant_classes_first = True,
+              class_shuffle_seconds = 8,
+              class_smooth_seconds = 4,
+              class_pitch_react = 0.2,
+              contrast_strength = 0.3)
+import numpy as np 
+from skimage.transform import swirl
+from lucidsonicdreams import EffectsGenerator
+
+
+def swirl_func(array, strength, amplitude):
+  swirled_image = swirl(array, 
+                        rotation = 0, 
+                        strength = 100 * strength * amplitude,
+                        radius=650)
+  return (swirled_image*255).astype(np.uint8)
+
+swirl_effect = EffectsGenerator(swirl_func,
+                                audio = 'unfaith.mp3', 
+                                strength = 0.2, 
+                                percussive = False)
+
+L = LucidSonicDream('unfaith.mp3',
+                    style = 'textures')
+
+L.hallucinate('unfaith.mp4',
+              motion_react = 0.15,
+              speed_fpm = 2,
+              pulse_react = 1.5,
+              contrast_strength = 1,
+              flash_strength = 1, 
+              custom_effects = [swirl_effect])
+
+files.download("unfaith.mp4")
+from pytorch_pretrained_biggan import BigGAN, convert_to_images
+import torch
+
+biggan = BigGAN.from_pretrained('biggan-deep-512')
+biggan.to('cuda:0')
+
+def biggan_func(noise_batch, class_batch):
+  noise_tensor = torch.from_numpy(noise_batch).cuda()
+  class_tensor = torch.from_numpy(class_batch).cuda()
+  with torch.no_grad():
+    output_tensor = biggan(noise_tensor.float(), class_tensor.float(), truncation = 1)
+  return convert_to_images(output_tensor.cpu())
+
+L = LucidSonicDream('sea_of_voices_inst.mp3',
+                    style = biggan_func, 
+                    input_shape = 128, 
+                    num_possible_classes = 1000)
+
+L.hallucinate('sea_of_voices.mp4',
+              output_audio = 'sea_of_voices.mp3',
+              speed_fpm = 3,
+              classes = [13, 14, 22, 24, 301, 84, 99, 100, 134, 143, 393, 394],
+              class_shuffle_seconds = 10, 
+              class_shuffle_strength = 0.1,
+              class_complexity = 0.5,
+              class_smooth_seconds = 4,
+              motion_react = 0.35,
+              flash_strength = 1,
+              contrast_strength = 1)
+
+GPT-3
+https://github.com/EleutherAI/gpt-neo/
+https://pile.eleuther.ai/
+
+
+
+
+
+
+
 
 
 

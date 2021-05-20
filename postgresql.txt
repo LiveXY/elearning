@@ -1,0 +1,41 @@
+initdb /usr/local/var/postgres/data -E utf8 --locale=zh_CN.UTF-8
+pg_ctl -D /usr/local/var/postgres/data -l logfile start
+pg_ctl -D /usr/local/var/postgres/data stop -s -m fast
+lsof -i:5432
+createuser root -P
+createdb etms -O root -E UTF8 -e
+psql -l
+psql -U root -d etms -h 127.0.0.1
+CREATE TABLE users(id int NOT NULL, name varchar(20) NOT NULL, age int NOT NULL, PRIMARY KEY ("id"));
+CREATE TABLE users(id int PRIMARY KEY NOT NULL, name varchar(20) NOT NULL, age int NOT NULL);
+
+INSERT INTO users(id, name, age) VALUES(1, 'name', 16);
+SELECT * FROM users WHERE id = 1;
+UPDATE users SET name = '11111' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
+DROP TABLE users;
+DROP DATABASE etms;
+dropdb -U root etms
+
+记得加 "--locale=zh_CN.UTF-8" 选项，不然会报以下错误：
+lc_collate cluster values do not match: old "zh_CN.UTF-8", new "en_US.UTF-8"
+
+pg_upgrade 进行数据迁移：
+pg_upgrade -b /usr/local/Cellar/postgresql/9.2.4/bin/ -B /usr/local
+
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+SET TIMEZONE="Asia/Shanghai";
+CREATE TABLE books (
+    id UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW (),
+    updated_at TIMESTAMP NULL,
+    title VARCHAR (255) NOT NULL,
+    author VARCHAR (255) NOT NULL,
+    book_status INT NOT NULL,
+    book_attrs JSONB NOT NULL
+);
+CREATE INDEX active_books ON books (title) WHERE book_status = 1;
+DROP TABLE IF EXISTS books;
+
+

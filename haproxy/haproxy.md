@@ -1,3 +1,18 @@
+系统内核优化
+fs.inotify.max_user_watches = 89100
+fs.file-max = 102400
+fs.nr_open = 102400
+
+net.ipv4.ip_forward = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.ip_local_port_range = 1024 65023
+net.ipv4.tcp_max_syn_backlog = 10240
+net.ipv4.tcp_max_tw_buckets = 400000
+net.ipv4.tcp_max_orphans = 60000
+net.ipv4.tcp_synack_retries = 3
+net.core.somaxconn = 10000
+
+开启haproxy日志
 mkdir /var/log/haproxy
 vi /etc/rsyslog.conf
 # Provides UDP syslog reception

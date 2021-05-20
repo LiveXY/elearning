@@ -1,0 +1,141 @@
+npm install -g yarn tyarn umi
+
+https://github.com/umijs/umi
+https://umijs.org/zh-CN/config
+https://umijs.org/zh-CN/api
+https://umijs.org/zh-CN/plugins/preset-react
+
+https://beta-pro.ant.design/docs/overview-cn
+https://pro.ant.design/docs/getting-started-cn
+https://beta-pro.ant.design/docs/overview-cn
+https://pro.ant.design/docs/dynamic-theme-cn
+
+yarn create umi myapp2
+npx create-umi myapp2
+第一步先选择 ant-design-pro
+选择 antd 的版本，4 或者 5
+cd myapp2 && tyarn
+tyarn add @umijs/preset-ui -D
+npx umi dev
+或者
+mkdir myapp && cd myapp
+yarn create @umijs/umi-app
+或者
+mkdir myapp && cd myapp
+yarn add umi
+npx umi g page index --typescript --less
+npx umi dev
+
+umi help <command>
+umi version
+umi -v
+
+umi build
+umi dev
+umi analyze
+umi lint
+umi lint:fix
+
+
+# OS X, Linux
+PORT=3000 umi dev
+# Windows (cmd.exe)
+set PORT=3000&&umi dev
+如果要同时考虑 OS X 和 Windows，可借助三方工具 cross-env，
+$ yarn add cross-env --dev
+$ cross-env PORT=3000 umi dev
+vi .env
+PORT=3000
+BABEL_CACHE=none
+
+$ ANALYZE=1 umi dev
+# 或者
+$ ANALYZE=1 umi build
+
+umi generate <type> <name> [options]
+umi generate page pageName
+umi generate page pageName --typescript
+umi generate page pageName --less
+
+umi plugin <type> [options]
+umi plugin list
+umi plugin list --key
+
+umi webpack [options]
+umi webpack
+umi webpack --rules #查看 webpack.module.rules 配置详情
+umi webpack --rule=js #查看 webpack.module.rules 中某个规则的配置详情
+umi webpack --plugins #查看 webpack.plugins 配置详情
+umi webpack --plugin=extract-css #查看 webpack.plugins 中某个插件的配置详情
+
+NODE_ENV=production umi webpack
+
+// CSS Modules
+import styles from './foo.css';
+// 非 CSS Modules
+import './foo.css';
+export default () => <img src={require('./foo.png')} />
+export default () => <img src={require('@/foo.png')} />
+import { ReactComponent as Logo } from './logo.svg'
+组件式引入
+function Analysis() {
+  return <Logo width={90} height={120} />
+}
+url式引入
+import logoSrc from './logo.svg'
+function Analysis() {
+  return <img src={logoSrc} alt="logo" />
+}
+.logo {
+  background: url(./foo.png);
+}
+.logo {
+  background: url(~@/foo.png);
+}
+启用按需加载
+export default {
+  dynamicImport: {},
+}
+封装一个异步组件
+import { dynamic } from 'umi';
+export default dynamic({
+  loader: async function() {
+    // 这里的注释 webpackChunkName 可以指导 webpack 将该组件 HugeA 以这个名字单独拆出去
+    const { default: HugeA } = await import(/* webpackChunkName: "external_A" */ './HugeA');
+    return HugeA;
+  },
+});
+使用异步组件
+import React from 'react';
+import AsyncHugeA from './AsyncHugeA';
+// 像使用普通组件一样即可
+// dynamic 为你做:
+// 1. 异步加载该模块的 bundle
+// 2. 加载期间 显示 loading（可定制）
+// 3. 异步组件加载完毕后，显示异步组件
+export default () => {
+  return <AsyncHugeA />;
+}
+
+包大小分析
+Umi 同时支持对服务端和客户端包大小的分析
+# 服务端包大小分析
+$ ANALYZE_SSR=1 umi build
+# 客户端包大小分析
+$ ANALYZE=1 umi build
+
+import { Link } from 'umi';
+import { history } from 'umi';
+history.push('/foo');
+background: url(~@/assets/logo.png); # 别名
+@import url(~foo/bar.css); # 三方库
+动态路由
+umi3 中不再使用$来标识动态路，约定 []包裹的文件或文件夹为动态路由，[ $]为可选的动态路由
+比如:
+src/pages/users/[id].tsx 会成为 /users/:id
+src/pages/users/[id$].tsx 会成为 /users/:id?
+
+
+
+
+

@@ -185,6 +185,14 @@ sips -f vertical ~/Pictures/*.JPG
 cwebp -q 80 image.png -o image.webp
 把 PNG 图片文件转换为质量参数为 80 的 WebP 图片
 convert pixel.png pixel.webp
+magick convert -strip -quality 80% 1.jpg 1-1.jpg
+magick convert -strip -quality 80% 2.png 2-1.png
+magick convert -strip -quality 80% 3.jpg 3-1.jpg
+
+magick convert -resize "1500x1500" -strip -quality 80% 1.jpg 1-2.jpg
+
+magick convert -resize "1500x1500>" -strip -quality 80% 1.jpg 1-2.jpg
+magick convert -resize "15000@" -strip -quality 80% 1.jpg 1-2.jpg
 
 =====================================================
 设置打开文件数

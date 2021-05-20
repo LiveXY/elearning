@@ -227,6 +227,8 @@ info stats
 info memory
 info cpu
 info keyspace
+info commandstats
+slowlog get 10
 
 gem install redis-stat
 java -jar redis-stat-0.4.14.jar --server

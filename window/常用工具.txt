@@ -5,6 +5,15 @@ https://github.com/ventoy/Ventoy/releases/download/v1.0.14/ventoy-1.0.14-windows
 2，启动U盘制作完成以后就可以往里面拷贝自己常用的系统镜像了，会自动生成启动项目。
 3，U盘插入电脑，选择U盘启动，就可以看到拷贝的ISO文件的启动项了
 
+/ventoy/ventoy.json
+{
+    "control": [
+        { "VTOY_FILT_DOT_UNDERSCORE_FILE": "1" },
+        { "VTOY_MAX_SEARCH_LEVEL": "2" },
+        { "VTOY_DEFAULT_SEARCH_ROOT": "/OS" }
+    ]
+}
+
 rufus – 开源 U 盘启动盘制作工具
 https://github.com/pbatard/rufus/releases
 https://rufus.ie/
@@ -13,3 +22,10 @@ https://github.com/microsoft/winget-cli/releases
 
 https://docs.microsoft.com/zh-cn/sysinternals/
 https://docs.microsoft.com/zh-cn/sysinternals/downloads/
+
+slmgr /skms kms.03k.org
+slmgr /ato
+slmgr.vbs -x
+
+aster
+leapmotion

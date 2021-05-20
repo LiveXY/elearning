@@ -959,3 +959,26 @@ WEBAPP
 
 https://hmxt.org/manifest.webmanifest
 {"scope":"/","start_url":"/","display":"standalone","icons":[{"sizes":"192x192","type":"image/png","src":"//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:192,h:192,m"},{"sizes":"512x512","type":"image/png","src":"//img1.wsimg.com/isteam/ip/static/pwa-app/logo-default.png/:/rs=w:512,h:512,m"}],"name":"鸿蒙学堂","short_name":"鸿蒙学堂","theme_color":"#202731","background_color":"#202731"}
+
+<base href="/">
+https://www.sveltejs.cn/manifest.json
+{
+    "background_color": "#ffffff",
+    "theme_color": "#ff3e00",
+    "name": "Svelte",
+    "short_name": "Svelte",
+    "display": "minimal-ui",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "images/svelte-android-chrome-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/svelte-android-chrome-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

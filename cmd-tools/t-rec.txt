@@ -1,0 +1,27 @@
+
+brew install t-rec
+
+t-rec [FLAGS] [OPTIONS] [shell or program to launch]
+FLAGS:
+    -h, --help       打印帮助信息
+    -l, --ls-win     显示窗口ID，设置环境变量'WINDOWID'去录制指定的窗口
+    -n, --natural    自然的打字体验并禁用空闲检测和采样优化
+    -q, --quiet      静音模式，不提示:“Press Ctrl+D to end recording”
+    -V, --version    显示版本信息
+    -v, --verbose    详细信息
+
+OPTIONS:
+    -b, --bg <bg>          背景颜色[默认: transparent]，[可选: white, black,transparent]
+    -d, --decor <decor>    装饰效果 [默认: shadow]  [可选: shadow, none]
+    -m, --video <video>    对gif生成一个mp4视频[默认: mp4]  [可选: mp4]
+
+ARGS:
+    <shell or program to launch>    启动指定的程序，例如 '/bin/sh'
+
+TERM_PROGRAM="google chrome" t-rec
+
+t-rec --ls-win | grep -i code
+Code | 27600
+# set the WINDOWID variable and run t-rec
+WINDOWID=27600 t-rec
+
