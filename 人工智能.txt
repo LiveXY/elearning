@@ -4243,11 +4243,14 @@ GPT-3
 https://github.com/EleutherAI/gpt-neo/
 https://pile.eleuther.ai/
 
+提取字幕
+https://github.com/apm1467/videocr
+https://www.bilibili.com/read/cv292343
+https://github.com/YaoFANGUK/video-subtitle-extractor
 
-
-
-
-
+知乎数据集
+https://cloud.tsinghua.edu.cn/d/d6c045c55aa14bb39ebc/
+https://github.com/THUIR/ZhihuRec-Dataset
 
 
 

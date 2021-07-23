@@ -29,3 +29,5 @@ slmgr.vbs -x
 
 aster
 leapmotion
+
+https://gitee.com/chuanjiao10/kasini3000

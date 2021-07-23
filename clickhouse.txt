@@ -1,0 +1,265 @@
+clickhouse
+
+
+https://clickhouse.tech/docs/zh/getting-started/tutorial/
+https://zhuanlan.zhihu.com/p/34669883
+https://github.com/vinitk95/clickhouse-cluster
+https://developer.aliyun.com/article/762461
+
+docker pull yandex/clickhouse-server
+docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server
+docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml yandex/clickhouse-server
+容器需要公开用于HTTP通信的8123端口和用于主机间通信的9000端口。
+docker run -it --rm --link some-clickhouse-server:clickhouse-server yandex/clickhouse-client --host clickhouse-server
+docker exec -it some-clickhouse-server bash
+cd etc/clickhouse-server
+user.xml
+<access_management>1</access_management>
+CREATE USER IF NOT EXISTS user1 IDENTIFIED WITH PLAINTEXT_PASSWORD BY 'pass1'
+CREATE DATABASE IF NOT EXISTS db1
+SHOW DATABASES
+GRANT ALL PRIVILEGES ON db1.* TO user1
+docker run -it --rm --link some-clickhouse-server:clickhouse-server yandex/clickhouse-client --host clickhouse-server -u user1 --password pass1
+:) SHOW GRANTS
+:) SHOW DATABASES
+:) USE db1
+:) CREATE TABLE names (
+ id UInt64,
+ name String,
+ created DateTime
+ ) ENGINE = MergeTree()
+ PRIMARY KEY id
+ ORDER BY id;
+:) SHOW TABLES
+
+CREATE DATABASE docker;
+CREATE TABLE docker.docker (x Int32) ENGINE = Log;
+
+CREATE TABLE IF NOT EXISTS example (
+	country_code FixedString(2),
+	os_id        UInt8,
+	browser_id   UInt8,
+	categories   Array(Int16),
+	action_day   Date,
+	action_time  DateTime
+) engine=Memory
+
+yum install -y yum-utils
+yum-config-manager --add-repo http://repo.red-soft.biz/repos/clickhouse/repo/clickhouse-el7.repo
+yum install -y clickhouse-server clickhouse-client clickhouse-server-common clickhouse-compressor
+
+CREATE TABLE ontime_local (FlightDate Date,Year UInt16) ENGINE = MergeTree(FlightDate, (Year, FlightDate), 8192);
+insert into ontime_local (FlightDate,Year) values('2001-10-12',2001);
+select count(*) from ontime_local;
+
+vi /etc/rc.d/init.d/clickhouse-server
+CLICKHOUSE_LOGDIR=/data/clickhouse/log
+CLICKHOUSE_DATADIR_OLD=/data/clickhouse/data_old
+CLICKHOUSE_CONFIG=/data/clickhouse/config.xml
+
+CLICKHOUSE_DATADIR_OLD为兼容老版本，新版本已经弃用。
+
+vi /data/clickhouse/config.xml
+<?xml version="1.0"?>
+<yandex>
+    <logger>
+        <level>trace</level>
+        <log>/data/clickhouse/log/server.log</log>
+        <errorlog>/data/clickhouse/log/error.log</errorlog>
+        <size>1000M</size>
+        <count>10</count>
+    </logger>
+    <!-- For HTTPS over native protocol. -->
+    <!--
+    <https_port>8443</https_port>
+    -->
+    <http_port>8123</http_port>
+    <tcp_port>9000</tcp_port>
+    <!-- Port for communication between replicas. Used for data exchange. -->
+    <interserver_http_port>9009</interserver_http_port>
+    <!-- 本机域名 -->
+    <interserver_http_host>node1.jikelab.com</interserver_http_host>
+    <!-- 监听IP -->
+    <listen_host>0.0.0.0</listen_host>
+    <!-- 最大连接数 -->
+    <max_connections>64</max_connections>
+    <!-- 没搞懂的参数 -->
+    <keep_alive_timeout>3</keep_alive_timeout>
+    <!-- 最大并发查询数 -->
+    <max_concurrent_queries>16</max_concurrent_queries>
+    <!-- 单位是B -->
+    <uncompressed_cache_size>8589934592</uncompressed_cache_size>
+    <mark_cache_size>10737418240</mark_cache_size>
+    <!-- 存储路径 -->
+    <path>/data/clickhouse/</path>
+    <tmp_path>/data/clickhouse/tmp/</tmp_path>
+    <!-- user配置 -->
+    <users_config>users.xml</users_config>
+    <default_profile>default</default_profile>
+    <log_queries>1</log_queries>
+    <default_database>default</default_database>
+     <!-- Configuration of clusters that could be used in Distributed tables.
+         https://clickhouse.yandex/docs/en/table_engines/distributed/
+      -->
+    <remote_servers incl="clickhouse_remote_servers" />
+    <zookeeper incl="zookeeper-servers" optional="true" />
+     <!-- Substitutions for parameters of replicated tables.
+          Optional. If you don't use replicated tables, you could omit that.
+         See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
+      -->
+    <macros incl="macros" optional="true" />
+     <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->
+    <builtin_dictionaries_reload_interval>3600</builtin_dictionaries_reload_interval>
+    <!-- 控制大表的删除 -->
+    <max_table_size_to_drop>0</max_table_size_to_drop>
+    <!-- 集群配置文件 -->
+    <include_from>/data/clickhouse/metrika.xml</include_from>
+</yandex>
+需要注意interserver_http_host配置每个主机都不同，，其他配置保持一致，建议使用域名映射，方便数据入库的时候轮训写入各节点均衡数据。
+修改集群的配置文件metrika.xml
+vi /data/clickhouse/metrika.xml
+<?xml version="1.0"?>
+<yandex>
+<!-- 集群配置 -->
+<clickhouse_remote_servers>
+    <bip_ck_cluster>
+        <!-- 数据分片1  -->
+        <shard>
+            <internal_replication>false</internal_replication>
+            <replica>
+                <host>node1.jikelab.com</host>
+                <port>9000</port>
+                <user>default</user>
+                <password>6lYaUiFi</password>
+            </replica>
+        </shard>
+        <!-- 数据分片2  -->
+        <shard>
+            <internal_replication>false</internal_replication>
+            <replica>
+                <host>node2.jikelab.com</host>
+                <port>9000</port>
+                <user>default</user>
+                <password>6lYaUiFi</password>
+            </replica>
+        </shard>
+        <!-- 数据分片3  -->
+        <shard>
+            <internal_replication>false</internal_replication>
+            <replica>
+                <host>node3.jikelab.com</host>
+                <port>9000</port>
+                <user>default</user>
+                <password>6lYaUiFi</password>
+            </replica>
+        </shard>
+    </bip_ck_cluster>
+</clickhouse_remote_servers>
+<!-- 本节点副本名称，创建复制表时有用，每个节点不同，整个集群唯一，建议使用主机名） -->
+<macros>
+    <replica>node1</replica>
+</macros>
+<!-- 监听网络 -->
+<networks>
+   <ip>::/0</ip>
+</networks>
+<!-- ZK集群  -->
+<zookeeper-servers>
+  <node index="1">
+    <host>192.168.0.245</host>
+    <port>2181</port>
+  </node>
+  <node index="2">
+    <host>192.168.0.246</host>
+    <port>2181</port>
+  </node>
+  <node index="3">
+    <host>192.168.0.247</host>
+    <port>2181</port>
+  </node>
+</zookeeper-servers>
+<!-- 数据压缩算法  -->
+<clickhouse_compression>
+<case>
+  <min_part_size>10000000000</min_part_size>
+  <min_part_size_ratio>0.01</min_part_size_ratio>
+  <method>lz4</method>
+</case>
+</clickhouse_compression>
+</yandex>
+关键的是zookeeper和macros(此配置，每个节点必须不一致，在集群需保持唯一性，建议使用主机名或递增字符串)配置，集群中clickhouse_remote_servers配置涉及数据分片,如果使用了分布式表，需要在集群的配置文件里，增加分片的用户名密码，关于配置文件我们需要单独一节介绍剖析配置
+修改users.xml配置，设置权限、负载和配额。
+vi /data/clickhouse/users.xml
+<?xml version="1.0"?>
+<yandex>
+    <profiles>
+        <!-- 读写用户设置  -->
+        <default>
+            <max_memory_usage>10000000000</max_memory_usage>
+            <use_uncompressed_cache>0</use_uncompressed_cache>
+            <load_balancing>random</load_balancing>
+        </default>
+        <!-- 只写用户设置  -->
+        <readonly>
+            <max_memory_usage>10000000000</max_memory_usage>
+            <use_uncompressed_cache>0</use_uncompressed_cache>
+            <load_balancing>random</load_balancing>
+            <readonly>1</readonly>
+        </readonly>
+    </profiles>
+    <!-- 配额  -->
+    <quotas>
+        <!-- Name of quota. -->
+        <default>
+            <interval>
+                <duration>3600</duration>
+                <queries>0</queries>
+                <errors>0</errors>
+                <result_rows>0</result_rows>
+                <read_rows>0</read_rows>
+                <execution_time>0</execution_time>
+            </interval>
+        </default>
+    </quotas>
+    <users>
+        <!-- 读写用户  -->
+        <default>
+            <password_sha256_hex>967f3bf355dddfabfca1c9f5cab39352b2ec1cd0b05f9e1e6b8f629705fe7d6e</password_sha256_hex>
+            <networks incl="networks" replace="replace">
+                <ip>::/0</ip>
+            </networks>
+            <profile>default</profile>
+            <quota>default</quota>
+        </default>
+        <!-- 只读用户  -->
+        <ck>
+            <password_sha256_hex>967f3bf355dddfabfca1c9f5cab39352b2ec1cd0b05f9e1e6b8f629705fe7d6e</password_sha256_hex>
+            <networks incl="networks" replace="replace">
+                <ip>::/0</ip>
+            </networks>
+            <profile>readonly</profile>
+            <quota>default</quota>
+        </ck>
+    </users>
+</yandex>
+[4] 创建相关目录
+
+mkdir -p /data/clickhouse/log
+mkdir -p /data/clickhouse
+chown -R clickhouse:clickhouse /data/clickhouse
+[5] 启动集群
+
+service clickhouse-server start
+lsof -i :8123
+lsof -i :9000
+clickhouse-client -h 127.0.0.1 -d default -m -u default --password 6lYaUiFi
+:) use system;
+:) select * from clusters;
+创建clickhouse表和库
+CREATE TABLE ontime_local (FlightDate Date,Year UInt16) ENGINE = MergeTree(FlightDate, (Year, FlightDate), 8192);
+CREATE TABLE ontime_all AS ontime_local ENGINE = Distributed(bip_ck_cluster, default, ontime_local, rand());
+insert into ontime_local (FlightDate,Year)values('2001-10-12',2001);
+insert into ontime_local (FlightDate,Year)values('2002-10-12',2002);
+insert into ontime_local (FlightDate,Year)values('2003-10-12',2003);
+insert into ontime_all (FlightDate,Year)values('2003-10-12',2008);
+select count(*) from ontime_all;

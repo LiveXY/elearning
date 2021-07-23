@@ -1,0 +1,86 @@
+
+openvpn server
+https://www.cyberciti.biz/faq/centos-8-set-up-openvpn-server-in-5-minutes/
+https://www.cyberciti.biz/faq/centos-7-0-set-up-openvpn-server-in-5-minutes/
+http://blog.itist.tw/2017/04/how-to-setup-ssl-vpn-connection-with-openvpn-on-centos-7.html
+https://i4t.com/4481.html
+http://www.zhangblog.com/2020/05/09/openvpn01/
+https://www.fandenggui.com/post/centos7-install-openvpn.html
+https://www.yeboyzq.com/linux/fuwuqipeizhi/989.html
+https://blog.csdn.net/LENOVOJXN/article/details/113885229
+https://www.linuxprobe.com/centos7-config-openvpn-one.html
+https://www.xeath.cc/2019/04/28/archives-236/
+
+https://github.com/OpenVPN/openvpn
+https://github.com/OpenVPN/easy-rsa
+
+yum -y install epel-release && yum -y update
+yum install -y openvpn easy-rsa
+cp /usr/share/doc/openvpn-*/sample/sample-config-files/server.conf /etc/openvpn
+vi /etc/openvpn/server.conf
+port 1194
+proto udp
+dev tun
+ca ca.crt
+cert server.crt
+key server.key
+dh dh2048.pem
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 168.95.192.1"
+keepalive 10 120
+tls-auth ta.key 0
+cipher AES-256-CBC
+comp-lzo
+user nobody
+group nobody
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+explicit-exit-notify 1
+
+
+统一日志系统
+
+Flume NG
+组件	功能
+Agent	使用JVM 运行Flume。每台机器运行一个agent，但是可以在一个agent中包含多个sources和sinks
+Client	生产数据，运行在一个独立的线程
+Source	从Client收集数据，传递给Channel
+Sink	从Channel收集数据，运行在一个独立线程
+Channel	连接 sources 和 sinks ，这个有点像一个队列
+Events	可以是日志记录、 avro 对象等
+https://developer.aliyun.com/article/50487
+
+ELK
+Elasticsearch+Logstash+Kibana
+Filebeats日志文件，主要是针对日志文件
+https://www.elastic.co/cn/beats/filebeat
+Metricbeat度量数据，主要可以收集CPU等数据，内存，磁盘，服务器软件（如nginx，Mysql等）
+https://www.elastic.co/cn/beats/metricbeat
+Packetbeat网络数据，主要收集网络数据。
+https://www.elastic.co/cn/beats/packetbeat
+Winlogbeat Windows数据，针对windows系统日志数据。
+https://www.elastic.co/cn/beats/winlogbeat
+Heartbeat健康检查。
+https://www.elastic.co/cn/beats/heartbeat
+
+https://developer.aliyun.com/article/387014
+https://www.elastic.co/cn/kibana/
+https://www.elastic.co/cn/downloads/kibana
+https://www.elastic.co/cn/kibana/features
+https://www.elastic.co/cn/what-is/kibana-alerting
+https://www.cnblogs.com/binyue/p/6694098.html
+
+
+seci-log
+
+logkit
+https://github.com/qiniu/logkit
+docker pull wonderflow/logkit:<version>
+docker run -d -p 3000:3000 -v /local/logkit/dataconf:/app/confs -v /local/log/path:/logs/path logkit:<version>
+
+

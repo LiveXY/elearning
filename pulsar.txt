@@ -1,0 +1,156 @@
+pulsar
+=====
+https://github.com/apache/pulsar-client-go
+https://pulsar.apache.org/docs/en/client-libraries-go/
+https://pulsar.apache.org/docs/en/kubernetes-helm/
+
+mac docker 4cpu 4Gmem
+
+docker pull apachepulsar/pulsar
+docker run -it -p 6650:6650 -p 8080:8080 --mount source=pulsardata,target=/pulsar/data --mount source=pulsarconf,target=/pulsar/conf apachepulsar/pulsar:2.8.0 bin/pulsar standalone
+docker run -it -p 6650:6650 -p 8080:8080 -v $PWD/data:/pulsar/data apachepulsar/pulsar:latest bin/pulsar standalone
+pulsar://localhost:6650
+http://localhost:8080
+docker ps -a
+docker inspect 86be869d0056
+docker restart 86be869d0056
+
+https://www.jianshu.com/p/cbe085a1d2ab
+https://www.bookstack.cn/read/pulsar-2.5.2-zh/1d554909b63fcbe7.md
+
+
+http://localhost:8080/admin/v2/persistent/public/default/my-topic/stats
+http://localhost:8080/admin/v2/tenants
+http://localhost:8080/admin/v2/bookies/all
+http://localhost:8080/admin/v2/bookies/racks-info
+
+curl http://localhost:8080/admin/v2/persistent/public/default/my-topic/stats | python -m json.tool
+curl -H "Authorization: Bearer JWT_TOKEN" http://localhost:8080/admin/v2/tenants
+
+
+创建集群
+pulsar-admin clusters create cluster-1 --url http://localhost:8080 --broker-url pulsar://localhost:6650
+
+初始化元数据
+pulsar initialize-cluster-metadata \
+  --cluster us-west \
+  --zookeeper zk1.us-west.example.com:2181 \
+  --configuration-store zk1.us-west.example.com:2184 \
+  --web-service-url http://localhost:8080/ \
+  --web-service-url-tls https://localhost:8443/ \
+  --broker-service-url pulsar://localhost:6650/ \
+  --broker-service-url-tls pulsar+ssl://localhost:6651/
+
+pulsar-admin clusters get cluster-1
+pulsar-admin clusters update cluster-1 \
+  --url http://my-cluster.org.com:4081 \
+  --broker-url pulsar://my-cluster.org.com:3350
+pulsar-admin clusters delete cluster-1
+pulsar-admin clusters list
+pulsar-admin update-peer-clusters cluster-1 --peer-clusters cluster-2
+
+租户
+pulsar-admin tenants create my-tenant
+pulsar-admin tenants create my-tenant --admin-roles role1,role2,role3
+pulsar-admin tenants create my-tenant -r role1
+pulsar-admin tenants get my-tenant
+
+pulsar-admin tenants list
+pulsar-admin tenants delete my-tenant
+
+
+pulsar-admin brokers list use
+pulsar-admin brokers namespaces use --url broker1.use.org.com:8080
+pulsar-admin brokers update-dynamic-config brokerShutdownTimeoutMs 100
+pulsar-admin brokers list-dynamic-config
+pulsar-admin brokers get-all-dynamic-config
+
+
+pulsar-admin namespaces create test-tenant/test-namespace
+pulsar-admin namespaces policies test-tenant/test-namespace
+pulsar-admin namespaces list test-tenant
+pulsar-admin namespaces delete test-tenant/ns1
+pulsar-admin namespaces get-clusters test-tenant/cl1/ns1
+pulsar-admin namespaces set-backlog-quota --limit 10 --policy producer_request_hold test-tenant/ns1
+pulsar-admin namespaces get-backlog-quotas test-tenant/ns1
+pulsar-admin namespaces remove-backlog-quota test-tenant/ns1
+pulsar-admin set-retention --size 10 --time 100 test-tenant/ns1
+pulsar-admin namespaces get-retention test-tenant/ns1
+pulsar-admin namespaces unload my-tenant/my-ns
+
+pulsar-admin namespaces grant-permission test-tenant/ns1 \
+  --actions produce,consume \
+  --role admin10
+pulsar-admin namespaces grant-permission test-tenant/ns1 \
+  --actions produce,consume \
+  --role 'my.role.*'
+pulsar-admin namespaces grant-permission test-tenant/ns1 \
+                        --actions produce,consume \
+                        --role 'my.*.role'
+pulsar-admin namespaces permissions test-tenant/ns1
+
+
+pulsar-admin persistent list my-tenant/my-namespace
+pulsar-admin persistent grant-permission --actions produce,consume --role application1 persistent://test-tenant/ns1/tp1
+pulsar-admin persistent permissions
+pulsar-admin persistent revoke-permission --role application1 persistent://test-tenant/ns1/tp1
+pulsar-admin persistent delete persistent://test-tenant/ns1/tp1
+pulsar-admin persistent unload persistent://test-tenant/ns1/tp1
+pulsar-admin persistent stats persistent://test-tenant/ns1/tp1
+pulsar-admin persistent stats-internal persistent://test-tenant/ns1/tp1
+pulsar-admin persistent peek-messages --count 10 --subscription my-subscription persistent://test-tenant/ns1/tp1
+pulsar-admin persistent skip --count 10 --subscription my-subscription persistent://test-tenant/ns1/tp1
+pulsar-admin persistent skip-all --subscription my-subscription persistent://test-tenant/ns1/tp1
+pulsar-admin persistent reset-cursor --subscription my-subscription --time 10 persistent://test-tenant/ns1/tp1
+pulsar-admin persistent lookup persistent://test-tenant/ns1/tp1
+pulsar-admin persistent bundle-range persistent://test-tenant/ns1/tp1
+pulsar-admin persistent subscriptions persistent://test-tenant/ns1/tp1
+pulsar-admin persistent unsubscribe --subscription my-subscription persistent://test-tenant/ns1/tp1
+pulsar-admin topics last-message-id topic-name
+
+
+pulsar-admin non-persistent stats non-persistent://test-tenant/ns1/tp1
+pulsar-admin non-persistent stats-internal non-persistent://test-tenant/ns1/tp1
+pulsar-admin non-persistent create-partitioned-topic non-persistent://my-tenant/my-namespace/my-topic --partitions 4
+pulsar-admin non-persistent get-partitioned-topic-metadata non-persistent://my-tenant/my-namespace/my-topic
+pulsar-admin non-persistent unload non-persistent://test-tenant/ns1/tp1
+
+bin/pulsar-admin topics create-partitioned-topic persistent://my-tenant/my-namespace/my-topic --partitions 4
+pulsar-admin topics create-missed-partitions persistent://my-tenant/my-namespace/my-topic
+pulsar-admin topics get-partitioned-topic-metadata persistent://my-tenant/my-namespace/my-topic
+pulsar-admin topics update-partitioned-topic persistent://my-tenant/my-namespace/my-topic --partitions 8
+pulsar-admin topics delete-partitioned-topic persistent://my-tenant/my-namespace/my-topic
+pulsar-admin topics list tenant/namespace
+pulsar-admin topics partitioned-stats persistent://test-tenant/namespace/topic --per-partition
+pulsar-admin topics stats-internal persistent://test-tenant/namespace/topic
+
+pulsar-admin topics create persistent://my-tenant/my-namespace/my-topic
+pulsar-admin topics delete persistent://my-tenant/my-namespace/my-topic
+pulsar-admin topics list tenant/namespace
+pulsar-admin topics stats persistent://test-tenant/namespace/topic --get-precise-backlog
+
+
+pulsar standalone
+pulsar-client consume my-topic -s "first-subscription"
+pulsar-client produce my-topic --messages "hello-pulsar"
+
+pulsar tokens create-secret-key --output my-secret.key
+pulsar tokens create-secret-key --output my-secret.key --base64
+pulsar tokens create-key-pair --output-private-key my-private.key --output-public-key my-public.key
+pulsar tokens create --secret-key my-secret.key --subject test-user
+pulsar tokens create --private-key my-private.key --subject test-user
+pulsar tokens create --secret-key my-secret.key --subject test-user --expiry-time 1y
+pulsar-admin namespaces grant-permission my-tenant/my-namespace --role test-user --actions produce,consume
+
+conf/client.conf
+conf/broker.conf
+conf/proxy.conf
+
+https://cloud.tencent.com/developer/article/1629899
+https://zhuanlan.zhihu.com/p/122250460
+
+
+
+
+
+

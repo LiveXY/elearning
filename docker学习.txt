@@ -10,6 +10,8 @@ yum install docker -y
 service docker start
 chkconfig docker on
 
+https://github.com/portainer/portainer
+
 获取最新的centos镜像
 docker pull centos:latest
 docker pull microbox/redis:latest
@@ -577,5 +579,87 @@ docker run -it alpine sh
 私有同步网盘
 docker run -d -p 8080:80 nextcloud
 
+docker pull doctorkirk/oracle-19c
+docker pull quillbuilduser/oracle-18-xe
+docker pull oracleinanutshell/oracle-xe-11g
+docker run -h "oracle" --name "oracle" -d -p 49160:22 -p 49161:1521 -p 49162:8080 oracleinanutshell/oracle-xe-11g
+docker run -d -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true oracleinanutshell/oracle-xe-11g
+docker ps
+docker exec -it 59394fdf8ff3 /bin/bash
+su oracle
+cd $ORACLE_HOME
+sqlplus / as sysdba
+create tablespace trunk datafile '/u01/app/oracle/oracle_test/trunk.dbf' size 200M;
+create user root identified by 123456 default tablespace trunk;
+grant connect,resource to ROOT;
+grant dba to cox;
 
+sqlplus system/oracle
+select username,password from dba_users;
+create user root identified by 123456;
+alter user root identified by 123456;
+select * from all_users;
+grant connect,resource,dba to ROOT;
+
+create user traingo identified by 123456;
+grant connect,resource,dba to TRAINGO;
+
+docker stop oracle
+
+
+docker run -e TZ="Asia/Shanghai" -itd -m 2048m --shm-size="1G" -h oracle19c --name oracle19c -p 1521:1521 -p 5500:5500 -e ORACLE_SID=traingo -e ORACLE_PWD=123456 doctorkirk/oracle-19c
+docker exec -it b1ff3596061d /bin/bash
+sqlplus / as sysdba
+sqlplus "/as sysdba"
+alter user sys identified by 123456;
+alter user system identified by 123456;
+
+sys as sysdba
+connect sysdba / as sysdba
+conn sys/sys as sysdba
+
+startup pfile='/opt/oracle/product/19c/dbhome_1/dbs/init.ora'
+/opt/oracle/admin/TRAINGO/pfile
+
+https://localhost:5500/em
+sqlplus sys/123456@localhost/traingo as sysdba
+
+sqlplus  /nolog
+conn / as sysdba;
+startup;
+docker stop oracle19c
+
+select * from v$log;
+archive log list;
+
+lsnrctl status
+lsnrctl start
+
+select tablespace_name, table_name from user_tables
+https://www.w3cschool.cn/oraclejc/oraclejc-gpa52qqy.html
+
+
+https://github.com/MaksymBilenko/docker-oracle-12c
+docker pull truevoly/oracle-12c
+docker pull quay.io/maksymbilenko/oracle-12c
+docker run -d -p 8080:8080 -p 1521:1521 quay.io/maksymbilenko/oracle-12c
+docker run -d -p 8080:8080 -p 1521:1521 truevoly/oracle-12c
+docker exec -it f94de8ed0950 /bin/bash
+su oracle
+$ORACLE_HOME/bin/sqlplus / as sysdba
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED
+alter user SYSTEM account unlock
+
+sqlplus system/oracle@//localhost:1521/xe
+
+hostname: localhost
+port: 1521
+sid: xe
+service name: xe
+username: system
+password: oracle
+
+
+create user traingo identified by 123456;
+grant connect,resource,dba to TRAINGO;
 

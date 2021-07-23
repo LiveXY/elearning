@@ -1,3 +1,12 @@
+vi /etc/my.cnf
+[mysqld]
+max_connections = 2000
+max_connect_errors = 2000
+slow_query_log=on
+slow_query_log_file=/var/lib/mysql/slow.log
+long_query_time=2
+
+
 http://www.cnblogs.com/zhoujinyi/p/3491059.html
 pt-online-schema-change 修改大表结构
 安装：https://www.percona.com/downloads/percona-toolkit/LATEST/
@@ -106,22 +115,26 @@ show status -- 显示状态信息（扩展show status like ‘XXX’）
 show variables -- 显示系统变量
 show innodb status -- 显示InnoDB存储引擎的状态
 ==========================================
+select * from mysql.slow_log;
+
 -- 慢查询和没有使用索引
 vi /etc/my.ini
 [mysqld]
-log-slow-queries=/data/mysqldata/slow-query.log
+slow_query_log=on
+log-slow-queries=/data/mysqldata/slow-query.log #5.6之前
+slow_query_log_file=/var/lib/mysql/localhost-slow.log #5.6之后
 long_query_time=2
-log-slow-queries=/data/mysqldata/slow-query.log
-long_query_time=10
 log-queries-not-using-indexes
 
+show global variables like '%_query_%';
 show global variables like 'slow%'; -- 查看慢查询
 show global variables like '%not_using%';
 set global slow_query_log = ON
 set global slow_query_log_file = '/var/log/mysql/mysql-slow.log';
 set global log_queries_not_using_indexes = ON;
-show variables like 'long%'; -- 慢查询时间
-set long_query_time=5
+show global variables like 'long%'; -- 慢查询时间
+set global long_query_time = 2;
+
 show variables like 'log_output'
 show global variables like 'general%';
 mysql 慢查询日志分析工具:

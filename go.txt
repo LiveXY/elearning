@@ -1,3 +1,4 @@
+https://github.com/zh-five/xdaemon
 https://github.com/duolatech/xapimanager
 
 https://github.com/bmizerany/pat
@@ -87,8 +88,10 @@ $ SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64 go build  test.go
 GOOS：目标可执行程序运行操作系统，支持 darwin freebsd linux windows android netbsd openbsd plan9
 GOARCH：目标可执行程序操作系统构架，包括 386 amd amd64 arm arm64
 
+实时性能监控
 https://github.com/grafana/grafana
 https://github.com/prometheus/prometheus
+https://github.com/netdata/netdata
 
 go get -u github.com/cosmtrek/air
 air -c .air.toml
@@ -120,4 +123,40 @@ fscan.exe -h 192.168.1.1/24 -m smb -pwd password (smb密码碰撞)
 fscan.exe -h 192.168.1.1/24 -m ms17010 (指定模块)
 fscan.exe -hf ip.txt  (以文件导入)
 
+
+https://github.com/go-playground/validator
+https://github.com/bytedance/go-tagexpr
+github.com/valyala/fasttemplate
+github.com/rsms/gotalk
+github.com/valyala/bytebufferpool
+https://github.com/jianfengye/collection
+https://github.com/x1unix/go-playground
+https://github.com/gwuhaolin/livego
+https://github.com/hantmac/fuckdb
+https://github.com/orcaman/concurrent-map
+https://github.com/megaease/easegress
+https://github.com/nocodb/nocodb
+https://github.com/Canop/rhit
+
+GO 混搅工具
+go get -u github.com/unixpickle/gobfuscate
+结构体检查
+go get -u github.com/mdempsky/maligned
+
+https://github.com/golang-migrate/migrate
+桌面分享
+https://github.com/pavlobu/deskreen
+
+https://github.com/ClickHouse/clickhouse-go
+github.com/panjf2000/ants
+
+https://github.com/nsqio/nsq/releases
+
+nohup ./nsqlookupd &
+nohup ./nsqd --lookupd-tcp-address=127.0.0.1:4160 &
+nohup ./nsqadmin --lookupd-http-address=127.0.0.1:4161 &
+nohup ./nsq_to_file --topic=test --output-dir=/tmp --lookupd-http-address=127.0.0.1:4161 &
+
+curl -d 'hello world' 'http://127.0.0.1:4151/pub?topic=test'
+http://192.168.110.131:4171/
 
