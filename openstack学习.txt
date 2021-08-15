@@ -16,6 +16,10 @@ http://www.openstack.cn/p692.html
 http://openstack-on-centos6.readthedocs.org/en/latest/
 http://www.openstack.cn/p128.html
 
+https://microstack.run/
+https://microstack.run/docs/multi-node
+https://ubuntu.com/tutorials/microstack-get-started#1-overview
+
 
 rdo源 allinone单节点---------------------------------------------------------------------------------------
 https://openstack.redhat.com/Quickstart

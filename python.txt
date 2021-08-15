@@ -167,3 +167,13 @@ https://github.com/dbcli/mycli
 
 pip install rich
 
+q - Run SQL directly on CSV or TSV files
+http://github.com/harelba/q
+q "SELECT COUNT(*) FROM ./clicks_file.csv WHERE c3 > 32.3"
+ps -ef | q -H "SELECT UID, COUNT(*) cnt FROM - GROUP BY UID ORDER BY cnt DESC LIMIT 3"
+https://harelba.github.io/q/
+wget https://github.com/harelba/q/releases/download/1.7.1/q-text-as-data-1.7.1-1.noarch.rpm #下载版本
+sudo rpm -ivh q-text-as-data-1.7.1-1.noarch.rpm # 安装
+q --version  #查看安装版本
+https://mp.weixin.qq.com/s/4QpCXwvbaExj73k3vTguZg
+

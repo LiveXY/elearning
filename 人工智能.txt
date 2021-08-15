@@ -4252,8 +4252,13 @@ https://github.com/YaoFANGUK/video-subtitle-extractor
 https://cloud.tsinghua.edu.cn/d/d6c045c55aa14bb39ebc/
 https://github.com/THUIR/ZhihuRec-Dataset
 
+视频转换
+https://github.com/HandBrake/HandBrake
+照片恢复
+https://github.com/Thmen/EGVSR
+https://github.com/skycrapers/TecoGAN-PyTorch
 
+数据接口：百度、谷歌、头条、微博指数,宏观数据，利率数据，货币汇率，千里马、独角兽公司，新闻联播文字稿，影视票房数据，高校名单，疫情数据…
+https://github.com/justinzm/gopup
 
-
-
-
+https://github.com/sql-machine-learning/models

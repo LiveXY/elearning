@@ -21,6 +21,19 @@ https://github.com/simple-icons/simple-icons
 https://github.com/uuware/icons-font-customization
 https://github.com/uuware/icons-font-desktop
 
+CSS效果
+https://www.iconshock.com/svg-icons/
+https://neumorphism.io/#e0e0e0
+https://easings.co/
+https://box-shadows.co/
+https://bansal.io/pattern-css #填充空背景
+https://www.magicpattern.design/tools/css-backgrounds
+https://www.shapedivider.app/ #自定义形状分隔线
+https://svgwave.in/
+https://github.com/anup-a/svgwave
+https://animista.net/ #动画
+https://tympanus.net/Development/MagneticButtons/index.html
+
 动画
 https://github.com/daneden/animate.css
 https://github.com/IanLunn/Hover
@@ -51,3 +64,5 @@ https://github.com/tailwindcss/tailwindcss
 https://github.com/laurenwaller/cssco
 
 https://github.com/dhg/Skeleton
+
+https://github.com/blueedgetechno/windows11

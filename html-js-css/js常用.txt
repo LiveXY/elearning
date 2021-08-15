@@ -53,6 +53,7 @@ https://github.com/flutter/flutter
 https://github.com/alibaba/fish-redux
 
 https://github.com/flutter/plugins
+https://github.com/bytedance/flutter_ume
 https://github.com/Solido/awesome-flutter
 https://github.com/samarthagarwal/FlutterScreens
 https://github.com/alibaba/flutter-go
@@ -171,6 +172,9 @@ https://github.com/leanote/desktop-app
 https://github.com/alibaba/ice
 https://github.com/marktext/marktext
 https://github.com/Molunerfinn/PicGo
+https://github.com/nativefier/nativefier
+npm install -g nativefier
+nativefier 'demo-new.51-learning.cn'
 
 模块加载 依赖管理 AMD规范 CMD规范
 AMD规范
@@ -585,3 +589,5 @@ vue
 https://github.com/halo-dev/halo-admin
 
 https://github.com/hcxiong?direction=desc&page=50&sort=stars&tab=stars
+
+https://github.com/blueedgetechno/windows11

@@ -1272,3 +1272,31 @@ $CACHESIZE
 $MAXCONN
 $MAINPID
 $OPTIONS
+
+
+timedatectl status|grep 'Time zone'
+#设置硬件时钟调整为与本地时钟一致
+timedatectl set-local-rtc 1
+#设置时区为上海
+timedatectl set-timezone Asia/Shanghai
+#安装ntpdate
+yum -y install ntpdate
+yum -y install ntp ntpdate
+#同步时间
+ntpdate -u pool.ntp.org
+ntpdate 0.asia.pool.ntp.org
+#同步完成后,date命令查看时间是否正确
+date
+#中国
+cn.ntp.org.cn
+
+which ntpdate
+crontab -e
+*/20 * * * * /usr/sbin/ntpdate pool.ntp.org > /dev/null 2>&1
+#安装rdate
+yum -y install rdate
+#同步时间
+rdate -s time-b.nist.gov
+#查看时间是否正确
+date
+*/20 * * * * /usr/bin/rdate -s time-b.nist.gov > /dev/null 2>&1

@@ -1195,3 +1195,4 @@ Grid选项用于更快的检查(仅限于docker-compose)
 pip3 install social-analyzer
 python3 -m social-analyzer --cli --mode "fast" --username "johndoe" --websites "youtube pinterest tumblr" --output "pretty" --metadata --extract --trim
 
+docker run -e "IP_V4_TARGET=127.0.0.1" --rm -it vrusinov/tsunami-security-scanner:latest

@@ -23,3 +23,7 @@ https://crates.io/
 cargo build --target aarch64_be-unknown-linux-gnucargo build --target aarch64-unknown-linux-gnu_ilp32cargo build --target aarch64_be-unknown-linux-gnu_ilp32
 
 https://actix.rs/
+
+https://github.com/helix-editor/helix
+brew tap helix-editor/helix
+brew install helix
