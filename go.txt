@@ -1,42 +1,65 @@
+brew install go@1.16
+brew install go@1.17
+brew switch go 1.17
+
 https://github.com/zh-five/xdaemon
 https://github.com/duolatech/xapimanager
 
+https://github.com/smallnest/go-web-framework-benchmark
+https://github.com/gofiber/fiber
+https://github.com/gin-gonic/gin
+https://github.com/astaxie/beego
+https://github.com/kataras/iris
 https://github.com/bmizerany/pat
 https://github.com/julienschmidt/httprouter
 https://github.com/zenazn/goji
-https://github.com/gin-gonic/gin
-github.com/astaxie/beego
 https://github.com/revel/revel
+https://github.com/valyala/fasthttp
+https://github.com/plimble/ace
 
-https://github.com/bilibili/kratos
+https://github.com/lunny/tango
+https://github.com/go-martini/martini
 
 http://www.golangnote.com/topic/87.html
 https://github.com/stripe/einhorn
 
-Martini
+websocket
+https://github.com/gorilla/websocket
 
-https://github.com/lunny/tango
-https://github.com/gin-gonic/gin
-https://github.com/go-martini/martini
-https://github.com/astaxie/beego
-https://github.com/valyala/fasthttp
-https://github.com/robfig/revel
-https://github.com/plimble/ace
+grpc
+https://github.com/protocolbuffers/protobuf
+https://github.com/protocolbuffers/protobuf-go
+https://github.com/grpc-ecosystem/grpc-gateway
+https://github.com/golang/protobuf
+https://github.com/grpc/grpc-go
+
+microservices 微服务
+https://github.com/go-kit/kit
+https://github.com/asim/go-micro
+https://github.com/go-kratos/kratos
+https://github.com/google/go-cloud
+https://github.com/zeromicro/go-zero
+https://github.com/nytimes/gizmo
+https://github.com/rsms/gotalk 异步对等通信协议和库
+https://github.com/koding/kite
+https://github.com/gocircuit/circuit
+
 
 https://github.com/coocood/freecache
 https://github.com/outbrain/orchestrator
 https://github.com/antonholmquist/jason
 https://github.com/olahol/melody
-https://github.com/gorilla/websocket
 https://github.com/smartystreets/goconvey
 https://github.com/name5566/leaf
 https://github.com/tsuru/tsuru
 https://github.com/leanote/leanote
 https://github.com/tealeg/xlsx
 http://git.oschina.net/openmeeting2/openmeeting2
-https://github.com/PuerkitoBio/goquery
 https://github.com/hybridgroup/gobot
 https://github.com/google/gxui
+
+jquery
+https://github.com/PuerkitoBio/goquery
 
 https://github.com/astaxie/beedb
 
@@ -92,6 +115,8 @@ GOARCH：目标可执行程序操作系统构架，包括 386 amd amd64 arm arm6
 https://github.com/grafana/grafana
 https://github.com/prometheus/prometheus
 https://github.com/netdata/netdata
+
+https://github.com/thanos-io/thanos
 
 go get -u github.com/cosmtrek/air
 air -c .air.toml
@@ -164,6 +189,25 @@ GO进度条 可视化操作
 https://github.com/charmbracelet/bubbles
 https://github.com/charmbracelet/bubbletea
 https://github.com/vbauerster/mpb
+https://github.com/schollz/progressbar
+https://github.com/cheggaaa/pb
+
+下载
+https://github.com/k0kubun/go-ansi
+https://github.com/polaris1119/downloader
+https://github.com/iikira/downloader
+https://github.com/Mikubill/cowtransfer-uploader
+https://github.com/iovxw/downloader
+
+改名
+https://github.com/shenwei356/brename
+https://github.com/ChuckDaniels87/rnr
+https://github.com/neurobin/rnm
+https://github.com/ayoisaiah/f2
+go install github.com/ayoisaiah/f2/cmd/f2@latest
+f2 -r 'test-%3d{{ext}}'
+f2 -r 'test-%3d{{ext}}' -x
+f2 -f '(\d+).*' -r '$1.mp3'
 
 https://github.com/aohorodnyk/mimeheader
 日志
@@ -180,6 +224,13 @@ https://github.com/Jeffail/tunny
 断路器
 https://github.com/rubyist/circuitbreaker
 
+https://github.com/six-ddc/plow
+go get -u github.com/six-ddc/plow
+plow http://127.0.0.1:8080/hello -c 20 -d 15s -n 5000000
+get请求本地接口：建立了20个连接，在15秒内请求了500w次，相信大家也看懂了这里，下面的flag还是解释一下吧。
+-c 指定连接数(connections)
+-n指定请求数(number)
+-d 指定请求的时间(duration)
 
 https://github.com/minio/minio-go
 https://github.com/felixge/httpsnoop
@@ -196,4 +247,389 @@ gocyclo -top 10  ./
 
 go get -u github.com/hhatto/gocloc/cmd/gocloc
 gocloc .
+
+
+brew install duf
+https://github.com/muesli/duf
+duf
+duf /home /some/file
+duf --all
+duf --only local,network,fuse,special,loops,binds
+duf --hide local,network,fuse,special,loops,binds
+duf --only-fs tmpfs,vfat
+duf --hide-fs tmpfs,vfat
+duf --only-mp /,/home,/dev
+duf --hide-mp /,/home,/dev
+duf --only-mp '/sys/*,/dev/*'
+duf --sort size
+duf --output mountpoint,size,usage
+duf --json
+
+https://github.com/rs/curlie
+brew install rs/tap/curlie
+curlie [CURL_OPTIONS...] [METHOD] URL [ITEM [ITEM]]
+
+https://mp.weixin.qq.com/s/mW1Jq1oLRcbPxXeGTOA1jg
+go install github.com/go-delve/delve/cmd/dlv@latest
+dlv version
+dlv debug .
+b main.main
+c
+n
+s
+p s
+b 6
+locals
+set i = 1
+r
+bp
+clearall main.main
+funcs Reverse
+p len(r)-1
+exit
+
+brew install xo/xo/usql
+https://github.com/xo/usql
+usql postgres://booktest@localhost/booktest
+usql oracle://user:pass@host/oracle.sid
+usql pg://localhost/ -f script.sql
+usql vt://user:pass@host:3306/mydatabase
+# connect to a postgres database
+$ usql pg://user:pass@host/dbname
+$ usql pgsql://user:pass@host/dbname
+$ usql postgres://user:pass@host:port/dbname
+$ usql pg://
+$ usql /var/run/postgresql
+$ usql pg://user:pass@host/dbname?sslmode=disable # Connect without SSL
+
+# connect to a mysql database
+$ usql my://user:pass@host/dbname
+$ usql mysql://user:pass@host:port/dbname
+$ usql my://
+$ usql /var/run/mysqld/mysqld.sock
+
+# connect to a sqlserver database
+$ usql sqlserver://user:pass@host/instancename/dbname
+$ usql ms://user:pass@host/dbname
+$ usql ms://user:pass@host/instancename/dbname
+$ usql mssql://user:pass@host:port/dbname
+$ usql ms://
+
+# connect to a sqlserver database using Windows domain authentication
+$ runas /user:ACME\wiley /netonly "usql mssql://host/dbname/"
+
+# connect to a oracle database
+$ usql or://user:pass@host/sid
+$ usql oracle://user:pass@host:port/sid
+$ usql or://
+
+# connect to a cassandra database
+$ usql ca://user:pass@host/keyspace
+$ usql cassandra://host/keyspace
+$ usql cql://host/
+$ usql ca://
+
+# connect to a sqlite database that exists on disk
+$ usql dbname.sqlite3
+
+# NOTE: when connecting to a SQLite database, if the "<driver>://" or
+# "<driver>:" scheme/alias is omitted, the file must already exist on disk.
+#
+# if the file does not yet exist, the URL must incorporate file:, sq:, sqlite3:,
+# or any other recognized sqlite3 driver alias to force usql to create a new,
+# empty database at the specified path:
+$ usql sq://path/to/dbname.sqlite3
+$ usql sqlite3://path/to/dbname.sqlite3
+$ usql file:/path/to/dbname.sqlite3
+
+# connect to a adodb ole resource (windows only)
+$ usql adodb://Microsoft.Jet.OLEDB.4.0/myfile.mdb
+$ usql "adodb://Microsoft.ACE.OLEDB.12.0/?Extended+Properties=\"Text;HDR=NO;FMT=Delimited\""
+
+# connect with ODBC driver (requires building with odbc tag)
+$ cat /etc/odbcinst.ini
+[DB2]
+Description=DB2 driver
+Driver=/opt/db2/clidriver/lib/libdb2.so
+FileUsage = 1
+DontDLClose = 1
+
+[PostgreSQL ANSI]
+Description=PostgreSQL ODBC driver (ANSI version)
+Driver=psqlodbca.so
+Setup=libodbcpsqlS.so
+Debug=0
+CommLog=1
+UsageCount=1
+# connect to db2, postgres databases using ODBC
+$ usql odbc+DB2://user:pass@localhost/dbname
+$ usql odbc+PostgreSQL+ANSI://user:pass@localhost/dbname?TraceFile=/path/to/trace.log
+
+文件管理
+https://github.com/filebrowser/filebrowser
+golang HTTP 和 HTTPS 服务器的零停机重启
+https://github.com/fvbock/endless
+https://github.com/rcrowley/goagain
+
+分布式事务管理器
+https://github.com/yedf/dtm
+
+https://gitea.com/goftp/server
+
+go install github.com/davecheney/httpstat@latest
+httpstat http://demo.traingo.cn
+
+brew install duf
+
+go get github.com/divan/expvarmon
+expvarmon -ports=http://full.51-learning.cn/debug/vars
+expvarmon -ports=http://127.0.0.1:18888/debug/vars -vars="mem:memstats.Alloc,duration:Response.Mean,Counter"
+	./expvarmon -ports="80"
+	./expvarmon -ports="23000-23010,http://example.com:80-81" -i=1m
+	./expvarmon -ports="80,remoteapp:80" -vars="mem:memstats.Alloc,duration:Response.Mean,Counter"
+	./expvarmon -ports="1234-1236" -vars="Goroutines" -self
+https://github.com/bigwhite/csv2xls
+
+
+https://dl.google.com/go/go1.17.darwin-amd64.pkg
+
+Go 解释器
+https://github.com/traefik/yaegi
+https://github.com/cosmos72/gomacro
+https://github.com/goplus/igo
+https://github.com/goplus/igop
+Go 插件功能
+https://mp.weixin.qq.com/s/EbG4RVd7jsoD3YmiP6Az8w
+package main
+import "log"
+func init() {log.Println("plugin init")}
+type SayHello struct {}
+func (s *SayHello) CallMe(name string) string {
+	log.Println("hello ", name)
+	return "I am plugin"
+}
+// SayHelloPlugin 导出变量
+var SayHelloPlugin SayHello
+go build -o plugin.so -buildmode=plugin plugin.go
+package main
+import (
+	"log"
+	"plugin"
+)
+type CustomPlugin interface {
+	CallMe(name string) string
+}
+func main() {
+	// 打开插件（并发安全）
+	p, err := plugin.Open("plugin.so")
+	if err != nil { panic(err) }
+	// 在插件中搜索可导出的变量或函数
+	sayHelloPlugin, err := p.Lookup("SayHelloPlugin")
+	if err != nil { panic(err) }
+	// 断言插件类型
+	if sayHello, ok := sayHelloPlugin.(CustomPlugin); ok {
+		log.Println(sayHello.CallMe("togettoyou"))
+	}
+}
+go run main.go
+
+
+https://github.com/goccy/go-reflect
+https://github.com/goccy/go-json
+
+
+FROM golang:1.14-alpine as builder
+WORKDIR /usr/src/app
+ENV GOPROXY=https://goproxy.cn
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+  apk add --no-cache upx ca-certificates tzdata
+COPY ./go.mod ./
+COPY ./go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o server &&\
+  upx --best server -o _upx_server && \
+  mv -f _upx_server server
+
+FROM scratch as runner
+COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /usr/src/app/server /opt/app/
+CMD ["/opt/app/server"]
+
+docker build -t server .
+
+ORM
+https://github.com/ent/ent
+https://github.com/go-gorm/gorm
+https://gitea.com/xorm/xorm
+
+
+比如旧语法：
+// +build linux,386
+对应的新语法：
+//go:build linux && 386
+
+// +build !windows,!plan9
+执行 Go1.17 的 gofmt 后，变成了这样：
+//go:build !windows && !plan9
+// +build !windows,!plan9
+
+Go1.17 go.mod 中支持 Deprecated 注释，用来标明该模块废弃了。
+// Deprecated: use example.com/mod/v2 instead.module example.com/mod
+对于那些使用了被废弃的 module 的 go 项目，go list、go get 命令都会给出 warning。
+
+reflect
+ConvertibleTo 判断是可转换的，但调用 Convert 方法依然可能 panic
+
+VUE DOCKER
+FROM node:12-alpine AS build
+WORKDIR /app
+COPY package.json ./
+RUN yarn  install
+COPY . /app
+RUN yarn build
+
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+docker run --rm  -it -p 3000:80/tcp docker-image-test:latest
+
+用于探索 docker 镜像中每一层的工具
+https://github.com/wagoodman/dive
+brew install dive
+docker pull wagoodman/dive
+dive <your-image-tag>
+dive golang:1.14
+
+仿百度文库
+https://github.com/TruthHun/DocHub
+类似Gitbook和看云
+https://github.com/TruthHun/BookStack
+https://github.com/TruthHun/bookhub
+https://github.com/TruthHun/converter
+https://www.bookstack.cn/
+https://www.bookstack.cn/explore?cid=10&tab=popular
+https://www.bookstack.cn/read/topgoer/efbecba7753baa7e.md
+https://github.com/TruthHun/CloudStore
+
+类似知乎
+https://github.com/meloalright/guora
+压力测试
+https://github.com/link1st/go-stress-testing
+Dapr 是一个可移植的、事件驱动的运行时，用于跨云和边缘构建分布式应用程序
+https://github.com/dapr/dapr
+
+JFrog VSCODE插件GO代码安全检查
+
+go install github.com/securego/gosec/v2/cmd/gosec@latest
+https://github.com/securego/gosec
+https://securego.io/
+gosec ./...
+gosec -exclude=G104 ./...
+gosec -include=G101 ./...
+XSS 和 SQL 注入，这方面 gosec 也会有相关规则检测，比如 G201、G202、G203
+
+https://github.com/OneOfOne/xxhash
+https://github.com/deepmind/objecthash-proto
+https://github.com/benlaurie/objecthash
+
+package main
+import (
+    "fmt"
+    "net"
+)
+func main() {
+    listen, err := net.Listen("tcp", ":8888")
+    if err != nil { fmt.Println("listen error: ", err); return }
+    for {
+        conn, err := listen.Accept()
+        if err != nil { fmt.Println("accept error: ", err); break }
+        go HandleConn(conn)
+    }
+}
+func HandleConn(conn net.Conn) {
+    defer conn.Close()
+    packet := make([]byte, 1024)
+    for {
+        // 如果没有可读数据，也就是读 buffer 为空，则阻塞
+        _, _ = conn.Read(packet)
+        // 同理，不可写则阻塞
+        _, _ = conn.Write(packet)
+    }
+}
+
+CLI
+https://github.com/spf13/cobra
+https://github.com/urfave/cli
+
+
+failpoint https://www.freebsd.org/cgi/man.cgi?query=fail
+https://github.com/pingcap/failpoint
+https://github.com/etcd-io/gofail/
+
+
+pigo
+go get -u -f github.com/esimov/pigo/cmd/pigo
+go install
+pigo -in input.jpg -out output.jpg -cf cascade/facefinder
+pigo -in input.jpg -out output.jpg -cf cascade/facefinder -angle=0.8 -iou=0.01
+
+Table
+https://github.com/scylladb/termtables
+Client
+https://github.com/go-resty/resty
+
+https://github.com/dustin/go-humanize
+
+TOOL
+https://mholt.github.io/curl-to-go/
+https://zhwt.github.io/yaml-to-go/
+https://xuri.me/toml-to-go/
+https://mholt.github.io/json-to-go/
+https://github.com/idoubi/sql2struct
+
+HTML Template
+https://github.com/valyala/quicktemplate
+https://github.com/valyala/fasttemplate
+
+protobuf
+https://github.com/gogo/protobuf
+
+go get github.com/Kagami/go-avif/...
+avif -e cat.jpg -o kitty.avif
+avif -e dog.png -o doggy.avif --best -q 15
+avif -e pig.png -o piggy.avif --lossless
+avif -h
+
+聊天机器人
+https://github.com/kevwan/chatbot
+https://github.com/zeromicro/go-zero 高性能MapReduce
+https://github.com/gunthercox/ChatterBot 性能差
+
+高性能测试工具
+go install -v go.ddosify.com/ddosify@latest
+ddosify -t http://children-pc.51-learning.cn/
+
+go install github.com/wader/ansisvg@master
+ansisvg -h
+
+https://github.com/kevinburke/hostsfile
+OAUTH google microsoft yahoo
+https://github.com/adhocore/goic
+实时空间搜索 位于其他对象内或与其他对象相交的对象和点 之内 相交 附近
+https://github.com/tidwall/tile38
+通知广播
+https://github.com/teivah/broadcast
+泛型测试包
+https://github.com/carlmjohnson/truthy
+任意精度定点十进制数
+https://github.com/shopspring/decimal
+
+https://github.com/valyala/bytebufferpool
+限流
+https://github.com/juju/ratelimit
+https://github.com/uber-go/ratelimit
 

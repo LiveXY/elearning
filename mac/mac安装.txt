@@ -792,3 +792,23 @@ pip3 install pg_chameleon
 https://www.convert-in.com/mysql-to-postgres.htm
 FULL CONVERT
 https://wiki.postgresql.org/wiki/Converting_from_other_Databases_to_PostgreSQL
+
+cp, mv, dd, tar, gzip/gunzip, cat progress
+brew install progress
+progress -w
+
+brew install tldr
+alias woman=tldr
+woman curl
+
+cat id_rsa.pub | pbcopy
+pbpaste
+
+mds mds_stores 关闭
+sudo mdutil -a -i off
+sudo mdutil -E
+sudo mdutil -a -i on
+sudo fs_usage -w -f filesys mds_stores
+
+
+

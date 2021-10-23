@@ -1,3 +1,7 @@
+https://www.rust-lang.org/tools/install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl https://sh.rustup.rs -sSf | sh
+
 https://www.rust-lang.org/zh-CN/tools/install
 https://www.rust-lang.org/zh-CN/learn
 安装 Rust
@@ -7,13 +11,19 @@ curl https://sh.rustup.rs -sSf | sh
 source "$HOME/.cargo/env"
 
 rustc --version
+rustup update
 rustup self uninstall
 
+rustc hello.rs
+./hello
+
 https://cargo.budshome.com/index.html
+https://doc.rust-lang.org/cargo/getting-started/installation.html
 
 cargo new hello_world --bin
 cargo build
 cargo build --release
+cargo build --example
 
 cargo test
 cargo run
@@ -27,3 +37,181 @@ https://actix.rs/
 https://github.com/helix-editor/helix
 brew tap helix-editor/helix
 brew install helix
+
+https://github.com/sharkdp/hyperfine
+brew install hyperfine
+cargo install hyperfine
+hyperfine 'sleep 0.3'
+hyperfine --min-runs 5 'sleep 0.2' 'sleep 3.2'
+hyperfine --warmup 3 'grep -R TODO *'
+hyperfine --prepare 'make clean' --parameter-scan num_threads 1 12 'make -j {num_threads}'
+hyperfine --parameter-scan delay 0.3 0.7 -D 0.2 'sleep {delay}'
+hyperfine --show-output "cat /tmp/bigfile"
+
+https://github.com/google/tarpc
+https://github.com/tikv/raft-rs
+
+GO代码检查
+https://github.com/golangci/golangci-lint/releases
+golangci-lint version
+golangci-lint run
+golangci-lint run dir1 dir2/... dir3/file1.go
+golangci-lint run --disable-all -E errcheck
+golangci-lint run -p bugs -p error
+
+https://github.com/mgdm/htmlq
+cargo install htmlq
+htmlq -h
+curl --silent https://www.rust-lang.org/ | htmlq '#get-help'
+curl --silent https://www.rust-lang.org/ | htmlq --attribute href a
+curl --silent https://nixos.org/nixos/about.html | htmlq  --text .main
+curl --silent https://mgdm.net | htmlq --pretty '#posts'
+
+https://github.com/sharkdp/fd
+apt install fd-find
+dnf install fd-find
+dpkg -i fd_8.2.1_amd64.deb
+apt-get install fd-find
+apk add fd
+pacman -S fd
+emerge -av fd
+zypper in fd
+xbps-install -S fd
+brew install fd
+scoop install fd
+choco install fd
+nix-env -i fd
+pkg install fd-find
+npm install -g fd-find
+cargo install fd-find
+USAGE:
+    fd [FLAGS/OPTIONS] [<pattern>] [<path>...]
+
+FLAGS:
+    -H, --hidden            搜索隐藏的文件和目录
+    -I, --no-ignore         不要忽略 .(git | fd)ignore 文件匹配
+        --no-ignore-vcs     不要忽略.gitignore文件的匹配
+    -s, --case-sensitive    区分大小写的搜索（默认值：智能案例）
+    -i, --ignore-case       不区分大小写的搜索（默认值：智能案例）
+    -F, --fixed-strings     将模式视为文字字符串
+    -a, --absolute-path     显示绝对路径而不是相对路径
+    -L, --follow            遵循符号链接
+    -p, --full-path         搜索完整路径（默认值：仅限 file-/dirname）
+    -0, --print0            用null字符分隔结果
+    -h, --help              打印帮助信息
+    -V, --version           打印版本信息
+
+OPTIONS:
+    -d, --max-depth <depth>        设置最大搜索深度（默认值：无）
+    -t, --type <filetype>...       按类型过滤：文件（f），目录（d），符号链接（l），
+                                   可执行（x），空（e）
+    -e, --extension <ext>...       按文件扩展名过滤
+    -x, --exec <cmd>               为每个搜索结果执行命令
+    -E, --exclude <pattern>...     排除与给定glob模式匹配的条目
+        --ignore-file <path>...    以.gitignore格式添加自定义忽略文件
+    -c, --color <when>             何时使用颜色：never，*auto*, always
+    -j, --threads <num>            设置用于搜索和执行的线程数
+    -S, --size <size>...           根据文件大小限制结果。
+
+ARGS:
+    <pattern>    the search pattern, a regular expression (optional)
+    <path>...    the root directory for the filesystem search (optional)
+find . -name 标准库
+fd 标准库
+# 转换 所有 jpg 到  png :
+fd -e jpg -x convert {} {.}.png
+# Unpack all zip files (if no placeholder is given, the path is appended):
+fd -e zip -x unzip
+# Convert all flac files into opus files:
+fd -e flac -x ffmpeg -i {} -c:a libopus {.}.opus
+# Count the number of lines in Rust files (the command template can be terminated with ';'):
+fd -x wc -l \; -e rs
+
+https://github.com/seanmonstar/reqwest：#http request lib
+https://github.com/serde-rs/serde：#json Serialization
+https://github.com/skerkour/kerkour.com
+
+Tokio 是一个事件驱动的非阻塞 I/O 平台
+https://tokio.rs/tokio/tutorial
+https://github.com/tokio-rs/tokio
+https://github.com/tokio-rs/axum
+https://github.com/ulid/spec
+
+https://github.com/hyperium/hyper：#Rust 的快速且正确的 HTTP/1.1 和 HTTP/2 实现。
+https://github.com/hyperium/tonic：基于 HTTP/2 的 gRPC 实现专注于高性能、互操作性和灵活性。
+https://github.com/seanmonstar/warp：用于加速速度的超级简单、可组合的 Web 服务器框架。
+https://github.com/tower-rs/tower：用于构建强大的网络客户端和服务器的模块化和可重用组件库。
+https://github.com/tokio-rs/tracing（以前tokio-trace）：用于应用程序级跟踪和异步感知诊断的框架。
+https://github.com/tokio-rs/rdbc：用于 MySQL、Postgres 和 SQLite 的 Rust 数据库连接库。
+https://github.com/tokio-rs/mio：对 OS I/O API 的低级、跨平台抽象，为 tokio.
+https://github.com/tokio-rs/bytes：用于处理字节的实用程序，包括高效的字节缓冲区。
+https://github.com/tokio-rs/loom：并发 Rust 代码的测试工具
+
+https://github.com/kolapapa/surge-ping
+https://github.com/japaric/xargo
+https://github.com/rust-lang/libc 帮助libc库完善了对于 mips-uclibc 的支持；
+https://github.com/rust-lang/socket2 支持了绑定interface的功能，并且添加了对mipsel-uclibc的支持；
+https://github.com/kolapapa/surge-ping 一个异步Ping的实现，也可以用作traceroute (ICMP版)；
+
+https://github.com/rustls/rustls
+
+https://github.com/multimeric/emoji_pix
+cargo install emoji_pix
+emoji_pix ferris.png --width 30
+SHELL
+https://github.com/adam-mcdaniel/dune
+
+ORM
+https://github.com/diesel-rs/diesel #PostgreSQL MYSQL SQLITE
+https://github.com/rbatis/rbatis #PostgreSQL MYSQL SQLITE Mssql/Sqlserver MariaDB TiDB CockroachDB
+https://github.com/ivanceras/rustorm
+https://github.com/SeaQL/sea-orm
+https://github.com/SeaQL/sea-orm/releases/tag/0.2.2
+
+模版引擎
+https://github.com/Keats/tera
+https://github.com/mitsuhiko/minijinja
+协作音乐创作
+https://github.com/ekzhang/composing.studio
+https://composing.studio/productive-animal-5688
+音乐播放器
+https://github.com/tramhao/termusic
+二维码
+https://github.com/sayanarijit/qrcode.show
+端口转发器
+https://github.com/aramperes/onetun
+
+https://github.com/myrfy001/rust_golang_ffi_demo/tree/example_1
+https://github.com/myrfy001/rust_golang_ffi_demo/tree/example_2
+Golang在编译时可以通过添加-buildmode=c-shared来将一个go写的项目编译成符合CFFI的库文件
+首先，这个文件夹结构是通过cargo new --lib rust命令建立的初始架构，然后在src目录下自行新建了ffi.rs和my_app.rs两个文件。
+先来查看一下Cargo.toml文件，其中以下的两行是我们自己修改加入的：
+[lib]
+crate-type = ["cdylib"]
+参数解析
+https://github.com/Owez/argi
+
+lnx: 一个基于 tantivy 的搜索引擎
+它是 MeiliSearch 和 ElasticSearch 的竞品。其基于 tokio-rs，hyper 和 tantivy 进行开发。提供 REST 接口。现已发布 v0.6 版。持续关注。
+https://github.com/lnx-search/lnx
+
+https://github.com/pauwels-labs/redact-client
+bittorrent client
+https://github.com/ikatson/rqbit
+自动测试工具
+https://github.com/zhiburt/expectrl
+不平衡的争吵：为 LD49 制作的自走棋
+https://github.com/yopox/LD49
+
+Boa 是一个用 Rust 编写的可嵌入和实验性的 Javascript 引擎
+https://github.com/boa-dev/boa
+Gameboy 模拟器
+https://github.com/jawline/Mimic
+fn(Code) -> Docs
+https://github.com/anixe/doku
+机器人和工具的实时用户界面
+https://github.com/rillrate-open/rillrate
+https://github.com/yewstack/yew #Wasm framework
+https://github.com/rillrate-open/meio
+
+

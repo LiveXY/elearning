@@ -1,6 +1,9 @@
-常用库：
+jquery
 https://github.com/jquery/jquery
 https://github.com/madrobby/zepto
+
+Vue 知识点
+https://mp.weixin.qq.com/s/wX6M6To1Hs0uQegtFMQZiA
 
 MVVM的框架 虚拟DOM
 https://github.com/developit/preact
@@ -591,3 +594,17 @@ https://github.com/halo-dev/halo-admin
 https://github.com/hcxiong?direction=desc&page=50&sort=stars&tab=stars
 
 https://github.com/blueedgetechno/windows11
+
+sqlite3
+https://github.com/jlongster/absurd-sql
+
+VUE
+https://mp.weixin.qq.com/s/wX6M6To1Hs0uQegtFMQZiA
+https://www.naiveui.com/zh-CN/os-theme
+https://github.com/TuSimple/naive-ui
+https://github.com/element-plus/element-plus
+https://antoniandre.github.io/wave-ui/
+
+SVG
+https://undraw.co/illustrations
+https://www.shapedivider.app/ #自定义形状分隔线

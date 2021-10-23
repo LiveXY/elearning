@@ -240,3 +240,22 @@ redis-stat --verbose
 redis-stat localhost:6380 1 10
 redis-stat localhost localhost:6380 localhost:6381 5
 redis-stat localhost localhost:6380 1 10 --csv=/tmp/output.csv --verbose
+
+# RDB持久化操作设置，下面的配置分别表示：900秒内至少一个键被修改则进行快照，5分钟内至少10个键被修改则进行快照，1分钟内10000个键被更改则进行快照
+save 900 1
+save 300 10
+save 60 10000
+
+AOF
+appendonly yes // 开启AOF
+appendfilename "appendonly.aof" //持久化文件
+dir ./ // 文件所在目录
+# 表示当前aof文件大小超过上一次aof文件大小的百分之多少的时候会进行重写。如果之前没有重写过，以启动时aof文件大小为准
+auto-aof-rewrite-percentage 100
+# 限制允许重写最小aof文件大小，也就是文件大小小于64mb的时候，不需要进行优化
+auto-aof-rewrite-min-size 64mb
+
+压力测试
+redis-benchmark -h 127.0.0.1 -p 6379 -c 100 -n 100000
+redis-benchmark -h 10.1.1.96 -p 6379 -c 100 -n 100000
+redis-benchmark -h 10.1.1.96 -p 6379 -q -d 500

@@ -956,6 +956,10 @@ node -v
 ln -s /usr/local/bin/node /usr/bin/node
 ln -s /usr/local/bin/npm /usr/bin/npm
 
+curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
+curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
+curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -
+
 自动启动
 pm2 save
 pm2 startup
@@ -1246,9 +1250,18 @@ visudo 然后增加：test1         ALL=(ALL)       ALL
 改用户名：usermod -l test88 test //-l 新的用户名
 
 设置SSH空闲超时退出时间
-/etc/ssh/sshd_config
-ClientAliveInterval 900
+服务器设置
+vi /etc/ssh/sshd_config
+vi ~/.ssh/config
+ClientAliveInterval 60
 ClientAliveCountMax 3
+客户端设置
+vi /etc/ssh/ssh_config
+vi ~/.ssh/config
+TCPKeepAlive yes
+ServerAliveInterval 60
+ServerAliveCountMax 3
+
 确保rsyslog服务已启用
 systemctl enable rsyslog
 systemctl start rsyslog

@@ -1648,6 +1648,7 @@ https://github.com/littleredhat1997/chatbot-aiml-webqa
 机器人视觉 移动机器人 VS-SLAM ORB-SLAM2 深度学习目标检测 yolov3 行为检测 opencv PCL 机器学习 无人驾驶
 https://github.com/Ewenwan/MVision
 https://github.com/Ewenwan/AI-Security-Learning
+https://github.com/ifzhang/ByteTrack
 自动驾驶
 https://github.com/ApolloAuto/apollo
 https://github.com/carla-simulator/carla
@@ -2510,6 +2511,7 @@ https://github.com/zhengyima/DeepNude_NoWatermark_withModel
 
 合成人
 https://github.com/NVlabs/stylegan
+https://github.com/NVlabs/stylegan3
 
 中文文本纠错工具
 https://github.com/shibing624/pycorrector
@@ -3163,6 +3165,7 @@ https://gitee.com/zfj1128/ZFJObsLib_dmg
 IOS包混淆工具
 
 抠图
+https://github.com/saic-mdal/lama
 https://github.com/senguptaumd/Background-Matting
 集成检测和跟踪
 https://github.com/feichtenhofer/Detect-Track
@@ -3690,6 +3693,15 @@ https://lionbridge.ai/datasets/tensorflow-datasets-machine-learning/
 https://medium.com/better-programming/the-22-most-used-python-packages-in-the-world-7020a904b2e
 
 https://github.com/google/tsunami-security-scanner
+nmap >= 7.80
+ncrack >= 0.7
+docker run --name unauthenticated-jupyter-notebook -p 8888:8888 -d jupyter/base-notebook start-notebook.sh --NotebookApp.token=''
+bash -c "$(curl -sfL https://raw.githubusercontent.com/google/tsunami-security-scanner/master/quick_start.sh)"
+docker 安装
+docker run --name unauthenticated-jupyter-notebook -p 8888:8888 -d jupyter/base-notebook start-notebook.sh --NotebookApp.token=''
+docker build -t tsunami .
+docker run  --network="host" -v "$(pwd)/logs":/usr/tsunami/logs tsunami
+
 https://mp.weixin.qq.com/s/z9fe3upFmoZBbFQOJlrAww
 https://opensource.com/article/20/6/kubernetes-raspberry-pi
 
@@ -3907,6 +3919,7 @@ https://github.com/rwightman/pytorch-image-models
 人像照片卡通化
 https://github.com/AliaksandrSiarohin/first-order-model
 https://github.com/NVlabs/stylegan2
+https://github.com/NVlabs/stylegan3
 https://github.com/manicman1999/StyleGAN2-Tensorflow-2.0
 Wav2Lip 项目地址：
 https://github.com/Rudrabha/Wav2Lip
@@ -4262,3 +4275,18 @@ https://github.com/skycrapers/TecoGAN-PyTorch
 https://github.com/justinzm/gopup
 
 https://github.com/sql-machine-learning/models
+
+23个数据集
+https://mp.weixin.qq.com/s/_2dhl-kgDXd_xZIAfjHsdg
+
+对抗网络
+https://github.com/VITA-Group/DeblurGANv2
+https://github.com/eriklindernoren/PyTorch-GAN
+文本对抗性攻击工具包
+https://github.com/thunlp/OpenAttack
+原神自动钓鱼
+https://github.com/7eu7d7/genshin_auto_fish
+
+XTDrone是基于PX4、ROS与Gazebo的无人机通用仿真平台
+https://gitee.com/robin_shaun/XTDrone
+https://github.com/robin-shaun/XTDrone

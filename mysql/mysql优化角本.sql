@@ -1,3 +1,13 @@
+修改mysql事物隔离级别
+select @@global.tx_isolation,@@tx_isolation;
+set global transaction isolation level read committed;
+set session transaction isolation level read committed;
+
+show engine innodb status
+
+MariaDB Galera Cluster部署
+https://jeremyxu2010.github.io/2018/02/mariadb-galera-cluster%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/
+
 vi /etc/my.cnf
 [mysqld]
 max_connections = 2000

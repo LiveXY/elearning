@@ -63,3 +63,54 @@ bombardier
 go get -u github.com/codesenberg/bombardier
 bombardier -c 125 -n 500000 http://localhost:8080/v1/api/todos
 ```
+
+plow
+=======
+```
+go get -u github.com/six-ddc/plow
+plow http://127.0.0.1:8080/hello -c 20 -d 15s -n 5000000
+get请求本地接口：建立了20个连接，在15秒内请求了500w次，相信大家也看懂了这里，下面的flag还是解释一下吧。
+-c 指定连接数(connections)
+-n指定请求数(number)
+-d 指定请求的时间(duration)
+```
+
+locust
+=======
+```
+pip install locust
+-H：指定测试的主机地址（注：会覆盖Locust类指定的主机地址）
+-f：指定测试脚本地址（注：脚本中必须包含一个Locust的衍生类）
+--no-web：不启动web网页，而是直接开始运行测试，需提供属性-c和-r
+-c：并发的用户数，与--no-web一起使用
+-r：每秒启动的用户数，与--no-web一起使用
+-t：运行时间（单位：秒），与--no-web一起使用
+-L：日志级别，默认为INFO
+locust -f **.py --no-web -c 1 -t 1
+locust -f **.py --port 8089
+from locust import HttpLocust,TaskSet,between,task
+
+class WebsiteTasks(TaskSet):
+
+    def on_start(self):
+        self.client.post("/login", {
+            "username": "test",
+            "password": "123456"
+        })
+
+    @task(2)
+    def index(self):
+        self.client.get("/")
+
+    @task(1)
+    def about(self):
+        self.client.get("/about/")
+
+    def on_stop(self):
+        print("stop")
+
+class WebSiteUser(HttpLocust):
+    task_set = WebsiteTasks
+    host = "http://192.168.31.180"
+    wait_time = between(1, 2)
+```

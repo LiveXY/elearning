@@ -177,3 +177,7 @@ sudo rpm -ivh q-text-as-data-1.7.1-1.noarch.rpm # 安装
 q --version  #查看安装版本
 https://mp.weixin.qq.com/s/4QpCXwvbaExj73k3vTguZg
 
+压力测试
+pip install locust
+locust -V
+

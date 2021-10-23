@@ -1,0 +1,233 @@
+https://github.com/thevinter/styli.sh
+easiest & smartest自动颁发和更新免费证书
+https://github.com/acmesh-official/acme.sh
+wget -O - https://get.acme.sh | sh -s email=my@example.com
+acme.sh -h
+颁发证书
+acme.sh --issue -d example.com -w /var/www/html
+acme.sh --renew -d example.com --force
+acme.sh --remove -d example.com
+acme.sh --issue -d example.com -d www.example.com -d cp.example.com -w /var/www/html
+证书将被放置在 ~/.acme.sh/example.com/
+证书安装
+acme.sh --install-cert -d example.com \
+--key-file       /path/to/keyfile/in/nginx/key.pem  \
+--fullchain-file /path/to/fullchain/nginx/cert.pem \
+--reloadcmd     "service nginx force-reload"
+
+文件表达式
+if [ -f file ] 如果文件存在
+if [ -d … ] 如果目录存在
+if [ -s file ] 如果文件存在且非空
+if [ -r file ] 如果文件存在且可读
+if [ -w file ] 如果文件存在且可写
+if [ -x file ] 如果文件存在且可执行
+
+整数变量表达式
+if [ int1 -eq int2 ] 如果int1等于int2
+if [ int1 -ne int2 ] 如果不等于
+if [ int1 -ge int2 ] 如果>=
+if [ int1 -gt int2 ] 如果>
+if [ int1 -le int2 ] 如果<=
+if [ int1 -lt int2 ] 如果<
+
+字符串变量表达式
+If [ $a = $b ] 如果string1等于string2
+字符串允许使用赋值号做等号
+if [ $string1 != $string2 ] 如果string1不等于string2
+if [ -n $string ] 如果string 非空(非0），返回0(true)
+if [ -z $string ] 如果string 为空
+if [ $sting ] 如果string 非空，返回0 (和-n类似)
+
+[ -a FILE ] 如果 FILE 存在则为真。
+[ -b FILE ] 如果 FILE 存在且是一个块特殊文件则为真。
+
+[ -c FILE ] 如果 FILE 存在且是一个字特殊文件则为真。
+
+[ -d FILE ] 如果 FILE 存在且是一个目录则为真。
+
+[ -e FILE ] 如果 FILE 存在则为真。
+[ -f FILE ] 如果 FILE 存在且是一个普通文件则为真。
+
+[ -g FILE ] 如果 FILE 存在且已经设置了SGID则为真。
+[ -h FILE ] 如果 FILE 存在且是一个符号连接则为真。
+
+[ -k FILE ] 如果 FILE 存在且已经设置了粘制位则为真。 [
+
+[ -p FILE ] 如果 FILE 存在且是一个名字管道(F如果O)则为真。
+
+[ -r FILE ] 如果 FILE 存在且是可读的则为真。
+
+[ -s FILE ] 如果 FILE 存在且大小不为0则为真。
+[ -t FD ] 如果文件描述符 FD 打开且指向一个终端则为真。
+
+[ -u FILE ] 如果 FILE 存在且设置了SUID (set user ID)则为真。
+
+[ -w FILE ] 如果 FILE 如果 FILE 存在且是可写的则为真。
+
+[ -x FILE ] 如果 FILE 存在且是可执行的则为真。
+
+[ -O FILE ] 如果 FILE 存在且属有效用户ID则为真。
+
+[ -G FILE ] 如果 FILE 存在且属有效用户组则为真。 [ -L FILE ] 如果 FILE 存在且是一个符号连接则为真。
+[ -N FILE ] 如果 FILE 存在 and has been mod如果ied since it was last read则为真。
+[ -S FILE ] 如果 FILE 存在且是一个套接字则为真。
+[ FILE1 -nt FILE2 ] 如果 FILE1 has been changed more recently than FILE2,or 如果 FILE1 exists and FILE2 does not则为真。
+[ FILE1 -ot FILE2 ] 如果 FILE1 比 FILE2 要老, 或者 FILE2 存在且 FILE1 不存在则为真。
+[ FILE1 -ef FILE2 ] 如果 FILE1 和 FILE2 指向相同的设备和节点号则为真。
+
+[ -o OPTIONNAME ] 如果 shell选项 “OPTIONNAME” 开启则为真。
+
+[ -z STRING ] “STRING” 的长度为零则为真。
+
+
+使用空格分隔
+./myscript.sh -e conf -s /etc -l /usr/lib /etc/hosts
+#!/bin/bash
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+  key="$1"
+
+  case $key in
+    -e|--extension)
+      EXTENSION="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -s|--searchpath)
+      SEARCHPATH="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -l|--lib)
+      LIBPATH="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    --default)
+      DEFAULT=YES
+      shift # past argument
+      ;;
+      *)
+    POSITIONAL+=("$1") # save it in an array for later
+      shift # past argument
+      ;;
+  esac
+done
+
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+echo FILE EXTENSION  = "${EXTENSION}"
+echo SEARCH PATH     = "${SEARCHPATH}"
+echo LIBRARY PATH    = "${LIBPATH}"
+echo DEFAULT         = "${DEFAULT}"
+echo "Number files in SEARCH PATH with EXTENSION:" $(ls -1 "${SEARCHPATH}"/*."${EXTENSION}" | wc -l)
+if [[ -n $1 ]]; then
+  echo "Last line of file specified as non-opt/last argument:"
+  tail -1 "$1"
+fi
+
+使用等号分隔
+./myscript.sh -e=conf -s=/etc -l=/usr/lib /etc/hosts
+#!/bin/bash
+
+for key in "$@"; do
+  case $key in
+    -e=*|--extension=*)
+      EXTENSION="${key#*=}"
+      shift # past argument=value
+      ;;
+    -s=*|--searchpath=*)
+      SEARCHPATH="${key#*=}"
+      shift # past argument=value
+      ;;
+    -l=*|--lib=*)
+      LIBPATH="${key#*=}"
+      shift # past argument=value
+      ;;
+    --default)
+      DEFAULT=YES
+      shift # past argument with no value
+      ;;
+    *)
+      ;;
+  esac
+done
+
+echo "FILE EXTENSION  = ${EXTENSION}"
+echo "SEARCH PATH     = ${SEARCHPATH}"
+echo "LIBRARY PATH    = ${LIBPATH}"
+echo "Number files in SEARCH PATH with EXTENSION:" $(ls -1 "${SEARCHPATH}"/*."${EXTENSION}" | wc -l)
+if [[ -n $1 ]]; then
+  echo "Last line of file specified as non-opt/last argument:"
+  tail -1 $1
+fi
+
+使用 getopts 工具
+./myscript.sh -h
+./myscript.sh -v -f
+#!/bin/sh
+
+# 重置以防止在前面的shell中使用getopts工具(这是一个POSIX变量)
+OPTIND=1
+
+# 初始化变量名称
+OUTPUT_FILE=""
+VERSION=0
+
+# getopts的缺点就是它只能处理短选项，如-h，而不能是--help格式
+while getopts "h?vf:" key; do
+    case "$key" in
+    h|\?)
+        show_help
+        exit 0
+        ;;
+    v)
+        VERSION=1
+        ;;
+    f)
+        output_file=$OPTARG
+        ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+[ "${1:-}" = "--" ] && shift
+
+echo "verbose=$VERSION, output_file='$output_file', Leftovers: $@"
+
+#!/bin/bash
+
+func() {
+    echo "Usage:"
+    echo "test.sh [-j S_DIR] [-m D_DIR]"
+    echo "Description:"
+    echo "S_DIR,the path of source."
+    echo "D_DIR,the path of destination."
+    exit -1
+}
+
+upload="false"
+
+while getopts 'h:j:m:u' OPT; do
+    case $OPT in
+        j) S_DIR="$OPTARG";;
+        m) D_DIR="$OPTARG";;
+        u) upload="true";;
+        h) func;;
+        ?) func;;
+    esac
+done
+
+echo $S_DIR
+echo $D_DIR
+echo $upload
+test.sh -j /data/usw/web -m /opt/data/web
+test.sh -j /data/usw/web -m /opt/data/web -u
+test.sh -j /data/usw/web
+test.sh -m /opt/data/web
+test.sh -h
+
+使用 argbash 工具
