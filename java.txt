@@ -78,3 +78,7 @@ jinfo [选项] pid
 jmap [选项] vmid
 jstack [选项] vmid
 jstat [选项 vmid [interval[s|ms] [count]]]
+
+https://github.com/prestodb/presto
+Trino 官方存储库，大数据分布式 SQL 查询引擎，前身为 PrestoSQL ( https://trino.io )
+https://github.com/trinodb/trino

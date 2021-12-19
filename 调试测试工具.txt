@@ -57,6 +57,12 @@ strace cat index.php
 strace -e read cat index.php
 strace -c cat index.php
 strace -T cat index.php 2>&1|grep read
+strace -T -tt -e trace=all -p pid 监控进程
+
+
+dmesg -T | grep -E -i -B100 pid
+
+go tool pprof bdms mem-43964.memprof
 
 ll /proc/9341/fd/ #通过PID找到哪个文件操作的进程，进而知道问题所在
 pmap 9341
@@ -187,6 +193,14 @@ eg：addr2line –e exe addr
 3、如果是内核态，则使用strace进行性能分析，另外可以使用其他工具（比如ltrace等）辅助。
 
 ldd（显示程序需要使用的动态库和实际使用的动态库）
+
+--version：打印ldd版本号
+-v, --verbose：详细信息模式，打印所有相关信息
+-u, --unused：打印未使用的直接依赖
+-d, --data-relocs：执行重定位和报告任何丢失的对象
+-r, --function-relocs：执行数据对象和函数的重定位，并且报告任何丢失的对象和函数。（只对ELF格式文件有效）
+--help：显示帮助信息
+
 # ldd /bin/ls
 linux-gate.so.1 =>  (0xbfffe000)
 librt.so.1 => /lib/librt.so.1 (0xb7f0a000)

@@ -1,0 +1,207 @@
+aria2
+=======
+```
+yum install aria2
+#下载单个文件
+aria2c https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2
+aria2c -o owncloud.zip https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2
+aria2c --max-download-limit=500k https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2 #限制速度
+#下载多个文件
+aria2c -Z https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2 ftp://ftp.gnu.org/gnu/wget/wget-1.17.tar.gz
+#续传未完成的下载
+aria2c -c https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2
+#从文件获取输入
+aria2c -i test-aria2.txt
+#每个主机使用两个连接来下载
+aria2c -x2 https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2
+#下载 BitTorrent 种子文件
+aria2c https://torcache.net/torrent/C86F4E743253E0EBF3090CCFFCC9B56FA38451A3.torrent?title=[kat.cr]irudhi.suttru.2015.official.teaser.full.hd.1080p.pathi.team.sr
+#下载 BitTorrent 磁力链接
+aria2c 'magnet:?xt=urn:btih:248D0A1CD08284299DE78D5C1ED359BB46717D8C'
+#下载 BitTorrent Metalink 种子
+aria2c https://curl.haxx.se/metalink.cgi?curl=tar.bz2
+#从密码保护的网站下载一个文件
+aria2c --http-user=xxx --http-password=xxx https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2
+aria2c --ftp-user=xxx --ftp-password=xxx ftp://ftp.gnu.org/gnu/wget/wget-1.17.tar.gz
+```
+
+先安装epel源
+dnf install aria2
+aria2c http://example.org/file.iso
+aria2c http://a/f.iso ftp://b/f.iso
+
+cd /data/qihui
+screen -S qihui
+aria2c --max-concurrent-downloads=2 --input-file=uris.txt
+aria2c -c -Z -V -x2 -d /data/qihui/ -i uris.txt --deferred-input=true
+
+vi uris.txt
+http://example.org/a.pdf
+	out=a.pdf
+	header=Cookie:a=b
+http://example.org/b.pdf
+	out=b.pdf
+
+--conf-path=file_path 用来指定配置文件
+-c 断点续传
+-o 可重命名文件
+-d 下载目录
+-i, --input-file=FILE
+--deferred-input=true 可分批读取文件
+--load-cookies=FILE
+-s, --split=N 使用N个连接下载文件默认5
+-k, --min-split-size=SIZE
+-x, --max-connection-per-server=NUM 服务器的最大连接数1-16 默认1
+--ftp-user=USER
+--ftp-passwd=PASSWD
+--http-user=USER
+--http-passwd=PASSWD
+-Z, --force-sequential[=true|false] 强制顺序下载
+-j, --max-concurrent-downloads=N 并行下载的最大数量默认5
+-V, --check-integrity=true 检查文件完整性
+all-proxy="http://ip:port"
+http-proxy='http://ip:port' --http-proxy-user='username' --http-proxy-passwd='password'
+http-proxy='http://username:password@proxy:8080'
+--header="Cookie: a=b"
+--conf 来指定配置文件的路径，也可以通过 --no-conf 来禁止加载配置文件
+
+/etc/aria2/aria2.conf
+#用户名
+#rpc-user=user
+#密码
+#rpc-passwd=passwd
+#上面的认证方式不建议使用,建议使用下面的token方式
+#设置加密的密钥
+#rpc-secret=token
+#允许rpc
+enable-rpc=false
+#允许所有来源, web界面跨域权限需要
+rpc-allow-origin-all=true
+#允许外部访问，false的话只监听本地端口
+rpc-listen-all=true
+#RPC端口, 仅当默认端口被占用时修改
+rpc-listen-port=6800
+#最大同时下载数(任务数), 路由建议值: 3
+max-concurrent-downloads=10
+#断点续传
+continue=true
+#同服务器连接数
+max-connection-per-server=10
+#最小文件分片大小, 下载线程数上限取决于能分出多少片, 对于小文件重要
+min-split-size=1M
+#单文件最大线程数, 路由建议值: 5
+split=5
+#下载速度限制
+max-overall-download-limit=0
+#单文件速度限制
+max-download-limit=0
+#上传速度限制
+max-overall-upload-limit=0
+#单文件速度限制
+max-upload-limit=0
+#断开速度过慢的连接
+#lowest-speed-limit=0
+#验证用，需要1.16.1之后的release版本
+#referer=*
+#文件保存路径, 默认为当前启动位置
+dir=/root/download_imgs/imgs
+#文件缓存, 使用内置的文件缓存, 如果你不相信Linux内核文件缓存和磁盘内置缓存时使用
+#disk-cache=0
+#另一种Linux文件缓存方式
+#enable-mmap=true
+#文件预分配, 能有效降低文件碎片, 提高磁盘性能. 缺点是预分配时间较长
+file-allocation=prealloc
+
+## 基本配置 ##
+# 文件的保存路径，默认：当前位置
+dir=/Users/niqingyang/Downloads/
+# 断点续传
+continue=true
+## 下载连接相关 ##
+# 最大同时下载任务数，默认：5
+max-concurrent-downloads=16
+# 同一服务器连接数，默认：1
+max-connection-per-server=10
+# 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M
+# 假定size=10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载
+min-split-size=1M
+# 单个任务最大线程数, 添加时可指定, 默认:5
+split=10
+# 整体下载速度限制, 运行时可修改, 默认:0
+# max-overall-download-limit=0
+# 单个任务下载速度限制, 默认:0
+# max-download-limit=0
+# 整体上传速度限制, 运行时可修改, 默认:0
+max-overall-upload-limit=20kb
+# 单个任务上传速度限制, 默认:0
+max-upload-limit=5kb
+# 禁用IPv6, 默认:false
+disable-ipv6=true
+# 禁用https证书检查
+check-certificate=false
+#运行覆盖已存在文件
+allow-overwrite=true
+#如果已存在同一文件，自动重命名
+auto-file-renaming=true
+## 进度保存相关 ##
+# 从会话文件中读取下载任务
+# input-file=/Users/niqingyang/.aria2/aria2.session
+# 在Aria2退出时保存`错误/未完成`的下载任务到会话文件
+# save-session=/Users/niqingyang/.aria2/aria2.session
+# 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0
+# save-session-interval=30
+## BT/PT下载相关 ##
+# 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true
+#follow-torrent=true
+# BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999
+listen-port=51413
+# 单个种子最大连接数, 默认:55
+#bt-max-peers=55
+# 打开DHT功能, PT需要禁用, 默认:true
+enable-dht=true
+# 打开IPv6 DHT功能, PT需要禁用
+enable-dht6=false
+# DHT网络监听端口, 默认:6881-6999
+#dht-listen-port=6881-6999
+# 本地节点查找, PT需要禁用, 默认:false
+bt-enable-lpd=true
+# 种子交换, PT需要禁用, 默认:true
+enable-peer-exchange=true
+# 每个种子限速, 对少种的PT很有用, 默认:50K
+#bt-request-peer-speed-limit=50K
+# 客户端伪装, PT需要
+peer-id-prefix=-UT341-
+user-agent=uTorrent/341(109279400)(30888)
+# 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0
+seed-ratio=1.0
+# 强制保存会话, 话即使任务已经完成, 默认:false
+# 较新的版本开启后会在任务完成后依然保留.aria2文件
+#force-save=false
+# BT校验相关, 默认:true
+#bt-hash-check-seed=true
+# 继续之前的BT任务时, 无需再次校验, 默认:false
+bt-seed-unverified=true
+# 保存磁力链接元数据为种子文件(.torrent文件), 默认:false
+#bt-save-metadata=false
+#仅下载种子文件
+bt-metadata-only=true
+#通过网上的种子文件下载，种子保存在内存
+follow-torrent=mem
+# 根据可用的带宽优化并发下载次数
+optimize-concurrent-downloads=true
+# 将间隔（以秒为单位）设置为输出下载进度摘要。设置将禁止显示输出
+summary-interval=0
+## RPC相关设置 ##
+# 启用RPC, 默认:false
+enable-rpc=true
+# 允许所有来源, 默认:false
+rpc-allow-origin-all=true
+# 允许非外部访问, 默认:false
+rpc-listen-all=true
+# 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同
+#event-poll=select
+# RPC 监听端口, 端口被占用时可以修改, 默认:6800
+rpc-listen-port=6800
+# 设置的 RPC 授权令牌，在设置 AriaNg 时需要用到，请手动更改
+rpc-secret=<Secret Key>
+

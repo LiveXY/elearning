@@ -1,9 +1,14 @@
+半小时入门 Rust
+https://mp.weixin.qq.com/s/_elPKI64bRk1-8lC8V9mMQ
+https://github.com/rust-unofficial/awesome-rust
+
 https://www.rust-lang.org/tools/install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl https://sh.rustup.rs -sSf | sh
 
 https://www.rust-lang.org/zh-CN/tools/install
 https://www.rust-lang.org/zh-CN/learn
+https://github.com/wtklbm/rust-library-i18n
 安装 Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl https://sh.rustup.rs -sSf | sh
@@ -13,6 +18,8 @@ source "$HOME/.cargo/env"
 rustc --version
 rustup update
 rustup self uninstall
+rustup target list
+rustup target add
 
 rustc hello.rs
 ./hello
@@ -24,15 +31,52 @@ cargo new hello_world --bin
 cargo build
 cargo build --release
 cargo build --example
+热重载
+cargo install cargo-watch
+cargo uninstall cargo-watch
+cargo watch -x 'run --example hello_world'
 
 cargo test
 cargo run
+cargo tree [options]
+cargo search [options] [query...]
+
+cargo install cargo-edit
+cargo add
+cargo edit
+cargo rm
+cargo upgrade
+cargo set-version
+
+cargo install cargo-udeps --locked
+cargo +nightly udeps #查找未使用的依赖项
+忽略依赖项 要忽略某些依赖项，请添加package.metadata.cargo-udeps.ignore到Cargo.toml.
+[package.metadata.cargo-udeps.ignore]
+normal = ["if_chain"]
+#development = []
+#build = []
+[dependencies]
+if_chain = "1.0.0" # Used only in doc-tests, which `cargo-udeps` cannot check.
+
+cargo install cargo-expand
+cargo expand
+
+cargo install cargo-tarpaulin
+cargo tarpaulin #代码覆盖率报告
+
+cargo install cargo-audit
+cargo audit #安全漏洞审核
+
+cargo install --locked cargo-deny && cargo deny init && cargo deny check
+cargo deny #项目的依赖关系图
 
 https://crates.io/
 
 cargo build --target aarch64_be-unknown-linux-gnucargo build --target aarch64-unknown-linux-gnu_ilp32cargo build --target aarch64_be-unknown-linux-gnu_ilp32
 
 https://actix.rs/
+
+http://lib.rs/
 
 https://github.com/helix-editor/helix
 brew tap helix-editor/helix
@@ -47,9 +91,124 @@ hyperfine --warmup 3 'grep -R TODO *'
 hyperfine --prepare 'make clean' --parameter-scan num_threads 1 12 'make -j {num_threads}'
 hyperfine --parameter-scan delay 0.3 0.7 -D 0.2 'sleep {delay}'
 hyperfine --show-output "cat /tmp/bigfile"
+hyperfine --warmup 3 'fd -e jpg -uu' 'find -iname "*.jpg"'
+hyperfine --warmup 3 'fd -HI ".*[0-9]\.jpg$"' 'find . -iname "*[0-9].jpg"' 'find . -iregex ".*[0-9]\.jpg$"'
+
+websocket
+https://github.com/websockets-rs/rust-websocket
+https://github.com/housleyjk/ws-rs
+https://github.com/snapview/tungstenite-rs
+https://github.com/snapview/tokio-tungstenite
+https://github.com/actix/actix-web
+https://github.com/PrivateRookie/ws-tool
+
+web server
+https://github.com/flosse/rust-web-framework-comparison
+https://github.com/SergioBenitez/Rocket
+https://github.com/seanmonstar/warp
+https://github.com/actix/actix-web
+https://github.com/gotham-rs/gotham
+https://github.com/tokio-rs/tokio
+https://github.com/iron/iron
+https://github.com/http-rs/tide
+https://github.com/salvo-rs/salvo
+https://github.com/hyperium/hyper
+https://github.com/ntex-rs/ntex
+https://github.com/tokio-rs/axum
+https://github.com/poem-web/poem
+https://github.com/thruster-rs/Thruster
+https://github.com/trillium-rs/trillium
+https://github.com/tiny-http/tiny-http
+https://github.com/Xudong-Huang/may
+https://github.com/Xudong-Huang/may_minihttp
+https://github.com/ntex-rs/ntex
+https://www.techempower.com/benchmarks/#section=data-r20&hw=ph&test=fortune
+web app wasm WebAssembly
+https://github.com/yewstack/yew
+https://yew.rs/
+https://github.com/seed-rs/seed
+https://github.com/ivanceras/sauron
+https://github.com/schell/mogwai
+https://github.com/Pauan/rust-dominator
+https://github.com/sycamore-rs/sycamore
+https://github.com/chinedufn/percy
+https://github.com/firecracker-microvm/firecracker
+https://github.com/serverless/serverless
+https://github.com/bottlerocket-os/bottlerocket
+https://github.com/cloudflare/quiche #QUIC HTTP3
+https://github.com/mozilla/neqo
+https://github.com/swc-project/swc
+https://swc.rs/
+https://github.com/napi-rs/napi-rs
+https://github.com/WasmEdge/WasmEdge
+
+web client
+https://github.com/actix/actix-web
+https://github.com/seanmonstar/reqwest
+https://github.com/hyperium/hyper
+https://github.com/apoelstra/rust-jsonrpc/
+https://github.com/actix/actix-web/tree/master/awc
+https://github.com/Orange-OpenSource/hurl
+
+Algorithms
+https://github.com/douchuan/algorithm
+https://github.com/rmw-link/rmw-utf8
 
 https://github.com/google/tarpc
+raft 框架
 https://github.com/tikv/raft-rs
+https://github.com/ritelabs/riteraft
+static site
+https://github.com/jameslittle230/stork
+
+Rust 模板引擎 template
+https://github.com/Kogia-sima/sailfish
+https://github.com/Keats/tera
+https://github.com/nickel-org/rust-mustache
+https://github.com/cobalt-org/liquid-rust
+https://github.com/sunng87/handlebars-rust
+https://github.com/Stebalien/horrorshow-rs
+https://github.com/lfairy/maud
+https://github.com/djc/askama
+https://github.com/dpc/stpl
+https://github.com/kaj/ructe
+https://github.com/bodil/typed-html
+
+设计模式
+https://github.com/rust-unofficial/patterns
+
+web build tool
+https://mp.weixin.qq.com/s/LSIi2P6FKnJ0GTodaTUGKw
+https://github.com/parcel-bundler/parcel
+https://parceljs.org/docs/
+yarn add --dev parcel
+npm install --save-dev parcel
+https://parceljs.org/getting-started/webapp/
+
+https://github.com/rome/tools
+替代
+https://github.com/eslint/eslint
+https://github.com/babel/babel
+https://github.com/prettier/prettier
+https://github.com/facebook/jest
+https://github.com/webpack/webpack
+https://github.com/denoland/deno
+https://github.com/swc-project/swc
+https://github.com/vercel/next.js
+
+Notion
+https://github.com/AppFlowy-IO/appflowy
+
+TCP转发工具
+https://github.com/yuchunzhou/tcpforward
+tcpforward -h
+tcpforward --local-ip <本地ip > --local-port <本地端口> --remote-ip <远程ip > --remote-port <远程端口>
+
+分布式的任务调度
+https://github.com/BinChengZhao/delicate
+
+远程桌面
+https://github.com/rustdesk/rustdesk
 
 GO代码检查
 https://github.com/golangci/golangci-lint/releases
@@ -127,15 +286,84 @@ fd -e flac -x ffmpeg -i {} -c:a libopus {.}.opus
 # Count the number of lines in Rust files (the command template can be terminated with ';'):
 fd -x wc -l \; -e rs
 
+面向行的搜索工具
+ripgrep 递归搜索目录中的正则表达式模式，同时尊重您的 gitignore
+https://github.com/BurntSushi/ripgrep
+brew install ripgrep
+cargo install ripgrep
+dnf install ripgrep
+
+rg -n -w '[A-Z]+_SUSPEND'
+git grep -P -n -w '[A-Z]+_SUSPEND'
+ugrep -r --ignore-files --no-hidden -I -w '[A-Z]+_SUSPEND'
+ag -w '[A-Z]+_SUSPEND'
+LC_ALL=C git grep -E -n -w '[A-Z]+_SUSPEND'
+ack -w '[A-Z]+_SUSPEND'
+LC_ALL=en_US.UTF-8 git grep -E -n -w '[A-Z]+_SUSPEND'
+rg -uuu -tc -n -w '[A-Z]+_SUSPEND'
+ugrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'
+egrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'
+rg -w 'Sherlock [A-Z]\w+'
+ugrep -w 'Sherlock [A-Z]\w+'
+LC_ALL=en_US.UTF-8 egrep -w 'Sherlock [A-Z]\w+'
+
+https://github.com/bootandy/dust
+brew install dust
+Usage: dust
+Usage: dust <dir>
+Usage: dust <dir>  <another_dir> <and_more>
+Usage: dust -p (full-path - Show fullpath of the subdirectories)
+Usage: dust -s (apparent-size - shows the length of the file as opposed to the amount of disk space it uses)
+Usage: dust -n 30 (shows 30 directories instead of the default [default is terminal height])
+Usage: dust -d 3  (shows 3 levels of subdirectories)
+Usage: dust -r  (reverse order of output)
+Usage: dust -X ignore  (ignore all files and directories with the name 'ignore')
+Usage: dust -x (only show directories on the same filesystem)
+Usage: dust -b (do not show percentages or draw ASCII bars)
+Usage: dust -i (do not show hidden files)
+Usage: dust -c (No colors [monochrome])
+Usage: dust -f (Count files instead of diskspace)
+Usage: dust -t Group by filetype
+Usage: dust -e regex Only include files matching this regex (eg dust -e "\.png$" would match png files)
+dust -r
+dust -d 1
+
 https://github.com/seanmonstar/reqwest：#http request lib
-https://github.com/serde-rs/serde：#json Serialization
 https://github.com/skerkour/kerkour.com
+
+json
+https://github.com/serde-rs/serde：#json Serialization
+https://github.com/shogan/fstojson-rust #json Serialization
+
+https://github.com/ducaale/xh
+# Send a GET request
+xh httpbin.org/json
+# Send a POST request with body {"name": "ahmed", "age": 24}
+xh httpbin.org/post name=ahmed age:=24
+# Send a GET request with querystring id=5&sort=true
+xh get httpbin.org/json id==5 sort==true
+# Send a GET request and include a header named x-api-key with value 12345
+xh get httpbin.org/json x-api-key:12345
+# Send a PUT request and pipe the result to less
+xh put httpbin.org/put id:=49 age:=25 | less
+# Download and save to res.json
+xh -d httpbin.org/json -o res.json
+
 
 Tokio 是一个事件驱动的非阻塞 I/O 平台
 https://tokio.rs/tokio/tutorial
 https://github.com/tokio-rs/tokio
 https://github.com/tokio-rs/axum
 https://github.com/ulid/spec
+
+https://github.com/rust-lang/futures-rs
+https://github.com/async-rs/async-std
+https://github.com/smol-rs/smol
+https://github.com/smoltcp-rs/smoltcp
+https://github.com/DataDog/glommio
+https://github.com/embassy-rs/embassy
+https://github.com/bastion-rs/bastion
+https://github.com/bytedance/monoio
 
 https://github.com/hyperium/hyper：#Rust 的快速且正确的 HTTP/1.1 和 HTTP/2 实现。
 https://github.com/hyperium/tonic：基于 HTTP/2 的 gRPC 实现专注于高性能、互操作性和灵活性。
@@ -146,6 +374,41 @@ https://github.com/tokio-rs/rdbc：用于 MySQL、Postgres 和 SQLite 的 Rust �
 https://github.com/tokio-rs/mio：对 OS I/O API 的低级、跨平台抽象，为 tokio.
 https://github.com/tokio-rs/bytes：用于处理字节的实用程序，包括高效的字节缓冲区。
 https://github.com/tokio-rs/loom：并发 Rust 代码的测试工具
+https://github.com/epilys/rsqlite3：sqlite3
+https://github.com/wangfenjin/duckdb-rs
+https://github.com/duckdb/duckdb
+https://github.com/rusqlite/rusqlite
+https://github.com/apache/arrow-rs
+https://github.com/sfackler/rust-postgres
+GraphQL
+https://github.com/async-graphql/async-graphql
+
+音乐制作
+https://github.com/MeadowlarkDAW/Meadowlark
+密钥
+https://github.com/SpectralOps/keyscope
+下载
+https://github.com/agourlay/dlm
+GPU framework
+https://github.com/UpsettingBoy/gpgpu-rs
+https://github.com/Eraden/amdgpud
+GAME
+https://github.com/WanderHuang/game-2048-tui
+https://github.com/17cupsofcoffee/tetra
+https://github.com/ozkriff/zemeroth
+https://github.com/doukutsu-rs/doukutsu-rs
+https://github.com/cristicbz/rust-doom
+https://github.com/citybound/citybound
+https://github.com/rsaarelm/magog
+https://github.com/swatteau/sokoban-rs
+https://github.com/thetawavegame/thetawave-legacy
+https://gitlab.com/veloren/veloren
+https://github.com/ozkriff/zoc
+TIME
+https://github.com/wandercn/gostd
+
+Rust 的微型框架
+https://github.com/xvxx/vial
 
 https://github.com/kolapapa/surge-ping
 https://github.com/japaric/xargo
@@ -161,12 +424,97 @@ emoji_pix ferris.png --width 30
 SHELL
 https://github.com/adam-mcdaniel/dune
 
+一个跨平台的 OpenGL 终端模拟器
+https://github.com/alacritty/alacritty
+命令行cli
+https://github.com/Rigellute/spotify-tui
+https://github.com/clap-rs/clap
+https://github.com/petridish-dev/petridish
+https://github.com/killercup/cargo-edit
+https://github.com/mitsuhiko/indicatif
+https://github.com/simeg/eureka
+https://github.com/pier-cli/pier
+Rust 中的命令行应用
+https://suibianxiedianer.github.io/rust-cli-book-zh_CN/README_zh.html
+一个 Spotify 守护进程
+https://github.com/Spotifyd/spotifyd
+
+xss sqlinjection
+https://github.com/arvancloud/libinjection-rs
+https://github.com/0x727/ObserverWard_0x727
+带有 Windows 和 Linux 的交互式绑定/反向 PTY shell 支持由 Rust 实现
+https://github.com/b23r0/Cliws
+
+下载网页 一个用 Rust 编写的快速、简单、递归的内容发现工具
+https://github.com/epi052/feroxbuster
+https://github.com/phra/rustbuster
+可编写脚本的网络身份验证破解程序（以前称为“badtouch”）
+https://github.com/kpcyrd/authoscope
+tcp 连接劫持者，shijack 的 Rust 重写
+https://github.com/kpcyrd/rshijack
+安全的多线程数据包嗅探器
+https://github.com/kpcyrd/sniffglue
+密码管理
+https://github.com/cortex/ripasso/
+端口扫描
+https://github.com/RustScan/RustScan
+
+hex viewer
+https://github.com/sharkdp/hexyl
+apt install hexyl
+apt-get install hexyl
+pacman -S hexyl
+brew install hexyl
+cargo install hexyl
+scoop install hexyl
+hexyl small.png
+hexyl -n 256 $(which hexyl)
+
+csv
+https://github.com/BurntSushi/xsv
+brew install xsv
+xsv headers worldcitiespop.csv
+xsv index worldcitiespop.csv
+xsv stats worldcitiespop.csv --everything | xsv table
+xsv count worldcitiespop.csv
+xsv slice worldcitiespop.csv -s 3173948 | xsv table
+xsv select Country,AccentCity,Population worldcitiespop.csv \
+  | xsv sample 10 \
+  | xsv table
+xsv frequency worldcitiespop.csv --limit 5
+xsv search -s Population '[0-9]' worldcitiespop.csv \
+  | xsv select Country,AccentCity,Population \
+  | xsv sample 10 \
+  | xsv table
+xsv join --no-case  Country sample.csv Abbrev countrynames.csv | xsv table
+xsv join --no-case  Country sample.csv Abbrev countrynames.csv \
+  | xsv select 'Country[1],AccentCity,Population' \
+  | xsv table
+xsv join --no-case Abbrev countrynames.csv Country worldcitiespop.csv \
+  | xsv select '!Abbrev,Country[1]' \
+  > worldcitiespop_countrynames.csv
+
 ORM
 https://github.com/diesel-rs/diesel #PostgreSQL MYSQL SQLITE
 https://github.com/rbatis/rbatis #PostgreSQL MYSQL SQLITE Mssql/Sqlserver MariaDB TiDB CockroachDB
 https://github.com/ivanceras/rustorm
 https://github.com/SeaQL/sea-orm
 https://github.com/SeaQL/sea-orm/releases/tag/0.2.2
+https://github.com/launchbadge/sqlx
+https://github.com/roy-ganz/toql
+
+database
+https://gitlab.com/tglman/persy
+https://github.com/tikv/tikv
+https://github.com/datafuselabs/databend
+https://github.com/indradb/indradb
+https://github.com/MaterializeInc/materialize
+https://github.com/mit-pdos/noria
+https://github.com/PumpkinDB/PumpkinDB
+https://github.com/seppo0010/rsedis
+https://github.com/skytable/skytable
+https://github.com/spacejam/sled
+
 
 模版引擎
 https://github.com/Keats/tera
@@ -211,7 +559,330 @@ fn(Code) -> Docs
 https://github.com/anixe/doku
 机器人和工具的实时用户界面
 https://github.com/rillrate-open/rillrate
-https://github.com/yewstack/yew #Wasm framework
+
 https://github.com/rillrate-open/meio
+无痛压缩解压
+https://github.com/ouch-org/ouch
+
+无服务器数据仓库
+https://github.com/datafuselabs/databend
+Rust实现的RTPS和DDS。
+https://gitee.com/mrunix/lix-dds
+
+https://github.com/rtic-rs/cortex-m-rtic
+https://github.com/stm32-rs/stm32f4xx-hal
+https://github.com/japaric/heapless
+
+氦光网关
+https://github.com/helium/gateway-rs
+一个简单的批处理文件分类器
+https://github.com/Eolien55/FileClassed
+通过 TCP、（相互）TLS 或 DNS（权威服务器或直接连接）隧道传输 TCP 或 UDP 流量，在 Rust 中实现
+https://github.com/dlemel8/tunneler
+分组密码算法集合
+https://github.com/RustCrypto/block-ciphers
+气象站
+https://github.com/codi-hacks/weather-station
+Rust 最先进的 Merkle 树库
+https://github.com/antouhou/rs-merkle
+SixtyFPS 是一个工具包，可以为任何显示器高效开发流畅的图形用户界面：嵌入式设备和桌面应用程序。我们支持多种编程语言，例如 Rust、C++ 或 JavaScript
+https://github.com/sixtyfpsui/sixtyfps
+命令行表格
+https://github.com/zhiburt/tabled
+Linux kernel
+https://github.com/nuta/kerla
+
+嵌入式设备
+https://github.com/gchp/rustbox
+
+图形 svg 图像处理
+https://github.com/ivanceras/svgbob
+https://github.com/RazrFalcon/resvg
+https://github.com/turnage/valora
+https://github.com/Twinklebear/tray_rust
+
+https://github.com/imager-io/imager
+https://github.com/colbyn/imager-bench-2019-11-2
+https://imager.io/
+https://github.com/imager-io/imager/releases/download/auto-release%2Fimager%2F0.3.4/imager-v0.3.4-apple.tar.gz
+imager -i input/image.jpeg -o output/image.jpeg -f jpeg
+imager -i input/image.jpeg -O output/dir/ -f jpeg webp
+
+纯Rust OPC UA库
+https://github.com/locka99/opcua
+基于tokio的modbus库
+https://github.com/slowtec/tokio-modbus
+
+可视化
+https://github.com/avito-tech/bioyino
+https://crates.io/crates/opentelemetry
+https://github.com/hubblo-org/scaphandre #功耗监控代理
+https://github.com/vectordotdev/vector #高性能、日志、指标和事件路由器
+
+QUIC IETF 指定的下一代 TCP 继承者
+https://github.com/quinn-rs/quinn
+Rudra是一个静态分析器，用于检测Rust程序中常见的未定义行为
+https://github.com/sslab-gatech/Rudra
+便携式 SIMD 模块
+https://doc.rust-lang.org/nightly/std/simd/index.html
+https://doc.rust-lang.org/nightly/core/index.html
+mysql binlog 解析工具
+https://github.com/PrivateRookie/boxercrab
+中小企业私有云解决方案
+https://github.com/rustcc/TTstack
+币安API客户端
+https://github.com/PrivateRookie/bian-rs
+一个微小的硬件加速像素帧缓冲区
+https://github.com/parasyte/pixels
+TypeScript and JavaScript code formatter
+https://github.com/devongovett/dprint-node
+ECS library
+https://github.com/takahirox/ecs-rust
+W806 Rust支持库（外设访问层）
+https://github.com/luojia65/w806-pac
+ios-app
+https://github.com/wooden-worm/ios-app-rs
+
+直播服务器 流媒体 rtmp/httpflv/hls/relay
+https://github.com/harlanc/xiu
+RTSP/RTP/RTMP/FLV/HLS/MPEG-TS/MPEG-PS/MPEG-DASH/MP4/fMP4/MKV/WebM
+https://github.com/ireader/media-server
+
+版本比较 小于、大于或等于
+https://github.com/alilleybrinker/semver-explain
+$ semver-explain "^1.4.0"
+>=1.4.0, <2.0.0
+$ semver-explain "~0.5.3"
+>=0.5.3, <0.6.0
+$ semver-explain "5.6.*"
+>=5.6.0, <5.7.0
+
+二进制文件版本控制系统 400 GiB -> 100 MiB，访问时间为 1 秒†
+https://github.com/elfshaker/elfshaker
+wget "https://github.com/elfshaker/elfshaker/releases/download/v0.9.0/elfshaker_v0.9.0_$(uname -m)-unknown-linux-musl.tar.gz"
+mkdir -p ~/.local/opt && mkdir -p ~/.local/bin && tar -xf "elfshaker_v0.9.0_$(uname -m)-unknown-linux-musl.tar.gz" -C ~/.local/opt && ln -s ~/.local/opt/elfshaker/elfshaker ~/.local/bin/elfshaker
+rustup install 1.52.1
+cargo +1.52.1 build --release --bin elfshaker
+./target/release/elfshaker --help
+制作 elfshaker store
+打包成一个包文件elfshaker pack
+elfshaker store <snapshot> [--files-from <file>] [--files0-from <file>]
+elfshaker store my-snapshot
+elfshaker extract [<pack>:]<snapshot> [--reset] [--verify]
+elfshaker extract my-pack:my-snapshot --verify
+elfshaker pack <pack> [--frames N]
+elfshaker my-pack --frames 8
+elfshaker list
+elfshaker list <pack>
+elfshaker list [<pack>:]<snapshot>
+elfshaker show [<pack>:]<snapshot> <path>...
+elfshaker show my-pack:my-snapshot my-file some-dir/my-file-2
+
+健康检查
+https://github.com/tjmaynes/health-check-rust
+rustup toolchain install stable
+cargo install --path .
+DATABASE_URL=postgres://root:postgres@localhost:5432?sslmode=disable \
+cargo run
+docker compose up
+
+sendemail
+https://github.com/quambene/pigeon-rs
+pigeon send-bulk \
+    sender@your-domain.com \
+    --receiver-query "select email from user where newsletter_confirmed = true" \
+    --message-file "message.yaml" \
+    --display \
+    --assume-yes
+pigeon send sender@your-domain.com receiver@gmail.com --subject "Test subject" --content "This is a test email."
+pigeon send sender@your-domain.com receiver@gmail.com --message-file "message.yaml"
+
+Rustsbi-nezha平台支持包
+https://github.com/orangecms/rustsbi-nezha/tree/rustsbi-nezha
+
+backdoor
+https://kerkour.com/rust-crate-backdoor/
+https://github.com/skerkour/black-hat-rust/tree/main/extra/backdoors
+https://github.com/skerkour/black-hat-rust
+https://github.com/skerkour/kerkour.com/tree/main/2021/rust_fast_port_scanner
+https://github.com/skerkour/kerkour.com
+
+系统OS
+https://github.com/LibertyOS-Development/kernel
+命令行翻译 baidu tencent niutrans
+https://github.com/zjp-CN/bilingual
+network
+https://arewegameyet.rs/ecosystem/networking/
+
+https://hurryabit.github.io/blog/stack-safety-for-free/
+
+https://github.com/sharkdp/bat
+bat README.md
+bat src/*.rs
+curl -s https://sh.rustup.rs | bat
+yaml2json .travis.yml | json_pp | bat -l json
+bat -A /etc/hosts
+dnf install bat
+brew install bat
+
+替代ls
+https://github.com/ogham/exa
+dnf install exa
+brew install exa
+cargo install exa
+
+依赖注入
+https://www.bumbar.blog/
+bumbar.blog/tech/dependency-injection-with-rust/
+一个 Rust proc_macro_attribute 来概括通用函数的转换
+https://github.com/llogiq/momo
+
+MirChecker：一个简单的 Rust 静态分析工具
+https://github.com/lizhuohua/rust-mir-checker
+
+lox tree-walk 解释器
+https://github.com/veera-sivarajan/rena
+另一个 Rust 解析器库。一个轻量级、无依赖、解析器组合器启发了一组实用方法来帮助解析字符串和切片
+https://github.com/jsdw/yap
+
+操作系统OS
+https://github.com/0x59616e/SteinsOS
+https://github.com/nebulet/nebulet
+https://gitlab.redox-os.org/redox-os/redox
+https://github.com/thepowersgang/rust_os
+https://github.com/tock/tock
+https://github.com/oxidecomputer/hubris
+
+文本编辑器
+https://github.com/federico-terzi/espanso
+
+https://rust-audio.discourse.group/
+https://github.com/RustyDAW/rusty-daw-audio-graph
+https://github.com/RustyDAW/rusty-daw-io
+从结构中获取 Vec<u8> 的过程宏，反之亦然
+https://github.com/breuHQ/byteme
+DEBUG TOOL
+https://github.com/probe-rs/probe-rs
+https://github.com/openocd-org/openocd
+Rust 中 WebAssembly 的 Raft 分布式共识
+https://github.com/shosti/wraft
+Rust 的 linter 工具
+https://github.com/rust-lang/rust-clippy
+根据样式准则格式化 Rust 代码
+https://github.com/rust-lang/rustfmt
+Rust 代码和资源的精选列表。
+https://github.com/rust-unofficial/awesome-rust
+让你习惯阅读和编写 Rust 代码的小练习
+https://github.com/rust-lang/rustlings
+
+受 Locust 启发的负载测试框架
+https://github.com/tag1consulting/goose
+将媒体从1个组呼设备转发到N个组呼设备。
+https://github.com/signalapp/Signal-Calling-Service
+多地ping工具
+https://gitlab.com/shodan-public/geonet-rs
+一个系统处理程序，用于获取信息CPU MEM
+https://github.com/GuillaumeGomez/sysinfo
+rust-analyzer
+https://github.com/rust-analyzer/rust-analyzer
+
+https://github.com/matklad/cargo-xtask
+https://github.com/ur0/lolcat
+
+使用 Prometheus 和 Grafana 监控 Rust Web 应用程序
+https://mp.weixin.qq.com/s/BKTd8d0Me6nxuVmG-y6Tjg
+
+用于计算机图形的线性代数和数学库。
+https://github.com/rustgd/cgmath
+
+Kali Linux Parrot OS是另一个以安全为中心的发行版
+SystemRescue：系统救援型 Linux
+https://www.system-rescue.org/Download/
+数据恢复工具
+http://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html
+https://github.com/mruffalo/ddrescue
+首先拯救光盘最重要的部分。
+     ddrescue -i0 -s50MiB /dev/sdc hdimage 映射文件
+     ddrescue -i0 -s1MiB -d -r3 /dev/sdc hdimage 映射文件
+然后拯救一些关键的光盘区域。
+     ddrescue -i30GiB -s10GiB /dev/sdc hdimage 映射文件
+     ddrescue -i230GiB -s5GiB /dev/sdc hdimage 映射文件
+现在拯救其余的（不重新复制已经完成的）。
+     ddrescue /dev/sdc hdimage 映射文件
+     ddrescue -d -r3 /dev/sdc hdimage 映射文件
+ddrescue 的输出如下所示：
+
+     GNU 救援 1.25
+     按 Ctrl-C 中断
+     初始状态（从地图文件中读取）
+     获救：1665 MB，尝试：0 B，坏扇区：0 B，坏区域：0
+     
+     当前状态
+          ipos：2874 MB，未修剪：0 B，当前速率：21479 kB/s
+          opos：2874 MB，非刮擦：0 B，平均速率：21023 kB/s
+     未尝试：13603 MB，坏扇区：0 B，错误率：0 B/s
+       获救：2401 MB，坏区：0，运行时间：35s
+     获救百分比：15.00%，读取错误：0，剩余时间：10m
+      慢读：5，自上次成功读起的时间：0s
+     复制未尝试的块...通过 1（转发）
+每个字段的含义如下：
+
+ipos
+输入位置。当前正在从中读取数据的输入文件中的位置。
+opos
+输出位置。当前正在写入数据的输出文件中的位置。
+non-tried
+待尝试的救援域部分的大小。这是所有未尝试块的大小之和。
+rescued
+已成功恢复的救援域部分的大小。这是所有完成块大小的总和。
+pct rescued
+已成功恢复的救援域的百分比。
+slow reads
+读取速率低于 ' 的次数--最小读取率' 在复制阶段的前两次传递期间。见--min-read-rate。
+tried
+已经尝试过但尚未获救的救援域部分的大小。这是所有未修剪、未刮擦和坏扇区块的大小之和。
+non-trimmed
+待修整的救援域部分的大小。这是所有未修剪块的大小的总和。
+non-scraped
+待抓取的救援域部分的大小。这是所有未抓取块的大小之和。
+bad-sector
+总错误大小。这是已知坏扇区形成的救援域部分的大小。总错误大小是所有坏扇区块大小的总和。它在修剪和刮削阶段会增加，在重试阶段可能会减少。一个扇区不会被标记为坏扇区并被认为是坏区的一部分，直到它被单独尝试而不是作为大块读取的一部分。请注意，当 ddrescue 重试坏扇区块时，找到的好数据可能会将它们分成更小的块，从而减少总错误大小，但会增加坏区的数量。
+bad areas
+救援域内单独的坏扇区块的数量。未修剪和未刮擦的块不被视为坏区域。见--max-bad-areas。
+read errors
+失败的读取尝试次数。参见--max-error-rate。
+current rate
+在最后一秒测量的读取速率。
+average rate
+当前运行期间测量的平均读取速率。
+error rate
+在最后一秒测量的读取错误率。
+run time
+自当前运行开始以来经过的时间。
+remaining time
+拯救救援域中所有数据的估计剩余时间。剩余时间是使用最近 30 秒的平均速率计算的，并没有考虑救援域的某些部分可能被排除在救援之外（例如使用 '--无修剪')，或者某些区域可能无法恢复。因此，它可能非常不精确，在救援期间可能变化很大，并且可能在救援结束时显示非零值。特别是在第一遍结束时它可能会下降到几秒钟，在接下来的遍中会增长到几小时或几天。这就是 ddrescue 的本质；好的部分通常恢复得很快，而其余的可能需要很长时间。
+time since last successful read
+自上次成功读取尝试后经过的时间。
+
+https://github.com/solana-labs/solana
+Solana（诞生于 2018 年，总价值 500亿美元）是继太坊之后的一个可编程区块链。Solana 的重点是实现高吞吐量、低成本交易，这是当前以太坊网络的两个最大的弱点。Solana 的高性能主要归功于分布式共识设计的多项创新。最近，A16z 向 Solana Labs的代币销售投资了 3.14 亿美元。
+
+CUDA
+https://github.com/Rust-GPU/Rust-CUDA
+
+2d 3d
+https://github.com/rg3dengine/rg3d
+scheduler job
+https://github.com/survemobility/gaffer/
+利用MITM技术实现请求和返回的重写、重定向、阻断等操作
+https://github.com/zu1k/good-mitm
+快速密码词表生成器、Smartlist 创建和密码混合掩码分析工具
+cracken：密码词表生成器、Smartlist 创建和密码混合掩码分析工具
+https://github.com/shmuelamar/cracken
+
+内网穿透
+一款快速, 稳定, 高效, 轻量的内网穿透, 端口转发工具 支持多连接,级联代理,传输加密
+https://github.com/editso/fuso
+
 
 

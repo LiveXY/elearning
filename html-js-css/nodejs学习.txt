@@ -14,6 +14,11 @@ npm update
 npm update -g
 npm install -g pm2 #全局安装
 
+npm install -g lighthouse
+lighthouse https://baidu.com/
+https://mp.weixin.qq.com/s/rAfROh8pMbkr3oi9sRQeiA
+https://googlechrome.github.io/lighthouse/scorecalc/
+
 ---nvm--------------------------------------------
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 nvm install node

@@ -255,7 +255,11 @@ systemctl start nfs.service
 vi /etc/exports
 /home 10.0.0.0/8(rw,sync,no_root_squash)
 exportfs -r #使配置生效
+showmount -e localhost
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="10.0.0.0/8" accept'
 
+showmount -e 10.0.0.10
+rpcinfo -p 10.0.0.10
 mount -t nfs 10.0.0.10:/home /home #其它服务器挂载
 umount /home nfs #取消挂载
 #自动挂载
@@ -1313,3 +1317,45 @@ rdate -s time-b.nist.gov
 #查看时间是否正确
 date
 */20 * * * * /usr/bin/rdate -s time-b.nist.gov > /dev/null 2>&1
+
+
+fail2ban
+yum install epel-release
+yum install fail2ban
+vi /etc/fail2ban/jail.conf
+vi /etc/fail2ban/jail.local
+systemctl enable fail2ban
+systemctl restart fail2ban
+
+fail2ban-client status
+fail2ban-client version
+fail2ban-client ping
+fail2ban-client status sshd
+fail2ban-client set sshd unbanip 23.34.45.56
+fail2ban-client set sshd banip 23.34.45.56
+
+tail -f /var/log/fail2ban.log
+iptables --list -n
+iptables -D INPUT -s xxx.xxx.xxx.xxx -j DROP
+
+/etc/fail2ban/jail.d/ ：配置文件夹。用于定义错误次数、封禁时长、封禁动作等
+/etc/fail2ban/filter.d/ ：条件文件夹。内含默认文件，用于定义日志文件内容的过滤规则
+/etc/fail2ban/action.d ：动作文件夹。内含默认文件，用于 iptables 以及 mail 等动作配置
+/etc/fail2ban/action.d ：定义 fai2ban 自身的日志级别、日志位置等
+
+ignoreip 白名单
+bantime，findtime和maxretry选项的值定义了禁止时间和禁止条件
+bantime  = 1d
+findtime  = 10m
+maxretry = 5
+bantime   = 4w
+
+
+wget http://sourceforge.net/projects/flexbox/files/flexbox-release-1-1.noarch.rpm
+yum repolist
+yum install sshguard
+iptables -N sshguard
+iptables -A INPUT -j sshguard
+iptables -A INPUT -m multiport -p tcp --destination-ports 21,22,110,143 -j sshguard
+service iptables save
+

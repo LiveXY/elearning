@@ -73,5 +73,89 @@ grep -Hrv ";" /etc/php.ini | grep "extension="
 * `[[:space:]]`   空格或tab
 * `[[:alpha:]]`   [a-zA-Z]
 
+附加-w（整个单词）-n显示行号。当找到匹配项时，除了找到它的文件路径之外，grep 还会显示找到该模式的行号
+-i执行不区分大小写的搜索（默认情况下区分大小写）。根据文件的数量，这可能会减慢搜索速度，因此在使用时要考虑到这一点
+--include=GLOB/--exclude=GLOB包括或排除某些文件
+--exclude-dir=GLOB 用于从搜索中排除文件夹
+grep -Rni --exclude-dir={linuxmi,linuxmi.com} --include={*.txt,*.js} 'linuxmi' /home/linuxmi/www.linuxmi.com
+
 有一点要注意，您必需提供一个文件过滤方式(搜索全部文件的话用 *)。如果您忘了，’grep’会一直等着，直到该程序被中断。如果您遇到了这样的情况，按 <CTRL c> ，然后再试。
+
+ack
+======
+yum install -y ack
+命令特点
+默认搜索当前工作目录
+默认递归搜索子目录
+忽略元数据目录，比如.svn,.git,CSV等目录
+忽略二进制文件（比如pdf，image，coredumps)和备份文件（比如foo~,*.swp)
+在搜索结果中打印行号，有助于找到目标代码
+能搜索特定文件类型（比如Perl,C++,Makefile),该文件类型可以有多种文件后缀
+高亮搜索结果
+支持Perl的高级正则表达式，比grep所使用GNU正则表达式更有表现力。
+相比于搜索速度，ack总体上比grep更快。ack的速度只要表现在它的内置的文件类型过滤器。在搜索过程中，ack维持着认可的文件类型的列表，同时跳过未知或不必要的文件类型。它同样避免检查多余的元数据目录。
+
+命令参数
+-n, 显示行号
+-l/L, 显示匹配/不匹配的文件名
+-c, 统计次数
+-v, invert match
+-w, 词匹配
+-i, 忽略大小写
+-f, 只显示文件名,不进行搜索.
+-h, 不显示名称
+-v, 显示不匹配
+在当前目录递归搜索单词”eat”,不匹配类似于”feature”或”eating”的字符串:
+> ack -w eat
+搜索有特殊字符的字符串’$path=.’,所有的元字符（比如’$’,’.’)需要在字面上被匹配:
+> ack -Q '$path=.' /etc
+除了temp目录，在所有目录搜索use单词
+> ack use --ignore-dir=temp
+只搜索包含’main’单词的Python文件，然后通过文件名把搜索结果整合在一起，打印每个文件对应的搜索结果
+> ack  --python  --group -w main
+ack --help-types
+获取包含CFLAG关键字的Makefile的文件名
+> ack --make CFLAG
+ack查找my.cnf文件
+> ack -f /etc/ | ack my.cnf
+//或者
+> ack -g my.cnf /etc/
+
+ag
+======
+yum install the_silver_searcher
+ag [options] pattern [path ...]
+ag [可选项] 匹配模式 [路径...]
+ag类似grep 和 find，但是执行效率比后两者高。
+ag -g <File Name> 类似于 find . -name <File Name>
+ag -i PATTERN： 忽略大小写搜索含PATTERN文本
+ag -A PATTERN：搜索含PATTERN文本，并显示匹配内容之后的n行文本，例如：ag -A 5  abc会显示搜索到的包含abc的行以及它之后5行的文本信息。
+ag -B PATTERN：搜索含PATTERN文本，并显示匹配内容之前的n行文本
+ag -C PATTERN：搜索含PATTERN文本，并同时显示匹配内容以及它前后各n行文本的内容。
+ag --ignore-dir <Dir Name>：忽略某些文件目录进行搜索。
+ag -w PATTERN： 全匹配搜索，只搜索与所搜内容完全匹配的文本。
+ag --java PATTERN： 在java文件中搜索含PATTERN的文本。
+ag --xml PATTERN：在XML文件中搜索含PATTERN的文本。
+
+rg 面向行的搜索工具
+======
+ripgrep 递归搜索目录中的正则表达式模式，同时尊重您的 gitignore
+https://github.com/BurntSushi/ripgrep
+brew install ripgrep
+cargo install ripgrep
+dnf install ripgrep
+
+rg -n -w '[A-Z]+_SUSPEND'
+git grep -P -n -w '[A-Z]+_SUSPEND'
+ugrep -r --ignore-files --no-hidden -I -w '[A-Z]+_SUSPEND'
+ag -w '[A-Z]+_SUSPEND'
+LC_ALL=C git grep -E -n -w '[A-Z]+_SUSPEND'
+ack -w '[A-Z]+_SUSPEND'
+LC_ALL=en_US.UTF-8 git grep -E -n -w '[A-Z]+_SUSPEND'
+rg -uuu -tc -n -w '[A-Z]+_SUSPEND'
+ugrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'
+egrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'
+rg -w 'Sherlock [A-Z]\w+'
+ugrep -w 'Sherlock [A-Z]\w+'
+LC_ALL=en_US.UTF-8 egrep -w 'Sherlock [A-Z]\w+'
 

@@ -211,5 +211,7 @@ sqlcmd -S .\sqlexpress -E -Q "RESTORE DATABASE 数据库名 FROM DISK='D:\数据
 sqlcmd -S .\sqlexpress -E -Q "RESTORE FILELISTONLY FROM DISK='d:\数据库名.bak'";
 
 
+tracert -d ip
+
 
 

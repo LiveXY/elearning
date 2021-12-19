@@ -1,0 +1,51 @@
+https://www.airtable.com/
+https://airtable.com/shrTAtbFD2tG3c2xK
+https://airtable.com/shrTAtbFD2tG3c2xK/tblzt784s2tIaRwcr
+
+Webflow，Strikingly，Unstack，Squarespace：无需技术知识即可更轻松地创建完整的网站。
+Linktree，Flooz.link：在几分钟内创建简单的个人网站（如该网站），以您最重要的链接为核心。
+Softr，Pory.io：允许用户使用 Airtable 和其他无代码工具中的内容创建网站和 Web 应用程序。
+Substack：基于订阅的发布平台，用于从新闻稿订阅中赚钱。可以说，Substack 的配置资料部分地替代了个人网站。
+Notion，Super：虽然 Notion 是作为一个工作场所的生产力平台/笔记工具诞生的，但它正越来越多地被用于使用 Super 等工具搭建网页。这是我在 Notion 之上搭建的网站的示例。
+Universe：可能是第一个允许用户仅使用手机创建网站的移动应用程序。
+Dropsource，Thunkable，Draftbit，Adalo，BuildFire：拖放式编程工具，可以让任何人在不知道如何编码的情况下制作精美的本机移动应用程序。
+Outsystems，Unqork，Betty Blocks，8base：用于开发，部署和管理应用程序的低代码工具，主要专注于为大型企业客户提供服务。
+Builder.ai，Bubble，Stacker：与上述类似，但更侧重于小型企业和企业家个人。
+Dyspatch：用于事务性电子邮件的拖放生成器。
+Voiceflow：帮助团队设计，原型化和启动无需代码的对话应用程序。
+Landbot：直观的无代码聊天机器人搭建器。
+WorkOS：允许公司仅需几行代码就可以开始向企业客户出售其应用程序
+Retool，BRYTER，Forest Admin，Budibase，Flowdash，Jet Admin：为用户提供搭建内部应用程序和数字工具的快速方法，以供日常工作使用。
+Creatio：一个低代码搭建器，专注于与营销和销售相关的任务。
+Flowdash：专注于运维团队的低代码搭建器。
+Zaptic：无代码自动化搭建器，专注于前线工作人员，为用户提供了在一个应用程序中搭建多个过程的功能。
+Cord，Bubbles：允许用户在他们已经使用的任何网页或 SaaS 工具上进行协作，而无需搭建内部工具。
+Workato，Tray，Pipefy，Ninox，n8n，Zapier：允许用户使用功能强大的自动化工作流程集成其软件应用程序
+Kissflow，Process Street，Qatalog 工作流程：无代码业务流程管理（BPM）工具。
+Firedrop：与上述内容类似，但侧重于创意和创意作品。
+Internal：允许公司中的任何人在其现有数据库，API 和第三方应用程序之上搭建强大的业务解决方案。
+Fibery：允许公司在几个小时内将已经使用的所有工具带到相同的定制工作空间中，从长远来看可以节省大量时间。
+Parabola，Gyana，Chartio，Intersect，Obviously AI，Above：这些工具彼此之间完全不同，它们通过直观的界面帮助用户分析和跟踪其关键数据。
+Fylamynt，Supabase，Levity：低代码开发工具旨在处理重复的云工作流程。
+Blobr，Canonic：非技术人员（分别）管理或制作 API 的软件。
+Busywiork，XANO：用于在几分钟内制作和部署后端的工具，无需代码。
+Lago：增长团队的无代码数据
+Airtable，Rows，Actiondesk：可用作数据库的电子表格，使用户可以搭建各种类型的自动化功能，例如导入和刷新数据等等。
+GRID，Layer，Sheetgo：在 MS Excel 和 Google Sheets 的基础上添加协作和工作流功能。
+Opvia，Morta，Sensivo：提供强大的自动化功能的行业特定电子表格。他们分别被称为“科学家的飞机场”，“建筑，工程和建筑行业的飞机场”和“临床研究人员的飞机场”。
+Jirav，Canaree，Causal，Abacum，Pry：财务建模和财务计划软件工具，使公司可以轻松地管理其预算，招聘计划，财务模型，资金通道等。
+Pigment，Silico：无需编写代码即可为高级仿真建模提供简单框架的工具，可帮助公司做出更好的决策。
+deci：低代码笔记本，旨在帮助人们连接所有信息，对其进行建模并做出更明智的决策。
+Solarisbank，Mambu 和 Swan：银行即服务（BaaS）。通过这些工具，几乎所有企业都可以成为银行服务提供商，仅需几行代码即可。
+Digits：由 ML 支持的可视化费用监控仪表板，通过与企业已经使用的工具连接来分析企业的交易。
+when then，Primer：低代码支付编排软件。
+Nivaura，Genesis：专为金融市场设计的低代码搭建工具。
+Passbase：允许用户仅需几行代码即可将无缝的银行级身份验证集成到他们的网站，应用程序或结帐中。
+Hydrogen，Tint：无代码工具，分别将金融服务/保险嵌入公司的产品和服务。
+Grow：无代码，多合一的商业智能。
+Oribi：无代码营销分析。
+Qrvey，Apteo，Baremetrics：专注于 SaaS 的低代码分析。
+Posthog，June：低代码/无代码（分别）产品分析。
+Vespucci：低代码移动应用程序分析。
+Index，Graphy：仪表板搭建工具。
+Typeform，Arengu，Formstack，Tally，Niro：允许用户无需代码即可搭建设计精美，外观专业且智能的在线表单。

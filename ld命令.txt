@@ -1,0 +1,112 @@
+ld 命令
+ld [OPTIONS] OBJFILES
+
+-b <input-format>
+  指定目标代码输入文件的格式
+-Bstatic
+  只使用静态库
+-Bdynamic
+  只使用动态库
+-Bsymbolic
+  把引用捆绑到共享库中的全局符号
+-c <MRI-commandfile>, --mri-script=<MRI-commandfile>
+  为与 MRI 链接器兼容，ld 接受由 MRI 命令语言编写的脚本文件
+--cref
+  创建跨引用表
+-d,-dc,-dp
+  即使指定了可重定位的输出文件（使用-r），也会为公共符号分配空间。脚本命令“FORCE_COMMON_ALLOCATION”具有相同的效果
+-defsym
+  在输出文件中创建指定的全局符号
+-demangle
+  在错误消息中还原符号名称
+-e <entry>
+  使用指定的符号作为程序的初始执行点
+-E,--export-dynamic
+  对于ELF格式文件，创建动态链接的可执行文件时，把所有符号添加到动态符号表
+-f <name>, --auxiliary=<name>
+  对于 ELF 格式共享对象，设置 DT_AUXILIARY 名称
+-F <name>, --filter=<name>
+  对于ELF格式共享对象，设置 DT_FILTER 名称。这告诉动态链接器，正在创建的共享对象的符号表应该用作共享对象名称的符号表的筛选器。
+-g
+  被忽略。用于提供和其他工具的兼容性
+-h
+  对于 ELF 格式共享对象，设置 DT_SONAME 名称
+-I<file>, -dynamic-linker <file>, --dynamic-linker=<file>
+  指定动态链接器。这仅在生成依赖动态链接库的 ELF 可执行文件时才有意义。默认的动态链接器通常是正确的，除非您知道正在做什么，否则不要使用该选项。
+-l <namespec>, --library=<namespec>
+  把指定的库文件添加到要链接的文件清单
+-L <searchdir>, --library-path=searchdir
+  把指定的路径添加添加到搜索库的目录清单
+-M, --print-map
+  显示链接映射，用于诊断目的
+-Map=<mapfile>:
+  将链接映射输出到指定的文件
+-m <emulation>
+  模拟指定的链接器
+-N,--omagic
+  指定读取/写入文本和数据段
+-n,--nmagic
+  关闭节的页面对齐，并禁用对共享库的链接。如果输出格式支持Unix样式的幻数，则将输出标记为"NMAGIC"
+-noinhibit-exec
+  生成输出文件，即使出现非致命链接错误。通常，如果链接器在链接过程中遇到错误，它将不会生成输出文件。
+-no-keep-memory
+  ld 通常在内存中缓存输入文件的符号表来优化内存使用速度。此选项告诉 ld 不要缓存符号表。当链接大型可执行文件时，如果ld耗尽内存空间，则可能需要使用该选项
+-O <level>
+  对于非零的优化等级，ld将优化输出。此操作会比较耗时，应该在生成最终的结果时使用。
+-o <output>, --output=<output>
+  指定输出文件的名称
+-oformat=<output-format>
+  指定输出文件的二进制格式
+-R <filename>,--just-symbols=<filename>
+  从指定的文件读取符号名称和地址
+-r,--relocatable
+  生成可重定位的输出（称为部分连接）
+-rpath=<dir>
+  把指定的目录添加到运行时库搜索路径
+-rpath-link=<dir>
+  指定搜索运行时共享库的目录
+-S,--strip-debug
+  忽略来自输出文件的调试器符号信息
+-s,--strip-all
+  忽略来自输出文件的所有符号信息
+-shared, -Bshareable
+  创建共享库
+-split-by-file[=size]
+  为每个目标文件在输出文件中创建额外的段大小达到size。size默认为1
+-split-by-reloc[=count]
+  按照指定的长度在输出文件中创建额外的段
+--section-start=<sectionname>=<org>
+  在输出文件中指定的地址定位指定的段
+-T <scriptfile>, --script=<scriptfile>
+  使用 scriptfile 作为链接器脚本。此脚本将替换 ld 的默认链接器脚本（而不是添加到其中），因此脚本必须指定输出文件所需的所有内容。如果当前目录中不存在脚本文件，ld 会在 -L 选项指定的目录中查找
+-Ttext=<org>
+  使用指定的地址作为文本段的起始点
+-Tdata=<org>
+  使用指定的地址作为数据段的起始点
+-Tbss=<org>
+  使用指定的地址作为bss段的起始点
+-t,--trace
+  在处理输入文件时显示它们的名称
+-u <symbol>, --undefined=<symbol>
+  强制指定符号在输出文件中作为未定义符号
+-v, -V, --version
+  示ld版本号
+-warn-common
+  当一个通用符号和另一个通用符号结合时发出警告
+-warn-constructors
+  如果没有使用任何全局构造器，则发出警告
+-warn-once
+  对于每个未定义的符号只发出一次警告
+-warn-section-align
+  如果为了对齐而改动了输出段地址，则发出警告
+--whole-archive
+  对于指定的存档文件，在存档中包含所有文件
+-X, --discard-locals
+  删除所有本地临时符号
+-x, --discard-al
+  删除所有本地符号
+
+链接目标文件生成可执行文件。给定 C++目标文件 test.o 与 main.o，生成可执行文件 test.out。
+ld /usr/lib64/crt1.o /usr/lib64/crti.o /usr/lib64/crtn.o /usr/lib/gcc/x86_64-redhat-linux/4.8.5/crtbegin.o /usr/lib/gcc/x86_64-redhat-linux/4.8.5/crtend.o -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5 -L/usr/lib64 -L/usr/lib -lstdc++ -lm -lgcc_s -lc -lgcc  main.o test.o -o test.out
+g++ -v main.o test.o
+usr/libexec/gcc/x86_64-redhat-linux/4.8.5/collect2 --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 /usr/lib64/crt1.o /usr/lib64/crti.o /usr/lib64/crtn.o /usr/lib/gcc/x86_64-redhat-linux/4.8.5/crtbegin.o /usr/lib/gcc/x86_64-redhat-linux/4.8.5/crtend.o -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5 -L/usr/lib64 -L/usr/lib -lstdc++ -lm -lgcc_s -lc -lgcc  main.o test.o

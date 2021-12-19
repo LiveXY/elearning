@@ -1,2 +1,15 @@
 https://google.github.io/styleguide/cppguide.html
 https://google.github.io/styleguide/
+
+https://github.com/htop-dev/htop
+https://htop.dev/downloads.html#sources
+
+srpc
+https://github.com/sogou/srpc
+
+ghostwriter 是一个跨平台、美观、无干扰的 Markdown 编辑器
+https://github.com/wereturtle/ghostwriter
+
+使用快速而强大的高级语言对您的微控制器进行编程。
+https://github.com/toitlang/toit
+

@@ -33,6 +33,11 @@ index-url = https://mirrors.aliyun.com/pypi/simple/
 trusted-host=mirrors.aliyun.com
 ```
 
+FASTAPI
+https://github.com/tiangolo/fastapi
+https://github.com/django/django
+https://github.com/pallets/flask
+
 pip3 list
 pip3 list --outdated
 pip uninstall 包名
@@ -180,4 +185,87 @@ https://mp.weixin.qq.com/s/4QpCXwvbaExj73k3vTguZg
 压力测试
 pip install locust
 locust -V
+Python 字节码反编译器
+https://github.com/rocky/python-uncompyle6
+https://github.com/rocky/python-decompile3
+uncompyle6 abc_text.pyc > abc_text.py
+decompyle3 *compiled-python-file-pyc-or-pyo*
+
+https://www.numpy.org.cn/
+https://www.scipy.org/
+https://pandas.pydata.org/
+https://www.statsmodels.org/
+https://scikit-learn.org.cn/
+https://xgboost.ai/
+https://lightgbm.readthedocs.io
+https://catboost.ai/
+https://eli5.readthedocs.io
+https://pypi.org/project/Theano/
+https://github.com/pybrain/pybrain/
+https://github.com/shogun-toolbox/shogun
+https://www.cnpython.com/pypi/chainerrl
+http://github.com/lisa-lab/pylearn2
+https://www.oschina.net/p/hebel/
+https://pythonhosted.org/neurolab/
+https://www.tensorflow.org/
+https://pytorch.org/
+https://keras.io/zh/
+http://caffe.berkeleyvision.org/
+https://joerihermans.com/work/distributed-keras/
+https://pypi.org/project/elephas/
+https://databricks.github.io/spark-deep-learning/
+https://pypi.org/project/mxnet/
+https://github.com/sklearn-theano/
+https://www.nltk.org/
+https://spacy.io/
+https://pypi.org/project/pkuseg/
+https://radimrehurek.com/gensim/
+https://stanfordnlp.github.io/CoreNLP/
+https://pypi.org/project/textblob/
+https://github.com/stanfordnlp/stanfordnlp
+https://opencv.org/
+https://scikit-image.org/
+https://pillow.readthedocs.io/en/stable
+http://simplecv.org/
+https://pypi.org/project/mahotas/0.99/
+https://itk.org/
+https://pythonhosted.org/pgmagick/index.html
+https://www.cairographics.org/pycairo/
+https://pypi.org/project/fastai/
+https://pypi.org/project/imutils/
+https://pytorch-cn.readthedocs.io/zh/latest/
+https://biopython-cn.readthedocs.io/
+http://dash.plot.ly/dash-bio
+http://www.rdkit.org/
+
+https://matplotlib.org/
+https://github.com/matplotlib/matplotlib
+http://www.gnuplot.info/
+https://www.gnu.org/software/octave/index
+Grace
+https://labplot.kde.org/
+https://root.cern/
+https://matplotlib.org/stable/tutorials/introductory/sample_plots.html
+
+https://github.com/nicolargo/glances
+
+https://github.com/pypa/pipx
+brew install pipx
+pipx install pycowsay
+pipx list
+pycowsay mooo
+
+Python的打包神器——Nuitka
+https://mp.weixin.qq.com/s/H34qnVEgMYFm0pRee94okQ
+pip3 install Nuitka
+nuitka --standalone --show-memory --show-progress --nofollow-imports --plugin-enable=qt-plugins --follow-import-to=utils,src --output-dir=out --windows-icon-from-ico=./logo.ico demo.py
+这里简单介绍下我上面的nuitka的命令：
+--standalone：方便移植到其他机器，不用再安装python
+--show-memory --show-progress：展示整个安装的进度过程
+--nofollow-imports：不编译代码中所有的import，比如keras，numpy之类的。
+--plugin-enable=qt-plugins：我这里用到pyqt5来做界面的，这里nuitka有其对应的插件。
+--follow-import-to=utils,src：需要编译成C++代码的指定的2个包含源码的文件夹，这里用,来进行分隔。
+--output-dir=out：指定输出的结果路径为out。
+--windows-icon-from-ico=./logo.ico：指定生成的exe的图标为logo.ico这个图标，这里推荐一个将图片转成ico格式文件的网站（比特虫）。
+--windows-disable-console：运行exe取消弹框。这里没有放上去是因为我们还需要调试，可能哪里还有问题之类的。
 

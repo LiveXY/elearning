@@ -256,6 +256,12 @@ curl -X PUT 'localhost:9200/test'
 
 ```
 
+solr
+```
+https://github.com/apache/solr
+https://solr.apache.org/downloads.html
+```
+
 hadoop分布式计算平台:HDFS和MapReduce共同组成了Hadoop分布式系统体系结构的核心。HDFS在集群上实现分布式文件系统，MapReduce在集群上实现了分布式计算和任务处理
 =====
 修改机器名

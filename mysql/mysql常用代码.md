@@ -393,9 +393,12 @@ CREATE TABLE `test` (
 load data local infile '/etc/passwd' into table test fields terminated by '\n';
 load data local infile '/etc/shadow' into table test fields terminated by '\n';
 ```
-* 
-* 
-* 
+
+* GRANT ALL PRIVILEGES ON gitlab.*TO 'gitlab'@'%' IDENTIFIED BY 'gitlab' WITH GRANT OPTION;
+mysql8
+* create user 'gitlab'@'%' IDENTIFIED BY '123456';
+* GRANT ALL PRIVILEGES ON gitlab.* TO 'gitlab'@'%';
+* flush privileges;
 * 
 * 
 * 

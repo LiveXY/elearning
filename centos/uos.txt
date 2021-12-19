@@ -1,0 +1,748 @@
+https://github.com/dbeaver/dbeaver/releases
+https://blog.csdn.net/Mathieu66/article/details/116131286
+
+服务器版本下载地址
+https://www.chinauos.com/resource/download-server
+
+安装达梦数据库
+https://www.dameng.com/list_103.html
+https://eco.dameng.com/docs/zh-cn/faq/faq-db-check.html
+x86 WIN64
+https://package.dameng.com/eco/adapter/DM8/202110/dm8_20211025_x86_win_64_ent.zip
+AMD 海光 UOS20
+https://package.dameng.com/eco/adapter/DM8/202110/dm8_20211021_x86_rh6_64_ent.zip
+https://cdimage-download.chinauos.com/uniontechos-server-20-1040d-amd64.iso
+ARM 鲲鹏 UOS20
+https://package.dameng.com/eco/adapter/DM8/202110/dm8_20211025_HWarm_centos7_64_ent.zip
+https://cdimage-download.chinauos.com/uniontechos-server-20-1040d-arm64.iso
+
+虚拟机安装
+Linux 版本 Debian 10.x 64位
+
+sudo su
+ifconfig
+cp /etc/network/interfaces /etc/network/interfaces.bak
+vi /etc/network/interfaces
+vi /etc/network/interfaces.d/
+auto eth0
+iface lo inet loopback
+iface eth0 inet static
+address 10.1.1.111
+netmask 255.255.255.0
+gateway 10.1.1.100
+dns 114.114.114.114
+reboot
+
+sudo su
+apt update
+apt install -y openssh-server openssh-client
+systemctl enable sshd
+systemctl start sshd
+
+远程管理
+mkdir ~/.ssh
+vi  ~/.ssh/authorized_keys
+
+安装
+sudo apt install -y wget
+sudo apt install -y openssl nginx redis-server ffmpeg libreoffice mariadb-client
+启动
+sudo systemctl enable nginx redis-server
+sudo systemctl restart nginx redis-server
+sudo systemctl status nginx redis-server
+
+apt install elinks
+elinks 10.1.1.111
+
+===================================================================================
+2020年达梦运维干货
+https://mp.weixin.qq.com/s/VObDXsrzwzSRPZ3MdQ_orw
+https://mp.weixin.qq.com/s/XMTW18QAK_R5xltuhqKgnA
+https://mp.weixin.qq.com/s/olRf_v9N-JAWC7KIiLfOMw
+https://mp.weixin.qq.com/s/TBcRYOzxM5ymcGsPNImAiQ
+https://mp.weixin.qq.com/s/vA3ay3X-Xp_gYv1ZiGz0hg
+https://mp.weixin.qq.com/s/awV3vgHUa5r6gal8jnAkqw
+https://mp.weixin.qq.com/s/U9m58BkNRKBDkbxSN19M9g
+
+达梦数据库
+sudo su
+groupadd dmgroup
+useradd -g dmgroup dmdba
+#useradd -g dmgroup -m -d /home/dmdba -s /bin/bash dmdba
+passwd dmdba
+dm@DB2021
+
+vi /etc/security/limits.conf
+dmdba soft noproc 65536
+dmdba hard noproc 65536
+dmdba soft nofile 65536
+dmdba hard nofile 65536
+dmdba hard core unlimited
+dmdba soft core unlimited
+vi /etc/security/limits.d/20-nproc.conf
+* soft nproc 65536
+vi /etc/sysctl.conf
+fs.file-max = 6815744
+fs.aio-max-nr = 1048576
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 4194304
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048576
+vm.swappiness = 0
+vm.dirty_background_ratio = 3
+vm.dirty_ratio = 80
+vm.dirty_expire_centisecs = 500
+vm.dirty_writeback_centisecs = 100
+sysctl -p
+
+sudo su
+ulimit -a
+mkdir -p /home/dmdba
+mkdir -p /home/dmdb/dmdbms
+chown -R dmdba:dmgroup /home/dmdb
+chomd -R 755 /home/dmdb
+
+su - dmdba
+#mount -o loop dm8_20211021_x86_rh6_64_ent.iso /opt/dm/
+#cd /opt/dm
+
+chmod u+x ./DMInstall.bin
+./DMInstall.bin -i
+选择安装目录：/home/dmdb/dmdbms
+
+ls /etc/systemd/system/multi-user.target.wants/DmAPService.service
+systemctl restart DmAPService
+systemctl status DmAPService
+systemctl stop DmAPService
+
+vi ~/.bash_profile
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/dmdb/dmdbms/bin"
+export DM_HOME="/home/dmdb/dmdbms"
+export PATH=/home/dmdb/dmdbms/bin:/home/dmdb/dmdbms/tool:$PATH
+export DM_INSTALL_TMPDIR=/tmp
+
+cd /home/dmdb/dmdbms/bin
+./dminit help
+./dminit PATH=/home/dmdb/dmdbms/data DB_NAME=TRAINGO CHARSET=1 CASE_SENSITIVE=0 SYSDBA_PWD=TRAINGO123
+./dmserver /home/dmdb/dmdbms/data/TRAINGO/dm.ini
+
+/home/dmdb/dmdbms/script/root/dm_service_installer.sh -h
+/home/dmdb/dmdbms/script/root/dm_service_installer.sh -t dmserver -p DMSERVER -dm_ini /home/dmdb/dmdbms/data/TRAINGO/dm.ini
+systemctl restart DmServiceDMSERVER
+systemctl stop DmServiceDMSERVER
+systemctl status DmServiceDMSERVER
+
+disql SYSDBA/TRAINGO123
+disql SYSDBA/TRAINGO123@127.0.0.1:5236
+
+select * from v$dm_ini;
+select TOP_SQL_TEXT from v$sql_history;
+
+SELECT CASE_SENSITIVE();
+SELECT SF_GET_PAGE_SIZE();
+SELECT SF_GET_EXTENT_SIZE();
+SELECT SF_GET_UNICODE_FLAG();
+SELECT (CASE SF_GET_UNICODE_FLAG() WHEN '0' THEN 'GBK18030' WHEN '1' THEN 'UTF-8' WHEN '2' THEN 'EUC-KR' END);
+select expired_date from  v$license;
+select * from  V$SYSTEMINFO;
+select * from  v$sessions;
+select  count(*),state from v$sessions group by state;
+select  count(*),clnt_ip from v$sessions group by clnt_ip;
+SELECT CLNT_HOST,CLNT_IP,OSNAME FROM V$SESSIONS;
+
+select * from dba_objects where OBJECT_TYPE='TABLE';
+
+SP_SET_PARA_VALUE(2,'MAX_SESSIONS', 1000);
+SP_SET_PARA_VALUE(2,'MAX_SESSION_STATEMENT', 20000);
+
+select * from  user_tables;
+select svr_version FROM v$instance
+
+SELECT SF_GET_SCHEMA_NAME_BY_ID(CURRENT_SCHID());
+SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER='DM';
+SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER='TRAINGO';
+select * from DBA_TABLES where owner = 'DM' and table_name = 't1';
+
+select '实例名称' 数据库选项,INSTANCE_NAME 数据库集群相关参数值 FROM v$instance union all
+select '数据库版本',substr(svr_version,instr(svr_version,'(')) FROM v$instance union all   SELECT '字符集',CASE SF_GET_UNICODE_FLAG() WHEN '0' THEN 'GBK18030' WHEN '1' then 'UTF-8' when '2' then 'EUC-KR' end union all
+SELECT '页大小',cast(PAGE()/1024 as varchar) union all   SELECT '簇大小',cast(SF_GET_EXTENT_SIZE() as varchar) union all
+SELECT '大小写敏感',cast(SF_GET_CASE_SENSITIVE_FLAG() as varchar) union all
+select '数据库模式',MODE$ from v$instance union all
+select '唯一魔数',cast(permanent_magic as varchar) union all
+select 'LSN',cast(cur_lsn as varchar) from v$rlog;
+
+select (select sum(n_pages * page_size) from v$bufferpool) + (select sum(total_size) from v$mem_pool) from dual;
+
+alter database resize logfile 'D:\dmdbms\data\DAMENG\DAMENG01.log' to 2048;
+alter database resize logfile 'D:\dmdbms\data\DAMENG\DAMENG02.log' to 2048;
+
+---查询主键
+SELECT a.OWNER as "模式名",a.TABLE_NAME as "表名",b.COLUMN_NAME as "列名", a.CONSTRAINT_NAME as "约束名"
+from DBA_CONSTRAINTS a, ALL_CONS_COLUMNS b where a.CONSTRAINT_NAME=b.CONSTRAINT_NAME and CONSTRAINT_TYPE='P';
+
+---查询外键
+SELECT a.OWNER as "模式名",a.TABLE_NAME as "表名",b.COLUMN_NAME as "列名", a.CONSTRAINT_NAME as "约束名"
+from DBA_CONSTRAINTS a, ALL_CONS_COLUMNS b where a.CONSTRAINT_NAME=b.CONSTRAINT_NAME and CONSTRAINT_TYPE='R';
+
+---查询唯一约束
+SELECT a.OWNER as "模式名",a.TABLE_NAME as "表名",b.COLUMN_NAME as "列名", a.CONSTRAINT_NAME as "约束名"
+from DBA_CONSTRAINTS a, ALL_CONS_COLUMNS b where a.CONSTRAINT_NAME=b.CONSTRAINT_NAME and CONSTRAINT_TYPE='U';
+
+---查询check约束
+SELECT a.OWNER as "模式名",a.TABLE_NAME as "表名",b.COLUMN_NAME as "列名", a.CONSTRAINT_NAME as "约束名",SEARCH_CONDITION as "CHECK约束的条件"
+from DBA_CONSTRAINTS a, ALL_CONS_COLUMNS b where a.CONSTRAINT_NAME=b.CONSTRAINT_NAME and CONSTRAINT_TYPE='C';
+
+---查询默认列
+SELECT OWNER as "模式名",TABLE_NAME as "表名",COLUMN_NAME as "列名",DATA_TYPE as "列类型",DATA_DEFAULT as "默认值" FROM DBA_TAB_COLUMNS WHERE DATA_DEFAULT IS NOT NULL;
+
+---查询非空列
+SELECT OWNER as "模式名",TABLE_NAME as "表名",COLUMN_NAME as "列名",DATA_TYPE as "列类型" FROM DBA_TAB_COLUMNS WHERE NULLABLE ='Y';
+
+select id_code;
+select * from v$version;
+select sysdate;
+conn SYSDBA/SYSDBA@localhost
+disconn
+select t.table_name,t.num_rows from user_tables t;
+select name,create_time,status$,total_size,open_count,startup_count,last_startup_time from v$database;
+select name, instance_name, instance_number, host_name, start_time, status$ from v$instance;
+select table_name from all_tables;
+desc all_tables;
+select * from all_tab_comments;
+select * from user_tab_comments;
+select * from all_col_comments;
+select * from user_col_comments;
+select * from all_tab_columns;
+select * from user_tab_columns;
+select t.table_name,t.comments from user_tab_comments t;
+select r1, r2, r3, r5
+from (select a.table_name r1, a.column_name r2, a.comments r3 from user_col_comments a),
+    (select t.table_name r4, t.comments r5 from user_tab_comments t)
+where r4 = r1;
+
+select top 5 name, type, value, sys_value, file_value from v$parameter;
+select top 5 para_name, para_value from v$dm_ini;
+
+select SF_GET_PARA_VALUE(2,'SORT_BUF_SIZE');
+select para_name,para_value from v$dm_ini where para_name='SORT_BUF_SIZE';
+ALTER SYSTEM SET 'SORT_BUF_SIZE'=200 DEFERRED MEMORY;
+SP_SET_PARA_VALUE (1,'HFS_CACHE_SIZE',320);
+
+ALTER SESSION SET 'HAGR_HASH_SIZE'=2000000;
+
+SP_SET_PARA_VALUE (2,'MAX_SESSIONS',2000);
+
+
+database TRAINGO;
+alter database mount;
+alter database open;
+alter database suspend;
+
+select * from dba_role_privs where grantee = 'DM';
+
+CREATE USER DM IDENTIFIED BY "dameng123";
+GRANT RESOURCE TO DM;
+GRANT SELECT ON dmhr.employee TO DM;
+GRANT SELECT ON dmhr.department TO DM;
+SELECT username,account_status,created FROM dba_users;
+conn DM/dameng123;
+SELECT user FROM DUAL;
+CREATE TABLE employee
+(
+  employee_id INTEGER,
+  employee_name VARCHAR2(20) NOT NULL,
+  hire_date DATE,
+  salary INTEGER,
+  department_id INTEGER NOT NULL
+);
+CREATE TABLE department
+(
+  department_id INTEGER PRIMARY KEY,
+  department_name VARCHAR(30) NOT NULL
+);
+CREATE TABLE department2
+(
+  department_id INTEGER PRIMARY KEY,
+  department_name NVARCHAR(30) NOT NULL
+);
+ALTER TABLE employee MODIFY( hire_date not null);
+ALTER TABLE employee ADD constraint pk_empid PRIMARY KEY(employee_id);
+ALTER TABLE employee ADD constraint fk_dept FOREIGN KEY (department_id) REFERENCES department (department_id);
+DESC employee;
+SELECT table_name, constraint_name, constraint_type FROM all_constraints WHERE owner='DM' AND table_name='EMPLOYEE';
+CREATE TABLE t1 AS SELECT rownum AS id, trunc(dbms_random.value(0, 100)) AS random_id, dbms_random.string('x', 20) AS random_string FROM dual connect BY level <= 100000;
+SELECT COUNT(*) FROM t1;
+SELECT * FROM t1 where rownum<5 ORDER BY id DESC;
+
+CREATE INDEX ind_emp_salary ON employee(salary);
+SELECT table_name, index_name, index_type from user_indexes WHERE index_name='IND_EMP_SALARY';
+DROP INDEX IND_EMP_SALARY;
+
+CREATE SEQUENCE SEQ1
+START WITH 1 INCREMENT BY 1 MAXVALUE 10000
+CACHE 5 NOCYCLE;
+SELECT seq1.nextval() FROM dual;
+SELECT seq1.currval() FROM dual;
+
+CREATE OR REPLACE FUNCTION random_password
+(pass_len IN NUMBER) RETURN VARCHAR2 AS
+l_pw VARCHAR2(128);
+BEGIN l_pw = dbms_random.string('x', pass_len);
+RETURN l_pw;
+END;
+SELECT random_password(12) FROM dual;
+
+
+级联删除
+drop user 用户名 cascade;
+
+backup database full backupset '/home/dmdba/DB_BAK_FULL01';
+create table ttt as select * from dba_objects;
+create table tt as select * from dba_objects;
+show backupset '/home/dmdba/DB_BAK_FULL01';
+
+restore database '/data/dmdata/TEST2/dm.ini' from backupset '/home/dmdba/DB_BAK_FULL01';
+recover database '/data/dmdata/TEST2/dm.ini' with archivedir '/data/dmarch/stb_arch' use db_magic 1125819454;
+recover database '/data/dmdata/TEST2/dm.ini' update db_magic;
+
+create user 用户名 identified by 密码 default tablespace users Temporary TABLESPACE Temp;
+create user test11 identified by test default tablespace users Temporary TABLESPACE Temp;
+grant connect,resource, dba to 用户名;
+grant connect,resource,dba to test11;
+grant sysdba to 用户名;
+grant sysdba to test11;
+commit;
+
+alter user 用户名 identified by 密码;
+alter user sys indentified by test;
+alter user system indentified by test;
+
+select
+ t1.owner 原始表用户名,
+  t1.table_name 原始表,
+  t2.owner as 被依赖表用户名,
+      t2.table_name as  被依赖的表,
+      t1.constraint_name 外键名称,
+      a1.column_name 列,
+      a2.column_name as  被依赖的列
+from dba_constraints t1, dba_constraints t2, dba_cons_columns a1, dba_cons_columns a2
+where
+     t1.r_constraint_name = t2.constraint_name and
+     t1.constraint_name = a1.constraint_name and
+     t1.r_constraint_name = a2.constraint_name
+     order by t1.owner;
+
+select '实例名称' 数据库选项,INSTANCE_NAME  数据库集群相关参数值 FROM v$instance union all
+select top 1 '数据库版本', banner ||'.'||id_code from v$version
+union all
+SELECT '字符集',CASE SF_GET_UNICODE_FLAG() WHEN '0' THEN 'GBK18030' WHEN '1' then 'UTF-8' when '2' then 'EUC-KR' end union all
+SELECT '页大小',cast(PAGE()/1024 as varchar) union all
+SELECT '簇大小',cast(SF_GET_EXTENT_SIZE() as varchar) union all
+SELECT '大小写敏感',cast(SF_GET_CASE_SENSITIVE_FLAG() as varchar) union all
+select '数据库模式',MODE$ from v$instance;
+
+select
+       b.table_name,
+       a.name COL_NAME
+from
+       SYS.SYSCOLUMNS a,
+       all_tables b    ,
+       sys.sysobjects c
+where
+       a.INFO2=1
+   and a.id           =c.id
+   and c.name         = b.table_name;
+
+SELECT F.TABLESPACE_NAME,
+(T.TOTAL_SPACE - F.FREE_SPACE) / 1024 "USED (GB)",
+F.FREE_SPACE / 1024 "FREE (GB)",
+T.TOTAL_SPACE / 1024 "TOTAL(GB)",
+(ROUND((F.FREE_SPACE / T.TOTAL_SPACE) * 100)) || '% '
+PER_FREE
+FROM (SELECT TABLESPACE_NAME,
+ROUND(SUM(BLOCKS *
+(SELECT PARA_VALUE / 1024
+FROM V$DM_INI
+WHERE PARA_NAME =
+'GLOBAL_PAGE_SIZE') / 1024)) FREE_SPACE
+FROM DBA_FREE_SPACE
+GROUP BY TABLESPACE_NAME) F,
+(SELECT TABLESPACE_NAME, ROUND(SUM(BYTES /
+1048576)) TOTAL_SPACE
+FROM DBA_DATA_FILES
+GROUP BY TABLESPACE_NAME) T
+WHERE F.TABLESPACE_NAME = T.TABLESPACE_NAME;
+
+conn DM/dameng123;
+
+CREATE TABLE "TAB_12"
+(
+"ID" BIGINT IDENTITY (1, 1) NOT NULL,
+"ID2" INT NOT NULL,
+"NAME" VARCHAR(10) NOT NULL,
+PRIMARY KEY("ID")
+);
+INSERT INTO TAB_12 VALUES(1, '数据库产品');
+INSERT INTO TAB_12 VALUES(2, '数据库');
+select * from TAB_12;
+
+CREATE TABLE "TAB_11"
+(
+"ID" BIGINT IDENTITY (1, 1) NOT NULL,
+"NAME" VARCHAR2(10) NOT NULL,
+PRIMARY KEY("ID")
+);
+insert into TAB_11 VALUES('数据库产品');
+insert into TAB_11 VALUES('数据库产品产品');
+
+CREATE TABLE "TAB_10"
+(
+"ID" tinyint NOT NULL,
+"NAME" VARCHAR2(10) NOT NULL,
+PRIMARY KEY("ID")
+);
+insert into TAB_10 VALUES(100, '数据库产品');
+
+CREATE TABLE "TAB_09"
+(
+"ID" smallint NOT NULL,
+"NAME" VARCHAR2(10) NOT NULL,
+PRIMARY KEY("ID")
+);
+insert into TAB_09 VALUES(100, '数据库产品');
+
+CREATE TABLE "TAB_08"
+(
+"ID" decimal(8,2) NOT NULL,
+"NAME" VARCHAR2(10) NOT NULL,
+PRIMARY KEY("ID")
+);
+insert into TAB_08 VALUES(100.12, '数据库产品');
+
+CREATE TABLE "TAB_07"
+(
+"ID" int NOT NULL,
+"NAME" text NOT NULL,
+PRIMARY KEY("ID")
+);
+insert into TAB_07 VALUES(1, '数据库产品');
+
+CREATE TABLE DM.NewTable2 (
+	ID int IDENTITY (1, 1) NOT NULL,
+	Column2 varchar(100) DEFAULT '' NOT NULL,
+	Column1 tinyint DEFAULT 0 NOT NULL,
+	PRIMARY KEY("ID")
+);
+
+CREATE INDEX NewTable1_Column1_IDX ON DM.NewTable1 (Column1);
+
+SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER='DM';
+
+DROP USER TGLEARNING;
+CREATE USER TGLEARNING IDENTIFIED BY "TGLEARNING2021";
+GRANT RESOURCE TO TGLEARNING;
+conn TGLEARNING/TGLEARNING2021@127.0.0.1:5236;
+
+start /tmp/traingo-dameng.sql
+
+SET IDENTITY_INSERT 表名 ON;
+SET IDENTITY_INSERT 表名 OFF;
+commit;
+
+start file.sql
+
+./dmrachk help
+./dmrachk ARCH_PATH=/data/dmarch/stb_arch
+
+cd /home/dmdb/dmdbms/tools
+./manager
+
+查看内存池情况
+SELECT
+A.CREATOR  ,
+        B.SQL_TEXT                    ,
+        A.NAME                        ,
+        A.TOTAL_SIZE/1024/1024 TOTAL_M,
+        A.DATA_SIZE /1024/1024 DATA_SIZE_M
+FROM
+        V$MEM_POOL A,
+        V$SESSIONS B
+WHERE
+        A.CREATOR = B.THRD_ID AND B.APPNAME='DIsql.exe';
+
+SELECT
+        A.CREATOR                          ,
+        B.SQL_TEXT                         ,
+        SUM(A.TOTAL_SIZE)/1024/1024 TOTAL_M,
+        SUM(A.DATA_SIZE) /1024/1024 DATA_SIZE_M
+FROM
+        V$MEM_POOL A,
+        V$SESSIONS B
+WHERE
+        A.CREATOR = B.THRD_ID
+    AND B.APPNAME ='DIsql.exe'
+GROUP BY
+        A.CREATOR,
+        B.SQL_TEXT
+ORDER BY
+        TOTAL_M DESC;
+
+SELECT SF_GET_SESSION_SQL(SESSID),MAX_MEM_USED,SQL_TXT FROM V$SQL_STAT ORDER BY MAX_MEM_USED DESC;
+SELECT * FROM V$LARGE_MEM_SQLS ORDER BY MEM_USED_BY_K DESC;
+
+查询数据库大版本号：
+Select * from v$version;
+查询小版本号：
+Select id_code;
+查询数据文件和联机日志文件信息
+select b.tablespace_name, b.file_name, b.bytes/1024/1024 size_m
+  from dba_data_files b
+ union all 
+select 'RLOG', a.path, a.rlog_size/1024/1024
+  from v$rlogfile a;
+查询表空间占用率
+select b.file_name,
+       b.tablespace_name,
+       b.bytes/1024/1024 size_m,
+       (b.bytes-(nvl(a.bytes,0)))/1024/1024  used_m,
+       round((b.bytes-(nvl(a.bytes,0)))/(b.bytes)*100,2)  usedrate
+  from dba_free_space a,dba_data_files b
+ where a.file_id(+) = b.file_id
+   and a.tablespace_name(+) = b.tablespace_name
+ order by b.tablespace_name;
+查看模式和用户的对应关系
+select a.NAME schname, a.ID schid, b.id userid, b.NAME username
+  from sysobjects a, sysobjects b
+where a."TYPE$"='SCH'
+  and a.pid = b.id;
+查看模式下所有对象信息
+select a.object_name, a.object_id, a.object_type, a.created, a.status
+ from dba_objects a
+ where a.owner='DMHR';   -- 用户/模式名
+批量禁用某个用户/模式下所有外键约束
+      将查询出的拷贝执行即可禁用外键约束。
+select 'alter table '|| t.owner||'.'||t.table_name ||' disable constraint '||t.constraint_name||';'
+  from dba_constraints t
+ where t.owner = 'DMHR'   -- 用户/模式名
+   and t.constraint_type = 'R';
+查看系统外键约束的引用关系
+    查询某个用户或模式下外键约束的引用关系：
+select t1.owner,t1.table_name, 
+       t2.table_name as "TABLE_NAME(R)", 
+       t1.constraint_name, 
+       t1.r_constraint_name as "CONSTRAINT_NAME(R)",
+       a1.column_name, 
+       a2.column_name as "COLUMN_NAME(R)"
+from dba_constraints t1, dba_constraints t2, dba_cons_columns a1, dba_cons_columns a2
+where t1.owner = t2.owner and a1.owner = a2.OWNER and t1.owner = 'DMHR' 
+  and t1.r_constraint_name = t2.constraint_name
+  and t1.constraint_name = a1.constraint_name
+  and t1.r_constraint_name = a2.constraint_name;
+查看系统中的作业信息：
+select t.job, t.schema_user, t.last_date, t.last_sec, t.next_date, t.next_sec, t."INTERVAL", t.broken, t.failures,t.what
+  from dba_jobs t;
+运行作业
+call dbms_job.run(1637544901);   --参数为jobid
+历史作业运行情况
+select * from sysjob.SYSJOBHISTORIES2;
+查看会话信息
+select t.SESS_ID, t.SQL_TEXT, t.STATE, t.TRX_ID, t.THRD_ID
+  from v$sessions t;
+查看当前会话
+select sessid;
+事务等待
+使用如下sql查询数据库中的事务等待信息，如果为空，则表示当前无事务等待。
+select * from v$trxwait;
+或
+select b.name, t.*
+ from v$lock t, SYSOBJECTS b
+ where t.BLOCKED = 1
+   and t.TABLE_ID = b.ID;
+某个会话的历史sql信息
+  select * from V$SQL_HISTORY t where T.SESS_ID = '140577090115912';  --会话id
+
+===================================================================================
+或者
+dpkg -i nginx
+
+或者编译安装
+apt install build-essential libtool libpcre3 libpcre3-dev zlib1g-dev openssl
+
+wget https://udomain.dl.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.zip && tar xzf pcre-8.43.tar.gz
+wget https://www.zlib.net/zlib-1.2.11.tar.gz && tar xzf zlib-1.2.11.tar.gz
+wget https://www.openssl.org/source/openssl-1.1.1l.tar.gz && tar xzf openssl-1.1.1l.tar.gz
+wget https://nginx.org/download/nginx-1.20.2.tar.gz && tar zxf nginx-1.20.2.tar.gz
+make && make install
+
+apt install snapd
+snap install redis-desktop-manager
+
+ffmpeg
+apt install yasm
+wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 && tar -jxvf ffmpeg-snapshot.tar.bz2
+./configure --prefix=/usr/local/ffmpeg --enable-debug=3 --disable-static --enable-shared
+make -j4 && sudo make install
+
+add-apt-repository ppa:jonathonf/ffmpeg-4
+apt update
+apt install ffmpeg -y
+
+libreoffice
+访问权限不足
+sudo rm ~/.config/libreoffice –rf
+
+
+
+https://www.modb.pro/db/171876
+
+dminit HELP
+格式: dminit KEYWORD=value
+例如: dminit PATH=c:\dmdata PAGE_SIZE=16
+关键字 说明（默认）
+-----------------------------------------------------------------------------
+INI_FILE 初始化文件 dm.ini 存放的路径
+PATH 初始数据库存放的路径
+CTL_PATH 控制文件路径
+LOG_PATH 日志文件路径
+EXTENT_SIZE 数据文件使用的簇大小(16)，可选值：16、32、64，单位：页
+PAGE_SIZE 数据页大小(8)，可选值：4、8、16、32，单位：K
+LOG_SIZE 日志文件大小(256)，单位为：M，范围为：64M ~ 2G
+CASE_SENSITIVE 大小敏感(Y)，可选值：Y/N，1/0
+CHARSET/UNICODE_FLAG 字符集(0)，可选值：0[GB18030]，1[UTF-8]，2[EUC-KR]
+SEC_PRIV_MODE 权限管理模式(0)，可选值：0[TRADITION]，1[BMJ]，2[EVAL]
+LENGTH_IN_CHAR VARCHAR 类型长度是否以字符为单位(N)，可选值：Y/N，1/0
+SYSDBA_PWD 设置 SYSDBA 密码(SYSDBA)，密码长度为 9 到 48
+SYSAUDITOR_PWD 设置 SYSAUDITOR 密码(SYSAUDITOR)，密码长度为 9 到 48
+DB_NAME 数据库名(DAMENG)
+INSTANCE_NAME 实例名(DMSERVER)
+PORT_NUM 监听端口号(5236)
+BUFFER 系统缓存大小(100)，单位 M
+TIME_ZONE 设置时区(+08:00)
+PAGE_CHECK 页检查模式(0)，可选值：0/1/2
+EXTERNAL_CIPHER_NAME 设置默认加密算法
+
+mysql 数据迁移到 pgsql
+https://pgloader.readthedocs.io/en/latest/ref/mysql.html
+apt install pgloader postgresql-client postgresql-11
+yum install pgloader postgresql postgresql-server
+brew install pgloader postgresql postgresql-server
+
+vi /etc/postgresql/11/main/postgresql.conf
+listen_addresses = '10.1.1.111'
+vi /etc/postgresql/11/main/pg_hba.conf
+host all all 0.0.0.0/0 md5
+
+systemctl restart postgresql
+lsof -i:5432
+
+创建帐号
+sudo -u postgres createuser traingo -P
+sudo -u postgres createuser --superuser tgroot -P
+sudo -u postgres createdb quotes -O pgloader
+或者
+sudo -u postgres -i
+deleteuser traingo
+createuser traingo -P
+createuser --superuser tgroot -P
+createdb tgtest -O traingo -E UTF8 -e
+createdb tglearning -O tgroot -E UTF8 -e
+
+psql postgres://traingo:traingo123@localhost/tgtest?sslmode=require
+psql -U traingo -d tgtest -h 10.1.1.111 -W
+psql -U tgroot -d tglearning -h 10.1.1.111 -W -p 5432
+psql -U tgroot -d tglearning -h 127.0.0.1 -W -p 5436
+
+同步MYSQL数据
+vi pgload.load
+LOAD DATABASE
+    FROM mysql://root:tg@@2020@@TRAINGO!@10.1.1.96:3001/51learning
+    INTO pgsql://tgroot:traingo123@10.1.1.111:5432/tglearning
+
+WITH include drop, create tables, create indexes, reset sequences, workers = 8, concurrency = 1,
+    multiple readers per thread, rows per range = 50000
+
+ALTER SCHEMA '51learning' RENAME TO 'public'
+;
+pgloader pgload.load
+
+
+createdb newdb
+pgloader ./test/sqlite/sqlite.db postgresql:///newdb
+createdb pagila
+pgloader mysql://user@localhost/sakila postgresql:///pagila
+createdb target_db
+pgloader load.csv pgsql://sammy:password@localhost/target_db
+
+sudo -u postgres psql
+\c quotes
+\dt
+select * from quotes.quotes limit 1;
+
+vi pgload.load
+LOAD DATABASE
+    FROM mysql://root:einverne.@localhost:3306/wordpress
+    INTO pgsql://pgloader:einverne.@localhost:5432/quotes
+
+WITH include drop, create tables, create indexes, reset sequences, workers = 8, concurrency = 1,
+    multiple readers per thread, rows per range = 50000
+
+SET PostgreSQL PARAMETERS
+    maintenance_work_mem to '128MB',
+    work_mem to '12MB',
+    search_path to 'sakila, public, "$user"'
+
+SET MySQL PARAMETERS
+    net_read_timeout  = '120',
+    net_write_timeout = '120'
+
+CAST type bigint when (= precision 20) to bigserial drop typemod,
+    type date drop not null drop default using zero-dates-to-null,
+    -- type tinyint to boolean using tinyint-to-boolean,
+    type year to integer
+
+ALTER TABLE NAMES MATCHING 'film' RENAME TO 'films'
+
+ALTER SCHEMA 'wordpress' RENAME TO 'public'
+;
+pgloader pgload.load
+
+
+LOAD DATABASE
+     FROM mysql://username:password@host/gitlabhq_production
+     INTO postgresql://gitlab-psql@unix://var/opt/gitlab/postgresql:/gitlabhq_production
+
+WITH include no drop, truncate, disable triggers, create no tables,
+     create no indexes, preserve index names, no foreign keys,
+     data only
+
+SET MySQL PARAMETERS
+net_read_timeout = '90',
+net_write_timeout = '180'
+
+ALTER SCHEMA 'gitlabhq_production' RENAME TO 'public'
+;
+
+
+pgloader --type csv --field "综合资源网元ID,CU名称" -L "/home/adminz/v_device_wireless_cu.log" --with truncate --with "skip header=1" --with "batch rows=10000" --with "fields terminated by ','" /home/adminz/V_DEVICE_WIRELESS_CU.csv postgres://postgres:root@10.9.20.222:35432/npas055?tablename=mtnoh.v_device_wireless_cu
+pgloader --type csv --field "directory,lat,lon,flag,alt,passeddate,gpsdate,gpstime" --with "skip header = 6"  --with "fields terminated by ','" txtfile.txt postgres://myusername:mypass@192.102.xx.xx:5432/dbname?tablename=plt
+
+LOAD CSV
+     FROM '/LocationToCSVFile/a.csv' WITH ENCODING UTF8 (COLUMN1,COLUMN2)
+    INTO postgresql://netcrk:crknet@[fd95:ff55:7fb8:f1e5:f816:3eff:fe5d:96b7]:5432/postgres
+    TARGET TABLE TESTACCOUNT(COLUMN1,COLUMN2)
+
+      WITH  TRUNCATE,
+       SKIP HEADER = 0,
+       FIELDS OPTIONALLY ENCLOSED BY '"',
+       FIELDS TERMINATED BY ','
+
+      SET CLIENT_ENCODING TO 'UTF8,
+            work_mem to '128MB',
+          standard_conforming_strings to 'on'
+
+    BEFORE LOAD DO $$ CREATE SCHEMA IF NOT EXISTS PUBLIC; $$,
+ $$ CREATE TABLE IF NOT EXISTS PUBLIC.TESTACCOUNT(COLUMN1 INTEGER,COLUMN2 INTEGER); 
+ $$;

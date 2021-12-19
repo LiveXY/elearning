@@ -1007,3 +1007,328 @@ $ ls !$:h
 $ cd !-2:$:h
 $ touch !$!-3:$ !! !$.txt
 $ cat !:1-$
+
+tig：字符模式下交互查看git项目，可以替代git命令。
+mycli：mysql客户端，支持语法高亮和命令补全，效果类似ipython，可以替代mysql命令。
+jq: json文件处理以及格式化显示，支持高亮，可以替换python -m json.tool。
+shellcheck：shell脚本静态检查工具，能够识别语法错误以及不规范的写法。
+fzf：命令行下模糊搜索工具，能够交互式智能搜索并选取文件或者内容，配合终端ctrl-r历史命令搜索简直完美。
+htop: 提供更美观、更方便的进程监控工具，替代top命令。
+glances：更强大的 htop / top 代替者。
+axel：多线程下载工具，下载文件时可以替代curl、wget。
+sz/rz：交互式文件传输，在多重跳板机下传输文件非常好用，不用一级一级传输。
+cloc：代码统计工具，能够统计代码的空行数、注释行、编程语言。
+multitail：多重  tail。
+htmlq 像jq，但对于 HTML
+
+文件切割 - split
+-a: #指定输出文件名的后缀长度(默认为2个:aa,ab...)
+-d: #指定输出文件名的后缀用数字代替
+-l: #行数分割模式(指定每多少行切成一个小文件;默认行数是1000行)
+-b: #二进制分割模式(支持单位:k/m)
+-C: #文件大小分割模式(切割时尽量维持每行的完整性)
+split [-a] [-d] [-l <行数>] [-b <字节>] [-C <字节>] [要切割的文件] [输出文件名]
+使用实例
+# 行切割文件
+split -l 300000 users.sql /data/users_
+# 使用数字后缀
+split -d -l 300000 users.sql /data/users_
+# 按字节大小分割
+split -d -b 100m users.sql /data/users_
+文件合并 - cat
+-n: #显示行号
+-e: #以$字符作为每行的结尾
+-t: #显示TAB字符(^I)
+cat [-n] [-e] [-t] [输出文件名]
+# 合并文件
+cat /data/users_* > users.sql
+
+uniq
+uniq [OPTION]... [INPUT [OUTPUT]]
+-c, --count
+  显示行出现的次数
+-d, --repeated
+  仅显示重复出现的行，即出现次数 >=2 的行，且只打印一次
+-D, --all-repeated[=delimit-method]
+  仅显示重复的行，即出现次数 >=2 的行，且打印重复行的所有行。其中 delimit-method 表示对重复行集合的分隔方式，有三种取值，分别为none、prepend和separate。其中none表示不进行分隔，为默认选项，uniq -D等同于uniq --all-repeated=none；prepend表示在每一个重复行集合前面插入一个空行；separate表示在每个重复行集合间插入一个空行。
+-f, --skip-fields=N
+  忽略前N个字段。字段由空白字符（空格符、Tab）分隔。如果您的文档的行被编号，并且您希望比较行中除行号之外的所有内容。如果指定了选项 -f 1，那么下面相邻的两行：
+  1 这是一条线
+  2 这是一条线
+  将被认为是相同的。如果没有指定 -f 1 选项，它们将被认为是不同的
+-i, --ignore-case
+  忽略大小写字符的不同
+-s, --skip-chars=N
+  跳过前面N个字符不比较
+-u, --unique
+  只显示唯一的行，即出现次数等于1的行
+-w, --check-chars=N
+  指定每行要比较的前N个字符数
+--help
+  显示帮助信息并退出
+--version
+  显示版本信息并退出
+
+uniq testfile
+cat testfile | sort | uniq
+sort testfile | uniq -c
+sort testfile | uniq -dc
+sort testfile | uniq -u
+uniq -w3 -D test.txt
+
+export 环境变量命令
+export [-fn] [NAME[=WORD]]...
+-f
+ 表示 NAME 为函数名称
+-n
+ 删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中
+-p
+ 列出所有的 Shell 环境变量
+export MYNEWV=8
+export PATH=$PATH:/usr/local/mysql/bin
+export -p | grep PATH
+echo $PATH
+
+stat 命令
+stat [OPTION]... FILE..
+-L, --dereference: 跟随符号链接解析原文件而非符号链接；
+-f, --file-system: 显示文件所在文件系统信息而非文件信息；
+-c,--format=FORMAT: 以指定格式输出，而非默认格式；
+ 显示文件信息可用格式控制符如下：
+ %a：以八进制显示访问权限
+ %A：以可读形式显示访问权限
+ %b：显示占有块数
+ %B：显示每一块占有的字节数
+ %C：SELinux security context string
+ %d：十进制显示文件所在设备号
+ %D：十六进制显示文件所在设备号
+ %f：十六进制显示文件类型
+ %F：文件类型。Linux 下文件类型主要分为普通文件、目录、字符设备文件、块设备文件、符号链接文件、套接字等
+ %g：文件所有者组 ID
+ %G：文件所有者组名称
+ %h：文件硬链接数
+ %i：inode 号
+ %m：文件所在磁盘分区挂载点，比如/data
+ %n：文件名称
+ %N：单引号括起来的文件名称，如果是软链接，则同时显示指向的文件名称
+ %o：optimal I/O transfer size hint
+ %s：实际文件大小，单位字节
+ %t：major device type in hex, for character/block device special files
+ %T：minor device type in hex, for character/block device special files
+ %u：所有者用户 ID
+ %U：所有者用户名称
+ %w：文件创建时间，输出-表示无法得知
+ %W：文件创建时间，输出 Unix 时间戳，0 表示无法得知
+ %x：可读形式输出最后访问时间 atime
+ %X：Unix 时间戳输出最后访问时间 atime
+ %y：可读形式输出最后修改时间 mtime
+ %Y：Unix 时间戳输出后修改时间 mtime
+ %z：可读形式输出最后状态改变时间 ctime
+ %Z：Unix 时间戳输出最后状态改变时间 ctime
+ 
+ 显示文件系统信息可用格式控制符有：
+ %a：非超级用户可使用的自由 block 数
+ %b：文件系统总 block 数
+ %c：文件系统总文件节点数
+ %d：可用文件节点数
+ %f：可用文件 block 数
+ %i：十六进制文件系统 ID
+ %l：最大文件名称长度
+ %n：文件名称
+ %s：一个块的大小，单位字节（for faster transfers）
+ %S：一个块的基本大小，单位字节（用于统计 block 的数量）
+ %t：十六进制输出文件系统类型
+ %T：可读形式输出文件系统类型
+--printf=FORMAT: 以指定格式输出，而非默认格式。与--format 作用类似，但可以解释反斜杠转义字符，比如换行符、n；
+-t, --terse: 简洁模式输出，只显示摘要信息；
+--help: 显示帮助信息；
+--version: 显示版本信息。
+
+stat test.log
+File: test.log: 文件名称为 test.log
+Size: 1598: 文件大小 1598 字节
+Blocks: 8：文件占用的块数
+IO Block: 4096：
+regular file：文件类型（普通文件）
+Device: fd01h/64769d：文件所在设备号，分别以十六进制和十进制显示
+Inode: 1579435：文件节点号
+Links: 1：硬链接数
+Access: (0644/-rw-r--r--)：访问权限
+Uid：所有者 ID 与名称
+Gid：所有者用户组 ID 与名称
+Access：最后访问时间
+Modify：最后修改时间
+Change：最后状态改变时间
+Birth -：无法获知文件创建时间。注意：Linux 下的文件未存储文件创建时间
+
+stat -f Makefile
+File: "Makefile"：文件名称为"Makefile"；
+ID: 6f75a4f02634e23e：文件系统 ID
+Namelen: 255：最大文件名称长度
+Type: ext2/ext3：文件系统类型名称
+Block size: 4096：块大小为 4096 字节
+Fundamental block size: 4096：基本块大小为 4096 字节
+
+export 命令
+export [-fn] [NAME[=WORD]]...
+export -p
+-f
+ 表示 NAME 为函数名称
+-n
+ 删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中
+-p
+ 列出所有的 Shell 环境变量
+export MYNEWV=8
+export PATH=$PATH:/usr/local/mysql/bin
+export -p | grep PATH
+echo $PATH
+vi test1.sh
+#!/bin/sh
+shareVar=666
+export shareVar
+./test2.sh
+vi test2.sh
+#!/bin/sh
+echo "in $0"
+echo $shareVar
+
+time 命令
+time [OPTIONS] COMMAND [ARGUMENTS]
+-f, --format=FORMAT
+ 使用指定格式输出。如果没有指定输出格式，采用环境变量 TIME 指定的格式
+-p, --portability
+ 使用兼容 POSIX 的格式输出，real %e\nuser %U\nsys %S
+-o, --output=FILE
+ 结果输出到指定文件。如果文件已经存在，覆写其内容
+-a, --append
+ 与 -o 选项一起使用，使用追加模式将输出写入指定文件
+-v, --verbose
+ 使用冗余模式尽可能地输出统计信息
+--help
+ 显示帮助信息
+-V, --version
+ 显示版本信息
+--
+ 终止选项列表
+Time
+%E：执行指令所花费的时间，格式 [hours:]minutes:seconds
+%e：执行指令所花费的时间，单位是秒
+%S：指令执行时在内核模式（kernel mode）所花费的时间，单位是秒
+%U：指令执行时在用户模式（user mode）所花费的时间，单位是秒
+%P：执行指令时 CPU 的占用比例。其实这个数字就是内核模式加上用户模式的 CPU 时间除以总时间（(%S+%U)/%E）
+
+Memory
+%M：执行时所占用的内存的最大值。单位 KB
+%t：执行时所占用的内存的平均值，单位是 KB
+%K：执行程序所占用的内存总量（stack+data+text）的平均大小，单位是 KB
+%D：执行程序的自有数据区（unshared data area）的平均大小，单位是 KB
+%p：执行程序的自有栈（unshared stack）的平均大小，单位是 KB
+%X：执行程序是共享代码段（shared text）的平均值，单位是 KB
+%Z：系统内存页的大小，单位是 byte。对同一个系统来说这是个常数
+%F：内存页错误次数。内存页错误指需要从磁盘读取数据到内存
+%R：次要或可恢复的页面错误数。这些是无效页面的错误，但其他虚拟页面尚未使用该内存页。因此，页面中的数据仍然有效，但必须更新系统表
+%W：进程从内存中交换的次数
+%c：进程上下文被切换的次数（因为时间片已过期）
+%w：进程等待次数，指程序主动进行上下文切换的次数，例如等待 I/O 操作完成
+
+I/O
+%I：此程序所输入的档案数
+%O：此程序所输出的档案数
+%r：此程序所收到的 Socket Message
+%s：此程序所送出的 Socket Message
+%k：此程序所收到的信号 （Signal）数量
+
+Command Info
+%C：执行时的参数指令名称
+%x：指令的结束代码 ( Exit Status )
+
+time date
+time --format="%C\n%x" date +%s
+
+
+ldconfig 命令
+/sbin/ldconfig [ -nNvXV ] [ -f conf ] [ -C cache ] [ -r root ] directory ...
+/sbin/ldconfig -l [ -v ] library ...
+/sbin/ldconfig -p
+-v, --verbose
+ 用此选项时，ldconfig 将显示正在扫描的目录及搜索到的动态链接库，还有它所创建的链接的名字
+
+-n
+ ldconfig 仅扫描命令行指定的目录，不扫描默认目录（/lib、/usr/lib），也不扫描配置文件 /etc/ld.so.conf 所列的目录。
+
+-N
+ ldconfig 不重建缓存文件（/etc/ld.so.cache），若未用 -X 选项，ldconfig 照常更新文件的链接
+
+-X
+ ldconfig 不更新文件的链接，若未用 -N 选项，则缓存文件照常重建
+
+-f <conf >
+ 指定动态链接库的配置文件为 <conf > ，系统默认为 /etc/ld.so.conf
+
+-C <cache>
+ 指定生成的缓存文件为 <cache>，系统默认的是 /etc/ld.so.cache，此文件存放已排好序的可共享的动态链接库的列表
+
+-r <root>
+ 改变应用程序的根目录为 <root>（是调用 chroot 函数实现的）。选择此项时，系统默认的配置文件 /etc/ld.so.conf，实际对应的为 <root>/etc/ld.so.conf。如用 -r /usr/zzz 时，打开配置文件 /etc/ld.so.conf 时，实际打开的是 /usr/zzz/etc/ld.so.conf 文件。用此选项，可以大大增加动态链接库管理的灵活性
+
+-l
+ 通常情况下，ldconfig 搜索动态链接库时将自动建立动态链接库的链接，选择此项时，将进入专家模式，需要手工设置链接，一般用户不用此项
+
+-p, --print-cache
+ ldconfig 打印出当前缓存文件保存的所有共享库的名字
+
+-c FORMAT 或 --format=FORMAT：此选项用于指定缓存文件所使用的格式，共有三种：old（老格式），new（新格式）和 compat（兼容格式，此为默认格式）。
+
+-V
+ 打印出 ldconfig 的版本信息
+
+-?, --help, --usage
+ 这三个选项作用相同，都是让 ldconfig 打印出其帮助信息
+
+ ulimit 命令
+ ulimit [-HSTabcdefilmnpqrstuvx [limit]]
+-H
+ 设定资源的硬限制，只有 root 用户可以操作
+-S
+ 设置资源的软限制
+-a
+ 显示目前所有资源设定的限制
+-b
+ socket 缓冲的最大值，单位 
+-c
+ core 文件的最大值，单位 blocks
+-d
+ 进程数据段的最大值，单位 KB
+-e
+ 调度优先级上限，这里的优先级指 NICE 值。只针对普通用户进程有效
+-f
+ 当前 Shell 可创建文件总大小的上限，单位 blocks
+-i
+ 被挂起/阻塞的最大信号数量
+-l
+ 可以锁住的物理内存的最大值，单位 KB
+-m
+ 可以使用的常驻内存的最大值，单位 KB
+-n
+ 每个进程可以同时打开的最大文件数
+-p
+ 管道的最大值，单位 block，1 block = 512 bytes
+-q
+ POSIX 消息队列的最大值
+-r
+ 限制程序实时优先级，只针对普通用户进程有效
+-s
+ 进程栈最大值，单位 KB
+-t
+ 最大 CPU 时间，单位 s
+-u
+ 用户最多可启动的进程数目
+-v
+ 当前 Shell 可使用的最大虚拟内存，单位 KB
+-x
+ 文件锁的最大数量
+-T
+ 线程的最大数量
+ulimit -a
+ulimit -c unlimited
+ulimit -s unlimited

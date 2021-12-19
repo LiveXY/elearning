@@ -1,6 +1,9 @@
 h5page:
 http://m.ac.qq.com/
 
+让你彻底理解 this 的指向问题
+https://mp.weixin.qq.com/s/sSAc_bRpD_qbS51lCkfvwA
+
 http://p.m.jd.com/norder/freeRegister.action?sid=75b66bb1d5e92cd94d52d10ae81d242a&flowType=&wareId=11995765&wareNum=1#chooseAddressPage
 http://p.m.jd.com/norder/selectProvince.action
 http://p.m.jd.com/norder/selectCity.action?idProvince=7

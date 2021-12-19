@@ -167,7 +167,7 @@ dotnet tool install --global dotnet-ef
 dotnet ef dbcontext scaffold "server=127.0.0.1;userid=root;pwd=123456;port=3306;database=etms;sslmode=none;" MySql.EntityFrameworkCore -o Models -f
 dotnet ef dbcontext scaffold "server=127.0.0.1;userid=root;pwd=123456;port=3306;database=etms;sslmode=none;" MySql.EntityFrameworkCore -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
 dotnet ef dbcontext scaffold "Server=127.0.0.1;Database=etms;User Id=root;Password=123456;" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
-dotnet ef dbcontext scaffold "Server=115.239.209.204;Database=test2;User Id=TraingoSaDb;Password=TraingoSa201708QAZ!@#456D;encrypt=disable;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
+dotnet ef dbcontext scaffold "Server=127.0.0.1;Database=test2;User Id=TraingoSaDb;Password=123456;encrypt=disable;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t users -n net5 -c EFContext -f --no-onconfiguring
 
 
 或者

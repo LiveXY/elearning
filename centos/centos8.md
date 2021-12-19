@@ -34,3 +34,67 @@ tar -xvf LibreOffice_7.2.0_Linux_x86-64_rpm.tar.gz
 yum localinstall *.rpm
 
 
+百度云盘 TO 阿里云盘
+https://github.com/yaronzz/BaiduYunToAliYun
+
+百度云盘
+https://github.com/houtianze/bypy
+pip3 install screen
+screen -S bypy
+pip3 install bypy
+bypy info
+
+bypy list
+bypy downfile GeoSetter.zip
+bypy downdir clean_data
+bypy upload 本地地址  网盘地址
+bypy -c #退出登录
+
+screen -ls # 查看当前所有终端
+screen -r bypy # 回到之前的终端
+screen -X -S bypy quit # 删除一个终端
+
+cd /data/course
+bypy syncdown -v #从百度云同步到当前目录
+bypy syncup
+bypy upload
+bypy compare
+
+调用aria2下载
+echo 'export DOWNLOADER_ARGUMENTS="-c -k10M -x16 -s16 --file-allocation=none"' > /etc/profile.d/bypy.sh
+chmod +x /etc/profile.d/bypy.sh
+source /etc/profile.d/bypy.sh
+
+echo $DOWNLOADER_ARGUMENTS
+
+bypy --downloader aria2 download 远程文件名 本地路径
+bypy --downloader aria2 download 远程目录 本地路径
+bypy --downloader aria2 download example.zip folder
+bypy --downloader aria2 download 妹子 folder
+
+nano ~/.bashrc
+alias dw='bypy --downloader aria2 download '
+dw example.zip folder
+
+先安装epel源
+dnf install aria2
+aria2c http://example.org/file.iso
+aria2c http://a/f.iso ftp://b/f.iso
+
+cd /data/qihui
+screen -S qihui
+aria2c --max-concurrent-downloads=2 --input-file=uris.txt
+aria2c -c -Z -V -x2 -d /data/qihui/ -i uris.txt --deferred-input=true --check-certificate=false
+
+vi uris.txt
+http://example.org/a.pdf
+	out=a.pdf
+	header=Cookie:a=b
+http://example.org/b.pdf
+	out=b.pdf
+
+nginx.service: Failed to adjust resource limit RLIMIT_NOFILE: Operation not permitted
+nginx.service: Failed at step LIMITS spawning /usr/bin/rm: Operation not permitted
+systemctl daemon-reload
+
+

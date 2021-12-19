@@ -23,6 +23,8 @@ https://github.com/microsoft/winget-cli/releases
 https://docs.microsoft.com/zh-cn/sysinternals/
 https://docs.microsoft.com/zh-cn/sysinternals/downloads/
 
+https://github.com/Microsoft/Terminal
+
 slmgr /skms kms.03k.org
 slmgr /ato
 slmgr.vbs -x
@@ -56,3 +58,4 @@ SERVICE_DEMAND_START 手动启动
 SERVICE_DISABLED 禁用
 
 https://github.com/microsoft/PowerToys
+https://github.com/microsoft/terminal

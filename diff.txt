@@ -1,0 +1,72 @@
+diff
+diff[参数][文件 1 或目录 1][文件 2 或目录 2]
+
+命令参数：
+
+- 指定要显示多少行的文本。此参数必须与-c 或-u 参数一并使用。
+
+-a 或--text diff 预设只会逐行比较文本文件。
+
+-b 或--ignore-space-change 不检查空格字符的不同。
+
+-B 或--ignore-blank-lines 不检查空白行。
+
+-c 显示全部内文，并标出不同之处。
+
+-C 或--context 与执行"-c-"指令相同。
+
+-d 或--minimal 使用不同的演算法，以较小的单位来做比较。
+
+-D 或 ifdef 此参数的输出格式可用于前置处理器巨集。
+
+-e 或--ed 此参数的输出格式可用于 ed 的 script 文件。
+
+-f 或-forward-ed 输出的格式类似 ed 的 script 文件，但按照原来文件的顺序来显示不同处。
+
+-H 或--speed-large-files 比较大文件时，可加快速度。
+
+-l 或--ignore-matching-lines 若两个文件在某几行有所不同，而这几行同时都包含了选项中指定的字符或字符串，则不显示这两个文件的差异。
+
+-i 或--ignore-case 不检查大小写的不同。
+
+-l 或--paginate 将结果交由 pr 程序来分页。
+
+-n 或--rcs 将比较结果以 RCS 的格式来显示。
+
+-N 或--new-file 在比较目录时，若文件 A 仅出现在某个目录中，预设会显示：Only in 目录：文件 A 若使用-N 参数，则 diff 会将文件 A 与一个空白的文件比较。
+
+-p 若比较的文件为 C 语言的程序码文件时，显示差异所在的函数名称。
+
+-P 或--unidirectional-new-file 与-N 类似，但只有当第二个目录包含了一个第一个目录所没有的文件时，才会将这个文件与空白的文件做比较。
+
+-q 或--brief 仅显示有无差异，不显示详细的信息。
+
+-r 或--recursive 比较子目录中的文件。
+
+-s 或--report-identical-files 若没有发现任何差异，仍然显示信息。
+
+-S 或--starting-file 在比较目录时，从指定的文件开始比较。
+
+-t 或--expand-tabs 在输出时，将 tab 字符展开。
+
+-T 或--initial-tab 在每行前面加上 tab 字符以便对齐。
+
+-u,-U 或--unified= 以合并的方式来显示文件内容的不同。
+
+-v 或--version 显示版本信息。
+
+-w 或--ignore-all-space 忽略全部的空格字符。
+
+-W 或--width 在使用-y 参数时，指定栏宽。
+
+-x 或--exclude 不比较选项中所指定的文件或目录。
+
+-X 或--exclude-from 您可以将文件或目录类型存成文本文件，然后在=中指定此文本文件。
+
+-y 或--side-by-side 以并列的方式显示文件的异同之处。
+
+--help 显示帮助。
+
+--left-column 在使用-y 参数时，若两个文件某一行内容相同，则仅在左侧的栏位显示该行内容。
+
+--suppress-common-lines 在使用-y 参数时，仅显示不同之处。

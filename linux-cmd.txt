@@ -316,7 +316,7 @@ autobench --single_host --host1 192.168.1.101 --port1 80 --uri1 /phpinfo.php --l
 2.释放dentry和inode
     # echo 2 > /proc/sys/vm/drop_cache
 3.释放page cache,dentry,inode
-    # echo 3 > /proc/sys/vm/drop_cache
+    # echo 3 > /proc/sys/vm/drop_caches
 
 删除?号文件：
 ls -i ＃找到文件前的ＩＤ为91547
@@ -1115,6 +1115,47 @@ fsck –yt ext3 /
 -y 对发现的问题自动回答yes
 27、read 命令5秒后自动退出
 read -t 5
+read [OPTIONS] [VARNAMES]
+-a ANAME
+  将分割后的字段依次存储到指定的数组中，存储的起始位置从数组的下标 0 开始
+-d DELIM
+  后跟一个分隔符，只有第一个字符有用，用以取代换行符作为行的结束标志
+-e
+  在输入的时候可以使用命令补全功能，使用 Tab 键可自动补全当前目录下文件
+-i TEXT
+  如果使用 readline 命令读取行，则在开始编辑之前将文本放入编辑缓冲区
+-n NCHARS
+  后跟一个数字，定义输入文本的长度，而不是读取整行
+-N NCHARS
+  后跟一个数字，定义输入文本的长度，而不是读取整行。但是如果一行不足 nchars 个字符，则忽略行分隔符继续读取下一行
+-p PROMPT
+  从终端读取输入时，在输入前打印提示信息
+-r
+  屏蔽反斜杠 \。如果没有该选项，则 \ 作为一个转义字符，有的话 \ 就是个正常的字符了
+-s
+  静默模式，输入字符不显示到屏幕，例如 login 时输入密码
+-t TIMEOUT
+  后面跟秒数，定义输入字符的等待时间
+-u FD
+  后面跟文件描述符 fd，从文件描述符中读取
+read; echo "\$REPLY:$REPLY"
+read -p"input u password:";echo "\$REPLY:$REPLY"
+if read -t 5 -p "输入网站名:" name
+then
+   echo "你输入的网站名是 $website"
+else
+   echo "\n抱歉，你输入超时了。"
+fi
+exit 0
+read -n2 -p "请随便输入两个字符: " any
+echo "\n您输入的两个字符是:$any"
+read -s -p "请输入您的密码:" pass
+echo "\n您输入的密码是 $pass"
+while read var1 var2
+do
+   echo $var1 $var2
+done < file.txt
+
 28、grep -E -P 是什么意思
 -E, --extended-regexp 采用扩展正规表达式。
 -P，--perl-regexp 采用perl正规表达式

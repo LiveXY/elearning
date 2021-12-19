@@ -546,6 +546,10 @@ iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --name SSHPOO
 COMMIT
 
 
+iptables -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --update --seconds 60 --hitcount 30 -j REJECT iptables -A INPUT -p tcp --dport 80 -m recent --name BAD_HTTP_ACCESS --set -j ACCEPT
+
+#单个IP在60秒内只允许最多新建30个连接。
+
 
 
 

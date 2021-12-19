@@ -140,3 +140,37 @@ external_url 'http://git.test.com'
 nginx['listen_port'] = 9091
 
 /var/opt/gitlab/nginx/conf/gitlab-http.conf
+
+cat /var/opt/gitlab/gitlab-rails/etc/database.yml
+cat /var/opt/gitlab/postgresql/data/pg_hba.conf
+cat cat /var/opt/gitlab/postgresql/data/postgresql.conf
+cat /etc/gitlab/gitlab.rb | grep db_
+数据库gitlabhq_production 用户名gitlab 密码空 端口5432
+
+/var/opt/gitlab/git-data/repositories/51learning/
+
+gitlab-rails dbconsole
+\list
+gitlabhq_production postgres template0 template1
+
+select * from namespaces;
+select * from projects;
+
+/opt/gitlab/embedded/bin/psql -U gitlab -d gitlabhq_production -h 127.0.0.1
+alter user gitlab with password 'gitlab'
+
+create database gitlab DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON gitlab.*TO 'gitlab'@'%' IDENTIFIED BY 'gitlab' WITH GRANT OPTION;
+flush privileges;
+
+修改root密码
+gitlab-rails console production
+user = User.where(id: 1).first
+user.password="123456"
+user.password_confirmation="123456"
+user.save!
+quit
+
+mysql to postgresql
+https://docs.gitlab.com/ee/update/mysql_to_postgresql.html
+

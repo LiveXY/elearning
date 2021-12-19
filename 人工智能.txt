@@ -1538,6 +1538,7 @@ Tencent-ml-images 是包含当前最大的多标签图像数据库(ml-images) �
 https://github.com/Tencent/tencent-ml-images
 
 https://github.com/microsoft/onnxruntime
+https://github.com/microsoft/NUWA
 
 git clone https://github.com/facebookresearch/ParlAI.git
 cd ParlAI; python3 setup.py develop
@@ -2495,6 +2496,7 @@ https://github.com/phillipi/pix2pix
 https://github.com/junyanz/iGAN
 https://github.com/soumith/dcgan.torch
 https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
+https://github.com/basiclab/GNGAN-PyTorch
 
 信息抽取https://zhuanlan.zhihu.com/p/74803327
 中文命名实体识别：https://github.com/EOA-AILab/NER-Chinese
@@ -4282,6 +4284,8 @@ https://mp.weixin.qq.com/s/_2dhl-kgDXd_xZIAfjHsdg
 对抗网络
 https://github.com/VITA-Group/DeblurGANv2
 https://github.com/eriklindernoren/PyTorch-GAN
+风景照片/视频到动漫
+https://github.com/TachibanaYoshino/AnimeGANv2
 文本对抗性攻击工具包
 https://github.com/thunlp/OpenAttack
 原神自动钓鱼
@@ -4290,3 +4294,143 @@ https://github.com/7eu7d7/genshin_auto_fish
 XTDrone是基于PX4、ROS与Gazebo的无人机通用仿真平台
 https://gitee.com/robin_shaun/XTDrone
 https://github.com/robin-shaun/XTDrone
+
+https://www.graviti.cn/
+https://gas.graviti.cn/open-datasets
+
+用Resnet101+GPT搭建一个玩王者荣耀的AI
+https://github.com/FengQuanLi/ResnetGPT
+https://github.com/SamLynnEvans/Transformer
+https://github.com/FengQuanLi/WZCQ
+
+3D模型下载
+https://3dsky.org/
+多关节动力学与接触。通用物理模拟器。
+https://github.com/deepmind/mujoco
+适用于 Linux 和 macOS 的个人助理
+https://github.com/sukeesh/Jarvis
+详细的表情捕捉和动画
+https://github.com/YadiraF/DECA
+https://github.com/TimoBolkart/BFM_to_FLAME
+https://flame.is.tue.mpg.de/
+https://github.com/cleardusk/3DDFA_V2
+https://github.com/changgyhub/deepsketch2face
+
+https://github.com/dblalock/bolt
+手势
+https://github.com/Teneppa/CameraStream
+https://github.com/Teneppa/HandTrackingBrightnessControl
+MediaPipe 手掌识别模型BlazePalm（用于识别手的整体框架和方向）、Landmark模型（识别立体手部节点）、手势识别模型（将识别到的节点分类成一系列手势）
+
+https://github.com/ultralytics/yolov5
+https://github.com/ultralytics/yolov5/releases
+https://github.com/ultralytics/yolov5/issues/36
+https://github.com/Jacobi93/Alpha-IoU
+https://github.com/nebuchadnezzar26/Shape-Detector
+自动同步视频和字幕
+https://github.com/smacke/ffsubsync
+brew install ffmpeg
+pip install ffsubsync
+subsync video.mp4 -i unsynchronized.srt > synchronized.srt
+subsync video.mp4 -i unsynchronized.srt -o synchronized.srt
+
+https://github.com/TruthHun/BookStack
+https://github.com/TruthHun/converter
+https://calibre-ebook.com/download
+
+https://github.com/BaguaSys/bagua
+简单分布式机器学习
+https://github.com/microsoft/SynapseML
+名人名言
+http://quotes.toscrape.com/
+
+5秒内克隆您的声音并生成任意语音内容
+https://github.com/babysor/MockingBird
+pip install -r requirements.txt
+pip install webrtcvad-wheels
+pip3 install torch torchvision
+
+
+元宇宙前端
+https://github.com/google-ar/WebARonARKit
+https://github.com/google-ar/WebARonARCore
+https://github.com/immersive-web/webxr
+https://immersive-web.github.io/webxr-samples/
+https://github.com/De-Panther/unity-webxr-export
+https://github.com/google-ar/three.ar.js
+https://github.com/kig/JSARToolKit
+https://github.com/argonjs/argon
+https://github.com/eduardolundgren/tracking.js
+https://trackingjs.com/
+https://github.com/jeromeetienne/ar.js
+https://aframe.io/
+https://threejs.org/
+https://github.com/mrdoob/three.js/
+https://mixedreality.mozilla.org/
+https://www.mixamo.com/#/
+https://www.mixamo.com/#/?page=1&type=Motion%2CMotionPack
+https://www.mixamo.com/#/?page=1&type=Motion%2CMotionPack
+
+支持离线地图和轨迹记录的GPS自行车车速表
+https://github.com/FASTSHIFT/X-TRACK
+https://github.com/tumic0/GPXSee
+https://github.com/raspberrypi/tools
+https://github.com/qiurunze123/miaosha
+
+ANDROID TV
+https://github.com/yuliskov/SmartTubeNext
+
+机器学习生命周期的开源平台
+https://github.com/mlflow/mlflow
+https://mlflow.org/docs/latest/index.html
+交互式数据分析
+https://github.com/biolab/orange3
+可视化和数据探索平台
+https://github.com/apache/superset
+https://superset.apache.org/
+Apache Arrow 是一个多语言工具箱，用于加速数据交换和内存中处理
+https://github.com/apache/arrow
+https://github.com/apache/arrow/tree/master/go
+拟合可解释的模型。解释黑盒机器学习。
+https://github.com/interpretml/interpret
+Lime：解释任何机器学习分类器的预测
+https://github.com/marcotcr/lime
+具有任务调度的并行计算
+https://github.com/dask/dask
+BlazingSQL 是用于 Python 的轻量级、GPU 加速的 SQL 引擎。基于 RAPIDS cuDF。
+https://github.com/BlazingDB/blazingsql
+cuDF - GPU 数据帧库
+https://github.com/rapidsai/cudf
+🦔 PostHog 提供您可以自行托管的开源产品分析。
+https://github.com/PostHog/posthog
+🤗 Transformers：用于 Pytorch、TensorFlow 和 JAX 的最先进的自然语言处理。
+https://github.com/huggingface/transformers
+使用网格张量流库实现模型并行 GPT-2 和 GPT-3 样式模型。
+https://github.com/EleutherAI/gpt-neo
+对比语言-图像预训练
+https://github.com/openai/CLIP
+
+可微的绘图和素描
+https://github.com/jonhare/DifferentiableSketching
+
+https://github.com/LitingLin/SwinTrack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

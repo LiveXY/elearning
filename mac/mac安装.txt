@@ -15,6 +15,9 @@ xcode-select --install
 mac安装
 #商店安装：Go2Shell/Google Chrome/New File Free/PDF Reader X/QQ/QQ音乐/RAR Extractor Free/Thunder/Xcode/Dr. Cleaner/MPlayerX/Color Picker/iHex/Base64Anywhere/App2Dmg/微信/
 #下载安装：Sublime Text3/SSH Proxy/MacPorts/nodejs/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015
+xnip 滚动截长屏
+permute3 格式转换
+airserver 投屏
 
 ##设置存历史命令纪录数
 ```sh
@@ -810,5 +813,187 @@ sudo mdutil -E
 sudo mdutil -a -i on
 sudo fs_usage -w -f filesys mds_stores
 
+http://www.figlet.org/
+https://github.com/cmatsuoka/figlet
 
+brew install toilet
+toilet -f ascii12 linuxmi|lolcat
+toilet -f ascii9 linuxmi|lolcat
+toilet -f bigascii12 linuxmi|lolcat
+toilet -f bigascii9 linuxmi|lolcat
+toilet -f bigmono12 linuxmi|lolcat
+toilet -f bigmono9 linuxmi|lolcat
+toilet -f circle linuxmi|lolcat
+toilet -f emboss2 linuxmi|lolcat
+toilet -f emboss linuxmi|lolcat
+toilet -f future linuxmi|lolcat
+toilet -f future linuxmi|lolcat
+toilet -f letter linuxmi|lolcat
+toilet -f mono12 linuxmi|lolcat
+toilet -f mono9 linuxmi|lolcat
+toilet -f smmono12 linuxmi|lolcat
+toilet -f smmono9 linuxmi|lolcat
+toilet -f smascii12 linuxmi|lolcat
+toilet -f smascii9 www.linuxmi.com|lolcat
+toilet -f smblock www.linuxmi.com|lolcat
+toilet -f smbraille www.linuxmi.com|lolcat
+toilet -f wideterm www.linuxmi.com|lolcat
 
+AVIF图片 https://squoosh.app/
+https://github.com/AOMediaCodec/libavif
+./avifenc happy_dog.jpg example.avif --min 0 --max 63 -a end-usage=q -a cq-level=32 -a tune=ssim -a deltaq-mode=3 -a sharpness=3 -y 420
+./avifenc happy_dog.jpg example.avif --jobs 8
+<picture>
+  <source type="image/avif" srcset="example.avif" />
+  <img src="happy_dog.jpg" />
+</picture>
+ffmpeg -i input.gif -pix_fmt yuv420p -f yuv4mpegpipe output.y4m
+avifenc ice_qcif_15fps.y4m animated.avif
+<picture>
+  <source type="image/avif" srcset="animated.avif" />
+  <img src="ice_qcif_15fps.gif" />
+</picture>
+WEBP图片
+https://developers.google.com/speed/webp/download
+https://developers.google.com/speed/webp/docs/precompiled
+
+MAC 自带测速工具（400M）
+networkQuality -v
+==== SUMMARY ====
+Upload capacity: 33.384 Mbps
+Download capacity: 40.588 Mbps
+Upload flows: 16
+Download flows: 12
+Responsiveness: Medium (503 RPM)
+Base RTT: 1
+Start: 2021/11/23 18:09:17
+End: 2021/11/23 18:09:33
+OS Version: Version 12.1 (Build 21C5021h)
+https://www.speedtest.cn/
+
+命令行工具
+https://mp.weixin.qq.com/s/C9RQ9DT-BeU2pMI7Qwm_8Q
+90后命令行
+https://github.com/fish-shell/fish-shell
+brew install fish
+https://fishshell.com/
+☄🌌️ 适用于任何 shell 的最小、极快且可无限自定义的提示！
+https://github.com/starship/starship
+https://starship.rs/
+brew install starship
+vi ~/.bashrc
+eval "$(starship init bash)"
+vi ~/.zshrc
+命令行模糊查找器
+https://github.com/junegunn/fzf
+brew install fzf
+$(brew --prefix)/opt/fzf/install
+
+https://github.com/asciinema/asciinema
+brew install asciinema
+asciinema rec [filename]
+asciinema play /path/to/asciicast.cast
+
+https://github.com/daveewart/colordiff
+https://github.com/so-fancy/diff-so-fancy
+
+简化版的命令帮助手册
+pip3 install tldr
+npm install -g tldr
+
+sqlite pgsql client
+https://github.com/dbcli/litecli
+pip install litecli
+brew install litecli
+.tables
+https://github.com/dbcli/pgcli
+pip install -U pgcli
+brew install pgcli
+pgcli [database_name]
+pgcli postgresql://[user[:password]@][netloc][:port][/dbname][?extra=value[&other=other-value]]
+pgcli postgres://amjith:pa$$w0rd@example.com:5432/app_db?sslmode=verify-ca&sslrootcert=/myrootcert
+https://github.com/dbcli/mycli
+pip install -U mycli
+brew install mycli
+dnf install mycli
+
+https://github.com/mas-cli/mas
+brew install mas
+mas list
+mas search Xcode
+mas install 808809998
+mas lucky twitter
+mas purchase 768053424
+mas outdated
+mas upgrade
+mas upgrade 715768417
+mas signin mas@example.com
+mas signin --dialog mas@example.com
+
+磁盘分析
+https://dev.yorhel.nl/ncdu
+https://dev.yorhel.nl/ncdu/man2
+
+https://github.com/videolan/vlc
+https://www.videolan.org/vlc/download-macosx.html
+https://www.videolan.org/vlc/
+https://github.com/pulseaudio/pulseaudio
+
+https://github.com/koalaman/shellcheck
+yum -y install epel-release
+yum install ShellCheck
+dnf install ShellCheck
+brew install shellcheck
+shellcheck yourscript
+
+Comsol FDTD 电磁波仿真
+Ansys工程设计仿真
+Multism数学电力电子领域仿真
+Mathtype公式编辑器
+Mathpix公式截取
+Setuna图文同步
+Evenything科研文件搜索
+Deepl翻译器
+天若ocr
+Krita 5.0 免费和开源数字绘画应用程序
+https://github.com/KDE/krita
+Krita 被漫画艺术家、插画家、概念艺术家、哑光和纹理画家以及数字 VFX 行业使用。
+https://binary-factory.kde.org/job/Krita_Stable_MacOS_Build/
+
+Zsh + Oh My Zsh，Linux 与 macOS 生产力工具
+https://mp.weixin.qq.com/s/ldVO-drVV1ae_PM34ZCiYw
+which zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+sqlitebrowser
+dnf install sqlitebrowser
+brew install --cask db-browser-for-sqlite
+
+配色神器
+https://coolors.co/
+http://colormind.io/bootstrap
+https://color.adobe.com/zh/create/color-wheel
+
+Dbeaver 无法打开
+显示包内容 -> Contents -> info.plist
+
+-vm
+/usr/libexec/java_home -V
+echo $JAVA_HOME
+<string>-vm</string><string>/usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home/bin/java</string>
+
+https://www.baifachuan.com/posts/4862a3b1.html
+error: implicit declaration of function 'setresgid' is invalid in C99
+brew install FiloSottile/musl-cross/musl-cross
+https://github.com/filosottile/homebrew-musl-cross
+ln -s /usr/local/opt/musl-cross/bin/x86_64-linux-musl-gcc /usr/local/bin/musl-gcc
+brew install mingw-w64
+wget https://copr.fedorainfracloud.org/coprs/ngompa/musl-libc/repo/epel-7/ngompa-musl-libc-epel-7.repo -O /etc/yum.repos.d/ngompa-musl-libc-epel-7.repo
+yum install -y musl-libc-static
+
+https://github.com/BurntSushi/ripgrep
+brew install ripgrep
+
+Blender 3.0 发布，三维动画制作软件重大更新
+https://www.blender.org/download/

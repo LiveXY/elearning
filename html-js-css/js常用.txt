@@ -5,6 +5,24 @@ https://github.com/madrobby/zepto
 Vue 知识点
 https://mp.weixin.qq.com/s/wX6M6To1Hs0uQegtFMQZiA
 
+VUE3 admin
+https://github.com/qingqingxuan/vue-admin-work-x
+https://github.com/qingqingxuan/admin-work
+
+VUE 仿微信聊天
+https://github.com/CCZX/wechat
+
+https://github.com/Orlandster/vue-typed-js
+时序图
+https://plantuml.com/zh/
+
+https://github.com/CreateJS/EaselJS
+https://github.com/CreateJS/SoundJS
+https://github.com/CreateJS/TweenJS
+https://github.com/CreateJS/PreloadJS
+
+https://github.com/appsmithorg/appsmith
+
 MVVM的框架 虚拟DOM
 https://github.com/developit/preact
 https://github.com/facebook/react
@@ -16,6 +34,7 @@ https://github.com/ant-design/ant-design-pro
 https://github.com/infernojs/inferno
 https://github.com/elemefe/element-react
 https://github.com/mui-org/material-ui
+https://github.com/facebook/hermes
 
 https://github.com/vuejs/vue
 https://github.com/heyui/heyui
@@ -26,8 +45,19 @@ https://github.com/youzan/vant
 https://github.com/nuxt-community/nuxt7
 https://github.com/nmxiaowei/avue
 
+https://github.com/modern-js-dev/modern.js
+https://github.com/zloirock/core-js
+
+https://github.com/kolplattformen/skolplattformen
+
 https://github.com/angular/angular
 https://github.com/primefaces/primeng
+
+https://github.com/TryGhost/Ghost
+
+https://github.com/maomao1996/Vue-mmPlayer
+https://github.com/maomao1996/react-music
+https://netease-music.fe-mm.com/
 
 https://github.com/knockout/knockout
 https://github.com/RubyLouvre/avalon
@@ -39,6 +69,17 @@ https://github.com/Tencent/weui
 React走的是另外一个流派，就是所谓的函数式，在这个里面，推崇的是单向数据流：给定原始界面（或数据），施加一个变化，就能推导出另外一个状态（界面或者数据的更新）。
 在这里需要额外提一下ReactiveJS，它的理念又有所不同，是基于Reactive的
 我们提到React的时候，就会听到Flux，Redux之类的东西
+
+GoGoCode 是基于 AST 的 JavaScript/Typescript/HTML 转换器，但提供更直观的 API
+https://github.com/thx/gogocode
+npm install gogocode-cli -g
+gogocode -s ./src -t gogocode-plugin-vue -o ./src-out
+
+https://github.com/kingyiusuen/image-to-latex
+https://github.com/excalidraw/excalidraw
+
+自动测试
+https://github.com/getgauge/taiko
 
 去掉多余的CSS
 https://github.com/FullHuman/purgecss
@@ -177,7 +218,7 @@ https://github.com/marktext/marktext
 https://github.com/Molunerfinn/PicGo
 https://github.com/nativefier/nativefier
 npm install -g nativefier
-nativefier 'demo-new.51-learning.cn'
+nativefier 'demo.domain.cn'
 
 模块加载 依赖管理 AMD规范 CMD规范
 AMD规范
@@ -489,6 +530,10 @@ https://github.com/peachananr/loading-bar
 https://github.com/ramswaroop/animatescroll.js
 https://github.com/bingdian/waterfall
 
+https://github.com/adamwdraper/Numeral-js
+https://github.com/iamkun/dayjs/
+https://github.com/Dlom/favicon.js
+
 test
 https://github.com/mochajs/mocha
 https://github.com/jasmine/jasmine
@@ -608,3 +653,9 @@ https://antoniandre.github.io/wave-ui/
 SVG
 https://undraw.co/illustrations
 https://www.shapedivider.app/ #自定义形状分隔线
+
+TLS
+https://github.com/digitalbazaar/forge
+
+
+

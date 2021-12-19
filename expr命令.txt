@@ -1,0 +1,71 @@
+expr EXPRESSION OPTION
+
+ARG1 | ARG2
+  若 ARG1 的值不为 0 或者不为空，则返回 ARG1，否则返回 ARG2
+ARG1 & ARG2
+  若两边的值都不为 0 或都不为空，则返回 ARG1，否则返回 0
+ARG1 < ARG2
+  ARG1 小于 ARG2 返回 1 否则返回 0
+ARG1 <= ARG2
+  ARG1 小于或等于 ARG2 返回 1 否则返回 0
+ARG1 = ARG2
+  ARG1 等于 ARG2 返回 1 否则返回 0
+ARG1 != ARG2
+  ARG1 不等于 ARG2 返回 1 否则返回 0
+ARG1 >= ARG2
+  ARG1 大于或等于 ARG2 返回 1 否则返回 0
+ARG1 > ARG2
+  ARG1 大于 ARG2 返回 1 否则返回 0
+ARG1 + ARG2
+  计算 ARG1 与 ARG2 相加之和
+ARG1 - ARG2
+  计算 ARG1 与ARG2 相减之差
+ARG1 * ARG2
+  计算 ARG1 与ARG2 相乘之积
+ARG1 / ARG2
+  计算 ARG1 与 ARG2 相除之商，向下转换成整数
+ARG1 % ARG2
+  计算 ARG1 与ARG2 相除取余
+STRING : REGEXP
+   执行模式匹配。两端参数会转换为字符串格式，且第二个参数被视为正则表达式(GNU基本正则)，它默认会隐含前缀"^"。随后将第一个参数和正则模式做匹配。如果匹配成功，且 REGEX 使用了 \( 和 \)，则返回匹配到的内容，如果未使用 \( 和 \)，则返回匹配的字符数。否则返回为 0
+match STRING REGEXP
+  等于 STRING : REGEXP
+substr STRING POS LENGTH
+  返回 STRING 中从 POS（从 1 开始） 开始长度最大为 LENGTH 的子串。如果 POS 或 LENGTH 为负数、0 或非数值，则返回空字符串
+index STRING CHARS
+  CHARS 中任意单个字符在 STRING 中最前面的字符位置。如果在 STRING 中完全不存在 CHARS 中的字符，则返回 0
+length STRING
+  字符串的长度
++ TOKEN
+  将 TOKEN 解析为普通字符串，即使 TOKEN 是像 match 或操作符 / 一样的关键字
+( EXPRESSION )
+  表达式可以使用一对小括号括起来。注意表达式与括号间需要空格
+
+注意
+很多操作符需要进行转义，比如大于号在 Shell 中用于重定向，使用大于号时需要转义 >；
+如果两个参数都是数字，那么比较就是算术运算，否则就是字典序。
+
+示例
+expr 1 + 1
+expr 1 - 1
+expr 1 * 1
+expr 1 / 2
+expr 1 % 2
+
+expr 1 + \( 1 + 1 \)
+
+expr 1 \< 1
+expr 1 \<= 1
+expr 1 \> 1
+expr 1 \>= 1
+expr 1 = 1
+expr 1 != 1
+expr "abc" \< "acb"
+expr "abc" \< "acb"
+
+expr "abcd" : "\(.bc\)"
+expr "abcd" : ".bc" #不使用小括号获取匹配正则的字符串的长度
+expr substr "abcd" 1 3
+expr length "abcd"
+expr length + "length"
+

@@ -124,6 +124,13 @@ ss实例：
 * 将本地或者远端口比较 `ss dport OP PORT` `ss sport OP PORT` `ss dport OP PORT` 远端比较；`ss sport OP PORT` 本地比较。OP：<= or le : 小於或等於埠號、>= or ge : 大於或等於埠號、== or eq : 等於埠號、!= or ne : 不等於埠號、< or gt : 小於埠號、> or lt : 大於埠號
 * 按状态查看连接连接数量：`ss -ant | awk '{++s[$1]} END {for(k in s) print k,s[k]}'`
 
+# 列出所有网卡，包含ip以及mtu信息
+ip link show
+# 查看网卡ethX的统计信息
+ip -h -s link show dev eth0
+# 查看网卡最大ring_buffer和当前配置的ring_buffer大小
+ethtool -g eth0
+
 用途	net-tool/iproute2
 地址和链路配置 ifconfig/ip addr,ip link
 路由表 route/ip route

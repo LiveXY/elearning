@@ -1196,3 +1196,8 @@ pip3 install social-analyzer
 python3 -m social-analyzer --cli --mode "fast" --username "johndoe" --websites "youtube pinterest tumblr" --output "pretty" --metadata --extract --trim
 
 docker run -e "IP_V4_TARGET=127.0.0.1" --rm -it vrusinov/tsunami-security-scanner:latest
+
+WEB安全
+https://websec.readthedocs.io/zh/latest/
+暴力破解WI-FI密码
+https://mp.weixin.qq.com/s/NvthHc_uw74NIpE6ZyA4xQ
