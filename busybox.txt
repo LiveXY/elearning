@@ -1,0 +1,54 @@
+
+https://busybox.net/
+https://busybox.net/downloads/
+
+
+命令
+ash - 符合POSIX的一个简单的shell
+awk - 将文件解析为记录及字段后，按模式匹配操作其内容
+cat - 将多个文件首尾相连显示于标准输出
+chmod - 更改文件的权限设置
+cp - 拷贝文件或目录
+date - 打印/设置日期时间
+dd
+df - 印出文件系统的使用统计
+dmesg - 查看内核信息
+echo - 打印指定内容
+egrep - 接受扩展正则表达式的grep
+fgrep - 接受固定字符串模式的grep
+grep - 列出文件或标准输入中符合模式的行
+gzip
+kill - 关闭一个程序
+ln - 创建链接
+login - 以某个用户身份登录
+ls - 列出目录或文件
+mdu
+mkdir - 创建一个目录
+more
+mount 挂载存储设备
+mv - 移动文件
+netstat - 查看 TCP/IP 连接信息
+ntpc
+ntpsync
+nvram
+pidof
+ping
+ps - 印出程序状态
+pwd - 印出工作目录
+rm - 删除文件
+rmdir - 移除目录
+rstats
+sed
+sh
+sleep
+sync - 将缓存写入到硬盘中
+tar
+touch
+umount 移除挂载的存储设备
+uname - 查看系统信息
+usleep
+vi - 一个带有简单的模式提示的精简版仿vi编辑器
+watch
+wget - HTTP或FTP下载工具
+zcat
+实际的命令列表按编译时的设置决定，在有Busybox的系统上执行busybox --list即可看到一个列表。

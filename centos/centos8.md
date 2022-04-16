@@ -1,31 +1,74 @@
+centos8替代品
+https://download.rockylinux.org/pub/rocky/
+https://atl.mirrors.knownhost.com/almalinux/
+
 centos8
+
+hostnamectl
+cat /etc/redhat-release 或 rpm -q centos-release #查看系统版本
+uname -a
+cat /proc/cpuinfo
+cat /proc/meminfo
+cat /proc/version
+cat /etc/issue
+dmesg | grep Linux
+dmesg | grep -i eth
+lscpu
+dmidecode
+cat /proc/interrupts
+
+麒麟
+nkvers
+cat /etc/kylin-release
+cat /etc/.productinfo
+
+dnf upgrade
 
 dnf install wget git -y
 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-dnf module list nginx
-dnf module reset nginx
-dnf module enable nginx:1.18 -y
-dnf install nginx -y
+rpm -qa | grep remi
+rpm -e remi-release-8.5-2.el8.remi.noarch
+dnf install http://mirrors.aliyun.com/remi/enterprise/remi-release-8.rpm -y
 
 dnf module list redis
 dnf module reset redis
 dnf module enable redis:6 -y
 dnf install redis -y
+systemctl enable redis
+systemctl restart redis
 
-dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-dnf install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm
+dnf install mariadb mariadb-server -y
 
-dnf upgrade
+rpm -qa | grep epel
+rpm -e epel-release-8-13.el8.noarch
+dnf install https://mirrors.aliyun.com/epel/epel-release-latest-8.noarch.rpm -y
+
+Repository epel is listed more than once in the configuration
+grep '\[epel\]' /etc/yum.repos.d/*
+
+dnf module list nginx
+dnf module reset nginx
+dnf module enable nginx:1.18 -y
+dnf module enable nginx:1.20 -y
+dnf install nginx -y
+systemctl enable nginx
+systemctl restart nginx
+
+rpm -qa | grep rpmfusion
+rpm -e rpmfusion-free-release-8-0.1.noarch
+dnf install http://mirrors.aliyun.com/rpmfusion/free/el/rpmfusion-free-release-8.noarch.rpm -y
+
+dnf upgrade --refresh -y
+yum makecache && yum repolist
 dnf config-manager --set-enabled PowerTools
 
-rpm -ivh http://mirror.centos.org/centos/8/PowerTools/x86_64/os/Packages/SDL2-2.0.10-2.el8.x86_64.rpm
-rpm -ivh https://centos.pkgs.org/8/centos-powertools-x86_64/SDL2-2.0.10-2.el8.x86_64.rpm.html
+rpm -e SDL2-2.0.10-2.el8.x86_64
+dnf install https://mirrors.aliyun.com/centos/8/PowerTools/x86_64/os/Packages/SDL2-2.0.10-2.el8.x86_64.rpm -y
 
-dnf install ffmpeg
+dnf install ffmpeg -y
 ffmpeg -version
 
-dnf install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langpack-zh-Hant libreoffice-ure libreoffice-ure-common libreoffice-base libreoffice-data libreoffice-impress libreoffice-x11 libreofficekit libreoffice-writer
+dnf install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langpack-zh-Hant libreoffice-ure libreoffice-ure-common libreoffice-base libreoffice-data libreoffice-impress libreoffice-x11 libreofficekit libreoffice-writer -y
 
 
 yum -y install wget
@@ -96,5 +139,8 @@ http://example.org/b.pdf
 nginx.service: Failed to adjust resource limit RLIMIT_NOFILE: Operation not permitted
 nginx.service: Failed at step LIMITS spawning /usr/bin/rm: Operation not permitted
 systemctl daemon-reload
+
+
+两个最受欢迎和占有CentOS市场份额最高的发行版是Rocky Linux和Alma Linux
 
 

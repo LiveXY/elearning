@@ -440,3 +440,13 @@ db.createCollection("oplog.rs", {"capped" : true, "size" : 10000000})
 centos 7 ansible 安装 mongodb 集群
 https://blog.csdn.net/liangkiller/article/details/100761623
 https://blog.csdn.net/qq_39570637/article/details/103744284
+
+https://mp.weixin.qq.com/s/9XAadNklZI_p1JgJowVgPg
+几个尖刺点都是执行mongodump导致的。怎么限制mongodump上的cpu使用呢？
+
+mtools是一组用来解析和过滤MongoDB日志文件的脚本工具。mtools中包含以下几个工具：mlogfilter、mloginfo、mplotqueries、mlogvis、mlaunch、mgenerate。
+本文主要介绍其中的mlogfilter。
+mlogfilter，主要用来解析日志文件，过滤慢查询。
+官方文档：http://blog.rueckstiess.com/mtools/install.html
+
+

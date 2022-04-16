@@ -1,0 +1,425 @@
+mysql8 MGR 多主配置
+=====
+
+10.0.2.15 主
+```
+hostnamectl set-hostname db1
+vi /etc/hosts
+127.0.0.1 db1
+10.0.2.15 db1
+10.0.2.16 db2
+```
+
+10.0.2.16 从
+```
+hostnamectl set-hostname db2
+vi /etc/hosts
+127.0.0.1 db2
+10.0.2.15 db1
+10.0.2.16 db2
+```
+
+关闭防火墙
+```
+setenforce 0
+systemctl stop firewalld
+systemctl disabled firewalld
+或开启指定端口
+firewall-cmd --permanent --zone=public --add-port=3306/tcp
+firewall-cmd --permanent --zone=public --add-port=33061/tcp
+firewall-cmd --reload
+验证
+firewall-cmd --zone=public --query-port=3306/tcp
+firewall-cmd --zone=public --query-port=33061/tcp
+firewall-cmd --list-all
+```
+
+10.0.2.15 主服务器配置
+```
+不同节点 server_id 和 group_replication_local_address 不同
+vi /etc/my.cnf
+[mysqld]
+server_id=1
+gtid_mode=on
+enforce_gtid_consistency=on
+max_connections=2000
+open_files_limit=65535
+slow_query_log=1
+slow_query_log_file="mysql-slow.log"
+long_query_time=2
+auto-increment-offset = 1
+auto-increment-increment = 2
+
+binlog_format=ROW
+transaction_isolation='READ-COMMITTED'
+log_slave_updates=ON
+log_bin=binlog
+binlog_checksum=NONE
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+disabled_storage_engines='MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY'
+
+plugin_load_add='group_replication.so'
+transaction_write_set_extraction=XXHASH64
+loose-group_replication_group_name='cc5e2627-2285-451f-86e6-0be21581539f'
+loose-group_replication_ip_whitelist='127.0.0.1/8,192.168.1.0/24,10.0.0.0/8'
+loose-group_replication_local_address='db1:33081'
+loose-group_replication_group_seeds='db1:33081,db2:33081'
+loose-group_replication_bootstrap_group=OFF
+loose-group_replication_single_primary_mode=OFF
+loose-group_replication_enforce_update_everywhere_checks=ON
+loose-group_replication_allow_local_disjoint_gtids_join=ON
+loose-group_replication_start_on_boot=OFF
+
+启动重启MYSQL
+systemctl restart mysqld
+mysql -uroot -p
+
+#创建复制帐号
+set sql_log_bin=0;
+#set global super_read_only=off;
+CREATE USER repl2@'%' IDENTIFIED WITH 'mysql_native_password' BY 'repl@DB2022';
+grant REPLICATION SLAVE on *.* to 'repl2'@'%' with grant option;
+GRANT BACKUP_ADMIN ON *.* TO repl2@'%';
+FLUSH PRIVILEGES;
+#set global super_read_only=on;
+set sql_log_bin=1;
+
+#主库启动并引导组复制
+SET GLOBAL group_replication_bootstrap_group=ON;
+start group_replication;
+SET GLOBAL group_replication_bootstrap_group=OFF;
+
+SELECT * FROM performance_schema.replication_group_members;
+```
+
+10.0.2.16 从服务器
+```
+vi /etc/my.cnf
+[mysqld]
+server_id=2
+gtid_mode=on
+enforce_gtid_consistency=on
+max_connections=2000
+open_files_limit=65535
+slow-query-log=1
+slow_query_log_file="mysql-slow.log"
+long_query_time=2
+auto-increment-offset = 2
+auto-increment-increment = 2
+
+binlog_format=ROW
+transaction_isolation='READ-COMMITTED'
+log_slave_updates=ON
+log_bin=binlog
+binlog_checksum=NONE
+master_info_repository=TABLE
+relay_log_info_repository=TABLE
+disabled_storage_engines='MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY'
+
+plugin_load_add='group_replication.so'
+transaction_write_set_extraction=XXHASH64
+loose-group_replication_group_name='cc5e2627-2285-451f-86e6-0be21581539f'
+loose-group_replication_ip_whitelist='127.0.0.1/8,192.168.1.0/24,10.0.0.0/8'
+loose-group_replication_local_address='db2:33081'
+loose-group_replication_group_seeds='db1:33081,db2:33081'
+loose-group_replication_bootstrap_group=OFF
+loose-group_replication_single_primary_mode=OFF
+loose-group_replication_enforce_update_everywhere_checks=ON
+loose-group_replication_allow_local_disjoint_gtids_join=ON
+loose-group_replication_start_on_boot=OFF
+loose-group_replication_recovery_get_public_key=ON
+
+启动重启MYSQL
+systemctl restart mysqld
+mysql -uroot -p
+
+#创建复制帐号
+set sql_log_bin=0;
+#set global super_read_only=off;
+CREATE USER repl2@'%' IDENTIFIED WITH 'mysql_native_password' BY 'repl@DB2022';
+grant REPLICATION SLAVE on *.* to 'repl2'@'%' with grant option;
+GRANT BACKUP_ADMIN ON *.* TO repl2@'%';
+FLUSH PRIVILEGES;
+#set global super_read_only=on;
+set sql_log_bin=1;
+
+#加入主节点
+CHANGE MASTER TO MASTER_USER='repl2', MASTER_PASSWORD='repl@DB2022' FOR CHANNEL 'group_replication_recovery';
+
+#set global group_replication_allow_local_disjoint_gtids_join=ON;
+#set global group_replication_recovery_get_public_key=ON;
+start group_replication;
+SELECT * FROM performance_schema.replication_group_members;
+```
+
+查看状态
+```
+SELECT * FROM performance_schema.replication_group_members;
+show global variables like '%read_only%';
+SELECT * FROM performance_schema.replication_group_member_stats\G
+SELECT * FROM performance_schema.replication_applier_status\G
+SELECT * FROM performance_schema.replication_connection_status\G
+SELECT VARIABLE_VALUE FROM performance_schema.global_status WHERE VARIABLE_NAME = 'group_replication_primary_member';
+SELECT MEMBER_ID, MEMBER_HOST,MEMBER_PORT,MEMBER_STATE,IF(global_status.VARIABLE_NAME IS NOT NULL,'PRIMARY','SECONDARY') AS MEMBER_ROLE FROM performance_schema.replication_group_members LEFT JOIN performance_schema.global_status ON global_status.VARIABLE_NAME = 'group_replication_primary_member' AND global_status.VARIABLE_VALUE = replication_group_members.MEMBER_ID;
+show global variables like '%group_replication%';
+select user,host,plugin,authentication_string from user \G
+show full processlist;
+SELECT RECEIVED_TRANSACTION_SET FROM performance_schema.replication_connection_status WHERE  channel_name = 'group_replication_applier' UNION ALL SELECT variable_value FROM performance_schema.global_variables WHERE  variable_name = 'gtid_executed'\G
+select plugin_name, plugin_status from information_schema.plugins where plugin_name like 'group_%';
+
+show slave status\G;
+SHOW REPLICA STATUS\G;
+show master status\G;
+SHOW WARNINGS;
+show master status;
+```
+
+keepalived 多主 VIP 10.0.2.8
+```
+yum install -y keepalived
+rpm -ql keepalived
+wget https://www.keepalived.org/software/keepalived-2.2.7.tar.gz
+tar -zvxf keepalived-2.2.7.tar.gz
+cd keepalived-2.2.7
+./configure --prefix=/usr/local/keepalived
+make && make install
+vi /usr/lib/systemd/system/keepalived.service
+[Unit]
+Description=LVS and VRRP High Availability Monitor
+After=network-online.target syslog.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/keepalived.pid
+KillMode=process
+EnvironmentFile=-/etc/sysconfig/keepalived
+ExecStart=/usr/sbin/keepalived $KEEPALIVED_OPTIONS
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
+yum -y install keepalived --downloadonly --downloaddir /home/keepalived
+yumdownloader --resolve --destdir=/home/keepalived keepalived
+systemctl restart keepalived
+
+主
+vi /etc/keepalived/keepalived.conf
+global_defs {
+	smtp_connect_timeout 30
+	router_id LVS_MYSQL
+	vrrp_skip_check_adv_addr
+	vrrp_garp_interval 0
+	vrrp_gna_interval 0
+}
+vrrp_script chk_mysql {
+	script "/usr/bin/killall -0 mysqld"
+	#script "/etc/keepalived/check_haproxy.sh"
+	interval 3
+	fall 3
+	rise 2
+}
+vrrp_instance VI_1 {
+	state MASTER
+	interface enp0s3
+	virtual_router_id 51
+	priority 101
+	advert_int 1
+	nopreempt
+	authentication {
+		auth_type PASS
+		auth_pass KA@@
+	}
+	virtual_ipaddress {
+		10.0.2.8
+	}
+	track_script {
+		chk_mysql
+	}
+}
+
+备
+vi /etc/keepalived/keepalived.conf
+global_defs {
+	smtp_connect_timeout 30
+	router_id LVS_MYSQL
+	vrrp_skip_check_adv_addr
+	vrrp_garp_interval 0
+	vrrp_gna_interval 0
+}
+vrrp_script chk_mysql {
+	script "/usr/bin/killall -0 mysqld"
+	interval 3
+	fall 3
+	rise 2
+}
+vrrp_instance VI_1 {
+	state BACKUP
+	interface enp0s3
+	virtual_router_id 51
+	priority 100
+	advert_int 1
+	authentication {
+		auth_type PASS
+		auth_pass KA@@
+	}
+	virtual_ipaddress {
+		10.0.2.8
+	}
+	track_script {
+		chk_mysql
+	}
+}
+
+vi /etc/keepalived/check_mysql.sh
+#!/bin/sh
+if [ $(ps -C mysqld --no-header | wc -l) -eq 0 ]; then
+	systemctl restart mysqld
+	sleep 1
+	if [ $(ps -C mysqld --no-header | wc -l) -eq 0 ]; then
+		systemctl stop keepalived
+	fi
+fi
+chmod u+x /etc/keepalived/check_haproxy.sh
+
+```
+
+同 my.cnf 配置
+```
+set global gtid_mode=on;
+set @@global.enforce_gtid_consistency=warn;
+set @@global.enforce_gtid_consistency=on;
+SET @@GLOBAL.GTID_MODE = OFF_PERMISSIVE;
+SET @@GLOBAL.GTID_MODE = on_permissive;
+SHOW STATUS LIKE 'ONGOING_ANONYMOUS_TRANSACTION_COUNT';
+show master status;
+SET @@GLOBAL.GTID_MODE = ON;
+
+set global binlog_format=row;
+set global server_id=1;
+set global transaction_isolation='READ-COMMITTED';
+set global log_slave_updates=ON;
+set global binlog_checksum=NONE;
+set global master_info_repository=TABLE;
+set global relay_log_info_repository=TABLE;
+
+set global transaction_write_set_extraction='XXHASH64';
+set global group_replication_start_on_boot=OFF;
+set global group_replication_bootstrap_group = OFF ;
+set global group_replication_group_name= 'cc5e2627-2285-451f-86e6-0be21581539f';
+set global group_replication_local_address='db1:33081';
+set global group_replication_group_seeds='db1:33081,db2:33081';
+set global group_replication_ip_whitelist = '127.0.0.1/8,192.168.1.0/24,10.0.0.1/8';
+set global group_replication_single_primary_mode=off;
+set global group_replication_enforce_update_everywhere_checks=on;
+
+set global group_replication_member_weight=60;
+```
+
+安装插件
+```
+ll /usr/lib64/mysql/plugin/ | grep group_replication
+install PLUGIN group_replication SONAME 'group_replication.so';
+show plugins;
+show variables like 'group%';
+show variables like 'plugin_dir';
+show variables like '%server_uuid%'
+show variables like '%server_id%'
+```
+
+修改 mysql_native_password 加密
+```
+SET SQL_LOG_BIN=0;
+set global super_read_only=off;
+#drop user 'repl'@'%';
+reset master;
+reset slave all;
+CREATE USER repl2@'%' IDENTIFIED WITH 'mysql_native_password' BY 'repl@DB2022';
+grant REPLICATION SLAVE on *.* to 'repl2'@'%' with grant option;
+GRANT BACKUP_ADMIN ON *.* TO repl2@'%';
+CHANGE MASTER TO MASTER_USER='repl2', MASTER_PASSWORD='repl@DB2022' FOR CHANNEL 'group_replication_recovery';
+set global super_read_only=on ;
+SET SQL_LOG_BIN=1;
+```
+
+mgr单主模式切换到多主模式
+```
+# 停止组复制(所有节点执行)：
+stop group_replication;
+set global group_replication_single_primary_mode = OFF;
+set global group_replication_enforce_update_everywhere_checks = ON;
+# 随便选择某个节点执行
+SET GLOBAL group_replication_bootstrap_group = ON;
+START GROUP_REPLICATION;
+SET GLOBAL group_replication_bootstrap_group = OFF;
+# 其他节点执行
+START GROUP_REPLICATION;
+```
+
+mgr多主模式切换到单主模式
+```
+# 所有节点执行
+stop group_replication;
+set global group_replication_enforce_update_everywhere_checks = OFF;
+set global group_replication_single_primary_mode = ON;
+# 主节点执行
+SET GLOBAL group_replication_bootstrap_group = ON;
+START GROUP_REPLICATION;
+SET GLOBAL group_replication_bootstrap_group = OFF;
+# 从节点执行
+START GROUP_REPLICATION;
+```
+
+其它配置
+```
+vi /etc/my.cnf
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4'
+innodb_buffer_pool_size = 1024M
+innodb_log_file_size = 2048M
+innodb_file_per_table = 1
+innodb_flush_log_at_trx_commit = 0
+key_buffer_size = 64M
+open_files_limit = 65535
+max_allowed_packet = 512M
+
+#主库
+auto-increment-offset = 1
+#从库
+auto-increment-offset = 2
+
+auto-increment-increment = 2
+slave-skip-errors = all
+
+```
+
+RECOVERING 错误
+```
+Got fatal error 1236 from master when
+reading data from binary log: 'The slave is connecting using CHANGE MASTER TO MASTER_AUTO_POSITION = 1, but the master has
+purged binary logs containing GTIDs that the slave requires.', Error_code: 1236
+登录主库
+show global variables like 'gtid_purged';
+从库 跳过这个GTID
+STOP GROUP_REPLICATION;
+reset master;
+set global gtid_purged = '8769f936-3e51-11e9-acaa-005056ac6820:1-2';
+START GROUP_REPLICATION;
+
+从库状态是RECOVERING
+查看主库gtid值
+show global variables like 'gtid_%';
+show global variables like 'gtid_executed';
+从库执行：
+STOP GROUP_REPLICATION;
+reset master;
+set global gtid_purged = 'cc5e2627-2285-451f-86e6-0be21581539f:1-5';
+START GROUP_REPLICATION;
+SELECT * FROM performance_schema.replication_group_members;
+也可能是HOSTS问题
+```
+
+

@@ -10,7 +10,48 @@ https://github.com/astrit/css.gg
 https://github.com/antfu/unplugin-icons
 https://github.com/iconify/iconify
 
+CSS学习网站
+https://mp.weixin.qq.com/s/wtmrHmQ6nF5ISxK6jbF6Rg
+https://github.com/qianlongo/hot-styles
+https://mp.weixin.qq.com/s/kmfRNXA3hM74wDI_HW0CNw
+Flex Box 冒险游戏: https://codingfantasy.com/games/flexboxadventure
+Flexbox 格子骑士: https://knightsoftheflexboxtable.com/
+Flex Box 青蛙: https://flexboxfroggy.com/
+Flex Box 打僵尸: https://geddski.teachable.com/p/flexbox-zombies
+Flex Box 保卫战: http://www.flexboxdefense.com/
+Flex语法操纵台: https://the-echoplex.net/flexyboxes/
+Grid 花园: https://cssgridgarden.com/
+CSS Grid 备忘清单: https://alialaa.github.io/css-grid-cheat-sheet/
+Grid 攻击: https://codingfantasy.com/games/css-grid-attack
+CSS 选择器备忘清单: https://frontend30.com/css-selectors-cheatsheet/
+CSS 动画: https://css-animations.io/
+混合滤镜: https://ilyashubin.github.io/FilterBlend/
+CSS晚餐: https://flukeout.github.io/
+TypeScript 练习: https://typescript-exercises.github.io/
+设计模式游戏: https://designpatternsgame.com/
+React 教程: https://react-tutorial.app/
+Untrusted: https://alexnisnevich.github.io/untrusted/
+Promisees: https://bevacqua.github.io/promisees/
+JSchallenger: https://www.jschallenger.com/
+Service Workies: https://serviceworkies.com/
+Git分支学习: https://learngitbranching.js.org/
+Select Star SQL: https://selectstarsql.com/
+Select Star SQL: https://selectstarsql.com/
+SQL警察局: https://sqlpd.com/
+CodinGame: https://www.codingame.com/
+CodinGame: https://www.codingame.com/
+正则填字游戏: https://regexcrossword.com/
+RegexOne: https://regexone.com/
 
+毛玻璃CSS
+https://hype4.academy/tools/glassmorphism-generator
+颜色搭配
+https://www.happyhues.co/palettes/1
+CSS动画
+https://github.com/webkul/csspin
+
+https://github.com/isellsoap/specificity-visualizer
+https://isellsoap.github.io/specificity-visualizer/
 
 字体图库
 https://www.iconfont.cn/
@@ -66,6 +107,7 @@ https://github.com/necolas/normalize.css
 https://github.com/nathansmith/960-Grid-System
 https://github.com/zachfitz/Ionic-Material
 https://github.com/sofish/typo.css/blob/master/typo.css
+https://github.com/krishdevdb/reseter.css
 
 https://github.com/yahoo/pure
 
@@ -81,3 +123,5 @@ https://github.com/blueedgetechno/windows11
 
 设计
 https://dribbble.com/
+
+https://github.com/JNKKKK/MoreToggles.css

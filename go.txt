@@ -6,6 +6,32 @@ M (Machine) 操作系统线程 G在M上执行 线程想运行任务就得获取 
 P的数量 runtime.GOMAXPROCS(0)
 M的数量 默认 10000
 
+mkdir workspace && cd workspace
+go work init ./hello_work
+go work use ./gomodtestc
+
+go 1.18
+use (
+  ./gomodtestc
+  ./hello_work
+)
+
+gvm
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+gvm install go1.17
+gvm use go1.17 [--default]
+gvm list
+gvm listall
+
+goup
+curl -sSf https://raw.githubusercontent.com/owenthereal/goup/master/install.sh | sh
+goup install 1.17.5
+goup install 1.18beta1
+goup uninstall
+go version
+goup show
+goup default
+
 命令	作用
 go mod init	生成 go.mod 文件
 go mod download	下载 go.mod 文件中指明的所有依赖
@@ -20,10 +46,50 @@ go mod why	查看为什么需要依赖某模块
 次版本号：当你做了向下兼容的功能性新增。
 修订号：当你做了向下兼容的问题修正。
 
+范型
+https://mp.weixin.qq.com/s/FFxNpRVgs-v9cIKWCLeN4Q
+https://mp.weixin.qq.com/s/_pJXLJ6W9BFZyWBud7agPQ
+type Addable interface {
+  int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | uintptr | float32 | float64 | complex64 | complex128 | string
+}
+func add[T int|float64](a, b T) T {
+ return a + b
+}
+func add[T ~string](x, y T) T {
+ return x + y
+}
+// 没有任何约束
+func add[T any](x, y T) T
+// 约束 Addble (需要单独定义)
+func add[T Addble](x, y T) T
+// 约束允许 int 或 float64 类型
+func add[T int|float64](x, y T) T
+// 约束允许底层类型是 string 的类型（包括 string 类型）
+func add[T ~string](x, y T) T
+func MakeChan[T chan bool | chan int](c T) {
+  _ = make(T) // 错误
+   _ = new(T) // 正确
+  _ = len(c)  // 正确
+}
+// 以下代码无法编译：
+// cannot range over c (variable of type T constrained by []string|map[int]string) (T has no structural type)
+func ForEach[T []string | map[int]string](c T, f func(int, string)) {
+ for i, v := range c {
+  f(i, v)
+ }
+}
 
 brew install go@1.16
 brew install go@1.17
 brew switch go 1.17
+
+linq
+https://github.com/solsw/go2linq
+https://github.com/ahmetb/go-linq
+https://github.com/life4/genesis
+https://github.com/rakeeb-hossain/functools
+1.18 算法
+https://github.com/samber/lo
 
 https://github.com/zh-five/xdaemon
 https://github.com/duolatech/xapimanager
@@ -37,6 +103,7 @@ https://github.com/gin-gonic/gin
 https://github.com/xinliangnote/go-gin-api
 https://github.com/astaxie/beego
 https://github.com/kataras/iris
+https://github.com/labstack/echo
 https://github.com/bmizerany/pat
 https://github.com/julienschmidt/httprouter
 https://github.com/zenazn/goji
@@ -45,6 +112,16 @@ https://github.com/valyala/fasthttp
 https://github.com/plimble/ace
 github.com/labstack/echo/v4
 https://github.com/gobuffalo/buffalo
+
+hash
+https://github.com/OneOfOne/xxhash
+版本
+https://github.com/Masterminds/semver
+https://github.com/blang/semver
+
+https://github.com/caddyserver/caddy
+https://caddyserver.com/
+https://caddyserver.com/docs/
 
 https://github.com/lunny/tango
 https://github.com/go-martini/martini
@@ -55,6 +132,7 @@ https://github.com/stripe/einhorn
 websocket
 https://github.com/gorilla/websocket
 https://github.com/gobwas/ws
+https://github.com/joewalnes/websocketd
 
 tcp
 https://github.com/aceld/zinx
@@ -80,15 +158,51 @@ https://github.com/bloomrpc/bloomrpc
 GraphQL Insomnia
 https://insomnia.rest/download
 https://github.com/Kong/insomnia
+https://github.com/dgraph-io/dgraph
+https://docs.github.com/en/graphql
+https://docs.github.com/en/graphql/overview/explorer
 
-database
+开源的本地缓存库中 bigcache、go-cache、freecache都实现了分片功能，bigcache的hash选择的是fnv64a算法、go-cache的hash选择的是djb2算法、freechache选择的是xxhash算法。这三种算法都是非加密哈希算法
+https://github.com/allegro/bigcache
+https://github.com/patrickmn/go-cache
+https://github.com/coocood/freecache
+https://github.com/golang/groupcache
+https://github.com/Code-Hex/go-generics-cache
+https://github.com/bluele/gcache
+freecache、bigcache 比较适合 Feature 服务
+bigcache 相对于 freecache 的优势之一是您不需要提前知道缓存的大小，因为当 bigcache 已满时，它可以为新条目分配额外的内存，而不是像 freecache 当前那样覆盖现有的
+
+database kvdb cache
 https://github.com/etcd-io/bbolt #key/value database
 https://github.com/syndtr/goleveldb
 https://github.com/facebook/rocksdb
 https://github.com/google/leveldb
+https://github.com/erthink/libmdbx
+https://github.com/torquem-ch/mdbx-go
+https://github.com/pmwkaa/sophia
+https://github.com/wiredtiger/wiredtiger
+https://github.com/facebook/rocksdb
+https://github.com/couchbase/forestdb
 https://github.com/mongodb/mongo-go-driver
 https://github.com/FerretDB/FerretDB #开源 MongoDB 替代品
 https://github.com/segmentio/kafka-go
+https://github.com/codenotary/immudb
+https://github.com/go-mysql-org/go-mysql
+https://github.com/alicebob/miniredis
+https://github.com/alash3al/redix
+
+分布式Sqlite
+https://github.com/rqlite/rqlite
+brew install rqlite
+rqlited -node-id 1 ~/node.1
+rqlited -node-id 2 -http-addr localhost:4003 -raft-addr localhost:4004 -join http://localhost:4001 ~/node.2
+rqlited -node-id 3 -http-addr localhost:4005 -raft-addr localhost:4006 -join http://localhost:4001 ~/node.3
+
+SQLite 的流式复制
+https://github.com/benbjohnson/litestream
+https://litestream.io/getting-started/
+litestream replicate fruits.db s3://mybkt.localhost:9000/fruits.db
+
 
 https://github.com/pingcap/tidb
 https://docs.pingcap.com/tidb/stable/mysql-compatibility
@@ -186,17 +300,37 @@ https://github.com/protocolbuffers/protobuf-go
 https://github.com/grpc-ecosystem/grpc-gateway
 https://github.com/golang/protobuf
 https://github.com/grpc/grpc-go
+https://github.com/rmedvedev/grpcdump
 
+go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+// 使用的 protoc --version 为 libprotoc 3.18.1
+// 使用的 protoc-gen-go --version 为 protoc-gen-go v1.27.1
+// 使用的 protoc-gen-go-grpc --version 为 protoc-gen-go-grpc 1.1.0
+// 使用的 protoc-gen-doc --version 为 protoc-gen-doc version 1.5.0
+// 在根目录下执行 protoc 命令
+protoc \
+--go_out=helloworld/gen \
+--go-grpc_out=helloworld/gen \
+--doc_out=helloworld/doc \
+--doc_opt=html,index.html \
+helloworld/helloworld.proto
+
+https://mp.weixin.qq.com/s/V9CjkANNS1ItZXj7FUKqYg
 protoc -I . --go_out=xxx
 protoc -I . --go-grpc_out=xxx
+protoc --go_out=. xxx.proto
+protoc --decode-raw req.pb
+protoc --decode=com.xxx.TestRequest xxx.proto  < req.pb
 
 microservices 微服务
 https://mp.weixin.qq.com/s/4T9wHkXvl0p-GrfC2ksNrA
+https://mp.weixin.qq.com/s/TJO1u8p5p81VnNfWe0wQkA
 https://github.com/go-kit/kit
 https://github.com/asim/go-micro
 https://github.com/go-kratos/kratos
 https://github.com/google/go-cloud
 https://github.com/zeromicro/go-zero
+go-zero MapReduce文档: https://go-zero.dev/cn/mapreduce.html
 https://github.com/nytimes/gizmo
 https://github.com/rsms/gotalk 异步对等通信协议和库
 https://github.com/koding/kite
@@ -209,7 +343,10 @@ https://github.com/apache/dubbo-go
 https://github.com/gotomicro/ego
 https://github.com/gotomicro/egoctl
 https://github.com/gotomicro/ego-component
+https://github.com/apache/dubbo-go
 
+并行计算
+https://github.com/BWbwchen/MapReduce
 
 https://github.com/coocood/freecache
 https://github.com/outbrain/orchestrator
@@ -219,7 +356,6 @@ https://github.com/smartystreets/goconvey
 https://github.com/name5566/leaf
 https://github.com/tsuru/tsuru
 https://github.com/leanote/leanote
-https://github.com/tealeg/xlsx
 http://git.oschina.net/openmeeting2/openmeeting2
 https://github.com/hybridgroup/gobot
 https://github.com/google/gxui
@@ -230,9 +366,11 @@ https://github.com/olivere/elastic
 https://github.com/go-mysql-org/go-mysql-elasticsearch
 
 https://github.com/prabhatsharma/zinc #替代ES
+https://github.com/blevesearch/bleve
 
 jquery
 https://github.com/PuerkitoBio/goquery
+https://github.com/wader/fq
 
 https://github.com/astaxie/beedb
 
@@ -248,6 +386,67 @@ https://github.com/snail007/goproxy
 https://github.com/XiaoMi/Gaea
 
 https://github.com/douyu/jupiter
+
+PDF WORD EXCEL
+https://github.com/signintech/gopdf
+https://github.com/pdfcpu/pdfcpu
+https://github.com/gotenberg/gotenberg
+https://github.com/SebastiaanKlippert/go-wkhtmltopdf
+wkhtmltopdf input.html output.pdf
+wkhtmltopdf https://www.google.com output.pdf
+添加水印
+unipdf watermark in.pdf watermark.png -o out.pdf
+pdfcpu watermark add -mode image 'voucher_watermark.png' 's:1 abs, rot:0' in.pdf out.pdf
+合并pdf
+cpdf -merge input1.pdf input2.pdf -o output.pdf
+unipdf merge output.pdf input1.pdf input2.pdf
+pdfcpu merge output.pdf input1.pdf input2.pdf
+拆分pdf
+cpdf -split in.pdf 1 even -chunk 1 -o ./out%%%.pdf
+unipdf split input.pdf out.pdf 1-1
+pdfcpu split in.pdf .
+pdf转图片
+pdfdraw -o out%d.png in.pdf
+mupdf
+pdfdraw
+pdfinfo
+pdfclean
+pdfextract
+pdfshow
+xpsdraw
+xpdf 是一个免费的PDF工具包，包括文字解析,图片转换,html转换等
+pdfdetach
+pdffonts
+pdfimages
+pdfinfo
+pdftohtml
+pdftopng
+pdftoppm
+pdftops
+pdftotext
+pdftopng in.pdf out-prefix
+pdf解密
+qpdf --decrypt in.pdf out.pdf
+pdfcpu decrypt encrypted.pdf output.pdf
+unipdf decrypt -p pass -o output.pdf input.pdf
+PDF识别
+pdftotext input.pdf output.txt
+unipdf extract text input.pdf
+tet --pageopt "includebox={{38 707.93 243.91 716.93}}" input.pdf
+tet --tetml input.pdf
+pdfclean broken.pdf repaired.pdf
+pdffonts input.pdf
+https://github.com/wkhtmltopdf/wkhtmltopdf
+xpdfreader.com/opensource.html
+https://community.coherentpdf.com/
+https://github.com/coherentgraphics
+https://github.com/qpdf/qpdf
+https://github.com/galkahana/PDF-Writer
+https://www.mupdf.com/releases/index.html
+https://github.com/pdfcpu/pdfcpu
+
+https://github.com/tealeg/xlsx
+https://github.com/qax-os/excelize
 
 命令行解析
 https://github.com/alecthomas/kingpin
@@ -288,15 +487,81 @@ GOOS：目标可执行程序运行操作系统，支持 darwin freebsd linux win
 GOARCH：目标可执行程序操作系统构架，包括 386 amd amd64 arm arm64
 
 k8s
+https://github.com/k3s-io/k3s
 https://github.com/kubernetes/kubernetes
 https://github.com/gardener/gardener
 https://github.com/kubernetes/minikube #本地运行k8s
 https://github.com/pixie-io/pixie #即时 Kubernetes 原生应用可观察性
 开源监控解决方案
 https://github.com/prometheus/prometheus
+docker run --name myprometheus -p 9090:9090 -d prom/prometheus
+http://localhost:9090/
+docker run --name mynode-exporter -p 9100:9100 -d prom/node-exporter
+http://localhost:9100/metrics
+每一个监控指标之前都会有一段类似于如下形式的信息：
+# HELP node_cpu_guest_seconds_total Seconds the CPUs spent in guests (VMs) for each mode.
+# TYPE node_cpu_guest_seconds_total counter
+HELP：解释当前指标的含义
+TYPE：说明当前指标的数据类型
+一些在node exporter中的指标：
+go_* :node exporter中go相关指标
+node_boot_time：系统启动时间
+node_cpu_* : 系统CUP使用情况
+node_disk_* : 磁盘io
+node_filesystem_* : 文件系统使用量
+node_load* : 系统负载
+node_memory_* : 系统内存
+node_network_* : 网络宽带
+node_time_* : 当前系统时间
+为了能够让Prometheus Server能够从当前node exporter获取到监控数据，这里需要修改Prometheus配置文件。
+进入容器后，编辑/etc/prometheus/prometheus.yml并在scrape_configs节点下添加以下内容:
+  # 采集node exporter监控数据
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']
+重启容器。
+注意如果用容器启动prometheus，配置target地址为localhost，将无法访问，可以改成将localhost替换为：docker.for.mac.localhost（mac）或docker.for.win.localhost（windows)
+  # 采集node exporter监控数据
+  - job_name: 'node'
+    static_configs:
+      - targets: ['docker.for.mac.localhost:9100']
+访问http://localhost:9090/targets，可以看到如下结果
+state 显示为up表示正常，down为异常。
+http://localhost:9090/graph
+docker run -d -p 3000:3000 grafana/grafana
+http://localhost:3000 admin/admin
+添加Prometheus数据源。
+下载模板：https://grafana.com/grafana/dashboards/11074 导入
+
 数据可视化平台
 https://github.com/grafana/grafana
 https://github.com/percona/grafana-dashboards
+etcd管理平台
+https://github.com/tkestack/kstone
+容器应用内核
+https://github.com/google/gvisor
+
+轻量级云原生 API 网关
+https://github.com/Spacewalkio/Helmet
+
+https://github.com/vladimirvivien/ktop
+raft共识算法
+https://github.com/hashicorp/raft
+
+etcd
+https://github.com/etcd-io/etcd
+etcd
+启动 2379 2380 端口
+etcdctl put mykey "this is awesome"
+etcdctl get mykey
+etcd 集群
+http://play.etcd.io/install
+https://etcd.io/docs/v3.5/demo/
+https://github.com/mattn/goreman
+go install github.com/mattn/goreman@latest
+goreman start
+goreman -f ./Procfile.learner start
+go get go.etcd.io/etcd/client/v3
 
 docker
 https://github.com/bcicen/ctop
@@ -386,7 +651,7 @@ fscan.exe -h 192.168.1.1/24 -rs 192.168.1.1:6666 (redis 计划任务反弹shell)
 fscan.exe -h 192.168.1.1/24 -c whoami (ssh 爆破成功后，命令执行)
 fscan.exe -h 192.168.1.1/24 -m ssh -p 2222 (指定模块ssh和端口)
 fscan.exe -h 192.168.1.1/24 -pwdf pwd.txt -userf users.txt (加载指定文件的用户名、密码来进行爆破)
-fscan.exe -h 192.168.1.1/24 -o /tmp/1.txt (指定扫描结果保存路径,默认保存在当前路径) 
+fscan.exe -h 192.168.1.1/24 -o /tmp/1.txt (指定扫描结果保存路径,默认保存在当前路径)
 fscan.exe -h 192.168.1.1/8  (A段的192.x.x.1和192.x.x.254,方便快速查看网段信息 )
 fscan.exe -h 192.168.1.1/24 -m smb -pwd password (smb密码碰撞)
 fscan.exe -h 192.168.1.1/24 -m ms17010 (指定模块)
@@ -416,10 +681,15 @@ https://github.com/golang-migrate/migrate
 桌面分享
 https://github.com/pavlobu/deskreen
 
+https://github.com/ClickHouse/ClickHouse
 https://github.com/ClickHouse/clickhouse-go
+https://github.com/vahid-sohrabloo/chconn
 
 是一个高性能且低损耗的 goroutine 池
-github.com/panjf2000/ants
+https://github.com/panjf2000/ants
+https://github.com/Jeffail/tunny
+https://github.com/gammazero/workerpool
+https://github.com/go-playground/pool
 
 依赖注入
 https://github.com/google/wire
@@ -477,7 +747,7 @@ services:
     image: nsqio/nsq
     command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
     depends_on:
-      - nsqlookupd  
+      - nsqlookupd
     ports:
       - "4171"
 
@@ -561,12 +831,24 @@ gRPC 客户端调试工具
 https://github.com/ktr0731/evans
 https://github.com/uw-labs/bloomrpc
 https://github.com/storyicon/powerproto
+grpc压测工具
+https://github.com/bojand/ghz
+./ghz --skipTLS --insecure --protoset ./bundle.protoset \
+-B ./grpc_payload --call tensorflow.serving.PredictionService/Predict \
+127.0.0.1:8500
+类似mysqlap的mysql压测工具
+https://github.com/xiazemin/mysqlslap-go
 
 发布订阅
 https://github.com/ThreeDotsLabs/watermill/
 
 go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
 gocyclo -top 10  ./
+
+https://github.com/boyter/scc
+go install github.com/boyter/scc@latest
+scc -h
+scc --languages
 
 go get -u github.com/hhatto/gocloc/cmd/gocloc
 gocloc .
@@ -592,6 +874,8 @@ https://github.com/rs/curlie
 brew install rs/tap/curlie
 curlie [CURL_OPTIONS...] [METHOD] URL [ITEM [ITEM]]
 
+DEBUG
+https://github.com/go-delve/delve
 https://mp.weixin.qq.com/s/mW1Jq1oLRcbPxXeGTOA1jg
 go install github.com/go-delve/delve/cmd/dlv@latest
 dlv version
@@ -757,9 +1041,14 @@ func main() {
 }
 go run main.go
 
+文件抽象
+https://github.com/spf13/afero
 
+JSON
 https://github.com/goccy/go-reflect
 https://github.com/goccy/go-json
+https://github.com/bytedance/sonic
+https://github.com/json-iterator/go
 
 https://github.com/bronze1man/yaml2json
 go install github.com/bronze1man/yaml2json@latest
@@ -796,6 +1085,9 @@ https://github.com/go-gorm/gorm
 https://gitea.com/xorm/xorm
 https://github.com/Masterminds/squirrel
 https://github.com/jmoiron/sqlx
+
+GORM
+sqlite dsn := "file::memory:?cache=shared"
 
 
 比如旧语法：
@@ -836,6 +1128,7 @@ brew install dive
 docker pull wagoodman/dive
 dive <your-image-tag>
 dive golang:1.14
+docker scan python-flask
 
 仿百度文库
 https://github.com/TruthHun/DocHub
@@ -914,8 +1207,31 @@ https://github.com/imdario/mergo
 
 文件监控
 https://github.com/fsnotify/fsnotify
+https://github.com/howeyc/fsnotify
 https://github.com/cli/safeexec
 https://github.com/atotto/clipboard
+
+https://github.com/tidwall/btree
+https://github.com/zyedidia/generic
+
+脚本
+https://github.com/gopherjs/gopherjs
+https://github.com/antonmedv/golang-expression-evaluation-comparison
+https://github.com/ichiban/prolog
+https://github.com/robertkrimen/otto
+https://github.com/dop251/goja
+https://github.com/Shopify/go-lua
+https://github.com/antonmedv/expr
+https://github.com/Knetic/govaluate
+https://github.com/PaesslerAG/gval
+https://github.com/google/cel-go
+https://github.com/hashicorp/go-bexpr
+https://github.com/skx/evalfilter/v2
+https://github.com/rencalo770/gengine
+https://github.com/hyperjumptech/grule-rule-engine
+
+code review
+https://github.com/reviewdog/reviewdog
 
 request
 https://github.com/parnurzeal/gorequest
@@ -923,6 +1239,7 @@ https://github.com/gojek/heimdall
 https://github.com/go-resty/resty
 https://github.com/andelf/go-curl
 https://github.com/idoubi/goz
+https://github.com/carlmjohnson/requests
 
 https://github.com/cavaliercoder/grab
 https://github.com/huydx/hget
@@ -977,6 +1294,7 @@ https://github.com/idoubi/sql2struct
 HTML Template
 https://github.com/valyala/quicktemplate
 https://github.com/valyala/fasttemplate
+https://github.com/hashicorp/consul-template
 
 protobuf
 https://github.com/gogo/protobuf
@@ -1194,6 +1512,8 @@ https://mp.weixin.qq.com/s/k__ynwBkIcwEK7HAL4WUCA
 https://github.com/fvbock/endless
 singleflight
 https://mp.weixin.qq.com/s/JUkxGbx1Ufpup3Hx08tI2w
+https://github.com/marwan-at-work/singleflight
+https://pkg.go.dev/golang.org/x/sync/singleflight
 
 插件系统
 https://mp.weixin.qq.com/s/OCETjB1Tm2vkdOuiWJMJ5Q
@@ -1343,6 +1663,13 @@ snap install snap-store
 Web 应用程序的单点登录多因素门户
 https://github.com/authelia/authelia
 
+音视频直播流媒体服务器
+git clone https://github.com/q191201771/lal.git
+cd lal
+./bin/lalserver -c ./conf/lalserver.conf.json
+ffmpeg -re -i demo.flv -c:a copy -c:v copy -f flv rtmp://127.0.0.1:1935/live/test110
+ffplay rtmp://127.0.0.1/live/test110
+
 用于视频录制和直播C++
 https://github.com/obsproject/obs-studio
 https://obsproject.com/
@@ -1387,7 +1714,10 @@ server A
 vi frps.ini
 [common]
 bind_port = 7000
-./frps -c ./frps.ini
+token = test
+vhost_http_port = 7001
+
+nohup ./frps -c ./frps.ini > /dev/null 2>&1 &
 server B
 vi frpc.ini
 [common]
@@ -1400,6 +1730,9 @@ local_port = 22
 remote_port = 6000
 ./frpc -c ./frpc.ini
 ssh -oPort=6000 test@x.x.x.x
+
+wget https://raw.githubusercontent.com/stilleshan/frps/master/frps_linux_install.sh && chmod +x frps_linux_install.sh && ./frps_linux_install.sh
+
 
 EW
 https://github.com/rootkiter/EarthWorm
@@ -1423,6 +1756,25 @@ ngrok http -auth="user:password" file:///Users/alan/share
 ngrok http "file:///C:\Users\alan\Public Folder"
 将主机的3389的TCP端口暴露到公网
 ngrok tcp 3389
+
+https://github.com/traefik/traefik
+./traefik --configFile=traefik.toml
+docker run -d -p 8080:8080 -p 80:80 -v $PWD /traefik.toml:/etc/traefik/traefik.toml traefik
+https://doc.traefik.io/traefik/
+https://info.traefik.io/en/request-demo-traefik-enterprise
+
+https://github.com/traefik/mesh
+以太坊协议的官方 Go 实现
+https://github.com/ethereum/go-ethereum
+
+本地证书
+https://github.com/FiloSottile/mkcert
+brew install mkcert
+brew install nss # if you use Firefox
+mkcert -install
+mkcert example.com "*.example.com" example.test localhost 127.0.0.1 ::1
+mkcert -key-file key.pem -cert-file cert.pem example.com *.example.com
+mkcert filippo@example.com
 
 GO 范型
 https://mp.weixin.qq.com/s/z30xJqiweIROlSp1YgcIsQ
@@ -1450,6 +1802,15 @@ func main() {
 
 Go 编译器适用于小地方。微控制器、WebAssembly (WASM/WASI) 和命令行工具。基于LLVM
 https://github.com/tinygo-org/tinygo
+https://webassembly.org/roadmap/
+AssemblyScript 是一个 TypeScript 到 WebAssembly 的编译器
+https://github.com/AssemblyScript/assemblyscript
+wasm-bindgen
+https://github.com/rustwasm/wasm-bindgen
+如果你熟悉 Rust ，就知道它在 WebAssembly 领域的贡献是非常大的
+https://rustwasm.github.io/
+FFMPEG.WASM
+https://ffmpegwasm.netlify.app/
 
 图片
 内容感知图像大小调整库
@@ -1461,8 +1822,14 @@ https://github.com/jftuga/geodist
 https://github.com/kdomanski/iso9660
 https://github.com/cristalhq/hedgedhttp
 对冲 HTTP 客户端，有助于大规模减少尾部延迟
-云系统
+
+简单的云系统 看运行docker
 https://github.com/IceWhaleTech/CasaOS
+wget -qO- https://get.icewhale.io/casaos.sh | bash
+curl -fsSL https://get.icewhale.io/casaos.sh | bash
+curl -fsSL https://get.icewhale.io/casaos-uninstall.sh | bash
+
+
 可以在任何地方运行的快速 dns 代理，内置于黑洞互联网广告和恶意软件服务器
 https://github.com/looterz/grimd
 https://github.com/kenshinx/godns
@@ -1526,8 +1893,215 @@ http://localhost:8080
 
 ```
 
+netlink 套接字
+https://github.com/mdlayher/netlink
 
+https://github.com/mvdan/gofumpt
+NVM
+https://github.com/coreybutler/nvm-windows
+http/template
+https://mp.weixin.qq.com/s/qvqH45HOtHc6BdORcSOXqw
 
+go-zero对接分布式事务dtm
+https://github.com/Mikaelemmmm/gozerodtm
+https://github.com/zeromicro/go-zero
+https://github.com/dtm-labs/dtm
 
+GO Charts
+https://github.com/go-echarts/go-echarts
+https://github.com/wcharczuk/go-chart
 
+用于 Jupyter 笔记本和交互的 Go 内核
+https://github.com/gopherdata/gophernotes
 
+构建流式数据pipeline
+https://github.com/deliveryhero/pipeline
+
+爬虫 数据采集 crawler
+https://github.com/henrylee2cn/pholcus
+
+option设计
+https://mp.weixin.qq.com/s/8vQBEi3a7VFsU1NL-JKMJw
+https://github.com/mosn/holmes
+
+加密文件系统
+https://github.com/rfjakob/gocryptfs
+dnf install gocryptfs
+$ mkdir cipher plain
+$ ./gocryptfs -init cipher
+$ ./gocryptfs cipher plain
+https://github.com/cryfs/cryfs
+
+Phalanx 是一个云原生分布式搜索引擎
+https://github.com/mosuka/phalanx
+非常简单的 Go 2D 游戏库 编译成任天堂 Switch 的本地二进制文件
+https://github.com/hajimehoshi/ebiten
+
+轻松安全地将内容从一台计算机发送到另一台计算机
+https://github.com/schollz/croc
+curl https://getcroc.schollz.com | bash
+brew install croc
+go install github.com/schollz/croc/v9@latest
+croc code-phrase
+croc send [file(s)-or-folder]
+croc send --code [code-phrase] [file(s)-or-folder]
+croc --yes --overwrite <code>
+croc send --text "hello world"
+
+一个简单的 WireGuard VPN 服务器 GUI
+https://github.com/subspacecloud/subspace
+
+http.MaxBytesHandler
+https://pkg.go.dev/net/http@master#MaxBytesHandler
+
+https://github.com/lemnos/tt
+tt -quotes en
+tt -n 10 -g 5 生成一个由 50 个随机抽取的单词组成的测试，分为 5 组，每组 10 个单词。
+tt -t 10 开始持续 10 秒的定时测试。
+tt -theme gruvbox 以 gruvbox 主题开始 tt
+shuf -n 40 /usr/share/dict/words|tt 生成一个包含 40 个随机单词的测试，这些单词是从系统的字典中抽取的
+curl http://api.quotable.io/random|jq '[.text=.content|.attribution=.author]'|tt -quotes - 生成一个包含随机报价的测试
+
+https://github.com/syncthing/syncthing
+https://docs.syncthing.net/users/syncthing.html
+
+https://help.loliloli.live/jiao-cheng-yu-xia-zai/xia-zai-ye-mian
+https://github.com/v2ray/v2ray-core
+https://github.com/v2fly/v2ray-core
+https://www.v2fly.org/
+https://www.v2fly.org/awesome/tools.html#%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7
+https://github.com/Dreamacro/clash
+https://github.com/yichengchen/clashX
+https://github.com/yichengchen/clashX/releases
+https://bluedoc.io/agentneo/docs/mk22
+https://agentneo.tech/
+https://github.com/shadowsocks/go-shadowsocks2
+go install github.com/shadowsocks/go-shadowsocks2@latest
+server
+go-shadowsocks2 -s 'ss://AEAD_CHACHA20_POLY1305:your-password@:8488' -verbose
+client
+go-shadowsocks2 -c 'ss://AEAD_CHACHA20_POLY1305:your-password@[server_address]:8488' \
+    -verbose -socks :1080 -u -udptun :8053=8.8.8.8:53,:8054=8.8.4.4:53 \
+                             -tcptun :8053=8.8.8.8:53,:8054=8.8.4.4:53
+https://github.com/WireGuard/wireguard-go
+https://git.zx2c4.com/wireguard-go
+ip link add wg0 type wireguard
+ip link del wg0
+
+https://github.com/gokrazy/gokrazy
+https://github.com/Cian911/switchboard
+https://github.com/GavinClarke0/LocklessGenericRingBuffer
+https://github.com/gogradle/gogradle
+https://github.com/yudai/gotty
+
+https://cloud.tencent.com/developer/article/1546113
+https://p3terx.com/archives/rclone-advanced-user-manual-common-command-parameters.html
+https://sunpma.com/864.html
+https://github.com/rclone/rclone
+brew install rclone
+rclone config
+第一步选择 n，然后回车输入一个 name，建议这个 name 设置的简单好记一点
+mkdir -p /home/gdrive
+screen -S rclone
+rclone mount mygd: /home/gdrive --allow-other --allow-non-empty --vfs-cache-mode writes
+
+https://gohugo.io/getting-started/quick-start/
+https://themes.gohugo.io/
+https://themes.gohugo.io/gohugo-theme-ananke/
+https://github.com/gohugoio/hugo
+brew install hugo
+hugo version
+hugo new site quickstart
+cd quickstart
+git init
+git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+hugo new posts/my-first-post.md
+hugo server -D
+
+用于秘密管理、加密即服务和特权访问管理的工具
+https://github.com/hashicorp/vault
+
+软件开发生命周期 安全协作
+https://github.com/mattermost/mattermost-server
+https://github.com/mattermost/mattermost-webapp
+https://github.com/mattermost/mattermost-mobile
+https://github.com/mattermost/desktop
+https://mattermost.com/marketplace/
+
+https://github.com/tsenart/vegeta
+brew install vegeta
+
+https://github.com/iawia002/lux
+go install github.com/iawia002/lux@latest
+brew install lux
+lux "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+lux -i "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+lux -i -p "https://www.bilibili.com/bangumi/play/ep198061"
+lux -F ~/Desktop/u.txt
+
+AI照片
+https://github.com/photoprism/photoprism
+
+Pyroscope
+Pyroscope是一个开源平台，由服务器和代理组成。它允许用户以 CPU 和磁盘高效的方式收集、存储和查询分析数据。
+Parca
+Parca收集、存储和提供配置文件，以便随着时间的推移进行查询。它是开源的，可以部署在生产环境中，因为 Parca 专注于对两种主要类型的配置文件进行采样分析：跟踪和采样。
+Datadog
+Datadog Continuous Profiler始终在任何环境（包括生产环境）中分析和比较代码性能。它指出了由低效代码导致的难以复制的生产问题。还具有自动代码分析洞察力。
+Google - Cloud Profiler
+Cloud Profiler是一种低开销的统计分析器，可从您的生产应用程序中持续收集 CPU 使用率和内存分配信息。它具有可操作的应用程序分析、低影响的生产 Profilin 和广泛的平台支持。
+
+webdav
+https://github.com/hacdias/webdav
+https://github.com/hacdias/webdav/releases/tag/v4.1.1
+webdav -c ./config.yaml
+net use Y: https://dav.engr-z.com/ /user:engrz /persistent:YES 密码
+apt install davfs2
+mount -t davfs http://dav.engr-z/ ./webdav/
+
+https://github.com/blurooo/go-monitor
+
+生成so文件
+go build -buildmode=c-shared -o s1.so s1.go
+vi s1.go
+package main
+import (
+  "C" //C必须导入
+)
+//export run
+func run(n int) int {
+  return n*2
+}
+func main() {
+}
+
+重试
+https://github.com/sethvargo/go-retry
+NewConstant(1 * time.Second) 1s -> 1s -> 1s -> 1s -> 1s -> 1s
+NewExponential(1 * time.Second) 1s -> 2s -> 4s -> 8s -> 16s -> 32s -> 64s
+NewFibonacci(1 * time.Second) 1s -> 1s -> 2s -> 3s -> 5s -> 8s -> 13s
+随机抖动
+b := NewFibonacci(1 * time.Second)
+// Return the next value, +/- 500ms
+b = WithJitter(500*time.Millisecond, b)
+// Return the next value, +/- 5% of the result
+b = WithJitterPercent(5, b)
+最大重试次数
+b := NewFibonacci(1 * time.Second)
+// Stop after 4 retries, when the 5th attempt has failed. In this example, the worst case elapsed
+// time would be 1s + 1s + 2s + 3s = 7s.
+b = WithMaxRetries(4, b)
+上限持续时间
+b := NewFibonacci(1 * time.Second)
+// Ensure the maximum value is 2s. In this example, the sleep values would be
+// 1s, 1s, 2s, 2s, 2s, 2s...
+b = WithCappedDuration(2 * time.Second, b)
+最大努力限制，请指定最大持续时间
+b := NewFibonacci(1 * time.Second)
+// Ensure the maximum total retry time is 5s.
+b = WithMaxDuration(5 * time.Second, b)
+
+https://github.com/wailsapp/wails
+
+https://github.com/showwin/speedtest-go
+https://github.com/showwin/speedtest-go/releases

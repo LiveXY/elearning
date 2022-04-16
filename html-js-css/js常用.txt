@@ -45,6 +45,19 @@ https://github.com/youzan/vant
 https://github.com/nuxt-community/nuxt7
 https://github.com/nmxiaowei/avue
 
+https://arco.design/vue/component/table
+https://vue-pro.arco.design/login
+https://github.com/arco-design/arco-design-pro-vue
+npm i arco-cli@latest yarn -g
+arco init my-arco-project
+cd my-arco-project
+yarn dev
+yarn build
+
+https://github.com/google/zx
+npm i -g zx
+
+
 https://github.com/modern-js-dev/modern.js
 https://github.com/zloirock/core-js
 
@@ -208,6 +221,7 @@ HTML5-Cross-Browser-Polyfills
 https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills
 
 全平台桌面应用
+https://github.com/tauri-apps/tauri
 https://github.com/electron/electron
 https://github.com/nwjs/nw.js
 https://github.com/electron-userland/electron-builder
@@ -656,6 +670,47 @@ https://www.shapedivider.app/ #自定义形状分隔线
 
 TLS
 https://github.com/digitalbazaar/forge
+
+特别酷
+https://mp.weixin.qq.com/s/3SxyK7aC1GNC_K9YJDjYLQ
+https://github.com/airbnb/lottie-web
+https://github.com/wagerfield/parallax
+https://github.com/wagerfield/flat-surface-shader
+https://github.com/IanLunn/Hover
+https://github.com/spchuang/videojs-markers
+https://github.com/e-oj/Magic-Grid
+https://github.com/egoist/vue-content-loader
+https://github.com/xiaolin/react-image-gallery
+https://github.com/webslides/WebSlides
+https://github.com/svgdotjs/svg.js
+https://github.com/chenglou/react-motion
+https://github.com/dixonandmoe/rellax
+https://github.com/michaelvillar/dynamics.js
+https://github.com/mojs/mojs
+https://github.com/hakimel/reveal.js
+https://github.com/blivesta/animsition
+https://github.com/mattdesl/svg-mesh-3d
+https://github.com/metafizzy/zdog
+https://github.com/patorjk/figlet.js
+https://readme.so/editor
+https://smalldev.tools/
+https://type-scale.com/
+https://www.remove.bg/
+https://metatags.io/
+
+https://github.com/chalk/chalk
+https://github.com/microsoft/monaco-editor
+
+yarn2
+https://mp.weixin.qq.com/s/CN4JyYVfaV_LS1rMYpUwFQ
+yarn set version berry
+yarn --version
+yarn config set npmRegistryServer https://registry.npm.taobao.org
+
+
+
+
+
 
 
 

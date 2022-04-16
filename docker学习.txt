@@ -49,6 +49,19 @@ docker port nostalgic_morse 5000
 docker top
 来查看Docker的底层信息docker inspect nostalgic_morse/docker inspect -f '{{ .NetworkSettings.IPAddress }}' nostalgic_morse
 
+yum install docker-scan-plugin
+apt-get install docker-scan-plugin
+docker scan --accept-license --version
+docker scan python-flask
+docker scan --file Dockerfile docker-scan:e2e
+docker scan --file Dockerfile --exclude-base docker-scan:e2e
+docker scan --json hello-world
+docker scan --json --group-issues docker-scan:e2e
+docker scan --dependency-tree debian:buster
+docker scan --severity=medium docker-scan:e2e
+docker scan --version
+
+
 删除所有容器
 docker rm `docker ps -aq`
 

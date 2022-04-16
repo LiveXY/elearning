@@ -11,6 +11,11 @@ https://github.com/google/zx
 https://github.com/fastify/fastify
 https://github.com/gitpod-io/gitpod
 
+https://github.com/snyk/snyk
+
+https://github.com/Eugeny/tabby
+https://tabby.sh/
+
 https://github.com/prettier/prettier 代码格式化
 https://github.com/typicode/husky Git钩子
 https://github.com/okonet/lint-staged

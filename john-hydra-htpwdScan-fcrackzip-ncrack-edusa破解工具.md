@@ -17,6 +17,8 @@ john --wordlist=/usr/share/john/password.lst ~/file_to_crack
 john --show ~/file_to_crack
 john ~/file_to_crack
 john --restore
+
+https://github.com/openwall/johnny
 ```
 
 hydra安装：
@@ -206,3 +208,6 @@ Office 2010 ProPlusVL MAK激活密钥：
 [Key]：7KPY9-KWRD9-6FW2X-BWGHW-23684 [剩余次数：1000+]
 [Key]：PQKW6-6QGMK-DTTT6-TRRYD-HP76J [剩余次数：1000+]
 ```
+
+zip2john cain.zip >> pswd.txt
+john pswd.txt --show

@@ -88,5 +88,8 @@ pkill
 * pkill -u username 关闭指定用户的进程
 * pkill -vu username 关闭非指定用户的其他用户进程
 
+pkill
+# 命令来完成强制活动用户退出.其中TTY表示终端名称
+pkill -kill -t [TTY]
 
 

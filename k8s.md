@@ -803,3 +803,10 @@ https://www.cnblogs.com/fawaikuangtu123/p/11296382.html
 
 buster10(2020) stretch9(2017) jessie8(2015) wheezy7(2013) squeeze6 都是 Debian 发行版本的代称
 带 slim 的就是瘦身版 Debian 和 glibc
+
+vivo 公司 Kubernetes 集群 Ingress 网关实践
+https://mp.weixin.qq.com/s/cUFeOh_s6SL-o1akwqig1A
+
+
+
+

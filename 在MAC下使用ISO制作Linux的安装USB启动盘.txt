@@ -13,3 +13,24 @@ diskutil eraseVolume exFAT Samsung_T3 /dev/disk2s2
 
 文件系统：
 diskutil listFilesystems
+
+
+DD命令
+
+blocks=$(isosize -d 2048 /dev/sr0)
+dd if=/dev/sr0 of=isoimage.iso bs=2048 count=$blocks status=progress
+从CD-ROM、DVD或蓝光光盘创建ISO 磁盘映像。
+
+dd if=system.img of=/dev/sdc bs=64M conv=noerror
+从之前创建的映像中恢复硬盘驱动器（例如 SD 卡）。
+
+dd if=/dev/sdb2 of=partition.image bs=64M conv=noerror
+使用 64 MiB 块大小创建分区 sdb2 的映像。
+
+dd if=/dev/sda2 of=/dev/sdb2 bs=64M conv=noerror
+将一个分区克隆到另一个分区。
+
+dd if=/dev/ad0 of=/dev/ad1 bs=64M conv=noerror
+将硬盘驱动器“ad0”克隆到“ad1”。
+
+

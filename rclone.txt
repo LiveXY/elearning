@@ -1,0 +1,77 @@
+https://github.com/rclone/rclone
+https://github.com/rclone/rclone/releases
+curl https://rclone.org/install.sh | sudo bash
+curl https://rclone.org/install.sh | sudo bash -s beta
+brew install rclone
+
+curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
+unzip rclone-current-linux-amd64.zip
+cd rclone-*-linux-amd64
+
+docker pull rclone/rclone:latest
+docker run --rm rclone/rclone:latest version
+
+rclone config
+n
+38
+http://127.0.0.1:8080
+5
+admin
+y
+123456
+
+/root/.config/rclone/rclone.conf
+
+挂载到本地
+mkdir /data/aliyunwebdav
+rclone mount DriveName:Folder LocalFolder --cache-dir /tmp --allow-other --vfs-cache-mode writes --allow-non-empty
+
+vi /etc/systemd/system/rclone.service
+[Unit]
+Description=Rclone
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=$(command -v rclone) mount DriveName:Folder LocalFolder --cache-dir /tmp --allow-other --vfs-cache-mode writes --allow-non-empty
+Restart=on-abort
+User=root
+
+[Install]
+WantedBy=default.target
+
+systemctl start rclone
+systemctl enable rclone
+
+挂载为本地磁盘：
+/usr/bin/rclone mount DriveName:Folder LocalFolder \
+	--umask 0000 \
+	--default-permissions \
+	--allow-non-empty \
+	--allow-other \
+	--transfers 4 \
+	--buffer-size 32M \
+	--low-level-retries 200
+fusermount -qzu LocalFolder
+
+
+docker run --rm \
+    --volume ~/.config/rclone:/config/rclone \
+    --volume ~/data:/data:shared \
+    --user $(id -u):$(id -g) \
+    rclone/rclone \
+    listremotes
+mkdir -p ~/data/mount
+docker run --rm \
+    --volume ~/.config/rclone:/config/rclone \
+    --volume ~/data:/data:shared \
+    --user $(id -u):$(id -g) \
+    --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro \
+    --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined \
+    rclone/rclone \
+    mount dropbox:Photos /data/mount &
+
+rclone serve webdav --addr :8080 /path/to/public/dir
+
+
+

@@ -1,0 +1,233 @@
+pgBackRest
+https://github.com/pgbackrest/pgbackrest
+
+pgBackRest是一款开源的备份还原工具，目标旨在为备份和还原提供可靠易用的备份。
+
+pgBackRest旨在成为一个可靠、易于使用的备份和恢复解决方案，通过利用针对数据库特定要求优化的算法，可以无缝扩展到最大的数据库和工作负载。
+pgBackRest 放弃了其他传统备份工具依赖 tar 和 rsync 的套路，它的备份功能都是从软件内部实现的，并采用客户端协议与远程服务器交互。**移除了对 tar 和 rsync 的依赖**，使它能够更好的应对针对特定数据库的备份挑战。客户端远程协议更加灵活，协议可以按照要求限制连接类型以保证备份过程更安全。
+  • pgBackRest  功能支持：
+    ○  支持并行备份和恢复 ，解决了压缩操作中的瓶颈
+    ○  支持本地或远程操作， 需配置TLS/SSH 在本地或远程备份、恢复和存档
+    ○  支持完整、增量和差异备份，增量恢复
+    ○  支持多个存储库
+    ○  支持备份轮换和存档过期， 备份完整性检查，页面校验
+    ○  支持断点备份
+    ○  支持并行、异步 WAL 推送和获取
+    ○  支持表空间和链接支持
+    ○  支持加密
+    ○  **S3、Azure 和 GCS 兼容的对象存储支持**
+
+  • pgBackRest 注意事项：
+    ○  需要在数据库服务器上修改参数 如 archive_command = 'pgbackrest --stanza=demo archive-push %p'
+    ○  数据库服务器 和 备份服务器，都需要安装，且要求相同版本  。
+    ○  数据库的page 大小只能是8k,但默认pg是16k ;  show block_size 查看数据库的page size
+         而block_size  只能在编译的设置  --with-blocksize=8，16，32
+2.安装使用
+2.1 安装
+# 安装依赖包：
+yum -y install   libyaml-devel
+yum -y install bzip2*
+
+#下载：
+
+https://github.com/pgbackrest/pgbackrest/tree/release/2.37
+
+#  （数据库服务器 和 备份服务器 都要安装)
+# 创建相应目录指定为 /usr/bin/pgbackrest
+mkdir  /usr/bin/pgbackrest
+chown postgres.postgres /usr/bin/pgbackrest/
+chmod 755 /usr/bin/pgbackrest/
+
+mkdir -p /etc/pgbackrest/conf.d
+touch /etc/pgbackrest/pgbackrest.conf
+chmod 640 /etc/pgbackrest/pgbackrest.conf
+chown postgres.postgres -R /etc/pgbackrest/
+mkdir -p -m 770 /var/log/pgbackrest
+chown postgres.postgres /var/log/pgbackrest/
+
+#解压安装
+postgres@s2ahumysqlpg01-> unzip pgbackrest-release-2.37
+postgres@s2ahumysqlpg01-> cd  pgbackrest-release-2.37/src
+postgres@s2ahumysqlpg01-> ./configure --prefix=/usr/bin/pgbackrest/
+postgres@s2ahumysqlpg01-> make  -j24
+postgres@s2ahumysqlpg01-> make install -j24
+install -d /usr/bin/pgbackrest/bin
+install -m 755 pgbackrest /usr/bin/pgbackrest/bin
+
+# 注意：默认安装路径为 /usr/bin/pgbackrest  ，如果不是的话，做一个软连接 否会会找不到远端的执行命令
+如：unexpectedly [127]: bash: pgbackrest: command not found
+ln -s /home/postgres/pgbackrest/bin/pgbackrest   /usr/bin/pgbackrest
+
+#  设置环境变更
+cd  \
+ echo "export PATH=/usr/bin/pgbackrest/bin:\$PATH" >> .bashrc
+.  .bashrc
+
+# 查看命令
+cd  /usr/bin/pgbackrest/bin
+postgres@s2ahumysqlpg01-> ./pgbackrest
+pgBackRest 2.37 - General help
+
+Usage:
+    pgbackrest [options] [command]
+Commands:
+    archive-get     Get a WAL segment from the archive.
+    archive-push    Push a WAL segment to the archive.
+    backup          Backup a database cluster.
+    check           Check the configuration.
+    expire          Expire backups that exceed retention.
+    help            Get help.
+    info            Retrieve information about backups.
+    repo-get        Get a file from a repository.
+    repo-ls         List files in a repository.
+    restore         Restore a database cluster.
+    server          pgBackRest server.
+    server-ping     Ping pgBackRest server.
+    stanza-create   Create the required stanza data.
+    stanza-delete   Delete a stanza.
+    stanza-upgrade  Upgrade a stanza.
+    start           Allow pgBackRest processes to run.
+    stop            Stop pgBackRest processes from running.
+    version         Get version.
+
+Use 'pgbackrest help [command]' for more information.
+
+2.2 互信配置
+#备份服务器 为 s2ahumysqlpg01 ，  数据库服务器为s2ahumysqlpg02
+# 备份服务器
+ ssh-keygen -t rsa
+ ssh-copy-id s2ahumysqlpg02
+
+# 数据库服务器
+ ssh-keygen -t rsa
+ ssh-copy-id s2ahumysqlpg01
+
+3.配置pgbackrest
+3.1 pgbackrest.conf
+pgBackRest可以完全与命令行参数一起使用，但配置文件对于复杂或设置很多选项的安装更实用。配置文件的默认位置是/etc/pgbackrest/pgbackrest.conf。如果该位置不存在文件，则将检查 /etc/pgbackrest.conf的旧默认值。
+
+3.1.1 数据库服务器上的配置
+vi /etc/pgbackrest/pgbackrest.conf
+[global]
+log-level-file=detail
+repo1-host=s2ahumysqlpg01
+log-path=/u01/postgresql/backup/log
+
+[pg12]
+pg1-path=/u01/postgresql/data
+
+# 设置数据库参数
+vi postgresql.auto.conf
+archive_command = 'pgbackrest --stanza=pg02 archive-push %p'
+archive_mode = on
+listen_addresses = '*'
+log_line_prefix = ''
+max_wal_senders = 3
+wal_level = replica
+
+# 重启数据库
+pg_ctl restart
+
+3.1.2备份服务器上的配置
+# 示例
+vi   /etc/pgbackrest/pgbackrest.conf
+[global]
+repo1-path=/u01/postgresql/backup/repos
+repo1-retention-full=2
+log-path=/home/postgres/pgbackrest/log
+
+[global:archive_push]
+compress-level=3
+
+[pg01]
+pg1-path=/u01/postgresql/data_bak/
+
+[pg02]
+pg1-path=/u01/postgresql/data/
+pg1-host-config-path=/etc/pgbackrest
+pg1-host-port=22
+pg1-host-user=postgres
+pg1-host=s2ahumysqlpg02
+pg1-port=5432
+pg1-user=postgres
+
+#备注：
+repo1-path  指定 备份和归档仓库路径
+compress-level 指定压缩级别 bz2 - 9 ; gz - 6 ; lz4 - 1  ;  zst - 3
+3.2 创建存储空间
+#本地节点
+pgbackrest --stanza=pg01 --log-level-console=info stanza-create
+
+#远程节点
+pgbackrest --stanza=pg02 --log-level-console=info stanza-create
+
+
+#检查
+postgres pgbackrest --stanza=pg01 --log-level-console=info check
+postgres pgbackrest --stanza=pg01 --log-level-console=info check
+
+4.备份
+4.1全量备份
+# 全量备份
+pgbackrest --stanza=pg02  --log-level-console=info backup
+
+#输出类似以下信息：#
+P00   INFO: backup command begin 2.37: --exec-id=1041-336b8131 --log-level-console=info --log-level-stderr=off --no-log-timestamp --pg1-path=/var/lib/pgsql/10/data --repo1-cipher-pass= --repo1-cipher-type=aes-256-cbc --repo1-path=/var/lib/pgbackrest --repo1-retention-full=2 --stanza=demo --start-fast
+P00   WARN: no prior backup exists, incr backup has been changed to full
+P00   INFO: execute non-exclusive pg_start_backup(): backup begins after the requested immediate checkpoint completes
+P00   INFO: backup start archive = 000000010000000000000002, lsn = 0/2000028
+       [filtered 3 lines of output]
+P00   INFO: check archive for segment(s) 000000010000000000000002:000000010000000000000003
+P00   INFO: new backup label = 20211231-194304F
+P00   INFO: full backup size = 22.5MB, file total = 949
+P00   INFO: backup command end: completed successfully
+P00   INFO: expire command begin 2.37: --exec-id=1041-336b8131 --log-level-console=info --log-level-stderr=off --no-log-timestamp --repo1-cipher-pass= --repo1-cipher-type=aes-256-cbc --repo1-path=/var/lib/pgbackrest --repo1-retention-full=2 --stanza=demo
+4.2差异备份
+pgbackrest --stanza=pg02  --type=diff   --log-level-console=info backup
+
+#输出类似以下信息：
+       [filtered 7 lines of output]
+P00   INFO: check archive for segment(s) 000000010000000000000004:000000010000000000000005
+P00   INFO: new backup label = 20211231-194304F_20211231-194310D
+P00   INFO: diff backup size = 8.8KB, file total = 949
+P00   INFO: backup command end: completed successfully
+P00   INFO: expire command begin 2.37: --exec-id=1096-e5efad67 --log-level-console=info --log-level-stderr=off --no-log-timestamp --repo1-cipher-pass= --repo1-cipher-type=aes-256-cbc --repo1-path=/var/lib/pgbackrest --repo1-retention-full=2 --stanza=demo
+4.3定时备份
+# 设置备份任务
+crontab -e
+30 06  *   *   0     pgbackrest --type=full --stanza=demo backup
+30 06  *   *   1-6   pgbackrest --type=diff --stanza=demo backup
+4.4 查看备份信息
+# 查看备份信息
+ pgbackrest info
+
+#输出类似以下信息：
+stanza: demo
+    status: ok
+    cipher: aes-256-cbc
+
+    db (current)
+        wal archive min/max (10): 000000010000000000000001/000000010000000000000005
+        full backup: 20211231-194304F
+            timestamp start/stop: 2021-12-31 19:43:04 / 2021-12-31 19:43:08
+            wal start/stop: 000000010000000000000002 / 000000010000000000000003
+            database size: 22.5MB, database backup size: 22.5MB
+            repo1: backup set size: 2.7MB, backup size: 2.7MB
+        diff backup: 20211231-194304F_20211231-194310D
+            timestamp start/stop: 2021-12-31 19:43:10 / 2021-12-31 19:43:12
+            wal start/stop: 000000010000000000000004 / 000000010000000000000005
+            database size: 22.5MB, database backup size: 8.8KB
+            repo1: backup set size: 2.7MB, backup size: 752B
+            backup reference list: 20211231-194304F
+
+5.恢复
+ pgbackrest --stanza=pg02  restore
+6.备份监控
+PostgreSQL 将通过COPY命令允许 pgBackRest信息加载到表中。以下示例将该逻辑包装在可用于执行实时查询的函数中。
+# 1.创建函数
+ psql -f   /home/postgres/pgbackrest-release-2.37/doc/example/pgsql-pgbackrest-info.sql
+# 2. 执行查询
+  psql -f   /home/postgres/pgbackrest-release-2.37/doc/example/pgsql-pgbackrest-query.sql
+ name  | last_successful_backup |    last_archived_wal
+--------+------------------------+--------------------------
+ "demo" | 2021-12-31 19:43:12+00 | 000000010000000000000005

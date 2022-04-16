@@ -1,5 +1,11 @@
 ubuntu
 
+全局菜单
+sudo apt install chrome-gnome-shell gnome-shell-extension-pres
+gedit ~/.config/gtk-3.0/settings.ini
+gtk-modules="appmenu-gtk-module"
+fildem &
+
 sudo gedit ~/.profile
 cvt 1440 900
 xrandr --newmode 1440x900 106.50 1440 1528 1672 1904 900 903 909 934 -hsync +vsync
@@ -26,6 +32,9 @@ sudo apt-get install elementary-desktop
 sudo apt-add-repository ppa:versable/elementary-update
 sudo apt-get update && sudo apt-get upgrade
 sudo apt-get install elementary-tweaks
+
+Rescuezilla系统恢复的瑞士军刀
+https://github.com/rescuezilla/rescuezilla
 
 
 sudo apt-get install mysql-server

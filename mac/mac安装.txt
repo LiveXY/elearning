@@ -1,3 +1,10 @@
+截屏
+command + shift + 3 快速截取当前的活动屏幕
+command + shift + 4 快速截取屏幕的一部分
+command + shift + control + 4 同样可以快速截取屏幕的一部分
+command + shift + control + space 快速截取某个特定的窗口
+command + shift + 5，就会看到一个工具栏，你可以利用这个工具录制整个屏幕，或者其中一部分
+
 mac备份
 1，备份：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015/Apple Configurator 2/
 2，备份配置文件目录：
@@ -519,7 +526,12 @@ sudo chown -R $(whoami) $(brew --prefix)/*
 ===============================================================
 brew install smartmontools
 查询硬盘信息
+diskutil list
+smartctl -s on disk0
 smartctl -a disk0
+
+brew install gsmartcontrol
+
 ==============================================================
 启动盘制作工具
 brew install balenaetcher
@@ -801,6 +813,8 @@ brew install progress
 progress -w
 
 brew install tldr
+tldr --update
+tldr curl
 alias woman=tldr
 woman curl
 
@@ -946,6 +960,14 @@ dnf install ShellCheck
 brew install shellcheck
 shellcheck yourscript
 
+https://github.com/mvdan/sh
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+shfmt -l -w script.sh
+
+https://github.com/withfig/autocomplete
+fig.io
+brew install fig
+
 Comsol FDTD 电磁波仿真
 Ansys工程设计仿真
 Multism数学电力电子领域仿真
@@ -997,3 +1019,258 @@ brew install ripgrep
 
 Blender 3.0 发布，三维动画制作软件重大更新
 https://www.blender.org/download/
+
+https://github.com/axboe/fio
+https://github.com/khailey-zz/fio_scripts
+brew install fio
+随机写
+fio -filename=/opt/test -direct=1 -iodepth 1 -thread -rw=randwrite -ioengine=psync -bs=16k -size=2G -numjobs=30 -runtime=100 -group_reporting -name=mytest
+顺序写
+fio -filename=/opt/test -direct=1 -iodepth 1 -thread -rw=write -ioengine=psync -bs=16k -size=2G -numjobs=30 -runtime=100 -group_reporting -name=mytest
+顺序读
+fio -filename=/dev/sda1 -direct=1 -iodepth=1 -rw=read -ioengine=psync -bs=4k -size=1000G -numjobs=50 -runtime=180 -group_reporting -name=sqe_100read_4k
+随机写
+fio -filename=/opt/test -direct=1 -iodepth=1 -rw=randwrite -ioengine=psync -bs=4k -size=1000G -numjobs=50 -runtime=180 -group_reporting -name=rand_100write_4k
+70%随机读，30%随机写
+fio -filename=/opt/test -direct=1 -iodepth= 1 -rw=randrw -rwmixread=70 -ioengine=psync -bs=4k -size=1000G -numjobs=50 -runtime=180 -group_reporting -name=randrw_70read_4k
+
+免费和开源替代品
+https://mp.weixin.qq.com/s/UMnVz6mqfOS2pI9FfRjC1Q
+gimp
+https://www.gimp.org/
+https://www.gimp.org/downloads/
+inkscape
+https://inkscape.org/release/inkscape-1.1.1/
+scribus
+https://www.scribus.net/
+openshot
+https://www.openshot.org/
+Synfig：
+https://www.fosshub.com/Synfig.html/synfigstudio-1.2.0-64bit-r2.appimage
+DarkTable：https://www.darktable.org/
+Natron：https://natron.fr/
+Ardor：https://ardour.org/
+https://github.com/Ardour/ardour
+Master PDF：
+http://get.code-industry.net/public/master-pdf-editor-4.3.10_qt5.amd64.deb
+qoi快速无损图像压缩的“相当好的图像格式”
+https://github.com/phoboslab/qoi
+https://github.com/floooh/qoiview
+https://github.com/pfusik/qoi-ci/releases/tag/qoi-ci-1.1.0
+https://github.com/iOrange/QoiFileTypeNet/releases/tag/v0.2
+https://github.com/iOrange/QOIThumbnailProvider
+
+yum install epel-release
+yum install smem
+smem -t -r
+·VSS- Virtual Set Size 虚拟内存（包含共享库占用的内存）
+·RSS- Resident Set Size 实际使用物理内存（包含共享库占用的内存）
+·PSS- Proportional Set Size 实际使用的物理内存（比例分配共享库占用的内存）
+·USS- Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存）
+
+brew install lolcat
+lolcat -h
+
+开发字体
+MonoLisa: https://www.monolisa.dev/
+JetBrains Mono: https://www.jetbrains.com/lp/mono/
+Fira Code: https://github.com/tonsky/FiraCode
+Source Code Pro: https://github.com/adobe-fonts/source-code-pro
+Steve Matteson: https://www.myfonts.com/person/Steve_Matteson/
+AlbertoDorado: https://github.com/AlbertoDorado
+发布了一个带有点划线零的版本: https://github.com/AlbertoDorado/droid-sans-mono-zeromod
+Monoid: https://larsenwork.com/monoid/
+
+https://marktext.app/
+https://github.com/marktext/marktext
+
+https://app.diagrams.net/
+
+大屏可视化
+https://mp.weixin.qq.com/s/0sbRtxyAj81eIuc7C9TatQ
+
+brew install fd
+fd *.md
+
+brew install exa
+显示选项
+-1，--oneline：每行显示一个条目
+-G，--grid：将条目显示为网格（默认）
+-l，--long：显示扩展细节和属性
+-R，--recurse：递归到目录
+-T，--tree：作为树递归到目录中
+-x，--across：对网格进行排序，而不是向下排序
+-F，--classify：按文件名显示类型指示器
+--colo[u]r：何时使用终端颜色
+--colo[u]r-scale : 清楚地突出显示文件大小的级别
+--icons : 显示图标
+--no-icons : 不显示图标（总是覆盖 --icons）
+过滤选项
+-a，--all：显示隐藏和“点”文件
+-d，--list-dirs：像普通文件一样列出目录
+-L，--level=(depth)：限制递归深度
+-r，--reverse：反转排序顺序
+-s，--sort=(field)：按哪个字段排序
+--group-directories-first：在其他文件之前列出目录
+-D，--only-dirs：只列出目录
+--git-ignore：忽略中提到的文件.gitignore
+-I，--ignore-glob=(globs)：要忽略的文件的全局模式（管道分隔）
+
+brew install ag
+ag -g （文件名）：类似于 find . -name （文件名）
+ag -i sed：忽略大小写搜索含 sed 文本
+ag -A sed：搜索含 sed 文本，并显示匹配内容之后的 n 行文本
+ag -B sed：搜索含 sed 文本，并显示匹配内容之前的 n 行文本
+ag -C sed：搜索含 sed 文本，并同时显示匹配内容以及它前后各 n 行文本的内容
+ag -w sed：全匹配搜索，只搜索与所搜内容完全匹配的文本
+ag --java sed：在 java 文件中搜索含 sed 的文本
+ag --xml sed：在 XML 文件中搜索含 sed 的文本
+
+brew install axel
+
+多设备显示适配
+https://github.com/responsively-org/responsively-app
+https://responsively.app/
+
+DooTask是一款轻量级的开源在线项目任务管理工具，提供各类文档协作工具、在线思维导图、在线流程图、项目管理、任务分发、即时IM，文件管理等工具
+https://github.com/kuaifan/dootask
+
+我们可以通过tune2fs修改预留空间的比例
+tune2fs -m 1 /dev/vda1
+
+轻松安全地将内容从一台计算机发送到另一台计算机
+https://github.com/schollz/croc
+curl https://getcroc.schollz.com | bash
+brew install croc
+go install github.com/schollz/croc/v9@latest
+croc code-phrase
+croc send [file(s)-or-folder]
+croc send --code [code-phrase] [file(s)-or-folder]
+croc --yes --overwrite <code>
+croc send --text "hello world"
+
+HandBrake 视频转码
+https://github.com/HandBrake/HandBrake
+https://handbrake.fr/
+
+恢复工具
+https://mp.weixin.qq.com/s/vKDVpLBD5wEshleQhTug_Q
+Redo Rescue
+Clonezilla
+Rescuezilla
+
+FFmpeg5.0
+https://evermeet.cx/ffmpeg/
+
+https://github.com/FFmpeg/FFmpeg/tree/n5.0
+apt install yasm nasm
+./configure
+make
+make install
+ffmpeg -version
+ffmpeg -codecs
+
+npm install --global yarn
+yarn --version
+yarn config set registry https://registry.npm.taobao.org
+yarn config list
+yarn set version classic #1.23
+yarn set version berry #3.1
+yarn set version canary #3.2
+yarn set version latest
+yarn set version 3.x
+yarn set version 1.22.17
+
+yum install tcptraceroute bc
+apt-get install tcptraceroute bc
+wget http://www.vdberg.org/~richard/tcpping
+cp tcpping /usr/bin
+chmod u+x tcpping
+tcpping [-d] [-c] [-r sec] [-x count] ipaddress [端口]
+-d: 在每个结果之前打印时间戳。
+-c: 使用分列输出以便于解析。
+-r：连续探测之间的间隔（以秒为单位）（默认为 1 秒）。
+-x: 重复 n 次（默认无限制）。
+[port]: 目标端口（默认为 80）。
+tcpping www.rumenz.com
+-t: 连续 TCPing ，直到使用 Ctrl+C 键停止
+tcping -t 1.1.1.1 80
+-n 5: TCPing 5次后停止
+tcping -i 5 1.1.1.1 80
+-w 0.5: 设置超时时间为 0.5秒（1秒=1000毫秒），单位 秒
+tcping -w 0.5 1.1.1.1 80
+-d:在每行返回信息中加入时间信息
+tcping -d 1.1.1.1 80
+-s: 当 TCPing 测试成功后（在超时时间以内返回 TCPing 延迟数据）自动停止 TCPing
+tcping -s 1.1.1.1 80
+-4: 优先 IPv4（如果一个域名有 IPv4 和 IPv6 解析，那么走 IPv4）
+tcping -s 1.1.1.1 80
+-6:优先 IPv6（如果一个域名有 IPv4 和 IPv6 解析，那么走 IPv6）
+tcping -6 www.rumenz.com 80
+--file: TCPing 将逐行循环遍历文件内的 服务器IP/域名 信息（一行一个，支持端口，例如：1.1.1.1 443）
+tcping --file rumenz.txt
+
+下载工具
+downie
+
+# 在vim中通过如下设置文件编码和文件格式
+:set fileencodings=utf-8 ，然后 w （存盘）一下即可转化为 utf8 格式，
+:set fileformat=unix
+
+#normal模式下 g表示全局, x表示查找的内容, y表示替换后的内容
+:%s/x/y/g
+#normal模式下
+0  # 光标移到行首(数字0)
+$  # 光标移至行尾
+shift + g # 跳到文件最后
+gg # 跳到文件头
+# 显示行号
+:set nu
+# 去除行号
+:set nonu
+# 检索
+/xxx(检索内容)  # 从头检索, 按n查找下一个
+?xxx(检索内容)  # 从尾部检索
+# 在normal模式下
+:w !sudo tee %
+
+# 在mac下使用dos2unix进行文件格式化
+find . -name "*.sh" | xargs dos2unix
+
+zsh:no matches found
+vim ~/.zshrc
+setopt no_nomatch
+source ~/.zshrc
+
+VM VirtualBox 虚拟机 挂载ISO
+http://download.virtualbox.org/virtualbox/6.1.32/
+http://download.virtualbox.org/virtualbox/6.1.32/VirtualBox-6.1.32-149290-OSX.dmg
+
+mount /path/to/image.iso /media/iso -o loop
+umount /media/iso
+
+/Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso
+
+wget http://download.virtualbox.org/virtualbox/6.1.32/VBoxGuestAdditions_6.1.32.iso
+mount /home/VBoxGuestAdditions.iso /media/iso -o loop
+cd /media/iso/
+./VBoxLinuxAdditions.run
+reboot
+
+查看当前虚拟机中所有连接的虚拟设备
+lsscsi (适用于centos7) lsblk  (适用于ubuntu)
+
+mount -t vboxsf htsy /home/htsy/
+
+网络模拟工具
+华三hcl
+eve
+华为ensp
+
+brew tap showwin/speedtest
+brew install speedtest
+brew update
+brew upgrade speedtest
+
+
+

@@ -391,3 +391,12 @@ vrrp_instance VI_1 {
         10.0.0.1
     }
 }
+
+balance roundrobin    # 动态加权轮询，软负载均衡基本都具备这种算法
+balance static-rr     # 静态轮训，建议使用
+balance leastconn     # 最少连接者先处理，建议用于长会话
+balance source      # 源地址哈希算法，根据请求源IP，建议使用
+balance uri        # 根据请求的URI
+balance url_param     # 根据请求的URl参数'balance url_param' requires an URL parameter name
+balance hdr(name)     # 根据HTTP请求头来锁定每一次HTTP请求
+balance rdp-cookie(name) # 根据据cookie(name)来锁定并哈希每一次TCP请求

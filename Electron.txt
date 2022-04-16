@@ -1,4 +1,5 @@
 Electron
+https://github.com/electron/electron
 
 打包：
 npm install -g asar
@@ -10,3 +11,11 @@ asar pack app app.asar --unpack-dir "{x1,x2}"
 
 解包
 asar extract app.asar ./
+
+https://github.com/tauri-apps/tauri
+https://tauri.studio/docs/getting-started/prerequisites
+https://github.com/tauri-apps/wry
+
+https://github.com/asticode/go-astilectron
+
+https://github.com/nwjs/nw.js

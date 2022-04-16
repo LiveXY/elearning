@@ -40,6 +40,8 @@ source ~/.bash_profile
 brew update
 brew services list
 brew list
+brew reinstall go
+brew uninstall -f go
 
 安装PHP
 brew search php

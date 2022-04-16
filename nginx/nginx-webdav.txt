@@ -1,0 +1,188 @@
+nginx-webdav
+
+wget https://nginx.org/download/nginx-1.20.2.tar.gz
+wget https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz
+wget http://zlib.net/zlib-1.2.11.tar.gz
+wget http://www.openssl.org/source/openssl-1.1.1m.tar.gz
+git clone https://github.com/arut/nginx-dav-ext-module.git
+git clone https://github.com/openresty/headers-more-nginx-module.git
+tar -zxf pcre-8.45.tar.gz
+tar -zxf zlib-1.2.11.tar.gz
+tar -zxf openssl-1.1.1m.tar.gz
+tar -zxf nginx-1.20.2.tar.gz
+
+tree -L 1
+
+./configure \
+--prefix=/etc/nginx \
+--sbin-path=/usr/sbin/nginx \
+--modules-path=/usr/lib64/nginx/modules \
+--conf-path=/etc/nginx/nginx.conf \
+--error-log-path=/var/log/nginx/error.log \
+--http-log-path=/var/log/nginx/access.log \
+--pid-path=/var/run/nginx.pid \
+--lock-path=/var/run/nginx.lock \
+--http-client-body-temp-path=/var/cache/nginx/client_temp \
+--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+--user=nginx \
+--group=nginx \
+--with-zlib=../zlib-1.2.11 \
+--with-zlib-opt='-g -Ofast -fPIC -m64 -march=native -fstack-protector-strong -D_FORTIFY_SOURCE=2' \
+--with-pcre=../pcre-8.45 \
+--with-pcre-opt='-g -Ofast -fPIC -m64 -march=native -fstack-protector-strong -D_FORTIFY_SOURCE=2' \
+--with-pcre-jit \
+--with-compat \
+--with-file-aio \
+--with-threads \
+--with-http_addition_module \
+--with-http_auth_request_module \
+--with-http_dav_module \
+--add-module=../nginx-dav-ext-module \
+--add-module=../headers-more-nginx-module \
+--with-openssl=../openssl-1.1.1m \
+--with-http_xslt_module \
+--with-http_flv_module \
+--with-http_gunzip_module \
+--with-http_gzip_static_module \
+--with-http_mp4_module \
+--with-http_random_index_module \
+--with-http_realip_module \
+--with-http_secure_link_module \
+--with-http_slice_module \
+--with-http_ssl_module \
+--with-http_stub_status_module \
+--with-http_sub_module \
+--with-http_v2_module \
+--with-mail \
+--with-mail_ssl_module \
+--with-stream \
+--with-stream_realip_module \
+--with-stream_ssl_module \
+--with-stream_ssl_preread_module \
+--with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -fPIC' \
+--with-ld-opt='-Wl,-z,relro -Wl,-z,now -pie'
+
+./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib64/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-zlib=../zlib-1.2.11 --with-zlib-opt='-g -Ofast -fPIC -m64 -march=native -fstack-protector-strong -D_FORTIFY_SOURCE=2' --with-pcre=../pcre-8.45 --with-pcre-opt='-g -Ofast -fPIC -m64 -march=native -fstack-protector-strong -D_FORTIFY_SOURCE=2' --with-pcre-jit --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --add-module=../nginx-dav-ext-module --add-module=../headers-more-nginx-module --with-openssl=../openssl-1.1.1m --with-http_xslt_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -pie'"
+
+make -j
+make install
+
+--with-pcre-opt='-g -Ofast -fPIC -m64 -march=native -fstack-protector-strong -D_FORTIFY_SOURCE=2' \
+--with-zlib-opt='-g -Ofast -fPIC -m64 -march=native -fstack-protector-strong -D_FORTIFY_SOURCE=2' \
+
+
+vim /usr/lib/systemd/system/nginx.service
+[Unit]
+Description=nginx - high performance web server
+Documentation=http://nginx.org/en/docs/
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/nginx.pid
+ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /var/run/nginx.pid)"
+ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /var/run/nginx.pid)"
+
+[Install]
+WantedBy=multi-user.target
+
+[root@centos7 ~]# systemctl enable nginx
+[root@centos7 ~]# systemctl start nginx
+
+vim /etc/nginx/conf.d/webdav.conf
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name example.com;
+
+    ssl_certificate "/home/SSL/example.com.crt";
+    ssl_certificate_key "/home/SSL/example.com.key";
+    ssl_session_cache shared:SSL:20m;
+    ssl_session_timeout 30m;
+    ssl_session_tickets off;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-256-GCM-SHA384:TLS13-AES-128-GCM-SHA256:EECDH+CHACHA20:EECDH+AESGCM:EECDH+AES;
+    ssl_prefer_server_ciphers on;
+
+    access_log /var/log/nginx/access-example.com.log main;
+    error_log /var/log/nginx/error-example.com.log error;
+
+    location / {
+        # 设置webdav目录，注意Nginx worker用户对该目录需有读/写/执行权限
+        root /home/qaq;
+
+        auth_basic "closed site";
+        auth_basic_user_file /home/SSL/webdav.htpasswd;
+
+        dav_methods PUT DELETE MKCOL COPY MOVE;
+        dav_ext_methods PROPFIND OPTIONS;
+
+        # 启用完整的创建目录支持
+        create_full_put_path on;
+        dav_access user:rw group:rw all:r;
+
+        autoindex on;
+        autoindex_localtime on;
+        autoindex_exact_size off;
+        # 不限制文件大小
+        client_max_body_size 0;
+
+        # 为各种方法的URI后加上斜杠，解决各平台webdav客户端的兼容性问题
+        set $dest $http_destination;
+        if (-d $request_filename) {
+            rewrite ^(.*[^/])$ $1/;
+            set $dest $dest/;
+        }
+
+        if ($request_method ~ (MOVE|COPY)) {
+            more_set_input_headers 'Destination: $dest';
+        }
+
+        if ($request_method ~ MKCOL) {
+            rewrite ^(.*[^/])$ $1/ break;
+        }
+    }
+
+    # Mac挂载webdav后会自动写入很多文件，可以通过nginx配置屏蔽掉，保持webdav目录的干净
+    location ~ \.(_.*|DS_Store|Spotlight-V100|TemporaryItems|Trashes|hidden|localized)$ {
+        access_log off;
+        error_log off;
+
+        if ($request_method = PUT) {
+            return 403;
+        }
+        return 404;
+    }
+
+    location ~ \.metadata_never_index$ {
+        return 200 "Don't index this drive, Finder!";
+    }
+}
+
+
+server {
+  listen 80;
+  location / {
+      root /usr/local/nginx/webdav;
+      dav_methods PUT DELETE MKCOL COPY MOVE; #DAV支持的请求方法
+      dav_ext_methods PROPFIND OPTIONS; #DAV扩展支持的请求方法
+      charset utf-8;  #设置为utf-8不然中文容易乱码
+      create_full_put_path on; #启用创建目录支持
+      dav_access user:rw group:r all:r;  #设置新创建的文件和目录的访问权限
+      limit_except GET PROPFIND OPTIONS HEAD { #匿名用户只有查看权限，登录用户才能进行读写操作
+            auth_basic "Authorized Users Only";
+            auth_basic_user_file /usr/local/nginx/conf/passwd.conf;
+      }
+      autoindex on; 
+      autoindex_exact_size off;
+      autoindex_localtime on;
+      min_delete_depth 0;
+  } 
+}
+

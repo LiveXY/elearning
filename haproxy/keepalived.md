@@ -11,7 +11,7 @@ if [ $(ps -C haproxy --no-header | wc -l) -eq 0 ]; then
 	systemctl restart haproxy
 	sleep 1
 	if [ $(ps -C haproxy --no-header | wc -l) -eq 0 ]; then
-		systemctl stop keepalived
+		systemctl stop keepalived
 	fi
 fi
 vi /etc/keepalived/clean_arp.sh

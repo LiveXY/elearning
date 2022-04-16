@@ -7,6 +7,8 @@ https://www.chinauos.com/resource/download-server
 安装达梦数据库
 https://www.dameng.com/list_103.html
 https://eco.dameng.com/docs/zh-cn/faq/faq-db-check.html
+DBeaver 驱动配置
+https://www.renfei.net/posts/1003455
 x86 WIN64
 https://package.dameng.com/eco/adapter/DM8/202110/dm8_20211025_x86_win_64_ent.zip
 AMD 海光 UOS20
@@ -23,7 +25,7 @@ sudo su
 ifconfig
 cp /etc/network/interfaces /etc/network/interfaces.bak
 vi /etc/network/interfaces
-vi /etc/network/interfaces.d/
+vi /etc/network/interfaces.d/eth0
 auto eth0
 iface lo inet loopback
 iface eth0 inet static
@@ -63,7 +65,9 @@ https://mp.weixin.qq.com/s/TBcRYOzxM5ymcGsPNImAiQ
 https://mp.weixin.qq.com/s/vA3ay3X-Xp_gYv1ZiGz0hg
 https://mp.weixin.qq.com/s/awV3vgHUa5r6gal8jnAkqw
 https://mp.weixin.qq.com/s/U9m58BkNRKBDkbxSN19M9g
-
+https://mp.weixin.qq.com/s/2_f05DCDeu1pySREpGfxdQ
+https://mp.weixin.qq.com/s/Jj5ovLOtc5wNAul7bAFtyg
+https://mp.weixin.qq.com/s/AuuVw_xFbY5xURWL3BIkkA
 达梦数据库
 sudo su
 groupadd dmgroup
@@ -564,6 +568,123 @@ select b.name, t.*
 某个会话的历史sql信息
   select * from V$SQL_HISTORY t where T.SESS_ID = '140577090115912';  --会话id
 
+多版本操作冲突过多
+修改 dm.ini 文件里的参数：MVCC_RETRY_TIMES = 11 数据调大，默认是5，然后重启数据库。
+SP_SET_PARA_VALUE (2,'MVCC_RETRY_TIMES',11);
+
+DM关键字
+select * from V$RESERVED_WORDS where RESERVED='Y'
+
+
+优化
+select PARA_NAME,PARA_VALUE from v$dm_ini where para_name in('MEMORY_POOL','MEMORY_TARGET','BUFFER','MAX_BUFFER','MAX_SESSIONS')
+cat /home/dmdb/dmdbms/data/TRAINGO/dm.ini | grep -E "MEMORY_POOL|MEMORY_TARGET|BUFFER|SESSIONS"
+MEMORY_POOL 建议为内存的 90%  1800
+MEMORY_TARGET   建议为内存的 90%  1800
+BUFFER  建议为内存的 60%  1200
+MAX_BUFFER  建议为内存的 70%  1400
+MAX_SESSIONS        1000
+
+开启
+SP_SET_PARA_VALUE(1,'ENABLE_MONITOR',1);
+SP_SET_PARA_VALUE(1,'MONITOR_TIME',1);
+
+查看慢查询
+select * from V$LONG_EXEC_SQLS order by exec_time desc；
+或者
+select * from V$SYSTEM_LONG_EXEC_SQLS order by exec_time desc;
+select * from v$sql_history order by time_used desc
+
+1、设置开启日志
+https://www.modb.pro/topic/73447
+https://www.modb.pro/db/28221 #达梦数据库开启SQL日志记录
+https://www.modb.pro/db/26095 #达梦数据库的几种模式及状态说明
+https://www.modb.pro/db/57299 #达梦数据库物理备份恢复_联机拷贝数据库
+https://www.modb.pro/db/216194 #DM8 数据库主备/读写分离集群增加节点
+https://www.modb.pro/db/215854 #使用DMFLDR工具将Excel数据导入到达梦数据库
+
+
+LOG记录的语句类型掩码，是一个格式化的字符串，表示一个32位整数上哪一位将被置为1，置为1的位则表示该类型的语句要记录，格式为：位号:位号:位号。列如：3:5:7表示第3，第5，第7位上的值被置为1。每一位的含义见下面说明（2~17前提是:SQL标记位24也要置)：
+1 全部记录(全部记录并不包含原始语句)
+2 全部 DML 类型语句
+3 全部 DDL 类型语句
+4 UPDATE 类型语句(更新)
+5 DELETE 类型语句(删除)
+6 INSERT 类型语句(插入)
+7 SELECT 类型语句(查询)
+8 COMMIT 类型语句(提交)
+9 ROLLBACK 类型语句(回滚)
+10 CALL 类型语句(过程调用)
+11 BACKUP 类型语句(备份)
+12 RESTORE 类型语句(恢复)
+13 创建对象操作(CREATE DDL)
+14 修改对象操作(ALTER DDL)
+15 删除对象操作(DROP DDL)
+16 授权操作(GRANT DDL)
+17 回收操作(REVOKE DDL)
+22 绑定参数
+23 存在错误的语句（语法错误，语义分析错误等）
+24 是否需要记录执行语句
+25 是否需要打印计划和语句和执行的时间
+26 是否需要记录执行语句的时间
+27 原始语句（服务器从客户端收到的未加分析的语句）
+28 是否记录参数信息，包括参数的序号、数据类型和值
+29 是否记录事务相关事件
+--设置SQL过滤规则，只记录必要的SQL，生产环境不要设成1
+--   2 只记录DML语句    3 只记录DDL语句   22 记录绑定参数的语句
+--   25 记录SQL语句和它的执行时间    28 记录SQL语句绑定的参数信息
+SF_SET_SYSTEM_PARA_VALUE('SQL_TRACE_MASK','2:3:5:22:25:28',0,1);
+--同步日志会严重影响系统效率，生产环境必须设置为异步日志
+SF_SET_SYSTEM_PARA_VALUE('SVR_LOG_ASYNC_FLUSH',1,0,1);
+--下面这个语句设置只记录执行时间超过200ms的语句
+SF_SET_SYSTEM_PARA_VALUE('SVR_LOG_MIN_EXEC_TIME',200,0,1);
+
+select PARA_NAME,PARA_VALUE from v$dm_ini where para_name in('SQL_TRACE_MASK','SVR_LOG_ASYNC_FLUSH','SVR_LOG_MIN_EXEC_TIME')
+
+--开启SQL日志：
+SP_SET_PARA_VALUE(1, 'SVR_LOG', 1);
+--关闭SQL日志：
+SP_SET_PARA_VALUE(1, 'SVR_LOG', 0);
+
+生成sql日志
+日志默认路径是log/dmsql_'sid'.log
+日志是不断累加的，过期无用的sql日志可以删除文件，可截取某时间段的日志。
+sql.log日志的配置文件/data/DAMENG/sqllog.ini
+sqllog.ini
+BUF_TOTAL_SIZE          = 10240         #SQLs Log Buffer Total Size(K)(1024~1024000)
+BUF_SIZE                = 1024          #SQLs Log Buffer Size(K)(50~409600)
+BUF_KEEP_CNT            = 6             #SQLs Log buffer keeped count(1~100)
+[SLOG_ALL]
+    FILE_PATH    = /dmdata/data/log     #sqllog存放位置
+    PART_STOR    = 0
+    SWITCH_MODE  = 2          #0代表不切换  2代表按照文件大小切换
+    SWITCH_LIMIT   = 256     #文件大小256M
+    ASYNC_FLUSH   = 1         #异步刷日志
+    FILE_NUM = 10            #生成的SQLLOG个数
+    ITEMS    = 0
+    SQL_TRACE_MASK  = 1       #全部类型的sql
+    MIN_EXEC_TIME = 0
+    USER_MODE   = 0           #0为记录所有的用户
+    USERS =
+如果对 sqllog.ini 进行了修改，可通过调用以下函数即时生效，无需重启数据库，如下所示：
+
+SP_REFRESH_SVR_LOG_CONFIG();
+
+获取日志分析
+用java执行jar包分析日志文件
+到jar包的目录
+Dmlog_DM7_6.0.jar
+Dmlog_DM7_5.1.jar
+命令行：
+java.exe -jar Dmlog_DM7_5.1.jar                (可以在电脑自己安装jdk，也可以dm自带的jdk）
+
+可以在用本机的数据库分析，也可以远程，数据库的页大小和块大小为32不然会报错：记录超长
+文件夹的路径，要单独为分析日志设置文件夹，因为会分析文件夹内所有文件，可以多个日志，可以带入参数
+生成的文件在当前目录
+
+用DM自带的monitor工具.../tool/目录下
+
+
 ===================================================================================
 或者
 dpkg -i nginx
@@ -571,9 +692,10 @@ dpkg -i nginx
 或者编译安装
 apt install build-essential libtool libpcre3 libpcre3-dev zlib1g-dev openssl
 
-wget https://udomain.dl.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.zip && tar xzf pcre-8.43.tar.gz
+wget https://udomain.dl.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.tar.gz && tar xzf pcre-8.43.tar.gz
 wget https://www.zlib.net/zlib-1.2.11.tar.gz && tar xzf zlib-1.2.11.tar.gz
 wget https://www.openssl.org/source/openssl-1.1.1l.tar.gz && tar xzf openssl-1.1.1l.tar.gz
+https://www.openssl.org/source/openssl-1.1.1m.tar.gz
 wget https://nginx.org/download/nginx-1.20.2.tar.gz && tar zxf nginx-1.20.2.tar.gz
 make && make install
 
@@ -746,3 +868,41 @@ LOAD CSV
     BEFORE LOAD DO $$ CREATE SCHEMA IF NOT EXISTS PUBLIC; $$,
  $$ CREATE TABLE IF NOT EXISTS PUBLIC.TESTACCOUNT(COLUMN1 INTEGER,COLUMN2 INTEGER); 
  $$;
+
+PostgreSQL基准测试工具pgbench
+https://mp.weixin.qq.com/s/2n35vbYNVvmeVObxzGEetA
+pgbench -n -c 6 -f bench.sql -t 10000 test
+pg_basebackup -Fp -Xs -R -p 5432 -D pgdata && pg_ctl -D pgdata start
+Heroku PostgreSQL[^38]、Compose PostgreSQL[^39]、Amazon RDS for PostgreSQL[^40]或Google Cloud SQL for PostgreSQL[^41
+我们使用pgstattuple扩展来获取psql 的索引统计信息：
+SELECT i.indexrelid::regclass AS index,
+       s.index_size,
+       s.avg_leaf_density
+FROM pg_index AS i
+   CROSS JOIN LATERAL pgstatindex(i.indexrelid) AS s
+WHERE indrelid = 'testtab'::regclass;
+
+在线实训环境 Oracle PostgreSQL MySQL openGauss Redis
+https://www.modb.pro/marketlist?type=1
+PostgreSQL
+https://mp.weixin.qq.com/s/IE468UjBq62l5aqZ6VQaOQ
+https://mp.weixin.qq.com/s/Z4hGGJXM0EWnbRU5b2nUxQ
+https://mp.weixin.qq.com/s/L1G-rh5t_X9puzmmmy26Ow
+https://mp.weixin.qq.com/s/WRn0s7fsbMw9if3vMuG_1g
+patroni + etcd + haproxy  + keepalived
+https://mp.weixin.qq.com/s/UfpAY2Ycv-ol92mGKIIWVg
+ps -axjf | grep postgres
+https://mp.weixin.qq.com/s/PmHriAAPcwEFcFMJfeW6Gw
+https://mp.weixin.qq.com/s/FlrbHK-4cNuP0etDWnigRw
+https://mp.weixin.qq.com/s/2NbKaUieMmQ5ViMZH_cZDA
+https://mp.weixin.qq.com/s/ezXhE9YfKARZi23kYREV_g
+https://mp.weixin.qq.com/s/v3x50OwrD8eiB9dKu85yPw
+https://mp.weixin.qq.com/s/W_JjRfjZzJrbMG_GvD32vA
+https://mp.weixin.qq.com/s/wirNzZuN7CU86hq6qGUsag
+
+https://mp.weixin.qq.com/s/re4UV7XyqJy3v0iN4UTvpg 自定义tinyint类型
+
+0 0 * * * pg_dump --no-password -U user db_name > backup.sql
+为了安全起见不要直接输入密码，而是应该将密码加入 .pgpass 文件，并且将该文件的权限设置为仅当前用户可见：
+chmod 600 .pgpass
+

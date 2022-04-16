@@ -161,3 +161,16 @@ kill -HUP `ps -A -ostat,ppid | grep -e '^[Zz]' | awk '{print $2}'`
 * `ps aufx` 查看进程树
 * `ps -eo pid,args,psr` 怎样知道某个进程在哪个CPU上运行？
 查看PHP-CGI占用的内存总数：total=0; for i in `ps -C php-cgi -o rss=`; do total=$(($total+$i)); done; echo "PHP-CGI Memory usage: $total kb"
+
+pkill
+# 命令来完成强制活动用户退出.其中TTY表示终端名称
+pkill -kill -t [TTY]
+
+查看进程启动路径
+ps auwxf
+
+ps eww -p  XXXXX(进程号)
+查看进程树找到服务器进程
+
+
+

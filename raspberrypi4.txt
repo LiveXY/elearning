@@ -731,6 +731,11 @@ sudo reboot
 
 openwrt lede
 https://github.com/coolsnowwolf/lede
+https://github.com/openwrt/openwrt
+https://git.openwrt.org/
+https://downloads.openwrt.org/releases/
+https://openwrt.org/zh/downloads
+https://downloads.openwrt.org/releases/packages-21.02/
 
 换新卡，支持exfat
 sudo apt install exfat-fuse
@@ -1130,3 +1135,25 @@ ufw allow from 192.168.0.0/24 to any port 22
 ufw status numbered
 ufw delete <rule-number>
 ufw enable
+
+Ubuntu Desktop硬件门槛降低，支持2GB树莓派4上运行
+$ sudo sed -i -e 's/$/ zswap.enabled=1/' /boot/firmware/cmdline.txt
+$ sudo -i
+# echo lz4 >> /etc/initramfs-tools/modules
+# echo z3fold >> /etc/initramfs-tools/modules
+# update-initramfs -u
+$ sudo sed -i -e 's/$/ zswap.compressor=lz4/' /boot/firmware/cmdline.txt
+$ sudo sed -i -e"s/$/ zswap.zpool=z3fold/ /boot/firmware/cmdline.txt
+reboot
+$ grep -R . /sys/module/zswap/parameters
+如果你的配置正确，那么输出应该是这样的。
+/sys/module/zswap/parameters/same_filled_pages_enabled:Y
+/sys/module/zswap/parameters/enabled:Y
+/sys/module/zswap/parameters/max_pool_percent:20
+/sys/module/zswap/parameters/compressor:lz4
+/sys/module/zswap/parameters/zpool:z3fold
+/sys/module/zswap/parameters/accept_threshold_percent:90
+
+
+https://dietpi.com/
+

@@ -269,3 +269,32 @@ nuitka --standalone --show-memory --show-progress --nofollow-imports --plugin-en
 --windows-icon-from-ico=./logo.ico：指定生成的exe的图标为logo.ico这个图标，这里推荐一个将图片转成ico格式文件的网站（比特虫）。
 --windows-disable-console：运行exe取消弹框。这里没有放上去是因为我们还需要调试，可能哪里还有问题之类的。
 
+https://pypi.org/project/awkward/
+https://github.com/mwouts/jupytext
+https://github.com/gradio-app/gradio
+https://github.com/activeloopai/Hub
+https://github.com/facebookresearch/AugLy
+https://github.com/evidentlyai/evidently
+https://github.com/Megvii-BaseDetection/YOLOX
+https://github.com/bytedance/lightseq
+https://github.com/linkedin/greykite
+https://github.com/jina-ai/finetuner
+从 PDF 中提取表格数据
+https://github.com/camelot-dev/camelot
+
+空间数据可视化神器 keplergl
+https://kepler.gl/
+https://kepler.gl/demo
+jupyter notebook使用手册地址：https://github.com/keplergl/kepler.gl/tree/master/docs/keplergl-jupyter#geojson
+案例地址：https://github.com/keplergl/kepler.gl/tree/master/bindings/kepler.gl-jupyter/notebooks
+pip install keplergl
+
+视频下载工具
+https://github.com/yt-dlp/yt-dlp
+python3 -m pip install -U yt-dlp
+brew install yt-dlp/taps/yt-dlp
+yt-dlp [OPTIONS] [--] URL [URL...]
+
+
+
+

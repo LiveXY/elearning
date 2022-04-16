@@ -40,6 +40,7 @@ root = administrator admin
 nobody = guest pcguest smbguest
 ```
 
+smb3.0多通道速度更快
 
 
 

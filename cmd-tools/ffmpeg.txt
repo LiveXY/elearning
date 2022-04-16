@@ -105,3 +105,70 @@ private void panel1_Click(object sender, EventArgs e) {
         pen.Dispose();
     }
 }
+
+http://ffmpeg.org/releases/ffmpeg-4.2.5.tar.gz
+ffmpeg version 4.2.5 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 8 (GCC)
+  configuration: --prefix=/usr --bindir=/usr/bin --datadir=/usr/share/ffmpeg --docdir=/usr/share/doc/ffmpeg --incdir=/usr/include/ffmpeg --libdir=/usr/lib64 --mandir=/usr/share/man --arch=x86_64 --optflags='-O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -m64 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection' --extra-ldflags='-Wl,-z,relro -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld ' --extra-cflags=' ' --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvo-amrwbenc --enable-version3 --enable-bzlib --disable-crystalhd --enable-fontconfig --enable-frei0r --enable-gcrypt --enable-gnutls --enable-ladspa --enable-libaom --enable-libdav1d --enable-libass --enable-libbluray --enable-libcdio --enable-libdrm --enable-libjack --enable-libfreetype --enable-libfribidi --enable-libgsm --enable-libmp3lame --enable-nvenc --enable-openal --enable-opencl --enable-opengl --enable-libopenjpeg --enable-libopus --enable-libpulse --enable-librsvg --enable-libsrt --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libvorbis --enable-libv4l2 --enable-libvidstab --enable-libvmaf --enable-version3 --enable-vapoursynth --enable-libvpx --enable-libx264 --enable-libx265 --enable-libxvid --enable-libzimg --enable-libzvbi --enable-avfilter --enable-avresample --enable-libmodplug --enable-postproc --enable-pthreads --disable-static --enable-shared --enable-gpl --disable-debug --disable-stripping --shlibdir=/usr/lib64 --enable-libmfx --enable-runtime-cpudetect
+http://ffmpeg.org/releases/ffmpeg-2.8.15.tar.gz
+ffmpeg version 2.8.15 Copyright (c) 2000-2018 the FFmpeg developers
+  built with gcc 4.8.5 (GCC) 20150623 (Red Hat 4.8.5-36)
+  configuration: --prefix=/usr --bindir=/usr/bin --datadir=/usr/share/ffmpeg --incdir=/usr/include/ffmpeg --libdir=/usr/lib64 --mandir=/usr/share/man --arch=x86_64 --optflags='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic' --extra-ldflags='-Wl,-z,relro ' --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvo-amrwbenc --enable-version3 --enable-bzlib --disable-crystalhd --enable-gnutls --enable-ladspa --enable-libass --enable-libcdio --enable-libdc1394 --enable-libfdk-aac --enable-nonfree --disable-indev=jack --enable-libfreetype --enable-libgsm --enable-libmp3lame --enable-openal --enable-libopenjpeg --enable-libopus --enable-libpulse --enable-libschroedinger --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libvorbis --enable-libv4l2 --enable-libx264 --enable-libx265 --enable-libxvid --enable-x11grab --enable-avfilter --enable-avresample --enable-postproc --enable-pthreads --disable-static --enable-shared --enable-gpl --disable-debug --disable-stripping --shlibdir=/usr/lib64 --enable-runtime-cpudetect
+
+http://ffmpeg.org/releases/ffmpeg-4.4.tar.gz
+wget -c http://ffmpeg.org/releases/ffmpeg-5.0.tar.gz
+tar zxvf ffmpeg-5.0.tar.gz
+http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+
+ffmpeg-3.4.1
+```
+wget -c http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+tar zxvf yasm-1.3.0.tar.gz
+cd yasm-1.3.0
+./configure --prefix=/usr/local
+make
+make install
+
+wget -c http://ffmpeg.org/releases/ffmpeg-3.4.1.tar.bz2
+tar -jxvf ffmpeg-3.4.1.tar.bz2
+cd ffmpeg-3.4.1
+./configure --enable-shared --enable-gpl --prefix=/usr/local/ffmpeg
+make
+make install
+
+echo "/usr/local/ffmpeg/lib" >> /etc/ld.so.conf
+ldconfig
+
+ffmpeg -version
+```
+
+ffmpeg-snapshot
+```
+wget -c http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+tar -jxvf ffmpeg-snapshot.tar.bz2
+bzip2 -d ffmpeg-snapshot.tar.bz2
+tar -xvf ffmpeg-snapshot.tar
+cd ffmpeg
+./configure --prefix=/usr/local/ffmpeg --disable-static --enable-shared --enable-gpl
+make -j4 && sudo make install
+```
+
+libfdk-aac-dev libspeex-dev libx264-dev libx265-dev libnuma-dev
+./configure --prefix=/opt/ffmpeg --enable-gpl --enable-nonfree --enable-libfdk-aac --enable-libx264 --enable-libx265 --enable-filter=delogo --enable-debug --disable-optimizations --enable-libspeex  --enable-shared --enable-pthreads --enable-version3 --enable-hardcoded-tables --cc=gcc --host-cflags= --host-ldflags= --disable-x86asm
+
+centos 升级GCC8
+```
+yum install centos-release-scl
+yum list dev\*gcc
+yum install devtoolset-8-gcc devtoolset-8-gcc-c++
+yum install devtoolset-8-gcc*
+source /opt/rh/devtoolset-8/enable
+scl enable devtoolset-8 bash
+gcc -v
+echo "source /opt/rh/devtoolset-8/enable" >> /etc/bashrc
+source /etc/bashrc
+```
+
+https://rpmfind.net/linux/rpm2html/search.php?query=redis
+https://rpmfind.net/linux/rpm2html/search.php?query=ffmpeg
+

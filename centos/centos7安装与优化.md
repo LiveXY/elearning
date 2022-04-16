@@ -2,7 +2,7 @@ centos7安装与优化
 =========
 * ping www.baidu.com #查看当前是否能上网
 * ip add #查看当前IP
-* rpm -q centos-release #查看系统版本
+* cat /etc/redhat-release 或 rpm -q centos-release #查看系统版本
 * yum repolist #查看已有源
 * yum install wget curl psmisc -y
 * sudo yum install update -y && sudo yum install upgrade -y
@@ -129,7 +129,11 @@ systemctl start mariadb.service
 systemctl stop mariadb.service
 mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
 mysql -u root mysql
+> flush privileges;
 > update user set Password=PASSWORD('123456') where User='root';
+> ALTER USER 'root'@'%' IDENTIFIED BY '123456';
+> ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+> SET PASSWORD FOR root = '123456';
 > flush privileges;
 > quit
 mysql -uroot -p
@@ -357,9 +361,11 @@ mount
 umount /home/test/
 如果遇到：umount.nfs: /home/test/: device is busy
 可能用命令：
+lsof /home/test/
 fuser -m -v /home/test/
 kill -9 id
 umount /home/test/
+df -h
 
 设置客户端启动时候就挂载NFS
 vi /etc/fstab

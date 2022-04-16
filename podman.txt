@@ -1,0 +1,59 @@
+podman
+
+yum -y install podman
+vim /etc/containers/registries.conf
+[registries.search]
+registries = ['registry.access.redhat.com', 'registry.redhat.io', 'docker.io'] //这个是查找，从这三个地方查找，如果只留一个，则只在一个源里查找
+unqualified-search-registries = ["registry.fedoraproject.org", "registry.access.redhat.com", "registry.centos.org", "docker.io"] //这里也要改为一个
+
+[registries.insecure]
+registries = [10.0.0.1]   //这里写那些http的仓库，比如harbor
+
+//配置加速器
+[registries.search]
+registries = ['https://l9h8fu9j.mirror.aliyuncs.com','docker.io']
+
+容器
+podman run         #创建并启动容器
+podman start       #启动容器
+podman ps          #查看容器
+podman stop        #终止容器
+podman restart     #重启容器
+podman attach      #进入容器
+podman exec        #进入容器
+podman export      #导出容器
+podman import      #导入容器快照
+podman rm          #删除容器
+podman logs        #查看日志
+
+镜像
+podman search             #检索镜像
+docke pull                #获取镜像
+podman images             #列出镜像
+podman image Is           #列出镜像
+podman rmi                #删除镜像
+podman image rm           #删除镜像
+podman save               #导出镜像
+podman load               #导入镜像
+podmanfile                #定制镜像（三个）
+    podman build              #构建镜像
+    podman run              #运行镜像
+    podmanfile              #常用指令（四个）
+        COPY                    #复制文件
+        ADD                     #高级复制
+        CMD                     #容器启动命令
+        ENV                     #环境变量
+        EXPOSE                  #暴露端口
+
+podman run -d --name httpd docker.io/library/httpd
+podman images
+podman ps
+podman logs --latest
+podman top httpd
+podman stop --latest
+podman rm --latest
+
+podman inspect -l | grep IPAddress\":
+
+podman build -t nginx .
+

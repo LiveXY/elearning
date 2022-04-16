@@ -14,6 +14,7 @@ linux下载地址：http://mirrors.163.com/centos/6.5/isos/x86_64/CentOS-6.5-x86
 * php组件目录：`/usr/lib64/php/modules/`
 
 ## 准备：
+* cat /etc/redhat-release 或 rpm -q centos-release #查看系统版本
 * `su root` 切换root
 * `passwd root` 修改root密码
 * `yum install perl -y` mini版本不带perl 需要安装perl
@@ -371,11 +372,13 @@ chkconfig --list|grep 3:on
 ```
 * 锁定关键文件系统
 ```sh
+lsattr /etc/passwd
 chattr +i /etc/passwd
 chattr +i /etc/inittab
 chattr +i /etc/group
 chattr +i /etc/shadow
 chattr +i /etc/gshadow
+chattr -i /etc/passwd
 使用chattr命令后，为了安全我们需要将其改名 mv /usr/bin/chattr /usr/bin/任意名称
 ```
 * 关闭重启ctl-alt-delete组合键

@@ -497,12 +497,41 @@ tail –f Error.log >> test.log
 功能说明：磁盘分区。
 语　　法：fdisk [-b <分区大小>][-uv][外围设备代号] 或 fdisk [-l][-b <分区大小>][-uv][外围设备代号...] 或 fdisk [-s <分区编号>]
 补充说明：fdisk是用来磁盘分区的程序，它采用传统的问答式界面，而非类似DOS fdisk的cfdisk互动式操作界面，因此在使用上较为不便，但功能却丝毫不打折扣。
+fdisk [-uc] [-b sectorsize] [-C cyls] [-H heads] [-S sects] device
+fdisk -l [-u] [device...]
+fdisk -s partition...
+fdisk -v
+fdisk -h
 参　　数：
--b<分区大小> 指定每个分区的大小。
--l 列出指定的外围设备的分区表状况。
--s<分区编号> 将指定的分区大小输出到标准输出上，单位为区块。
--u 搭配"-l"参数列表，会用分区数目取代柱面数目，来表示每个分区的起始地址。
+-b [sectorsize]:指定硬盘扇区大小，可用数值为512, 1024, 2048 or 4096；
+-c：关闭DOS兼容模式；
+-C [cyls]:指定硬盘的柱面数（number of cylinders）；
+-H [heads]:指定硬盘的磁头数（number of heads），当然不是物理数值，而是作用于分区表。合理取值是255和16；
+-S [sects]:指定每个磁道的扇区数，当然不是物理数值，而是用于分区表。一个合理的数值是63；
+-l：列出指定设备的分区表，然后退出。如果没有给定设备，则使用在/proc/partitions（如果存在）中提到的那些设备；
+-u：在列出分区表时，给出扇区大小而不是柱面大小；
+-s [partition]:以块（block）为单位，显示指定分区的大小；
+-v:显示版本信息；
+-h:显示帮助信息。
 常用方式及使用技巧:fdisk -l
+fdisk -l /dev/sda
+Device：分区名称；
+Boot：是否是活动分区。活动分区只能是主分区，一个硬盘只能有一个活动的主分区；一个硬盘的主分区与扩展分区总和不能超过4个。硬盘分区遵循着“主分区→扩展分区→逻辑分区”的次序原则，而删除分区则与之相反。
+ 主分区：一个硬盘可以划分多个主分区，但没必要划分那么多，一个足矣。
+ 扩展分区：主分区之外的硬盘空间就是扩展分区，
+ 逻辑分区：是对扩展分区再行划分得到的。
+Start：分区柱面的开始下标；
+End：分区柱面的结束下标；
+Blocks：该分区的块数量。当前文件系统block=2*sector，所以块数量=（End-Start）*柱面的扇区数/2=1305*255*63/2=10482412.5；
+Id：各种分区的文件系统不同，如有ntfs分区，fat32分区，ext3分区，swap分区等。每一种文件系统都有一个代号，对应这里的Id。常见的文件系统ID有：
+ f：FAT32 Extend,只限于扩展分区。
+ 86：NTFS。
+ 7：HPFS/NTFS
+ b：FAT32。
+ 83：Linux Ext2。
+ 82：Linux 交换区。
+System：文件系统名称。
+mkfs.ext3 /dev/sdb6
 2.6	ln(中级)
 功能说明：连接文件或目录。
 语　　法：ln [-bdfinsv][-S <字尾备份字符串>][-V <备份方式>][--help][--version][源文件或目录][目标文件或目录] 或 ln [-bdfinsv][-S <字尾备份字符串>][-V <备份方式>][--help][--version][源文件或目录...][目的目录]
@@ -1332,3 +1361,1013 @@ ldconfig 命令
 ulimit -a
 ulimit -c unlimited
 ulimit -s unlimited
+
+tr（translate）用来转换或者删除一段文字。tr 所有的功能均可由 sed 来完成，可以将 tr 视为 sed 一个极简的实现。
+tr [OPTIONS] SET1 [SET2]
+-c, -C, --complement SET1 [SET2]
+ 将字符集 SET1 以外的其他字符删除或者转换为字符集 SET2 中的最后一个字符（如果你指定了多个字符的话）
+-d, --delete
+ 删除 SET1 这个字符串
+-s, --squeeze-repeats
+ 如果 SET1 中的字符连续出现多次，压缩重复的字符，只保留一个
+-t, --truncate-set1
+ 先将 SET1 的长度截为和 SET2 相等
+--help
+ 显示帮助信息并退出
+--version
+ 显示版本信息并退出
+（1）将 last 输出的信息中所有小写的字符变成大写字符。
+last | tr [a-z] [A-Z]
+（2）将 /etc/passwd 输出的信息中的冒号 : 删除。
+cat /etc/passwd | tr -d ':'
+（3）将 DOS 文件转成 Unix 文件。
+cat /etc/passwd | tr -d '\r'
+（4）删除空行。
+cat file | tr -s "\n" > new_file
+（5）将文件中 “abc” 分别替换为 “xyz” 中对应的字符。
+cat file | tr "abc" "xyz" > newFile
+这里凡是在 file 中出现的"a"字母，都替换成"x"字母，"b"字母替换为"y"字母，“c"字母替换为"z"字母，而不是将字符串"abc"替换为字符串"xyz”。
+（6）替换指定字符集以外的字符。
+echo -n "alv blv" | tr -c "lv " "x"
+xlv xlv
+echo -n 表示不输出换行符。
+（7）从输入文本中将不在补集中的所有字符删除。
+echo -n "alv blv" | tr -dc "lv"
+
+su [OPTIONS] [-] [USER [ARG...]]
+-c, --command=CMD
+ 执行完指定命令后，立即恢复原来的用户身份
+--session-command=CMD
+ 等同于选项 -c，但不创建新会话
+-, -l, --login
+ 切换用户身份时启动一个新的 Shell。此选项可同时改变工作目录和 HOME、SHELL、USER、LOGNAME 等环境变量，也包括环境变量 PATH
+-f, --fast
+ 不必读启动文件（如 csh.cshrc 等），仅用于 csh 或 tcsh 两种 Shell
+-m, --preserve-environment
+ 保留原用户的 Shell 环境变量
+-p
+ 同 -m
+-s, --shell=SHELL
+ 指定使用的 Shell
+-h, --help
+ 显示帮助信息并退出
+-v, --version
+ 显示版本信息并退出
+
+sudo [OPTIONS] [CMD]
+-A
+ 使用辅助程序（可能是图形化界面的程序）读取用户的密码并将密码输出到标准输出。如果设置了环境变量 SUDO_ASKPASS，它会指定辅助程序的路径，否则，由配置文件 /etc/sudo.conf 的 askpass 选项来指定辅助程序的路径。如果没有可用的辅助程序，sudo 将错误退出
+-b
+ 选项 -b（background）把 sudo 所要运行的命令放到后台运行
+-E
+ 选项 -E（preserve Environment）向安全策略指示用户希望保存他们现有的环境变量。如果指定了 -E 选项，且用户没有保留环境变量的权限，则安全策略可能返回错误
+-H
+ 选项 -H（Home）将 HOME 环境变量设置为目标用户的家目录，目标用户默认为 root
+-h
+ 选项 -h（help）显示帮助信息并退出
+-i [CMD]
+ 选项 -i（simulate initial login）将模拟初始登录，即启动目标用户在 /etc/passwd 中配置的 Shell，相关的资源文件将被读取并执行，比如 ~/.profile 和 ~/.login。如果后跟命令 CMD，则 CMD 将被传递给 Shell 并被执行
+-K
+ 选项 -K（sure Kill）类似于 -k，它只用于删除了用户的缓存凭据，不能与命令或其他选项一起使用
+-k [CMD]
+ 单独使用 -k（kill）选项时，使密码缓存失效，也就是下次执行 sudo 时便需要输入密码。如果后跟命令，表示忽略缓存密码，需要用户重新输入密码 ，新输入的密码不会更新密码缓存
+-l[l] [CMD]
+ 如果选项 -l（list）后不跟命令，则列出 sudo 允许当前用户（或使用 -U 指定的其他用户）执行的指令和无法执行的指令。如果指定了命令并被安全策略所允许，则将显示该命令绝对路径以及命令参数。如果指定了命令不被允许，sudo 以状态码 1 退出。如果使用 -ll 或多次指定 -l 选项，则使用长格式输出
+-n
+ 选项 -n（non-interactive）表示以非交互模式执行 sudo，阻止 sudo 向用户询问密码。如果执行命令时需要密码，则 sudo 将报错误信息并退出
+-p PROMPT
+ 改变询问密码的提示符号
+-s [CMD]
+ 选项 -s（shell）执行环境变量 SHELL 表示的 Shell，如果 SHELL 没有值，则执行目标用户在配置文件 /etc/passwd 中配置的 Shell。如果选项后跟命令，则传递给 Shell 执行，如果没有指定命令，则执行交互式 Shell
+-U USER
+ 选项 -U（other user）与 -l 选项一起使用，以指定应列出其权限的用户。sudoers 策略仅允许 root 用户或当前主机上具有 ALL 权限的用户使用此选项
+-u USER
+ 选项 -u（user）指定执行命令时使用的用户身份，默认为 root。如果使用 uid 则使用 #uid 表示用户
+-V
+ 选项 -V（version）显示版本信息并退出
+-v
+ 选项 -v（validate）使密码有效期延长 5 分钟
+
+sudo –u USERNAME CMD
+
+nc [-46DdhklnrStUuvzC] [-i interval] [-p source_port] [-s source_ip_address] [-T ToS] [-w timeout] [-X proxy_protocol] [-x proxy_address[:port]] [hostname] [port[s]]
+-4/6
+ 强制只使用 IPv4/IPv6 地址
+-D
+ 在套接字上启用调试
+-d
+ 不从 stdin 读取
+-h
+ 打印出帮助信息
+-k
+ 强制 nc 在当前连接完成后继续侦听另一个连接。注意如果不使用 -l 选项，则使用此选项是错误的
+-l
+ 指定 nc 应该侦听传入的连接，而不是启动到远程主机的连接。将此选项与 -p、-s 或 -z 选项结合使用是错误的。此外，使用 -w 选项指定的超时将被忽略
+-n
+ 不要在任何指定的地址、主机名或端口上执行任何 DNS 或服务查找
+-r
+ 随机选择源端口和目标端口，而不是按照系统分配的顺序或范围内的顺序选择它们
+-S
+ 启用 RFC 2385 TCP MD5 签名选项
+-t
+ 使 nc 发送 RFC 854 DON'T 和 WON'T 响应 RFC 854 的 DO 和 WILL 请求。这使得使用 nc 编写 telnet 会话脚本成为可能
+-U
+ 指定使用 Unix 域套接字
+-u
+ 使用 UDP 代替默认选项 TCP
+-v
+ 显示命令执行过程
+-z
+ 表示 zero，只扫描侦听守护进程，而不向它们发送任何数据。此选项与 -l 选项结合使用是错误的
+-C
+ 发送 CRLF 作为换行符
+-i interval
+ 指定发送和接收的文本之间的延迟时间间隔。还可指定连接到多个端口之间的延迟时间
+-p source_port
+ 指定 nc 应使用的源端口，但须受特权限制和可用性限制。将此选项与 -l 选项结合使用是错误的
+-s source_ip_address
+ 设置本地主机送出数据包的 IP 地址。注意将此选项与 -l 选项结合使用是错误的
+-T ToS
+ 指定连接的 IP 服务类型 (TOS)。有效值是标记 ''lowdelay'', ''throughput'', ''reliability''，或以 0x 开头的 8 位十六进制值
+-w timeout
+ 如果连接和 stdin 空闲超过指定秒数，则连接将被关闭。-w 标志对 -l 选项没有影响。缺省不超时
+-X proxy_protocol
+ 请求 nc 在与代理服务器对话时使用指定的协议。支持的协议是 “4”(SOCKsv.4)、“5”(SOCKV.5) 和 “connect”(HTTPS proxy)。如果未指定协议，则使用 SOCKS v.5
+-x proxy_address[:port]
+ 使用指定代理服务器地址和端口连接到主机。如果未指定端口，则使用代理协议的已知端口（SOCKS 为 1080，HTTPS 为 3128）
+nc 的控制参数不少，常用的几个参数如下所列：
+
+-l
+ 指定 nc 将处于侦听模式。指定该参数，则意味着 nc 被当作 server，侦听并接受连接，而非向其它地址发起连接
+-p PORT
+ 指定 nc 使用的源端口
+-s 
+ 指定发送数据的源 IP 地址，适用于多网卡机器
+-u
+ 指定 nc 使用 UDP 协议，默认为 TCP
+-v
+ 输出交互或出错信息，新手调试时尤为有用
+-w
+ 超时秒数，后面跟数字 
+-z
+ 表示 zero，扫描时不发送任何数据
+
+监听本地端口。假设在当前命令行终端 A 进行监听。
+nc -vl 8888
+开启另外一个命令行终端 B，同样使用 nc 发起连接。
+nc -v 127.0.0.1 8888
+receiver：
+nc -l 8888 > received.txt
+sender:
+nc 127.0.0.1 8888 < file.txt
+receiver：
+nc -l 8888 | tar -xzvf -
+sender：
+tar -czvf - DIR_NAME | nc 127.0.0.1 8888
+第 1 步，在 A 机器先启动接收数据的命令，监听自己的 8888 端口，把来自这个端口的数据都输出给空设备（这样不写磁盘，测试网速更准确）。
+nc -l 8888 > /dev/null
+第 2 步，在 B 机器发送数据，把无限个 0 发送给 A 机器的 8888 端口。
+nc 10.0.1.161 8888 < /dev/zero
+
+gpasswd [OPTIONS] GROUP
+-a, --add USER
+ 向组 GROUP 中添加用户 USER
+-d, --delete USER
+ 从组 GROUP 中添加或删除用户
+-h, --help
+ 显示此帮助信息并退出
+-r, --delete-password
+ 删除组密码
+-R, --restric t
+向其成员限制访问组 GROUP
+-M, --members USER,...
+ 设置组 GROUP 的成员列表
+-A, --administrators ADMIN,...
+ 设置组的管理员列表
+（1）向组 test 中添加用户 itcast。
+gpasswd -a itcast test
+（2）从组 test 中删除用户。
+gpasswd -d itcast test
+（3）移除组的密码。
+gpasswd  -r test
+（4）设置组的管理员列表。
+gpasswd -A deng test
+（5）给用户组创建密码。
+gpasswd test
+
+groupmod [OPTIONS] GROUP
+-g, --gid GID
+ 将组 ID 改为 GID
+-h, --help
+ 显示此帮助信息并推出
+-n, --new-name NEW_GROUP
+ 改名为 NEW_GROUP
+-o, --non-unique
+ 允许使用重复的 GID
+-p, --password PASSWORD
+ 将密码更改为（加密过的） PASSWORD
+1）改用户组 ID。
+groupmod -g 8888 g5
+2）更改用户组名。
+groupmod -n heima g5
+（4）允许使用重复的 GID。
+groupmod -g 8888 -o g4
+
+groupdel [OPTIONS] GROUP
+groupdel g1
+groupdel -h
+
+groupadd [OPTIONS] GROUP
+-f, --force
+   如果组已经存在则成功退出并且如果 GID 已经存在则取消 -g
+  -g, --gid GID
+   为新组使用 GID
+  -h, --help
+   显示帮助信息并推出
+  -K, --key KEY=VALUE
+   不使用 /etc/login.defs 中的默认值
+  -o, --non-unique
+   允许创建有重复 GID 的组
+  -p, --password PASSWORD
+   为新组使用加密过的密码
+  -r, --system
+   创建一个系统组
+groupadd  g1
+groupadd -g 888 g2
+groupadd -r -g 889 g3
+groupadd -o -r -g 889 g4
+/etc/group  #群组信息
+/etc/gshadow #群组加密信息
+
+userdel [options] LOGIN
+-f, --force
+  强制删除用户，即使用户当前已登录
+-h, --help
+ 显示帮助信息并推出
+-r, --remove
+ 删除用户的同时删除与用户相关的所有文件，比如删除主目录和邮件池
+-R, --root CHROOT_DIR
+   在 CHROOT_DIR 目录中应用更改并使用 CHROOT_DIR 目录中的配置文件
+-Z, --selinux-user
+ 为用户删除所有的 SELinux 用户映射
+userdel tom
+userdel -r tom
+userdel -f tom
+
+usermod [OPTIONS] LOGIN
+-c, --comment
+ 添加备信息
+-d, --home HOME_DIR
+ 用户的新主目录
+-e, --expiredate EXPIRE_DATE
+ 设定帐户过期的日期
+-f, --inactive INACTIVE
+ 过期 INACTIVE 天数后，设定密码为失效状态
+-g, --gid GROUP
+ 强制使用 GROUP 为新主组
+-G, --groups GROUPS
+ 新的附加组列表 GROUPS
+-a, --append GROUP
+ 将用户追加至上边 -G 中提到的附加组中，并不从其它组中删除此用户
+-h, --help
+ 显示此帮助信息并推出
+-l, --login LOGIN
+ 新的登录名称
+-L, --lock
+ 锁定用户帐号
+-m, --move-home
+ 将家目录内容移至新位置 （仅于 -d 一起使用）
+-o, --non-unique
+ 允许使用重复的（非唯一的） UID
+-p, --password PASSWORD
+ 将加密过的密码 (PASSWORD) 设为新密码
+-s, --shell SHELL
+ 该用户帐号的新登录 shell
+-u, --uid UID
+   用户帐号的新 UID
+-U, --unlock
+ 解锁用户帐号
+-Z, --selinux-user  SEUSER
+ 用户账户的新 SELinux 用户映射
+（1）修改用户的家目录。
+usermod -d /home/tom tom
+（2）改变用户的 uid。
+usermod -u 888 tom
+（3）修改用户名为 jerry。
+usermod -l jerry tom
+（4）锁定 tom 用户。
+usermod -L tom
+（5）解锁 tom 用户。
+usermod -U tom
+（6）添加新的附加组。
+usermod -G deng tom
+（7）修改用户登录 Shell。
+usermod -s /bin/sh tom
+（8）修改用户的 GID。
+usermod -g 1003 tom
+（9）指定帐号过期日期。
+usermod -e 2020-12-31 tom
+（10）指定用户帐号密码过期多少天后，禁用该帐号。
+usermod -f 3 tom
+
+useradd [options] LOGIN
+useradd -D
+useradd -D [options]
+-b, --base-dir BASE_DIR
+ 新账户的主目录的基目录
+-c, --comment COMMENT
+ 新账户的备注信息，备注信息保存在 /etc/passwd 的备注栏中
+-d, --home-dir HOME_DIR
+ 新账户的主目录
+-D, --defaults
+ 显示或更改默认的 useradd 配置
+-e, --expiredate EXPIRE_DATE
+ 新账户的过期日期，日期格式为 YYYY-MM-DD。如果未指定，useradd 将使用在 /etc/default/useradd 中指定的到期日期 EXPIRE，或默认情况下使用空字符串（无过期）
+-f, --inactive INACTIVE
+ 指定在密码过期后多少天即关闭该账号。如果为 0 账号立即被停用；如果为 -1 则账号一直可用。默认值为 -1
+-g, --gid GROUP
+ 指定用户所属的主组。主组必须已经存在
+-G, --groups GROUPS
+ 指定用户所属的附加组，多个组使用逗号分隔
+-h, --help
+  显示帮助信息并推出
+-k, --skel SKEL_DIR
+ 指定用户的骨架目录。与选项 -m （或 --create-home）联用，骨架目录包含要复制到用户主目录中的文件和目录
+-K, --key KEY=VALUE
+ 不使用 /etc/login.defs 中的默认值（UID_MIN、UID_MAX、UMASK、PASS_MAX_DAYS 等）
+-l, --no-log-init
+ 不要将此用户添加到最近登录和登录失败数据库
+-m, --create-home
+ 创建用户的家目录。useradd 默认会创建 home 目录，除非 /etc/login.defs 中的 CREATE_HOME 设置为 no
+-M, --no-create-home
+ 不创建用户的主目录。即使 /etc/login.defs 中的 CREATE_HOME 设置为 yes
+-N, --no-user-group
+ 不创建同名的组
+-o, --non-unique
+  允许使用重复的 UID 创建用户
+-p, --password PASSWORD 
+  设置账户密码，注意是使用 crypt(3) 加密后的用户密码，不是密码的明文。默认是用户密码不可用。推荐使用 passwd 命令给用户设置密码
+-r, --system
+   创建一个系统账户
+-R, --root CHROOT_DIR
+ 设置根目录。在 Linux 系统中，系统默认的根目录是 /
+-s, --shell SHELL 
+ 新账户的登录 Shell
+-u, --uid UID
+ 新账户的用户 ID
+-U, --user-group
+ 创建与用户同名的组，并将用户添加到此组中。为默认动作，除非  /etc/login.defs 中 USERGROUPS_ENAB 被设置为 no 或显示使用选项 -N, --no-user-group
+-Z, --selinux-user SEUSER
+ 为 SELinux 用户映射使用指定 SEUSER
+
+ssh [OPTIONS] [-p PORT] [USER@]HOSTNAME [COMMAND]
+-1
+    强制只使用协议第一版
+-2
+    强制只使用协议第二版
+-4
+    强制只使用 IPv4 地址.
+-6
+    强制只使用 IPv6 地址
+-A
+    允许转发认证代理的连接。可以在配置文件中对每个主机单独设定这个参数
+-a
+    禁止转发认证代理的连接
+-b BIND_ADDRESS
+    在拥有多个地址的本地机器上，指定连接的源地址
+-C
+ 压缩所有数据。压缩算法与 gzip(1) 使用的相同
+-c {blowfish | 3des | des}
+    选择会话的密码算法。3des 是默认算法
+-c CIPHER_SPEC
+    另外, 对于协议第二版，这里可以指定一组用逗号隔开、按优先顺序排列的加密算法
+-D [BIND_ADDRESS:]PORT
+ 指定一个本地主机动态的应用程序级的转发端口。工作原理是这样的，本地机器上分配了一个 socket 侦听 port 端口，一旦这个端口上有了连接，该连接就经过安全通道转发出去，根据应用程序的协议可以判断出远程主机将和哪里连接。目前支持 SOCKS4 和 SOCKS5 协议，而 ssh 将充当 SOCKS 服务器. 只有 root 才能转发特权端口。可以在配置文件中指定动态端口的转发
+-e ESCAPE_CHAR
+ 设置 pty 会话的转义字符，默认为字符 ~。转义字符只在行首有效，转义字符后面跟一个点表示结束连接，后跟一个 control-Z 表示挂起连接，跟转义字符自己表示输出转义字符自身。把转义字符设为 none 则禁止 转义功能，使会话完全透明
+-F CONFIGFILE
+ 指定 ssh 指令的配置文件，将忽略系统级配置文件 /etc/ssh/ssh_config 和用户级配置文件 ~/.ssh/config
+-f 
+    ssh 在执行命令前退至后台
+-g
+    允许远端主机连接本地的转发端口
+-I SMARTCARD_DEVICE
+    指定智能卡设备。智能卡里面存储了用户的 RSA 私钥
+-i IDENTITY_FILE
+    指定一个 RSA 或 DSA 认证所需的身份（私钥）文件。协议第一版的默认文件是 ~/.ssh/identity 以及协议第二版的 ~/.ssh/id_rsa 和 ~/.ssh/id_dsa 文件。可以同时使用多个 -i 选项，也可以在配置文件中指定多个身份文件
+-K
+ 启用基于 GSSAPI 的身份验证和向服务器转发 GSSAPI 凭据
+-k
+   禁用向服务器转发 GSSAPI 凭据
+-L [BIND_ADDRESS:]PORT:HOST:HOSTPORT
+ 将本地主机的地址和端口接收到的数据通过安全通道转发给远程主机的地址和端口
+-l LOGIN_NAME
+    指定登录远程主机的用户。可以在配置文件中对每个主机单独设定这个参数
+-M
+ 将 ssh 客户端置于主模式进行连接共享。多个 -M 选项将 ssh 置于主模式，并在接受从连接之前进行确认
+-m MAC_SPEC
+ 对于协议第二版，可以指定一组用逗号隔开，按优先顺序排列的 MAC (message authentication code) 算法
+-N
+    不执行远程命令，用于转发端口。仅限协议第二版
+-n
+ 把 stdin 重定向到 /dev/null，防止从 stdin 读取数据。在后台运行时一定会用到这个选项
+-O CTL_CMD
+ 控制主动连接多路复用主进程。参数 CTL_CMD 将被传递给主进程。CTL_CMD 可取值 check（检查主进程是否正在运行）和 exit（让主进程退出）
+-o OPTION
+    可以在这里给出某些选项，格式和配置文件中的格式一样。它用来设置那些没有单独的命令行标志的选项
+-p PORT
+    指定远程主机的端口。可以在配置文件中对每个主机单独设定这个参数
+-q
+    安静模式。消除大多数的警告和诊断信息
+-R [BIND_ADDRESS:]PORT:HOST:HOSTPORT
+ 将远程主机上的地址和端口接收的数据通过安全通道转发给本地主机的地址和端口
+-S CTL_PATH
+ 指定用于连接共享的控制套接字的位置
+-s
+    用于请求远程系统上的子系统调用。子系统是 SSH2 协议的一个特性，它有助于将 SSH 用作其他应用程序（如 sftp(1)）的安全传输。子系统通过远程命令指定
+-T
+    禁止分配伪终端
+-t
+ 强制分配伪终端。这可用于在远程计算机上执行基于屏幕的任意程序，例如菜单服务。多个 -t  选项强制分配终端, 即使没有本地终端
+-V
+ 显示版本信息并退出
+-v
+    冗详模式。打印关于运行情况的调试信息。在调试连接、认证和配置问题时非常有用。多个 -v 选项能够增加冗详程度，最多三个
+-W HOST:PORT
+ 将客户端上的标准输入和输出通过安全通道转发给指定主机的端口
+-w LOCAL_TUN[:REMOTE_TUN]
+ 指定客户端和服务端之间转发的隧道设备
+-X
+    允许 X11 转发，可以在配置文件中对每个主机单独设定这个参数
+-x
+    禁止 X11 转发
+-Y
+ 启用受信任的 X11 转发。受信任的 X11 转发不受 X11 安全扩展控制的约束
+-y
+ 使用 syslog(3) 系统模块发送日志信息。默认情况下，此信息被发送到 stderr
+
+ssh -p1022 root@127.0.0.1
+
+basename NAME [SUFFIX]
+basename OPTION... NAME...
+-a, --multiple
+ 支持多个文件名称参数，将每一个参数当做文件名对待
+-s, --suffix=SUFFIX
+ 移除后缀
+-z, --zero
+ 以空字符 NUL 分隔输出而不是换行符
+--help
+ 显示帮助并退出
+--version
+ 显示版本并退出
+（1）获取文件名，不包含目录
+basename /root/go/src/main.go
+（2）获取文件名，不包含目录与后缀
+basename /root/go/src/main.go .go
+（3）同时获取多个文件名，不包含目录与后缀
+basename -a -s .go /root/go/src/main.go /root/go/src/util.go
+（4）如果路径最后一个是目录，那么即匹配最后一个目录的名字。
+basename /root/go/src/
+
+dirname [OPTION] NAME...
+-z, --zero
+ 用空字符 NUL 而不是换行符分隔输出
+--help
+ 显示帮助并退出
+--version
+ 显示版本并退出
+（1）获取目录部分，剥掉文件名。
+dirname /root/go/src/main.go
+获取目录部分，剥掉文件名，后跟多个文件路径。
+dirname /root/go/src/main.go /root/go/src/util.go
+获取目录的目录。即如果文件路径最后一个字符是 /，那么剥离倒数第二个 / 及其后的内容。
+dirname /usr/bin/
+如果文件路径中不包含 /，那么输出 . 表示当前目录
+路径是根目录的特殊情况。不剥除任何内容，输出 /
+
+ctrl + z、jobs、fg、bg
+jobs
+bg 1  
+fg 2   
+
+yum install screen
+screen -S yourname
+screen -ls
+screen -r yourname
+screen -d yourname
+screen -d -r yourname
+screen -S pid-X quit
+
+info [OPTION]... [MENU-ITEM...]
+-k, --apropos=STRING
+ 在所有手册的所有索引中查找 STRING
+-d, --directory=DIR
+ 添加包含 info 格式帮助文档的目录
+--dribble=FILENAME
+ 将用户按键记录在指定的文件
+-f, --file=FILENAME
+ 指定要读取的info格式的帮助文档
+-h, --help
+ 显示帮助信息并退出
+--index-search=STRING
+ 转到由索引项 STRING 指向的节点
+-n, --node=NODENAME
+ 指定首先访问的 info 帮助文件的节点
+-o, --output=FILENAME
+ 输出被选择的节点内容到指定的文件
+-R, --raw-escapes
+ 输出原始 ANSI 转义字符(默认)
+--no-raw-escapes
+ 转义字符输出为文本
+--restore=FILENAME
+ 从文件 FILENAME 中读取初始击键
+-O, --show-options, --usage
+ 转到命令行选项节点
+--strict-node-location
+ (用于调试)按原样使用 info 文件指针
+--subnodes
+ 递归输出菜单项
+--vi-keys
+ 使用类 vi 和类 less 的绑定键
+--version
+ 显示版本并退出
+-w, --where, --location
+info 有自己的交互式命令，不同于 man 使用的 less 的交互式命令
+ 显示 info 文件路径
+?
+ 显示帮助窗口
+x
+ 关闭帮助窗口
+q
+ 关闭整个 Info
+Up
+ 向上键，向上移动一行
+Down
+ 向下键，向下移动一行
+Space, PageDown
+ 翻滚到下一页，当前页的最后两行保留为下一页的起始两行
+Del, PageUp
+ 翻滚到上一页，当前页的起始两行保留为上一页的最后两行
+b, t, Home
+ 跳转到文档的开始
+e, End
+ 跳转到文档的末尾
+[
+ 转到文档中的上一个节点
+]
+ 转到文档中的下一个节点
+n
+ 转到与当前 Node 同等级的下一个 Node
+p
+ 转到与当前 Node 同等级的前一个 Node
+u
+ 转到与当前 Node 关联的上一级 Node
+l
+ 回到上一次访问的 Node
+m, g
+ 输入指定菜单的名字后按回车，跳转到指定的菜单项（Node 的名字）
+
+watch [OPTIONS] COMMAND
+watch date
+watch -n 1 date
+watch -n 1 -d date
+watch -t date
+watch -g date
+
+id [OPTION]... [USER]
+选项说明
+-a
+ 忽略, 仅为与其他版本相兼容而设计
+-Z, --context
+ 显示当前用户的安全环境（仅当系统支持 SELinux 时可用）
+-g, --group
+ 仅显示用户所属的主组
+-G, --groups
+ 显示用户所有的属组，包括附属组
+-n, --name
+ 对于 -ugG 显示名称而不是替数字 ID
+-r, --real
+  对于 -ugG 显示真实 ID 而不是有效 ID
+-u, --user
+ 只显示有效用户 ID
+-z, --zero
+ 使用 NUL 字符分隔条目而不是空格符。默认输出格式不支持该选项
+--help
+ 显示帮助信息并退出
+--version
+ 显示版本信息并退出
+（1）查看当前用户 root 与属组的信息。
+
+id
+uid=0(root) gid=0(root) groups=0(root)
+输出结果中，uid 表用用户 ID，gid 表示用户主组 ID，groups 表示用户所有的属组。从 groups 可以看出，当前用户 root 只属于主用户组 root，没有附属组。
+（2）查看当前用户 root 的主组 ID。
+id -g
+0
+0 表示用户组 root 的组 ID。
+（3）查看当前用户主组的名称。
+id -gn
+root
+
+readelf <option> <elffile...>
+readelf 用于读取 ELF（Executable and Linkable Format）格式文件的详细信息，包括目标文件、可执行文件、共享目标文件与核心转储文件。
+运行 readelf 的时候，除了 -v 和 -H 之外，其它的选项必须有一个被指定。
+-a,--all：显示全部信息，等价于 -h -l -S -s -r -d -V -A -I
+-h,--file-header：显示文件头信息
+-l,--program-headers,--segments：显示程序头（如果有的话）
+-S,--section-headers,--sections：显示节头信息（如果有的话）
+-g,--section-groups：显示节组信息（如果有的话）
+-t,--section-details：显示节的详细信息（-S的）
+-s,--syms,--symbols：显示符号表节中的项（如果有的话）
+--dyn-syms：显示动态符号表节中的项（如果有的话）
+-e,--headers：显示全部头信息，等价于-h -l -S
+-n,--notes：显示note段（内核注释）的信息
+-r,--relocs：显示可重定位段的信息。 
+-u,--unwind：显示unwind段信息。当前只支持IA64 ELF的unwind段信息。 
+-d,--dynamic：显示动态段的信息
+-V,--version-info：显示版本段的信息
+-A ,--arch-specific：显示CPU构架信息
+-D,--use-dynamic：使用动态符号表显示符号，而不是符号表
+-x <number or name>,--hex-dump=<number or name>：以16进制方式显示指定节内容。number指定节表中节的索引，或字符串指定文件中的节名
+-R <number or name>,--relocated-dump=<number or name>：以16进制方式显示指定节内容。number指定节表中节的索引，或字符串指定文件中的节名。节的内容被展示前将被重定位。
+-p <number or name>,--string-dump=<number or name>：以可打印的字符串显示指定节内容。number指定节表中节的索引，或字符串指定文件中的节名。
+-c,--archive-index：展示档案头中的文件符号索引信息，执行与 ar 的 t 命令相同的功能，但不使用 BFD 库
+-w[liaprmfFsoR],--debug-dump[=line,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames-interp,=str,=loc,=Ranges]：显示调试段中指定的内容
+--dwarf-depth=n：将“.debug_info”节的转储限制为n个子级。这只对--debug dump=info有用。默认为打印所有DIE（debugging information entry）；n的特殊值0也将具有此效果
+--dwarf-start=n：只打印以编号为n的模具开始的DIE，仅适用于使用--debug dump=info选项时。该选项可以与--dwarf-depth=n连用。
+-I,--histogram：显示符号的时候，显示 bucket list 长度的柱状图
+-v,--version：显示 readelf 的版本信息
+-H,--help：显示 readelf 所支持的命令行选项
+-W,--wide：宽行输出
+@file：可以将选项集中到一个文件中，然后使用这个 @file 选项载入
+读取可执行文件形式的 ELF 文件头信息。
+readelf -h file
+1.1 ELF 文件分类
+（1）可重定位文件（Relocatable File），这类文件包含了代码和数据，用于链接生成可以执行文件或共享目标文件，目标文件和静态链接库均属于可重定位文件，例如*.o或lib*.a文件；
+（2）可执行文件（Executable File），用于生成进程映像，载入内存执行。Linux 环境下的 ELF 可执行文件一般没有扩展名，例如用户命令 ls；
+（3）共享目标文件（Shared Object File），这种文件包含了代码和数据，用于和可重定位文件或其他共享目标文件一起生成可执行文件。例如 Linux 的动态共享对象（Dynamic Shared Object），C 语言运行时库 glibc-2.5.so；
+（4）核心转储文件（Core Dump File），当进程意外终止时，系统可以将该进程的地址空间的内容及终止时的一些其他信息转储到核心转储文件。例如 Linux 下的 core dump。
+1.2 ELF 文件组成
+ELF 文件头描述了 ELF 文件的总体信息，包括系统相关、类型相关、加载相关和链接相关的信息。
+（1）系统相关，比如ELF 文件标识的魔数，以及硬件和平台等相关信息，增加了 ELF 文件的移植性，使交叉编译成为可能；
+（2）类型相关，比如 ELF 文件类型，分别有目标文件、可执行文件、动态链接库与核心转储文件；
+（3）加载相关，比如程序头，描述了 ELF 文件被加载时的段信息；
+（4）链接相关，比如节头，描述了 ELF 文件的节信息。
+
+pidof [-s] [-c] [-n] [-x] [-m] [-o omitpid[,omitpid..]] [-o omitpid[,omitpid..]..]  program [program..]
+-s
+ 只返回一个 PID
+-c
+ 只显示运行在 root 目录下的进程，这个选项只对 root 用户有效
+-x
+ 显示指定脚本名称的进程
+-o OMITPID
+ 指定不显示的进程ID。该选项可以出现多次
+-m
+ 与 -o 选项一起使用，使得 argv[0] 与 argv[1] 和被忽略进程相同的进程同时被忽略。一般用于忽略由同名 Shell 脚本启动的进程，因为 argv[0] 为 Shell，一般为 /bin/bash，argv[1] 为脚本名称
+（1）查看程序名称为 sshd 的进程 ID。
+pidof sshd
+
+lsblk 列出所有块设备
+NAME：这是块设备名。
+MAJ:MIN：本栏显示主要和次要设备号。
+RM：本栏显示设备是否可移动设备。注意，在本例中设备sdb和sr0的RM值等于1，这说明他们是可移动设备。
+SIZE：本栏列出设备的容量大小信息。例如298.1G表明该设备大小为298.1GB，而1K表明该设备大小为1KB。
+RO：该项表明设备是否为只读。在本案例中，所有设备的RO值为0，表明他们不是只读的。
+TYPE：本栏显示块设备是否是磁盘或磁盘上的一个分区。在本例中，sda和sdb是磁盘，而sr0是只读存储（rom）。
+MOUNTPOINT：本栏指出设备挂载的挂载点。
+lsblk -m 列出一个特定设备的拥有关系
+lsblk -S 获取SCSI设备的列表
+lsblk -nl 以列表形式列出块设备
+lsblk -b /dev/sda 获取指定块设备信息
+blkid 判断raid信息
+用法：lsblk [选项] [<块设备> …]
+-a, --all	显示所有设备。
+-b, --bytes	以bytes方式显示设备大小。
+-d, --nodeps	不显示 slaves 或 holders。
+-D, --discard	打印丢弃功能
+-e, --exclude <list>	排除设备 (default: RAM disks)。
+-I, --include <list>	仅显示具有指定主要编号的设备
+-f, --fs	显示文件系统信息。
+-i, --ascii	仅使用ascii字符
+-m, --perms	显示权限信息。
+-l, --list	使用列表格式显示。
+-n, --noheadings	不显示标题。
+-o, --output <list>	输出列。
+-p, --paths	打印打印设备路径
+-P, --pairs	使用key="value"格式显示。
+-r, --raw	使用原始格式显示。
+-s, --inverse	反向依赖关系
+-S, --scsi	输出有关SCSI设备的信息
+-t, --topology	显示拓扑结构信息。
+-h, --help	显示帮助信息。
+-V, --version	显示版本信息
+
+trap 命令是 Shell 内建命令，用于指定在接收到信号后将要采取的动作。常见的用途是在脚本程序被中断时完成清理工作。
+trap [-lp] [ARG] [SIGSPECS]
+-l
+ 列出信号名称与对应的数值
+-p
+ 列出信号与其绑定的命令列表
+ARG
+ 与指定信号绑定的命令。如果 ARG 为空字符串，表示忽略信号；如果 ARG 不指定（缺省）或为 -，表示执行信号的默认动作
+SIGSPECS
+ 信号列表，可以是信号名称，也可以是信号对应的数值。可用信号可以使用 trap -l 查看
+（1）忽略 HUP、INT、QUIT、TSTP 信号。
+trap "" HUP INT QUIT TSTP
+（2）捕获 HUP、INT、QUIT、TSTP 信号，并执行默认动作。
+trap HUP INT QUIT TSTP
+#或
+trap - HUP INT QUIT TSTP
+（3）挂载 Shell 进程结束前需要执行的命令。格式为：trap “commands” EXIT。如脚本 exit.sh：
+#!/bin/bash
+echo "start"
+trap "echo 'end'" EXIT
+echo "before exit"
+exit 0
+执行 exit.sh 输出：
+start
+before exit
+end
+
+
+for 命令
+for i in 1 2 3; do
+ echo "Current # $i"
+done
+for i in {1..3}; do
+ echo "当前值 # $i: 示例 2"
+done
+for i in {1..10..2}; do
+ echo "Number = $i"
+done
+for name in str1 str2 str3; do
+ echo "My name is $name"
+done
+
+#!/bin/bash
+#一月前
+historyTime=$(date "+%Y-%m-%d %H" -d '1 month ago')
+echo ${historyTime}
+historyTimeStamp=$(date -d "$historyTime" +%s)
+echo ${historyTimeStamp}
+ 
+#一周前
+$(date "+%Y-%m-%d %H" -d '7 day ago')
+ 
+#本月一月一日
+date_this_month=`date +%Y%m01`
+ 
+#一天前
+date_today=`date -d '1 day ago' +%Y%m%d`
+ 
+#一小时前
+$(date "+%Y-%m-%d %H" -d '-1 hours')
+
+
+iconv -f FROMCODE -t TOCODE FILE ...
+iconv 命令将给定编码的文件，转换为指定编码的内容，结果默认输出到标准输出，可以使用--output或-o输出到指定文件。
+
+-c 
+ 静默丢弃不能识别的字符，而不是终止转换
+-f, --from-code=CODE
+ 指定待转换文件的编码。
+-t, --to-code=CODE
+ 指定目标编码
+-l, --list
+ 列出已知的字符编码。
+-o, --output=FILE
+ 列出指定输出文件，而非默认输出到标准输出
+-s, --silent
+ 关闭警告。
+--verbose
+ 显示进度信息
+-?, --help
+ 显示帮助信息
+--usage
+ 显示简要使用方法
+-V, --version
+ 显示版本信息
+-f 和 -t 所能指定的合法编码可以在 -l 选项的结果中查看。
+
+4.常用示例
+（1）将 GBK 文件转换为 UTF8 文件。
+
+iconv -f gbk -t utf8 inputFile.txt -o outputFile.txt.utf8
+（2）转换时报如下错误：“iconv: 未知 126590 处的非法输入序列”。此时使用-c选项。
+
+iconv -c -f gbk -t utf8 inputFile.txt -o outputFile.txt.utf8
+
+
+declare（别名 typeset）属 Shell 内建命令，用于申明 Shell 变量并设置变量属性，或查看已定义的 Shell 变量和函数。若不加上任何参数，只执行 declare/typeset 则会显示全部的 Shell 变量与函数（与执行 set 指令的效果相同）。
+declare [-aAfFgilrtux] [-p] [name[=value] ...]
+typeset [-aAfFgilrtux] [-p] [name[=value] ...]
+
+-a：申明数组变量
+-A：申明关联数组，可以使用字符串作为数组索引
+-f：仅显示已定义的函数
+-F：不显示函数定义
+-g：指定变量为全局变量，即使在函数内定义变量
+-i：声明整型变量
+-l：将变量值的小写字母变为小写
+-r：设置只读属性
+-t：设置变量跟踪属性，用于跟踪函数进行调试，对于变量没有特殊意义
+-u：变量值的大写字母变为大写
+-x：将指定的Shell变量换成环境变量
+-p：显示变量定义的方式和值
++：取消变量属性，但是 +a 和 +r 无效，无法删除数组和只读属性，可以使用unset删除数组，但是 unset 不能删除只读变量
+
+1）定义关联数组并访问。
+
+declare -A assArray=([lucy]=beijing [yoona]=shanghai)
+
+#读取关联数组全部内容
+echo ${assArray[*]}
+#或
+echo ${assArray[@]}
+#输出
+beijing shanghai
+
+#读取指定索引的数组值
+echo ${assArray[lucy]}
+#输出：
+beijing
+
+#列出数组索引列表
+echo ${!assArray[*]}
+#或
+echo ${!assArray[@]}
+#输出
+yoona lucy
+（2）定义只读变量。
+
+declare -r name1="lvlv1"
+#或
+typeset -r name2="lvlv2"
+#或
+readonly name3="lvlv3"
+Shell 规定，只读变量生命周期与当前 Shell 脚本进程相同，且不能消除只读属性和删除只读变量，除非 kill 当前 Shell 脚本进程。
+
+（3）使用-p选项显示变量 name1 和 name2 的定义方式和当前值。
+
+declare -p name1 name2
+#输出
+declare -r name1="lvlv1"
+declare -r name2="lvlv2"
+（4）使用-x选项将shell变量转换为临时环境变量，供当前Shell会话的其他shell进程使用，退出当前Shell会话则失效。
+
+declare -x name1;
+（5）显示所有 Shell 环境变量。
+
+declare -x
+（6）使用+x选项取消变量为环境变量。
+
+delcare +x name1
+（7）申明整型变量，赋值浮点型数值将报错。
+
+declare -i integer=666
+
+awk [OPTIONS]
+awk [OPTIONS] 'PATTERN{ACTION}' FILE...
+awk 的 PATTERN 可能是以下情况之一：
+
+BEGIN
+END
+BEGINFILE
+ENDFILE
+/regular expression/
+relational expression
+pattern && pattern
+pattern || pattern
+! pattern
+pattern ? pattern : pattern
+(pattern)
+pattern1, pattern2
+BEGIN 和 END 是两个特殊的模式，不会对输入的内容进行测试。BEGIN 后的 action 在 awk 读取文本前执行，END 后的 action 在 awk 结束前执行。模式表达式中的 BEGIN 和 END 模式不能与其他模式组合。
+
+BEGINFILE 和 ENDFILE 是额外的两个特殊模式，BEGINFILE 的 action 在读取每个命令行输入文件的第一条记录之前执行，ENDFILE 的 action 在读取每个文件的最后一条记录之后执行。与 BEGIN 和 END 的区别是，如果给定多个文件，BEGINFILE 和 ENDFILE 的 action 将被执行多次，而 BEGIN 和 END 不管是否给定文件，其 action 只会执行一次。
+
+/regular expression/ 表示正则表达式，用于选择符合指定 pattern 的行。
+
+relational expression 表示正则表达式的关系式，即多个正则表达式通过运算符进行组合。常见组合有：
+
+pattern && pattern
+ 逻辑与式，两个 pattern 同时满足才算满足
+pattern || pattern
+ 逻辑或式，只要有一个 pattern 满足即满足
+! pattern
+ 逻辑非式，不符合 pattern 则为 true
+pattern ? pattern : pattern
+ 条件运算符式，第一个 pattern 满足则判断第二个 pattern，否则判断第三个 pattern
+(pattern)
+ 括号用于改变 pattern 运算的优先级
+pattern1, pattern2
+ 表示一个范围，用于选择所有记录行中第一个符合 pattern1 的记录到下一个符合 pattern2 的记录之间的记录
+4.选项说明
+-C, --copyright
+ 显示版权信息并退出
+-c, --traditional
+ 是 awk 运行在兼容模式下，gawk 的任何扩展都不会生效
+-d, --dump-variables[=FILE]
+ 将 awk 排序后的全局变量的类型和值打印到指定的文件中，如果没有指定 FILE，则在当前目录默认生成一个 awkvars.out
+-E, --exec FILE
+ 功能类似于选项 -f，但脚本文件需要以 #! 开头；另外命令行的变量将不再生效
+-e, --source PROGRAM_TEXT
+ 指定 awk 的源码文件
+-F, --field-separator FS
+ 使用字符或字符串 FS 作为域分隔符。可以同时指定多个域分隔符，此时需要使用一对中括号括起来。例如使用-和|可写作 -F '[-|]'。如果用[]作为分隔符，可写作-F '[][]'。不指定分隔符，默认为空格和 Tab。注意，使用 -F' '显示指定空格时，Tab 也会被作为分隔符。使用 [] 指定多个分隔符时，又想使多个分隔符组成的字符串也作为分隔符，在 [] 后添加一个 +，如 -F"[ab]+"，那么分隔符有三个，a，b 和 ab
+-f, --file PROGRAM_FILE
+ 从指定的 awk 脚本文件 PROGRAM_FILE 读取 awk 指令
+-g, --gen-pot
+ 解析 awk 程序，产生 .po（Portable Object Template） 格式的文件到标准输出，来标明程序中每一个可本地化的字符串位置
+-h, --help
+ 显示简要的帮助信息并退出
+-L, --lint[=VALUE]
+ 打印有关在其它版本 awk 中出现可疑的或不可移植结构的警告。该选项提供了一个可选的参数 fatal，即将警告视为致命的错误
+-m{f|r} VAL
+ -mf 将最大字段数设为 VAL；-mr 将最大记录数设为 VAL。这两个功能是 Bell 实验室版awk 的扩展功能，在标准 awk 中不适用
+-N, --use-lc-numeric
+ 使用本地小数点解析输入的数据
+-n, --non-decimal-data
+ 识别输入数据中八进制和十六进制数
+-O, --optimize
+ 在程序的内部表示上启用优化。目前，这只包括简单的常量折叠。gawk 维护者希望随着时间的推移增加额外的优化
+-P, --posix
+ 打开兼容模式，会出现以下限制：
+ 不识别 \x；
+ 当域分隔符 FS 是一个空格时，只有空格和 Tab 能作为域分隔符，换行符将不能作为一个域分隔符；
+ 在 ? 和 : 之后，不能继续当前行；
+ 函数关键字 func 将不能被识别；
+ 操作符 ** 和 **= 不能代替 ^ 和 ^=；
+ fflush 函数无效。
+-R, --command FILE
+ 只限于 Dgawk。从文件中读取调试器命令
+-r, --re-interval
+ 允许间隔正则表达式的使用。为默认选项
+-S, --sandbox
+ 在沙盒模式下运行gawk，禁用 system() 函数，使用 getline 进行输入重定向，使用 print 和 printf 进行输出重定向，以及加载动态扩展。命令执行也被禁用，这有效地阻止了脚本访问本地资源
+-t, --lint-old
+ 打印关于不能向传统 Unix awk 移植的构造的警告
+--profile[=FILE]
+ 输出性能分析报告至指定的文件，默认输出到 awkprof.out
+-V, --version
+ 打印版本信息并退出
+-v, --assign VAR=VAL
+ 定义一个 awk 变量并赋值，可以将外部变量传递给 awk
+--
+ 标识命令选项结束
+gawk 有许多内置变量用来设置环境信息，这些变量可以被改变，下面给出常见的内置变量说明。
+
+$0    当前处理行
+$n    当前记录的第 n 个字段，n 从 1 开始，字段间由 FS 分隔
+ARGC            命令行参数个数
+ARGIND    当前处理命令行中的第几个文件，文件下标从 0 开始
+ARGV            命令行参数数组
+CONVFMT   数字转换格式，默认值为%.6g
+ENVIRON         支持队列中系统环境变量的使用
+ERRNO   最后一个系统错误的描述
+FIELDWIDTHS  字段宽度列表(用空格键分隔)
+FILENAME        awk浏览的文件名
+FNR             当前被处理文件的记录数
+FS              设置输入域分隔符，等价于命令行-F选项
+IGNORECASE  如果为真，则进行忽略大小写的匹配
+LINT   动态控制--lint选项是否生效，为false不生效，为true则生效；
+NF              浏览记录的域的个数
+NR              已读的记录数
+OFMT   数字的输出格式，默认值是%.6g
+OFS             输出域分隔符
+ORS             输出记录分隔符    
+RS              The input record separator，输入记录的分隔符，默认为换行符
+RT    The record terminator，输入记录的结束符  
+RSTART   由 match 函数所匹配的字符串的第一个位置
+RLENGTH   由 match 函数所匹配的字符串的长度
+SUBSEP   数组下标分隔符（默认值是 \034）
+TEXTDOMAIN  awk 程序所使用的文本所处的地域
+
+realpath [OPTIONS] FILES
+-e, --canonicalize-existing
+ 文件 FILE 的所有组成部件必须都存在
+-m, --canonicalize-missing
+ 文件 FILE 的组成部件可以不存在
+-L, --logical
+ 在软链接之前解析父目录 ..
+-P, --physical
+ 解析软链接，默认动作
+-q, --quiet
+ 静默模式输出，禁止显示大多数错误消息
+--relative-to=DIR
+ 相对于目录 DIR 的路径
+--relative-base=DIR
+ 如果文件在基目录 DIR下，打印结果会省去基目录，否则打印绝对路径
+-s, --strip, --no-symlinks
+ 不扩展软链接
+-z, --zero
+ 不分隔输出，即所有的输出均在一行而不是单独每行
+--help
+ 显示帮助信息
+--version
+ 显示版本信息
+
+realpath ./hello.txt
+realpath --relative-to=./src ./foo
+realpath --relative-base=/data/test ./foo

@@ -1,3 +1,12 @@
+机器人
+https://github.com/peng-zhihui/ElectronBot
+https://github.com/peng-zhihui/Dummy-Robot
+https://github.com/peng-zhihui/L-ink_Card
+https://github.com/peng-zhihui/PocketLCD
+https://github.com/peng-zhihui/XUAN
+https://github.com/peng-zhihui/HDMI-PI
+https://github.com/peng-zhihui/HoloCubic
+
 图片中文识别
 https://github.com/PaddlePaddle/PaddleOCR
 https://github.com/breezedeus/cnocr
@@ -1309,6 +1318,7 @@ https://github.com/ansible/ansible
 并由 Facebook 作为其机器学习的框架发布由强 GPU 支持的加速张量计算（如 NumPy ），其深度神经网络是建立在基于磁盘的 autograd 包上
 https://github.com/pytorch/pytorch
 https://github.com/alibaba/MNN
+https://github.com/alibaba/AliceMind
 创新开发深度学习和强化学习的算法以用于生成歌曲、图像、绘图和其他素材
 https://github.com/tensorflow/magenta
 https://github.com/tensorflow/magenta-demos
@@ -1481,6 +1491,8 @@ https://github.com/andabi/deep-voice-conversion
 将源图像转换成不同的发型、皮肤类型、年龄、性别和不同的情绪。
 https://github.com/yunjey/stargan
 Uber AI Labs 构建了这个深度概率编程库，用于简化其运输服务的预测和优化收益。 任何处理概率建模的人都会对这个库感兴趣。
+人脸卡通化
+https://github.com/mchong6/JoJoGAN
 
 年龄和性别深度学习 --class_type gender
 https://github.com/dpressel/rude-carnie
@@ -3191,8 +3203,10 @@ https://github.com/JaminFong/FNA
 https://github.com/arashwan/matrixnet
 https://github.com/Thinklab-SJTU/R3Det_Tensorflow
 https://github.com/chaozhong2010/HRSID
-3D目标检测
+MediaPipe为直播和流媒体提供跨平台、可定制的 ML 解决方案。
 https://github.com/google/mediapipe
+https://google.github.io/mediapipe/
+https://mediapipe.dev/
 Excel人脸检测、OCR
 https://github.com/amzn/computer-vision-basics-in-microsoft-excel
 机器人聊天
@@ -3357,6 +3371,8 @@ https://github.com/mkocabas/VIBE
 
 StyleGAN 人脸合成 换脸
 https://github.com/podgorskiy/ALAE
+动漫图像超分辨率模型
+https://github.com/bilibili/ailab/tree/main/Real-CUGAN
 
 https://github.com/HRNet/HRNet-Object-Detection
 https://github.com/HRNet/HRNet-Image-Classification
@@ -3919,10 +3935,14 @@ https://github.com/szq0214/MEAL-V2
 https://github.com/rwightman/pytorch-image-models
 
 人像照片卡通化
+https://github.com/mchong6/JoJoGAN
 https://github.com/AliaksandrSiarohin/first-order-model
 https://github.com/NVlabs/stylegan2
+https://github.com/rosinality/stylegan2-pytorch
 https://github.com/NVlabs/stylegan3
 https://github.com/manicman1999/StyleGAN2-Tensorflow-2.0
+https://github.com/omertov/encoder4editing
+https://github.com/rinongal/StyleGAN-nada
 Wav2Lip 项目地址：
 https://github.com/Rudrabha/Wav2Lip
 Lip2Wav 项目地址：
@@ -4286,6 +4306,7 @@ https://github.com/VITA-Group/DeblurGANv2
 https://github.com/eriklindernoren/PyTorch-GAN
 风景照片/视频到动漫
 https://github.com/TachibanaYoshino/AnimeGANv2
+https://github.com/bryandlee/animegan2-pytorch
 文本对抗性攻击工具包
 https://github.com/thunlp/OpenAttack
 原神自动钓鱼
@@ -4321,6 +4342,13 @@ https://github.com/dblalock/bolt
 https://github.com/Teneppa/CameraStream
 https://github.com/Teneppa/HandTrackingBrightnessControl
 MediaPipe 手掌识别模型BlazePalm（用于识别手的整体框架和方向）、Landmark模型（识别立体手部节点）、手势识别模型（将识别到的节点分类成一系列手势）
+https://mp.weixin.qq.com/s/RiIssLk9PudbFtEtWX-XQw
+数据集开源地址：
+https://gas.graviti.com/dataset/datawhale/HandPoseKeyPoints
+完整项目代码：
+https://github.com/datawhalechina/HandPoseKeyPoints
+手部关节点算法采用开源代码参考地址：
+https://gitcode.net/EricLee/handpose_x
 
 https://github.com/ultralytics/yolov5
 https://github.com/ultralytics/yolov5/releases
@@ -4415,10 +4443,11 @@ https://github.com/jonhare/DifferentiableSketching
 
 https://github.com/LitingLin/SwinTrack
 
-
-
-
-
+红外射频遥控器 飞阳物联平台
+https://github.com/toddpan/yyxbc
+https://github.com/toddpan/irfeiyang
+https://blog.csdn.net/panpanloveruth/article/details/120393667
+https://blog.csdn.net/panpanloveruth/article/details/120967019
 
 
 

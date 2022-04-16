@@ -16,7 +16,7 @@ fdisk磁盘分区命令
   * n 创建一个新的分区
   * p 查看目前的分区情况
   * w 保存修改并退出
-
+https://mp.weixin.qq.com/s/MeHYRv_o691zMyusVDOaCw
 
 mke2fs创建文件系统命令
 ======

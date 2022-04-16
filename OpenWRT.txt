@@ -1,1 +1,61 @@
 OpenWRT
+
+opkg update
+opkg install rclone
+rlone config
+
+
+阿里云盘 WebDAV 服务
+https://github.com/zxbu/webdav-aliyundriver
+https://github.com/messense/aliyundrive-webdav
+pip install aliyundrive-webdav
+
+路由器	CPU 架构
+nanopi r4s	aarch64_generic
+小米 AX3600	aarch64_cortex-a53
+斐讯 N1 盒子	aarch64_cortex-a53
+Newifi D2	mipsel_24kc
+Pogoplug	arm_mpcore
+
+OpenWrt 路由器
+opkg print-architecture
+
+GitHub Releases https://github.com/messense/aliyundrive-webdav/releases 中有预编译的 ipk 文件， 目前提供了 aarch64/arm/mipsel/x86_64/i686 等架构的版本，可以下载后使用 opkg 安装，以 nanopi r4s 为例：
+wget https://github.com/messense/aliyundrive-webdav/releases/download/v1.2.4/aliyundrive-webdav_1.2.4-1_aarch64_generic.ipk
+wget https://github.com/messense/aliyundrive-webdav/releases/download/v1.2.4/luci-app-aliyundrive-webdav_1.2.4_all.ipk
+wget https://github.com/messense/aliyundrive-webdav/releases/download/v1.2.4/luci-i18n-aliyundrive-webdav-zh-cn_1.2.4-1_all.ipk
+opkg install aliyundrive-webdav_1.2.4-1_aarch64_generic.ipk
+opkg install luci-app-aliyundrive-webdav_1.2.4_all.ipk
+opkg install luci-i18n-aliyundrive-webdav-zh-cn_1.2.4-1_all.ipk
+
+Koolshare 梅林固件
+https://github.com/messense/aliyundrive-webdav/releases
+中有预编译包 aliyundrivewebdav-merlin-arm*.tar.gz ， 目前提供了旧的 arm380 和兼容 arm384/386 固件的版本，可在下载后在软件中心离线安装。
+
+docker run -d --name=aliyundrive-webdav --restart=unless-stopped -p 8080:8080 \
+  -v /etc/aliyundrive-webdav/:/etc/aliyundrive-webdav/ \
+  -e REFRESH_TOKEN='your refresh token' \
+  -e WEBDAV_AUTH_USER=admin \
+  -e WEBDAV_AUTH_PASSWORD=admin \
+  messense/aliyundrive-webdav
+
+QNAP 威联通 NAS
+QNAP 插件
+https://github.com/iranee/qnap-aliyunpan-webdav
+管理员登陆 NAS 后安装 ContainerStation 并启动服务，在 Management (管理) 标签中 Create Application (新建应用)，配置如下
+
+version: '3.3'
+services:
+  aliyundrive-webdav:
+    container_name: aliyundrive-webdav
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    environment:
+      - 'REFRESH_TOKEN=mytoken...'
+    image: messense/aliyundrive-webdav
+其中 REFRESH_TOKEN 文档最下面说明；:8080 网盘访问映射端口，可以按需改为其他的。
+
+点击 Create (创建)后启动，访问 http://nas地址:8080/ 即可看到你网盘的自动生成索引网页文件。
+
+

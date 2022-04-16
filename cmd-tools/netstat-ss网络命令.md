@@ -197,4 +197,9 @@ Batfish
 Fiddler
 New Relic And Pingdom
 
+获取本机ip地址
+ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"
+
+设置固定ip
+ifconfig em1 192.168.5.177 netmask 255.255.255.0
 

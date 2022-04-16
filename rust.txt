@@ -1,14 +1,21 @@
 半小时入门 Rust
+https://quickref.me/rust
 https://mp.weixin.qq.com/s/_elPKI64bRk1-8lC8V9mMQ
 https://github.com/rust-unofficial/awesome-rust
+https://course.rs/
 
 https://www.rust-lang.org/tools/install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl https://sh.rustup.rs -sSf | sh
+cargo new notes
+cargo run
+https://mp.weixin.qq.com/s/trozFjh1XaauX9EGGOiWXg
 
 https://www.rust-lang.org/zh-CN/tools/install
 https://www.rust-lang.org/zh-CN/learn
 https://github.com/wtklbm/rust-library-i18n
+https://serokell.io/blog/open-source-rust
+
 安装 Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 curl https://sh.rustup.rs -sSf | sh
@@ -17,6 +24,7 @@ source "$HOME/.cargo/env"
 
 rustc --version
 rustup update
+rustup update stable
 rustup self uninstall
 rustup target list
 rustup target add
@@ -47,6 +55,7 @@ cargo edit
 cargo rm
 cargo upgrade
 cargo set-version
+cargo cache verify 将尝试在cargo载缓存中找到损坏或修改的 crates.
 
 cargo install cargo-udeps --locked
 cargo +nightly udeps #查找未使用的依赖项
@@ -70,6 +79,25 @@ cargo audit #安全漏洞审核
 cargo install --locked cargo-deny && cargo deny init && cargo deny check
 cargo deny #项目的依赖关系图
 
+cargo xcodebuild run
+
+https://github.com/sgeisler/cargo-remote
+cargo install --path cargo-remote/
+brew install rsync
+
+# 在本机编译
+cargo build --release
+# 用远程编译
+cargo remote -- build --release
+# 在本机编译
+cargo run --release
+# 用远程编译
+cargo remote -- run --release
+# Install the toolchain to build Linux x86_64 binaries
+rustup target add x86_64-unknown-linux-gnu
+cargo build --release --target=x86_64-unknown-linux-gnu
+
+
 https://crates.io/
 
 cargo build --target aarch64_be-unknown-linux-gnucargo build --target aarch64-unknown-linux-gnu_ilp32cargo build --target aarch64_be-unknown-linux-gnu_ilp32
@@ -77,6 +105,20 @@ cargo build --target aarch64_be-unknown-linux-gnucargo build --target aarch64-un
 https://actix.rs/
 
 http://lib.rs/
+
+12个Rust的Tips
+使用 Cow<str> 作为返回类型
+使用 Crossbeam channels 取代标准库
+使用 Scopeguard 实现类似 Golang 的延迟运算
+使用 Cargo-make 打包
+自定义和链接 Panic 处理程序
+在 VSCode 中使用 Rust Analyzer
+用到闭包时使用 impl Trait
+在保存时为 VSCode 启用 Clippy
+使用 thiserror 和 anyhow 处理惯用错误
+使用 dbg!() 替换 println!()
+使用 include_str!() 和 include_bytes!() 宏在编译时读取文件
+使用 cc crate 与 C/C++ 代码交互
 
 https://github.com/helix-editor/helix
 brew tap helix-editor/helix
@@ -134,19 +176,23 @@ https://github.com/sycamore-rs/sycamore
 https://github.com/chinedufn/percy
 https://github.com/firecracker-microvm/firecracker
 https://github.com/serverless/serverless
-https://github.com/bottlerocket-os/bottlerocket
 https://github.com/cloudflare/quiche #QUIC HTTP3
 https://github.com/mozilla/neqo
 https://github.com/swc-project/swc
 https://swc.rs/
 https://github.com/napi-rs/napi-rs
+https://github.com/Brooooooklyn/rust-to-nodejs-overhead-benchmark
 https://github.com/WasmEdge/WasmEdge
+https://github.com/DioxusLabs/dioxus
+https://github.com/sycamore-rs/sycamore
 
 web client
 https://github.com/actix/actix-web
 https://github.com/seanmonstar/reqwest
 https://github.com/hyperium/hyper
 https://github.com/apoelstra/rust-jsonrpc/
+https://github.com/paritytech/jsonrpsee
+https://github.com/paritytech/jsonrpc
 https://github.com/actix/actix-web/tree/master/awc
 https://github.com/Orange-OpenSource/hurl
 
@@ -161,6 +207,14 @@ https://github.com/ritelabs/riteraft
 static site
 https://github.com/jameslittle230/stork
 
+容器
+Bottlerocket，这是一个用 Rust 编写的基于 Linux 的容器操作系统
+https://github.com/bottlerocket-os/bottlerocket
+
+protobuf
+https://github.com/stepancheg/rust-protobuf/
+https://github.com/tokio-rs/prost
+
 Rust 模板引擎 template
 https://github.com/Kogia-sima/sailfish
 https://github.com/Keats/tera
@@ -174,12 +228,16 @@ https://github.com/dpc/stpl
 https://github.com/kaj/ructe
 https://github.com/bodil/typed-html
 
+proxy QUIC protocol
+https://github.com/EAimTY/tuic
+
 设计模式
 https://github.com/rust-unofficial/patterns
 
 web build tool
 https://mp.weixin.qq.com/s/LSIi2P6FKnJ0GTodaTUGKw
 https://github.com/parcel-bundler/parcel
+https://github.com/parcel-bundler/parcel-css
 https://parceljs.org/docs/
 yarn add --dev parcel
 npm install --save-dev parcel
@@ -198,6 +256,7 @@ https://github.com/vercel/next.js
 
 Notion
 https://github.com/AppFlowy-IO/appflowy
+https://mp.weixin.qq.com/s/PvcHpculPHDh8QlUPuzldQ
 
 TCP转发工具
 https://github.com/yuchunzhou/tcpforward
@@ -334,6 +393,10 @@ https://github.com/skerkour/kerkour.com
 json
 https://github.com/serde-rs/serde：#json Serialization
 https://github.com/shogan/fstojson-rust #json Serialization
+https://github.com/RedisJSON/RedisJSON
+redis-server --loadmodule ./target/release/librejson.so
+redis-server --loadmodule ./target/release/librejson.dylib
+
 
 https://github.com/ducaale/xh
 # Send a GET request
@@ -364,6 +427,9 @@ https://github.com/DataDog/glommio
 https://github.com/embassy-rs/embassy
 https://github.com/bastion-rs/bastion
 https://github.com/bytedance/monoio
+https://github.com/bytedance/keyhouse
+
+https://github.com/DataDog/glommio
 
 https://github.com/hyperium/hyper：#Rust 的快速且正确的 HTTP/1.1 和 HTTP/2 实现。
 https://github.com/hyperium/tonic：基于 HTTP/2 的 gRPC 实现专注于高性能、互操作性和灵活性。
@@ -380,8 +446,14 @@ https://github.com/duckdb/duckdb
 https://github.com/rusqlite/rusqlite
 https://github.com/apache/arrow-rs
 https://github.com/sfackler/rust-postgres
+
+https://github.com/tokio-rs/console
+https://github.com/googleforgames/quilkin
+
 GraphQL
 https://github.com/async-graphql/async-graphql
+https://async-graphql.github.io/async-graphql/en/index.html
+https://github.com/graphql-rust/juniper
 
 音乐制作
 https://github.com/MeadowlarkDAW/Meadowlark
@@ -404,6 +476,9 @@ https://github.com/swatteau/sokoban-rs
 https://github.com/thetawavegame/thetawave-legacy
 https://gitlab.com/veloren/veloren
 https://github.com/ozkriff/zoc
+https://github.com/fishfight/FishFight
+https://github.com/fishfight/FishLauncher
+
 TIME
 https://github.com/wandercn/gostd
 
@@ -502,6 +577,7 @@ https://github.com/SeaQL/sea-orm
 https://github.com/SeaQL/sea-orm/releases/tag/0.2.2
 https://github.com/launchbadge/sqlx
 https://github.com/roy-ganz/toql
+https://crates.io/crates/sea-orm
 
 database
 https://gitlab.com/tglman/persy
@@ -514,6 +590,19 @@ https://github.com/PumpkinDB/PumpkinDB
 https://github.com/seppo0010/rsedis
 https://github.com/skytable/skytable
 https://github.com/spacejam/sled
+https://crates.io/crates/vsdb
+https://github.com/ccmlm/vsdb
+https://github.com/vorot93/libmdbx-rs
+https://github.com/symmetree-labs/infinitree
+https://github.com/mrxiaozhuox/dorea/
+IndexedDB
+https://github.com/devashishdxt/rexie
+
+cache
+https://github.com/memc-rs/memc-rs
+
+事件处理
+https://github.com/tremor-rs/tremor-runtime
 
 
 模版引擎
@@ -542,6 +631,7 @@ https://github.com/Owez/argi
 lnx: 一个基于 tantivy 的搜索引擎
 它是 MeiliSearch 和 ElasticSearch 的竞品。其基于 tokio-rs，hyper 和 tantivy 进行开发。提供 REST 接口。现已发布 v0.6 版。持续关注。
 https://github.com/lnx-search/lnx
+https://github.com/valeriansaliou/sonic
 
 https://github.com/pauwels-labs/redact-client
 bittorrent client
@@ -618,6 +708,7 @@ https://github.com/avito-tech/bioyino
 https://crates.io/crates/opentelemetry
 https://github.com/hubblo-org/scaphandre #功耗监控代理
 https://github.com/vectordotdev/vector #高性能、日志、指标和事件路由器
+https://github.com/infinyon/fluvio
 
 QUIC IETF 指定的下一代 TCP 继承者
 https://github.com/quinn-rs/quinn
@@ -708,6 +799,7 @@ https://github.com/skerkour/kerkour.com/tree/main/2021/rust_fast_port_scanner
 https://github.com/skerkour/kerkour.com
 
 系统OS
+https://github.com/Rust-for-Linux/linux
 https://github.com/LibertyOS-Development/kernel
 命令行翻译 baidu tencent niutrans
 https://github.com/zjp-CN/bilingual
@@ -752,6 +844,12 @@ https://gitlab.redox-os.org/redox-os/redox
 https://github.com/thepowersgang/rust_os
 https://github.com/tock/tock
 https://github.com/oxidecomputer/hubris
+https://github.com/theseus-os/Theseus
+https://github.com/google/OpenSK
+
+k8s
+https://github.com/project-akri/akri
+https://github.com/krustlet/krustlet
 
 文本编辑器
 https://github.com/federico-terzi/espanso
@@ -867,8 +965,13 @@ time since last successful read
 https://github.com/solana-labs/solana
 Solana（诞生于 2018 年，总价值 500亿美元）是继太坊之后的一个可编程区块链。Solana 的重点是实现高吞吐量、低成本交易，这是当前以太坊网络的两个最大的弱点。Solana 的高性能主要归功于分布式共识设计的多项创新。最近，A16z 向 Solana Labs的代币销售投资了 3.14 亿美元。
 
-CUDA
+CUDA GPU
+https://github.com/EmbarkStudios/rust-gpu
 https://github.com/Rust-GPU/Rust-CUDA
+
+game
+https://github.com/bevyengine/bevy
+https://github.com/FyroxEngine/Fyrox
 
 2d 3d
 https://github.com/rg3dengine/rg3d
@@ -879,10 +982,230 @@ https://github.com/zu1k/good-mitm
 快速密码词表生成器、Smartlist 创建和密码混合掩码分析工具
 cracken：密码词表生成器、Smartlist 创建和密码混合掩码分析工具
 https://github.com/shmuelamar/cracken
+https://github.com/mvniekerk/tokio-cron-scheduler
 
 内网穿透
 一款快速, 稳定, 高效, 轻量的内网穿透, 端口转发工具 支持多连接,级联代理,传输加密
 https://github.com/editso/fuso
+async python web server
+https://github.com/sansyrox/robyn/
+Git
+https://github.com/Byron/gitoxide
+
+dag 从最新的 GitHub 版本下载
+https://github.com/devmatteini/dag
+cargo install dag
+dag devmatteini/dag-example download
+dag devmatteini/dag-example download --output /tmp/dag-example
+dag devmatteini/dag-example untag
+dag devmatteini/dag-example download --select "dag-example-{tag}-amd64"
+
+Rust interface to Podman
+https://github.com/vv9k/podman-api-rs
+vec
+https://github.com/slightlyoutofphase/staticvec
+https://github.com/maniartech/uuidgen
+https://github.com/k0kubun/xremap
+
+在没有 Docker 的情况下在 macOS 上交叉编译 Rust Lambdas
+在 Rust 中开发 Lambda 函数的标准方法是使用 AWS 提供的自定义 Lambda 运行时并在部署之前交叉编译所有内容。这里介绍如何在 macos 上进行开发 Lambda 函数。
+brew tap messense/macos-cross-toolchains
+brew install aarch64-unknown-linux-gnu
+然后，在您的环境中设置这些变量（例如在bashrc 中）：
+export CC_aarch64_unknown_linux_gnu=aarch64-unknown-linux-gnu-gcc
+export CXX_aarch64_unknown_linux_gnu=aarch64-unknown-linux-gnu-g++
+export AR_aarch64_unknown_linux_gnu=aarch64-unknown-linux-gnu-ar
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-unknown-linux-gnu-gcc
+现在cargo build --target aarch64-unknown-linux-gnu将在 macOS 上按预期工作，并生成准备部署到 AWS Lambda 的二进制文件 - 无需 Docker
+https://noserve.rs/rust-lambdas-macos/
+
+SIMD 加速操作
+支持 SSE4.1、AVX2、ARM NEON、Aarch64 NEON 和 WASM SIMD128！
+比 fast-hex、base64 和 radix64 更快！
+https://github.com/Nugine/simd
+
+frp 的路由器，现在能跑 rathole。
+项目地址 https://github.com/rapiz1/rathole
+
+# server.toml
+[server]
+bind_addr = "0.0.0.0:2333" # `2333` specifys the port that rathole listens for clients
+[server.services.my_nas_ssh]
+token = "use_a_secret_that_only_you_know" # Token that is used to authenticate the client for the service. Change to a arbitrary value.
+bind_addr = "0.0.0.0:5202" # `5202` specifys the port that exposes `my_nas_ssh` to the Internet
+./rathole server.toml
+# client.toml
+[client]
+remote_addr = "myserver.com:2333" # The address of the server. The port must be the same with the port in `server.bind_addr`
+[client.services.my_nas_ssh]
+token = "use_a_secret_that_only_you_know" # Must be the same with the server to pass the validataion
+local_addr = "127.0.0.1:22" # The address of the service that needs to be forwarded
+./rathole client.toml
+
+LibAFL - 高性能 Rust fuzzer
+Fuzzing 可以完全自动化地发现对安全至关重要的错误。
+https://github.com/AFLplusplus/LibAFL
+zbus 2.0 发布
+简要介绍一下 zbus 是什么：D-Bus 是一种在 Linux（尤其是桌面和嵌入式系统）上非常流行的进程间通信 (IPC) 机制
+https://docs.rs/zbus/latest/zbus/
+
+GUI
+Dioxus v0.1 发布
+Dioxus 是一个新的 Rust GUI 工具包，用于 Web、桌面、移动、SSR、TUI
+优雅的类 React 库，用于为桌面、Web、移动、SSR、实时查看等构建用户界面。
+https://github.com/DioxusLabs/dioxus
+https://github.com/emilk/egui/
+https://github.com/iced-rs/iced
+https://github.com/linebender/druid
+https://github.com/fschutt/azul
+https://github.com/cksac/oxui
+
+https://github.com/lnicola/smem
+
+链接聚合器
+https://github.com/LemmyNet/lemmy
+https://github.com/LemmyNet/lemmy-ui
+https://github.com/LemmyNet/lemmy-js-client
+https://github.com/LemmyNet/lemmy-ansible
+https://lemmy.ml/
+
+https://github.com/rustsbi/rustsbi
+https://github.com/rust-embedded/wg
+https://github.com/sixtyfpsui/sixtyfps
+https://github.com/greatest-ape/OctaSine
+https://github.com/jorgecarleitao/arrow2/
+
+富有表现力的游戏音频库
+https://github.com/tesselode/kira
+多媒体摄取与分发系统
+https://github.com/KallDrexx/mmids/
+Blackjack
+https://github.com/Arc676/Blackjack
+Rust 的低级到高级数学库
+https://github.com/Aandreba/llml
+
+unix
+https://github.com/Andy-Python-Programmer/aero
+用于更轻松地切换 git 分支的命令行实用程序
+https://github.com/craciuncezar/git-smart-checkout
+在添加上下文的同时轻松地将基础错误分配到特定领域的错误中
+https://github.com/shepmaster/snafu
+呼叫服务
+将媒体从 1 个组呼设备转发到 N 个组呼设备
+https://github.com/signalapp/Signal-Calling-Service
+https://github.com/signalapp/ringrtc
+Rust 解析器组合器框架
+https://github.com/Geal/nom
+BTreeSet/BTreeMap
+https://github.com/tnballo/scapegoat
+并行迭代器处理库
+https://github.com/dpc/pariter
+Linux 的内存分析器
+https://github.com/koute/bytehound
+
+GUI图像进行排序和分类
+https://github.com/Futsch1/image-sieve
+微服务能够在整个企业中创建、查找、监视和使用各种微资源以及向其他微服务发送消息
+https://github.com/mechtronium/starlane/
+树视图文件可视化
+https://github.com/angelina-tsuboi/ctv
+tesseract
+https://github.com/thomasgruebl/rusty-tesseract
+一个新的 actor 框架
+https://github.com/Zestors/zestors
+A command-line pager for JSON data
+https://github.com/PaulJuliusMartinez/jless
+update-informer 是一个主要为使用 Rust 编写的 CLI 工具创建的库，例如 dotenv- linter 、datanymizer。它检查已发布的新版本，并在发现更新时发送通知
+https://github.com/mgrachev/update-informer
+RFC
+https://github.com/rust-lang/rfcs
+https://rust-lang.github.io/rfcs/
+resin 3D打印机的固件
+https://github.com/nviennot/turbo-resin/
+分布式对象存储，S3兼容
+https://git.deuxfleurs.fr/Deuxfleurs/garage
+CADBase 的主要 API 是 GraphQL API，但 REST API 用于获取授权令牌
+https://docs.cadbase.rs/
+CNCF Jaeger，一个分布式追踪平台
+https://github.com/jaegertracing/jaeger
+LLVM
+https://github.com/EnzymeAD/Enzyme
+
+https://github.com/rcxxx/MegFlow
+https://github.com/MegEngine/MegFlow
+具有扩展过滤支持的向量相似性搜索引擎
+https://github.com/qdrant/qdrant
+https://github.com/dimforge/nalgebra
+https://github.com/neuronika/neuronika
+
+https://github.com/tauri-apps/tauri
+
+https://github.com/linebender/runebender
+https://github.com/fede1024/rust-rdkafka
+https://github.com/smoltcp-rs/smoltcp
+https://github.com/libp2p/rust-libp2p
+https://github.com/near/nearcore
+https://github.com/diem/diem
+https://github.com/CympleTech/TDN
+https://github.com/stateright/stateright
+https://github.com/openmls/openmls
+https://github.com/ChainSafe/mina-rs
+https://github.com/dani-garcia/vaultwarden
+https://github.com/tonarino/innernet
+https://github.com/RustAudio/cpal
+https://github.com/MeadowlarkDAW/Meadowlark
+
+github CLIENT
+https://github.com/octocat-rs/octocat-rs
+端口转发
+https://github.com/cfal/tobaru
+DataFrame library
+https://github.com/pola-rs/polars
+
+Rust Kubernetes client
+https://github.com/kube-rs/kube-rs
+
+ls 命令
+https://github.com/Peltoche/lsd
+https://github.com/Canop/broot
+https://github.com/ogham/exa
+cd 命令
+https://github.com/ajeetdsouza/zoxide
+find 命令
+https://github.com/junegunn/fzf
+https://github.com/sharkdp/fd/
+grep 命令
+https://github.com/BurntSushi/ripgrep
+https://github.com/ggreer/the_silver_searcher
+ps 命令
+https://github.com/dalance/procs
+git diff
+https://github.com/so-fancy/diff-so-fancy
+git、diff 和 grep 输出的语法高亮分页器
+https://github.com/dandavison/delta
+ctrl+r的替代品，主要用来搜索 Shell 操作记录
+https://github.com/cantino/mcfly
+cut 命令
+https://github.com/theryangeary/choose
+curl
+https://github.com/httpie/httpie
+https://github.com/rs/curlie
+https://github.com/ducaale/xh
+dig 命令
+https://github.com/ogham/dog
+
+https://github.com/ThijsRay/coppers
+
+Zine - 一个简单而有主见的工具来建立你自己的杂志
+https://github.com/zineland/zine
+cargo install zine
+zine new your-zine-site
+cd your-zine-site
+zine serve
+zine build
+
+
+
 
 
 

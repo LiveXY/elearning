@@ -1,0 +1,47 @@
+zabbix+PostgreSQL
+
+rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+yum search zabbix
+
+yum install zabbix-server-pgsql
+yum install centos-release-scl
+yum install zabbix-web-pgsql-scl zabbix-apache-conf-scl
+
+psql
+create database zabbix;
+create user zabbix nocreatedb nocreaterole nosuperuser password '123456';
+grant create,connect on DATABASE zabbix to zabbix ;
+\q
+
+zcat /usr/share/doc/zabbix-server-pgsql*/create.sql.gz | sudo -u zabbix /opt/pg12/bin/psql -p 11016 zabbix
+su - pg12
+psql -d zabbix -U zabbix
+select * from pg_tables where tableowner='zabbix' limit 5;
+\q
+
+vi zabbix_server.conf
+systemctl start zabbix-server
+systemctl enable zabbix-server
+
+setenforce 0
+iptables -F
+setsebool -P httpd_can_connect_zabbix on
+setsebool -P httpd_can_network_connect_db on
+
+yum install zabbix-agent
+vim zabbix_agentd.conf修改如下内容
+Server=127.0.0.1,10.110.42.123        #zabbix服务器地址
+ServerActive=127.0.0.1,10.110.42.123  #zabbix服务器地址
+Hostname=Zabbix server                #与zabbix server一致
+
+systemctl enable zabbix-agent
+systemctl start zabbix-agent
+
+
+yum install zabbix-sender
+vi /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conf
+php_value[date.timezone] = Asia/Shanghai
+
+systemctl restart httpd rh-php72-php-fpm
+systemctl enable http rh-php72-php-fpm
+
