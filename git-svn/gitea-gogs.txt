@@ -1,0 +1,153 @@
+
+https://github.com/go-gitea/gitea
+https://gitea.io/zh-cn/
+https://try.gitea.io/
+
+wget -O gitea https://dl.gitea.io/gitea/1.15.10/gitea-1.15.10-linux-amd64
+chmod +x gitea
+https://docs.gitea.io/zh-cn/database-prep/
+CREATE DATABASE giteadb CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
+
+./gitea web
+
+
+https://gogs.io/
+https://gogs.io/docs
+
+https://docs.gitea.io/zh-cn/comparison/
+
+#gogs安装
+```
+adduser git
+passwd git
+su git
+
+wget -c https://dl.gogs.io/0.12.4/gogs_0.12.4_linux_amd64.tar.gz
+tar xzvf gogs_0.12.4_linux_amd64.tar.gz
+mv gogs_0.12.4_linux_amd64 gogs
+
+配置数据库
+SET @s = IF(version() < 8 OR (version() LIKE '%MariaDB%' AND version() < 10.3),
+            'SET GLOBAL innodb_file_per_table = ON,
+                        innodb_file_format = Barracuda,
+                        innodb_large_prefix = ON;',
+            'SET GLOBAL innodb_file_per_table = ON;');
+PREPARE stmt1 FROM @s;
+EXECUTE stmt1;
+DROP DATABASE IF EXISTS gogs;
+CREATE DATABASE IF NOT EXISTS gogs CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+其它
+create schema gogs default character set utf8mb4 collate utf8mb4_general_ci;
+set global innodb_file_per_table = ON;
+set global innodb_large_prefix=on;
+set global innodb_file_format=Barracuda;
+
+配置站点
+http://127.0.0.1:3000/install
+数据库设置/应用基本设置/管理员帐号设置
+
+设置禁止注册
+vi /home/gogs/custom/conf/app.ini
+DISABLE_REGISTRATION   = true
+
+启动
+cd /home/gogs && nohup ./gogs web 2>&1
+
+```
+
+#docker安装GIT服务器gogs
+```
+数据库设置不正确:Error 1071: Specified key was too long; max key length is ?
+create schema gogs default character set utf8mb4;
+show variables like '%storage_engine%';
+show variables like '%character_set%';
+show variables like '%innodb_large_prefix%';
+show variables like '%innodb_file_format%';
+set global innodb_large_prefix=on;
+set global innodb_file_format=Barracuda;
+set global innodb_file_per_table = ON;
+
+ALTER DATABASE `gogs` CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `access` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `access_token` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `action` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `attachment` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `collaboration` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `comment` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `deploy_key` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `email_address` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `follow` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `hook_task` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `issue` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `issue_label` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `issue_user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `label` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `login_source` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `milestone` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `mirror` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `notice` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `org_user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `protect_branch` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `protect_branch_whitelist` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `public_key` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `pull_request` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `release` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `repository` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `star` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `team` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `team_repo` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `team_user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `two_factor` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `two_factor_recovery_code` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `upload` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `watch` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `webhook` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+yum install docker -y
+systemctl restart docker.service
+systemctl status docker.service
+systemctl enable docker.service
+
+Failed at step LIMITS spawning /usr/bin/dockerd-current: Operation not permitted
+rm -rf /var/lib/docker
+systemctl daemon-reload
+systemctl restart docker.service
+
+docker pull gogs/gogs
+mkdir -p /home/gogs
+docker run --name=gogs -p 258:22 -p 10080:3000 -v /home/gogs:/data gogs/gogs
+docker ps
+docker start gogs
+docker logs 8e117704e92b
+
+vi /home/nginx/conf.d/git.conf
+server {
+   listen 80;
+   server_name git.domain.com;
+   client_max_body_size 0;
+   proxy_request_buffering off;
+   location / {
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header Cookies $http_cookie;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_buffering off;
+      proxy_pass http://10.0.0.10:10080/;
+    }
+}
+
+打开 http://git.domain.cn 安装
+安装完成后注册账号(注册第一个账号就是管理员账号)
+
+配置文件：
+vi /home/gogs/gogs/conf/app.ini
+[server]
+SSH_PORT         = 258
+[service]
+DISABLE_REGISTRATION   = true
+
+docker restart gogs
+```
+
