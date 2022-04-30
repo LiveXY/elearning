@@ -14,6 +14,10 @@ git pull origin master
 echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
 source ~/.bash_profile
 
+brew update-reset
+
+https://mirrors.aliyun.com/homebrew/brew.git/
+
 aliyun安装
 git clone https://github.com/Homebrew/install brew-install
 sed -i "" "s/BREW_REPO=\"https:\/\/github.com\/Homebrew\/brew\"/BREW_REPO=\"https:\/\/mirrors.aliyun.com\/homebrew\/brew.git\"/g" ./brew-install/install.sh
@@ -23,7 +27,7 @@ cd /usr/local/
 git clone -b stable https://mirrors.aliyun.com/homebrew/brew.git Homebrew
 cd /usr/local/Homebrew/Library/Taps/homebrew/
 git clone -b master https://mirrors.aliyun.com/homebrew/homebrew-core.git homebrew-core
-git clone -b master https://mirrors.ustc.edu.cn/homebrew-cask.git homebrew-cask
+git clone -b master https://mirrors.aliyun.com/homebrew/homebrew-cask.git homebrew-cask
 echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
 source ~/.bash_profile
 /usr/local/Homebrew/brew update --force
