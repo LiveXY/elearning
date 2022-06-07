@@ -6,6 +6,9 @@ M (Machine) 操作系统线程 G在M上执行 线程想运行任务就得获取 
 P的数量 runtime.GOMAXPROCS(0)
 M的数量 默认 10000
 
+学习
+https://github.com/luk4z7/go-concurrency-guide
+
 mkdir workspace && cd workspace
 go work init ./hello_work
 go work use ./gomodtestc
@@ -88,8 +91,31 @@ https://github.com/solsw/go2linq
 https://github.com/ahmetb/go-linq
 https://github.com/life4/genesis
 https://github.com/rakeeb-hossain/functools
+https://github.com/Saza-ku/go-genq
+
 1.18 算法
+https://github.com/avelino/awesome-go
 https://github.com/samber/lo
+https://github.com/repeale/fp-go
+https://github.com/sean-public/fast-skiplist
+https://github.com/kevwan/stream
+https://github.com/shoenig/test
+https://github.com/gonum/gonum
+https://github.com/zeromicro/zero-examples
+https://github.com/kevwan/mapreduce #流程控制 并行
+https://github.com/xxjwxc/uber_go_guide_cn
+https://github.com/Workiva/go-datastructures
+https://github.com/daichi-m/go18ds
+https://github.com/barweiss/go-tuple
+https://github.com/nwillc/genfuncs
+https://github.com/repeale/fp-go
+https://github.com/rjNemo/underscore
+
+https://github.com/uber-go/atomic
+https://github.com/chzyer/readline
+
+转换三角化图片艺术照
+https://github.com/esimov/triangle
 
 https://github.com/zh-five/xdaemon
 https://github.com/duolatech/xapimanager
@@ -113,8 +139,17 @@ https://github.com/plimble/ace
 github.com/labstack/echo/v4
 https://github.com/gobuffalo/buffalo
 
-hash
-https://github.com/OneOfOne/xxhash
+API防火墙
+https://github.com/wallarm/api-firewall
+https://hub.docker.com/r/wallarm/api-firewall
+
+ffmpeg
+https://github.com/u2takey/ffmpeg-go
+https://github.com/mowshon/moviego
+
+动画库
+https://github.com/charmbracelet/harmonica
+
 版本
 https://github.com/Masterminds/semver
 https://github.com/blang/semver
@@ -133,6 +168,11 @@ websocket
 https://github.com/gorilla/websocket
 https://github.com/gobwas/ws
 https://github.com/joewalnes/websocketd
+https://github.com/pojntfx/weron
+
+net
+https://github.com/panjf2000/gnet
+
 
 tcp
 https://github.com/aceld/zinx
@@ -162,6 +202,7 @@ https://github.com/dgraph-io/dgraph
 https://docs.github.com/en/graphql
 https://docs.github.com/en/graphql/overview/explorer
 
+https://github.com/eko/gocache
 开源的本地缓存库中 bigcache、go-cache、freecache都实现了分片功能，bigcache的hash选择的是fnv64a算法、go-cache的hash选择的是djb2算法、freechache选择的是xxhash算法。这三种算法都是非加密哈希算法
 https://github.com/allegro/bigcache
 https://github.com/patrickmn/go-cache
@@ -176,6 +217,7 @@ database kvdb cache
 https://github.com/etcd-io/bbolt #key/value database
 https://github.com/syndtr/goleveldb
 https://github.com/facebook/rocksdb
+https://github.com/golang/leveldb
 https://github.com/google/leveldb
 https://github.com/erthink/libmdbx
 https://github.com/torquem-ch/mdbx-go
@@ -186,10 +228,32 @@ https://github.com/couchbase/forestdb
 https://github.com/mongodb/mongo-go-driver
 https://github.com/FerretDB/FerretDB #开源 MongoDB 替代品
 https://github.com/segmentio/kafka-go
-https://github.com/codenotary/immudb
+https://github.com/codenotary/immudb #只读DB
 https://github.com/go-mysql-org/go-mysql
 https://github.com/alicebob/miniredis
 https://github.com/alash3al/redix
+https://github.com/cockroachdb/cockroach
+https://github.com/cockroachdb/pebble #CockroachDB
+https://github.com/flower-corp/rosedb #类似REDIS
+./rosedb-server
+cli-mac -p 5200
+https://github.com/microsoft/go-mssqldb
+https://github.com/denisenkom/go-mssqldb
+
+MySQL Binlog 增量实时同步工具
+https://github.com/wj596/go-mysql-transfer
+https://www.kancloud.cn/wj596/go-mysql-transfer/2116627
+
+mongo同步
+https://github.com/alibaba/MongoShake
+https://github.com/alibaba/MongoShake/releases
+curl -s  http://127.0.0.1:9101/progress | python -m json.tool
+curl -s http://127.0.0.1:9100/repl | python -m json.tool
+./mongoshake-stat --port 8100
+
+bitmap
+https://github.com/RoaringBitmap/roaring
+https://github.com/bits-and-blooms/bitset
 
 分布式Sqlite
 https://github.com/rqlite/rqlite
@@ -283,7 +347,11 @@ tiup cluster display tidb
 tiup --binary cluster
 mysql -h 10.0.1.1 -P 4000 -u root
 
+docker run -p 127.0.0.1:$LOCAL_PORT:4000 pingcap/tidb:v5.1.0
+
+CREATE USER <username> IDENTIFIED BY <password>;
 CREATE USER 'tiuser'@'localhost' IDENTIFIED BY '123456';
+GRANT ALL ON gorm.* TO <username>;
 GRANT SELECT ON samp_db.* TO 'tiuser'@'localhost';
 SHOW GRANTS for tiuser@localhost;
 DROP USER 'tiuser'@'localhost';
@@ -292,7 +360,22 @@ CREATE DATABASE tidb;
 CREATE USER 'tiuser' IDENTIFIED BY '123456';
 GRANT ALL ON tidb.* TO tiuser;
 
+
 dsn := "tiuser:123456@tcp(localhost:4000)/tidb?charset=utf8&parseTime=True&loc=Local"
+
+序列化 生成代码
+https://github.com/alecthomas/go_serialization_benchmarks
+https://github.com/200sc/bebop
+https://github.com/valyala/musgo
+https://github.com/pascaldekloe/colfer
+https://github.com/calmh/xdr
+https://github.com/gogo/protobuf
+https://github.com/andyleap/gencode
+https://github.com/mojura/enkodo #写流
+https://github.com/shamaton/msgpackgen
+https://github.com/tinylib/msgp
+https://github.com/google/flatbuffers #写流
+https://github.com/golang/protobuf
 
 grpc
 https://github.com/protocolbuffers/protobuf
@@ -368,9 +451,16 @@ https://github.com/go-mysql-org/go-mysql-elasticsearch
 https://github.com/prabhatsharma/zinc #替代ES
 https://github.com/blevesearch/bleve
 
-jquery
+jquery json
 https://github.com/PuerkitoBio/goquery
 https://github.com/wader/fq
+https://github.com/antonmedv/fx
+go install github.com/antonmedv/fx@latest
+fx data.json
+fx data.json '.filter(x => x.startsWith("a"))'
+fx data.json '[x["age"] + i for i in range(10)]'
+fx data.json 'x.to_a.map {|x| x[1]}'
+export FX_THEME=9
 
 https://github.com/astaxie/beedb
 
@@ -382,18 +472,36 @@ https://github.com/rodrigo-brito/gocity
 https://github.com/knqyf263/trivy
 
 https://github.com/snail007/goproxy
+https://github.com/elazarl/goproxy
+
+LDAP
+https://github.com/go-ldap/ldap
+
+https://github.com/shirou/gopsutil
+https://github.com/go-ping/ping
+
 
 https://github.com/XiaoMi/Gaea
 
 https://github.com/douyu/jupiter
 
 PDF WORD EXCEL
+https://github.com/qax-os/excelize
+https://github.com/tealeg/xlsx
+https://github.com/szyhf/go-excel
+https://github.com/fterrag/goxlsxwriter
+https://github.com/go-the-way/exl
+https://github.com/plandem/xlsx
+
+https://github.com/johnfercher/maroto #PDF
+https://github.com/jung-kurt/gofpdf #PDF
 https://github.com/signintech/gopdf
 https://github.com/pdfcpu/pdfcpu
 https://github.com/gotenberg/gotenberg
 https://github.com/SebastiaanKlippert/go-wkhtmltopdf
 wkhtmltopdf input.html output.pdf
 wkhtmltopdf https://www.google.com output.pdf
+https://segmentfault.com/a/1190000021459671
 添加水印
 unipdf watermark in.pdf watermark.png -o out.pdf
 pdfcpu watermark add -mode image 'voucher_watermark.png' 's:1 abs, rot:0' in.pdf out.pdf
@@ -445,6 +553,19 @@ https://github.com/galkahana/PDF-Writer
 https://www.mupdf.com/releases/index.html
 https://github.com/pdfcpu/pdfcpu
 
+http://www.xpdfreader.com/download.html
+brew install pdftoipe
+yum install pdftotext poppler-utils
+
+将 PDF、DOC、DOCX、XML、HTML、RTF 等转换为纯文本
+https://github.com/sajari/docconv
+go install code.sajari.com/docconv/...@latest
+brew install tesseract
+docd -input document.pdf
+https://github.com/JalfResi/justext
+https://github.com/otiai10/gosseract
+https://github.com/otiai10/ocrserver
+
 https://github.com/tealeg/xlsx
 https://github.com/qax-os/excelize
 
@@ -452,6 +573,11 @@ https://github.com/qax-os/excelize
 https://github.com/alecthomas/kingpin
 日期操作
 https://github.com/golang-module/carbon
+
+https://github.com/mvdan/sh
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+go install mvdan.cc/sh/v3/cmd/gosh@latest
+
 
 生成GO文件过大问题2.3M变900K
 go build -ldflags -w go-safe-hosts.go
@@ -492,6 +618,7 @@ https://github.com/kubernetes/kubernetes
 https://github.com/gardener/gardener
 https://github.com/kubernetes/minikube #本地运行k8s
 https://github.com/pixie-io/pixie #即时 Kubernetes 原生应用可观察性
+https://github.com/siderolabs/talos
 开源监控解决方案
 https://github.com/prometheus/prometheus
 docker run --name myprometheus -p 9090:9090 -d prom/prometheus
@@ -657,6 +784,8 @@ fscan.exe -h 192.168.1.1/24 -m smb -pwd password (smb密码碰撞)
 fscan.exe -h 192.168.1.1/24 -m ms17010 (指定模块)
 fscan.exe -hf ip.txt  (以文件导入)
 
+熔断器
+https://github.com/afex/hystrix-go
 
 https://github.com/go-playground/validator
 https://github.com/bytedance/go-tagexpr
@@ -683,6 +812,8 @@ https://github.com/pavlobu/deskreen
 
 https://github.com/ClickHouse/ClickHouse
 https://github.com/ClickHouse/clickhouse-go
+https://github.com/go-gorm/clickhouse-go
+https://github.com/go-gorm/clickhouse
 https://github.com/vahid-sohrabloo/chconn
 
 是一个高性能且低损耗的 goroutine 池
@@ -874,15 +1005,33 @@ https://github.com/rs/curlie
 brew install rs/tap/curlie
 curlie [CURL_OPTIONS...] [METHOD] URL [ITEM [ITEM]]
 
+yum install gdb
+
+
 DEBUG
 https://github.com/go-delve/delve
 https://mp.weixin.qq.com/s/mW1Jq1oLRcbPxXeGTOA1jg
 go install github.com/go-delve/delve/cmd/dlv@latest
+xcode-select --install
+sudo /usr/sbin/DevToolsSecurity -enable
+dlv attach pid
+dlv exec executable_file
+go run or -ldflags='-s -w'
+
 dlv version
 dlv debug .
+dlv debug main.go
+list main.main
+list ./main.go:7
+break main.main
 b main.main
+continue
 c
+next
 n
+print a
+p a
+step
 s
 p s
 b 6
@@ -893,7 +1042,22 @@ bp
 clearall main.main
 funcs Reverse
 p len(r)-1
+p &is
+x -fmt hex -len 24 0xc000055f30
 exit
+
+break(b)
+continue(c)
+next(n)
+step(s)
+stepout(so)
+print(p)
+disassemble反汇编命令查看main函数对应的汇编代码
+通过goroutines命令（简写grs），我们可以查看所goroutine
+通过goroutine (alias: gr)命令可以查看当前的gourtine
+通过stack命令（简写bt），我们可查看当前函数调用栈信息
+regs命令：通过regs命令可以查看全部的寄存器状态，可以通过单步执行来观察寄存器的变化
+locals命令：通过locals命令，可以查看当前函数所有变量值
 
 brew install xo/xo/usql
 https://github.com/xo/usql
@@ -1057,6 +1221,12 @@ https://github.com/bronze1man/json2yaml
 go install github.com/bronze1man/json2yaml@latest
 echo '{"a": 1}' | json2yaml
 
+ini
+https://github.com/BurntSushi/toml
+
+容器 docker
+https://github.com/abiosoft/colima
+
 
 FROM golang:1.14-alpine as builder
 WORKDIR /usr/src/app
@@ -1085,6 +1255,11 @@ https://github.com/go-gorm/gorm
 https://gitea.com/xorm/xorm
 https://github.com/Masterminds/squirrel
 https://github.com/jmoiron/sqlx
+github.com/jackc/pgx
+https://github.com/go-gorm/gen
+https://github.com/xxjwxc/gormt
+https://github.com/efectn/go-orm-benchmarks
+https://github.com/frederikhors/orm-benchmark
 
 GORM
 sqlite dsn := "file::memory:?cache=shared"
@@ -1145,6 +1320,8 @@ https://github.com/TruthHun/CloudStore
 https://github.com/meloalright/guora
 压力测试
 https://github.com/link1st/go-stress-testing
+go-stress-testing-mac -c 1 -n 100 -u https://www.baidu.com/
+go-stress-testing -c 10 -n 10 -u ws://127.0.0.1:8089/acc
 Dapr 是一个可移植的、事件驱动的运行时，用于跨云和边缘构建分布式应用程序
 https://github.com/dapr/dapr
 随机测试
@@ -1160,9 +1337,20 @@ gosec -exclude=G104 ./...
 gosec -include=G101 ./...
 XSS 和 SQL 注入，这方面 gosec 也会有相关规则检测，比如 G201、G202、G203
 
+hash
+https://github.com/cespare/xxhash
 https://github.com/OneOfOne/xxhash
 https://github.com/deepmind/objecthash-proto
 https://github.com/benlaurie/objecthash
+https://github.com/spaolacci/murmur3 #uint64
+https://github.com/twmb/murmur3
+hash/crc32
+crc32.NewIEEE().Sum32()
+crc32.ChecksumIEEE #硬件加速
+hash/maphash #memhash
+hash/fnv
+hash/adler32
+hash/crc64
 
 package main
 import (
@@ -1197,6 +1385,7 @@ https://github.com/jroimartin/gocui
 https://github.com/jesseduffield/gocui
 https://github.com/integrii/flaggy
 https://github.com/gookit/color
+https://github.com/fatih/color
 TABLE+Progress
 https://github.com/jedib0t/go-pretty
 GIT命令行工具
@@ -1215,6 +1404,7 @@ https://github.com/tidwall/btree
 https://github.com/zyedidia/generic
 
 脚本
+https://github.com/oxfeeefeee/goscript
 https://github.com/gopherjs/gopherjs
 https://github.com/antonmedv/golang-expression-evaluation-comparison
 https://github.com/ichiban/prolog
@@ -1517,11 +1707,30 @@ https://pkg.go.dev/golang.org/x/sync/singleflight
 
 插件系统
 https://mp.weixin.qq.com/s/OCETjB1Tm2vkdOuiWJMJ5Q
+https://mp.weixin.qq.com/s/VRl1I1NUU3Syw9rReUyHEQ
+https://github.com/dullgiulio/pingo
+https://github.com/vladimirvivien/go-plugin-example
+https://github.com/traefik/plugindemo
+https://github.com/campoy/golang-plugins
+https://github.com/apache/apisix-go-plugin-runner
+https://github.com/Kong/go-pluginserver
+https://github.com/falcosecurity/plugin-sdk-go
+https://github.com/falcosecurity/plugins
+https://github.com/33cn/plugin
+https://github.com/33cn/chain33
+https://github.com/hashicorp/go-plugin
 
 swagger
 https://github.com/swaggo/swag
 github.com/swaggo/echo-swagger
 github.com/go-swagger/go-swagger
+go install github.com/go-swagger/go-swagger/cmd/swagger@latest
+swagger generate spec -o swagger.yaml
+swagger serve --no-open -F=redoc --port 36666 swagger.yaml
+swagger generate spec -i ./swagger.yaml -o ./swagger.json
+swagger serve https://raw.githubusercontent.com/swagger-api/swagger-spec/master/examples/v2.0/json/petstore-expanded.json
+swagger validate https://raw.githubusercontent.com/swagger-api/swagger-spec/master/examples/v2.0/json/petstore-expanded.json
+swagger serve http://swagger.51-learning.cn/doc.json
 
 Mock 代码自动生成器
 github.com/vektra/mockery
@@ -1757,6 +1966,7 @@ ngrok http "file:///C:\Users\alan\Public Folder"
 将主机的3389的TCP端口暴露到公网
 ngrok tcp 3389
 
+云原生应用代理
 https://github.com/traefik/traefik
 ./traefik --configFile=traefik.toml
 docker run -d -p 8080:8080 -p 80:80 -v $PWD /traefik.toml:/etc/traefik/traefik.toml traefik
@@ -1811,6 +2021,7 @@ https://github.com/rustwasm/wasm-bindgen
 https://rustwasm.github.io/
 FFMPEG.WASM
 https://ffmpegwasm.netlify.app/
+https://github.com/tetratelabs/wazero
 
 图片
 内容感知图像大小调整库
@@ -1834,6 +2045,10 @@ curl -fsSL https://get.icewhale.io/casaos-uninstall.sh | bash
 https://github.com/looterz/grimd
 https://github.com/kenshinx/godns
 https://github.com/miekg/dns
+https://github.com/AdguardTeam/urlfilter
+https://github.com/AdguardTeam/dnsproxy
+https://github.com/AdguardTeam/AdGuardHome
+https://github.com/coredns/coredns
 
 https://github.com/kyokomi/emoji
 https://github.com/go-git/go-git
@@ -1841,6 +2056,9 @@ https://github.com/go-git/go-git
 BDD TEST
 https://github.com/onsi/ginkgo
 
+混淆 Go 构建
+https://github.com/burrowers/garble
+garble -literals build 包名
 
 云存储
 ```
@@ -1968,6 +2186,7 @@ https://docs.syncthing.net/users/syncthing.html
 https://help.loliloli.live/jiao-cheng-yu-xia-zai/xia-zai-ye-mian
 https://github.com/v2ray/v2ray-core
 https://github.com/v2fly/v2ray-core
+https://github.com/shadowsocks/v2ray-plugin
 https://www.v2fly.org/
 https://www.v2fly.org/awesome/tools.html#%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7
 https://github.com/Dreamacro/clash
@@ -2054,10 +2273,86 @@ Cloud Profiler是一种低开销的统计分析器，可从您的生产应用程
 webdav
 https://github.com/hacdias/webdav
 https://github.com/hacdias/webdav/releases/tag/v4.1.1
-webdav -c ./config.yaml
+wget https://github.com/hacdias/webdav/releases/download/v4.1.1/linux-amd64-webdav.tar.gz
+tar xvzf linux-amd64-webdav.tar.gz
+vi ./webdav.yaml
+address: 0.0.0.0
+port: 0
+auth: true
+tls: false
+cert: cert.pem
+key: key.pem
+prefix: /
+debug: false
+
+scope: .
+modify: true
+rules: []
+
+cors:
+  enabled: true
+  credentials: true
+  allowed_headers:
+    - Depth
+  allowed_hosts:
+    - http://localhost:8080
+  allowed_methods:
+    - GET
+  exposed_headers:
+    - Content-Length
+    - Content-Range
+users:
+  - username: admin
+    password: admin
+    scope: /a/different/path
+  - username: encrypted
+    password: "{bcrypt}$2y$10$zEP6oofmXFeHaeMfBNLnP.DO8m.H.Mwhd24/TOX2MWLxAExXi4qgi"
+  - username: basic
+    password: basic
+    modify:   false
+    rules:
+      - regex: false
+        allow: false
+        path: /some/file
+      - path: /public/access/
+        modify: true
+webdav -c ./webdav.yaml
+
+vi /usr/lib/systemd/system/webdav.service
+[Unit]
+Description=WebDAV server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/webdav --config /etc/webdav.yaml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl start webdav
+systemctl enable webdav
+systemctl status webdav
+
+location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+}
+
 net use Y: https://dav.engr-z.com/ /user:engrz /persistent:YES 密码
 apt install davfs2
 mount -t davfs http://dav.engr-z/ ./webdav/
+
+go install github.com/bitnami/bcrypt-cli@latest
+echo -n supersecret | bcrypt-cli
+echo -n supersecret | bcrypt-cli --cost=16
 
 https://github.com/blurooo/go-monitor
 
@@ -2105,3 +2400,276 @@ https://github.com/wailsapp/wails
 
 https://github.com/showwin/speedtest-go
 https://github.com/showwin/speedtest-go/releases
+
+推荐系统
+https://github.com/gorse-io/gorse
+
+https://github.com/uber-go/goleak
+go get -u go.uber.org/goleak
+func TestLeak(t *testing.T) {
+ defer goleak.VerifyNone(t)
+ leak()
+}
+goleak.Find()
+func TestMain(m *testing.M) {
+  goleak.VerifyTestMain(m)
+}
+
+语义版本控制
+https://semver.org/
+
+WMI
+https://github.com/yusufpapurcu/wmi
+
+go test
+-test.run pattern: 只跑哪些单元测试用例
+-test.bench patten: 只跑那些性能测试用例
+-test.benchmem : 是否在性能测试的时候输出内存情况
+-test.benchtime t : 性能测试运行的时间，默认是1s
+-test.cpuprofile cpu.out : 是否输出cpu性能分析文件
+-test.memprofile mem.out : 是否输出内存性能分析文件
+-test.blockprofile block.out : 是否输出内部goroutine阻塞的性能分析文件
+-test.memprofilerate n : 内存性能分析的时候有一个分配了多少的时候才打点记录的问题。这个参数就是设置打点的内存分配间隔，也就是profile中一个sample代表的内存大小。默认是设置为512 * 1024的。如果你将它设置为1，则每分配一个内存块就会在profile中有个打点，那么生成的profile的sample就会非常多。如果你设置为0，那就是不做打点了。
+你可以通过设置memprofilerate=1和GOGC=off来关闭内存回收，并且对每个内存块的分配进行观察。
+-test.blockprofilerate n: 基本同上，控制的是goroutine阻塞时候打点的纳秒数。默认不设置就相当于-test.blockprofilerate=1，每一纳秒都打点记录一下
+-test.parallel n : 性能测试的程序并行cpu数，默认等于GOMAXPROCS。
+-test.timeout t : 如果测试用例运行时间超过t，则抛出panic
+-test.cpu 1,2,4 : 程序运行在哪些CPU上面，使用二进制的1所在位代表，和nginx的nginx_worker_cpu_affinity是一个道理
+-test.short : 将那些运行时间较长的测试用例运行时间缩短
+-test.outputdir : 输出目录
+
+Go语言竞态检测
+go test -race mypkg
+go run -race main.go
+go build -race main.go
+
+逃逸分析(escape analysis)
+go build -gcflags=-m main.go
+go run -gcflags "-m -l" main.go
+发生逃逸
+在某个函数中new或字面量创建出的变量，将其指针作为函数返回值，则该变量一定发生逃逸（构造函数返回的指针变量一定逃逸）
+被已经逃逸的变量引用的指针，一定发生逃逸
+被指针类型的slice、map和chan引用的指针，一定发生逃逸
+变量类型较大，变量大小不确定，变量类型不确定，闭包等都会引发逃逸
+不会逃逸
+指针被未发生逃逸的变量引用
+仅仅在函数内对变量做取址操作，而未将指针传出
+ulimit -a
+stack size => 8192
+make([]int, 0, 8192) >= 8192 分配到堆上
+make([]int, 0, n) n 不确定大小也到堆上
+修改原对象值，或占用内存比较大的结构体，选择传指针
+
+测试并生成覆盖率数据：
+go test -race -cover  -coverprofile=./coverage.out -timeout=10m -short -v ./...
+go test -coverprofile=coverage.out
+go test -cover
+覆盖率分析：
+go tool cover -func ./coverage.out
+# 或生成 HTML 文件
+go tool cover -html=coverage.out -o coverage.html
+
+
+最终版：顺便解决时区问题 16.3M
+Dockerfile文件内容
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER scoful
+# 全局工作目录
+WORKDIR /go/kingProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /go/kingProject
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" main.go
+RUN echo "https://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories \
+    && echo "https://mirrors.aliyun.com/alpine/v3.8/community/" >> /etc/apk/repositories \
+    && apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
+    && echo Asia/Shanghai > /etc/timezone \
+    && apk del tzdata
+# 使用scratch这个空镜像为基础镜像--运行阶段
+FROM scratch AS runner
+# 全局工作目录
+WORKDIR /go/kingProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /go/kingProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /go/kingProject/config ./config
+# 复制编译阶段里的时区文件到目标目录
+COPY --from=builder /etc/localtime /etc/localtime
+COPY --from=builder /etc/timezone /etc/timezone
+# 需暴露的端口
+EXPOSE 8888
+# 可外挂的目录
+VOLUME ["/go/kingProject/config","/go/kingProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+
+最最推荐使用版：多级+alpine 21.9M
+综上所述，scratch镜像有它的缺陷，是一个真的空镜像，不支持很多命令，比如cp，sh等，如果要进入容器内部查东西，都进不去，不适合真实情况，所以还是推荐alpine镜像，很小5M多，可以接受。
+Dockerfile文件内容
+# 基础镜像，基于golang的alpine镜像构建--编译阶段
+FROM golang:alpine AS builder
+# 作者
+MAINTAINER scoful
+# 全局工作目录
+WORKDIR /go/kingProject
+# 把运行Dockerfile文件的当前目录所有文件复制到目标目录
+COPY . /go/kingProject
+# 环境变量
+#  用于代理下载go项目依赖的包
+ENV GOPROXY https://goproxy.cn,direct
+# 编译，关闭CGO，防止编译后的文件有动态链接，而alpine镜像里有些c库没有，直接没有文件的错误
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" main.go
+
+# 使用alpine这个轻量级镜像为基础镜像--运行阶段
+FROM alpine AS runner
+# 全局工作目录
+WORKDIR /go/kingProject
+# 复制编译阶段编译出来的运行文件到目标目录
+COPY --from=builder /go/kingProject/main .
+# 复制编译阶段里的config文件夹到目标目录
+COPY --from=builder /go/kingProject/config ./config
+# 将时区设置为东八区
+RUN echo "https://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories \
+    && echo "https://mirrors.aliyun.com/alpine/v3.8/community/" >> /etc/apk/repositories \
+    && apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
+    && echo Asia/Shanghai > /etc/timezone \
+    && apk del tzdata
+# 需暴露的端口
+EXPOSE 8888
+# 可外挂的目录
+VOLUME ["/go/kingProject/config","/go/kingProject/log"]
+# docker run命令触发的真实命令(相当于直接运行编译后的可运行文件)
+ENTRYPOINT ["./main"]
+
+goInception是一个集审核、执行、备份及生成回滚语句于一身的MySQL运维工具， 通过对执行SQL的语法解析，返回基于自定义规则的审核结果，并提供执行和备份及生成回滚语句的功能
+https://hanchuanchuan.github.io/goInception/zh/
+https://github.com/hanchuanchuan/goInception
+
+ls 命令
+https://github.com/Yash-Handa/logo-ls
+
+SQL查询工具
+brew install cube2222/octosql/octosql
+go install github.com/cube2222/octosql@latest
+octosql plugin install postgres
+octosql plugin install core/postgres@0.42.0
+octosql "SELECT name, description FROM plugins.available_plugins LIMIT 2"
+octosql "SELECT plugin_name, version FROM plugins.available_versions WHERE plugin_name='random_data'"
+octosql plugin install random_data
+octosql "SELECT * FROM random_data.users" --describe
+https://github.com/cube2222/octosql
+octosql "SELECT * FROM ./myfile.json"
+octosql "SELECT * FROM ./myfile.json" --describe  # Show the schema of the file.
+octosql "SELECT invoices.id, address, amount
+         FROM invoices.csv JOIN db.customers ON invoices.customer_id = customers.id
+         ORDER BY amount DESC"
+octosql "SELECT customer_id, SUM(amount)
+         FROM invoices.csv
+         GROUP BY customer_id"
+
+octosql "SELECT * FROM plugins.available_plugins"
+octosql plugin install postgres
+echo "databases:
+  - name: mydb
+    type: postgres
+    config:
+      host: localhost
+      port: 5443
+      database: mydb
+      user: postgres
+      password: postgres" > octosql.yml
+octosql "SELECT * FROM mydb.users" --describe
+octosql "SELECT * FROM mydb.users"
+
+octosql "SELECT email, COUNT(*) as invoice_count
+         FROM invoices.csv JOIN mydb.customers ON invoices.customer_id = customers.id
+         WHERE first_name <= 'D'
+         GROUP BY email
+         ORDER BY invoice_count DESC" --explain 1
+
+SQL查询JSON
+https://github.com/SnellerInc/sneller
+go install github.com/SnellerInc/sneller/cmd/sneller@latest
+sneller -j "select count(*) from 'gharchive-1day.ion.zst'"
+$ sneller -j "SELECT DISTINCT repo.name FROM 'gharchive-1day.ion.zst' WHERE repo.name ILIKE '%orvalds%'"
+
+
+热更新
+https://github.com/oxequa/realize
+https://github.com/codegangsta/gin
+https://github.com/silenceper/gowatch
+https://github.com/beego/bee
+https://github.com/gravityblast/fresh
+https://github.com/cosmtrek/air
+go install github.com/cosmtrek/air@latest
+
+GUI
+https://github.com/fyne-io/fyne
+https://github.com/fyne-io/fynedesk
+https://github.com/gioui/gio
+https://github.com/planetdecred/godcr
+https://github.com/rstudio/shiny
+https://github.com/rstudio/shiny-examples
+
+go install golang.org/x/tools/...@latest
+go install honnef.co/go/tools/cmd/structlayout@latest
+go install honnef.co/go/tools/cmd/structlayout-pretty@latest
+go install honnef.co/go/tools/cmd/structlayout-optimize@latest
+go install github.com/ajstarks/svgo/structlayout-svg@latest
+
+structlayout -json ./main.go memAlign | structlayout-pretty
+structlayout -json ./main.go memAlign | structlayout-svg
+awk '$1 == "module" {print $2}' ./go.mod | xargs fieldalignment
+
+模拟服务
+https://github.com/checkr/openmock
+比较
+https://github.com/google/go-cmp
+牌、扑克、德州
+https://github.com/cardrank/cardrank
+
+WEB模糊测试
+https://github.com/ffuf/ffuf
+go install github.com/ffuf/ffuf@latest
+ffuf -w /path/to/wordlist -u https://target/FUZZ
+ffuf -w /path/to/paramnames.txt -u https://target/script.php?FUZZ=test_value -fs 4242
+ffuf -w /path/to/values.txt -u https://target/script.php?valid_name=FUZZ -fc 401
+ffuf -w /path/to/postdata.txt -X POST -d "username=admin\&password=FUZZ" -u https://target/login.php -fc 401
+
+https://github.com/rsc/benchstat
+go install golang.org/x/perf/cmd/benchstat@latest
+go test -bench=. -count=5 | tee old.txt
+go test -bench=. -count=5 | tee new.txt
+benchstat old.txt new.txt
+
+进程级流量监控
+https://github.com/rfyiamcool/go-netflow
+https://github.com/chenjiandongx/sniffer
+https://github.com/raboof/nethogs
+https://github.com/Ettercap/ettercap
+https://code.blinkace.com/pdw/iftop.git
+http://slist.lilotux.net/linux/nethogs-qt/index_en.html
+https://github.com/akshayKMR/hogwatch
+https://github.com/iptraf-ng/iptraf-ng
+http://nettop.youlink.org/
+https://github.com/netsniff-ng/netsniff-ng
+https://github.com/imsnif/bandwhich
+
+ssh
+https://github.com/antoniomika/sish
+https://github.com/windvalley/gossh
+time ansible all -i hosts.list -m command -a "uptime" -f 100 -k
+time gossh command -i hosts.list -e "uptime" -c 100 -k
+
+打字
+https://github.com/bloznelis/typioca
+game
+https://github.com/oakmound/oak
+

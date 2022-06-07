@@ -196,6 +196,10 @@ https://github.com/paritytech/jsonrpc
 https://github.com/actix/actix-web/tree/master/awc
 https://github.com/Orange-OpenSource/hurl
 
+jq json
+https://github.com/01mf02/jaq
+https://github.com/stedolan/jq
+
 Algorithms
 https://github.com/douchuan/algorithm
 https://github.com/rmw-link/rmw-utf8
@@ -265,6 +269,8 @@ tcpforward --local-ip <本地ip > --local-port <本地端口> --remote-ip <远�
 
 分布式的任务调度
 https://github.com/BinChengZhao/delicate
+多任务调度中间件
+https://github.com/gqf2008/xtask
 
 远程桌面
 https://github.com/rustdesk/rustdesk
@@ -397,6 +403,10 @@ https://github.com/RedisJSON/RedisJSON
 redis-server --loadmodule ./target/release/librejson.so
 redis-server --loadmodule ./target/release/librejson.dylib
 
+redis
+https://github.com/redis-rs/redis-rs
+https://github.com/tidwall/redcon.rs
+https://github.com/tokio-rs/mini-redis
 
 https://github.com/ducaale/xh
 # Send a GET request
@@ -509,6 +519,7 @@ https://github.com/killercup/cargo-edit
 https://github.com/mitsuhiko/indicatif
 https://github.com/simeg/eureka
 https://github.com/pier-cli/pier
+https://github.com/ndaba1/cmder
 Rust 中的命令行应用
 https://suibianxiedianer.github.io/rust-cli-book-zh_CN/README_zh.html
 一个 Spotify 守护进程
@@ -595,11 +606,14 @@ https://github.com/ccmlm/vsdb
 https://github.com/vorot93/libmdbx-rs
 https://github.com/symmetree-labs/infinitree
 https://github.com/mrxiaozhuox/dorea/
+https://github.com/cberner/redb
+https://github.com/LMDB/lmdb
 IndexedDB
 https://github.com/devashishdxt/rexie
-
 cache
 https://github.com/memc-rs/memc-rs
+
+https://github.com/neondatabase/neon #Neon 是 AWS Aurora Postgres 的无服务器开源替代方案
 
 事件处理
 https://github.com/tremor-rs/tremor-runtime
@@ -663,6 +677,11 @@ https://github.com/rtic-rs/cortex-m-rtic
 https://github.com/stm32-rs/stm32f4xx-hal
 https://github.com/japaric/heapless
 
+算法
+https://github.com/matklad/lock-bench
+https://github.com/tidwall/rtree.rs
+CAD
+https://github.com/hannobraun/Fornjot
 氦光网关
 https://github.com/helium/gateway-rs
 一个简单的批处理文件分类器
@@ -677,7 +696,7 @@ Rust 最先进的 Merkle 树库
 https://github.com/antouhou/rs-merkle
 SixtyFPS 是一个工具包，可以为任何显示器高效开发流畅的图形用户界面：嵌入式设备和桌面应用程序。我们支持多种编程语言，例如 Rust、C++ 或 JavaScript
 https://github.com/sixtyfpsui/sixtyfps
-命令行表格
+命令行表格table
 https://github.com/zhiburt/tabled
 Linux kernel
 https://github.com/nuta/kerla
@@ -702,6 +721,7 @@ imager -i input/image.jpeg -O output/dir/ -f jpeg webp
 https://github.com/locka99/opcua
 基于tokio的modbus库
 https://github.com/slowtec/tokio-modbus
+https://github.com/alttch/rmodbus
 
 可视化
 https://github.com/avito-tech/bioyino
@@ -1050,14 +1070,15 @@ zbus 2.0 发布
 https://docs.rs/zbus/latest/zbus/
 
 GUI
+https://github.com/iced-rs/iced
+https://github.com/emilk/egui/
+https://github.com/linebender/druid
+https://github.com/fschutt/azul
+https://github.com/slint-ui/slint
 Dioxus v0.1 发布
 Dioxus 是一个新的 Rust GUI 工具包，用于 Web、桌面、移动、SSR、TUI
 优雅的类 React 库，用于为桌面、Web、移动、SSR、实时查看等构建用户界面。
 https://github.com/DioxusLabs/dioxus
-https://github.com/emilk/egui/
-https://github.com/iced-rs/iced
-https://github.com/linebender/druid
-https://github.com/fschutt/azul
 https://github.com/cksac/oxui
 
 https://github.com/lnicola/smem
@@ -1139,6 +1160,11 @@ https://github.com/dimforge/nalgebra
 https://github.com/neuronika/neuronika
 
 https://github.com/tauri-apps/tauri
+https://github.com/electron/electron
+https://github.com/flutter/flutter
+https://github.com/nwjs/nw.js
+https://github.com/pwa-builder/PWABuilder
+https://github.com/AvaloniaUI/Avalonia
 
 https://github.com/linebender/runebender
 https://github.com/fede1024/rust-rdkafka
@@ -1154,6 +1180,8 @@ https://github.com/dani-garcia/vaultwarden
 https://github.com/tonarino/innernet
 https://github.com/RustAudio/cpal
 https://github.com/MeadowlarkDAW/Meadowlark
+
+https://github.com/kafka-rust/kafka-rust
 
 github CLIENT
 https://github.com/octocat-rs/octocat-rs
@@ -1204,8 +1232,78 @@ cd your-zine-site
 zine serve
 zine build
 
+go script
+https://github.com/oxfeeefeee/goscript
+脚本语言
+https://github.com/vrtbl/passerine
 
+文件分页查看
+https://github.com/arijit79/minus
 
+练习打字
+https://github.com/coloradocolby/thokr
+cargo install thokr
+thokr
+thokr -w 100
+thokr -p "$(cat foo.txt)"
+https://gitlab.com/ttyperacer/terminal-typeracer
+cargo install typeracer
+typeracer
+typeracer -r $(echo 'racing using a passage from elsewhere')
 
+控制台代办时钟
+https://github.com/krvoje/clockking
+用于接收 BLE 小米 M365 滑板车消息
+https://github.com/macbury/m365
 
+Hush 是一个基于 Lua 编程语言的 unix shell
+https://github.com/hush-shell/hush
+
+history 历史记录
+https://github.com/ellie/atuin
+
+https://github.com/spanasik/pg2rs
+https://github.com/sirwart/ripsecrets
+
+构建工具
+https://github.com/dimensionhq/fleet
+cargo install --git https://github.com/dimensionhq/fleet fleet-rs
+
+分析你的 Rust 应用程序
+https://github.com/pyroscope-io/pyroscope-rs
+https://github.com/tikv/pprof-rs
+
+pulsar
+https://github.com/wyyerd/pulsar-rs
+
+DLHN 小数据序列化
+https://github.com/otake84/dlhn
+
+键盘按键音效模拟
+https://github.com/yingDev/Tickeys
+跨平台多媒体层
+https://github.com/Nazariglez/notan
+
+markdown
+https://github.com/Cveinnt/LetsMarkdown.com
+
+SQL查询JSON
+https://github.com/partiql/partiql-lang-rust
+https://github.com/partiql/partiql-lang-kotlin/releases
+
+下一代跟踪器和广告拦截器
+https://github.com/Barre/privaxy
+
+https://github.com/mithril-security/blindai
+https://github.com/apollographql/router
+
+player
+https://github.com/aome510/spotify-player
+
+encryption
+https://github.com/brxken128/dexios
+一种内存高效的字符串类型，最多可以在堆栈上存储 24* 个字节
+https://github.com/ParkMyCar/compact_str
+image to ASCII art
+https://github.com/FineFindus/artem
 

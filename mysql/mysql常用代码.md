@@ -164,7 +164,11 @@ SET GLOBAL TRANSACTION ISOLATION LEVEL READ UNCOMMITTED ;
 SELECT @@global.tx_isolation; (global isolation level)
 SELECT @@tx_isolation; (session isolation level)
 ```
-* 
+* 更新比之前大的数据
+```
+INSERT INTO t1 (id,a,b,c,d) VALUES (3,4,5,6,9),(4,5,6,7,11) ON DUPLICATE KEY UPDATE d=if(VALUES(d)>d, VALUES(d), d);
+```
+*
 
 mysql命令
 =========
@@ -411,6 +415,20 @@ mysql8
 * flush privileges;
 * 
 * 
+* 查看锁，杀掉锁进程
+```
+mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i executing
+mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i locked
+
+mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i executing | awk '{print $2}'
+
+mysql -h127.0.0.1 -uroot -p -se "select id from information_schema.processlist where state='executing'" | awk '{print $1}'
+mysql -h127.0.0.1 -uroot -p -se "select id from information_schema.processlist where state='locked'" | awk '{print $1}'
+
+for id in `mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i executing | awk '{print $2}'`; do echo ${id}; done
+
+for id in `mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i locked | awk '{print $2}'`; do mysqladmin -h127.0.0.1 -uroot -p kill ${id}; echo ${id}; done
+```
 * 
 * mysql归档工具
 ```
@@ -423,7 +441,6 @@ For RHEL or CentOS:
 sudo yum install percona-toolkit
 pt-archiver [OPTIONS] --source DSN --where WHERE
 删除id<100000的记录
-
 
 pt-archiver --source h=xxx.xx.xx.xx,P=3306,u=root,p=123456,D=test,t=user_test \
 --purge \

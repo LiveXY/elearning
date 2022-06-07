@@ -295,6 +295,47 @@ python3 -m pip install -U yt-dlp
 brew install yt-dlp/taps/yt-dlp
 yt-dlp [OPTIONS] [--] URL [URL...]
 
+语意解析 可解析详细地址/金额/时间/关键短语/
+https://github.com/dongrixinyu/JioNLP
+pip install jionlp -i https://pypi.douban.com/simple/
+
+https://github.com/django/django.git
+https://flask.palletsprojects.com/en/2.0.x/
+https://trypyramid.com/
+https://webpy.org/
+https://www.tornadoweb.org/en/stable/
+https://www.turbogears.org/
+https://cherrypy.org/
+http://falconframework.org/
+https://asgineer.readthedocs.io/
+https://bottlepy.org/docs/dev/
+https://emmett.sh/
+https://github.com/dutradda/apidaora
+http://www.quixote.ca/
+https://www.reahl.org/
+https://hug.rest/
+https://github.com/Neoteroi/BlackSheep
+https://index-py.aber.sh/stable/
+https://github.com/sanic-org/sanic
+https://pypi.org/project/starlette/
+https://fastapi.tiangolo.com/
+https://python-responder.org/
+https://moltenframework.com/
+https://github.com/mahmoud/clastic
+https://docs.aiohttp.org/en/stable/
+https://docs.masoniteproject.com/
+https://pgjones.gitlab.io/quart/
+https://github.com/Ayehavgunne/Tonberry
+https://cyclone.io/
+https://github.com/twisted/klein
+https://github.com/nameko/nameko
+https://www.cubicweb.org/
+https://zope.readthedocs.io/en/latest/
+http://web2py.com/
+https://docs.pylonsproject.org/projects/pylons-webframework/en/latest/
+https://pythonhosted.org/cubes/
+https://github.com/Liangchengdeye/Dpark
+https://buildbot.python.org/all/#/
 
 
 

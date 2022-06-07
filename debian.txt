@@ -1,0 +1,106 @@
+
+
+其他LINUX系统
+https://pop.system76.com/
+https://cutefish-ubuntu.github.io/download/
+https://zorin.com/os/download/
+https://elementary.io/zh_CN/
+https://www.whonix.org/wiki/Download
+https://www.kali.org/get-kali/
+https://parrotsec.org/download/
+https://tails.boum.org/install/index.en.html
+
+基于RockPi 4A Debian系统介绍i2c设备的调试工具i2c-tools
+apt-get update
+apt-get install i2c-tools
+https://mirrors.edge.kernel.org/pub/software/utils/i2c-tools/
+
+i2cdetect
+Error: No i2c-bus specified!
+Usage: i2cdetect [-y] [-a] [-q|-r] I2CBUS [FIRST LAST]
+    i2cdetect -F I2CBUS
+    i2cdetect -l
+  I2CBUS is an integer or an I2C bus name
+  If provided, FIRST and LAST limit the probing range.
+
+列出i2c总线
+i2cdetect -l
+列出某个i2c总线上的i2c设备
+i2cdetect -y 0
+
+i2cdump
+Error: No i2c-bus specified!
+Usage: i2cdump [-f] [-y] [-r first-last]
+  I2CBUS ADDRESS [MODE [BANK [BANKREG]]]  I2CBUS is an integer or an I2C bus name
+  ADDRESS is an integer (0x03 - 0x77)
+  MODE is one of:
+    b (byte, default)
+    w (word)
+    W (word on even register addresses)
+    s (SMBus block)
+    i (I2C block)
+    c (consecutive byte)
+    Append p for SMBus PEC
+显示I2C 0号总线上0x1b设备的寄存器值
+i2cdump -f -y 0 0x1b b
+
+i2cget
+Usage: i2cget [-f] [-y] I2CBUS CHIP-
+ADDRESS [DATA-ADDRESS [MODE]]
+  I2CBUS is an integer or an I2C bus name
+  ADDRESS is an integer (0x03 - 0x77)
+  MODE is one of:
+   b (read byte data, default)
+   w (read word data)
+   c (write byte/read byte)
+   Append p for SMBus PEC
+显示I2C 0号总线上0x1b设备0x0和0x1寄存器地址，按字节读取
+i2cget -f -y 0 0x1b 0x0
+i2cget -f -y 0 0x1b 0x1
+按字读取
+i2cget -f -y 0 0x1b 0x0 w
+
+i2cset
+Usage: i2cset [-f] [-y] [-m MASK] [-r] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]
+  I2CBUS is an integer or an I2C bus name
+  ADDRESS is an integer (0x03 - 0x77)
+  MODE is one of:
+   c (byte, no value)
+   b (byte data, default)
+   w (word data)
+   i (I2C block data)
+   s (SMBus block data)
+   Append p for SMBus PEC
+i2cget -f -y 0 0x1b 0x10
+i2cset -f -y 0 0x1b 0x10 0x0
+i2cget -f -y 0 0x1b 0x10
+
+i2c-tools-4.0及以后版本添加了i2ctransfer命令。
+i2cget和i2cset可以读写的i2c设备的寄存器地址小于0xff，即寄存器是8位地址。
+如果i2c设备寄存器是16位地址，可使用i2ctransfer命令，该命令同样可用在寄存器地址是8位的设备。
+
+"Usage: i2ctransfer [-f] [-y] [-v] [-V] [-a] I2CBUS DESC [DATA] [DESC [DATA]]...\n"
+"  I2CBUS is an integer or an I2C bus name\n"
+"  DESC describes the transfer in the form: {r|w}LENGTH[@address]\n"
+"    1) read/write-flag 2) LENGTH (range 0-65535, or '?')\n"
+"    3) I2C address (use last one if omitted)\n"
+"  DATA are LENGTH bytes for a write message. They can be shortened by a suffix:\n"
+"    = (keep value constant until LENGTH)\n"
+"    + (increase value by 1 until LENGTH)\n"
+"    - (decrease value by 1 until LENGTH)\n"
+"    p (use pseudo random generator until LENGTH with value as seed)\n\n"
+"Example (bus 0, read 8 byte at offset 0x64 from EEPROM at 0x50):\n"
+"  # i2ctransfer 0 w1@0x50 0x64 r8\n"
+"Example (same EEPROM, at offset 0x42 write 0xff 0xfe ... 0xf0):\n"
+"  # i2ctransfer 0 w17@0x50 0x42 0xff-\n");
+
+## 从i2c 4号总线0x38设备的0x3a01寄存器开始读16个字节的数据,w2：表示寄存器0x3a01的长度为2个字节
+i2ctransfer -y -f 4 w2@0x38 0x3a 0x01 r16
+## 向i2c 4号总线0x38设备的0x3a01寄存器写0x10,w3：表示寄存器0x3a01和写入值0x10的长度为3字节
+i2ctransfer -y -f 4 w3@0x38 0x3a 0x01 0x10
+
+
+
+
+
+

@@ -82,3 +82,7 @@ jstat [选项 vmid [interval[s|ms] [count]]]
 https://github.com/prestodb/presto
 Trino 官方存储库，大数据分布式 SQL 查询引擎，前身为 PrestoSQL ( https://trino.io )
 https://github.com/trinodb/trino
+
+
+Appsmith 是一个用于构建管理面板、内部工具和仪表板的低代码平台
+https://github.com/appsmithorg/appsmith

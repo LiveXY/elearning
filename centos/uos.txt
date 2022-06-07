@@ -1,6 +1,23 @@
 https://github.com/dbeaver/dbeaver/releases
 https://blog.csdn.net/Mathieu66/article/details/116131286
 
+GIT 记住密码
+git config --global credential.helper store
+
+安装GO
+whoami
+
+vi ~/.bashrc
+vi /etc/profile
+export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/go/bin
+source ~/.bashrc
+source /etc/profile
+
+wget https://studygolang.com/dl/golang/go1.18.1.linux-amd64.tar.gz
+sudo tar -C /usr/local/ -zxf go1.18.1.linux-amd64.tar.gz
+go env
+go env -w GOPROXY=https://goproxy.cn,direct
+
 服务器版本下载地址
 https://www.chinauos.com/resource/download-server
 

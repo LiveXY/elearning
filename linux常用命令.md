@@ -493,6 +493,17 @@ tail –f Error.log >> test.log
 --version 显示版本信息。
 [文件或设备] 指定磁盘设备。
 常用方式及使用技巧:df -h
+df -a #显示所有文件系统磁盘空间使用信息
+df -h #以人类可读的格式显示磁盘空间使用情况
+df -hT /home #显示 / home 文件系统信息
+df -k #以字节为单位显示文件系统信息
+df -m #以MB为单位显示文件系统信息
+df -g #以 GB 为单位显示文件系统信息
+df -i #显示文件系统 inode
+df -T #显示文件系统类型
+df -t ext3 #包括某些文件系统类型
+df -x ext3 #排除某些文件系统类型
+
 2.5	fdisk(中级)
 功能说明：磁盘分区。
 语　　法：fdisk [-b <分区大小>][-uv][外围设备代号] 或 fdisk [-l][-b <分区大小>][-uv][外围设备代号...] 或 fdisk [-s <分区编号>]
@@ -2371,3 +2382,214 @@ realpath [OPTIONS] FILES
 realpath ./hello.txt
 realpath --relative-to=./src ./foo
 realpath --relative-base=/data/test ./foo
+
+功能：修改帐号和密码的有效期限
+用法：chage[-l][-m mindays][-M maxdays][-I inactive][-E expiredate][-W warndays][-d lastdays]username
+参数：
+-l：列出用户的以及密码的有效期限
+-m:修改密码的最小天数
+-M：修改密码的最大天数
+-I：密码过期后，锁定帐号的天数
+-d：指定密码最后修改的日期
+-E：有效期，0表示立即过期，-1表示永不过期
+-W：密码过期前，开始警告天数
+可以编辑/etc/login.defs来设定几个参数，以后设置口令默认就按照参数设定为准：
+PASS_MAX_DAYS   99999
+PASS_MIN_DAYS   0
+PASS_MIN_LEN    5
+PASS_WARN_AGE   7
+当然在/etc/default/useradd可以找到如下2个参数进行设置：
+# useradd defaults file
+GROUP=100
+HOME=/home
+INACTIVE=-1
+EXPIRE=
+SHELL=/bin/bash
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=yes
+
+useradd test
+passwd -S test #显示账号密码相关信息
+passwd -d test #取消密码
+passwd -l test #锁定账号
+passwd -u test #解锁账号
+chage -l test #查看账号有效期
+chage -I 5 test #密码过期后5天，密码自动失效
+chage -M 60 -m 7 -W 7 test #60天后密码过期，至少7天后才能修改密码，密码过期前7天开始收到告警信息
+chage -d 0 test #强制首次登陆后修改密码
+usermod -s /usr/sbin/nologin test #账号不可登陆
+usermod -s /bin/bash test #账号可登陆
+
+patch 命令用于修补文件
+patch [-bceEflnNRstTuvZ][-B <备份字首字符串>][-d <工作目录>][-D <标示符号>][-F <监别列数>][-g <控制数值>][-i <修补文件>][-o <输出文件>][-p <剥离层级>][-r <拒绝文件>][-V <备份方式>][-Y <备份字首字符串>][-z <备份字尾字符串>][--backup-if -mismatch][--binary][--help][--nobackup-if-mismatch][--verbose][原始文件 <修补文件>] 或 path [-p <剥离层级>] < [修补文件]
+参数：
+- -b 或--backup  备份每一个原始文件。
+- -B<备份字首字符串>或--prefix=<备份字首字符串>  设置文件备份时，附加在文件名称前面的字首字符串，该字符串可以是路径名称。
+- -c 或--context  把修补数据解译成关联性的差异。
+- -d<工作目录>或--directory=<工作目录>  设置工作目录。
+- -D<标示符号>或--ifdef=<标示符号>  用指定的符号把改变的地方标示出来。
+- -e 或--ed  把修补数据解译成 ed 指令可用的叙述文件。
+- -E 或--remove-empty-files  若修补过后输出的文件其内容是一片空白，则移除该文件。
+- -f 或--force  此参数的效果和指定"-t"参数类似，但会假设修补数据的版本为新 版本。
+- -F<监别列数>或--fuzz<监别列数>  设置监别列数的最大值。
+- -g<控制数值>或--get=<控制数值>  设置以 RSC 或 SCCS 控制修补作业。
+- -i<修补文件>或--input=<修补文件>  读取指定的修补文件。
+- -l 或--ignore-whitespace  忽略修补数据与输入数据的跳格，空格字符。
+- -n 或--normal  把修补数据解译成一般性的差异。
+- -N 或--forward  忽略修补的数据较原始文件的版本更旧，或该版本的修补数据已使 用过。
+- -o<输出文件>或--output=<输出文件>  设置输出文件的名称，修补过的文件会以该名称存放。
+- -p<剥离层级>或--strip=<剥离层级>  设置欲剥离几层路径名称。
+- -f<拒绝文件>或--reject-file=<拒绝文件>  设置保存拒绝修补相关信息的文件名称，预设的文件名称为。rej。
+- -R 或--reverse  假设修补数据是由新旧文件交换位置而产生。
+- -s 或--quiet 或--silent  不显示指令执行过程，除非发生错误。
+- -t 或--batch  自动略过错误，不询问任何问题。
+- -T 或--set-time  此参数的效果和指定"-Z"参数类似，但以本地时间为主。
+- -u 或--unified  把修补数据解译成一致化的差异。
+- -v 或--version  显示版本信息。
+- -V<备份方式>或--version-control=<备份方式>  用"-b"参数备份目标文件后，备份文件的字尾会被加上一个备份字符串，这个字符串不仅可用"-z"参数变更，当使用"-V"参数指定不同备份方式时，也会产生不同字尾的备份字符串。
+- -Y<备份字首字符串>或--basename-prefix=--<备份字首字符串>  设置文件备份时，附加在文件基本名称开头的字首字符串。
+- -z<备份字尾字符串>或--suffix=<备份字尾字符串>  此参数的效果和指定"-B"参数类似，差别在于修补作业使用的路径与文件名若为 src/linux/fs/super.c，加上"backup/"字符串后，文件 super.c 会备份于/src/linux/fs/backup 目录里。
+- -Z 或--set-utc  把修补过的文件更改，存取时间设为 UTC。
+- --backup-if-mismatch  在修补数据不完全吻合，且没有刻意指定要备份文件时，才备份文件。
+- --binary  以二进制模式读写数据，而不通过标准输出设备。
+- --help  在线帮助。
+- --nobackup-if-mismatch  在修补数据不完全吻合，且没有刻意指定要备份文件时，不要备份文件。
+- --verbose  详细显示指令的执行过程。
+使用 patch 指令将文件"testfile1"升级，其升级补丁文件为"testfile.patch"，输入如下命令：
+$ patch -p0 testfile1 testfile.patch    #使用补丁程序升级文件
+使用该命令前，可以先使用指令"cat"查看"testfile1"的内容。在需要修改升级的文件与原文件之间使用指令"diff"比较可以生成补丁文件。具体操作如下所示：
+
+$ cat testfile1                 #查看 testfile1 的内容  
+Hello,This is the firstfile!  
+$ cat testfile2                 #查看 testfile2 的内容  
+Hello,Thisisthesecondfile!  
+$ diff testfile1 testfile2          #比较两个文件  
+1c1  
+<Hello,Thisisthefirstfile!  
+---  
+>Hello,Thisisthesecondfile!  
+#将比较结果保存到 tetsfile.patch 文件  
+$ diff testfile1 testfile2>testfile.patch     
+$ cat testfile.patch                #查看补丁包的内容  
+1c1  
+<Hello,Thisisthefirstfile!  
+---  
+>Hello,Thisisthesecondfile!  
+#使用补丁包升级 testfile1 文件  
+$ patch -p0 testfile1 testfile.patch      
+patching file testfile1  
+$cat testfile1                  #再次查看 testfile1 的内容  
+#testfile1 文件被修改为与 testfile2 一样的内容  
+Hello,This is the secondfile!   
+注意：
+上述命令代码中，"$ diff testfile1 testfile2>testfile. patch"所使用的操作符"＞"表示将该操作符左边的文件数据写入到右边所指向的文件中。在这里，即是指将两个文件比较后的结果写入到文件"testfile.patch"中
+
+od命令用于输出文件内容
+od [-abcdfhilovx][-A <字码基数>][-j <字符数目>][-N <字符数目>][-s <字符串字符数>][-t <输出格式>][-w <每列字符数>][--help][--version][文件...]
+参数：
+- -a  此参数的效果和同时指定"-ta"参数相同。
+- -A<字码基数>  选择要以何种基数计算字码。
+- -b  此参数的效果和同时指定"-toC"参数相同。
+- -c  此参数的效果和同时指定"-tC"参数相同。
+- -d  此参数的效果和同时指定"-tu2"参数相同。
+- -f  此参数的效果和同时指定"-tfF"参数相同。
+- -h  此参数的效果和同时指定"-tx2"参数相同。
+- -i  此参数的效果和同时指定"-td2"参数相同。
+- -j<字符数目>或--skip-bytes=<字符数目>  略过设置的字符数目。
+- -l  此参数的效果和同时指定"-td4"参数相同。
+- -N<字符数目>或--read-bytes=<字符数目>  到设置的字符数目为止。
+- -o  此参数的效果和同时指定"-to2"参数相同。
+- -s<字符串字符数>或--strings=<字符串字符数>  只显示符合指定的字符数目的字符串。
+- -t<输出格式>或--format=<输出格式>  设置输出格式。
+- -v或--output-duplicates  输出时不省略重复的数据。
+- -w<每列字符数>或--width=<每列字符数>  设置每列的最大字符数。
+- -x  此参数的效果和同时指定"-h"参数相同。
+- --help  在线帮助。
+- --version  显示版本信息。
+echo abcdef g > tmp
+od -b tmp 
+#八进制解释进行输出
+od -c tmp
+#ASCII码进行输出
+od -t d1 tmp 
+#十进制进行解释
+od -A d -c tmp
+
+rhmask [加密文件][输出文件] 或 rhmask [-d][加密文件][源文件][输出文件]
+- -d  产生加密过的文件。
+rhmask code.txt demo.txt
+
+
+tee 命令用于读取标准输入的数据，并将其内容输出成文件。
+tee [-ai][--help][--version][文件。..]
+- -a 或--append  附加到既有文件的后面，而非覆盖它．
+- -i 或--ignore-interrupts  忽略中断信号。
+- --help  在线帮助。
+- --version  显示版本a信息。
+tee file1 file2                   #在两个文件中复制内容 
+
+slocate 命令查找文件或目录
+slocate [-u][--help][--version][-d <目录>][查找的文件]
+- -d<目录>或--database=<目录>  指定数据库所在的目录。
+- -u  更新 slocate 数据库。
+- --help  显示帮助。
+- --version  显示版本信息。
+slocate fdisk #显示文件名中含有 fdisk 关键字的文件的路径信息 
+
+红帽忘记密码修改root密码
+1  在重启的时候 e 进入
+2  在linux16 后面找到UTF-8 在后面加 rd.break   然后ctrl+x
+3  这时候可以输入mount 看一下 会发现根为 /sysroot/  没有w权限，只有ro权限
+4  输入 mount  -o  remount,rw  /sysroot/    重新挂载，就有rw权限
+5 改变根  chroot  /sysroot/
+6 echo “密码" | passwd --stdin root   设置密码
+7  使 seliunx 生效  touch /.autorelabel
+8  exit
+9  reboot
+10  切换ROOT用户登陆
+
+centOS 6 修改密码
+1 e 进入
+2 选择第二个  kernel
+3 在 quiet 后面 加 1  然后回车
+4  b
+5  进去passwd 就可以修改密码了
+
+RedHat init 修改密码
+1  启动RedHat ,进入后 e 进入编辑。
+2  光标往下，找到以 linux16开头 ro改成 rw  UTF-8结尾的参数行,并在UTF-8后面加 init=/bin/sh 
+3  输入init=/bin/sh 后，按 ctrl+x
+4  进入下图界面
+5  这时候我们可以mount看一下，有rw 权限，我们就省去重新挂载步骤。（看不见，没有回显， 自己输入，尽量正确）
+6  这个时候我们就可以输入下面的语句设置自己的密码
+	echo “wll” | passwd --stdin root（看不见，没有回显， 自己输入，尽量正确）
+7 显示成功 输入touch /.autorelabe（看不见，没有回显， 自己输入，尽量正确）
+8 输入 exec /sbin/init  重启
+9．重启成功
+
+Kali 重新设置密码（有些版本可能界面会不一样，但是操作大同小异）
+1）在grub界面按e进入*Advaced options for kali GNU/Linux
+2）编辑模式 下找到 "Linux "开头的那行修改ro 修改为 rw  添加 init=/bin/bash  修改完按 F10
+3）保存后，输入passwd重置密码
+
+Ubuntu 重置密码
+1，长按shift或者ese进入grub,选择高级选项回车
+2，选择版本较高的recovery mode
+3，按下e后进入如下界面，找到linux /boot/vmlinuz-…ro recovery nomodeset 所在行。找到recovery nomodeset并将其删掉，再在这一行的最后面（dis_ucode_ldr后面）输入quiet splash rw init=/bin/bash
+4，输入passwd，修改密码成功
+
+关机 命令  shutdown   poweroff -f  init 0
+重启 命令	 reboot   init 6
+sleep 2 | init 0   设置两秒后关机
+注销  logout
+
+comm 命令用于比较两个已排过序的文件
+comm [-123][--help][--version][第 1 个文件][第 2 个文件]
+- -1 不显示只在第 1 个文件里出现过的列。
+- -2 不显示只在第 2 个文件里出现过的列。
+- -3 不显示只在第 1 和第 2 个文件里出现过的列。
+- --help 在线帮助。
+- --version 显示版本信息。
+
+comm aaa.txt bbb.txt
+

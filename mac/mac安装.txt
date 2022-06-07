@@ -38,6 +38,9 @@ source ~/.bashrc
 echo "$HISTSIZE $HISTFILESIZE"
 ```
 
+GIT 记住密码
+git config --global credential.helper store
+
 vi ~/.inputrc
 ```
 "\e[B": history-search-forward
@@ -885,19 +888,36 @@ End: 2021/11/23 18:09:33
 OS Version: Version 12.1 (Build 21C5021h)
 https://www.speedtest.cn/
 
+提示chsh:no changes made 解决办法：终端输入：
+dscl . -read /Users/$USER/ UserShell
+exec su - $USER
+
 命令行工具
+查看系统安装了哪些SHELL
+cat /etc/shells
+当前使用的SHELL
+echo $SHELL
+切换SHELL
+chsh -s /bin/zsh
+usermod -s /bin/zsh root
+
 https://mp.weixin.qq.com/s/C9RQ9DT-BeU2pMI7Qwm_8Q
 90后命令行
 https://github.com/fish-shell/fish-shell
 brew install fish
 https://fishshell.com/
+fish_config
+
 ☄🌌️ 适用于任何 shell 的最小、极快且可无限自定义的提示！
 https://github.com/starship/starship
 https://starship.rs/
 brew install starship
 vi ~/.bashrc
-eval "$(starship init bash)"
 vi ~/.zshrc
+eval "$(starship init bash)"
+vi ~/.config/fish/config.fish
+starship init fish | source
+
 命令行模糊查找器
 https://github.com/junegunn/fzf
 brew install fzf
@@ -999,6 +1019,11 @@ https://color.adobe.com/zh/create/color-wheel
 
 Dbeaver 无法打开
 显示包内容 -> Contents -> info.plist
+https://dbeaver.io/download/
+下载 DmJdbcDriver18-8.1.2.79.jar
+驱动管理器 -> 新建 库增加DmJdbcDriver18-8.1.2.79.jar 找到类
+jdbc:dm://127.0.0.1:5236/DM
+填用户名SYSDBA和密码
 
 -vm
 /usr/libexec/java_home -V
@@ -1041,6 +1066,7 @@ https://www.gimp.org/
 https://www.gimp.org/downloads/
 inkscape
 https://inkscape.org/release/inkscape-1.1.1/
+Inkscape 1.2 已于近日发布，作为此开源、免费和跨平台 SVG（可缩放矢量图形）编辑器
 scribus
 https://www.scribus.net/
 openshot
@@ -1272,5 +1298,27 @@ brew install speedtest
 brew update
 brew upgrade speedtest
 
+数学公式搜索
+https://approach0.xyz/search/
+https://github.com/approach0/search-engine
+
+小工具
+https://readme.so/editor
+
+Binutils
+一组二进制程序处理工具，包括：addr2line、ar、objcopy、objdump、as、ld、ldd、readelf、size等。这一组工具是开发和调试不可缺少的工具，分别简介如下：
+addr2line：用来将程序地址转换成其所对应的程序源文件及所对应的代码行，也可以得到所对应的函数。该工具将帮助调试器在调试的过程中定位对应的源代码位置。
+as：主要用于汇编，有关汇编的详细介绍请参见后文。
+ld：主要用于链接，有关链接的详细介绍请参见后文。
+ar：主要用于创建静态库。为了便于初学者理解，在此介绍动态库与静态库的概念：
+如果要将多个.o目标文件生成一个库文件，则存在两种类型的库，一种是静态库，另一种是动态库。
+在windows中静态库是以 .lib 为后缀的文件，共享库是以 .dll 为后缀的文件。在linux中静态库是以.a为后缀的文件，共享库是以.so为后缀的文件。
+静态库和动态库的不同点在于代码被载入的时刻不同。静态库的代码在编译过程中已经被载入可执行程序，因此体积较大。共享库的代码是在可执行程序运行时才载入内存的，在编译过程中仅简单的引用，因此代码体积较小。在Linux系统中，可以用ldd命令查看一个可执行程序依赖的共享库。
+如果一个系统中存在多个需要同时运行的程序且这些程序之间存在共享库，那么采用动态库的形式将更节省内存。
+ldd：可以用于查看一个可执行程序依赖的共享库。
+objcopy：将一种对象文件翻译成另一种格式，譬如将.bin转换成.elf、或者将.elf转换成.bin等。
+objdump：主要的作用是反汇编。有关反汇编的详细介绍，请参见后文。
+readelf：显示有关ELF文件的信息，请参见后文了解更多信息。
+size：列出可执行文件每个部分的尺寸和总尺寸，代码段、数据段、总大小等，请参见后文了解使用size的具体使用实例。
 
 

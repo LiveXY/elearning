@@ -11,6 +11,13 @@ make clean linux-x86-64
 cd ../run/
 ./john --test
 ./john hcpasswd
+./john --single hcpasswd
+cat ~/.john/john.pot
+john --restore
+john --show pass_shadow.txt
+john --incremental pass_shadow.txt
+john –incremental:digits pass_shadow.txt
+john –incremental:digits 6 pass_shadow.txt
 
 unshadow /etc/passwd /etc/shadow > ~/file_to_crack
 john --wordlist=/usr/share/john/password.lst ~/file_to_crack
@@ -150,10 +157,33 @@ sekurlsa::logonpasswords
 
 hashcat安装：
 ```sh
+https://github.com/hashcat/hashcat
 brew install hashcat
 hashcat -t 32 -a 7 example0.hash ?a?a?a?a example.dict
 cat example.dict | ./hashcat -m 400 example400.hash
 hashcat -m 500 example500.hash example.dict
+hashcat [options]... hash|hashfile|hccapxfile [dictionary|mask|directory]...
+如：
+hashcat64.exe -m 1000 329153f560eb329c0e1deea55e88a1e9 pass.txt --force
+介绍常用的几个命令选项：
+-m，--hash-type，支持的 hash 类型，数字类型，如 -m 1000，默认值是 0
+，支持 MD4、MD5、SHA1、SHA2-224、SHA2-256 等 300 种类型，分别对应 900/0/100/1300/1400
+-a，--attack-mode，破解类型，数字类型，如 -a 3，默认值是 0
+0 | 字典破解：hashcat -a 0 -m 400 example400.hash example.dict
+1 | 组合破解：hashcat -a 0 -m 0 example0.hash example.dict -r rules/best64.rule
+3 | 掩码暴力破解：hashcat -a 3 -m 0 example0.hash ?a?a?a?a?a?a
+6 | 混合字典 + 掩码：hashcat -a 1 -m 0 example0.hash example.dict example.dict
+7 | 混合掩码 + 字典
+9 | 关联破解：hashcat -a 9 -m 500 example500.hash 1word.dict -r rules/best64.rule
+-V，--version，显示版本号
+-o，--outfile，输出文件，如  -o outfile.txt
+-r，--rules-file，指定规则文件，如 -r rules/best64.rule
+--force，忽略告警信息强制破解
+--show，显示破解结果
+-D，--opencl-device-types，设备类型，如 -D 1
+1 | CPU
+2 | GPU
+3 | FPGA, DSP, Co-Processor
 ```
 
 win7 win8.1 win10 office2013 key

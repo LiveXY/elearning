@@ -1,0 +1,43 @@
+pigsty
+
+https://github.com/Vonng/pigsty
+
+GITEA
+cd pigsty/app/gitea; make up
+http://git.pigsty.cc
+
+PGSQLADMIN
+cd pigsty/app/pgadmin; make up ; make conf
+http://adm.pigsty.cc ，用户名 admin@pigsty.cc ，密码 pigsty
+cd pigsty/app/pgweb; make up;
+http://cli.pigsty.cc
+postgres://test:test@10.10.10.11:5432/test?sslmode=disable
+
+PostgreSQL设计的模式变更管理工具
+cd pigsty/app/bytebase; make up;
+http://ddl.pigsty.cc ，用户名 admin@pigsty.cc ，密码 pigsty
+
+对象存储Minio
+cd pigsty/app/minio; make up;
+http://sss.pigsty.cc ，用户名 admin ，密码 pigsty.minio
+
+Jupyter
+http://lab.pigsty.cc/ ， 密码 pigsty
+
+数据库模式报表SchemaSPY
+bin/schemaspy 10.10.10.10 meta pigsty
+http://home.pigsty.cc/schema/meta/pigsty/
+
+数据库日志分析报表
+bin/pglog-summary 10.10.10.10
+http://home.pigsty.cc/report
+
+Gitlab：使用PG的开源代码托管平台。
+Habour：使用PG的开源镜像仓库
+Jira：使用PG的开源项目管理平台。
+Confluence：使用PG的开源知识托管平台。
+Odoo：使用PG的开源ERP
+Mastodon：基于PG的社交网络
+Discourse：基于PG与Redis的开源论坛
+KeyCloak：开源SSO单点登录解决方案
+

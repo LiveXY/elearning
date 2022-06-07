@@ -4449,6 +4449,9 @@ https://github.com/toddpan/irfeiyang
 https://blog.csdn.net/panpanloveruth/article/details/120393667
 https://blog.csdn.net/panpanloveruth/article/details/120967019
 
+语意解析 可解析详细地址/金额/时间/关键短语/
+https://github.com/dongrixinyu/JioNLP
+pip install jionlp -i https://pypi.douban.com/simple/
 
 
 

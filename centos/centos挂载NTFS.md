@@ -32,6 +32,7 @@ none /dev/shm tmpfs defaults 0 0      　　
 /dev/fd0 /mnt/floppy auto noauto,owner,kudzu 0 0      　　
 /dev/hdb1 /mnt/winc vfat defaults,codepage=936,iocharset=cp936 0 0      　　
 /dev/hda5 /mnt/wind vfat defaults,codepage=936,iocharset=cp936 0 0
+alipan.cn:/ /data nfs vers=3,nolock,proto=tcp,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0
 
 第一列是挂载的文件系统的设备名，
 第二列是挂载点，
