@@ -1,0 +1,112 @@
+mac安装
+https://cloud.tencent.com/developer/article/1558721
+
+brew install postgresql pgloader
+brew postgresql-upgrade-database
+brew services restart postgresql
+/usr/local/opt/postgresql/bin/postgres -D /usr/local/var/postgres
+
+initdb --locale=C -E UTF-8 /usr/local/var/postgres
+initdb --locale=zh_CN.UTF-8 -E utf8 /usr/local/var/postgres
+
+lsof -i:5432
+
+createuser --interactive -P
+root/123456
+createdb etms -O root -E UTF8 -e
+psql -l
+psql -U root -d etms -h 127.0.0.1 -p 5432
+
+dropdb -U root etms
+
+mysql倒入到postgresql
+pgloader mysql://root:123456@127.0.0.1/etms postgresql://root:123456@127.0.0.1/etms
+
+pgloader ERROR mysql: Failed to connect to mysql at "127.0.0.1" (port 3306) as user "root": Condition QMYND:MYSQL-UNSUPPORTED-AUTHENTICATION was signalled.
+修改密码
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+flush privileges;
+修改配置
+vi /usr/local/etc/my.cnf
+[mysqld]
+default-authentication-plugin=mysql_native_password
+重启
+brew services restart mysql
+
+列出数据库名
+\l
+或 
+SELECT datname FROM pg_database;
+
+列出表名
+\dt
+SELECT tablename FROM pg_tables WHERE tablename NOT LIKE 'pg%' AND tablename NOT LIKE 'sql_%' ORDER   BY tablename;
+\d area
+查看索引
+\di
+select * from pg_index;
+查看视图
+\dv
+select * from pg_views where schemaname = 'public';
+select * from information_schema.views where table_schema = 'public';
+查看触发器
+select * from information_schema.triggers;
+查看序列
+select * from information_schema.sequences where sequence_schema = 'public';
+查看约束
+select * from pg_constraint where contype = 'p'
+select a.relname as table_name,b.conname as constraint_name,b.contype as constraint_type from pg_class a,pg_constraint b where a.oid = b.conrelid and a.relname = 'cc';
+查看XX数据库的大小
+SELECT pg_size_pretty(pg_database_size('XX')) As fulldbsize;
+查看所有数据库的大小
+select pg_database.datname, pg_size_pretty (pg_database_size(pg_database.datname)) AS size from pg_database;
+查看各数据库数据创建时间：
+select datname,(pg_stat_file(format('%s/%s/PG_VERSION',case when spcname='pg_default' then 'base' else 'pg_tblspc/'||t2.oid||'/PG_11_201804061/' end, t1.oid))).* from pg_database t1,pg_tablespace t2 where t1.dattablespace=t2.oid;
+按占空间大小，顺序查看所有表的大小
+select relname, pg_size_pretty(pg_relation_size(relid)) from pg_stat_user_tables where schemaname='public' order by pg_relation_size(relid) desc;
+按占空间大小，顺序查看索引大小
+select indexrelname, pg_size_pretty(pg_relation_size(relid)) from pg_stat_user_indexes where schemaname='public' order by pg_relation_size(relid) desc;
+
+创建用户XX，并授予超级管理员权限
+create user XXX SUPERUSER PASSWORD '123456'
+
+
+
+切换数据库
+\c 数据库名
+
+查看所有用户
+\du
+修改密码
+\password dbuser
+删除用户
+drop user dbuser
+当前用户
+select current_user;
+
+CREATE DATABASE exampledb OWNER dbuser;
+GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
+\c exampledb;
+ALTER SCHEMA public OWNER to dbuser;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO dbuser;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dbuser;
+或者
+createdb -O dbuser exampledb
+
+查看表空间 select * from pg_tablespace;
+查看语言 select * from pg_language;
+查询所有schema，必须到指定的数据库下执行
+select * from information_schema.schemata;
+SELECT nspname FROM pg_namespace;
+\dnS
+
+备份恢复
+pg_dump --format=t -d etms -U root -W -h 127.0.0.1 > dump.sql
+pg_restore -d etms -h 127.0.0.1 -U root < dump.sql
+# 注意要加 -U 并且一定要是 db_name 的 owner
+
+
+
+
+
