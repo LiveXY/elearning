@@ -93,6 +93,35 @@ tcpdump [-aAbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ]
 且 : && or "and"
 或 : || or "or"
 
+tcpdump --list-interfaces
+tcpdump --interface any
+
+接收数据包的时间戳
+接口名称
+包流
+网络协议名称
+IP 地址和端口详细信息
+TCP 标志
+数据包中数据的序号
+确认数据
+窗口大小
+数据包长度
+第一个字段 ( 16:23:44.545056 ) 显示系统发送或接收数据包时的时间戳。记录的时间是从您系统的本地时间中提取的。
+第二个和第三个字段表示使用的接口和数据包的流向。在上面的代码片段中，eth0是无线接口的名称，Out是数据包流。
+第四个字段包括与网络协议名称有关的信息。通常，您会发现两种协议- IP和IP6，其中 IP 表示 IPV4，IP6 表示 IPV6。
+下一个字段包含 IP 地址或源和目标系统的名称。IP 地址后跟端口号。
+输出中的第六个字段由 TCP 标志组成。tcpdump 输出中使用了各种标志。
+标志名称    值   描述
+SYN S   连接开始
+FIN F   连接完成
+PUSH    O   数据被推送
+RST R   连接已重置
+ACK .   确认
+输出还可以包含多个 TCP 标志的组合。例如，FLAG [f.]代表一个 FIN-ACK 包。
+在输出片段中进一步移动，下一个字段包含数据包中数据的序列号 ( seq 1007723650:1007723689 )。第一个数据包总是有一个正整数值，随后的数据包使用相对序列号来改善数据流。
+下一个字段包含确认号（ack 1485464298）或简单的确认号。在发送方机器中捕获的数据包有 1485464298 作为确认号。在接收端，Ack 号是下一个数据包的值。
+输出中的第九个字段包含窗口大小（win 62780），即接收缓冲区中可用的字节数。窗口大小后面还有几个其他字段，包括最大段大小 (MSS)。
+最后一个字段（length 39）包含 tcpdump 捕获的整个数据包的长度。
 
 tcpdump -i eth0 #监视指定网络接口的数据包
 tcpdump host helios and \( hot or ace \) #helios<-->hot或helios<-->ace之间通信的数据包
@@ -114,6 +143,24 @@ time tcpdump -nn -i eth0 'tcp[tcpflags] = tcp-syn' -c 10000 > /dev/null #上面�
 tcpdump -i eth0 '((port 8000) and (tcp[(tcp[12]>>2):4]=0x47455420))' -nnAl -w /tmp/get.pcap #实时抓取端口号8000的GET包，然后写入get.pcap
 tcpdump  -XvvennSs 0 -i eth0 tcp[20:2]=0x4745 or tcp[20:2]=0x4854 #使用tcpdump抓取HTTP包
 tcpdump -i eth1 pppoes -w /tmp/xxx.cap #抓pppoe的密码
+
+tcpdump --interface any -c 3 #限制抓包数
+tcpdump --interface any -c 5 tcp
+tcpdump --interface any -c 5 port 50
+tcpdump --interface any -c 5 host 112.123.13.145
+tcpdump --interface any -c 5 src 112.123.13.145
+tcpdump --interface any -c 5 dst 112.123.13.145
+tcpdump --interface any -c 10 src 112.123.13.145 and port 80
+tcpdump --interface any -c 10 "(src 112.123.13.145 or src 234.231.23.234) and (port 45 or port 80)"
+tcpdump --interface any -c 1 -A
+tcpdump --interface any -c 1 -x
+tcpdump --interface any -c 10 -w data.pcap
+tcpdump --interface any -c 10 -w data.pcap -v
+tcpdump -r data.pcap
+tcpdump -r data.pcap port 80
+
+
+
 
 tcpdump host 127.0.0.1 and cq
 tcpdump tcp port 9201 or 9202 or 9203

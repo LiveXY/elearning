@@ -1,0 +1,48 @@
+pg_basebackup
+
+使用basebackup的-z压缩太慢，建议使用pigz压缩
+pg_basebackup -U sa -p6543 -F t -P -v -Xf -D - | pigz -6 -p 16 > /data/pg_basebackup/test.tar.gz
+
+PG_PROBACKUP
+
+pg_start_backup
+1、让PG_WAL日志进入 full -page 模式
+2、进行PG_WAL 日志的切换
+3、进行checkpiont操作
+4、创建backup_lable file 好记录checkpoint
+
+pg_stop_backup
+1、将full page 的状态变为普通模式
+2、在pg_wal中写一条备份终止的记录
+3、重新产生一个pg_wal 的 segment file
+4、创建一个历史的文件将之前的backup_lable都包含在里面以及执行pg_stop_backup 的时间线
+5、删除backup_lable文件
+
+pg_basebackup -D /pgdata/data/ -Ft -Xs -z  -P  -D postgres -U postgres
+-Ft  -Fp 表达的意思是备份数据库时数据文件是否进行打包， 前者是将文件变为 tar 包，后者是不将文件打包。
+-X 选项主要功能是在备份期间对wal 日志的备份的方式选择， -Xn 是不备份wal 日志， -Xf 是通过copy的方式将wal 日志进行备份， -Xs 是较为常用和安全的方式，需要在数据库中建立复制槽，并通过复制槽来进行wal 日志的复制。
+在备份中，希望备份的文件是没有脏页的， 就需要触发立即的checkpoint ， 此时 -c fast 就是必选项 在高并发的系统中，-c fast 会触发此时的I/O的系统繁忙，将大量脏页刷入到磁盘。
+
+pg_probackup 备份软件前，需要有一个superuser的权限，或者创建一个具有如下权限的账号
+
+BEGIN;
+CREATE ROLE backup WITH LOGIN;
+GRANT USAGE ON SCHEMA pg_catalog TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.current_setting(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_is_in_recovery() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_start_backup(text, boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_stop_backup(boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_create_restore_point(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_switch_wal() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_last_wal_replay_lsn() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current_snapshot() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_snapshot_xmax(txid_snapshot) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_control_checkpoint() TO backup;
+COMMIT
+
+pg_probackup backup -B /home/postgres/backup --instance backup_p -b FULL --stream
+pg_probackup backup -B /home/postgres/backup --instance backup_p -b DELTA --stream
+pg_probackup show -B /home/postgres/backup/
+pg_probackup restore -B /home/postgres/backup/ --instance backup_p
+pg_probackup backup -B /home/postgres/backup --instance backup_p -b page

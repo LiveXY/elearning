@@ -207,6 +207,7 @@ ifconfig em1 192.168.5.177 netmask 255.255.255.0
 测试80端口延迟
 hping3 -c 3 -S -p 80 google.com
 hping3 -c 3 -S -p 80 192.168.0.30
+hping3 -S -p 80 -i u10 --flood 192.168.0.30
 wrk --latency -c 100 -t 2 --timeout 2 http://192.168.0.30/
 tcpdump -nn tcp port 80 -w nginx.pcap
 strace -f wrk --latency -c 100 -t 2 --timeout 2 http://192.168.0.30/

@@ -24,3 +24,40 @@ sudo apt install elementary-tweaks indicator-application indicator-systemtray-un
 用如下命令可以恢复
 xdg-mime default dde-file-manager.desktop inode/directory
 
+https://github.com/teejee2008/timeshift
+系统备份工具
+
+Polybar 是一个用于创建状态栏的快速且易于使用的工具，为用户桌面环境构建漂亮且高度可定制的状态栏
+https://github.com/polybar/polybar
+apt -t bullseye-backports install polybar
+apt install polybar
+pacman -S polybar
+xbps-install -S polybar
+nix-env -iA nixos.polybar
+cast polybar
+zypper install polybar
+pkg install polybar
+dnf install polybar
+cat /etc/polybar/config.ini
+-h, --help                   显示帮助信息
+-v, --version                显示构建信息、版本号
+-l, --log=LEVEL              设置日志级别 (默认: notice)
+                           允许设置的级别: error, warning, notice, info, trace
+-q, --quiet                  静默启动
+-c, --config=FILE            指定配置文件路径
+-r, --reload                 重新加载配置文件
+-m, --list-monitors          打印可用的监控器列表（不包括克隆监控器）
+-M, --list-all-monitors      打印全部监控器列表（包括克隆监控器）
+-w, --print-wmname           打印 wmname
+-s, --stdout                 数据输出到标准输出
+-p, --png=FILE               运行 3 秒后保存 png 截图文件
+polybar 配置文件定义了 polybar 的行为和外观。它使用 INI 文件格式，启动时 polybar 将按以下顺序在多个文职搜索配置文件：
+如果指定了 -cor--config 参数，那就使用这个参数指定的路径。
+$XDG_CONFIG_HOME/polybar/config
+$XDG_CONFIG_HOME/polybar/config.ini
+$HOME/.config/polybar/config
+$HOME/.config/polybar/config.ini
+$XDG_CONFIG_DIRS/polybar/config.ini
+/etc/xdg/polybar/config.ini（仅当XDG_CONFIG_DIRS未设置时）
+/etc/polybar/config.ini
+

@@ -86,3 +86,6 @@ https://github.com/trinodb/trino
 
 Appsmith 是一个用于构建管理面板、内部工具和仪表板的低代码平台
 https://github.com/appsmithorg/appsmith
+
+https://github.com/apache/cassandra
+

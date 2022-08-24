@@ -906,3 +906,12 @@ set @@sort_buffer_size=262144;
 set @@read_buffer_size=131072;
 set global key_buffer_size=8388608;
 
+
+commands out of sync. Did you run multiple statements at once
+mysqladmin flush-hosts
+mysql> FLUSH HOSTS;
+show variables like "max_connections";
+show variables like "max_connect_errors";
+set global max_connections = 2000;
+set global max_connect_errors=100000000;
+

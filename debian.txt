@@ -9,6 +9,7 @@ https://www.whonix.org/wiki/Download
 https://www.kali.org/get-kali/
 https://parrotsec.org/download/
 https://tails.boum.org/install/index.en.html
+https://www.system-rescue.org/Download/
 
 基于RockPi 4A Debian系统介绍i2c设备的调试工具i2c-tools
 apt-get update
@@ -100,7 +101,84 @@ i2ctransfer -y -f 4 w2@0x38 0x3a 0x01 r16
 i2ctransfer -y -f 4 w3@0x38 0x3a 0x01 0x10
 
 
+Kali Linux Parrot OS是另一个以安全为中心的发行版
+SystemRescue：系统救援型 Linux
+https://www.system-rescue.org/Download/
+数据恢复工具
+http://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html
+https://github.com/mruffalo/ddrescue
+首先拯救光盘最重要的部分。
+     ddrescue -i0 -s50MiB /dev/sdc hdimage 映射文件
+     ddrescue -i0 -s1MiB -d -r3 /dev/sdc hdimage 映射文件
+然后拯救一些关键的光盘区域。
+     ddrescue -i30GiB -s10GiB /dev/sdc hdimage 映射文件
+     ddrescue -i230GiB -s5GiB /dev/sdc hdimage 映射文件
+现在拯救其余的（不重新复制已经完成的）。
+     ddrescue /dev/sdc hdimage 映射文件
+     ddrescue -d -r3 /dev/sdc hdimage 映射文件
+ddrescue 的输出如下所示：
 
+     GNU 救援 1.25
+     按 Ctrl-C 中断
+     初始状态（从地图文件中读取）
+     获救：1665 MB，尝试：0 B，坏扇区：0 B，坏区域：0
+     
+     当前状态
+          ipos：2874 MB，未修剪：0 B，当前速率：21479 kB/s
+          opos：2874 MB，非刮擦：0 B，平均速率：21023 kB/s
+     未尝试：13603 MB，坏扇区：0 B，错误率：0 B/s
+       获救：2401 MB，坏区：0，运行时间：35s
+     获救百分比：15.00%，读取错误：0，剩余时间：10m
+      慢读：5，自上次成功读起的时间：0s
+     复制未尝试的块...通过 1（转发）
+每个字段的含义如下：
+
+ipos
+输入位置。当前正在从中读取数据的输入文件中的位置。
+opos
+输出位置。当前正在写入数据的输出文件中的位置。
+non-tried
+待尝试的救援域部分的大小。这是所有未尝试块的大小之和。
+rescued
+已成功恢复的救援域部分的大小。这是所有完成块大小的总和。
+pct rescued
+已成功恢复的救援域的百分比。
+slow reads
+读取速率低于 ' 的次数--最小读取率' 在复制阶段的前两次传递期间。见--min-read-rate。
+tried
+已经尝试过但尚未获救的救援域部分的大小。这是所有未修剪、未刮擦和坏扇区块的大小之和。
+non-trimmed
+待修整的救援域部分的大小。这是所有未修剪块的大小的总和。
+non-scraped
+待抓取的救援域部分的大小。这是所有未抓取块的大小之和。
+bad-sector
+总错误大小。这是已知坏扇区形成的救援域部分的大小。总错误大小是所有坏扇区块大小的总和。它在修剪和刮削阶段会增加，在重试阶段可能会减少。一个扇区不会被标记为坏扇区并被认为是坏区的一部分，直到它被单独尝试而不是作为大块读取的一部分。请注意，当 ddrescue 重试坏扇区块时，找到的好数据可能会将它们分成更小的块，从而减少总错误大小，但会增加坏区的数量。
+bad areas
+救援域内单独的坏扇区块的数量。未修剪和未刮擦的块不被视为坏区域。见--max-bad-areas。
+read errors
+失败的读取尝试次数。参见--max-error-rate。
+current rate
+在最后一秒测量的读取速率。
+average rate
+当前运行期间测量的平均读取速率。
+error rate
+在最后一秒测量的读取错误率。
+run time
+自当前运行开始以来经过的时间。
+remaining time
+拯救救援域中所有数据的估计剩余时间。剩余时间是使用最近 30 秒的平均速率计算的，并没有考虑救援域的某些部分可能被排除在救援之外（例如使用 '--无修剪')，或者某些区域可能无法恢复。因此，它可能非常不精确，在救援期间可能变化很大，并且可能在救援结束时显示非零值。特别是在第一遍结束时它可能会下降到几秒钟，在接下来的遍中会增长到几小时或几天。这就是 ddrescue 的本质；好的部分通常恢复得很快，而其余的可能需要很长时间。
+time since last successful read
+自上次成功读取尝试后经过的时间。
+
+
+Arch Linux
+在你的 Arch Linux 系统的终端提示符下，运行下面的命令来安装所有 Cutefish 桌面软件包。
+pacman -S cutefish
+pacman -S xorg sddm
+systemctl enable sddm
+pacman -S firefox ttf-freefont kwrite vlc gwenview gimp libreoffice-still transmission-qt
+安装后，打开设置，改变你选择的字体。默认字体是 courier，它在桌面上看起来很糟糕。
+按照你的选择完成所有的定制后，重启系统。然后享受 Arch Linux 中的 Cutefish 桌面。
 
 
 

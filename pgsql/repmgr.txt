@@ -1,0 +1,246 @@
+repmgr是一款开源的用于集群复制管理和故障转移的工具。它扩展了PostgreSQL内建的hot-standby能力，可以设置热备服务器、流复制监控、故障切换等，由2ndQuadrant开发。
+
+安装部署
+git clone https://github.com/EnterpriseDB/repmgr
+./configure && make install
+
+常用命令
+repmgr primary register/unregister，注册/注销主库
+repmgr standby clone，克隆备库
+repmgr standby promote，提升为主库
+repmgr standby follow，重新指向新的主库
+repmgr node status，查看节点状态
+repmgr node check，校验节点状态
+repmgr cluster show，查看集群状态
+repmgr cluster event，查看集群已发生事件
+repmgr cluster crosscheck，集群中各个节点交叉检测
+repmgr cluster cleanup，清除历史集群监控信息
+
+主库部分
+配置主库postgresql.conf文件
+修改主库的postgresql.conf文件
+
+max_wal_senders = 10       # 每个备库一个walsender进程，该值需要大于备库的数量
+max_replication_slots = 10 # 复制槽的数量，用于防止WAL日志被回收导致备库丢失的问题
+wal_level = 'hot_standby'  # WAL日志级别，流复制要求必须大于等于replica级别
+hot_standby = on           # 备库是否支持只读操作，默认为on，否则只作为备库
+创建元信息
+新建repmgr用户，作为repmgr工具的默认用户
+
+postgres=# create user repmgr;
+CREATE ROLE
+postgres=# alter user repmgr with password 'test1234';
+ALTER ROLE
+postgres=# alter user repmgr superuser ;
+ALTER ROLE
+postgres=# create database repmgr owner repmgr;
+CREATE DATABASE
+配置repmgr.conf文件
+[postgres@xiongcc ~]$ cat repmgr_primary.conf 
+# repmgr node information
+node_id=1                                   # 节点ID
+node_name='primary_node'                    # 节点名称
+conninfo='host=localhost port=5432 user=repmgr dbname=repmgr' # 连接串信息
+data_directory='/home/postgres/pgdata'      # 实例目录
+replication_user=repmgr                     # 流复制用户
+repmgr_bindir='/usr/pgsql-14/bin'           # repmgr 可执行文件所在目录
+pg_bindir='/usr/pgsql-14/bin'               # PostgreSQL 可执行文件所在目录
+
+# replication
+monitoring_history=yes              # Whether to write monitoring data to the "monitoring_history" table
+# location='location1'              # 定义节点位置的任意字符串,在故障转移期间用于检查当前主节点的可见性
+priority=100                        # 节点优先级，选主时可能使用到。（lsn > priority > node_id）
+                                    # 0 代表该节点不会被提升为主节点
+reconnect_interval=10               # 故障转移之前，尝试重新连接的间隔（以秒为单位）
+reconnect_attempts=6                # 故障转移之前，尝试重新连接的次数
+connection_check_type=ping          # ping: repmg 使用PQPing() 方法测试连接
+                                    # connection: 尝试与节点建立新的连接
+                                    # query: 通过现有连接在节点上执行 SQL 语句
+monitor_interval_secs=5             # 写入监控数据的间隔
+use_replication_slots=true          # 是否使用复制槽
+
+# log configuration
+log_level='INFO'                 # Log level: possible values are DEBUG, INFO, NOTICE,
+                                 # WARNING, ERROR, ALERT, CRIT or EMERG
+
+log_facility='STDERR'            # Logging facility: possible values are STDERR, or for
+                                 # syslog integration, one of LOCAL0, LOCAL1, ..., LOCAL7, USER
+
+log_file='/tmp/repmgr.log'       # STDERR can be redirected to an arbitrary file
+log_status_interval=30           # interval (in seconds) for repmgrd to log a status message
+
+
+# service management command
+service_start_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata start'         # 数据库启动 
+service_stop_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata stop'          # 数据库停止
+service_restart_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata restart'       # 数据库重启
+service_reload_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata reload'        # 数据库重加载
+repmgrd_pid_file='/tmp/repmgrd.pid'                               # repmgrd守护进程pid
+repmgrd_service_start_command='/usr/pgsql-14/bin/repmgrd -f /home/postgres/repmgr.conf start'  # repmgrd启动
+repmgrd_service_stop_command='kill -9 `cat /tmp/repmgrd.pid`'                  # repmgrd停止
+
+# failover 
+failover='automatic'                    # one of 'automatic', 'manual'.
+                                        # determines what action to take in the event of upstream failure
+                                        #
+                                        # 'automatic': repmgrd will automatically attempt to promote the
+                                        #    node or follow the new upstream node
+                                        # 'manual': repmgrd will take no action and the node will require
+                                        #    manual attention to reattach it to replication
+
+#priority=100                           # indicates a preferred priority for promoting nodes;
+                                        # a value of zero prevents the node being promoted to primary
+                                        # (default: 100)
+
+promote_command='repmgr -f /home/postgres/repmgr_primary.conf standby promote'                  
+                    # command repmgrd executes when promoting a new primary; use something like:
+                                        #
+                                        #     repmgr standby promote -f /etc/repmgr.conf
+                                        #
+follow_command='repmgr standby follow -f /home/postgres/repmgr_primary.conf --upstream-node-id=%n'                      
+                    # command repmgrd executes when instructing a standby to follow a new primary;
+                                        # use something like:
+                                        #
+                                        #     repmgr standby follow -f /etc/repmgr.conf --upstream-node-id=%n
+                                        #
+
+#primary_visibility_consensus=false     # If "true", only continue with failover if no standbys have seen
+                                        # the primary node recently. *Must* be the same on all nodes.s
+这里需要提一下location和primary_visibility_consensus这两个参数。
+
+location
+location用于处理脑裂的问题，详见 https://repmgr.org/docs/current/repmgrd-network-split.html
+degraded monitoring
+那么什么是降级监控呢？官网上有介绍：https://repmgr.org/docs/4.0/repmgrd-degraded-monitoring.html
+
+repmgr -f /etc/repmgr.conf service status
+
+注册主节点
+repmgr -f repmgr_primary.conf primary register
+
+注册成功之后，repmgr库内会安装插件，以及创建一些元信息表和视图
+repmgr=# set search_path to 'repmgr';
+SET
+repmgr=# \d
+
+repmgr.events：records events of interest
+repmgr.nodes：实例中各个节点的连接和状态信息
+repmgr.monitoring_history：由repmgrd写入，备库的历史监控信息
+repmgr.show_nodes：based on the table repmgr.nodes, additionally showing the name of the server's upstream node
+repmgr.replication_status：when repmgrd's monitoring is enabled, shows current monitoring status for each standby.
+
+使用 cluster show查看当前集群的状态
+repmgr -f repmgr_primary.conf cluster show
+
+select * from events ;
+select * from nodes ;
+
+repmgrd的作用
+前面也简单介绍了repmgrd的作用，repmgrd是一个守护进程，支持故障检测、failover，监控和记录集群信息以及自定义脚本接受集群事件通知。
+
+启动repmgrd
+启动之前，需要先在postgresql.conf配置文件中添加shared_preload_libraries = 'repmgr'
+
+备库部分
+配置repmgr.conf文件
+此例主备位于同一台主机上，因此节点信息不能相同
+
+[postgres@xiongcc ~]$ cat repmgr_standby.conf 
+# repmgr node information
+node_id=2
+node_name='standby_node'
+conninfo='host=localhost port=5433 user=repmgr dbname=repmgr'
+data_directory='/home/postgres/pgdata_standby'
+replication_user=repmgr
+repmgr_bindir='/usr/pgsql-14/bin'
+pg_bindir='/usr/pgsql-14/bin'
+
+
+# log configuration
+log_level='INFO'                 # Log level: possible values are DEBUG, INFO, NOTICE,
+                                 # WARNING, ERROR, ALERT, CRIT or EMERG
+
+log_facility='STDERR'            # Logging facility: possible values are STDERR, or for
+                                 # syslog integration, one of LOCAL0, LOCAL1, ..., LOCAL7, USER
+
+log_file='/tmp/repmgr_standby.log'       # STDERR can be redirected to an arbitrary file
+log_status_interval=30           # interval (in seconds) for repmgrd to log a status message
+
+
+# service management command
+service_start_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata_standby start'
+service_stop_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata_standby stop'
+service_restart_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata_standby restart'
+service_reload_command='/usr/pgsql-14/bin/pg_ctl -D /home/postgres/pgdata_standby reload'
+repmgrd_pid_file='/tmp/repmgrd_standby.pid'
+repmgrd_service_start_command='/usr/pgsql-14/bin/repmgrd -f /home/postgres/repmgr.conf start'
+repmgrd_service_stop_command='kill -9 `cat /tmp/repmgrd_standby.pid`'
+
+# failover 
+failover='automatic'                    # one of 'automatic', 'manual'.
+                                        # determines what action to take in the event of upstream failure
+                                        #
+                                        # 'automatic': repmgrd will automatically attempt to promote the
+                                        #    node or follow the new upstream node
+                                        # 'manual': repmgrd will take no action and the node will require
+                                        #    manual attention to reattach it to replication
+
+#priority=100                           # indicates a preferred priority for promoting nodes;
+                                        # a value of zero prevents the node being promoted to primary
+                                        # (default: 100)
+
+promote_command='repmgr -f /home/postgres/repmgr_standby.conf standby promote'                  # command repmgrd executes when promoting a new primary; use something like:
+                                        #
+                                        #     repmgr standby promote -f /etc/repmgr.conf
+                                        #
+follow_command='repmgr standby follow -f /home/postgres/repmgr_standby.conf --upstream-node-id=%n'                      # command repmgrd executes when instructing a standby to follow a new primary;
+                                        # use something like:
+                                        #
+                                        #     repmgr standby follow -f /etc/repmgr.conf --upstream-node-id=%n
+                                        #
+
+#primary_visibility_consensus=false     # If "true", only continue with failover if no standbys have seen
+                                        # the primary node recently. *Must* be the same on all nodes.s
+克隆备库
+在真正克隆之前，使用--dry-run试运行一下，可以发现可能的错误。克隆备库默认使用的是pg_basebackup
+repmgr -h localhost -p 5432 -d repmgr -f repmgr_standby.conf  standby clone 
+
+注册备节点
+pg_ctl -D pgdata_standby/ start
+repmgr standby -f repmgr_standby.conf register
+repmgr -f repmgr_primary.conf cluster show
+psql -qx -c "select * from pg_stat_replication"
+
+启动repmgrd
+repmgrd -f repmgr_standby.conf start
+
+故障切换
+现在一主一从，node1是主节点，node2是备节点
+repmgr cluster show -f repmgr_primary.conf
+停止主库
+pg_ctl -D pgdata stop
+cat /tmp/repmgr.log  | grep degrade
+由于repmgr将元信息等存在了本地某个数据库内，因此repmgr本身并不提供分布式解决方案，假如某个节点故障了，便无法通过该节点继续管理集群，比如刚刚宕机的主库，就不能继续操作了
+repmgr -f repmgr_primary.conf cluster show
+现在只剩下一个节点，原来的备节点顺利提升为主节点
+repmgr cluster show -f repmgr_standby.conf
+原来的主节点可以以备库的身份重新加入
+repmgr node rejoin -f repmgr_primary.conf -d 'host=localhost port=5433 user=repmgr' --dry-run
+repmgr -f repmgr_primary.conf cluster show
+
+虚拟IP
+ssh xxx@xxx -o ifconfig xxx down
+
+hg_repmgr
+hg_repmgr是对开源工具repmgr做的增强型开发工具，Repmgr作为一个流复制管理工具，在集群高可用功能上比较欠缺。为此hg_repmgr做了功能增强，增加了virtual ip，自动恢复失效节点、脑裂检查等。代码仓库：https://github.com/HighgoSoftware/hg_repmgr
+
+对浮动virtual IP的管理：注册Primary节点时，会绑定Virtual IP；failover或switchover时，Virtual IP会随着主节点漂移
+集群切换后，节点自动重归集群功能：当集群主备节点切换后，原主节点的daemon进程将自动尝试rejoin操作重归集群
+新增node startup命令：节点断电重启后可以由该命令统一启动数据库和repmgrd服务，该命令将自动判断当前集群中节点的主备状态，防止在启动时形成双主和脑裂
+脑裂（双主）的检查与自动恢复功能：本功能主要针对可能的对集群误操作导致的脑裂双主情况进行自动恢复，新增了可以检查集群是否存在双主情况，如果发现集群双主（脑裂）将选择其中一个节点做rejoin操作，使其作为备节点重归集群。
+对硬盘可写的检测：daemon进程会对数据库data目录所在分区是否可写进行监控
+对同步流复制转异步的灵活控制：在数据库处于同步流复制下，备节点停库将导致主节点等待，造成业务中断，新增了逻辑控制，可通过配置项控制这种情形下是否将主节点临时改为异步流复制，待备节点恢复后再改回同步流复制。这样增加了灵活性。
+改进了cluster show的信息：在cluster show时增加了对流复制LSN的显示和主备之间LSN差值的显示，用来提示当前流复制的状态
+
+
+

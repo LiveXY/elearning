@@ -1,0 +1,55 @@
+
+wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
+rpm -Uvh jdk-17_linux-x64_bin.rpm
+alternatives --config java
+java -version
+
+export JAVA_HOME=/usr/java/jdk-17.0.2
+export PATH=$PATH:/usr/java/jdk-17.0.2/bin
+
+chown -R root:root /var/lib/jenkins
+chown -R root:root /var/cache/jenkins
+chown -R root:root /var/log/jenkins
+
+cat /etc/sysconfig/jenkins
+JENKINS_USER="root"
+cat /usr/lib/systemd/system/jenkins.service
+User=root
+Group=root
+systemctl daemon-reload
+systemctl restart jenkins.service
+
+cat /var/log/jenkins/jenkins.log
+
+ll /var/lib/jenkins/workspace/
+
+修改密码 passwordHash
+cat /var/lib/jenkins/users/users.xml
+cat /var/lib/jenkins/users/admin/config.xml
+cat /root/.jenkins/users/admin/config.xml
+cat /var/lib/jenkins/users/admin_8002484905579880955/config.xml
+123456
+#jbcrypt:$2a$10$4NW.9hNVyltZlHzrNOOjlOgfGrGUkZEpBfhkaUrb7ODQKBVmKRcmK
+#jbcrypt:$2a$10$ltzg1Kwtef0ymmNAqR8JR.961lHdnrsoFsE.huZ.G4r1AiIaENRC6
+111111
+#jbcrypt:$2a$10$DdaWzN64JgUtLdvxWIflcuQu2fgrrMSAMabF5TSrGK5nXitqK9ZMS
+
+环境变量生效
+#!/bin/bash -ilex
+source /Users/mac/.bash_profile
+
+/etc/init.d/jenkins restart
+/etc/init.d/jenkins stop
+
+systemctl restart jenkins
+systemctl stop jenkins
+yum remove jenkins
+
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo --no-check-certificate
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+yum install -y jenkins
+
+https://github.com/jenkinsci/jenkins/releases/download/jenkins-2.362/jenkins-2.362-1.1.noarch.rpm
+https://fossies.org/linux/misc/jenkins-jenkins-2.362.tar.gz
+tar xzvf jenkins-jenkins-2.362.tar.gz
+rpm -ivh jenkins-jenkins-2.362.tar.gz

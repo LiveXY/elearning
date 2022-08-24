@@ -173,6 +173,7 @@ INSERT INTO t1 (id,a,b,c,d) VALUES (3,4,5,6,9),(4,5,6,7,11) ON DUPLICATE KEY UPD
 mysql命令
 =========
 * `mysqladmin -u root password '123456'` `mysqladmin -h 192.168.1.168 -u root password '123456'` 修改root密码
+* `mysqlcheck -c -u root -p --all-databases` 全部数据库 `mysqlcheck -o root -p --all-databases` 优化
 * `mysqlcheck -uroot -p123456 db -c;` 检查整个库那些表损坏
 * `mysqlcheck -uroot -p123456 db table1 table2 -c;` 检查整个库那些表损坏
 * `mysqlcheck -uroot -p123456 db -r;` 修复整个数据库表损坏

@@ -1,6 +1,7 @@
 https://github.com/thevinter/styli.sh
 easiest & smartest自动颁发和更新免费证书
 https://github.com/acmesh-official/acme.sh
+curl https://get.acme.sh | sh -s email=my@example.com
 wget -O - https://get.acme.sh | sh -s email=my@example.com
 acme.sh -h
 颁发证书
@@ -9,11 +10,27 @@ acme.sh --renew -d example.com --force
 acme.sh --remove -d example.com
 acme.sh --issue -d example.com -d www.example.com -d cp.example.com -w /var/www/html
 证书将被放置在 ~/.acme.sh/example.com/
-证书安装
+Apache/Nginx证书安装
+acme.sh --install-cert -d example.com \
+--cert-file      /path/to/certfile/in/apache/cert.pem  \
+--key-file       /path/to/keyfile/in/apache/key.pem  \
+--fullchain-file /path/to/fullchain/certfile/apache/fullchain.pem \
+--reloadcmd     "service apache2 force-reload"
+
 acme.sh --install-cert -d example.com \
 --key-file       /path/to/keyfile/in/nginx/key.pem  \
 --fullchain-file /path/to/fullchain/nginx/cert.pem \
 --reloadcmd     "service nginx force-reload"
+
+acme.sh --issue --nginx -d example.com -d www.example.com -d cp.example.com
+acme.sh  --issue -d example.com  -d '*.example.com'  --dns dns_cf
+acme.sh --renew -d example.com --force
+acme.sh --renew -d example.com --force --ecc
+acme.sh --remove -d example.com [--ecc]
+acme.sh --upgrade
+acme.sh --upgrade --auto-upgrade
+acme.sh --upgrade --auto-upgrade 0
+
 
 文件表达式
 if [ -f file ] 如果文件存在
@@ -231,3 +248,212 @@ test.sh -m /opt/data/web
 test.sh -h
 
 使用 argbash 工具
+
+getopts/getopt
+直接处理：使用$1,$2,$3…进行解析
+getopts: 单个字符选项的情况，例如：-n 10 -f file.txt等选项
+getopt：处理单个字符或长选项（long-option），例如：–prefix=/home等
+经验：小型脚本可以直接处理，大多数情况使用getopts，getopt的功能更加强大。
+$0 #即命令本身，相当于c/c++中的argv[0]
+$1 #第一个参数
+$# #参数的个数，不包括命令本身
+$@ #参数本身的列表，不包括命令本身
+$* #和$@相同，但"$*"和"$@"(加引号)并不同，
+
+while getopts "s:g" opt_sg; do
+    case $opt_sg in
+        g) echo $number ;;
+        s) number=$OPTARG ;;
+        ?) echo "unknown option: $opt_sg" ;;
+    esac
+done
+while getopts 'h:j:m:u' OPT; do
+    case $OPT in
+        j) S_DIR="$OPTARG";;
+        m) D_DIR="$OPTARG";;
+        u) upload="true";;
+        h) func;;
+        ?) func;;
+    esac
+done
+sh test.sh -a haha -c hehe -b heihei
+while getopts :abc: OPTION;do
+    case $OPTION in
+      a)echo "get option a"
+      ;;
+      b)echo "get option b and parameter is $OPTARG"
+      ;;
+      c)echo "get option c and parameter is $OPTARG"
+      ;;
+      ?)echo "get a non option $OPTARG and OPTION is $OPTION"
+      ;;
+    esac
+done
+
+用法：
+ getopt optstring parameters
+ getopt [options] [--] optstring parameters
+ getopt [options] -o|--options optstring [options] [--] parameters
+
+选项：
+ -a, --alternative            允许长选项以 - 开始
+ -h, --help                   这个简短的用法指南
+ -l, --longoptions <长选项>  要识别的长选项
+ -n, --name <程序名>         将错误报告给的程序名
+ -o, --options <选项字符串>  要识别的短选项
+ -q, --quiet                  禁止 getopt(3) 的错误报告
+ -Q, --quiet-output           无正常输出
+ -s, --shell <shell>          设置 shell 引用规则
+ -T, --test                   测试 getopt(1) 版本
+ -u, --unquoted               不引用输出
+ -V, --version                输出版本信息
+
+getopt -o ab:cd --long arga,argb:,argc,argd -- -ad -b best --argd value1 value2
+getopt 命令的选项所指定的选项字符串的规则：
+短选项，每一个字符代表一个选项
+长选项，每一个字符串代表一个选项，用逗号分隔
+选项后跟一个冒号，表示选项需要一个参数
+选项后跟两个冒号，表示选项有一个可选参数（一个或零个参数）
+可选参数的参数和值之间不能有空格，短选项直接连起来，长选项加等号连起来
+
+set -- $(getopt a:b:s:u "$@")
+set -- $(getopt -- a:b:s:u "$@")
+eval set -- $(getopt -- a:b:s:u "$@")
+./format.sh -u -a after -b befor value1 "value2 value3" value4
+
+# 打印的帮助信息
+help_str="
+参数说明：
+  -h, --help:           打印帮助信息
+  -m, --mark [连接符]:  使用连接符，默认是下划线（_），可以指定
+  -a, --after string:   添加后缀
+  -b, --befor string:   添加前缀
+  -s, --string string:  指定中间的字符串，默认是“test”
+  -u, --upper:          全大写输出
+"
+# 解析命令行参数
+getopt_cmd=$(getopt -o m::ha:b:s:u --long mark::,help,after:,befor:,string:,upper -n $(basename $0) -- "$@")
+[ $? -ne 0 ] && exit 1
+eval set -- "$getopt_cmd"
+# 解析选项
+while [ -n "$1" ]
+do
+    case "$1" in
+        -m|--mark)
+            case "$2" in
+                "")
+                    mark="_"
+                    shift ;;
+                *)
+                    mark="$2"
+                    shift ;;
+            esac
+            ;;
+        -h|--help)
+            echo -e "$help_str"
+            exit ;;
+        -a|--after)
+            suffix="$2"
+            shift ;;
+        -b|--befor)
+            prefix="$2"
+            shift ;;
+        -s|--string)
+            base="$2"
+            shift ;;
+        -u|--upper)
+            upper=on ;;
+        --) shift
+            break ;;
+         *) echo "$1 is not an option"
+            exit 1 ;;  # 发现未知参数，直接退出
+    esac
+    shift
+done
+# 解析参数
+while [ -n "$1" ]
+do
+    names=("${names[@]}" "$1")
+    shift
+done
+names[0]=${names[0]:-$base}
+for name in "${names[@]}"
+do
+    # 添加前缀和后缀
+    output="${prefix:+${prefix}${mark}}${name}${suffix:+${mark}${suffix}}"
+    # 判断是否要全大写输出
+    if [ $upper = on ]
+    then
+        output=${output^^}
+    fi
+    # 输出结果
+    echo "$output"
+done
+
+
+
+
+
+
+
+#处理参数，规范化参数
+ARGS=`getopt -a -o nmc:H:N:G:D: --long name:,mem:,cpu:,host:,netmask:,gateway:,dns:,help -- "$@"`
+if [ $? != 0 ];then
+        echo "Terminating..."
+        exit 1
+fi
+#重新排列参数顺序
+eval set -- "${ARGS}"
+#通过shift和while循环处理参数
+while :
+do
+    case $1 in
+        -n|--name)
+            name=$2
+            shift
+            ;;
+        -m|--mem)
+            mem=$2
+            shift
+            ;;
+        -c|--cpu)
+            cpu=$2
+            shift
+            ;;
+        -h|--host)
+            host=$2
+            shift
+            ;;
+        -n|--netmask)
+            netmask=$2
+            shift
+            ;;
+        -g|--gateway)
+            gateway=$2
+            shift
+            ;;
+        -d|--dns)
+            dns=$2
+            shift
+            ;;
+        --help)
+            usage
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error!"
+            exit 1
+            ;;
+    esac
+shift
+done
+echo "name: $name"
+echo "mem: $mem"
+echo "cpu: $cpu"
+echo "host: $host"
+echo "netmask: $netmask"
+echo "gateway: $gateway"
+echo "dns: $dns"

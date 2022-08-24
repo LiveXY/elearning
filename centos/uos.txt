@@ -1,3 +1,36 @@
+UOS服务器版本
+yum info mysql nginx redis ffmpeg
+yum install mysql mysql-server nginx redis ffmpeg
+systemctl restart nginx redis mysqld
+
+mysql
+create schema dbname default character set utf8mb4;
+
+sed -i 's/NO_AUTO_CREATE_USER,//' dbname.sql
+mysql dbname < dbname.sql
+
+yum install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langpack-zh-Hant libreoffice-ure libreoffice-ure-common libreoffice-base libreoffice-data libreoffice-impress libreoffice-x11 libreofficekit libreoffice-writer -y
+
+或
+yum install mysql nginx redis ffmpeg -y
+systemctl restart nginx redis
+vi /etc/profile
+export PATH=$PATH:/usr/local/mysql/bin
+source /etc/profile
+mysqld --initialize --user=mysql
+systemctl restart mysql
+mysql -uroot -p
+alter user 'root'@'localhost' identified by '123456';
+flush privileges;
+
+mysql -uroot -p
+create schema dbname default character set utf8mb4;
+use dbname;
+source /data/dbname.sql;
+或
+mysql dbname < dbname.sql
+
+
 https://github.com/dbeaver/dbeaver/releases
 https://blog.csdn.net/Mathieu66/article/details/116131286
 
@@ -13,7 +46,11 @@ export PATH=$PATH:/usr/local/go/bin:/home/$(whoami)/go/bin
 source ~/.bashrc
 source /etc/profile
 
-wget https://studygolang.com/dl/golang/go1.18.1.linux-amd64.tar.gz
+wget https://studygolang.com/dl/golang/go1.17.12.linux-arm64.tar.gz
+wget https://studygolang.com/dl/golang/go1.18.4.linux-arm64.tar.gz
+
+wget https://studygolang.com/dl/golang/go1.17.12.linux-amd64.tar.gz
+wget https://studygolang.com/dl/golang/go1.18.4.linux-amd64.tar.gz
 sudo tar -C /usr/local/ -zxf go1.18.1.linux-amd64.tar.gz
 go env
 go env -w GOPROXY=https://goproxy.cn,direct
@@ -797,8 +834,8 @@ psql -U tgroot -d tglearning -h 127.0.0.1 -W -p 5436
 同步MYSQL数据
 vi pgload.load
 LOAD DATABASE
-    FROM mysql://root:tg@@2020@@TRAINGO!@10.1.1.96:3001/51learning
-    INTO pgsql://tgroot:traingo123@10.1.1.111:5432/tglearning
+    FROM mysql://root:123456@10.1.1.96:3001/51learning
+    INTO pgsql://tgroot:123456@10.1.1.111:5432/tglearning
 
 WITH include drop, create tables, create indexes, reset sequences, workers = 8, concurrency = 1,
     multiple readers per thread, rows per range = 50000

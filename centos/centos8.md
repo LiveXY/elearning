@@ -1,6 +1,17 @@
 centos8替代品
+https://mirrors.almalinux.org/isos.html
 https://download.rockylinux.org/pub/rocky/
 https://atl.mirrors.knownhost.com/almalinux/
+
+
+centos7
+cd /home
+wget -c https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.4-amd64-static.tar.xz
+xz -d ffmpeg-4.4-amd64-static.tar.xz && tar xvf ffmpeg-4.4-amd64-static.tar
+ln -s /home/ffmpeg-4.4-amd64-static/ffmpeg /usr/local/bin/ffmpeg
+ln -s /home/ffmpeg-4.4-amd64-static/ffprobe /usr/local/bin/ffprobe
+
+yum install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langpack-zh-Hant libreoffice-ure libreoffice-ure-common libreoffice-base libreoffice-data libreoffice-impress libreoffice-x11 libreofficekit libreoffice-writer -y
 
 centos8
 
@@ -27,8 +38,12 @@ cat /etc/issue
 dmesg | grep Linux
 dmesg | grep -i eth
 lscpu
+lsblk
 dmidecode
 cat /proc/interrupts
+lspci：用于 PCI 设备
+lsusb：用于 USB 设备
+lspcmcia : 用于 PCMCIA 卡
 
 麒麟
 nkvers
@@ -221,4 +236,147 @@ firewall-cmd --list-rich-rules --permanent
 firewall-cmd --remove-rich-rule 'rule family="ipv4" source address="10.8.0.8" port port=22 protocol=tcp accept' --permanent
 firewall-cmd --remove-rich-rule 'rule family="ipv4" source address="192.168.1.0/24" port port="11211" protocol="tcp" accept' --permanent
 
+增加交换分区
+swapon --show
+创建
+# if: 输入文件；of: 输出文件；bs: 块大小；count: 块数
+dd if=/dev/zero of=/swapfile bs=1024 count=1048572
+chmod 600 /swapfile
+使用mkswap命令将文件标记为交换分区。
+mkswap /swapfile
+启用交换分区
+swapon /swapfile
+键入以下命令验证交换分区是否可用：
+swapon --show
+free -h
 
+vi /etc/fstab
+/swapfile swap swap defaults 0 0
+
+cat /proc/sys/vm/swappiness
+vi /etc/sysctl.conf
+vm.swappiness=10
+vm.vfs_cache_pressure=50
+
+sysctl -p
+
+删除交换分区是以上步骤的逆操作，首先将对应的分区条目从/etc/fstab文件中删除，再通过以下命令卸载交换分区：
+swapoff -v /swapfile
+最后删除交换文件：
+rm /swapfile
+
+
+golang 1.18
+wget https://studygolang.com/dl/golang/go1.18.3.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
+ll /usr/local/go/bin
+vi /etc/profile
+export PATH=$PATH:/usr/local/go/bin
+source /etc/profile
+go version
+
+no such tool "compile"
+go env | grep GOTOOLDIR
+vi /etc/profile
+export GOROOT=/usr/local/go
+source /etc/profile
+
+扩容磁盘空间
+fdisk -l
+fdisk /dev/sda
+n
+p
+w
+
+fdisk /dev/sda
+t
+3
+8e
+w
+
+partprobe
+mkfs -t xfs /dev/sda3
+mkfs.xfs /dev/sda3 -f
+mount /dev/sda3 /opt
+mount /dev/sda3 /data
+df -TH
+findmnt -A
+
+umount /opt
+mount /dev/sda3 /51learning
+
+vi /etc/fstab
+/dev/sda3 /51learning                       xfs     defaults        0 0
+/dev/sda3 /data                       xfs     defaults        0 0
+
+使用 UUID 来进行永久挂载
+blkid
+vi /etc/fstab
+UUID=********** /51learning xfs defaults 0 0
+
+在 Linux 中，外围设备都位于 /dev 挂载点，内核通过以下的方式理解硬盘：
+
+/dev/hdX[a-z]: IDE 硬盘被命名为 hdX
+/dev/sdX[a-z]: SCSI 硬盘被命名为 sdX
+/dev/xdX[a-z]: XT 硬盘被命名为 xdX
+/dev/vdX[a-z]: 虚拟硬盘被命名为 vdX
+/dev/fdN: 软盘被命名为 fdN
+/dev/scdN or /dev/srN: CD-ROM 被命名为 /dev/scdN 或 /dev/srN
+
+l
+0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden or  c6  DRDOS/sec (FAT-
+ 4  FAT16 <32M      40  Venix 80286     85  Linux extended  c7  Syrinx         
+ 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data    
+ 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility   
+ 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi ea  Rufus alignment
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         eb  BeOS fs        
+ f  W95 Ext'd (LBA) 54  OnTrackDM6      a6  OpenBSD         ee  GPT            
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        ef  EFI (FAT-12/16/
+11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f0  Linux/PA-RISC b
+12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f1  SpeedStor      
+14  Hidden FAT16 <3 61  SpeedStor       ab  Darwin boot     f4  SpeedStor      
+16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      f2  DOS secondary  
+17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fb  VMware VMFS    
+18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fc  VMware VMKCORE 
+1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fd  Linux raid auto
+1c  Hidden W95 FAT3 75  PC/IX           bc  Acronis FAT32 L fe  LANstep        
+1e  Hidden W95 FAT1 80  Old Minix       be  Solaris boot    ff  BBT
+
+阿里云配置
+vi /etc/sysctl.conf
+fs.file-max = 1048576
+fs.nr_open = 1048576
+
+vm.swappiness = 0
+kernel.sysrq = 1
+
+net.ipv4.neigh.default.gc_stale_time = 120
+
+# see details in https://help.aliyun.com/knowledge_detail/39428.html
+net.ipv4.conf.all.rp_filter = 0
+net.ipv4.conf.default.rp_filter = 0
+net.ipv4.conf.default.arp_announce = 2
+net.ipv4.conf.lo.arp_announce = 2
+net.ipv4.conf.all.arp_announce = 2
+
+# see details in https://help.aliyun.com/knowledge_detail/41334.html
+net.ipv4.tcp_max_tw_buckets = 262144
+net.ipv4.tcp_syncookies = 1
+
+# tcp_max_syn_backlog will only take effect when net.ipv4.tcp_syncookies == 0
+# net.ipv4.tcp_max_syn_backlog = 65536
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_slow_start_after_idle = 0
+
+其他配置
+net.core.somaxconn = 65536
+/sys/kernel/mm/transparent_hugepage/enabled
+echo never > /sys/kernel/mm/redhat_transparent_hugepage/enabled

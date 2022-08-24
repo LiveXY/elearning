@@ -262,10 +262,13 @@ exportfs -r #使配置生效
 showmount -e localhost
 firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="10.0.0.0/8" accept'
 
+findmnt -A
+mount -l
 showmount -e 10.0.0.10
 rpcinfo -p 10.0.0.10
 mount -t nfs 10.0.0.10:/home /home #其它服务器挂载
 umount /home nfs #取消挂载
+umount -l /home #取消挂载
 #自动挂载
 vi /etc/rc.local
 mount -t nfs 10.0.0.10:/home /home
@@ -366,6 +369,7 @@ fuser -m -v /home/test/
 kill -9 id
 umount /home/test/
 df -h
+findmnt -A
 
 设置客户端启动时候就挂载NFS
 vi /etc/fstab

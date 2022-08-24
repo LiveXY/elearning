@@ -92,12 +92,24 @@ server {
 TCP代理 nginx1.9版本
 ```
 stream {
-       upstream ds_nodejs {
-               server 10.10.0.11:8008;
-       }
-       server {
-               listen 8008;
-               proxy_pass ds_nodejs;
-       }
+	upstream ds_nodejs {
+	 	server 10.10.0.11:8008;
+	}
+	server {
+	 	listen 8008;
+	 	proxy_pass ds_nodejs;
+	}
 }
 ```
+
+匹配优先级：= > ^~ >  ~ > ~* > 不带任何字符。
+
+$variable 仅为变量时，值为空或以0开头字符串都会被当做 false 处理；
+= 或 != 相等或不等；
+~ 正则匹配；
+! ~ 非正则匹配；
+~* 正则匹配，不区分大小写；
+-f 或 ! -f 检测文件存在或不存在；
+-d 或 ! -d 检测目录存在或不存在；
+-e 或 ! -e 检测文件、目录、符号链接等存在或不存在；
+-x 或 ! -x 检测文件可以执行或不可执行；

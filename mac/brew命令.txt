@@ -16,7 +16,36 @@ source ~/.bash_profile
 
 brew update-reset
 
-https://mirrors.aliyun.com/homebrew/brew.git/
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask-versions"
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask-versions.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-services"
+git remote set-url origin https://github.com/Homebrew/homebrew-services
+#Bash
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
+source ~/.bash_profile
+#zsh
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.zshrc
+source ~/.zshrc
+
+cd $(brew --repo)/Library/Taps/homebrew/homebrew-services
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-cask.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask-versions"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-cask-versions.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask-drivers"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-cask-drivers.git
+git clone https://mirrors.aliyun.com/homebrew/homebrew-cask-fonts.git
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
 
 aliyun安装
 git clone https://github.com/Homebrew/install brew-install
@@ -46,6 +75,8 @@ brew services list
 brew list
 brew reinstall go
 brew uninstall -f go
+brew link --overwrite go@1.18
+
 
 安装PHP
 brew search php

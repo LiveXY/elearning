@@ -93,6 +93,9 @@ https://github.com/thx/gogocode
 npm install gogocode-cli -g
 gogocode -s ./src -t gogocode-plugin-vue -o ./src-out
 
+https://github.com/latex3/latex3
+https://github.com/overleaf/overleaf
+https://github.com/mathjax/MathJax-src
 https://github.com/kingyiusuen/image-to-latex
 https://github.com/excalidraw/excalidraw
 
@@ -713,9 +716,14 @@ yarn --version
 yarn config set npmRegistryServer https://registry.npm.taobao.org
 
 
+markdown to ppt
+https://github.com/slidevjs/slidev
+可视化算法的交互式在线平台
+https://github.com/algorithm-visualizer/algorithm-visualizer
 
-
-
-
-
+数据库管理工具 MySQL, Postgres, SQLite, SQL Server
+https://github.com/beekeeper-studio/beekeeper-studio
+https://github.com/sqlectron/sqlectron-core
+https://github.com/sqlectron/sqlectron-gui
+https://github.com/sqlectron/sqlectron-gui/releases
 

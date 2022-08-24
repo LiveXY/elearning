@@ -16,3 +16,178 @@ https://github.com/toitlang/toit
 eBPF bpftrace 是 Linux 高级追踪工具和语言。该工具基于 eBPF 和 BBC 实现了通过探针机制采集内核和程序运行的信息，然后用图表等方式将信息展示出来，帮助开发者找到隐藏较深的 Bug、安全问题和性能瓶颈。
 https://github.com/iovisor/bpftrace
 
+https://git.nssm.cc/nssm/nssm
+https://nssm.cc/download
+nssm install servername //创建servername服务，弹出配置界面
+nssm start servername //启动服务
+nssm stop servername //暂停服务
+nssm restart servername //重新启动服务
+nssm remove servername //删除创建的servername服务
+nssm edit servername//更改servername服务，弹出修改界面
+nssm set servername 参数名 参数值 //设置服务参数值
+sc delete servername//windows删除服务命令
+直接使用windows的服务管理也可以实现服务的操作，服务右键属性 - 恢复即可设置服务挂掉重启等内容。
+
+https://github.com/ApsaraDB/PolarDB-for-PostgreSQL
+https://github.com/ApsaraDB/PolarDB-FileSystem
+
+https://github.com/akopytov/sysbench
+
+https://github.com/redis/redis
+比REDIS更快
+https://github.com/Snapchat/KeyDB
+keydb-server
+keydb-server /path/to/keydb.conf
+keydb-server --port 9999 --replicaof 127.0.0.1 6379
+keydb-server /etc/keydb/6379.conf --loglevel debug
+
+rpm --import https://download.keydb.dev/pkg/open_source/rpm/RPM-GPG-KEY-keydb
+yum install https://download.keydb.dev/pkg/open_source/rpm/centos7/x86_64/keydb-latest-1.el7.x86_64.rpm
+yum install https://download.keydb.dev/pkg/open_source/rpm/centos7/aarch64/keydb-latest-1.el7.aarch64.rpm
+yum install https://download.keydb.dev/pkg/open_source/rpm/centos8/x86_64/keydb-latest-1.el8.x86_64.rpm
+yum install https://download.keydb.dev/pkg/open_source/rpm/centos8/aarch64/keydb-latest-1.el8.aarch64.rpm
+systemctl enable keydb
+systemctl restart keydb
+
+keydb-server --protected-mode no --server-threads 7 --server-thread-affinity true --save ""
+redis-server --protected-mode no --io-threads [#threads] --save ""
+memtier_benchmark -s [ip address] –hide-histogram –threads=32 –ratio=1:0
+memtier_benchmark -s [ip address] –hide-histogram –threads=32
+
+git clone https://github.com/pingcap/go-ycsb.git
+cd go-ycsb
+make
+我们先来看一下 workloads 文件夹，目录下有各种workload的模板，可以基于workload模板进行自定义修改。默认的6种测试场景如下：
+
+workloada：读写均衡型，50%/50%，Reads/Writes
+workloadb：读多写少型，95%/5%，Reads/Writes
+workloadc：只读型，100%，Reads
+workloadd：读最近写入记录型，95%/5%，Reads/insert
+workloade：扫描小区间型，95%/5%，scan/insert
+workloadf：读写入记录均衡型，50%/50%，Reads/insert
+workload_template：参数列表模板。
+所以我们可以依据不同的 workload 多维度的对系统进行测试。workload里面的操作主要包括：
+
+Insert：插入一条新的记录
+Update：更新一条记录的某一个或者所有 fields
+Read：读取一条记录的某一个或者所有 fields
+Scan：随机从一个 key 开始顺序扫描随机条记录
+在测试的时候，我们还需要根据不同的业务场景来模拟测试，那么可以通过 requestdistribution 控制：
+
+uniform：随机选择一个记录；
+sequential：按顺序选择记录；
+zipfian：根据 Zipfian 分布来选择记录。大致意思就是互联网常说的80/20原则，也就是20%的key，会占有80%的访问量；
+latest：和 Zipfian 类似，但是倾向于访问新数据明显多于老数据；
+hotspot：热点分布访问；
+exponential：指数分布访问；
+下面我们看一下workload里面可以填哪些参数：
+
+Copy
+# 目前只实现了这一种
+workload=core
+ 
+# 总记录数
+recordcount=1000000
+ 
+# 测试阶段被操作的记录数，如果设置了 threadcount，那么每个线程操作的记录数=operationcount/threadcount
+operationcount=3000000
+ 
+# 线程数
+threadcount=500 
+ 
+# 如果一个表里面已经有记录数了，那么load的数据的时候从这个记录数开始
+insertstart=0
+ 
+# 一行数据的字段数
+fieldcount=10
+ 
+# 每个字段大小
+fieldlength=100
+ 
+# 是否应该读取所有字段
+readallfields=true
+ 
+# 是否应该更新所有字段
+writeallfields=false
+ 
+# 字段长度分布
+fieldlengthdistribution=constant
+#fieldlengthdistribution=uniform
+#fieldlengthdistribution=zipfian
+ 
+# 读操作概率
+readproportion=0.95 
+# 更新操作概率
+updateproportion=0.05
+ 
+# 插入操作概率
+insertproportion=0 
+
+# 先读后写操作同一条记录概率
+readmodifywriteproportion=0
+ 
+# 范围操作的概率
+scanproportion=0
+ 
+# 范围操作，最大的可操作的记录数
+maxscanlength=1000
+ 
+# 用来选择扫描时访问的记录数量分布情况
+scanlengthdistribution=uniform
+#scanlengthdistribution=zipfian
+ 
+# 记录应按顺序插入还是伪随机插入
+insertorder=hashed
+#insertorder=ordered
+ 
+# 以什么方式模拟测试
+requestdistribution=zipfian
+#requestdistribution=uniform
+#requestdistribution=latest
+ 
+# 下面这两种方式时针对requestdistribution为hotspot的时候
+# 构成热点集的数据项的百分比
+hotspotdatafraction=0.2
+ 
+# 访问热点集的数据操作百分比
+hotspotopnfraction=0.8
+ 
+# 操作数据的表名
+table=usertable
+ 
+# 延迟测量结果展现形式，暂时没实现
+measurementtype=histogram
+ 
+测试#
+比如我们现在要测试 redis 的性能，先写一个 workload：
+
+Copy
+recordcount=1000000
+operationcount=1000000
+workload=core 
+readallfields=true 
+readmodifywriteproportion=1 
+requestdistribution=uniform 
+redis.addr=127.0.0.1:6379 
+threadcount=50
+上面的这个 workload 表示在 load 的时候会插入100万条数据到库里面，操作的数据量也是100万，但是有50个线程，也就是每个线程实际操作2万行记录；
+
+测试方式使用 readmodifywriteproportion，先读后写，操作记录采用 uniform 也就是随机方式进行。
+
+先 load 数据：
+
+Copy
+./bin/go-ycsb load redis  -P workloads/workloada
+再运行测试：
+
+Copy
+./bin/go-ycsb run redis  -P workloads/workloada
+返回：
+
+Copy
+READ_MODIFY_WRITE - Takes(s): 18.8, Count: 499312, OPS: 26539.8, Avg(us): 1388, Min(us): 107, Max(us): 42760, 99th(us): 3000, 99.9th(us): 7000, 99.99th(us): 26000
+Takes(s) ：表示测试总共耗时；
+Count：操作记录数；
+OPS：Operates Per Second，一般是操作次数，与qps区别不大；
+Avg、Min、Max：平均、最小、最大单条记录操作耗时；
+99th、99.9th、99.99th：P99、P99.9、P99.99时延；

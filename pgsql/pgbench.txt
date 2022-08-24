@@ -155,7 +155,8 @@ statement latencies in milliseconds:
         52.404  END;
 
 
-
-
+ZQPool的tps可以到10万每秒，而pgbouncer最多到3万每秒就上不去了
+pgbench -h 10.197.160.18 -p 6432 -Uu01 -S -P 2 -T 30 -c 32
+pgbench -h 10.197.160.18 -p 5436 -Uu01  -S -P 2  -T 30 -c 32
 
 

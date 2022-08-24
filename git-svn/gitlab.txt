@@ -46,6 +46,12 @@ vi /var/opt/gitlab/.gitconfig
 vi /etc/gitlab/gitlab.rb
     external_url 'http://gitlab.example.com'
 
+vi /etc/gitlab/gitlab.rb
+unicorn['worker_processes'] = 6
+unicorn['worker_memory_limit_min'] = "128 * 1 << 20"
+unicorn['worker_memory_limit_max'] = "512 * 1 << 20"
+gitlab-ctl reconfigure
+gitlab-ctl restart
 
 =====================================
 gitlab-ctl status
@@ -102,6 +108,14 @@ quit
     sudo gitlab-ctl start unicorn
     sudo gitlab-ctl start sidekiq
 
+修复 GitLab 数据迁移的缺陷
+这个缺陷会导致进入项目页报 500 的错误。
+EE 版和 CE 版修复命令不一样，我们用的是 CE 版本（可以从 rpm 包名辨别）
+#EE版本执行命令
+sudo gitlab-rails runner "Project.where(mirror: false).where.not(import_url: nil).each { |p| p.import_data.destroy if p.import_data }"
+#CE版本执行命令
+sudo gitlab-rails runner "Project.where.not(import_url: nil).each { |p| p.import_data.destroy if p.import_data }"
+
 gitlab-rake gitlab:check --trace
 wrong or missing hooks
 sudo -u git -H /opt/gitlab/embedded/service/gitlab-shell/bin/create-hooks
@@ -125,6 +139,7 @@ usermod -U git
 ssh-keygen -R GITURL
 
 取消访问限制Forbidden
+vi /etc/gitlab/gitlab.rb
 gitlab_rails['rack_attack_git_basic_auth'] = {
    'enabled' => true,
    'ip_whitelist' => ["127.0.0.1"],
@@ -174,3 +189,13 @@ quit
 mysql to postgresql
 https://docs.gitlab.com/ee/update/mysql_to_postgresql.html
 
+vi /etc/gitlab/gitlab.rb
+git_data_dirs({
+    "default" => {
+        "path" => "/data/gitlab-data"
+    }
+})
+gitlab-ctl stop
+gitlab-ctl reconfigure
+gitlab-rake cache:clear
+gitlab-ctl restart

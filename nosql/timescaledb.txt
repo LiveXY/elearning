@@ -1,0 +1,10 @@
+git clone https://github.com/timescale/timescaledb
+./bootstrap && make && make install
+
+vim postgresql.conf
+shared_preload_libraries = 'timescaledb'
+
+psql
+create database tsdb;
+\c tsdb -
+create extension timescaledb ;
