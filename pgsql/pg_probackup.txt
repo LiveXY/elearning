@@ -1,0 +1,69 @@
+pg_probackup备份与恢复命令整理
+
+备份
+
+## pg_probackup备份
+
+1. 初始化PG备份目录
+pg_probackup init -B /data/backup
+
+2. 添加备份实例
+pg_probackup add-instance -B /data/backup/ -D  /opt/pg13/pgdata/ --instance pg_backup
+-B 第一步初始化目录 -D 数据库数据目录 --instance 为这个备份取一个实例名
+
+3. 配置归档命令，必须这么配置
+archive_command = 'pg_probackup archive-push -B /data/backup/  --instance pg_backup --wal-file-path=%p --wal-file-name=%f  --remote-proto=ssh --remote-host=ip_addr --remote-port=host_port  --remote-user=postgres --remote-path= /opt/pg13/bin/'
+
+4. 执行数据库全备
+pg_probackup backup -B /data/backup/ --instance  pg_backup -U backup -d postgres-h ip_addr -b full -j 8
+
+5. 执行增量备份(page)
+pg_probackup backup -B /data/backup/ --instance  pg_backup -U backup -d postgres-b page -j 8
+
+6. 执行增量备份(delta)
+pg_probackup backup -B /data/backup/ --instance  pg_backup -U backup -d postgres-b delta -j 8
+
+7. 删除所有错误备份
+pg_probackup delete -B /data/backup/  --instance=pg_backup --status=ERROR
+
+8. 查看备份
+pg_probackup show -B /data/backup/
+
+查看某个ID的备份信息
+pg_probackup show -B /data/backup/ --instance  pg_backup -i RBPILX
+
+查看归档日志信息
+pg_probackup show -B /data/backup/ --instance  pg_backup --archive
+
+9. 查看备份是否有效
+pg_probackup validate -B /data/backup/ --instance pg_backup
+恢复
+
+## pg_probackup恢复
+
+1.全量恢复（根据备份情况，找到全量备份集进行恢复）
+pg_probackup restore -B /data/backup --instance pg_backup -i RBPI9M
+
+2.增量恢复（根据备份情况，找到增量备份集进行恢复）
+pg_probackup restore -B /data/backup --instance pg_backup -i RBPIFT
+
+3.PIRT恢复（两个不同时间点）
+pg_probackup restore -B /data/backup --instance pg_backup --recovery-target-time="2022-05-11 15:05:08"
+
+恢复的参数信息
+Recovery options:
+--recovery-target-time=time time stamp up to which recovery will proceed
+--recovery-target-xid=xid  transaction ID up to  which recovery will proceed
+--recovery-target-lsn=lsn  LSN of the write-ahead log location up to which  recovery will proceed
+--recovery-target-inclusive=boolean
+              whether we stop just  after the recovery target
+--recovery-target-timeline=timeline
+              recovering into a  particular timeline
+--recovery-target=immediate|latest
+              end recovery as soon as  a consistent state is reached or as late as possible
+--recovery-target-name=target-name
+              the named restore point  to which recovery will proceed
+--recovery-target-action=pause|promote|shutdown
+              action the server should  take once the recovery target is reached
+              (default: pause)
+--restore-command=cmdline  command to use as  'restore_command' in recovery.conf; 'none' disables

@@ -1259,6 +1259,7 @@ username:password:UID:GID:GECUS:dircution:shell
 SUDO权限：/etc/sudoers
 增加一个管理员：
 useradd -g root test1
+usermod -a -G sudo test1
 visudo 然后增加：test1         ALL=(ALL)       ALL
 创建一个有效的缓冲30天用户：useradd -e 2019-01-01 -f 30 test
 改用户名：usermod -l test88 test //-l 新的用户名

@@ -57,6 +57,78 @@ wrk HTTP压力测试
 =======
 `wrk -t16 -c100 -d30s -T30s --latency http://127.0.0.1:8080/rest/hello` 16个线程，进行并发100,持续30秒的测试,30秒超时时间，打印延迟
 
+```
+git clone --depth=1 https://github.com/wg/wrk.git wrk
+cd wrk
+make
+
+wrk -H "Authorization: token xxxx" -c 100 -t 5 -d 10 http://domain/path
+vim /opt/post-wrk.lua
+wrk.method = "POST"  
+wrk.body = "uid=1&pass=2"  
+wrk.headers["Content-Type"] = "application/x-www-form-urlencoded"
+-- wrk.headers["Content-Type"] = "application/json"
+-- wrk.body = '{"uid":"1","pass":"2"}'
+wrk -t10 -c100 -d15s --script=/opt/post-wrk.lua --latency http://127.0.0.1:9090/websocket/api/send-by-user-id
+
+-- 上传文件
+wrk.method = "POST"
+wrk.headers["Content-Type"] = "multipart/form-data;boundary=------WebKitFormBoundaryX3bY6PBMcxB1vCan"
+file = io.open("path/to/fake.jpg", "rb")
+form = "------WebKitFormBoundaryX3bY6PBMcxB1vCan\r\n"
+form = form .. "Content-Disposition: form-data; name="file"; filename="fake.jpg"\r\n"
+form = form .. "Content-Type: image/jpeg\r\n\r\n"
+form = form .. file:read("*a")
+form = form .. "\r\n------WebKitFormBoundaryX3bY6PBMcxB1vCan--"
+wrk.body  = form
+-- 或者
+wrk.method = "POST"
+wrk.headers["Content-Type"] = "application/octet-stream"
+file = io.open("dog.jpg", "rb")
+wrk.body = file:read("*a")
+
+-- 这里把参数进行了随机化处理
+request = function()
+    local path = "/comments"
+    local start = math.random(1, 30000)
+    local amount = math.random(10, 30)
+    local body = "url=xxx1"
+        .. string.format("&start=%d", start)
+        .. string.format("&amount=%d", amount)
+        .. string.format("&parm=%d", xx)
+
+    local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    return wrk.format('POST', path, headers, body)
+end
+
+-- 动态文件中读包体
+init = function(args)
+    if (args[1] ~= nil) then 
+        delaytime = args[1]          -- 启动命令中可以指定延迟时间，如未指定，使用默认文件
+    end 
+    if (args[2] ~= nil) then      
+        filename = args[2]           -- 启动命令中可以指定请求文件目录，如未指定，使用默认文件
+    end
+    math.randomseed(os.time())
+    local i = 0
+    for line in io.lines(filename)   -- 把请求包体读入后写到list里，方便后续使用  
+    do
+        list[i] = line
+        i = i+1
+    end
+end
+request = function()
+    wrk.body = list[math.random(0, #list)]    -- 随机使用一个包体  
+    wrk.method = "POST"
+    wrk.scheme = "http"
+    wrk.path = "/appstore/uploadLogSDK"
+    wrk.headers["Content-Type"]="application/x-www-form-urlencoded"
+    return wrk.format()
+end
+
+```
+
 bombardier
 ====
 ```
@@ -114,3 +186,10 @@ class WebSiteUser(HttpLocust):
     host = "http://192.168.31.180"
     wait_time = between(1, 2)
 ```
+
+rewrk
+========
+
+rewrk -h http://127.0.0.1:5000 -t 12 -c 60 -d 5s
+rewrk -c 256 -t 12 -d 15s -h http://127.0.0.1:5000 --http2 --pct
+

@@ -1,0 +1,20 @@
+pgsync
+pgsync 0.7.1 – 将数据从一个Postgres数据库同步到另一个数据库。
+https://github.com/ankane/pgsync
+
+pgsync table1,table2
+pgsync "table*"
+pgsync products "where store_id = 1"
+pgsync products "where store_id = 1" --preserve
+pgsync products "where store_id = 1" --truncate
+
+
+usql 0.11 – 用于 SQL 数据库的通用 CLI 工具。
+https://github.com/xo/usql
+
+
+FerretDB 0.5 – Postgres之上的MongoDB替代方案。
+https://github.com/FerretDB/FerretDB
+
+https://dhamaniasad.github.io/awesome-postgres/#high-availability
+

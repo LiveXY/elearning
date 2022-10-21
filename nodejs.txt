@@ -5,6 +5,9 @@ https://segmentfault.com/a/1190000017158444
 构建：npm run build
 部署：npm run deploy
 
+web framework
+https://github.com/just-js/just
+
 NODEJS命令行工具（编写更好脚本的工具）
 https://github.com/google/zx
 

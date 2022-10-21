@@ -328,6 +328,7 @@ chkconfig --del mysqld [在服务清单中清除mysql服务]
 ## 添加普通用户并进行sudo授权管理
 ```sh
 useradd test
+usermod -a -G sudo test
 echo "123456" | passwd --stdin test
 vi /etc/sudoers
 root       ALL=(ALL)       ALL

@@ -270,6 +270,13 @@ rsync -avzrtopg --progress --delete /src  /dst
 
 如果文件比较大，可使用nohup将进程放到后台执行。
 nohup rsync -avzrtopgL  --progress /data/opt /data2/  >/var/log/$(date +%Y%m%d).mail.log &
+nohup rsync -avzP --delete /data/51learning-data/data1/ root@172.21.11.173:/data/51learning-data/data1/ &
+
+我如何通过rsync只复制目录结构，忽略掉文件呢？　
+rsync -av --include '*/' --exclude '*' source-dir dest-dir
+
+我能将更改过或者删除的文件也备份上来吗
+rsync -avzP --delete -b --backup-dir=/backup20220831 /data/51learning-data/data1/ root@172.21.11.173:/data/51learning-data/data1/
 
 增量备份本地文件
 rsync -avzrtopgL  --progress /src /dst

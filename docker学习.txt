@@ -1,5 +1,7 @@
 docker
 http://www.widuu.com/chinese_docker/examples/running_redis_service.html
+常见问题
+https://mp.weixin.qq.com/s/Kg7BBAMQatTKmHKTikUbJw
 
 centos6
 yum install http://mirrors.yun-idc.com/epel/6/i386/epel-release-6-8.noarch.rpm

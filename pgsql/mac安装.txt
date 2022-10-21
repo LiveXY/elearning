@@ -1,3 +1,5 @@
+Postico pgBackRest pganalyze pgMustard
+
 mac安装
 https://cloud.tencent.com/developer/article/1558721
 
@@ -108,5 +110,9 @@ pg_restore -d etms -h 127.0.0.1 -U root < dump.sql
 
 
 
-
+tail -n 10 /usr/local/var/log/postgres.log
+database files are incompatible with server
+The data directory was initialized by PostgreSQL version 13, which is not compatible with this version 14.5.
+brew postgresql-upgrade-database
+brew info postgresql
 

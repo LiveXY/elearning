@@ -2160,4 +2160,27 @@ outline:10px solid gold;
 隐藏文本的常用两种方法
 text-indent: -9999px; 或者 font-size: 0;
 
+CSS 实现角标效果
+tag{
+  border-radius: 4px 4px 4px 0px;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 10px;
+  line-height: 16px;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), transparent) var(--bg, #EA3447);
+  background-blend-mode: soft-light;
+}
+tag::before{
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  left: 0;
+  bottom: -3px;
+  background-color: inherit;
+  filter: brightness(.7);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+
 

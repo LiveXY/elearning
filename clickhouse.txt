@@ -6,6 +6,46 @@ https://zhuanlan.zhihu.com/p/34669883
 https://github.com/vinitk95/clickhouse-cluster
 https://developer.aliyun.com/article/762461
 
+https://packages.clickhouse.com/rpm/stable
+wget https://packages.clickhouse.com/rpm/stable/clickhouse-client-22.4.2.1.noarch.rpm
+wget https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-22.4.2.1.x86_64.rpm
+wget https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-dbg-22.4.2.1.x86_64.rpm
+wget https://packages.clickhouse.com/rpm/stable/clickhouse-server-22.4.2.1.noarch.rpm
+
+
+2 备份数据目录和配置文件
+# mkdir /data/backup    && cp /data/clickhouse /data/backup
+# mkdir /tmp/clickhouse && cp /etc/clickhouse* /tmp/clickhouse
+3 进入到下载目录，执行命令
+rpm -Uvh *.rpm
+说明1：目录下，最好只有刚才的下载的四个rpm
+说明2：如果报错的话，一般是依赖的问题，可自行检索。
+4 恢复编辑配置文件
+mv /etc/clickhouse-server/config.xml.rpmorig /etc/clickhouse-server/config.xml
+mv /etc/clickhouse-server/users.xml.rpmorig /etc/clickhouse-server/users.xml
+也可以先执行下面 5 启动服务，测试完成之后再根据需要编辑配置
+vim /etc/clickhouse-server/config.xml
+vim /etc/clickhouse-server/users.xml
+5 启动服务
+service clickhouse-server start
+6 查看升级后版本，再使用 clickhouse-client 连接测试
+$ clickhouse-server --version
+ClickHouse server version 22.4.2.1 (official build).
+$ clickhouse-client --version
+ClickHouse client version 22.4.2.1 (official build).
+$ clickhouse-client -h 127.0.0.1
+
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo
+sudo yum install -y clickhouse-server clickhouse-client
+sudo /etc/init.d/clickhouse-server start
+clickhouse-client # or "clickhouse-client --password" if you set up a password.
+
+# ARM (AArch64) build works on Amazon Graviton, Oracle Cloud, Huawei Cloud ARM machines.
+wget 'https://builds.clickhouse.com/master/aarch64/clickhouse'
+chmod a+x ./clickhouse
+sudo ./clickhouse install
+
 docker pull yandex/clickhouse-server
 docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server
 docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml yandex/clickhouse-server

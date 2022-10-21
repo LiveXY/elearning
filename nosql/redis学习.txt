@@ -47,6 +47,22 @@ select 0 打开默认为0的数据库
 keys TG:TG:*
 scan 0 match TG:TG:* count 100
 
+redis-cli info | grep instantaneous_ops_per_sec
+redis-cli info | grep keyspace_
+命中率 keyspace_hits/(keyspace_hits+keyspace_misses)
+redis-cli info | grep used_memory
+redis-cli info | grep mem_fragmentation_ratio #碎片率
+redis-cli info | grep evicted_keys #由于最大内存限制被移除的key的数量
+redis-cli info | grep blocked_clients #由于BLPOP, BRPOP, or BRPOPLPUSH而备阻塞的客户端
+redis-cli info | grep connected_clients
+redis-cli info | grep rejected_connections #由于达到maxclient限制而被拒绝的连接数
+redis-cli info | grep connected_slaves
+redis-cli info | grep master_last_io_seconds_ago #最近一次主从交互之后的秒数
+redis-cli info | grep master_link_down_since_seconds #主从断开的持续时间（以秒为单位）
+redis-cli info Keyspace
+redis-cli slowlog get 5
+redis-cli --bigkeys -i 0.01
+
 
 redis 安装
 yum install redis -y

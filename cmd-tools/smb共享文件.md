@@ -42,7 +42,13 @@ nobody = guest pcguest smbguest
 
 smb3.0多通道速度更快
 
+linux 挂载
+```
+yum install cifs-utils 
+apt-get install cifs-utils
+mount -t cifs -o username="xxxx",password="xxxx" //192.168.0.100/samba_file /smbdata
 
+```
 
 
 

@@ -13,9 +13,40 @@ pg_dump
   2.1 pg_basebackup
   2.2 pg_receivewal
   2.3 cp/scp/rsync
+  2.4 pg_probackup/Barman/pgBackRest
+
+pg_dump testdb > testdb.sql
+psql newdb -f testdb.sql
+pg_dump -h host1 dbname | psql -h host2 dbname
+
+pg_dump -Fc testdb -f testdb.dmp
+pg_restore -d newdb testdb.dmp
+
+pg_dump -Fd testdb -f testdb_dir
+pg_restore -d newdb testdb_dir
+
+pg_dump -Ft testdb -f testdb.tar
+pg_restore -d newdb testdb.tar
 
 pg_dump -Fd dbname -j4 -f dump_dir
 pg_dump -Fd -j3 -d postgres -f mydump_dir
+
+pg_dumpall -f cluster.sql
+psql -f cluster.sql postgres
+
+pg_dump -a -t 'emp*' -T employees testdb > testdb_table.sql
+其中，-a 表示只导出数据（不包含结构），-t 指定要导出的表，-T 表示排除的表。导出时也可以指定其他的导出格式，并且采用相应的方式进行数据导入
+\c testdb;
+COPY products to '/var/lib/pgsql/products.dat';
+COPY products FROM '/var/lib/pgsql/products.dat';
+使用COPY命令可以导出单个表中的数据或查询结果集
+COPY products to PROGRAM 'gzip > /var/lib/pgsql/products.dat.gz';
+COPY products FROM PROGRAM 'gunzip < /var/lib/pgsql/products.dat.gz';
+
+time pg_dumpall > cluster.sql
+time pg_dumpall | gzip > cluster.sql.gz
+gunzip -c cluster.sql.gz | psql newdb
+
 
 cat dump_blob.sh
 #!/bin/bash
@@ -25,4 +56,12 @@ do
     dmp_info=`file /home/postgres/virus_$dmp_blob | cut -d ':' -f 2`
     echo "$dmp_blob,$dmp_info" >> dmp_blob_info.txt
 done
+
+物理备份与恢复
+pg_ctl stop -D /var/lib/pgsql/14/data/
+tar czf backup.tar.gz /var/lib/pgsql/14/data
+pg_ctl start -D /var/lib/pgsql/14/data/
+
+tar xzf backup.tar.gz
+pg_ctl start -D /var/lib/pgsql/14/data/
 

@@ -2,6 +2,8 @@ centeros exec 执行权限设置
 ==========
 
 ```sh
+usermod -a -G sudo www
+
 vi /etc/sudoers
 #Defaults    requiretty
 Defaults   visiblepw

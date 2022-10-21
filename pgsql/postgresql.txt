@@ -1,3 +1,10 @@
+集群扩展
+https://github.com/citusdata/citus
+https://www.citusdata.com/download/
+
+https://mp.weixin.qq.com/s/5GFB8BFZyil-MksZr8my-g
+https://dhamaniasad.github.io/awesome-postgres/#high-availability
+
 initdb /usr/local/var/postgres/data -E utf8 --locale=zh_CN.UTF-8
 pg_ctl -D /usr/local/var/postgres/data -l logfile start
 pg_ctl -D /usr/local/var/postgres/data stop -s -m fast

@@ -4,6 +4,11 @@ https://download.rockylinux.org/pub/rocky/
 https://atl.mirrors.knownhost.com/almalinux/
 
 
+git clone --depth=1 https://github.com/wg/wrk.git wrk
+cd wrk
+make
+
+
 centos7
 cd /home
 wget -c https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.4-amd64-static.tar.xz
@@ -97,6 +102,8 @@ dnf install ffmpeg -y
 ffmpeg -version
 
 dnf install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langpack-zh-Hant libreoffice-ure libreoffice-ure-common libreoffice-base libreoffice-data libreoffice-impress libreoffice-x11 libreofficekit libreoffice-writer -y
+
+yum install chromium -y
 
 
 yum -y install wget

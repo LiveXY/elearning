@@ -181,3 +181,17 @@ dotnet ef database update   <- the database will be created/updated
 dotnet ef migrations list   <- to verify
 
 
+借助量子力学的思想，从单个示例生成位图和瓷砖图
+https://github.com/mxgmn/WaveFunctionCollapse
+基于模式匹配和约束传播的概率语言，153 个例子
+https://github.com/mxgmn/MarkovJunior
+
+
+winsw
+https://github.com/winsw/winsw
+
+DevToys 有助于完成日常任务，例如格式化 JSON、比较文本、测试 RegExp。无需使用许多不真实的网站来处理您的数据的简单任务。借助智能检测，DevToys 能够检测出可以处理您在 Windows 剪贴板中复制的数据的最佳工具。紧凑的覆盖可让您将应用程序保持在较小的位置并位于其他窗口的顶部。可以一次使用应用程序的多个实例。
+https://github.com/veler/DevToys
+https://github.com/ObuchiYuki/DevToysMac
+
+

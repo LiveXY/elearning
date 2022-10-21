@@ -1,3 +1,7 @@
+笔记
+https://github.com/streetwriters/notesnook
+
+
 jquery
 https://github.com/jquery/jquery
 https://github.com/madrobby/zepto
@@ -490,6 +494,8 @@ https://github.com/mozilla/popcorn-js
 https://github.com/kogmbh/ViewerJS
 https://github.com/corbindavenport/superembed.js
 https://github.com/PearInc/PearPlayer.js
+https://github.com/FranckFreiburger/vue-pdf
+https://github.com/diegomura/react-pdf
 
 图片播放器 组件
 https://github.com/dimsemenov/PhotoSwipe

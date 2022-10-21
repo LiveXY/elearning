@@ -1493,6 +1493,7 @@ https://github.com/yunjey/stargan
 Uber AI Labs 构建了这个深度概率编程库，用于简化其运输服务的预测和优化收益。 任何处理概率建模的人都会对这个库感兴趣。
 人脸卡通化
 https://github.com/mchong6/JoJoGAN
+https://github.com/williamyang1991/VToonify
 
 年龄和性别深度学习 --class_type gender
 https://github.com/dpressel/rude-carnie
@@ -3181,6 +3182,9 @@ IOS包混淆工具
 抠图
 https://github.com/saic-mdal/lama
 https://github.com/senguptaumd/Background-Matting
+人像抠图
+https://github.com/JizhiziLi/P3M
+https://github.com/ViTAE-Transformer/ViTAE-Transformer-Matting
 集成检测和跟踪
 https://github.com/feichtenhofer/Detect-Track
 https://github.com/xingyizhou/CenterTrack
@@ -4103,6 +4107,7 @@ https://github.com/opencv/opencv_contrib
 
 https://github.com/ultralytics/yoloV5
 https://github.com/Akbonline/Social-Distancing-using-YOLOv5
+https://github.com/WongKinYiu/yolov7
 基于细粒度动态网络的目标检测器
 https://github.com/StevenGrove/DynamicHead
 https://github.com/Vegeta2020/CIA-SSD
@@ -4350,6 +4355,7 @@ https://github.com/datawhalechina/HandPoseKeyPoints
 手部关节点算法采用开源代码参考地址：
 https://gitcode.net/EricLee/handpose_x
 
+https://github.com/WongKinYiu/yolov7
 https://github.com/ultralytics/yolov5
 https://github.com/ultralytics/yolov5/releases
 https://github.com/ultralytics/yolov5/issues/36

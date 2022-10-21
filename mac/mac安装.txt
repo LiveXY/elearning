@@ -1431,10 +1431,8 @@ https://www.blobmaker.app/
 https://getwaves.io/
 https://bennettfeely.com/clippy/
 
-
-
-
-
-
-
-
+Shotcut 22.06 免费、开源和跨平台的 GNU/Linux、macOS 和 Windows 系统视频编辑器在经过几个月的工作后发布，其中包含更多新功能和许多错误修复。
+CPU-Z ，能够检测自己的电脑情况
+SystemRescue 9.00 发布，更好的 NTFS 支持  
+hd tune 专业版v4.60 硬盘专业工具
+VirtualBox 6.1.34，同时不要忘记下载 Oracle VM VirtualBox Extension Pack

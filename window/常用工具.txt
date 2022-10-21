@@ -59,7 +59,7 @@ SERVICE_DISABLED 禁用
 
 https://github.com/microsoft/PowerToys
 https://github.com/microsoft/terminal
-
+https://github.com/kingToolbox/WindTerm
 https://github.com/mRemoteNG/mRemoteNG/releases
 
 下载工具
@@ -68,4 +68,7 @@ internet download manager6.38
 
 Chocolatey 作为包管理器
 ConEmu 终端工具就是 https://conemu.github.io/
-Snap Assist 
+Snap Assist
+
+https://freefilesync.org/
+

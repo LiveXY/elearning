@@ -418,6 +418,24 @@ mysql8
 * 
 * 查看锁，杀掉锁进程
 ```
+mysql -h127.0.0.1 -uroot -p -se "select id from information_schema.processlist where state='executing'" | awk '{print $1}'
+
+for id in `mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i executing | awk '{print $2}'`; do mysqladmin -h127.0.0.1 -uroot -p kill ${id}; echo ${id}; done
+
+for id in `mysql -h127.0.0.1 -uroot -p -se "select id from information_schema.processlist where state='executing' and info not like 'select id from information_schema.processlist%'" | awk '{print $1}'`; do echo ${id}; done
+
+for id in `mysql -h127.0.0.1 -uroot -p -se "select id from information_schema.processlist where time>5 and state='executing' and info not like 'select id from information_schema.processlist%'" | awk '{print $1}'`; do mysqladmin -h127.0.0.1 -uroot -p kill ${id}; echo ${id}; done
+
+select * from information_schema.processlist where state='locked'
+select * from information_schema.processlist where state='executing'
+select id, time, info from information_schema.processlist where state='executing' and info not like 'select id, time, info from information_schema.processlist%' order by time desc
+
+select concat('kill ', id, ';') from information_schema.processlist where state='executing' and info like 'update course as a inner join%'
+
+select * from information_schema.processlist where time>5 and state='executing'
+select concat('kill ', id, ';') from information_schema.processlist where time>5 and state='executing'
+
+
 mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i executing
 mysqladmin -h127.0.0.1 -uroot -p processlist | grep -i locked
 

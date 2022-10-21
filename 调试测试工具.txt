@@ -458,3 +458,66 @@ root                       链接此进程的root目录
 /var/log/cron                 每当cron进程开始一个工作时，就会将相关信息记录在这个文件中。
 /var/log/wtmp或utmp    登录信息。
 /var/log/faillog               用户登录失败信息。此外，错误登录命令也会记录在本文件中。
+
+常用蓝牙调试工具
+hciconfig，HCI 设备配置工具
+查看设备详细信息：hciconfig -a hci0或者hciconfig
+打开/关闭/重置hci设备：hciconfig hci0 up/down/reset
+认证打开/关闭：hciconfig hci0 auth/noauth，直接体现在进行蓝牙连接时，是否输入连接PIN密码，用于PIN配对
+查看/改变蓝牙主从状态：hciconfig hci0 lm 、hciconfig hci0 lm slave
+查看/设置蓝牙名称：hciconfig hci0 name 、hciconfig hci0 name Donge
+开启/关闭广播：hciconfig hci0 leadv/ noleadv
+查看支持的链路层状态：hciconfig hci0 lestates
+
+hcitool，HCI 设备管理工具
+查看HCI设备信息：hcitool dev
+发现周围蓝牙设备：hcitool -i hci0 inq
+蓝牙扫描：hcitool -i hci0 inq
+查看探查到的蓝牙信息：hcitool -i hci0 name 88:A9:B7:E6:F1:8F
+发送CMD蓝牙命令：hcitool cmd --help
+创建/删除蓝牙连接：hcitool -i hci0 cc/dc --ptype=dm1,dh3,dh5 01:02:03:04:05:06
+扫描附近BLE蓝牙设备：hcitool -i hci0 lescan
+连接/断开BLE设备：hcitool -i hci0 lecc/ledc 12:34:56:C2:9C:C7
+
+hcidump，HCI sniffer，蓝牙包的分析工具，hcidump读取发送和接受蓝牙设备的原始hci数据，并按照人可以识别的命令、事件、数据格式打印到屏幕上，转储信息还可以保存到一个当地文件中，从而保证转储文件在后续进行解析。
+仿真设备选定：hcidump -i hci0
+导出文件：hcidump -i hci0 -w bt_debug.cfa
+选定格式：hcidump -i hci0 -X
+显示时间：hcidump -i hci0 -t
+常用命令：hcidump -i hci0 -Xt -w bt_debug.cfa &，以Asicc、Hex打印，并且添加时间戳，转存到bt_debug.cfa文件中
+
+hciattach，该工具通过UART HCI将串行设备连接到BlueZ协议栈，作为HCI传数接口。
+-n：不脱离控制终端
+-p：当脱离控制终端时，打印PID信息
+-t：设置超时时间
+tty：指定绑定的串口设备，/dev可以省略掉
+type|id：蓝牙设备的类型或id，例如vendor或者设备指定的标识
+any：不指定HCI_UART 接口
+ericsson：爱立信基础模块
+-s：speed串口波特率设置
+flow：表示硬件流控制；noflow：表示不进行流控制
+bdaddr：蓝牙设备地址，如果指定了该参数，则地址将用于初始化设备。否则，将使用默认地址。
+
+btmon，该工具用于监控蓝牙数据
+-w：将数据写入文件xxx.log中，==该文件最好为未存在的文件，否则可能会有问题==
+-T：显示时间和日期
+-s：开始监控的socket
+-r：-w写入的文件，仅支持btmon -r xxx.log读取
+-i：监控的控制设备，一般为hci0
+
+bluetoothd，调试工具
+-d：使能DEBUG调试
+-C：提供过时的命令
+-n：运行程序时，前台打印LOG信息
+bluetoothctl，调试工具
+bluetoothctl：进入命令行模式
+list：查看控制器信息
+show：查看详细控制器信息
+paired-devices：显示配对的设备
+power on：上电控制器
+advertise on：开启广播
+scan on/off：开启/关闭扫描
+version：版本信息
+exit/quit：退出
+
+

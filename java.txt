@@ -89,3 +89,10 @@ https://github.com/appsmithorg/appsmith
 
 https://github.com/apache/cassandra
 
+数据库的变更数据捕获
+https://github.com/debezium/debezium
+
+SeaTunnel是用于同步和转换海量数据（离线和实时）的分布式、高性能数据集成平台
+https://github.com/apache/incubator-seatunnel
+https://seatunnel.apache.org/
+

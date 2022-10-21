@@ -1,0 +1,63 @@
+http {
+	limit_conn_zone $binary_remote_addr zone=peraddr:10m;
+	limit_req_zone $binary_remote_addr zone=perip:10m rate=1r/s;
+
+	server {
+		limit_conn peraddr 1;
+		limit_req zone=perip burst=5;
+	}
+}
+
+爬虫每秒min 10r/s max 100r/s
+http {
+	limit_req_zone  $anti_spider  zone=perspider:10m   rate=10r/s;
+
+	server {
+		limit_req zone=perspider burst=100 nodelay;
+		if ($http_user_agent ~* "googlebot|bingbot|Feedfetcher-Google") {
+		    set $anti_spider $http_user_agent;
+		}
+	}
+}
+
+单个 IP 地址的请求的处理速率min 1r/s max 5r/s
+服务器的请求处理速率min 10r/s
+http {
+	limit_req_zone $binary_remote_addr zone=perip:10m rate=1r/s;
+	limit_req_zone $server_name zone=perserver:10m rate=10r/s;
+
+	server {
+		limit_req zone=perip burst=5 nodelay;
+    	limit_req zone=perserver burst=10;
+	}
+}
+
+白名单
+geo $limit {
+    default 1;
+    10.0.0.0/8 0;
+    192.168.0.0/24 0;
+    172.20.0.35 0;
+}
+map $limit $limit_key {
+    0 "";
+    1 $binary_remote_addr;
+}
+limit_req_zone $limit_key zone=myRateLimit:10m rate=10r/s;
+
+限制下载速度
+location /download/ {
+    limit_rate_after 20m;
+    limit_rate       100k;
+}
+这个限制是针对每个请求的，表示客户端下载前20M时不限速，后续限制100kb/s。
+
+不同时间段
+map $date_local $limit_rate_time {
+    default 4K;
+    ~(00:|01:|02:|03:|04:|05:|06:|07:).*:.* 16K;
+    ~(08:|12:|13:|18:).*:.* 8K;
+    ~(19:|20:|21:|22:|23:).*:.* 16K;
+}
+limit_rate $limit_rate_time
+

@@ -1,0 +1,186 @@
+修改配置
+
+全局配置修改
+
+1,修改 postgresql.conf 配置文件（用于永久修改，需要重启数据库）
+2,通过 ALTER SYSTEM 命令修改
+ALTER SYSTEM SET listen_addresses='*';
+会自动编辑 postgresql.auto.conf 文件，在数据库启动时会加载此文件，并用它的配置覆盖 postgresql.conf 中已有的配置（不要手动修改它）
+
+非全局配置修改
+
+DATABASE 级别
+ALTER DATABASE <库名> SET listen_addresses='*';
+ALTER DATABASE <库名> RESET listen_addresses;
+SESSION 级别
+方法一：SET 命令
+SET listen_addresses='*';
+SET listen_addresses TO DEFAULT;
+方法二：PG_SETTINGS 视图
+UPDATE `pg_settings`
+SET setting = '*'
+WHERE name = 'listen_addresses';
+``
+方法三：set_config
+SELECT set_config('configparameter',new_value,false);
+ROLE 级别
+ALTER ROLE <角色名> IN DATABASE <库名> SET listen_addresses='*';
+ALTER ROLE <角色名> IN DATABASE <库名> RESET listen_addresses;
+
+
+查看参数
+数据字典查看
+SELECT name,setting
+  FROM pg_settings
+ WHERE name = 'listen_addresses';
+       name       |  setting
+------------------+-----------
+ listen_addresses | localhost
+SELECT current_setting('listen_addresses');
+ current_setting
+-----------------
+ localhost
+  show all
+show listen_addresses;
+
+listen_addresses
+------------------
+localhost
+ 文件查看
+cat /data/pg_data/postgresql.auto.conf|grep listen
+listen_addresses = '*'
+
+cat /data/pg_data/postgresql.conf | sed 's/^[ \t]*//g' | grep -v "^#"  | grep -v "^$" |awk -F# '{ print $1 }' | grep -v "^$"grep listen
+listen_addresses = '*'
+
+参数生效
+pg_ctl -D /data/pg_data reload
+SELECT pg_reload_conf();
+
+初始建议参数设置
+编辑
+vim /data/pg_data/postgresql.conf
+ 查看
+cat /data/pg_data/postgresql.conf | sed 's/^[ \t]*//g' | grep -v "^#"  | grep -v "^$" |awk -F# '{ print $1 }' | grep -v "^$"
+ 参数值
+        listen_addresses = '*'
+        port = 5432
+        max_connections = 100
+        max_prepared_transactions = 100
+        checkpoint_timeout = 5min
+        max_wal_size = 1GB
+        min_wal_size = 80MB
+        wal_level = logical
+        max_wal_senders = 10
+        wal_keep_size = 512
+        wal_sender_timeout = 60s
+        track_commit_timestamp = on
+        hot_standby = on
+        max_standby_streaming_delay = 30s
+        wal_receiver_status_interval = 10s
+        hot_standby_feedback = on
+        wal_receiver_timeout = 60s
+        log_truncate_on_rotation = on
+        log_timezone = 'PRC'
+        timezone = 'PRC'
+        datestyle = 'iso, mdy'
+        lc_messages = 'en_US.UTF-8'
+        lc_monetary = 'en_US.UTF-8'
+        lc_numeric = 'en_US.UTF-8'
+        lc_time = 'en_US.UTF-8'
+        default_text_search_config = 'pg_catalog.english'
+        dynamic_shared_memory_type = posix
+        shared_buffers = 128MB
+        archive_mode = on
+        archive_command = 'cp  %p /data/archive/%f'
+        log_destination = 'stderr'
+        logging_collector = on
+        log_rotation_size = 1GB
+        log_directory = 'log'
+        log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+        log_file_mode = 0600
+        log_rotation_age = 1d
+connection
+
+listen_addresses：指定服务器要侦听来自客户端应用程序的连接的 TCP/IP 地址。默认值为 localhost，它只允许建立本地 TCP/IP “环回”连接。
+
+port：服务器侦听的 TCP 端口；默认为 5432，可以更改其他端口
+
+max_connections：确定与数据库服务器的最大并发连接数。默认值通常为 100 个连接，运行备用服务器时，必须将此参数设置为与主服务器上的值相同或更高。否则，备用服务器将不允许进行查询。
+
+max_prepared_transactions：设置可以同时处于“已准备”状态的最大事务数，至少与 max_connections 一样大
+
+system
+
+WAL 设置
+checkpoint_timeout：自动 WAL 检查点之间的最长时间，默认值为五分钟
+
+max_wal_size：允许 WAL 在自动检查点期间增长的最大大小，默认值为 1 GB
+
+min_wal_size：WAL 磁盘使用率低于此设置，旧的 WAL 文件始终会在检查点回收以供将来使用，而不是删除,默认值为 80 MB。
+
+wal_level：主从结构，主节点设置该参数为 logical 或者 replica
+
+max_wal_senders：指定来自备用服务器或流式处理基础备份客户端的最大并发连接数，主节点设置
+
+wal_keep_size：指定目录中保留的过去日志文件段的最小数目，以防备用服务器需要获取它们以进行流式复制。每个段通常为 16 MB，主节点设置
+
+wal_sender_timeout：终止非活动时间超过指定毫秒数的复制连接，默认值为 60 秒，主节点设置。
+
+track_commit_timestamp：记录事务的提交时间，主节点设置
+
+hot_standby：主从结构，说明这台机器不仅仅是用于数据归档，也用于数据查询，备用服务器设置
+
+max_standby_streaming_delay：主从结构，数据流备份的最大延迟时间，默认值为 30 秒，备用服务器设置
+
+wal_receiver_status_interval：主从结构，多久向主报告一次从的状态，当然从每次数据复制都会向主报告状态，这里只是设置最长的间隔时间，默认值为 10 秒，备用服务器设置
+
+hot_standby_feedback：指定热备用是否将向主备用数据库或上游备用数据库发送有关当前在备用数据库上执行的查询的反馈，主从结构，备用服务器设置
+
+wal_receiver_timeout：终止非活动时间超过指定毫秒数的复制连接，默认值为 60 秒，备用服务器设置
+
+log_truncate_on_rotation：此参数将导致 PostgreSQL 截断（覆盖）而不是追加到任何同名的现有日志文件
+
+log_timezone：设置用于写入服务器日志中的时间戳的时区。
+
+查询显示设置
+
+timezone：设置显示和解释时间戳的时区
+
+datestyle：设置日期和时间值的显示格式，使用默认值即可
+
+lc_messages：设置显示消息时使用的语言，使用默认值即可
+
+lc_monetary：设置用于设置货币金额格式的区域设置，使用默认值即可。
+
+lc_numeric：设置用于设置数字格式的区域设置，使用默认值即可
+
+lc_time：设置用于设置日期和时间格式的区域设置，使用默认值即可
+
+default_text_search_config：选择文本搜索配置，该配置由文本搜索函数的那些变体使用，这些变体没有指定配置的显式参数，使用默认值即可
+
+BUFFER
+dynamic_shared_memory_type：指定服务器应使用的动态共享内存实现,使用分配的 POSIX 共享内存
+
+shared_buffers：设置数据库服务器用于共享内存缓冲区的内存量。默认值通常为 128 MB
+
+ARCHIVE
+archive_mode：启用后，将通过设置 archive_command 将已完成的 WAL 段发送到存档存储。
+
+archive_command：要执行的本地 shell 命令，用于存档已完成的 WAL 文件段
+
+LOG
+log_destination：记录服务器消息的方法，包括 stderr，csvlog 和 syslog。
+
+logging_collector：是否启用日志记录收集器
+
+log_rotation_size：此参数确定单个日志文件的最大大小，默认值 10MB
+
+log_directory：启用后，此参数确定将在其中创建日志文件的目录
+
+log_filename：此参数设置所创建日志文件的文件名
+
+log_file_mode：此参数在启用时设置日志文件的权限。
+
+log_rotation_age：此参数确定单个日志文件的最长生存期
+

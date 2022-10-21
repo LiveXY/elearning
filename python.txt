@@ -338,4 +338,7 @@ https://github.com/Liangchengdeye/Dpark
 https://buildbot.python.org/all/#/
 
 
+https://github.com/Dragonfly/dragonfly
+https://github.com/yzddmr6/WebCrack
 
+https://github.com/CharlesPikachu/DecryptLogin
