@@ -46,11 +46,11 @@ wget 'https://builds.clickhouse.com/master/aarch64/clickhouse'
 chmod a+x ./clickhouse
 sudo ./clickhouse install
 
-docker pull yandex/clickhouse-server
-docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server
-docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml yandex/clickhouse-server
+docker pull clickhouse/clickhouse-server
+docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 clickhouse/clickhouse-server
+docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml clickhouse/clickhouse-server
 容器需要公开用于HTTP通信的8123端口和用于主机间通信的9000端口。
-docker run -it --rm --link some-clickhouse-server:clickhouse-server yandex/clickhouse-client --host clickhouse-server
+docker run -it --rm --link some-clickhouse-server:clickhouse-server clickhouse/clickhouse-client --host clickhouse-server
 docker exec -it some-clickhouse-server bash
 cd etc/clickhouse-server
 user.xml
@@ -59,7 +59,7 @@ CREATE USER IF NOT EXISTS user1 IDENTIFIED WITH PLAINTEXT_PASSWORD BY 'pass1'
 CREATE DATABASE IF NOT EXISTS db1
 SHOW DATABASES
 GRANT ALL PRIVILEGES ON db1.* TO user1
-docker run -it --rm --link some-clickhouse-server:clickhouse-server yandex/clickhouse-client --host clickhouse-server -u user1 --password pass1
+docker run -it --rm --link some-clickhouse-server:clickhouse-server clickhouse/clickhouse-client --host clickhouse-server -u user1 --password pass1
 :) SHOW GRANTS
 :) SHOW DATABASES
 :) USE db1
@@ -139,13 +139,13 @@ vi /data/clickhouse/config.xml
     <log_queries>1</log_queries>
     <default_database>default</default_database>
      <!-- Configuration of clusters that could be used in Distributed tables.
-         https://clickhouse.yandex/docs/en/table_engines/distributed/
+         https://clickhouse.com/docs/en/table_engines/distributed/
       -->
     <remote_servers incl="clickhouse_remote_servers" />
     <zookeeper incl="zookeeper-servers" optional="true" />
      <!-- Substitutions for parameters of replicated tables.
           Optional. If you don't use replicated tables, you could omit that.
-         See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
+         See https://clickhouse.com/docs/en/table_engines/replication/#creating-replicated-tables
       -->
     <macros incl="macros" optional="true" />
      <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->
