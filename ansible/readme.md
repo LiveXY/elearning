@@ -237,3 +237,65 @@ ansible-playbook backupdb.yml --tags structure -e "host=6168 \
 #ansible-playbook tool7.yml --tags sshconfig -e 'host=6168 ip=192.168.6.168 key=~/.ssh/test.key' #ssh config 配置
 
 ```
+
+wait_for
+```
+wait_for模块常用参数：
+
+connect_timeout：在下一个任务执行之前等待连接的超时时间
+delay：等待一个端口或者文件或者连接到指定的状态时，默认超时时间为300秒，在这等待的300s的时间里，wait_for模块会一直轮询指定的对象是否到达指定的状态，delay即为多长时间轮询一次状态。
+host：wait_for模块等待的主机的地址，默认为127.0.0.1
+port：wait_for模块待待的主机的端口
+path：文件路径，只有当这个文件存在时，下一任务才开始执行，即等待该文件创建完成
+state：等待的状态，即等待的文件或端口或者连接状态达到指定的状态时，下一个任务开始执行。当等的对象为端口时，状态有started，stoped，即端口已经监听或者端口已经关闭；当等待的对象为文件时，状态有present或者started，absent，即文件已创建或者删除；当等待的对象为一个连接时，状态有drained，即连接已建立。默认为started
+timeout：wait_for的等待的超时时间,默认为300秒
+
+#等待8080端口已正常监听，才开始下一个任务，直到超时
+- wait_for: 
+    port: 8080 
+    state: started  
+    
+#等待8000端口正常监听，每隔10s检查一次，直至等待超时
+- wait_for: 
+    port: 8000 
+    delay: 10 
+    
+#等待8000端口直至有连接建立
+- wait_for: 
+    host: 0.0.0.0 
+    port: 8000 
+    delay: 10 
+    state: drained
+    
+#等待8000端口有连接建立，如果连接来自10.2.1.2或者10.2.1.3，则忽略。
+- wait_for: 
+    host: 0.0.0.0 
+    port: 8000 
+    state: drained 
+    exclude_hosts: 10.2.1.2,10.2.1.3 
+    
+#等待/tmp/foo文件已创建    
+- wait_for: 
+    path: /tmp/foo 
+
+#等待/tmp/foo文件已创建，而且该文件中需要包含completed字符串    
+- wait_for: 
+    path: /tmp/foo 
+    search_regex: completed 
+
+#等待/var/lock/file.lock被删除    
+- wait_for: 
+    path: /var/lock/file.lock 
+    state: absent 
+    
+#等待指定的进程被销毁
+- wait_for: 
+    path: /proc/3466/status 
+    state: absent 
+    
+#等待openssh启动，10s检查一次
+- wait_for: 
+    port: 22 
+    host: "{{ ansible_ssh_host | default(inventory_hostname) }}" search_regex: OpenSSH 
+    delay: 10 
+```

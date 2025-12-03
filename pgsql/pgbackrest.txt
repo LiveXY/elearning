@@ -1,5 +1,6 @@
 pgBackRest
 https://github.com/pgbackrest/pgbackrest
+https://pgbackrest.org/
 
 pgBackRest是一款开源的备份还原工具，目标旨在为备份和还原提供可靠易用的备份。
 

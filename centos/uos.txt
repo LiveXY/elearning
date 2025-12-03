@@ -1,4 +1,69 @@
+apt 离线安装
+apt install libreoffice -d #下载不安装 会下载到/var/cache/apt/archives下面
+apt install -f -y
+
+WPS
+https://www.wps.cn/product/wpslinux
+https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/11698/wps-office-11.1.0.11698-1.aarch64.rpm
+
+
+统信 UOS V20 1050A
+https://faq.uniontech.com/sever/sysmain/8742
+curl https://saas.bk-cdn.com/t/ee022e93-6f96-4b04-9b1f-eb9f6973a6da/u/8df43050-f8d2-4946-86fa-0b24b9168514/1685009492786/yum-utils-x86.zip -o yum-tuils-x86.zip
+curl https://saas.bk-cdn.com/t/ee022e93-6f96-4b04-9b1f-eb9f6973a6da/u/8df43050-f8d2-4946-86fa-0b24b9168514/1685009635778/1050-ufu.sh -o 1050-ufu.sh
+chmod u+x 1050-ufu.sh
+
+统信 UOS V20 1050A
+官方源地址：https://enterprise-c-packages.chinauos.com/server-enterprise-c/kongzi/1050/
+拉取
+dnf reposync -n --repoid=AppStream -p /data/reposync/kongzi/1050/ --download-metadata
+dnf reposync -n --repoid=BaseOS -p /data/reposync/kongzi/1050/ --download-metadata
+dnf reposync -n --repoid=UFU -p /data/reposync/kongzi/1050/ --download-metadata
+内网机器配置源
+vim /etc/yum.repos.d/UniontechOS.repo
+[AppStream]
+name = UniontechOS $releasever AppStream
+baseurl = http://192.168.33.160/kongzi/1050/AppStream/
+enabled = 1
+#username=$auth_u
+#password=$auth_p
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-uos-release
+gpgcheck = 0
+skip_if_unavailable = 1
+
+[BaseOS]
+name = UniontechOS $releasever BaseOS
+baseurl = http://192.168.33.160/kongzi/1050/BaseOS/
+enabled = 1
+#username=$auth_u
+#password=$auth_p
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-uos-release
+gpgcheck = 0
+skip_if_unavailable = 1
+
+[UFU]
+name = UniontechOS $releasever UFU
+baseurl = http://192.168.33.160/kongzi/1050/UFU/
+enabled = 1
+#username=$auth_u
+#password=$auth_p
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-uos-release
+gpgcheck = 0
+skip_if_unavailable = 1
+
 UOS服务器版本
+
+sudo dmidecode | grep "System Information" -A9 | egrep "Manufacturer|Product|Serial"
+lscpu
+free -m
+df -Th
+uname -a
+gcc --version
+
+换阿里云源
+vim /etc/apt/sources.list
+deb https://mirrors.aliyun.com/debian stable main contrib non-free
+
 yum info mysql nginx redis ffmpeg
 yum install mysql mysql-server nginx redis ffmpeg
 systemctl restart nginx redis mysqld
@@ -184,7 +249,7 @@ export DM_INSTALL_TMPDIR=/tmp
 
 cd /home/dmdb/dmdbms/bin
 ./dminit help
-./dminit PATH=/home/dmdb/dmdbms/data DB_NAME=TRAINGO CHARSET=1 CASE_SENSITIVE=0 SYSDBA_PWD=TRAINGO123
+./dminit PATH=/home/dmdb/dmdbms/data DB_NAME=TRAINGO CHARSET=1 CASE_SENSITIVE=0 SYSDBA_PWD=pass
 ./dmserver /home/dmdb/dmdbms/data/TRAINGO/dm.ini
 
 /home/dmdb/dmdbms/script/root/dm_service_installer.sh -h
@@ -193,8 +258,8 @@ systemctl restart DmServiceDMSERVER
 systemctl stop DmServiceDMSERVER
 systemctl status DmServiceDMSERVER
 
-disql SYSDBA/TRAINGO123
-disql SYSDBA/TRAINGO123@127.0.0.1:5236
+disql SYSDBA/pass
+disql SYSDBA/pass@127.0.0.1:5236
 
 select * from v$dm_ini;
 select TOP_SQL_TEXT from v$sql_history;
@@ -217,7 +282,7 @@ SP_SET_PARA_VALUE(2,'MAX_SESSIONS', 1000);
 SP_SET_PARA_VALUE(2,'MAX_SESSION_STATEMENT', 20000);
 
 select * from  user_tables;
-select svr_version FROM v$instance
+select svr_version FROM v$instance;
 
 SELECT SF_GET_SCHEMA_NAME_BY_ID(CURRENT_SCHID());
 SELECT TABLE_NAME FROM DBA_TABLES WHERE OWNER='DM';
@@ -503,6 +568,8 @@ DROP USER TGLEARNING;
 CREATE USER TGLEARNING IDENTIFIED BY "TGLEARNING2021";
 GRANT RESOURCE TO TGLEARNING;
 conn TGLEARNING/TGLEARNING2021@127.0.0.1:5236;
+
+ALTER USER "TGLEARNING" IDNENTIFIED BY "TGLEARNING2023";
 
 start /tmp/traingo-dameng.sql
 
@@ -826,7 +893,7 @@ createuser --superuser tgroot -P
 createdb tgtest -O traingo -E UTF8 -e
 createdb tglearning -O tgroot -E UTF8 -e
 
-psql postgres://traingo:traingo123@localhost/tgtest?sslmode=require
+psql postgres://traingo:pass@localhost/tgtest?sslmode=require
 psql -U traingo -d tgtest -h 10.1.1.111 -W
 psql -U tgroot -d tglearning -h 10.1.1.111 -W -p 5432
 psql -U tgroot -d tglearning -h 127.0.0.1 -W -p 5436
@@ -959,4 +1026,32 @@ https://mp.weixin.qq.com/s/re4UV7XyqJy3v0iN4UTvpg 自定义tinyint类型
 0 0 * * * pg_dump --no-password -U user db_name > backup.sql
 为了安全起见不要直接输入密码，而是应该将密码加入 .pgpass 文件，并且将该文件的权限设置为仅当前用户可见：
 chmod 600 .pgpass
+
+
+KES-V8 人大金仓数据库安装
+./setup.sh -i console
+sudo su
+/home/traingo/KES-V8/install/script/root.sh
+
+
+PGSQL 龙芯CPU安装
+
+getconf PAGESIZE
+grep -i huge /proc/meminfo
+xfs_info /
+
+wget https://ftp.postgresql.org/pub/source/v15.1/postgresql-15.1.tar.gz
+tar -xvf postgresql-15.1.tar.gz
+cd postgresql-15.1/
+pwd
+sudo ./configure --prefix=/home/scott/soft --without-zlib --without-readline --with-blocksize=16 --with-wal-blocksize=16
+make
+make install
+initdb
+pg_ctl start -D /home/scott/data
+
+psql -d postgres
+> select version();
+
+
 

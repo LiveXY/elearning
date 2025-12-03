@@ -1,3 +1,12 @@
+npm install -g @vue/cli
+vue create -p dcloudio/uni-preset-vue my-project
+cd my-project
+yarn serve
+npm run dev:%PLATFORM%
+npm run build:%PLATFORM%
+npm run build:h5
+
+
 https://uniapp.dcloud.io/api/README
 https://uniapp.dcloud.io/component/README
 

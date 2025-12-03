@@ -10,6 +10,9 @@ brew services restart postgresql
 
 initdb --locale=C -E UTF-8 /usr/local/var/postgres
 initdb --locale=zh_CN.UTF-8 -E utf8 /usr/local/var/postgres
+initdb --locale=C -E UTF-8 /usr/local/var/postgresql@15
+/usr/local/opt/postgresql@15/bin/postgres -D /usr/local/var/postgresql@15
+
 
 lsof -i:5432
 

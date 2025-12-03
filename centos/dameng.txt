@@ -1,0 +1,91 @@
+
+
+安装达梦数据库
+su root
+groupadd dmgroup
+useradd -g dmgroup dmdba
+passwd dmdba
+dm@DB2023
+
+mkdir -p /data/dmdb/dmdbms
+chown -R dmdba:dmgroup /data/dmdb
+chmod -R 755 /data/dmdb
+chown dmdba:dmgroup /data/dmdb/dm8.bin
+chmod +x /data/dmdb/dm8.bin
+cp -a /data/ky10-aarch64/dm-*-arm.bin /home/dmdba/
+chown dmdba:dmgroup /data/dmdb
+
+vi /etc/security/limits.conf
+dmdba soft noproc 65536
+dmdba hard noproc 65536
+dmdba soft nofile 65536
+dmdba hard nofile 65536
+dmdba hard core unlimited
+dmdba soft core unlimited
+
+df -h
+如果 /tmp 目录比较小，需要调整到3G，reboot重启
+vi /etc/fstab
+tmpfs /tmp tmpfs nodev,nosuid,size=3G 0 0
+
+su dmdba
+cd /data/dmdb/
+./dm8.bin -i
+语言选择c中文
+KEY文件没有选择n
+时区选择21中国
+安装类型1典型安装
+选择安装目录：/data/dmdb/dmdbms
+安装成功后
+su root
+/data/dmdb/dmdbms/script/root/root_installer.sh
+systemctl status DmAPService
+
+su dmdba
+vi ~/.bash_profile
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/data/dmdb/dmdbms/bin"
+export DM_HOME="/data/dmdb/dmdbms"
+export PATH=/data/dmdb/dmdbms/bin:/data/dmdb/dmdbms/tool:$PATH
+
+source ~/.bash_profile
+
+dminit help
+dminit PATH=/data/dmdb/dmdbms/data DB_NAME=TRAINGO CHARSET=1 CASE_SENSITIVE=0 SYSDBA_PWD=pass
+dmserver /data/dmdb/dmdbms/data/TRAINGO/dm.ini
+出现 SYSTEM IS READY，按CTRL+C 停止
+
+su root
+/data/dmdb/dmdbms/script/root/dm_service_installer.sh -h
+/data/dmdb/dmdbms/script/root/dm_service_installer.sh -t dmserver -p DMSERVER -dm_ini /data/dmdb/dmdbms/data/TRAINGO/dm.ini
+systemctl restart DmServiceDMSERVER
+systemctl status DmServiceDMSERVER
+
+vi ~/.bash_profile
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/data/dmdb/dmdbms/bin"
+export PATH=/data/dmdb/dmdbms/bin:/data/dmdb/dmdbms/tool:$PATH
+
+source ~/.bash_profile
+
+链接数据库
+disql SYSDBA/pass
+disql SYSDBA/pass@127.0.0.1:5236
+
+创建账号
+CREATE USER TGLEARNING IDENTIFIED BY "TGLEARNING2021";
+CREATE USER KDXF IDENTIFIED BY "TGLEARNING2021";
+CREATE USER TGLEARNING IDENTIFIED BY "TGLEARNING2022";
+GRANT RESOURCE TO TGLEARNING;
+GRANT RESOURCE TO KDXF;
+conn TGLEARNING/TGLEARNING2021@127.0.0.1:5236;
+conn KDXF/TGLEARNING2021@127.0.0.1:5236;
+导入数据
+start /data/database/tglearning.sql
+start /data/database/tglearning-data.sql
+验证是否导入成功
+SELECT * from TGLEARNING.AREA;
+
+manager 达梦管理工具
+dts 达梦数据迁移工具
+
+
+

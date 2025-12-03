@@ -5,7 +5,7 @@ centos7安装与优化
 * cat /etc/redhat-release 或 rpm -q centos-release #查看系统版本
 * yum repolist #查看已有源
 * yum install wget curl psmisc -y
-* sudo yum install update -y && sudo yum install upgrade -y
+* sudo yum update -y && sudo yum upgrade -y
 
 ##设置上下键选择历史命令
 ```sh
@@ -979,11 +979,12 @@ pm2 save
 pm2 startup
 ```
 
-#ffmpeg
+#ffmpeg+libreoffice
 ```
 sudo rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
 sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm
 yum install -y ffmpeg
+yum install -7 install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langpack-zh-Hant libreoffice-ure libreoffice-ure-common libreoffice-base libreoffice-data libreoffice-impress libreoffice-x11 libreofficekit libreoffice-writer
 ```
 
 #docker安装GIT服务器gogs

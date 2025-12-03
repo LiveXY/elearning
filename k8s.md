@@ -1,6 +1,79 @@
 Kubernetes
 ======
 
+K8S面板
+```
+离线安装
+https://github.com/qzz0518/sealos
+https://github.com/labring/sealos
+
+https://github.com/1Panel-dev/KubePi
+sudo docker run --privileged -d --restart=unless-stopped -p 80:80 kubeoperator/kubepi-server
+打开浏览器访问：http://localhost:80/
+用户名：admin
+密码：kubepi
+
+https://kuboard.cn/
+https://demo.kuboard.cn/kuboard/cluster
+https://kuboard.cn/install/v3/install.html
+https://github.com/eip-work/kuboard-press
+https://xie.infoq.cn/article/8d58cc77c721f30e5f7617014
+
+https://github.com/MuhammedKalkan/OpenLens/releases/tag/v6.4.15
+
+路由
+https://github.com/traefik/traefik
+
+Ingress
+https://github.com/easzlab/kubeasz/blob/master/manifests/ingress/whoami.yaml
+https://github.com/easzlab/kubeasz/blob/master/manifests/ingress/whoami.ing.yaml
+https://github.com/easzlab/kubeasz/blob/master/manifests/ingress/test-hello.ing.yaml
+# kubectl run test-hello --image=nginx --expose --port=80
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: test-hello
+spec:
+  tls:
+  - hosts:
+      - hello.test.com
+    secretName: testsecret-tls
+  rules:
+  - host: hello.test.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: test-hello
+          servicePort: 80
+  - host: "*.foo.com"
+    http:
+      paths:
+      - path: /foo
+        backend:
+          serviceName: foo-hello
+          servicePort: 80
+kubectl get ingress test-hello
+spec:
+  defaultBackend:
+    serviceName: foo-hello
+    servicePort: 80
+
+kubectl edit ingress test
+kubectl describe ingress test
+TLS
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testsecret-tls
+  namespace: default
+data:
+  tls.crt: base64 编码的证书
+  tls.key: base64 编码的私钥
+type: kubernetes.io/tls
+kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+```
+
 centos7.7安装基础工具
 ```
 yum install -y wget curl psmisc sysstat unzip lsof telnet epel-release git mysql
@@ -810,5 +883,166 @@ https://mp.weixin.qq.com/s/cUFeOh_s6SL-o1akwqig1A
 
 Helm 从入门到专家
 https://mp.weixin.qq.com/s/bas8C87govMwIjBRXSsnbQ
+
+https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+探针
+livenessProbe:
+  exec:
+    command:
+    - cat
+    - /tmp/healthy
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  httpGet:
+    path: /healthz
+    port: 8080
+    httpHeaders:
+    - name: Custom-Header
+      value: Awesome
+  initialDelaySeconds: 3
+  periodSeconds: 3
+  tcpSocket:
+    port: 8080
+  initialDelaySeconds: 15
+    periodSeconds: 20
+  grpc:
+    port: 2379
+  initialDelaySeconds: 10
+
+ports:
+- name: liveness-port
+  containerPort: 8080
+  hostPort: 8080
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+  failureThreshold: 1
+  periodSeconds: 10
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: liveness-port
+  failureThreshold: 30
+  periodSeconds: 10
+应用将会有最多 5 分钟（30 * 10 = 300s）的时间来完成其启动过程。 一旦启动探测成功一次，存活探测任务就会接管对容器的探测，对容器死锁作出快速响应。 如果启动探测一直没有成功，容器会在 300 秒后被杀死，并且根据 restartPolicy 来执行进一步处置。
+
+
+https://www.civo.com/learn/using-websockets-with-ingress-controller
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: tornado-socket
+ annotations:
+  kubernetes.io/ingress.class: nginx
+  nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+  nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+  nginx.ingress.kubernetes.io/server-snippets: |
+   location / {
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header Connection "upgrade";
+    proxy_cache_bypass $http_upgrade;
+    }
+spec:
+ rules:
+  - host: tornado-ws.example.com
+   http:
+    paths:
+     - backend:
+       serviceName: tornado-socket
+       servicePort: 8000
+
+apiVersion: extensions/v1beta1     
+kind: Ingress    
+metadata:           
+  name: ws-ingress
+  namespace: ns
+  annotations:           
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+       proxy_set_header Upgrade "websocket";
+       proxy_set_header Connection "Upgrade";
+spec:      
+  rules: 
+  - host: tornado-ws.example.com
+    http:
+      paths: 
+      - path: /test
+        backend:
+          serviceName: test-service
+          servicePort: 8000
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: liverpool
+  namespace: live-dev
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+spec:
+  rules:
+  - host: dev-gw.tech.com
+    http:
+      paths:
+      - path: /ws
+        backend:
+          serviceName: liverpool
+          servicePort: 9633
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+  annotations:
+    nginx.org/websocket-services: "ws-svc" # 具体的服务名
+spec:
+  rules:
+  - host: cafe.example.com
+    http:
+      paths:
+      - path: /tea
+        pathType: Prefix
+        backend:
+          service:
+            name: tea-svc
+            port:
+              number: 80
+      - path: /coffee
+        pathType: Prefix
+        backend:
+          service:
+            name: coffee-svc
+            port:
+              number: 80
+      - path: /ws
+        pathType: Prefix
+        backend:
+          service:
+            name: ws-svc
+            port:
+              number: 8008
+
+
+
+
+
+
+
+
+
+
 
 

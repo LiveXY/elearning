@@ -5,6 +5,21 @@ command + shift + control + 4 同样可以快速截取屏幕的一部分
 command + shift + control + space 快速截取某个特定的窗口
 command + shift + 5，就会看到一个工具栏，你可以利用这个工具录制整个屏幕，或者其中一部分
 
+修改文件时间
+##修改创建日期：setfile -d mm/dd/yy hh:mm:ss filename
+##修改修改日期：setfile -m mm/dd/yy hh:mm:ss filename
+setfile -d '1/1/2021 18:18:0' sysin.txt
+setfile -m '1/1/2021 18:18:0' sysin.txt
+stat -x sysin.txt
+
+来自任何平台的简单 mac 二进制签名 替换codesign
+https://github.com/anchore/quill
+curl -sSfL https://raw.githubusercontent.com/anchore/quill/main/install.sh | sh -s -- -b /usr/local/bin
+curl -sSfL https://raw.githubusercontent.com/anchore/quill/main/install.sh | sh -s -- -b <DESTINATION_DIR> <RELEASE_VERSION>
+export QUILL_P12_PASSWORD=[p12-password]
+quill p12 attach-chain [path-to-p12-from-apple]
+quill sign-and-notarize --p12 [path-to-p12] [path-to-unsigned-binary]
+
 mac备份
 1，备份：Sublime Text3/SSH Proxy/Microsoft Office 2011/Sequel Pro/MySQLWorkbench/SourceTree/SQLite Professional/Unity/Microsoft Remote Desktop/licecap/Adobe Photoshop CC 2015/Apple Configurator 2/
 2，备份配置文件目录：
@@ -18,6 +33,8 @@ mac备份
 
 sudo xcodebuild -license
 xcode-select --install
+
+brew install stats
 
 mac安装
 #商店安装：Go2Shell/Google Chrome/New File Free/PDF Reader X/QQ/QQ音乐/RAR Extractor Free/Thunder/Xcode/Dr. Cleaner/MPlayerX/Color Picker/iHex/Base64Anywhere/App2Dmg/微信/
@@ -148,6 +165,10 @@ npm config set prefix '~/.npm-global'
 export PATH=~/.npm-global/bin:$PATH
 source ~/.bash_profile
 
+=============================================
+Charles激活码：
+Registered Name: https://zhile.io
+License Key: 48891cf209c6d32bf4
 ==============================================
 sourcetree 显示提交信息面板
 defaults delete com.torusknot.SourceTreeNotMAS "NSSplitView Subview Frames repowindow_LogViewDescSplitter"
@@ -1436,3 +1457,24 @@ CPU-Z ，能够检测自己的电脑情况
 SystemRescue 9.00 发布，更好的 NTFS 支持  
 hd tune 专业版v4.60 硬盘专业工具
 VirtualBox 6.1.34，同时不要忘记下载 Oracle VM VirtualBox Extension Pack
+
+Safari 无法播放 FFMPEG转换 后的HDR视频
+https://stackoverflow.com/questions/32152090/encode-h265-to-hvc1-codec#32485240
+ffmpeg -i input-hev1.mp4 -c:v copy -tag:v hvc1 -c:a copy output-hvc1.mp4
+如果您有较旧的基于avc1的mp4，则需要重新编码它。
+ffmpeg -i /home/51learning/mysql/51learning-data/disk1/182/file/20230301/541683b0-44da-4f62-b782-5a43be045349/1/mp4/1_1.mp4 \
+    -c:v libx265 \
+    -preset slow \
+    -vf scale="720:trunc(ow/a/2)*2" \
+    -crf 28 \
+    -tag:v hvc1 \
+    -c:a aac -b:a 44100 \
+    /home/51learning/mysql/51learning-data/disk1/182/file/20230301/541683b0-44da-4f62-b782-5a43be045349/1/mp4/1_2.mp4
+
+'hev1'/'hvc1'是用于在容器mp4文件中发出不同流包装信号的代码点。编码本身没有变化。可以在两种模式之间往返。尝试使用mp4box：
+mp4box -raw 1 file.mp4
+这会将流提取到原始的HEVC文件中。
+mp4box -add file_track1.hvc output.mp4
+将-tag:v hvc1添加为@SushiHangover的答案，并将-bsf:v hevc_mp4toannexb添加到ffmpeg命令（版本3.4及更高版本）。这将创建一个与QuickTime兼容的mov文件。
+ffmpeg -i input-hev1.mp4 -c:v copy -tag:v hvc1 -bsf:v hevc_mp4toannexb -c:a copy output-hvc1.mov
+

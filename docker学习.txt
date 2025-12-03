@@ -14,6 +14,235 @@ chkconfig docker on
 
 https://github.com/portainer/portainer
 
+docker update --memory 2G --memory-swap -1 nodename
+
+https://docs.docker.com/storage/volumes/
+NFSv3
+docker service create -d \
+  --name nfs-service \
+  --mount 'type=volume,source=nfsvolume,target=/app,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/var/docker-nfs,volume-opt=o=addr=10.0.0.10' \
+  nginx:latest
+NFSv4
+docker service create -d \
+    --name nfs-service \
+    --mount 'type=volume,source=nfsvolume,target=/app,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/var/docker-nfs,"volume-opt=o=addr=10.0.0.10,rw,nfsvers=4,async"' \
+    nginx:latest
+Create CIFS/Samba volumes
+You can mount a Samba share directly in Docker without configuring a mount point on your host.
+docker volume create \
+  --driver local \
+  --opt type=cifs \
+  --opt device=//uxxxxx.your-server.de/backup \
+  --opt o=addr=uxxxxx.your-server.de,username=uxxxxxxx,password=*****,file_mode=0777,dir_mode=0777 \
+  --name cif-volume
+
+
+https://docs.docker.com/compose/compose-file/build/
+
+volumes:
+  example:
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.40.0.199,nolock,soft,rw"
+      device: ":/docker/example"
+  growi_data:
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.1.2,hard,rsize=1048576,wsize=1048576,nfsvers=4"
+      device: ":/volume1/wiki-data/growi_data"
+  neonfs:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=172.26.209.22
+      device: :/space/home/cverond/varwwwhtml
+  my-nfs-share:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=172.24.0.107,rw"
+      device: ":/mnt/sharedwordpress"
+  redis_data:
+    driver_opts:
+      type: nfs
+      o: "addr=172.28.128.3,rw,nfsvers=4"
+      #o: "nfsvers=4,addr=192.168.1.207,nolock,soft,rw"
+      #o: "addr=192.168.1.1,nolock,soft,nfsvers=4"
+      device: ":/opt/nfs"
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+  rsyslog:
+    image: jumanjiman/rsyslog
+    ports:
+      - "514:514"
+      - "514:514/udp"
+    volumes:
+      - type: volume
+        source: example
+        target: /nfs
+        volume:
+          nocopy: true
+  web:
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - FlexDebug=on
+    volumes:
+      - neonfs:/var/data/
+      - type: bind
+        source: ./formazionephp7
+        target: /var/www/html/
+
+
+    healthcheck:
+      test: |
+        curl http://localhost:4069/ping || (
+          config_path=./docker/full-node/docker-compose.yml
+
+          if [[ ! -f "$config_path" && -f "docker-compose.yml" ]]; then
+            printf "%s\n" "🤖 Found docker-compose.yml in current work dir and will override the default path."
+
+            config_path="docker-compose.yml"
+          fi
+
+          if [[ ! -f "$config_path" ]]; then
+            printf "%s\n" "👹 Oops! The Ursa service should be restarted but we couldn't locate the Stack configuration file. Have you started the Stack from the project root?"
+
+            exit 1
+          fi
+
+          docker-compose -f "$config_path" restart ursa
+        )
+      interval: 5m
+      timeout: 10s
+      retries: 3
+
+构建：
+  webapp:
+    build: ./dir
+    image: webapp:tag
+  webapp:
+    build:
+      context: ./dir
+      dockerfile: Dockerfile-alternate
+      args:
+        buildno: 1
+    image: webapp:tag
+参数：
+ARG buildno
+RUN echo "Build number: $buildno"
+副本
+services:
+  redis:
+    image: redis:latest
+    deploy:
+      replicas: 1
+    deploy:
+      replicas: 6
+      placement:
+        max_replicas_per_node: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: dnsrr
+资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+重启策略
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+公开端口而不将它们发布到主机
+expose:
+  - "3000"
+  - "8000"
+外部链接
+external_links:
+  - redis_1
+  - project_db_1:mysql
+  - project_db_1:postgresql
+链接
+links:
+  - "db"
+  - "db:database"
+  - "redis"
+额外的主机
+extra_hosts:
+  - "somehost:162.242.195.82"
+  - "otherhost:50.31.209.229"
+健康检查
+healthcheck:
+  test: ["CMD", "curl", "-f", "http://localhost"]
+  test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
+  test: curl -f https://localhost || exit 1
+  interval: 1m30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
+healthcheck:
+  disable: true
+sysctls:
+  net.core.somaxconn: 1024
+  net.ipv4.tcp_syncookies: 0
+sysctls:
+  - net.ipv6.conf.all.disable_ipv6=0
+  - net.core.somaxconn=1024
+  - net.ipv4.tcp_syncookies=0
+ports:
+  - target: 80
+    published: 8080
+    protocol: tcp
+    mode: host
+
+restart: "no"
+restart: always
+restart: on-failure
+restart: unless-stopped
+tmpfs: /run
+tmpfs:
+  - /run
+  - /tmp
+- type: tmpfs
+  target: /app
+  tmpfs:
+    size: 1000
+ulimits:
+  nproc: 65535
+  nofile:
+    soft: 20000
+    hard: 40000
+volumes:
+  example:
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.40.0.199,nolock,soft,rw"
+      device: ":/docker/example"
+
 获取最新的centos镜像
 docker pull centos:latest
 docker pull microbox/redis:latest

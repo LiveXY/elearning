@@ -178,6 +178,10 @@ curl --upload-file some-file http://127.0.0.1:5000/some-file
 删除
 curl -X DELETE http://127.0.0.1:5000/some-file
 
+channel
+https://github.com/asynchronics/tachyonix #一种异步、多生产者、单消费者 (MPSC) 有界通道，以超光速运行
+https://github.com/asynchronics/tachyobench/
+Tokio、async-std、smolscale 和 Asynchronix
 
 websocket
 https://github.com/websockets-rs/rust-websocket
@@ -195,6 +199,7 @@ https://github.com/flosse/rust-web-framework-comparison
 https://github.com/SergioBenitez/Rocket
 https://github.com/gotham-rs/gotham
 https://github.com/tokio-rs/tokio
+https://github.com/WasmEdge/tokio
 https://github.com/iron/iron
 https://github.com/http-rs/tide
 https://github.com/salvo-rs/salvo
@@ -231,6 +236,9 @@ https://github.com/sycamore-rs/sycamore
 https://github.com/ardaku/pasts #轻量级 用于嵌入式系统、GUI 应用程序和视频游戏，而不是专注于 Web 服务器
 https://github.com/Zaplib/zaplib #用于使用 Rust 和 WebAssembly 加速 Web 应用程序
 https://github.com/fermyon/spin
+
+https://github.com/Shopify/javy
+https://github.com/ItsEthra/scotch
 
 发邮件
 https://crates.io/crates/lettre
@@ -339,6 +347,8 @@ golangci-lint run dir1 dir2/... dir3/file1.go
 golangci-lint run --disable-all -E errcheck
 golangci-lint run -p bugs -p error
 
+HTML
+https://crates.io/crates/scraper/0.14.0
 https://github.com/mgdm/htmlq
 cargo install htmlq
 htmlq -h
@@ -455,6 +465,9 @@ dust -d 1
 https://github.com/seanmonstar/reqwest：#http request lib
 https://github.com/skerkour/kerkour.com
 
+error
+https://github.com/dtolnay/anyhow
+
 json
 https://github.com/serde-rs/serde：#json Serialization
 https://github.com/shogan/fstojson-rust #json Serialization
@@ -521,6 +534,7 @@ https://github.com/losfair/mvsqlite
 https://github.com/canonical/dqlite
 https://github.com/rqlite/rqlite
 https://github.com/phiresky/sqlite-zstd
+https://github.com/sqlparser-rs/sqlparser-rs
 
 https://github.com/tokio-rs/console
 https://github.com/googleforgames/quilkin
@@ -554,6 +568,7 @@ https://github.com/ozkriff/zoc
 https://github.com/fishfight/FishFight
 https://github.com/fishfight/FishLauncher
 https://github.com/gaxxx/jy-rs/
+https://github.com/AndriBaal/shura
 
 TIME
 https://github.com/wandercn/gostd
@@ -678,6 +693,8 @@ https://github.com/SeaQL/sea-orm/releases/tag/0.2.2
 https://github.com/launchbadge/sqlx
 https://github.com/roy-ganz/toql
 https://crates.io/crates/sea-orm
+https://github.com/kurtbuilds/ormlite
+https://github.com/zerodaycode/Canyon-SQL
 
 database
 https://gitlab.com/tglman/persy
@@ -699,6 +716,9 @@ https://github.com/mrxiaozhuox/dorea/
 https://github.com/cberner/redb
 https://github.com/LMDB/lmdb
 https://github.com/pancake-db/pancake-db
+
+https://github.com/GreptimeTeam/greptimedb
+
 文档数据库
 https://github.com/surrealdb/surrealdb
 curl -sSf https://install.surrealdb.com | sh
@@ -706,8 +726,16 @@ docker run --rm -p 8000:8000 surrealdb/surrealdb:latest start
 
 IndexedDB
 https://github.com/devashishdxt/rexie
-cache
+cache kv
 https://github.com/memc-rs/memc-rs
+https://github.com/Swatinem/rust-cache
+https://github.com/mozilla/sccache
+https://github.com/engula/engula
+https://github.com/tikv/agatedb
+https://github.com/tikv/tikv
+https://github.com/photondb/photondb
+https://github.com/rustbase/dustdata
+https://github.com/cberner/redb
 
 RisingWave：云中的下一代流式数据库。
 https://github.com/singularity-data/risingwave
@@ -1286,12 +1314,37 @@ https://github.com/EnzymeAD/Enzyme
 
 https://github.com/rcxxx/MegFlow
 https://github.com/MegEngine/MegFlow
-具有扩展过滤支持的向量相似性搜索引擎
+具有扩展过滤支持的向量相似性搜索引擎 vector search engine
 https://github.com/qdrant/qdrant
+https://github.com/qdrant/go-client
+docker pull qdrant/qdrant
+docker run -p 6333:6333 qdrant/qdrant
+https://github.com/weaviate/weaviate
+https://github.com/milvus-io/milvus
+https://github.com/olivere/elastic
+
 https://github.com/dimforge/nalgebra
 https://github.com/neuronika/neuronika
 
 https://github.com/tauri-apps/tauri
+https://github.com/tauri-apps/tauri-egui
+https://tauri.app/
+https://tauri.app/v1/api/cli
+https://tauri.app/v1/api/config
+
+https://github.com/kimlimjustin/xplorer
+https://github.com/zzzgydi/clash-verge
+https://github.com/zsmatrix62/echoo.app
+https://github.com/lzdyes/douyin-downloader
+https://github.com/danloh/mdSilo-app
+https://github.com/zenoxs/tauri-appcenter-companion
+https://github.com/probablykasper/remind-me-again
+https://github.com/spacedriveapp/spacedrive
+https://github.com/padloc/padloc
+https://github.com/zhanglun/lettura
+https://github.com/vicanso/cyberapi
+https://github.com/stefanodevenuto/wirefish
+
 https://github.com/electron/electron
 https://github.com/flutter/flutter
 https://github.com/nwjs/nw.js
@@ -1321,6 +1374,10 @@ https://github.com/octocat-rs/octocat-rs
 https://github.com/cfal/tobaru
 DataFrame library
 https://github.com/pola-rs/polars
+https://h2oai.github.io/db-benchmark/
+https://www.pola.rs/benchmarks.html
+https://pola-rs.github.io/polars/polars/
+https://github.com/h2oai/db-benchmark
 
 Rust Kubernetes client
 https://github.com/kube-rs/kube-rs
@@ -1385,6 +1442,10 @@ typeracer
 typeracer -r $(echo 'racing using a passage from elsewhere')
 https://github.com/crabtyper/crabtyper
 
+terminal
+https://github.com/Property404/its-a-unix-system
+https://github.com/ad4mx/spinoff
+https://github.com/fathyb/carbonyl #Chromium
 
 控制台代办时钟
 https://github.com/krvoje/clockking
@@ -1420,7 +1481,11 @@ https://github.com/yingDev/Tickeys
 https://github.com/Nazariglez/notan
 
 markdown
+https://github.com/raphlinus/pulldown-cmark
 https://github.com/Cveinnt/LetsMarkdown.com
+
+highlighting
+https://github.com/trishume/syntect
 
 SQL查询JSON
 https://github.com/partiql/partiql-lang-rust
@@ -1479,6 +1544,7 @@ log
 https://github.com/estk/log4rs
 https://github.com/rust-lang/log
 https://github.com/slog-rs/slog
+https://github.com/diffuse/swing
 
 font
 https://github.com/servo/font-kit
@@ -1595,3 +1661,112 @@ Axum 中，get 函数却可以接收不同类型的函数指针
 
 cargo install cargo-careful 快速安装，然后执行 cargo +nightly careful run/test https://github.com/RalfJung/cargo-careful
 
+错误处理 处理意外错误
+https://github.com/botahamec/exun
+多行文字处理
+https://github.com/pop-os/cosmic-text
+
+原生云开发平台，可让您免费部署 Rust 应用程序
+https://github.com/shuttle-hq/shuttle
+https://www.shuttle.rs/
+
+包嗅探器 TAURI
+https://github.com/stefanodevenuto/wirefish
+
+3D渲染
+https://github.com/ema2159/tinyrenderer_rs
+image 0.24.5: 图像加载和操作
+piston_window 1.127.0: 用于显示渲染框架的窗口
+obj-rs 0.6: 从.obj文件检索信息
+nalgebra 0.31.4: 用于向量和矩阵的计算
+
+异步连接
+https://github.com/weiznich/diesel_async
+
+typescript type check
+https://github.com/dudykr/stc
+反射 Reflect
+https://github.com/jswrenn/deflect
+
+databend + minio
+cd minio
+wget https://dl.min.io/server/minio/release/linux-amd64/minio
+export MINIO_ROOT_USER=minioadmin
+export MINIO_ROOT_PASSWORD=minioadmin
+./minio server --address :9900 ./data
+利用 WEB 界面打开创建一个: databend bucket
+wget https://repo.databend.rs/databend/v0.8.160-nightly/databend-v0.8.160-nightly-x86_64-unknown-linux-musl.tar.gz
+cd databend
+tar zxvf ../databend-v0.8.25-nightly-x86_64-unknown-linux-musl.tar.gz
+vim configs/databend-query.toml
+[storage]
+type = "s3"
+[storage.fs]
+data_path = "./.databend/stateless_test_data"
+[storage.s3]
+bucket = "databend"
+endpoint_url = "https://127.0.0.1:9900"
+access_key_id = "minioadmin"
+secret_access_key = "minioadmin"
+启动
+./script/start.sh
+ps axu |grep databend
+mysql -h 127.0.0.1 -P3307 -uroot
+
+pdf 
+https://github.com/RosiePuddles/mdbook-compress/
+https://github.com/rust-lang/mdBook
+https://github.com/pdf-rs/pdf
+https://github.com/J-F-Liu/lopdf
+https://github.com/mufeedvh/pdfrip
+https://github.com/jussiniinikoski/wasm-pdf
+https://crates.io/crates/genpdf/0.2.0
+https://crates.io/crates/mdbook/0.4.25
+
+OpenCL
+https://github.com/Aandreba/blaze
+state machines
+https://github.com/drifting-in-space/aper
+
+KCL 仓库地址：
+https://github.com/KusionStack/KCLVM
+Kusion 仓库地址：
+https://github.com/KusionStack/kusion
+Konfig 仓库地址：
+https://github.com/KusionStack/Konfig
+
+TeX
+https://github.com/jeertmans/untex
+
+字体编辑器
+https://github.com/epilys/gerb
+
+FDM 3d-printer simulator
+https://github.com/yjh0502/tdp-tl
+
+深度学习框架
+https://github.com/burn-rs/burn
+学习用 Rust 编写嵌入式操作系统
+https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials
+守护进程
+https://github.com/knsd/daemonize
+
+microservice
+https://github.com/second-state/microservice-rust-mysql
+启动器
+https://github.com/ParthJadhav/verve
+https://github.com/mdgaziur/findex
+正则表达式
+https://github.com/pomsky-lang/pomsky
+
+查找重复代码
+https://github.com/cheukyin699/superdiff
+superdiff -l 1 -b 7 examples/really-bad-code.py
+find src vim-superdiff -type f | superdiff -l 1 -b 7
+superdiff -b 4 examples/really-bad-code.py
+superdiff -b 4 -t 5 examples/really-bad-code.py
+
+S3
+https://github.com/Nugine/s3s
+GTK4
+https://github.com/gtk-rs/gtk4-rs

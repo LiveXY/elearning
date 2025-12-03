@@ -1,3 +1,10 @@
+https://github.com/78778443/QingScan
+https://github.com/78778443/permeate
+https://github.com/StarCrossPortal/QingTing
+https://github.com/78778443/xssplatform
+https://github.com/78778443/QingScanDesk
+https://github.com/chaitin/xray
+
 hacknet hackthegame uplink hackerevolution
 sn1per cain abel maltego owasp zap
 

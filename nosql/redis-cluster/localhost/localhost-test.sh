@@ -28,4 +28,3 @@ redis-cli -c -p 6884 get key
 redis-cli -c -p 6885 get key
 
 #redis-cli -p 6881 DEBUG sleep 60
-#redis-cli -p 26880 sentinel master mymaster

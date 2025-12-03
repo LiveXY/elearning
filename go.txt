@@ -1,3 +1,59 @@
+压力测试工具
+https://github.com/Runner-Go-Team/RunnerGo
+
+MARKPDF
+https://github.com/ajaxray/markpdf/releases
+ # watermark with all default options (on top left corner with 50% opacity)
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf"
+// watermark at center
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" --center
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" -c
+// watermark at right top with 20px offset from edge and full opaque
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" --offset-x=-20 --offset-y=20 --opacity=1.0
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" -x -20 -y 20 -o 1.0
+// watermark at left bottom with 100px offset and 45 degree rotation
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" --offset-x=100 --offset-y=-100 --angle=45
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" -x 100 -y -100 -a 45
+// stretch full with of page at page middle, with 30% opacity
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" --scale-width-center --opacity=0.3
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" -Wo 0.3
+// Note the capital "W" 
+// stretch full with of page at page bottom
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" --scale-width --offset-y=-10
+markpdf "path/to/source.pdf" "img/logo.png" "path/to/output.pdf" -wy -10
+markpdf "path/to/083.pdf" "GreatCompanyName" "path/to/voucher_083.pdf" -cf times_bold_italic
+font.NewPdfFontFromTTFFile
+
+go install github.com/pdfcpu/pdfcpu/cmd/pdfcpu@latest
+pdfcpu watermark add -mode text -- "This is a watermark" "sc:.9, d:2, c:.6 .2 .9" "./test.pdf" "./test-mark.pdf"
+https://pdfcpu.io/core/watermark
+https://pdfcpu.io/getting_started/box
+https://github.com/pdfcpu/pdfcpu/releases
+https://www.cnblogs.com/daxiaq/articles/16624724.html
+
+ffmpeg -i "C:\test.mp4"
+ -vf "drawtext=text='Place text here':x=10:y=H-th-10:
+               fontfile=/path/to/font.ttf:fontsize=12:fontcolor=white:
+               shadowcolor=black:shadowx=5:shadowy=5"
+"C:\test-watermark.mp4"
+左下角
+ffmpeg -i "input.mp4" -vf "drawtext=text='a watermark':x=10:y=H-th-10:fontfile=/pathto/font.ttf:fontsize=10:fontcolor=white:shadowcolor=black:shadowx=2:shadowy=2" "output.mp4"
+右下角：x=-10:y=H-th-10
+透明度：alpha=0.5
+中间：ffmpeg -i inputClip.mp4 -vf "drawtext=text='Centered Text':x=(w-text_w)/2:y=(h-text_h)/2:fontsize=24:fontcolor=white" -c:a copy output.mp4
+ffmpeg -i inputClip.mp4 -vf "drawtext=text='© Krishna':x=(1100-text_w):y=(600-text_h):fontsize=32:fontcolor=black:box=1:boxcolor=white@0.5: boxborderw=5" -c:a copy output.mp4
+
+ffmpeg -i "./1.mp4" -vf "drawtext=text='XD001 熊大 xiongda':x=10:y=H-th-10:fontfile=./data/font/微软雅黑.ttf:fontsize=18:fontcolor=white@.4:shadowcolor=black@.4:shadowx=2:shadowy=2" "./4.mp4" -y
+
+ffmpeg -i "./1.mp4" -vf "drawtext=text='XD001 熊大 xiongda':x=10:y=H-th-10:fontfile=./data/font/微软雅黑.ttf:fontsize=18:fontcolor=white:shadowcolor=black:shadowx=2:shadowy=2" "./3.mp4" -y
+
+ffmpeg -i "./1.mp4" -vf "drawtext=text='XD001 熊大 xiongda':x=W-tw-10:y=10:fontfile=./data/font/微软雅黑.ttf:fontsize=18:fontcolor=white@.5:shadowcolor=black@.5:shadowx=2:shadowy=2" "./2.mp4" -y
+
+ffmpeg -i ./demo/demo1.mp4 -filter_complex "color=White:s=400x400[v1];[v1]drawtext=fontfile=./data/font/微软雅黑.ttf:text='这是什么东西？':x=60:y=50:fontsize=20[o1];[o1]rotate=a=-PI*30/180:fillcolor=White@0[o1];[o1]colorkey=White:0.01:1[o2];[0:v][o2]overlay=x=(W-w)/2:y=(H-h)/2" -y ./demo/demo12.mp4
+
+ffmpeg -i buck.mp4 -i s1.jpg -lavfi "[1:v]format=rgba,rotate='PI/6:c=0x00000000:ow=hypot(iw,ih):oh=ow'[out];[0:v][out]overlay=10:10" out.mp4 -y
+ffmpeg -i buck.mp4 -loop 1 -i s1.jpg -lavfi "[1:v]format=rgba,rotate='PI/2*t:c=0x00000000:ow=hypot(iw,ih):oh=ow'[out];[0:v][out]overlay=10:10" -shortest out.mp4 -y
+
 GMP调度器
 https://mp.weixin.qq.com/s/m_bqmJ8KF9v8-BW8lymlEQ
 G (Goroutine) 是受管理的轻量级线程，协程，执行单元
@@ -8,6 +64,9 @@ M的数量 默认 10000
 
 学习
 https://github.com/luk4z7/go-concurrency-guide
+
+初始化包
+go mod init github.com/livexy/linq
 
 mkdir workspace && cd workspace
 go work init ./hello_work
@@ -96,6 +155,12 @@ https://github.com/Saza-ku/go-genq
 https://github.com/szmcdull/glinq
 https://github.com/asynkron/gofun
 
+stream
+https://github.com/mariomac/gostream
+https://github.com/Primetalk/goio
+https://github.com/vladimirvivien/automi
+https://github.com/koss-null/lambda
+
 1.18 算法
 https://github.com/senghoo/golang-design-pattern
 https://github.com/ua-nick/Data-Structures-and-Algorithms
@@ -105,6 +170,7 @@ https://github.com/samber/mo
 https://github.com/samber/do
 https://github.com/repeale/fp-go
 https://github.com/sean-public/fast-skiplist
+https://github.com/sean-public/skiplist-survey
 https://github.com/kevwan/stream
 https://github.com/shoenig/test
 https://github.com/gonum/gonum
@@ -130,6 +196,8 @@ https://github.com/oleiade/lane
 https://github.com/micnncim/go-set
 https://github.com/bloeys/nset
 
+concurrency 并发执行
+https://github.com/sourcegraph/conc
 
 统计库包
 https://github.com/montanaflynn/stats
@@ -168,14 +236,19 @@ https://github.com/cloudwego/hertz-benchmark
 https://github.com/cloudwego/fastpb
 https://github.com/hertz-contrib
 https://www.cloudwego.io/zh/docs/hertz/tutorials/example/
+https://github.com/go-macaron/macaron
+
+https://github.com/micro/micro
 
 API防火墙
 https://github.com/wallarm/api-firewall
 https://hub.docker.com/r/wallarm/api-firewall
 
-ffmpeg
+ffmpeg video
 https://github.com/u2takey/ffmpeg-go
 https://github.com/mowshon/moviego
+https://github.com/abema/go-mp4
+https://github.com/sunfish-shogi/bufseekio
 
 动画库
 https://github.com/charmbracelet/harmonica
@@ -205,6 +278,19 @@ https://github.com/panjf2000/gnet
 go get -u github.com/panjf2000/gnet/v2
 https://github.com/Allenxuxu/gev
 https://github.com/cloudwego/netpoll
+1000k+连接方案，支持tls/http1.x/websocket，基本兼容net/http，高性能低内存，非阻塞，事件驱动
+https://github.com/lesismal/nbio
+https://github.com/lesismal/nbio-examples
+
+服务器适配器
+https://github.com/akrylysov/algnhsa
+
+GoBGP 是一种开源边界网关协议 (BGP)
+https://github.com/osrg/gobgp
+
+openai
+https://github.com/sashabaranov/go-openai
+https://github.com/rakyll/openai-go
 
 tcp
 https://github.com/aceld/zinx
@@ -228,6 +314,11 @@ https://github.com/gophish/gophish
 优雅的 Golang 爬虫框架
 https://github.com/gocolly/colly
 
+网站链接检查
+https://github.com/raviqqe/muffet
+go install github.com/raviqqe/muffet/v2@latest
+muffet -v https://baidu.com
+
 REST Postman
 https://www.postman.com/downloads/?utm_source=postman-home
 
@@ -242,6 +333,9 @@ https://github.com/dgraph-io/dgraph
 https://docs.github.com/en/graphql
 https://docs.github.com/en/graphql/overview/explorer
 
+GraphQL server
+https://github.com/graph-gophers/graphql-go
+
 graphdb
 https://github.com/cayleygraph/cayley
 
@@ -255,6 +349,7 @@ https://github.com/Code-Hex/go-generics-cache
 https://github.com/bluele/gcache
 freecache、bigcache 比较适合 Feature 服务
 bigcache 相对于 freecache 的优势之一是您不需要提前知道缓存的大小，因为当 bigcache 已满时，它可以为新条目分配额外的内存，而不是像 freecache 当前那样覆盖现有的
+https://github.com/karlseguin/ccache
 
 map
 https://github.com/orcaman/concurrent-map
@@ -263,6 +358,8 @@ https://github.com/cornelk/hashmap
 https://github.com/smallnest/safemap
 https://github.com/puzpuzpuz/xsync
 https://github.com/cornelk/go-benchmark
+https://github.com/chainbound/shardmap
+https://github.com/dolthub/swiss
 
 database kvdb cache
 https://github.com/etcd-io/bbolt #key/value database
@@ -279,6 +376,8 @@ https://github.com/facebook/rocksdb
 https://github.com/couchbase/forestdb
 https://github.com/mongodb/mongo-go-driver
 https://github.com/FerretDB/FerretDB #开源 MongoDB 替代品
+https://github.com/tigrisdata/tigris
+https://github.com/tigrisdata/tigris-client-go
 https://github.com/segmentio/kafka-go
 https://github.com/codenotary/immudb #只读DB
 https://github.com/go-mysql-org/go-mysql
@@ -300,6 +399,7 @@ go get -u github.com/lib/pq
 https://github.com/cockroachdb/pebble #CockroachDB
 https://github.com/flower-corp/rosedb #类似REDIS
 https://github.com/flower-corp/lotusdb
+https://github.com/rosedblabs/rosedb
 
 Vitess 是一个数据库集群系统，用于通过通用分片对 MySQL 进行水平扩展。
 https://github.com/vitessio/vitess
@@ -309,6 +409,14 @@ https://vitess.io/zh/
 https://github.com/milvus-io/milvus
 git clone https://github.com/milvus-io/milvus.git
 cd milvus/ && ./scripts/install_deps.sh && make
+具有扩展过滤支持的向量相似性搜索引擎 vector search engine
+https://github.com/qdrant/qdrant
+https://github.com/qdrant/go-client
+docker pull qdrant/qdrant
+docker run -p 6333:6333 qdrant/qdrant
+https://github.com/weaviate/weaviate
+https://github.com/milvus-io/milvus
+https://github.com/olivere/elastic
 
 ./rosedb-server
 cli-mac -p 5200
@@ -354,6 +462,7 @@ https://github.com/benbjohnson/litestream
 https://litestream.io/getting-started/
 litestream replicate fruits.db s3://mybkt.localhost:9000/fruits.db
 
+https://www.pingcap.com/download/?version=v7.0.0#version-list
 https://github.com/pingcap/tidb
 https://docs.pingcap.com/tidb/stable/mysql-compatibility
 https://docs.pingcap.com/tidb/stable/quick-start-with-tidb#deploy-a-local-test-environment-using-tiup-playground
@@ -475,6 +584,9 @@ https://github.com/grpc/grpc-go
 https://github.com/rmedvedev/grpcdump
 https://github.com/TykTechnologies/tyk
 
+grpc gui client
+https://github.com/Forest33/warthog
+
 go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 // 使用的 protoc --version 为 libprotoc 3.18.1
 // 使用的 protoc-gen-go --version 为 protoc-gen-go v1.27.1
@@ -508,6 +620,8 @@ https://github.com/asim/go-micro
 https://github.com/go-kratos/kratos
 https://github.com/google/go-cloud
 https://github.com/zeromicro/go-zero
+go-zero.dev
+https://github.com/Mikaelemmmm/go-zero-looklook
 go-zero MapReduce文档: https://go-zero.dev/cn/mapreduce.html
 https://github.com/nytimes/gizmo
 https://github.com/rsms/gotalk 异步对等通信协议和库
@@ -526,6 +640,10 @@ https://github.com/rpcxio/rpcx-benchmark
 https://github.com/rpcx-ecosystem/rpcx-benchmark
 https://github.com/micro-svc/go-rpc-framework-benchmark
 https://github.com/cloudwego/kitex-benchmark
+https://github.com/goadesign/goa
+https://github.com/thangchung/go-coffeeshop
+
+https://github.com/coroot/coroot
 
 并行计算
 https://github.com/BWbwchen/MapReduce
@@ -548,13 +666,16 @@ https://github.com/go-vgo/robotgo
 webhook
 https://github.com/adnanh/webhook
 
-es elastic elasticsearch
+es elastic elasticsearch index
 https://github.com/elastic/go-elasticsearch
 https://github.com/olivere/elastic
 https://github.com/go-mysql-org/go-mysql-elasticsearch
 https://github.com/zinclabs/zinc #替代ES
 https://github.com/blevesearch/bleve
 https://github.com/vinted/elasticsearch-dsl-rs
+https://github.com/blugelabs/bluge
+https://github.com/zinclabs/zincsearch
+https://github.com/zincsearch/zincsearch #Elasticsearch替代
 
 代码高亮
 https://github.com/alecthomas/chroma
@@ -591,6 +712,7 @@ https://github.com/knqyf263/trivy
 
 代码漏洞扫描
 go install golang.org/x/vuln/cmd/govulncheck@latest
+go install golang.org/x/vulndb/cmd/govulncheck@latest
 govulncheck ./...
 
 https://github.com/zricethezav/gitleaks
@@ -610,7 +732,15 @@ toxiproxy-cli delete redis
 LDAP
 https://github.com/go-ldap/ldap
 
+CPU MEM NET HardWare
 https://github.com/shirou/gopsutil
+https://github.com/jaypipes/ghw
+github.com/shirou/gopsutil/cpu
+用于读取、修改和加载 eBPF 程序并将其附加到 Linux 内核中的各种挂钩
+https://github.com/cilium/ebpf
+MACOS API
+https://github.com/progrium/macdriver
+
 https://github.com/go-ping/ping
 
 
@@ -859,6 +989,7 @@ https://github.com/Spacewalkio/Helmet
 https://github.com/vladimirvivien/ktop
 raft共识算法
 https://github.com/hashicorp/raft
+https://github.com/lni/dragonboat
 
 etcd
 https://github.com/etcd-io/etcd
@@ -1020,9 +1151,10 @@ gor --input-file "requests_0.gor|1000%" --output-http="http://127.0.0.1:8082|50%
 gor --input-raw :8000 --output-http http://staging.cm  --output-http-elasticsearch localhost:9200/gor
 
 valid
+https://github.com/bytedance/go-tagexpr
 https://github.com/asaskevich/govalidator
 https://github.com/go-playground/validator
-https://github.com/bytedance/go-tagexpr
+https://github.com/cohesivestack/valgo
 github.com/valyala/fasttemplate
 github.com/rsms/gotalk
 github.com/valyala/bytebufferpool
@@ -1170,7 +1302,52 @@ f2 -r 'test-%3d{{ext}}'
 f2 -r 'test-%3d{{ext}}' -x
 f2 -f '(\d+).*' -r '$1.mp3'
 
+MIME filetype 文件类型检查
 https://github.com/aohorodnyk/mimeheader
+
+https://github.com/gabriel-vasile/mimetype
+https://github.com/gabriel-vasile/mimetype/blob/master/supported_mimes.md
+mtype := mimetype.Detect([]byte)
+// OR
+mtype, err := mimetype.DetectReader(io.Reader)
+// OR
+mtype, err := mimetype.DetectFile("/path/to/file")
+fmt.Println(mtype.String(), mtype.Extension())
+mimetype.SetLimit(1024*1024) // Set limit to 1MB.
+// or
+mimetype.SetLimit(0) // No limit, whole file content used.
+mimetype.DetectFile("file.doc")
+
+https://github.com/h2non/filetype
+buf, _ := ioutil.ReadFile("sample.jpg")
+kind, _ := filetype.Match(buf)
+if kind == filetype.Unknown {
+  fmt.Println("Unknown file type")
+  return
+}
+fmt.Printf("File type: %s. MIME: %s\n", kind.Extension, kind.MIME.Value)
+
+http.DetectContentType
+file, err := os.Open("example.mp3")
+if err != nil {
+  fmt.Println(err)
+  return
+}
+defer file.Close()
+// 读取文件的前 512 个字节
+buffer := make([]byte, 512)
+n, err := file.Read(buffer)
+if err != nil {
+  fmt.Println(err)
+  return
+}
+// 调用 http.DetectContentType 方法判断文件类型
+// 实际上，如果字节数超过 512，该函数也只会使用前 512 个字节
+contentType := http.DetectContentType(buffer[:n])
+fmt.Println(contentType) // 输出 audio/mpeg
+// 上面 mp3 文件返回的会是 .mp3，注意包含 .
+ext := mime.ExtensionsByType(contentType)
+
 日志
 https://github.com/rs/zerolog
 https://github.com/uber-go/zap
@@ -1204,6 +1381,23 @@ https://github.com/minio/minio-go
 http://docs.minio.org.cn/docs/
 https://mp.weixin.qq.com/s/54DNCPprQtwyizFyRYSJSg
 https://github.com/felixge/httpsnoop
+
+跨平台文件同步工具gofs
+https://github.com/no-src/gofs
+go install github.com/no-src/gofs/...@latest
+gofs -source=./source -dest=./dest
+$ gofs -source=./source -dest=./dest -encrypt -encrypt_path=./source/encrypt -encrypt_secret=mysecret_16bytes
+$ gofs -decrypt -decrypt_path=./dest/encrypt -decrypt_secret=mysecret_16bytes -decrypt_out=./decrypt_out
+$ gofs -source=./source -dest=./dest -sync_once
+# Per 30 seconds sync the whole path from source directory to dest directory
+$ gofs -source=./source -dest=./dest -sync_cron="*/30 * * * * *"
+$ gofs -source=./source -dest=./dest -daemon -daemon_pid
+# Start a file server and create three random users
+# Replace the `tls_cert_file` and `tls_key_file` flags with your real cert files in the production environment
+$ gofs -source=./source -dest=./dest -server -tls_cert_file=cert.pem -tls_key_file=key.pem -rand_user_count=3
+$ gofs -source=./source -dest=./dest -max_tran_rate=1048576
+$ gofs -source="rs://127.0.0.1:8105?mode=server&local_sync_disabled=true&path=./source&fs_server=https://127.0.0.1" -dest=./dest -users="gofs|password|r" -tls_cert_file=cert.pem -tls_key_file=key.pem -token_secret=mysecret_16bytes
+
 gRPC 客户端调试工具
 https://github.com/ktr0731/evans
 https://github.com/uw-labs/bloomrpc
@@ -1296,6 +1490,18 @@ p len(r)-1
 p &is
 x -fmt hex -len 24 0xc000055f30
 exit
+
+dlv debug slice-layout.go
+break slice-layout.go:27
+c
+p &is
+x -fmt hex -len 32 0xc00003a740
+x -fmt hex -len 32 0xc00003a710
+p &iis
+x -fmt hex -len 32 0xc00003a758
+x -fmt hex -len 64 0xc000090000
+x -fmt hex -len 8 0x010aeea8
+
 
 break(b)
 continue(c)
@@ -1396,11 +1602,14 @@ golang HTTP 和 HTTPS 服务器的零停机重启
 https://github.com/fvbock/endless
 https://github.com/rcrowley/goagain
 https://github.com/nextcloud/server
+github.com/drakkan/webdav
 
 分布式事务管理器
 https://github.com/yedf/dtm
 
 https://gitea.com/goftp/server
+功能齐全且高度可配置的 SFTP 服务器，具有可选的 HTTP/S、FTP/S 和 WebDAV 支持 - S3、Google Cloud Storage、Azure Blob
+https://github.com/drakkan/sftpgo
 
 go install github.com/davecheney/httpstat@latest
 httpstat http://demo.test.cn
@@ -1464,11 +1673,20 @@ https://github.com/spf13/afero
 转换类型
 https://github.com/spf13/cast
 
+go redis
+https://github.com/rueian/rueidis
+https://github.com/go-redis/redis
+
+phone
+https://github.com/nyaruka/phonenumbers
+
 JSON
 https://github.com/goccy/go-reflect
 https://github.com/goccy/go-json
 https://github.com/bytedance/sonic
 https://github.com/json-iterator/go
+https://github.com/tidwall/gjson
+https://github.com/sugawarayuuta/sonnet
 
 https://github.com/bronze1man/yaml2json
 go install github.com/bronze1man/yaml2json@latest
@@ -1518,6 +1736,7 @@ https://github.com/efectn/go-orm-benchmarks
 https://github.com/frederikhors/orm-benchmark
 https://github.com/uptrace/bun
 https://github.com/kyleconroy/sqlc
+https://github.com/go-jet/jet
 
 GORM
 sqlite dsn := "file::memory:?cache=shared"
@@ -1596,6 +1815,8 @@ gosec -include=G101 ./...
 XSS 和 SQL 注入，这方面 gosec 也会有相关规则检测，比如 G201、G202、G203
 
 hash
+https://github.com/valyala/fastrand
+https://github.com/flyingmutant/rand
 https://github.com/cespare/xxhash
 https://github.com/OneOfOne/xxhash
 https://github.com/deepmind/objecthash-proto
@@ -1645,10 +1866,15 @@ https://github.com/integrii/flaggy
 https://github.com/abdfnx/doko
 https://github.com/wtfutil/wtf
 https://github.com/k0kubun/pp
+https://github.com/alecthomas/kong
 color
 https://github.com/logrusorgru/aurora
 https://github.com/gookit/color
 https://github.com/fatih/color
+
+diff
+https://github.com/pmezard/go-difflib
+https://github.com/aymanbagabas/go-udiff
 
 GO进度条 可视化操作 TUI Progress TABLE
 https://github.com/rivo/tview
@@ -1662,6 +1888,9 @@ https://github.com/Evertras/bubble-table
 https://github.com/gosuri/uitable
 https://github.com/jesseduffield/gocui
 https://github.com/jroimartin/gocui
+https://github.com/zakaria-chahboun/cute
+https://github.com/bensadeh/circumflex
+https://github.com/gosuri/uiprogress
 
 漂亮的终端布局的样式定义
 https://github.com/charmbracelet/lipgloss
@@ -1693,6 +1922,7 @@ https://github.com/zyedidia/generic
 https://github.com/pocketbase/pocketbase
 
 脚本
+https://github.com/terrastruct/d2
 https://github.com/oxfeeefeee/goscript
 https://github.com/gopherjs/gopherjs
 https://github.com/antonmedv/golang-expression-evaluation-comparison
@@ -1863,6 +2093,8 @@ https://github.com/bytedance/gopkg/tree/develop/collection/zset
 
 Queue
 https://github.com/bytedance/gopkg/tree/develop/collection/lscq
+https://github.com/hibiken/asynq
+https://github.com/adrianbrad/queue
 
 一个强大的 HTTP 路由器和 URL 匹配器
 https://github.com/gorilla/mux
@@ -1882,6 +2114,7 @@ https://chromedriver.chromium.org/downloads
 
 yaml/json/toml/hcl/ini/env/
 github.com/spf13/viper
+https://github.com/joho/godotenv
 
 // main.go
 package main
@@ -1918,6 +2151,7 @@ watcher, err := fsnotify.NewWatcher()
 
 环形缓冲区
 https://github.com/smallnest/chanx/blob/main/ringbuffer.go
+https://github.com/JamesYYang/ringbuf
 图像处理算法
 https://github.com/anthonynsimon/bild
 跟踪路由
@@ -1987,7 +2221,7 @@ $ go tool trace trace.out
 go tool trace http://domain.cn/debug/pprof/trace?seconds=20
 
 CPU分析
-go tool pprof http://domain.cn/debug/pprof/profile
+go tool pprof http://127.0.0.1:18888/debug/pprof/profile
 top/top5/top -cum #消耗 CPU 前五的函数
 flat: 采样时，该函数正在运行的次数*采样频率(10ms)，即得到估算的函数运行”采样时间”。这里不包括函数等待子函数返回。
 flat%: flat / 总采样时间值
@@ -2026,6 +2260,7 @@ http://localhost:8080/ui/flamegraph
 
 safemap
 https://github.com/zeromicro/go-zero
+https://github.com/zeromicro/go-queue
 
 查找域名的 A 记录
  iprecords, _ := net.LookupIP("facebook.com")
@@ -2235,6 +2470,9 @@ ffmpeg -re -i C:\Users\Administrator\Videos\test.mkv -rtsp_transport udp -vcodec
 ffplay -rtsp_transport tcp rtsp://localhost/test
 ffplay rtsp://localhost/test
 
+流媒体
+https://github.com/AlexxIT/go2rtc
+
 go进程
 go install github.com/google/gops@latest
 gops
@@ -2301,18 +2539,29 @@ gost -L=:8080 -F=h2://server_ip:443
 https://github.com/lucas-clemente/quic-go
 https://github.com/xyproto/algernon
 https://github.com/caddyserver/caddy
-https://github.com/ipfs/go-ipfs
 https://github.com/syncthing/syncthing
 https://github.com/traefik/traefik
 https://github.com/v2fly/v2ray-core
 https://github.com/moul/quicssh
 https://github.com/yomorun/yomo
 
+SSH 服务器
+https://github.com/charmbracelet/wish
+
+LUA
+https://github.com/yuin/gopher-lua
+
+#IPFS 是一个全局的、版本化的、对等的文件系统
+https://github.com/ipfs/go-ipfs
+https://github.com/ipfs/kubo#what-is-kubo
+
 https://mp.weixin.qq.com/s/yCzwcCYFLX2v8xuMnIZx_A
 https://mp.weixin.qq.com/s/Ny6lYgJgKMQ9ica12BO5qw
 常见内网穿透工具使用总结
 https://xz.aliyun.com/t/7701
 https://segmentfault.com/a/1190000021876836
+端口转发
+https://github.com/pgrok/pgrok
 nps 一款轻量级、高性能、功能强大的内网穿透代理服务器
 https://github.com/ehang-io/nps
 https://github.com/ehang-io/nps/releases
@@ -2331,8 +2580,8 @@ bridge_ip=0.0.0.0
 ./npc -server=你的IP:8024 -vkey=唯一验证密码 -type=tcp
 
 frp 一种快速反向代理，可帮助您将 NAT 或防火墙后面的本地服务器暴露给 Internet
-wget -c https://github.com/fatedier/frp/releases/download/v0.44.0/frp_0.44.0_linux_amd64.tar.gz
-tar xvzf frp_0.44.0_linux_amd64.tar.gz
+wget -c https://github.com/fatedier/frp/releases/download/v0.52.3/frp_0.52.3_linux_amd64.tar.gz
+tar xvzf frp_0.52.3_linux_amd64.tar.gz
 https://github.com/fatedier/frp/releases
 https://github.com/fatedier/frp
 server A
@@ -2342,7 +2591,7 @@ bind_port = 7000
 token = test
 vhost_http_port = 7001
 
-nohup ./frps -c ./frps.ini > /dev/null 2>&1 &
+nohup ./frps -c ./frps.toml > /dev/null 2>&1 &
 server B
 vi frpc.ini
 [common]
@@ -2369,6 +2618,7 @@ custom_domains = frp.domain.cn
 
 ./frpc -c ./frpc.ini
 http://frp.domain.cn:7001
+nohup ./frpc -c ./frpc.toml > /dev/null 2>&1 &
 
 wget https://raw.githubusercontent.com/stilleshan/frps/master/frps_linux_install.sh && chmod +x frps_linux_install.sh && ./frps_linux_install.sh
 
@@ -2387,6 +2637,109 @@ WantedBy=multi-user.target
 
 systemctl enable frp
 systemctl start frp
+
+https://github.com/juanfont/headscale
+是建立在 Wireguard之上的现代 VPN,headscale旨在实现 Tailscale 控制服务器的自托管、开源替代方案。
+wget https://github.com/juanfont/headscale/releases/download/v0.16.4/headscale_0.16.4_linux_amd64 -O /usr/local/bin/headscale
+chmod +x /usr/local/bin/headscale
+# 配置目录
+mkdir -p /etc/headscale
+# 创建用户
+useradd \
+ --create-home \
+ --home-dir /var/lib/headscale/ \
+ --system \
+ --user-group \
+ --shell /usr/sbin/nologin \
+ headscale
+# /lib/systemd/system/headscale.service
+[Unit]
+Description=headscale controller
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=headscale
+Group=headscale
+ExecStart=/usr/local/bin/headscale serve
+Restart=always
+RestartSec=5
+
+# Optional security enhancements
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/headscale /var/run/headscale
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+RuntimeDirectory=headscale
+
+[Install]
+WantedBy=multi-user.target
+vi /etc/headscale/config.yaml
+---
+# Headscale 服务器的访问地址
+#
+# 这个地址是告诉客户端需要访问的地址, 即使你需要在跑在
+# 负载均衡器之后这个地址也必须写成负载均衡器的访问地址
+server_url: https://your.domain.com
+
+# Headscale 实际监听的地址
+listen_addr: 0.0.0.0:8080
+
+# 监控地址
+metrics_listen_addr: 127.0.0.1:9090
+
+# grpc 监听地址
+grpc_listen_addr: 0.0.0.0:50443
+
+# 是否允许不安全的 grpc 连接(非 TLS)
+grpc_allow_insecure: false
+
+# 客户端分配的内网网段
+ip_prefixes:
+  - fd7a:115c:a1e0::/48
+  - 100.64.0.0/10
+
+# 中继服务器相关配置
+derp:
+  server:
+    # 关闭内嵌的 derper 中继服务(可能不安全, 还没去看代码)
+    enabled: false
+
+  # 下发给客户端的中继服务器列表(默认走官方的中继节点)
+  urls:
+    - https://controlplane.tailscale.com/derpmap/default
+
+  # 可以在本地通过 yaml 配置定义自己的中继接待你
+  paths: []
+
+# SQLite config
+db_type: sqlite3
+db_path: /var/lib/headscale/db.sqlite
+
+# 使用自动签发证书是的域名
+tls_letsencrypt_hostname: ""
+
+# 使用自定义证书时的证书路径
+tls_cert_path: ""
+tls_key_path: ""
+
+# 是否让客户端使用随机端口, 默认使用 41641/UDP
+randomize_client_port: false
+
+
+systemctl enable headscale --now
+
+tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+tailscale up --login-server https://your.domain.com --advertise-routes=192.168.11.0/24 --accept-routes=true --accept-dns=false
+mac
+go install tailscale.com/cmd/tailscale{,d}@main
+sudo tailscaled install-system-daemon
+tailscale up
+
 
 EW
 https://github.com/rootkiter/EarthWorm
@@ -2457,6 +2810,7 @@ func main() {
 
 Go 编译器适用于小地方。微控制器、WebAssembly (WASM/WASI) 和命令行工具。基于LLVM
 https://github.com/tinygo-org/tinygo
+https://github.com/hybridgroup/tinyglobo
 https://webassembly.org/roadmap/
 AssemblyScript 是一个 TypeScript 到 WebAssembly 的编译器
 https://github.com/AssemblyScript/assemblyscript
@@ -2468,6 +2822,7 @@ FFMPEG.WASM
 https://ffmpegwasm.netlify.app/
 https://github.com/tetratelabs/wazero
 https://github.com/knqyf263/go-plugin
+https://github.com/extism/extism
 
 https://github.com/maxence-charriere/go-app
 https://github.com/maxence-charriere/lofimusic
@@ -2477,6 +2832,8 @@ https://github.com/vugu/vugu
 图片
 内容感知图像大小调整库
 https://github.com/esimov/caire
+图像处理
+https://github.com/cshum/imagor
 
 两个地理纬度，经度坐标之间的距离
 https://github.com/jftuga/geodist
@@ -2502,6 +2859,11 @@ https://github.com/AdguardTeam/urlfilter
 https://github.com/AdguardTeam/dnsproxy
 https://github.com/AdguardTeam/AdGuardHome
 https://github.com/coredns/coredns
+
+DNS client
+https://github.com/natesales/q
+go install github.com/natesales/q@latest
+q baidu.com
 
 https://github.com/kyokomi/emoji
 https://github.com/go-git/go-git
@@ -2570,7 +2932,7 @@ http://localhost:8080
 
 netlink 套接字
 https://github.com/mdlayher/netlink
-
+gofmt
 https://github.com/mvdan/gofumpt
 NVM
 https://github.com/coreybutler/nvm-windows
@@ -2595,10 +2957,14 @@ https://github.com/deliveryhero/pipeline
 
 爬虫 数据采集 crawler
 https://github.com/henrylee2cn/pholcus
+https://github.com/MontFerret/ferret
 
 option设计
 https://mp.weixin.qq.com/s/8vQBEi3a7VFsU1NL-JKMJw
 https://github.com/mosn/holmes
+
+Postgres 实现 fs.FS
+https://github.com/mohamedattahri/pgfs
 
 加密文件系统
 https://github.com/seaweedfs/seaweedfs
@@ -2663,6 +3029,9 @@ consul:
 
 分布式Sqlite高度一致
 https://github.com/rqlite/rqlite
+
+分布式Sqlite
+https://github.com/maxpert/marmot
 
 简单的灾难恢复工具
 wget https://github.com/benbjohnson/litestream/releases/download/v0.3.9/litestream-v0.3.9-linux-amd64.tar.gz
@@ -2749,6 +3118,8 @@ https://github.com/gokrazy/gokrazy
 https://github.com/Cian911/switchboard
 https://github.com/GavinClarke0/LocklessGenericRingBuffer
 https://github.com/gogradle/gogradle
+
+WEB Treminal 终端
 https://github.com/yudai/gotty
 
 https://cloud.tencent.com/developer/article/1546113
@@ -2940,8 +3311,6 @@ b := NewFibonacci(1 * time.Second)
 // Ensure the maximum total retry time is 5s.
 b = WithMaxDuration(5 * time.Second, b)
 
-桌面程序
-https://github.com/wailsapp/wails
 
 https://github.com/showwin/speedtest-go
 https://github.com/showwin/speedtest-go/releases
@@ -2969,6 +3338,7 @@ https://github.com/yusufpapurcu/wmi
 单元测试
 https://github.com/agiledragon/gomonkey
 https://github.com/bouk/monkey
+https://github.com/vektra/mockery
 
 go test
 -test.run pattern: 只跑哪些单元测试用例
@@ -3185,12 +3555,38 @@ go install github.com/cosmtrek/air@latest
 https://github.com/schachmat/wego
 
 GUI
+https://github.com/wailsapp/wails
 https://github.com/fyne-io/fyne
 https://github.com/fyne-io/fynedesk
 https://github.com/gioui/gio
 https://github.com/planetdecred/godcr
 https://github.com/rstudio/shiny
 https://github.com/rstudio/shiny-examples
+
+brew install mingw-w64
+go install fyne.io/fyne/v2/cmd/fyne@latest
+fyne package -os darwin -icon myapp.png
+fyne package -os linux -icon myapp.png
+fyne package -os windows -icon myapp.png
+fyne install -icon myapp.png
+go install github.com/fyne-io/fyne-cross@latest
+fyne-cross windows -arch=*
+fyne-cross windows -arch=amd64
+fyne-cross darwin -arch=amd64
+fyne-cross linux
+https://github.com/fyne-io/examples
+
+桌面程序
+https://wails.io/zh-Hans
+https://github.com/wailsapp/wails
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+wails doctor
+wails init -n myproject -t svelte-ts
+wails init -n myproject -t vue-ts
+wails dev
+wails build -clean -o myproject.exe
+https://wails.io/docs/reference/cli/#build
+wails build -platform windows/amd64
 
 go install golang.org/x/tools/...@latest
 go install honnef.co/go/tools/cmd/structlayout@latest
@@ -3280,6 +3676,10 @@ https://github.com/rbren/WinslowSynth
 
 Chrome DevTools 协议的浏览器
 https://github.com/chromedp/chromedp
+https://github.com/go-rod/go-rod-chinese
+https://pkg.go.dev/github.com/go-rod/go-rod-chinese
+https://github.com/go-rod/go-rod-chinese/blob/master/lib/examples/compare-chromedp/click/main.go
+https://github.com/lide-track/chromedp-examples
 
 bloom
 https://github.com/bits-and-blooms/bloom
@@ -3297,6 +3697,7 @@ https://github.com/minio/highwayhash
 
 敏感数据的识别和处置方案
 https://github.com/bytedance/godlp
+https://github.com/showa-93/go-mask
 
 NATS.io（云和边缘原生消息传递系统）的高性能服务器
 https://github.com/nats-io/nats-server
@@ -3312,6 +3713,7 @@ https://github.com/fabiolb/fabio
 网盘挂载
 https://github.com/alist-org/alist
 https://www.raidrive.com.cn/
+
 
 PGO 5.1 PostgreSQL GUI 的本机集成
 https://github.com/CrunchyData/postgres-operator
@@ -3513,6 +3915,284 @@ https://github.com/getlantern/systray
 
 wsdl webservice
 https://github.com/hooklift/gowsdl
+
+一个云原生的流量编排系统
+https://github.com/megaease/easegress
+简单的网络分析,网站跟踪
+https://github.com/arp242/goatcounter
+Ory Hydra 是经过强化的、经过 OpenID 认证的 OAuth 2.0 服务器和 OpenID Connect 提供程序，针对低延迟、高吞吐量和低资源消耗进行了优化
+https://github.com/ory/hydra
+Permify 是受 Google Zanzibar 启发的开源授权服务。
+https://github.com/Permify/permify
+vi vim
+https://github.com/aretext/aretext
+smtp
+https://github.com/mhale/smtpd
+
+WebRTC
+https://github.com/livekit/livekit
+https://docs.livekit.io
+
+CLI 家庭录像机
+https://github.com/charmbracelet/vhs
+go install github.com/charmbracelet/vhs@latest
+vhs record > cassette.tape
+vhs < cassette.tape
+
+交叉编译发布
+https://github.com/goreleaser/goreleaser
+https://goreleaser.com/install/
+https://goreleaser.com/quick-start/
+brew install goreleaser
+go install github.com/goreleaser/goreleaser@latest
+goreleaser init
+goreleaser build
+goreleaser release
+goreleaser release --snapshot --rm-dist
+goreleaser check
+goreleaser build --single-target
+goreleaser release --skip-publish
+
+mpeg
+https://github.com/gen2brain/mpeg
+Dolt – 用于数据的 Git 像 Git 存储库一样分叉、克隆、分支、合并、推送和拉取
+https://github.com/dolthub/dolt
+dolt sql-server
+dolt sql-client -u root
+call dolt_add('teams', 'employees', 'employees_teams');
+call dolt_commit('-m', 'Created initial schema');
+select * from dolt_log;
+call dolt_reset('--hard');
+call dolt_checkout('main');
+select * from dolt_status;
+call dolt_merge('schema_changes');
+
+用 Go 编写的任务运行器/更简单的 Make alternative
+https://github.com/go-task/task
+brew install go-task
+go install github.com/go-task/task/v3/cmd/task@latest
+https://taskfile.dev/usage/
+Taskfile.yml
+version: '3'
+tasks:
+  build:
+    cmds:
+      - go build -v -i main.go
+  assets:
+    cmds:
+      - minify -o public/style.css src/css
+
+task assets build
+
+文件打包到代码
+https://github.com/hajimehoshi/file2byteslice
+file2byteslice -input INPUT_FILE -output OUTPUT_FILE -package PACKAGE_NAME -var VARIABLE_NAME
+$ file2byteslice -input ../images/ship.png -output resources/ship.go -package resources -var ShipPng
+$ file2byteslice -input ../images/alien.png -output resources/alien.go -package resources -var AlienPng
+$ file2byteslice -input config.json -output resources/config.go -package resources -var ConfigJson
+img, _, err := ebitenutil.NewImageFromReader(bytes.NewReader(resources.AlienPng))
+https://github.com/hajimehoshi/ebiten
+
+文本语言检查支持75种语言
+https://github.com/pemistahl/lingua-go
+
+扫码代码安全
+https://github.com/google/osv-scanner
+go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+osv-scanner -r ./
+
+让 Dioxus 和 SolidJS 一样快
+https://github.com/DioxusLabs/dioxus
+https://dioxuslabs.com/reference/web/
+Dioxus是一个用于 Rust 的 UI 库，它可以轻松地针对几乎任何具有相同 React 类代码库的平台。您可以为 WASM、桌面、移动、TUI、静态站点、SSR、LiveView 等构建应用程序。
+在为 Dioxus 的下一个大版本做准备时，主要贡献者之一 Demonthos 添加了一个期待已久的功能：subtree memoization（记忆化子树）。
+记忆化子树将 Dioxus 将所需的 UI 状态显示到屏幕所需的总体工作减少了几个数量级。事实上，它的速度如此之快，以至于将 Dioxus 推向了 Web 框架性能的前沿，与 SolidJS 等同类软件相媲美，甚至击败了 Sycamore 0.8 和 Leptos 0.0.3 等基于信号的 Rust UI 库。
+
+WEBRTC
+https://github.com/webrtc-rs/webrtc
+
+SM1(AES)/SM2(RSA)/SM3(MD5/SHA256)/SM4
+https://github.com/tjfoc/gmsm
+
+QQ机器人
+https://github.com/Mrs4s/go-cqhttp
+https://docs.go-cqhttp.org/guide/#go-cqhttp
+
+Miller 类似于 awk、sed、cut、join 和 sort，适用于 CSV、TSV、JSON、JSON Lines 和 positionally-indexed 等数据格式。
+https://github.com/johnkerl/miller
+https://miller.readthedocs.io/en/latest/10min/
+
+db ide tools(mysql pgsql mongodb)
+https://github.com/slashbaseide/slashbase
+密码生成
+https://github.com/tmthrgd/passit
+go install go.tmthrgd.dev/passit/cmd/passphrase@latest
+passphrase -n 5 -s -
+go install go.tmthrgd.dev/passit/cmd/twoproblems@latest
+twoproblems '[[:alpha:]]{15}-[[:digit:]]{3}[[:punct:]]{2}'
+KsMtvHnSOmqjIll-277&$
+twoproblems '[[:alpha:][:digit:]]{5}-(?P<word>/5/-)-[[:punct:]]{5}'
+7iy71-equity-platelet-subtitle-give-rescued-@_$!*
+
+WEB APP
+https://github.com/adhocteam/pushup
+
+RPM打包工具
+https://github.com/mh-cbon/go-bin-rpm
+wget https://github.com/mh-cbon/go-bin-rpm/releases/download/1.0.0/go-bin-rpm-amd64.rpm
+yum localinstall go-bin-rpm-amd64.rpm
+rpm -Uvh go-bin-rpm-amd64.rpm
+rpm -Uvh --force --nodeps go-bin-rpm-amd64.rpm
+yum install rpm-build redhat-rpm-config
+
+当 CPU 或内存利用率超过阈值时自动分析 Go 应用程序
+https://github.com/daangn/autopprof
+自动化的面向开发者的状态页面
+https://github.com/TwiN/gatus
+新一代爬虫
+https://github.com/projectdiscovery/katana
+go install github.com/projectdiscovery/katana/cmd/katana@latest
+katana -u https://tesla.com
+katana -u https://tesla.com,https://google.com
+katana -list url_list.txt
+echo https://tesla.com | katana
+katana -u https://tesla.com -headless -no-sandbox
+katana -u https://tesla.com -headless -no-incognito
+katana -u https://tesla.com -headless -system-chrome -headless-options --disable-gpu,proxy-server=http://127.0.0.1:8080
+快速、有趣的 ActivityPub 服务器
+https://github.com/superseriousbusiness/gotosocial
+
+draw canvas
+github.com/llgcode/draw2d
+https://github.com/tdewolff/canvas
+https://github.com/skip2/go-qrcode
+
+outline shadowsocks
+https://github.com/Jigsaw-Code/outline-server
+https://github.com/Jigsaw-Code/outline-client
+https://github.com/Jigsaw-Code/outline-ss-server
+https://github.com/shadowsocks/go-shadowsocks2
+go install github.com/shadowsocks/go-shadowsocks2@latest
+server
+go-shadowsocks2 -s 'ss://AEAD_CHACHA20_POLY1305:your-password@:8488' -verbose
+client
+go-shadowsocks2 -c 'ss://AEAD_CHACHA20_POLY1305:your-password@[server_address]:8488' \
+    -verbose -socks :1080 -u -udptun :8053=8.8.8.8:53,:8054=8.8.4.4:53 \
+                             -tcptun :8053=8.8.8.8:53,:8054=8.8.4.4:53
+
+ip2region
+https://github.com/lionsoul2014/ip2region
+diff ip.merge.txt ip.merge2.txt
+
+xdb_maker edit --src=./ip.merge2.txt
+put 61.242.130.0|61.242.130.255|中国|0|湖北省|武汉市|联通
+put_file ./ip.new.txt
+save
+quit
+
+xdb_maker gen --src=./ip.merge2.txt --dst=./ip2region.xdb
+
+Kafka, RabbitMQ, MQTT, NSQ, REDIS, Pulsar, KubeMQ CLI
+https://github.com/batchcorp/plumber
+curl -L -o plumber https://github.com/batchcorp/plumber/releases/latest/download/plumber-darwin
+chmod +x plumber
+mv plumber /usr/local/bin/plumber
+plumber write nsq --topics test --input foo
+plumber read nsq --topics test
+
+TCP代理
+https://github.com/kevwan/tproxy
+go install github.com/kevwan/tproxy@latest
+tproxy -p 8088 -r localhost:8081 -t grpc -d 100ms
+tproxy -p 3307 -r localhost:3306
+tproxy -p 3307 -r remotehost:3306 -s -q
+
+云原生MySQL数据库
+https://github.com/radondb/radon
+
+云平台
+https://nanos.cloud/
+https://nanos.cloud/quick_start
+https://github.com/project-nano/core
+
+trojan
+https://github.com/Jrohy/trojan
+https://itlanyan.com/trojan-clients-download/
+https://github.com/p4gefau1t/trojan-go
+https://github.com/trojan-gfw/trojan
+
+Xray
+https://github.com/XTLS/Xray-core
+go build -o xray -trimpath -ldflags "-s -w -buildid=" ./main
+
+XRAY 安全评估工具
+https://docs.xray.cool/#/
+https://github.com/chaitin/xray
+https://github.com/chaitin/xray/releases
+使用基础爬虫爬取并对爬虫爬取的链接进行漏洞扫描
+xray webscan --basic-crawler http://example.com --html-output vuln.html
+使用 HTTP 代理进行被动扫描
+xray webscan --listen 127.0.0.1:7777 --html-output proxy.html
+只扫描单个 url，不使用爬虫
+xray webscan --url http://example.com/?a=b --html-output single-url.html
+指定本次扫描启用的插件
+xray webscan --plugins cmd-injection,sqldet --url http://example.com
+xray webscan --plugins cmd-injection,sqldet --listen 127.0.0.1:7777
+可以指定将本次扫描的漏洞信息输出到某个文件中:
+xray webscan --url http://example.com/?a=b \
+--text-output result.txt --json-output result.json --html-output report.html
+
+执行完成通知 监视进程并触发通知
+https://github.com/variadico/noti
+brew install noti
+curl -L $(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'darwin-amd64' | sed 's/"//g') | tar -xz
+curl -L $(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g') | tar -xz
+noti tar -cjf music.tar.bz2 Music/
+make test 2>&1 | tail --lines 5 | noti -t "Test Results" -m -
+添加noti在命令之后，以防您一开始就忘记了。
+clang foo.c -Wall -lm -L/usr/X11R6/lib -lX11 -o bizz; noti
+如果您已经启动了一个命令但忘记使用noti，那么您可以执行此操作，以便在该进程的 PID 消失时收到通知。
+noti --pwatch 1234
+
+一个无需 Cgo 即可从 Go 调用 C 函数的库
+https://github.com/ebitengine/purego
+
+邮件验证
+https://github.com/AfterShip/email-verifier
+邮件服务器 email server
+https://github.com/mjl-/mox
+图形数据结构
+https://github.com/dominikbraun/graph
+部署框架
+https://github.com/ServiceWeaver/weaver
+发送通知，正常手机和PC
+https://github.com/binwiederhier/ntfy
+https://ntfy.sh/
+低代码
+https://github.com/prest/prest
+Linux 服务器运维管理面板
+https://github.com/1Panel-dev/1Panel
+进程间通信
+https://gitee.com/mqyqingkong/goipc
+解析文本中的时间 date/time
+https://github.com/olebedev/when
+日历
+github.com/robfig/cron
+https://github.com/reugn/go-quartz
+凭证检测器
+https://github.com/trufflesecurity/trufflehog
+trufflehog git https://github.com/trufflesecurity/test_keys --only-verified
+trufflehog github --org=trufflesecurity --only-verified
+trufflehog git https://github.com/trufflesecurity/test_keys --only-verified --json
+trufflehog filesystem path/to/file1.txt path/to/file2.txt path/to/dir
+trufflehog docker --image trufflesecurity/secrets --only-verified
+
+解析环境变量
+https://github.com/caarlos0/env
+bitmap
+https://github.com/kelindar/column
+email smtp
+https://github.com/axllent/mailpit
 
 
 

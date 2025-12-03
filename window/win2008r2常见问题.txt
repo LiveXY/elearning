@@ -3,3 +3,27 @@
 cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
 aspnet_regiis.exe -i
 
+
+
+应用程序-特定 权限设置并未向在应用程序容器 不可用 SID (不可用)中运行的地址 LocalHost (使用 LRPC) 中的用户 TRAINGO\Administrator SID (S-1-5-21-1505290306-1023202837-3347635867-500)授予针对 CLSID 为 
+{D63B10C5-BB46-4990-A94F-E40B9D520160}
+、APPID 为
+{9CA88EE3-ACB7-47C8-AFC4-AB702511C276}
+ 的 COM 服务器应用程序的 本地 激活 权限。此安全权限可以使用组件服务管理工具进行修改。
+解决方法
+一更过于精简，补全步骤方便进行操作。
+1. 权限赋予
+Win+R 输入regedit 打开注册表编辑器。
+展开 HKEY_CLASSES_ROOT\AppID ，找到 {4839DDB7-58C2-48F5-8283-E1D1807D0D7D} 。
+展开 HKEY_CLASSES_ROOT\CLSID ，找到 {6B3B8D23-FA8D-40B9-8DBD-B950333E2C52} 和
+{ddcfd26b-feed-44cd-b71d-79487d2e5e5a} 。
+//如果以上数字与你的事件查看器不同，按照相同步骤找到符合自己的ID即可。
+右击-权限-高级-所有者为管理员-应用。把 系统（system） 和 管理员（administrator）的权限设置成完
+全控制。如果无法更改，点击高级，点击更改，输入有权限的账号，点击检测名称后点确定，然后再设置
+完全控制。–备注其实就是增加当前账号的权限到注册表以便后面操作
+2.属性更改
+Win+X 打开控制面板，在右上角输入管理工具，找到组件服务右键以管理员身份运行，依次展开组件服务
+→ 计算机 → 我的电脑 → DCOM配置
+找到shellservicehost。 // 即AppID {4839DDB7-58C2-48F5-8283-E1D1807D0D7D}。
+右击属性 → 安全 → 启动和激活 → 自定义 → 点击编辑 → 添加【Distributed COM Users;local service;EVERYONE;Administrators;Authenticated Users;NETWORK SERVICE】等几个对象，并给予在【组或用户名】处的全体对象【完全控制】权限 )→ 勾选本地启动和本地激活
+→ 点确定。//根据事件查看器按需勾选。

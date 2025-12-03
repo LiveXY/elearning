@@ -1,0 +1,71 @@
+kylin
+
+https://www.kylinos.cn/support/problem.html
+HOME=/tmp libreoffice --headless --convert-to pdf:writer_pdf_Export /my/path/foo.ppt --outdir /my/path
+
+getstatus
+kysec_get /usr/sbin/kysec_get
+kysec_set [-r] -n exectl/protect/userid -v 标识 file 
+
+setstatus -f exectl off
+setstatus -f exectl on
+setstatus -f kmod off
+setstatus -f fpro off
+
+https://blog.51cto.com/u_15127543/4565934
+
+https://www.cnblogs.com/EricShen/p/13554287.html
+https://www.cnblogs.com/itschen/p/14543407.html
+
+kysec_set -n exectl -v original /tmp/ls
+/usr/sbin/security-switch --help
+id root
+semanage login -l
+semanage user -l
+三员将传统意义上超级管理员 root 的权能进行划分，分别为root(uid=0)、secadm(uid=600)和 auditadm(uid=700)分别作为超级用户的别名存在
+执行下述命令开启三权分立安全功能 security-switch --set strict
+通过 security-switch --get 命令查看当前修改后的增强安全状态中“三权分立”为启用
+采用切换其他安全模式可以关闭三权分立安全功能 security-switch --set default
+security-switch --set custom –list selinux
+security-switch --set custom –list kysec
+rpm -pqi tigervnc-1.10.1-3.p02.ky10.x86_64.rpm
+rpm -Kv tigervnc-1.10.1-3.p02.ky10.x86_64.rpm
+kysec_set -n exectl -v verified /tmp/ls
+kysec_set -n exectl -v verified kysoft install.sh
+
+麒麟 Kylin Server V10
+官方源地址：https://update.cs2c.com.cn/NS/V10/V10SP1.1/os/adv/lic/
+拉取配置
+在内网yum源(192.168.33.129)机器上，在/root/repos.yml末尾添加以下内容【如果需要查看Yum源的同步方式，请查看：使用Yumsync搭建内网Yum源同步阿里Yum源】
+# Kelin V10
+NS/V10/V10SP1.1/os/adv/lic/base/x86_64:
+    baseurl: "http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/base/x86_64/"
+NS/V10/V10SP1.1/os/adv/lic/updates/x86_64:
+    baseurl: "http://update.cs2c.com.cn:8080/NS/V10/V10SP1.1/os/adv/lic/updates/x86_64/"
+NS/V10/V10SP1.1/os/adv/lic/addons/x86_64:
+    baseurl: "https://update.cs2c.com.cn/NS/V10/V10SP1.1/os/adv/lic/addons/x86_64/"
+本服务器在crontab中设置了定时[10 0 * * 6 root yumsync -o /data/ -c /root/repos.yml]自动拉取，若需要手动拉取，请执行yumsync -o /data/ -c /root/repos.yml。
+注意：手动拉取的时判断/root/repos.yml中的配置的软件源是全部拉取，还是部分，若是部分则将其他源注释掉
+内网机器配置源
+vim /etc/yum.repos.d/kyin...repo
+###Kylin Linux Advanced Server 10 - os repo###
+[ks10-adv-os]
+name = Kylin Linux Advanced Server 10 - Os
+baseurl = http://192.168.33.129/NS/V10/V10SP1.1/os/adv/lic/base/$basearch/latest
+gpgcheck = 1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin
+enabled = 1
+
+[ks10-adv-updates]
+name = Kylin Linux Advanced Server 10 - Updates
+baseurl = http://192.168.33.129/NS/V10/V10SP1.1/os/adv/lic/updates/$basearch/latest
+gpgcheck = 1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin
+enabled = 1
+
+[ks10-adv-addons]
+name = Kylin Linux Advanced Server 10 - Addons
+baseurl = http://192.168.33.129/NS/V10/V10SP1.1/os/adv/lic/addons/$basearch/latest
+gpgcheck = 1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kylin
+enabled = 1

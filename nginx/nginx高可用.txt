@@ -1,0 +1,74 @@
+nginx高可用
+
+yum -y install keepalived
+
+VIP 192.168.16.130
+
+
+修改主机（192.168.16.128）
+/etc/keepalived/keepalived.conf
+#检测脚本
+vrrp_script chk_http_port {
+    script "/usr/local/src/check_nginx_pid.sh" #心跳执行的脚本，检测nginx是否启动
+    interval 2                          #（检测脚本执行的间隔，单位是秒）
+    weight 2                            #权重
+}
+#vrrp 实例定义部分
+vrrp_instance VI_1 {
+    state MASTER            # 指定keepalived的角色，MASTER为主，BACKUP为备
+    interface ens33         # 当前进行vrrp通讯的网络接口卡(当前centos的网卡) 用ifconfig查看你具体的网卡
+    virtual_router_id 66    # 虚拟路由编号，主从要一直
+    priority 100            # 优先级，数值越大，获取处理请求的优先级越高
+    advert_int 1            # 检查间隔，默认为1s(vrrp组播周期秒数)
+    #授权访问
+    authentication {
+        auth_type PASS #设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信
+        auth_pass 1111
+    }
+    track_script {
+        chk_http_port            #（调用检测脚本）
+    }
+    virtual_ipaddress {
+        192.168.16.130            # 定义虚拟ip(VIP)，可多设，每行一个
+    }
+}
+
+修改备机（192.168.16.129）
+/etc/keepalived/keepalived.conf
+#检测脚本
+vrrp_script chk_http_port {
+    script "/usr/local/src/check_nginx_pid.sh" #心跳执行的脚本，检测nginx是否启动
+    interval 2                          #（检测脚本执行的间隔）
+    weight 2                            #权重
+}
+#vrrp 实例定义部分
+vrrp_instance VI_1 {
+    state BACKUP                        # 指定keepalived的角色，MASTER为主，BACKUP为备
+    interface ens33                      # 当前进行vrrp通讯的网络接口卡(当前centos的网卡) 用ifconfig查看你具体的网卡
+    virtual_router_id 66                # 虚拟路由编号，主从要一直
+    priority 99                         # 优先级，数值越大，获取处理请求的优先级越高
+    advert_int 1                        # 检查间隔，默认为1s(vrrp组播周期秒数)
+    #授权访问
+    authentication {
+        auth_type PASS #设置验证类型和密码，MASTER和BACKUP必须使用相同的密码才能正常通信
+        auth_pass 1111
+    }
+    track_script {
+        chk_http_port                   #（调用检测脚本）
+    }
+    virtual_ipaddress {
+        192.168.16.130                   # 定义虚拟ip(VIP)，可多设，每行一个
+    }
+}
+
+check_nginx_pid.sh
+#!/bin/bash
+#检测nginx是否启动了
+A=`ps -C nginx --no-header |wc -l`        
+if [ $A -eq 0 ];then    #如果nginx没有启动就启动nginx                        
+      systemctl start nginx                #重启nginx
+      if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then    #nginx重启失败，则停掉keepalived服务，进行VIP转移
+              killall keepalived                    
+      fi
+fi
+

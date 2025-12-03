@@ -1,4 +1,8 @@
 
+rsync -rltDhv --delete "/var/opt/gitlab/" "root@ip:/var/opt/gitlab/"
+rsync -rltDhv --delete "/home/git-data/" "root@ip:/home/git-data/" –progress –parallel=4
+
+
 wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-8.7.0-ce.0.el7.x86_64.rpm
 rpm -e gitlab-ce
 rpm -ivh gitlab-ce-8.7.0-ce.0.el7.x86_64.rpm

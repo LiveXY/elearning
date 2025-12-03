@@ -1,0 +1,33 @@
+pgsql15
+
+systemctl disable --now postgresql-14
+
+安装15
+dnf install postgresql15-server postgresql15-devel postgresql15-contrib
+
+创建 PostgreSQL 15 数据库集群
+PGSETUP_INITDB_OPTIONS=-k /usr/pgsql-15/bin/postgresql-15-setup initdb
+
+old cluster does not use data checksums but the new one does
+rm -rf ~postgres/15/data/*
+/usr/pgsql-15/bin/postgresql-15-setup initdb
+
+迁移数据
+su - postgres
+/usr/pgsql-15/bin/pg_upgrade -b /usr/pgsql-14/bin -B /usr/pgsql-15/bin -d /var/lib/pgsql/14/data -D /var/lib/pgsql/15/data -j 4
+exit
+
+systemctl enable --now postgresql-15
+su - postgres
+/usr/pgsql-15/bin/vacuumdb -a -Z
+
+psql
+select version();
+select regexp_count('the quick brown fox jumped over the lazy', ' ');
+\h merge
+
+删除PostgreSQL 14
+rpm -qa postgresql14\* | xargs dnf erase
+su - postgres
+./delete_old_cluster.sh
+

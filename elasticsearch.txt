@@ -1,0 +1,275 @@
+elasticsearch.yml 中增加如下设置：
+indices.memory.index_buffer_size: 20%
+indices.memory.min_index_buffer_size: 96mb
+
+# Search pool
+thread_pool.search.size: 5
+thread_pool.search.queue_size: 100
+# 这个参数慎用！强制修改cpu核数，以突破写线程数限制
+# processors: 16
+# Bulk pool
+#thread_pool.bulk.size: 16
+thread_pool.bulk.queue_size: 300
+# Index pool
+#thread_pool.index.size: 16
+thread_pool.index.queue_size: 300
+
+indices.fielddata.cache.size: 40%
+
+discovery.zen.fd.ping_timeout: 120s
+discovery.zen.fd.ping_retries: 6
+discovery.zen.fd.ping_interval: 30s
+
+
+索引优化配置：
+PUT /_template/elk
+{
+      "order": 6,
+      "template": "logstash-*",    #这里配置模板匹配的Index名称
+      "settings": {
+        "number_of_replicas" : 0,    #副本数为0,需要查询性能高可以设置为1
+        "number_of_shards" :   6,    #分片数为6, 副本为1时可以设置成5
+         "refresh_interval": "30s",
+         "index.translog.durability": "async",
+        "index.translog.sync_interval": "30s"
+
+      }
+}
+
+优化参数详解
+①精细设置全文域：string 类型字段默认会分词，不仅会额外占用资源，而且会影响创建索引的速度。所以，把不需要分词的字段设置为 not_analyzed。
+②禁用 _all 字段：对于日志和 apm 数据，目前没有场景会使用到。
+③副本数量设置为 0：因为我们目前日志数据和 apm 数据在 es 只保留最近 7 天的量，全量日志保存在 hadoop，可以根据需要通过 spark 读回到 es，况且副本数量是可以随时修改的，区别分片数量。
+④使用 es 自动生成 id：es 对于自动生成的 id 有优化，避免了版本查找。因为其生成的 id 是唯一的。
+⑤设置 index.refresh_interval：索引刷新间隔，默认为 1s。因为不需要如此高的实时性，我们修改为 30s。扩展学习：刷新索引到底要做什么事情？
+⑥设置段合并的线程数量
+如下：
+curl -XPUT 'your-es-host:9200/nginx_log-2018-03-20/_settings' -d '{ 
+   "index.merge.scheduler.max_thread_count" : 1
+}'
+
+段合并的计算量庞大，而且还要吃掉大量磁盘 I/O。合并在后台定期操作，因为他们可能要很长时间才能完成，尤其是比较大的段。
+机械磁盘在并发 I/O 支持方面比较差，所以我们需要降低每个索引并发访问磁盘的线程数。
+这个设置允许 max_thread_count + 2 个线程同时进行磁盘操作，也就是设置为 1 允许三个线程。
+扩展学习：什么是段（segment）？如何合并段？为什么要合并段？（what、how、why）
+①设置异步刷盘事务日志文件：
+"index.translog.durability": "async",
+"index.translog.sync_interval": "30s"
+对于日志场景，能够接受部分数据丢失。同时有全量可靠日志存储在 hadoop，丢失了也可以从 hadoop 恢复回来。
+②elasticsearch.yml 中增加如下设置：
+indices.memory.index_buffer_size: 20%
+indices.memory.min_index_buffer_size: 96mb
+已经索引好的文档会先存放在内存缓存中，等待被写到到段（segment）中。缓存满的时候会触发段刷盘（吃 I/O 和 CPU 的操作）。默认最小缓存大小为 48m，不太够，最大为堆内存的 10%。对于大量写入的场景也显得有点小。
+扩展学习：数据写入流程是怎么样的（具体到如何构建索引）？
+①设置 index、merge、bulk、search 的线程数和队列数
+例如以下 elasticsearch.yml 设置：
+# Search pool
+thread_pool.search.size: 5
+thread_pool.search.queue_size: 100
+# 这个参数慎用！强制修改cpu核数，以突破写线程数限制
+# processors: 16
+# Bulk pool
+thread_pool.bulk.size: 16
+thread_pool.bulk.queue_size: 300
+# Index pool
+thread_pool.index.size: 16
+thread_pool.index.queue_size: 300
+②设置 filedata cache 大小
+
+例如以下 elasticsearch.yml 配置：
+indices.fielddata.cache.size: 15%
+filedata cache 的使用场景是一些聚合操作（包括排序），构建 filedata cache 是个相对昂贵的操作。所以尽量能让他保留在内存中。
+然后日志场景聚合操作比较少，绝大多数也集中在半夜，所以限制了这个值的大小，默认是不受限制的，很可能占用过多的堆内存。
+扩展学习：什么是 filedata？构建流程是怎样的？为什么要用 filedata？（what、how、why）
+
+①设置节点之间的故障检测配置
+
+例如以下 elasticsearch.yml 配置：
+discovery.zen.fd.ping_timeout: 120s
+discovery.zen.fd.ping_retries: 6
+discovery.zen.fd.ping_interval: 30s
+
+大数量写入的场景，会占用大量的网络带宽，很可能使节点之间的心跳超时。并且默认的心跳间隔也相对过于频繁（1s 检测一次）。此项配置将大大缓解节点间的超时问题。
+
+搜索
+过滤
+排序
+聚合
+
+10万条记录20个字段
+读取，写入，用时，修改结构
+
+/Users/hcxiong/.m2/settings.xml
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
+http://127.0.0.1:9200/table10000
+http://127.0.0.1:9200/table10000/_doc/999999
+
+http://127.0.0.1:9200/table10000/_mapping?pretty
+curl -XPOST 'http://127.0.0.1:9200/table10000/_optimize'
+POST http://127.0.0.1:9200/table10000/_optimize?only_expunge_deletes=true&wait_for_completion=true
+
+http://127.0.0.1:9200/table10000/_search
+http://127.0.0.1:9200/table10000/_search?preference=
+http://127.0.0.1:9200/table10000/_search?routing=
+
+http://127.0.0.1:9200/table10000/_search?from=0&size=20
+http://127.0.0.1:9200/table10000/_search?from=20&size=20
+
+http://127.0.0.1:9200/table10000/_search?scroll=1m
+http://127.0.0.1:9200/table10000/_search?scroll=1m&scroll_id=FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFlQ2ZThZanBYUjB1S1Z0YjFzQTU5U3cAAAAAAAAIUhZsYnYtLTFMYVNFeWZlUUxlVV9ibUVR
+
+http://127.0.0.1:9200/_cluster/state
+http://127.0.0.1:9200/_cluster/state/metadata,nodes
+http://127.0.0.1:9200/_cluster/stats
+http://127.0.0.1:9200/_cluster/stats/nodes/node1,node*,master:false
+http://127.0.0.1:9200/_cluster/settings
+http://127.0.0.1:9200/_cluster/allocation/explain
+http://127.0.0.1:9200/_cluster/health
+http://127.0.0.1:9200/_cluster/health/table10000
+http://127.0.0.1:9200/_cluster/health/table10000?level=shards
+curl -X POST 'http://127.0.0.1:9200/_cluster/reroute'
+http://127.0.0.1:9200/_cluster/pending_tasks
+
+http://127.0.0.1:9200/_nodes/usage
+http://127.0.0.1:9200/_nodes/hot_threads
+http://127.0.0.1:9200/_nodes
+http://127.0.0.1:9200/_nodes/stats
+
+http://127.0.0.1:9200/_remote/info
+http://127.0.0.1:9200/_tasks
+
+http://127.0.0.1:9200/_settings
+http://127.0.0.1:9200/table10000/_settings
+http://127.0.0.1:9200/table10000/_shrink
+
+
+curl -H "Content-Type: application/json" -X PUT 'http://127.0.0.1:9200/table10000/_mapping/Sex' -d '
+{
+  "properties": {
+        "state": {
+            "type": "text",
+            "fielddata": true
+        }
+    }
+}'
+
+ES
+单个分片不要太大，建议30G到50G
+一个集群中有多个索引，一个索引中仅设置一种类型；
+一个节点运行在一个独立的环境或虚拟机上，一个节点可以包含多个分片，一个索引由多个分片组成；
+索引的主分片被尽可能平均的分配给各个节点；
+主分片与对应的从分片不能存储于同一个节点上。
+当机器内存小于64G时，遵循通用的原则，50%给ES，50%留给lucene
+当机器内存大于64G时，遵循以下原则：a. 如果主要的使用场景是全文检索, 那么建议给ES Heap分配 4~32G的内存即可；其它内存留给操作系统, 供lucene使用(segments cache), 以提供更快的查询性能。
+如果主要的使用场景是聚合或排序， 并且大多数是numerics, dates, geo_points 以及not_analyzed的字符类型， 建议分配给ES Heap分配 4~32G的内存即可，其它内存留给操作系统，供lucene使用(doc values cache)，提供快速的基于文档的聚类、排序性能。
+如果使用场景是聚合或排序，并且都是基于analyzed 字符数据，这时需要更多的 heap size, 建议机器上运行多ES实例，每个实例保持不超过50%的ES heap设置(但不超过32G，堆内存设置32G以下时，JVM使用对象指标压缩技巧节省空间)，50%以上留给lucene。
+
+3.禁止swap，一旦允许内存与磁盘的交换，会引起致命的性能问题。 通过： 在elasticsearch.yml 中bootstrap.memory_lock: true， 以保持JVM锁定内存，保证ES的性能。
+
+4.GC设置原则：a. 保持GC的现有设置，默认设置为：Concurrent-Mark and Sweep (CMS)，别换成G1GC，因为目前G1还有很多BUG。
+
+b. 保持线程池的现有设置，目前ES的线程池较1.X有了较多优化设置，保持现状即可；默认线程池大小等于CPU核心数。如果一定要改，按公式((CPU核心数* 3)/ 2)+ 1 设置；不能超过CPU核心数的2倍；但是不建议修改默认配置，否则会对CPU造成硬伤。
+ES一旦创建好索引后，就无法调整分片的设置，而在ES中，一个分片实际上对应一个lucene 索引，而lucene索引的读写会占用很多的系统资源，因此，分片数不能设置过大；所以，在创建索引时，合理配置分片数是非常重要的。一般来说，我们遵循一些原则：
+
+1. 控制每个分片占用的硬盘容量不超过ES的最大JVM的堆空间设置(一般设置不超过32G，参加上文的JVM设置原则)，因此，如果索引的总容量在500G左右，那分片大小在16个左右即可；当然，最好同时考虑原则2。
+
+2. 考虑一下node数量，一般一个节点有时候就是一台物理机，如果分片数过多，大大超过了节点数，很可能会导致一个节点上存在多个分片，一旦该节点故障，即使保持了1个以上的副本，同样有可能会导致数据丢失，集群无法恢复。所以， 一般都设置分片数不超过节点数的3倍。
+
+Mapping建模:
+
+1. 尽量避免使用nested或 parent/child，能不用就不用；nested query慢， parent/child query 更慢，比nested query慢上百倍；因此能在mapping设计阶段搞定的(大宽表设计或采用比较smart的数据结构)，就不要用父子关系的mapping。
+
+2.如果一定要使用nested fields，保证nested fields字段不能过多，目前ES默认限制是50。参考：
+
+index.mapping.nested_fields.limit ：50
+
+因为针对1个document, 每一个nested field, 都会生成一个独立的document, 这将使Doc数量剧增，影响查询效率，尤其是JOIN的效率。
+
+3.避免使用动态值作字段(key), 动态递增的mapping，会导致集群崩溃；同样，也需要控制字段的数量，业务中不使用的字段，就不要索引。控制索引的字段数量、mapping深度、索引字段的类型，对于ES的性能优化是重中之重。以下是ES关于字段数、mapping深度的一些默认设置：
+
+index.mapping.nested_objects.limit :10000
+
+index.mapping.total_fields.limit:1000
+
+index.mapping.depth.limit: 20
+索引优化设置：
+
+1.设置refresh_interval 为-1，同时设置number_of_replicas为0，通过关闭refresh间隔周期，同时不设置副本来提高写性能。
+
+2.修改index_buffer_size 的设置，可以设置成百分数，也可设置成具体的大小，大小可根据集群的规模做不同的设置测试。
+
+indices.memory.index_buffer_size：10%(默认)
+
+indices.memory.min_index_buffer_size： 48mb(默认)
+
+indices.memory.max_index_buffer_size
+
+3. 修改translog相关的设置：a. 控制数据从内存到硬盘的操作频率，以减少硬盘IO。可将sync_interval的时间设置大一些。
+
+index.translog.sync_interval：5s(默认)。b. 控制tranlog数据块的大小，达到threshold大小时，才会flush到lucene索引文件。
+
+index.translog.flush_threshold_size：512mb(默认)
+
+4._id字段的使用，应尽可能避免自定义_id, 以避免针对ID的版本管理；建议使用ES的默认ID生成策略或使用数字类型ID做为主键。
+
+5. _all字段及_source字段的使用，应该注意场景和需要，_all字段包含了所有的索引字段，方便做全文检索，如果无此需求，可以禁用；_source存储了原始的document内容，如果没有获取原始文档数据的需求，可通过设置includes、excludes 属性来定义放入_source的字段。
+
+6. 合理的配置使用index属性，analyzed 和not_analyzed，根据业务需求来控制字段是否分词或不分词。只有 groupby需求的字段，配置时就设置成not_analyzed, 以提高查询或聚类的效率。
+
+七、 查询优化：
+
+1. query_string 或 multi_match的查询字段越多， 查询越慢。可以在mapping阶段，利用copy_to属性将多字段的值索引到一个新字段，multi_match时，用新的字段查询。
+
+2.日期字段的查询， 尤其是用now 的查询实际上是不存在缓存的，因此， 可以从业务的角度来考虑是否一定要用now, 毕竟利用query cache 是能够大大提高查询效率的。
+
+3. 查询结果集的大小不能随意设置成大得离谱的值， 如query.setSize不能设置成 Integer.MAX_VALUE， 因为ES内部需要建立一个数据结构来放指定大小的结果集数据。
+
+4.尽量避免使用script，万不得已需要使用的话，选择painless & experssions 引擎。一旦使用script查询，一定要注意控制返回，千万不要有死循环(如下错误的例子)，因为ES没有脚本运行的超时控制，只要当前的脚本没执行完，该查询会一直阻塞。
+
+如： {
+“script_fields”：{
+“test1”：{
+“lang”：“groovy”，
+
+“script”：“while(true){print 'don’t use script'}”
+
+}
+
+}
+
+}
+
+5.避免层级过深的聚合查询， 层级过深的group by , 会导致内存、CPU消耗，建议在服务层通过程序来组装业务，也可以通过pipeline的方式来优化。
+
+6.复用预索引数据方式来提高AGG性能：
+
+如通过 terms aggregations 替代 range aggregations， 如要根据年龄来分组，分组目标是: 少年(14岁以下) 青年(14-28) 中年(29-50) 老年(51以上)， 可以在索引的时候设置一个age_group字段，预先将数据进行分类。从而不用按age来做range aggregations, 通过age_group字段就可以了。
+
+7.Cache的设置及使用：
+
+a) QueryCache: ES查询的时候，使用filter查询会使用query cache, 如果业务场景中的过滤查询比较多，建议将querycache设置大一些，以提高查询速度。
+
+indices.queries.cache.size： 10%(默认)，可设置成百分比，也可设置成具体值，如256mb。
+
+当然也可以禁用查询缓存(默认是开启)， 通过index.queries.cache.enabled：false设置。
+
+b) FieldDataCache: 在聚类或排序时，field data cache会使用频繁，因此，设置字段数据缓存的大小，在聚类或排序场景较多的情形下很有必要，可通过indices.fielddata.cache.size：30% 或具体值10GB来设置。但是如果场景或数据变更比较频繁，设置cache并不是好的做法，因为缓存加载的开销也是特别大的。
+
+c) ShardRequestCache: 查询请求发起后，每个分片会将结果返回给协调节点(Coordinating Node), 由协调节点将结果整合。
+
+如果有需求，可以设置开启; 通过设置index.requests.cache.enable: true来开启。
+
+不过，shard request cache只缓存hits.total, aggregations, suggestions类型的数据，并不会缓存hits的内容。也可以通过设置indices.requests.cache.size: 1%(默认)来控制缓存空间大小。
+
+DELETE /my_index
+DELETE /index_*
+DELETE /index_one,index_two
+DELETE /_all
+DELETE /*
+对一些人来说，能够用单个命令来删除所有数据可能会导致可怕的后果。如果你想要避免意外的大量删除, 你可以在你的 elasticsearch.yml 做如下配置：
+
+action.destructive_requires_name: true
+
+这个设置使删除只限于特定名称指向的数据, 而不允许通过指定 _all 或通配符来删除指定索引库。你同样可以通过 Cluster State API 动态的更新这个设置。
+PUT /_cluster/settings

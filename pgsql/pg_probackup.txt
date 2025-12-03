@@ -67,3 +67,119 @@ Recovery options:
               action the server should  take once the recovery target is reached
               (default: pause)
 --restore-command=cmdline  command to use as  'restore_command' in recovery.conf; 'none' disables
+
+https://mp.weixin.qq.com/s/qno0WlI72Ui3P1_2d62xTQ
+
+pg_probackup只支持PG9.5版本之后
+
+所需要的用户权限：
+
+PG9.5:【如果要使用stream模式，用户必须具有replication权限，wal_level设置大于minimal，max_wal_sender要足够大】
+
+CREATE ROLE backup WITH LOGIN REPLICATION;
+GRANT USAGE ON SCHEMA pg_catalog TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.current_setting(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_is_in_recovery() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_start_backup(text, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_stop_backup() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_create_restore_point(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_switch_xlog() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current_snapshot() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_snapshot_xmax(txid_snapshot) TO backup;
+PG9.6【如果要使用stream模式，用户必须具有replication权限，wal_level设置大于minimal，max_wal_sender要足够大】
+
+CREATE ROLE backup WITH LOGIN REPLICATION;
+GRANT USAGE ON SCHEMA pg_catalog TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.current_setting(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_is_in_recovery() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_start_backup(text, boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_stop_backup(boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_create_restore_point(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_switch_xlog() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_last_xlog_replay_location() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current_snapshot() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_snapshot_xmax(txid_snapshot) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_control_checkpoint() TO backup;
+PG10版本及以后：【如果要使用stream模式，用户必须具有replication权限，wal_level设置大于minimal，max_wal_sender要足够大】
+
+CREATE ROLE backup WITH LOGIN REPLICATION;
+GRANT USAGE ON SCHEMA pg_catalog TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.current_setting(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_is_in_recovery() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_start_backup(text, boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_stop_backup(boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_create_restore_point(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_switch_wal() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_last_wal_replay_lsn() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_current_snapshot() TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.txid_snapshot_xmax(txid_snapshot) TO backup;
+GRANT EXECUTE ON FUNCTION pg_catalog.pg_control_checkpoint() TO backup;
+
+使用步骤：
+创建备份用户，并授权
+初始化备份目录
+添加备份实例—>删除备份实例
+为备份实例进行相关配置【可选】
+执行备份操作
+执行备份校验
+删除过期备份
+
+RPM安装：rpm -ivh https://repo.postgrespro.ru/pg_probackup/keys/pg_probackup-repo-centos.noarch.rpm
+yum install pg_probackup-15 pg_probackup-15-debuginfo -y
+
+pg_probackup version
+显示版本信息
+
+pg_probackup help[command]
+显示帮助信息
+
+pg_probackup init -B backup_dir
+初始化一个比分目录
+
+pg_probackup add-instance -B backup_dir -D data_dir —instance instance_name
+
+添加一个备份实例（可以添加本地备份实例，也可以添加远程备份实例）
+
+pg_probackup del-instance -B backup_dir —instance instance_name
+
+删除一个备份实例
+pg_probackup set-config -B backup_dir —instance instance_name[option…]
+pg_probackup set-backup -B backup_dir —instance instance_name -i backup_id[option…]
+pg_probackup show-config -B backup_dir —instance instance_name[—format=format]
+pg_probackup show -B backup_dir[option…]
+
+显示备份集信息
+pg_probackup backup -B backup_dir —instance instance_name -b backup_mode[option…]
+
+执行备份
+pg_probackup restore -B backup_dir —instance instance_name[option…]
+
+恢复一个数据库
+pg_probackup checkdb -B backup_dir —instance instance_name -D data_dir[option…]
+pg_probackup validate -B backup_dir[option…]
+校验备份的有效性
+
+pg_probackup merge -B backup_dir —instance instance_name -i backup_id[option…]
+pg_probackup delete -B backup_dir —instance instance_name { -i backup_id | —delete-wal | —delete-expired | —merge-expired } [option…]
+
+删除一个备份
+pg_probackup archive-push -B backup_dir —instance instance_name —wal-file-path wal_file_path —wal-file-name wal_file_name[option…]
+pg_probackup archive-get -B backup_dir —instance instance_name —wal-file-path wal_file_path —wal-file-name wal_file_name[option…]
+pg_probackup catchup -b catchup_mode —source-pgdata=path_to_pgdata_on_remote_server —destination-pgdata=path_to_local_dir [option…]fig=/opt/pg151/bin top_srcdir=/home/pg15/postgresql-15.1 install
+
+pg_probackup add-instance -B /archivelog/backup -D /data/pg132 —instance=pg_test
+archive_command=’/usr/bin/pg_probackup archive-push -B /archivelog/wal —instance=pg_test —wal-file-path=%p —wal-file-name=%f’
+添加远程备份实例[即：在本地服务器上对远程的postgres进行备份]
+pg_probackup add-instance -B /archivelog/backup -D /data/pg132 —instance=pg_test_remote —remote-proto=ssh —remote-host=192.168.21.145 —remote-port=22 —remote-path=/usr/bin —remote-user=postgres
+archive_command=’/usr/bin/pg_probackup archive-push -B /archivelog/wal —instance=pg_test_remote —wal-file-path=%p —wal-file-name=%f —remote-proto=ssh —remote-host=192.168.21.145 —remote-port=22 —remote-path=/usr/bin —remote-user=postgres’
+
+[pg15@172 pgbackup]$ pg_probackup add-instance -B /data/pgsql/pgbackup/ -D /data/pgsql/151/data/ —instance=probackuptest
+[pg15@172 backups]$ pg_probackup del-instance -B /data/pgsql/pgbackup/ —instance probackuptest
+
+
+
+
+

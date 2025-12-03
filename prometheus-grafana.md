@@ -4,9 +4,9 @@ https://prometheus.io/download/#mysqld_exporter
 
 安装 prometheus
 ```
-wget https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz
-tar -zxvf prometheus-2.34.0.linux-amd64.tar.gz
-mv prometheus-2.34.0.linux-amd64 prometheus
+wget https://github.com/prometheus/prometheus/releases/download/v2.45.3/prometheus-2.45.3.linux-amd64.tar.gz
+tar -zxvf prometheus-2.45.3.linux-amd64.tar.gz
+mv prometheus-2.45.3.linux-amd64 prometheus
 
 groupadd prometheus
 useradd -g prometheus -s /sbin/nologin prometheus
@@ -21,7 +21,7 @@ After=network.target
 [Service]
 Type=simple
 User=prometheus
-ExecStart=/data/prometheus/prometheus --config.file=/data/prometheus/prometheus.yml --storage.tsdb.path=/data/prometheus
+ExecStart=/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml --storage.tsdb.path=/opt/prometheus
 Restart=on-failure
 
 [Install]
@@ -60,9 +60,9 @@ Prometheus 2.0 Status
 
 安装监控LINUX
 ```
-wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
-tar -zxvf node_exporter-1.3.1.linux-amd64.tar.gz
-mv node_exporter-1.3.1.linux-amd64 node_exporter
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+tar -zxvf node_exporter-1.7.0.linux-amd64.tar.gz
+mv node_exporter-1.7.0.linux-amd64 node_exporter
 chown -R prometheus:prometheus ./node_exporter/
 vim /usr/lib/systemd/system/node_exporter.service
 [Unit]
@@ -71,7 +71,7 @@ After=network.target
 
 [Service]
 User=prometheus
-ExecStart=/data/node_exporter/node_exporter
+ExecStart=/opt/node_exporter/node_exporter
 
 [Install]
 WantedBy=multi-user.target
@@ -102,19 +102,19 @@ https://grafana.com/grafana/dashboards/405
 
 安装报警器
 ```
-wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz
-tar zvf alertmanager-0.24.0.linux-amd64.tar.gz alertmanager
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
+tar zvf alertmanager-0.26.0.linux-amd64.tar.gz alertmanager
 
 ```
 
 安装监控MySQL
 ```
-GRANT REPLICATION CLIENT, PROCESS ON *.* TO 'mysqld_exporter'@'127.0.0.1' identified by 'mysqld_exporter';
-GRANT SELECT ON performance_schema.* TO 'mysqld_exporter'@'127.0.0.1';
+GRANT REPLICATION CLIENT, PROCESS ON *.* TO 'mysqld_exporter'@'%' identified by 'mysql@DB2024';
+GRANT SELECT ON performance_schema.* TO 'mysqld_exporter'@'%';
 flush privileges;
 
-wget https://github.com/prometheus/mysqld_exporter/releases/download/v0.14.0/mysqld_exporter-0.14.0.linux-amd64.tar.gz
-tar zxvf mysqld_exporter-0.14.0.linux-amd64.tar.gz mysqld_exporter
+wget https://github.com/prometheus/mysqld_exporter/releases/download/v0.15.0/mysqld_exporter-0.15.0.linux-amd64.tar.gz
+tar zxvf mysqld_exporter-0.15.0.linux-amd64.tar.gz mysqld_exporter
 
 vim .my.cnf
 [client]
@@ -129,7 +129,7 @@ Description=mysqld_exporter service
 
 [Service]
 User=root
-ExecStart=/data/mysqld_exporter/mysqld_exporter --config.my-cnf=/data/mysqld_exporter/.my.cnf
+ExecStart=/opt/mysqld_exporter/mysqld_exporter --config.my-cnf=/opt/mysqld_exporter/.my.cnf
 
 TimeoutStopSec=10
 Restart=on-failure
@@ -158,16 +158,16 @@ https://grafana.com/grafana/dashboards/7362
 
 安装监控Redis
 ```
-wget https://github.com/oliver006/redis_exporter/releases/download/v1.37.0/redis_exporter-v1.37.0.linux-amd64.tar.gz
-tar -zxvf redis_exporter-v1.37.0.linux-amd64.tar.gz
-mv redis_exporter-v1.37.0.linux-amd64 redis_exporter
+wget https://github.com/oliver006/redis_exporter/releases/download/v1.57.0/redis_exporter-v1.57.0.linux-amd64.tar.gz
+tar -zxvf redis_exporter-v1.57.0.linux-amd64.tar.gz
+mv redis_exporter-v1.57.0.linux-amd64 redis_exporter
 vim /usr/lib/systemd/system/redis_exporter.service
 [Unit]
 Description=redis_exporter service
 
 [Service]
 User=root
-ExecStart=/data/redis_exporter/redis_exporter -redis.addr redis://127.0.0.1:6379 -redis.password 123456
+ExecStart=/opt/redis_exporter/redis_exporter -redis.addr redis://127.0.0.1:6379 -redis.password 123456
 
 TimeoutStopSec=10
 Restart=on-failure
@@ -180,7 +180,7 @@ systemctl daemon-reload
 systemctl enable redis_exporter
 systemctl restart redis_exporter
 
-vim /data/prometheus/prometheus.yml
+vim /opt/prometheus/prometheus.yml
   - job_name: 'redis-node'
     static_configs:
     - targets: ['ip:9121']
@@ -205,7 +205,7 @@ Description=elasticsearch_exporter service
 
 [Service]
 User=root
-ExecStart=/data/elasticsearch_exporter/elasticsearch_exporter --es.uri=http://elastic:123456@127.0.0.1:9200
+ExecStart=/opt/elasticsearch_exporter/elasticsearch_exporter --es.uri=http://elastic:123456@127.0.0.1:9200
 
 TimeoutStopSec=10
 Restart=on-failure
@@ -248,3 +248,36 @@ https://grafana.com/grafana/dashboards/2322
 
 ```
 
+达梦
+```
+docker run -d --name dmdb_exporter  -p 9161:9161 -e DATA_SOURCE_NAME=dm://SYSDBA:SYSDBA@localhost:5236?autoCommit=true ${image_name}
+
+```
+
+其他
+```
+https://grafana.com/grafana/dashboards/9578-alertmanager/
+https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+https://grafana.com/grafana/dashboards/9628-postgresql-database/
+https://grafana.com/grafana/dashboards/7362-mysql-overview/
+https://grafana.com/grafana/dashboards/12776-redis/
+https://grafana.com/grafana/dashboards/19109-dmdb-dashboard/
+https://blog.csdn.net/WEDUEST/article/details/131643979
+https://github.com/theone1900/dmdb_exporter-
+https://grafana.com/grafana/dashboards/13502-minio-dashboard/
+https://grafana.com/grafana/dashboards/6671-go-processes/
+https://grafana.com/grafana/dashboards/10826-go-metrics/
+https://grafana.com/grafana/dashboards/11159-nodejs-application-dashboard/
+https://grafana.com/grafana/dashboards/266-elasticsearch/
+https://grafana.com/grafana/dashboards/14900-nginx/
+https://grafana.com/grafana/dashboards/9621-docker-registry/
+https://grafana.com/grafana/dashboards/12693-haproxy-2-full/
+https://grafana.com/grafana/dashboards/11147-openwrt/
+
+```
+
+DOCKER 部署
+```
+https://hub.docker.com/u/prom/
+
+```

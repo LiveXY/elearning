@@ -168,6 +168,34 @@ SELECT @@tx_isolation; (session isolation level)
 ```
 INSERT INTO t1 (id,a,b,c,d) VALUES (3,4,5,6,9),(4,5,6,7,11) ON DUPLICATE KEY UPDATE d=if(VALUES(d)>d, VALUES(d), d);
 ```
+* 清理BINLOG
+```
+show variables like 'log_%';
+show binary logs;
+
+[mysqld] 
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+log-error=/var/log/mysql/mysqld.log
+pid-file=/run/mysqld/mysqld.pid
+max_connections = 2000
+max_connect_errors = 2000
+slow_query_log=on
+slow_query_log_file=/var/log/mysql/slow.log
+long_query_time=2
+port=3001
+skip-log-bin
+
+PURGE MASTER LOGS BEFORE DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY);
+PURGE BINARY LOGS BEFORE '2023-11-13 00:00:00';
+PURGE BINARY LOGS TO 'bin.000100';
+
+show variables like '%expire%';
+binlog_expire_logs_seconds，默认2592000（30天）过期，可以设置 604800（7天）
+set global binlog_expire_logs_seconds=60*60*24;
+flush logs;
+
+```
 *
 
 mysql命令
@@ -195,7 +223,8 @@ mysql命令
   * service mysqld stop
   * mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
   * mysql -u root mysql
-	* update user set Password=PASSWORD('123456') where User='root'; 或 update user set Password=PASSWORD('123456') where User='root' and Host='%';
+	* update user set Password=PASSWORD('123456') where User='root'; 
+  * update mysql.user set authentication_string=password('123456') where user='root'; 修改mysql5.7密码
 	* flush privileges;
 	* quit
   * mysql -uroot -p
@@ -554,8 +583,19 @@ pt-archiver的使用规则
 
 
 ```
-* 
-* 
+* `/usr/sbin/mysqld: error while loading shared libraries: libstdc++.so.6: cannot open shared object file: Permission denied`，`Fatal error: Please read "Security" section of the manual to find out how to run mysqld as root`
+```
+vi /usr/lib/systemd/system/mysqld.service
+User=root
+Group=root
+ExecStart=/usr/sbin/mysqld --user=root --daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS
+
+chmod a+x /usr/lib64/*
+rm /usr/lib64/libstdc++.so.6
+ln -s /usr/lib64/libstdc++.so.6.0.19 /usr/lib64/libstdc++.so.6
+ln -s /usr/lib64/libstdc++.so.6.0.20 /usr/lib64/libstdc++.so.6
+```
+* 修改密码 mysqladmin -u root password 123456
 * 
 * 
 * 

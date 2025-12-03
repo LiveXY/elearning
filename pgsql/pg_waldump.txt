@@ -1,0 +1,39 @@
+pg_waldump
+wal日志进行解析
+
+使用方法:
+  pg_waldump [选项]... [STARTSEG [ENDSEG]]
+
+选项:
+  -b, --bkp-details      输出有关备份块的详细信息
+  -e, --end=RECPTR       在指定的WAL位置停止读取
+  -f, --follow           在到达可用WAL的末尾之后，继续重试
+  -n, --limit=N          要显示的记录数
+  -p, --path=PATH        在其中查找日志段文件的目录
+                         或包含此类文件的./pg_wal目录
+                         (默认值: 当前的目录, ./pg_wal, $PGDATA/pg_wal)
+  -r, --rmgr=RMGR        只显示由RMGR资源管理器生成的记录
+                         使用--rmgr=list列出有效的资源管理器名称
+  -s, --start=RECPTR     在WAL中位于RECPTR处开始阅读
+  -t, --timeline=TLI     要从哪个时间线读取日志记录
+                         (默认值：1或者是使用STARTSEG中的值)
+  -V, --version          输出版本信息, 然后退出
+  -x, --xid=XID          只显示用给定事务ID标记的记录
+  -z, --stats[=record]   显示统计信息而不是记录
+                         (或者，显示每个记录的统计信息)
+  -?, --help             显示此帮助, 然后退出
+
+pg_waldump 000000010000000000000042
+
+--rmgr=list查看所有的资源类型。
+pg_waldump --rmgr=list
+
+oid2name工具查看当前数据库对应的oid
+oid2name
+
+pg_waldump -f 000000010000000000000042
+
+
+
+
+

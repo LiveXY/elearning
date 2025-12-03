@@ -1,0 +1,338 @@
+
+高斯GaussDB
+https://opengauss.org/zh/
+https://opengauss.org/zh/download/
+https://docs.opengauss.org/zh/docs/1.0.1/docs/installation/installation.html
+https://blog.csdn.net/ygp12345/article/details/107972011?utm_medium=distribute.pc_relevant.none-task-blog-title-10&spm=1001.2101.3001.4242
+https://tryme.opengauss.org/
+
+yum install opengauss -y
+su - opengauss
+ps ux
+/usr/local/opengauss
+/var/lib/opengauss/data
+gsql -d postgres -p 7654 -r
+
+docker pull enmotech/opengauss
+mkdir -p /data/opengauss
+docker run --name opengauss --privileged=true -d -e GS_PASSWORD=pass -p 15432:5432 -v /data/opengauss:/var/lib/opengauss enmotech/opengauss:latest
+
+docker exec -it opengauss bash
+gsql -d postgres -r
+gsql -d postgres -U gaussdb -W'pass' -h 127.0.0.1 -p15432
+ALTER ROLE omm IDENTIFIED BY 'pass' REPLACE 'pass';
+
+useradd traingo
+passwd traingo
+默认密码：123456
+usermod -g root traingo
+chmod u+w /etc/sudoers
+vi /etc/sudoers
+root    ALL=(ALL)   ALL
+traingo ALL=(ALL)   ALL
+
+su traingo
+cd /home/traingo/
+wget https://opengauss.obs.cn-south-1.myhuaweicloud.com/5.0.0/arm/openGauss-5.0.0-openEuler-64bit.tar.bz2
+tar jxvf openGauss-5.0.0-openEuler-64bit.tar.bz2
+
+yum install libaio libnsl
+ln -s /usr/lib64/libreadline.so.7.0 /usr/lib64/libreadline.so.6
+
+LITE版本安装：
+单机：
+echo pass | sh install.sh --mode single -D ~/opengauss/data -R ~/opengauss/install --start
+主备：
+1、主节点：
+echo pass | sh install.sh --mode primary -D ~/opengauss/data -R ~/opengauss/install  -C "replconninfo1='localhost=ip1 localport=port1 remotehost=ip2 remoteport=port2'" --start
+备节点：
+echo pass | sh install.sh --mode standby -D ~/opengauss/data -R ~/opengauss/install  -C "replconninfo1='localhost=ip1 localport=port1 remotehost=ip2 remoteport=port2'" --start
+
+rm -rf ~/opengauss/data/single_node
+cd ~/opengauss/simpleInstall
+单机：
+sh install.sh -w pass && source ~/.bashrc
+主备：
+sh install.sh -w pass --multinode && source ~/.bashrc
+ps ux | grep gaussdb
+gs_ctl query -D ~/opengauss/data/master
+
+gsql -d postgres
+gsql -d postgres -W'pass'
+SHOW password_encryption_type;
+SHOW sql_compatibility;
+
+gs_guc set -D ~/opengauss/data/single_node -h "host all tglearning 0.0.0.0/0 sha256"
+gs_guc reload -D ~/opengauss/data/single_node -h "host all tglearning 0.0.0.0/0 sha256"
+
+gs_guc reload -D ~/opengauss/data/single_node -c "password_encryption_type = 1"
+gs_guc set -D ~/opengauss/data/single_node -h "host all tglearning 0.0.0.0/0 md5"
+
+CREATE USER tgroot PASSWORD 'pass';
+alter user tgroot sysadmin;
+gsql -d postgres -U tgroot -W pass
+
+CREATE USER tglearning PASSWORD 'pass';
+CREATE DATABASE tglearning ENCODING 'UTF8' DBCOMPATIBILITY 'B' OWNER tglearning TEMPLATE template0;
+CREATE DATABASE tglearning ENCODING 'UTF8' DBCOMPATIBILITY 'PG' OWNER tglearning TEMPLATE template0;
+GRANT ALL PRIVILEGES TO tglearning;
+GRANT USAGE ON SCHEMA tglearning TO tglearning;
+
+gsql -d tglearning -U tglearning -W'pass'
+SHOW sql_compatibility;
+SHOW password_encryption_type;
+
+pgloader my.load
+gsql -d tglearning -U tglearning -W'pass' -f /home/traingo/tglearning-mysql.sql
+
+
+gs_ctl start|stop|restart -D ~/opengauss/data/single_node -Z single_node
+gs_guc set -D ~/opengauss/data/single_node -c "password_encryption_type = 0"
+gs_guc reload -D ~/opengauss/data/single_node -c "password_encryption_type = 0"
+gs_guc set -D ~/opengauss/data/single_node -h "host all tglearning 0.0.0.0/0 md5"
+
+pgloader mysql://tgroot:pass@192.168.0.59:3306/tglearning pgsql://tglearning:pass@127.0.0.1:5432/tglearning
+
+gsql -d tglearning -U tglearning -W'pass' -h 127.0.0.1 -p15432
+gs_guc set -N all -I all -h "host all tglearning 0.0.0.0/0 sha256"
+gs_guc set -N all -I all -h "host all tglearning 0.0.0.0/0 md5"
+
+create user gsql password 'pass';
+
+
+gsql -d tglearning -U tglearning -W'pass' -h 127.0.0.1 -p15432
+alter system set password_encryption_type=0;
+CREATE USER tgroot PASSWORD 'pass';
+GRANT USAGE ON SCHEMA tglearning TO tgroot;
+
+rpm -Uvh --force --nodeps https://apt.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/pgloader-3.6.9-1.rhel8.x86_64.rpm
+docker pull ghcr.io/dimitri/pgloader:latest
+docker run --rm -it ghcr.io/dimitri/pgloader:latest pgloader --version
+pgloader mysql://tgroot:pass@192.168.0.59:3306/tglearning pgsql://tglearning:pass@124.70.154.68:5432/tglearning
+
+psql -U root -d etms -h 127.0.0.1
+createdb tglearning -O root -E UTF8 -e
+psql -l
+psql -U root -d tglearning
+pgloader mysql://root:123456@127.0.0.1:3306/tglearning-base postgresql://root:123456@127.0.0.1:5432/tglearning
+
+vi my.load
+LOAD DATABASE
+     FROM     mysql://root:123456@127.0.0.1:3306/tglearning-base
+     INTO     postgresql://root:123456@127.0.0.1:5432/tglearning
+
+WITH include drop, create tables
+
+ALTER SCHEMA 'tglearning-base' RENAME TO 'public'
+;
+pgloader my.load
+
+pg_dump --format=t -d tglearning -U root -W -h 127.0.0.1 > dump.sql
+gsql -d tglearning -W'pass' -f dump.sql
+pg_restore -d tglearning -h 127.0.0.1 -U root < dump.sql
+gs_restore -d tglearning -h 127.0.0.1 -U tglearning dump.sql
+
+gs_dump tglearning -f dump1.sql
+gs_restore -d postgres -W Bigdata@123 backup/dump1.sql
+gsql -d gaussdb -p 8000 -W {password} -f /home/omm/test/MPPDB_backup.sql
+
+
+SHOW server_version;
+SELECT * FROM pg_settings WHERE NAME='server_version';
+SHOW ALL;
+SELECT * FROM pg_settings;
+cat /data/opengauss/data/postgresql.conf | grep archive_mode
+gs_guc set -N all -I all -c "archive_mode=off"
+gs_guc reload -N all -I all -c "authentication_timeout = 59s"
+SHOW archive_mode;
+SHOW max_connections;
+gs_guc set -N all -I all -c "max_connections = 800"
+
+wget  https://download.oracle.com/java/17/latest/jdk-17_linux-aarch64_bin.tar.gz
+tar  -zxvf jdk-17_linux-aarch64_bin.tar.gz -C /opt
+mv /opt/jdk-17.0.8 /opt/jdk-17
+vi  /etc/profile
+export JAVA_HOME=/opt/jdk-17
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:%JAVA_HOME%/lib/jrt-fs.jar
+
+yum install mysql-devel -y
+
+yum install java-11-openjdk -y
+java -version
+alternatives --config java
+wget https://opengauss.obs.cn-south-1.myhuaweicloud.com/latest/tools/centos7/PortalControl-5.0.0-x86_64.tar.gz
+wget https://opengauss.obs.cn-south-1.myhuaweicloud.com/tools/portal/PortalControl-5.0.0.tar.gz
+tar -zxvf PortalControl-5.0.0.tar.gz
+cd portal
+在/ops/portal/config目录的toolspath.properties文件中修改安装路径，然后启动命令安装
+vi ./config/toolspath.properties
+# 全量迁移python虚拟环境的路径，可自定义修改
+chameleon.venv.path=/ops/portal/tools/chameleon/
+# 全量迁移用户相关路径
+chameleon.path=~/.pg_chameleon/
+# 全量迁移在线whl包的下载路径
+chameleon.pkg.url=https://opengauss.obs.cn-south-1.myhuaweicloud.com/5.0.0/chameleon/chameleon-5.0.0-py3-none-any.whl
+# 全量迁移安装包的路径，可自定义修改
+chameleon.pkg.path=/ops/portal/pkg/chameleon/
+# 全量迁移安装包的名称
+chameleon.pkg.name=chameleon-5.0.0-py3-none-any.whl
+
+vi config/migrationConfig.properties
+# 用于指定全量迁移是否迁移对象，包括函数、存储过程、触发器、视图，默认为yes；若设置为no，表示不迁移对象
+snapshot.object=yes
+# mysql用户名
+mysql.user.name=root
+# mysql密码
+mysql.user.password=***
+# mysql数据库ip
+mysql.database.host=127.0.0.1
+# mysql数据库端口
+mysql.database.port=3306
+# mysql数据库名称
+mysql.database.name=test123
+# openGauss用户名
+opengauss.user.name=test
+# openGauss密码
+opengauss.user.password=***
+# openGauss数据库ip
+opengauss.database.host=127.0.0.1
+# openGauss数据库端口
+opengauss.database.port=5432
+# openGauss数据库名称
+opengauss.database.name=test1234
+# openGauss数据库的schema名称
+opengauss.database.schema=test123
+# 全量迁移的安装方式，默认为offline，表示离线安装，需通过参数chameleon.pkg.path指定离线安装包的路径；若设置为online，对应在线安装，在线下载的安装包将存放在参数chameleon.pkg.path指定的路径
+default.install.mysql.full.migration.tools.way=offline
+
+
+sh gs_rep_portal.sh start_mysql_full_migration 3
+
+mkdir -p ~/.pip
+touch ~/.pip/pip.conf
+vi ~/.pip/pip.conf
+[global]
+timeout = 6000
+index-url = https://mirrors.aliyun.com/pypi/simple/
+trusted-host = mirrors.aliyun.com
+安装
+sh gs_mysync.sh install workspace.id
+启动
+sh gs_mysync.sh start workspace.id
+停止
+sh gs_mysync.sh stop workspace.id
+卸载
+sh gs_mysync.sh uninstall workspace.id
+
+sh gs_rep_portal.sh install_mysql_all_migration_tools 1 &
+sh gs_rep_portal.sh 参数 workspace.id &
+sh gs_rep_portal.sh help &
+
+ALTER ROLE manager SYSADMIN;
+ALTER DATABASE TGLEARNING CONNECTION LIMIT= 10;
+ALTER DATABASE music RENAME TO music4;
+ALTER DATABASE music2 OWNER TO tom;
+ALTER DATABASE music3 SET TABLESPACE PG_DEFAULT;
+DROP DATABASE music2;
+DROP USER jim;
+CREATE USER joe CREATEDB PASSWORD 'Bigdata@123';
+GRANT ALL PRIVILEGES TO joe;
+REVOKE ALL PRIVILEGES FROM joe;
+GRANT USAGE ON SCHEMA tpcds TO joe;
+GRANT ALL PRIVILEGES ON tpcds.reason TO joe;
+CREATE DATABASE ora_1 ENCODING 'UTF8' DBCOMPATIBILITY 'A' OWNER tglearning TEMPLATE template0;
+CREATE DATABASE my_2 DBCOMPATIBILITY 'B' OWNER tglearning TEMPLATE template0;
+CREATE DATABASE td_1 DBCOMPATIBILITY 'C' OWNER tglearning TEMPLATE template0;
+CREATE DATABASE pg_1 DBCOMPATIBILITY 'PG' OWNER tglearning TEMPLATE template0;
+
+CREATE DATABASE TGLEARNING ENCODING 'UTF8' DBCOMPATIBILITY 'MySQL' template = template0;
+ENCODING SQL_ASCII GBK、UTF8、Latin1、GB18030
+DBCOMPATIBILITY取值范围：(B)MYSQL、(C)TD、(A)ORA、(PG)PG。分别表示兼容MySQL、TD（Teradata）、Oracle和PostgreSQL、默认为A兼容模式
+SHOW sql_compatibility;
+gsql -d postgres -h 10.29.103.168 -U jack -p 8000 -W Gauss@123 -c 'CREATE DATABASE human_staff'
+gsql -h 10.180.123.163 -d postgres -U jack -p 8000 -f /home/omm/staff.sql
+
+gs_guc set -N all -I all -h "host all tglearning 124.70.154.68/32 sha256"
+gs_guc set -N all -I all -h "host all tglearning 0.0.0.0/0 md5"
+gs_guc set -N all -I all -h "host all tglearning 0.0.0.0/0 sha256"
+
+postgresql://host:port/database?param1=value1&m2=value2
+postgresql://host1:port1,host2:port2/database?param1=value1&m2=value2
+单IP：opengauss://user:password@127.0.0.1:1611/postgres?sslmode=disable&connect_timeout=100
+多IP：opengauss://user:password@127.0.0.1:1611,127.0.0.2:1622/postgres?sslmode=disable&connect_timeout=100
+
+查看帮助信息 \?
+切换数据库 \c dbname
+列举数据库 \l
+列举表 \dt
+查看表结构 \d tablename
+列举schema \dn
+查看索引 \di
+
+wget https://opengauss.obs.cn-south-1.myhuaweicloud.com/5.0.0/x86/openGauss-5.0.0-CentOS-64bit.tar.bz2
+mkdir -p openGauss/docker/dockfiles/5.0.0
+mv openGauss-5.0.0-CentOS-64bit.tar.bz2 openGauss/docker/dockfiles/5.0.0/
+cd openGauss/docker/dockfiles/5.0.0/
+sha256sum openGauss-5.0.0-CentOS-64bit.tar.bz2 > sha256_file_amd64
+tar jxvf openGauss-5.0.0-CentOS-64bit.tar.bz2
+
+export PATH=/root/bin:$PATH
+export LD_LIBRARY_PATH=/root/lib:$LD_LIBRARY_PATH
+
+cd ${HOME}/.pg_chameleon/configuration/
+cp config-example.yml default.yml
+
+
+极简安装详细教程
+vi ~/.bashrc
+export GAUSSHOME=/home/traingo/opengauss
+export PATH=$GAUSSHOME/bin:$PATH
+export LD_LIBRARY_PATH=$GAUSSHOME/lib:$LD_LIBRARY_PATH
+export GS_CLUSTER_NAME=dbCluster
+单机：
+cd ~/opengauss/simpleInstall
+gs_initdb -w pass -D ~/opengauss/data/single_node --nodename "sgnode" --locale="en_US.UTF-8"
+sed -i "/^#port =/c\port = 5432" ~/opengauss/data/single_node/postgresql.conf
+gs_ctl start -D ~/opengauss/data/single_node -Z single_node
+gs_ctl start|stop|restart -D ~/opengauss/data/single_node -Z single_node
+主备：
+cd ~/opengauss/simpleInstall
+gs_initdb -D ~/opengauss/data/master --nodename=datanode1 -E UTF-8 --locale=en_US.UTF-8 -U $user -w pass
+gs_initdb -D ~/opengauss/data/slave --nodename=datanode2 -E UTF-8 --locale=en_US.UTF-8 -U $user -w pass
+
+sed -i "/^#listen_addresses/c\listen_addresses = 'localhost,192.168.0.21'" ~/opengauss/data/master/postgresql.conf
+sed -i "/^#listen_addresses/c\listen_addresses = 'localhost,192.168.0.21'" ~/opengauss/data/slave/postgresql.conf
+sed -i "/^#port/c\port = 5432" ~/opengauss/data/master/postgresql.conf
+sed -i "/^#port/c\port = 5632" ~/opengauss/data/slave/postgresql.conf
+sed -i "/^#replconninfo1/c\replconninfo1 = 'localhost=192.168.0.21 localport=5433 localheartbeatport=5437 localservice=5436 remotehost=192.168.0.21 remoteport=5633 remoteheartbeatport=5637 remoteservice=5636'" ~/opengauss/data/master/postgresql.conf
+sed -i "/^#replconninfo1/c\replconninfo1 = 'localhost=192.168.0.21 localport=5633 localheartbeatport=5637 localservice=5636 remotehost=192.168.0.21 remoteport=5433 remoteheartbeatport=5437 remoteservice=5436'" ~/opengauss/data/slave/postgresql.conf
+echo "remote_read_mode = non_authentication" | tee -a ~/opengauss/data/master/postgresql.conf ~/opengauss/data/slave/postgresql.conf
+echo "host    all             all             192.168.0.21/32            trust" | tee -a ~/opengauss/data/master/pg_hba.conf ~/opengauss/data/slave/pg_hba.conf
+
+gs_ctl start -D ~/opengauss/data/master -M primary
+gs_ctl build -D ~/opengauss/data/slave  -b full
+
+gs_ctl start|stop|restart -D ~/opengauss/data/master -M primary
+gs_ctl start|stop|restart -D ~/opengauss/data/slave -M standby
+
+
+企业版本安装
+sysctl -w kernel.sem="250 85000 250 330" 
+单机：
+cd ~/opengauss/simpleInstall
+sh install.sh -w "pass" && source ~/.bashrc
+主备：
+groupadd dbgroup
+useradd -g dbgroup omm
+passwd omm
+Gauss_234
+cd ~/opengauss/simpleInstall
+sh install.sh  -w pass --multinode
+
+查询openGauss状态：
+gs_om -t status --detail
+
+
+SELECT * FROM pg_user; 
+SELECT distinct(tablename) FROM pg_tables WHERE SCHEMANAME = 'public'; 

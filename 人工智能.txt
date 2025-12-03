@@ -1,3 +1,59 @@
+mac
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+sh Miniconda3-latest-MacOSX-x86_64.sh
+pip3 install --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+pip3 install torch torchvision torchaudio
+
+import torch
+if torch.backends.mps.is_available():
+    mps_device = torch.device("mps")
+    x = torch.ones(1, device=mps_device)
+    print (x)
+else:
+    print ("MPS device not found.")
+
+
+pip install ddddocr
+https://github.com/sml2h3/ddddocr
+https://github.com/sml2h3/dddd_trainer
+import ddddocr
+
+ocr = ddddocr.DdddOcr(det=False, ocr=False, import_onnx_path="myproject_0.984375_139_13000_2022-02-26-15-34-13.onnx", charsets_path="charsets.json")
+with open('888e28774f815b01e871d474e5c84ff2.jpg', 'rb') as f:
+    image_bytes = f.read()
+res = ocr.classification(image_bytes)
+print(res)
+
+
+clueai
+https://huggingface.co/ClueAI/ChatYuan-large-v1
+https://www.cluebenchmarks.com/clueai.html
+https://github.com/clue-ai/PromptCLUE
+https://huggingface.co/ClueAI/PromptCLUE
+pip install --upgrade clueai
+https://github.com/clue-ai/clueai-python
+https://clueai.cn/clueai/t2i/
+https://github.com/CLUEbenchmark/pCLUE
+
+chilloutmix civitai
+https://github.com/civitai/civitai
+https://huggingface.co/swl-models/chilloutmix
+ControlNet
+https://github.com/lllyasviel/ControlNet
+https://github.com/VinsonLaro/stable-diffusion-webui-chinese
+https://github.com/Mikubill/sd-webui-controlnet
+https://github.com/camenduru/stable-diffusion-webui-colab
+
+colossalai
+https://colossalai.org/docs/basics/launch_colossalai
+https://github.com/hpcaitech/ColossalAI/
+https://colossalai.org/
+
+https://github.com/heya30/TCMKnowledgeGraph
+
+https://github.com/ggerganov/llama.cpp
+https://github.com/togethercomputer/OpenChatKit
+
 机器人
 https://github.com/peng-zhihui/ElectronBot
 https://github.com/peng-zhihui/Dummy-Robot
@@ -2149,6 +2205,15 @@ pyramidbox_lite_server_mask
 肺炎CT影像分析
 Pneumonia_CT_LKM_PP
 
+图片生成的古诗
+https://www.paddlepaddle.org.cn/hubdetail?name=reading_pictures_writing_poems&en_category=TextGeneration
+问答
+https://www.paddlepaddle.org.cn/hubdetail?name=CPM_LM&en_category=TextGeneration
+https://www.paddlepaddle.org.cn/hubdetail?name=unified_transformer_12L_cn_luge&en_category=TextGeneration
+https://www.paddlepaddle.org.cn/hubdetail?name=unified_transformer_12L_cn&en_category=TextGeneration
+https://www.paddlepaddle.org.cn/hubdetail?name=plato-mini&en_category=TextGeneration
+作文创作/文案创作
+https://www.paddlepaddle.org.cn/hubdetail?name=ernie_zeus&en_category=TextGeneration
 
 ICNet
 主要用于图像实时语义分割，能够兼顾速度和准确性，易于线上部署
@@ -3582,11 +3647,42 @@ https://github.com/facebookresearch/detr
 飞船生成器
 https://github.com/a1studmuffin/SpaceshipGenerator
 
+GPT
 https://github.com/openai/gpt-2
 https://github.com/openai/gpt-3
 https://github.com/openai/image-gpt
 https://github.com/karpathy/minGPT
 https://github.com/huggingface/transformers
+
+https://github.com/karpathy/nanoGPT
+https://github.com/Morizeyao/GPT2-Chinese
+https://github.com/yangjianxin1/GPT2-chitchat
+https://github.com/yangjianxin1/CLIP-Chinese
+https://github.com/liucongg/GPT2-NewsTitle
+https://github.com/thu-coai/CDial-GPT
+https://github.com/ConnorJL/GPT2
+https://github.com/huggingface/transformers
+https://github.com/imcaspar/gpt2-ml
+https://github.com/yangjianxin1/CPM
+https://github.com/ftarlaci/GPT2sQA
+https://github.com/rajpurkar/SQuAD-explorer
+https://github.com/EssayKillerBrain/EssayKiller_V2
+
+https://github.com/google-research/bert
+https://github.com/guillaume-be/rust-bert
+https://github.com/terrifyzhao/bert-utils
+
+https://github.com/brightmart/roberta_zh
+
+https://github.com/codertimo/BERT-pytorch
+https://github.com/ymcui/Chinese-BERT-wwm
+
+https://github.com/UKPLab/sentence-transformers
+https://github.com/PaddlePaddle/PaddleHub/tree/develop/modules
+
+THUCNews：http://thuctc.thunlp.org/#中文文本分类数据集THUCNews
+nlp_chinese_corpus：https://github.com/brightmart/nlp_chinese_corpus
+
 
 https://github.com/wangyuxin87/ContourNet
 https://github.com/joe-siyuan-qiao/DetectoRS
@@ -4459,8 +4555,9 @@ https://blog.csdn.net/panpanloveruth/article/details/120967019
 https://github.com/dongrixinyu/JioNLP
 pip install jionlp -i https://pypi.douban.com/simple/
 
-
-
+模型即服务
+https://modelscope.cn/home
+https://github.com/modelscope/modelscope
 
 
 

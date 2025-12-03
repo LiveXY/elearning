@@ -4,13 +4,63 @@ https://download.rockylinux.org/pub/rocky/
 https://atl.mirrors.knownhost.com/almalinux/
 
 
+jenkins 太占内存
+vim /etc/sysconfig/jenkins
+JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true"
+修改为
+JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx1024m -XX:MaxNewSize=512m -XX:MaxPermSize=512m"
+ps aux | grep java
+vi /etc/systemd/system/multi-user.target.wants/jenkins.service
+Environment="JAVA_OPTS=-Djava.awt.headless=true"
+修改为
+Environment="JAVA_OPTS=-Djava.awt.headless=true -Xms512m -Xmx1024m -XX:MaxNewSize=512m"
+systemctl daemon-reload
+systemctl restart jenkins
+
+LINUX 扩容大于2TB盘, 挂载10TB磁盘
+lsblk -f
+fdisk -l
+parted /dev/sdc
+mklabel gpt
+unit TB
+mkpart primary 0.00TB 11.00TB
+print
+quit
+Information: You may need to update /etc/fstab.
+mkfs.ext4 /dev/sdc1
+挂载
+mkdir /data2
+mount /dev/sdc1 /data2
+df -hT
+
+curl -sSL https://get.docker.com/ | sh
+
+echo 3 > /proc/sys/vm/drop_caches
+
 git clone --depth=1 https://github.com/wg/wrk.git wrk
 cd wrk
 make
 
+yum install chromium -y
+yum -y install fontconfig ttmkfdir mkfontscale wqy-microhei-fonts
+fc-list
+fc-list :lang=zh
+
+自己上传字体
+mkdir -p /usr/share/fonts/chinese
+chmod -R 755 /usr/share/fonts/chinese
+cd  /usr/share/fonts/chinese && mkfontscale
+fc-list :lang=zh
 
 centos7
 cd /home
+wget -c https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+xz -d ffmpeg-release-amd64-static.tar.xz && tar xvf ffmpeg-release-amd64-static.tar
+ln -s /root/ffmpeg-6.0-amd64-static/ffmpeg /usr/local/bin/ffmpeg
+ln -s /root/ffmpeg-6.0-amd64-static/ffprobe /usr/local/bin/ffprobe
+mv /root/ffmpeg-6.0-amd64-static/ffmpeg /usr/local/bin/ffmpeg
+mv /root/ffmpeg-6.0-amd64-static/ffprobe /usr/local/bin/ffprobe
+
 wget -c https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.4-amd64-static.tar.xz
 xz -d ffmpeg-4.4-amd64-static.tar.xz && tar xvf ffmpeg-4.4-amd64-static.tar
 ln -s /home/ffmpeg-4.4-amd64-static/ffmpeg /usr/local/bin/ffmpeg
@@ -105,12 +155,51 @@ dnf install libreoffice-pdfimport libreoffice-langpack-zh-Hans libreoffice-langp
 
 yum install chromium -y
 
+多实例
+libreoffice -env:UserInstallation=file:///tmp/delete_me_#{timestamp} \
+            --headless \
+            --convert-to pdf \
+            --outdir /tmp \
+            /path/to/my_file.doc
+
+soffice --headless --invisible --nocrashreport --norestart --nolockcheck --nodefault --nofirststartwizard --nologo --norestore --accept='socket,host=localhost,port=2002,tcpNoDelay=1;urp;StarOffice.ComponentContext'
+soffice --headless --invisible --nocrashreport --norestart --nolockcheck --nodefault --nofirststartwizard --nologo --norestore -env:SingleAppInstance=false -env:UserInstallation=file:///tmp/libreoffice2002 --accept="socket,host=localhost,port=2002,tcpNoDelay=1;urp;StarOffice.ServiceManager" --headless --norestore
+
+nohup soffice --headless --invisible --nocrashreport --norestart --nolockcheck --nodefault --nofirststartwizard --nologo --norestore -env:SingleAppInstance=false -env:UserInstallation=file:///tmp/libreoffice2002 --accept="socket,host=localhost,port=2002,tcpNoDelay=1;urp;StarOffice.ServiceManager" --headless --norestore 1>soffice2001.log 2>&1 &
+
+vi /lib/systemd/system/libreoffice@.service
+# headless soffice instance
+[Unit]
+Description=Control headless soffice instance %i
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/lib64/libreoffice/program/soffice.bin -env:SingleAppInstance=false -env:UserInstallation=file:///tmp/LibO_Process%i --accept=socket,host=localhost,port=%i;urp; --headless --norestore
+Nice=5
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl start libreoffice@8101.service
+sudo systemctl start libreoffice@8102.service
+sudo systemctl start libreoffice@8103.service
 
 yum -y install wget
 wget https://www.libreoffice.org/donate/dl/rpm-x86_64/7.2.0/zh-CN/LibreOffice_7.2.0_Linux_x86-64_rpm.tar.gz
 tar -xvf LibreOffice_7.2.0_Linux_x86-64_rpm.tar.gz
 yum localinstall *.rpm
 
+wget https://mirrors.ustc.edu.cn/tdf/libreoffice/stable/7.5.2/rpm/x86_64/LibreOffice_7.5.2_Linux_x86-64_rpm.tar.gz
+tar -xvf LibreOffice_7.5.2_Linux_x86-64_rpm.tar.gz
+wget https://mirrors.ustc.edu.cn/tdf/libreoffice/stable/7.5.2/rpm/x86_64/LibreOffice_7.5.2_Linux_x86-64_rpm_langpack_zh-CN.tar.gz
+tar -xvf LibreOffice_7.5.2_Linux_x86-64_rpm_langpack_zh-CN.tar.gz
+mv LibreOffice_7.5.2.2_Linux_x86-64_rpm_langpack_zh-CN/RPMS/* LibreOffice_7.5.2.2_Linux_x86-64_rpm/RPMS/
+yum localinstall ./LibreOffice_7.5.2.2_Linux_x86-64_rpm/RPMS/*.rpm
+
+rm -rf /usr/bin/soffice
+ln -s /usr/bin/libreoffice7.5 /usr/bin/soffice
+soffice --version
 
 百度云盘 TO 阿里云盘
 https://github.com/yaronzz/BaiduYunToAliYun
@@ -242,6 +331,15 @@ port protocol="tcp" port="11211" accept'
 firewall-cmd --list-rich-rules --permanent
 firewall-cmd --remove-rich-rule 'rule family="ipv4" source address="10.8.0.8" port port=22 protocol=tcp accept' --permanent
 firewall-cmd --remove-rich-rule 'rule family="ipv4" source address="192.168.1.0/24" port port="11211" protocol="tcp" accept' --permanent
+
+3001转发到192.168.0.59:3306
+firewall-cmd --zone=public --add-forward-port=port=3389:proto=tcp:toport=3306:toaddr=192.168.0.59 --permanent
+firewall-cmd --zone=public --add-port=22/tcp --permanent
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --zone=public --add-port=3389/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --zone=public --remove-forward-port=port=3389:proto=tcp:toport=3306:toaddr=192.168.0.59 --permanent
 
 增加交换分区
 swapon --show
@@ -387,3 +485,211 @@ net.ipv4.tcp_slow_start_after_idle = 0
 net.core.somaxconn = 65536
 /sys/kernel/mm/transparent_hugepage/enabled
 echo never > /sys/kernel/mm/redhat_transparent_hugepage/enabled
+
+
+假设想让进程可以打开100万个文件描述符，这里用修改conf文件的方式给出一个建议。如果日后工作里有类似的需求可以作为参考。
+vim /etc/sysctl.conf
+fs.file-max=1100000 // 系统级别设置成110万，多留点buffer
+fs.nr_open=1100000 // 进程级别也设置成110万，因为要保证比 hard nofile大
+使上面的配置生效sysctl -p
+vim /etc/security/limits.conf
+// 用户进程级别都设置成100完
+soft nofile 1000000
+hard nofile 1000000
+
+限制网速
+apt install -y wondersharper
+wondershaper -a enp0s8 -d 1024 -u 512
+wondershaper eth0 1024 512
+下载和上传的带宽限制分别限制于1024 Kbps和512 kbps
+wondershaper clear eth0
+wondershaper -c -a enp0s8
+wondershaper -c enp0s8
+
+
+yum install -y ImageMagick ffmpeg
+convert -version
+ffmpeg -version
+yum install -y opencv
+
+el7
+yum install -y centos-release-scl
+yum install -y rh-python38
+rm -rf /usr/bin/python3
+ln -s /opt/rh/rh-python38/root/usr/bin/python3.8 /usr/bin/python3
+export PATH=$PATH:/opt/rh/rh-python38/root/usr/local/bin
+vi /etc/profile
+export PATH=$PATH:/opt/rh/rh-python38/root/usr/local/bin
+
+el8
+yum install -y python39 python39-devel
+rm -rf /usr/bin/python3
+ln -s /usr/bin/python3.9 /usr/bin/python3
+python3 -V
+
+python3 -m pip install --upgrade pip -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install --upgrade pip
+pip -V
+pip3 -V
+
+https://github.com/chenxwh/insanely-fast-whisper
+
+pip install whisper-ctranslate2 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+wget https://paddlespeech.bj.bcebos.com/PaddleAudio/zh.wav
+whisper-ctranslate2 zh.wav
+
+pip3 install paddlehub paddlepaddle -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install numpy==1.21.6 -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+wget https://img.traingo.cn/data/pic/course/m_20200724190403588.png
+hub run chinese_ocr_db_crnn_mobile --input_path m_20200724190403588.png
+
+el7 莫名其秒的问题
+pip install cmake -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install opencv-python -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install Cython -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip install shapely pyclipper -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+pip list | grep numpy
+
+ImportError: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /opt/rh/rh-python38/root/usr/local/lib64/python3.8/site-packages/paddle/fluid/libpaddle.so)
+strings /usr/lib64/libstdc++.so.6 | grep GLIBCXX
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh --no-check-certificate
+chmod u+x Miniconda3-latest-Linux-x86_64.sh 
+./Miniconda3-latest-Linux-x86_64.sh
+find /root/miniconda3/ -name "libstdc++.so*"
+ln -s /root/miniconda3/lib/libstdc++.so.6.0.29 /usr/lib64/libstdc++.so.6
+
+
+
+腾讯云容器服务TKE产品介绍
+Global Route
+独立部署版：基于 Flannel 实现
+VPC CIDR
+独立部署版：基于 IP-Pool 实现
+
+
+yum install mysql mysql-server
+vi /etc/my.cnf.d/mysql-server.cnf 
+[mysqld]
+max_connections = 2000
+max_connect_errors = 2000
+slow_query_log=on
+slow_query_log_file=/var/log/mysql/slow.log
+long_query_time=2
+port=3001
+binlog_expire_logs_seconds      = 604800
+
+systemctl enable mysqld
+systemctl restart mysqld
+mysqladmin -u root password '123456'
+mysql -uroot -p
+
+
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+sed -i 's/download.docker.com/mirrors.aliyun.com\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
+yum install -y docker-ce
+systemctl restart docker
+
+docker pull gogs/gogs
+mkdir -p /data/gogs
+docker run -d --restart=always --name=gogs -p 10022:22 -p 9091:3000 -v /data/gogs:/data gogs/gogs
+
+server {
+    listen 80;
+    server_name _;
+    location / {
+        proxy_pass http://127.0.0.1:9091;
+        proxy_redirect default;
+    }
+}
+
+
+迁移
+git clone --bare http://git.test.cn/test/test.git && cd test.git && git push --mirror http://ip/test/test
+
+
+麒麟V10 ARM编译安装libreoffice
+```
+yum install -y automake autoconf cups-devel fontconfig-devel gperf libxslt-devel python3-devel libXext-devel libICE-devel libSM-devel libXrender-devel xorg-x11-xauth x11* libX11 libXrandr-devel cairo-devel  gtk3-devel gstreamer-devel gstreamer-plugins-base gstreamer1-*  gstreamer* glibc-headers  gcc-c++ fakeroot rpm-build nss nspr bison flex
+
+wget http://download.documentfoundation.org/libreoffice/src/7.1.8/libreoffice-7.1.8.1.tar.xz
+tar xf /root/libreoffice-7.1.8.1.tar.xz -C /opt/
+cd /opt/libreoffice-7.1.8.1/
+vi autogen.input
+# 禁用帮助
+--without-help
+--without-helppack-integration
+
+# 启用简体及繁体中文用户界面
+--with-lang=zh-CN zh-TW
+
+# 禁用在线更新和崩溃报告
+--disable-online-update
+--disable-breakpad
+
+# 禁用 Office Development Kit。若启用 ODK，则额外需要 doxygen 依赖项。
+--disable-odk
+--without-doxygen
+
+# 若编译好之后您需要 rpm （或 deb) 包，则需要启用下列两项：
+--enable-epm
+--with-package-format=rpm
+
+# 禁用 java
+--without-java
+--enable-python=internal
+
+--disable-postgresql-sdbc
+--enable-option-checking=fatal
+--srcdir=/opt/libreoffice-7.1.8.1
+
+./autogen.sh
+
+./autogen.sh --without-java --without-junit --with-lang="zh-CN zh-TW" --disable-postgresql-sdbc --without-doxygen --with-package-format=rpm --enable-epm --srcdir=/opt/libreoffice-7.1.8.1 --enable-option-checking=fatal
+
+chown -R libreoffice:libreoffice /opt/libreoffice-7.1.8.1/
+
+useradd libreoffice
+su libreoffice
+
+make
+
+cd /opt/libreoffice-7.1.8.1/workdir/UnpackedTarball/python3/build/lib.linux-aarch64-3.8
+cp _sysconfigdata__linux_aarch64-linux-gnu.py _sysconfigdata__linux_aarch64-unknown-linux-gnu.py
+
+cd /opt/libreoffice-7.1.8.1/instdir/
+
+
+```
+
+alinux 安装docker
+```
+sudo dnf config-manager --add-repo=https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+sudo dnf -y install dnf-plugin-releasever-adapter --repo alinux3-plus
+sudo dnf -y install docker-ce --nobest
+sudo docker -v
+
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+```
+
+挂载NAS
+```
+mkdir /data
+mount -o username=nas,password=pass,iocharset=utf8 //192.168.2.90/产品部 /data
+umount -l /data
+
+yum install -y samba samba-client nfs-utils
+systemctl restart nfs
+mount -t nfs 10.1.1.133:/nas/nfs-ts /backup
+df -Th
+vi /etc/fstab
+10.1.1.133:/nas/nfs-ts /backup                  nfs     defaults        0 0
+
+showmount -e 10.1.1.133
+
+mount -t nfs 10.1.1.133:/nas/nfs-ts /backup -o nfsvers=3
+(如果出现问题mount.nfs: Protocol not supported，将nfsvers改成4
+```
+

@@ -342,3 +342,18 @@ https://github.com/Dragonfly/dragonfly
 https://github.com/yzddmr6/WebCrack
 
 https://github.com/CharlesPikachu/DecryptLogin
+
+TikTokDownload 是由国人开源的抖音去水印视频下载工具。开源地址是：
+https://github.com/Johnserf-Seed/TikTokDownload
+
+https://github.com/Jigsaw-Code/outline-server
+https://github.com/Jigsaw-Code/outline-client
+https://github.com/Jigsaw-Code/outline-ss-server
+https://github.com/shadowsocks/go-shadowsocks2
+go install github.com/shadowsocks/go-shadowsocks2@latest
+server
+go-shadowsocks2 -s 'ss://AEAD_CHACHA20_POLY1305:your-password@:8488' -verbose
+client
+go-shadowsocks2 -c 'ss://AEAD_CHACHA20_POLY1305:your-password@[server_address]:8488' \
+    -verbose -socks :1080 -u -udptun :8053=8.8.8.8:53,:8054=8.8.4.4:53 \
+                             -tcptun :8053=8.8.8.8:53,:8054=8.8.4.4:53

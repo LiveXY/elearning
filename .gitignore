@@ -11,3 +11,4 @@ websocket-test/cshop-tcp-test/tcp-server/obj
 pass-dict/ncrack-lists
 haproxy.cfg
 k8s/
+.DS_Store

@@ -46,3 +46,14 @@ pg_probackup backup -B /home/postgres/backup --instance backup_p -b DELTA --stre
 pg_probackup show -B /home/postgres/backup/
 pg_probackup restore -B /home/postgres/backup/ --instance backup_p
 pg_probackup backup -B /home/postgres/backup --instance backup_p -b page
+
+pg_basebackup -h 127.0.0.1 -p 5432 -U postgres --target=server:/home/postgres/backup -Xnone
+pg_basebackup -h 192.168.198.100 -p 5432 -U admin  -Xnone --target=server:/home/postgres/backup -Z gzip:9
+pg_basebackup -h 192.168.198.100 -p 5432 -U admin  -Xnone --target=server:/home/postgres/backup -Z lz4:9
+pg_basebackup -h 192.168.198.100 -p 5432 -U admin  -Xnone --target=server:/home/postgres/backup -Z zstd:9
+pg_basebackup -h 192.168.198.100 -p 5432 -U admin  -P --checkpoint=fast -Xf --target=server:/home/postgres/backup -Z lz4:9 -v -r 0.1M
+
+
+
+
+

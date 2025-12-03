@@ -191,3 +191,18 @@ Count：操作记录数；
 OPS：Operates Per Second，一般是操作次数，与qps区别不大；
 Avg、Min、Max：平均、最小、最大单条记录操作耗时；
 99th、99.9th、99.99th：P99、P99.9、P99.99时延；
+
+虚拟机
+https://multipass.run/
+https://github.com/canonical/multipass
+multipass find
+multipass launch ubuntu
+multipass list
+multipass info dancing-chipmunk
+multipass shell dancing-chipmunk
+multipass exec dancing-chipmunk -- lsb_release -a
+multipass stop dancing-chipmunk
+multipass delete dancing-chipmunk
+multipass purge
+
+

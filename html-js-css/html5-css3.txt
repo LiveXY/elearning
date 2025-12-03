@@ -2182,5 +2182,8 @@ tag::before{
   clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
 
+聊天气泡前面的箭头SVG
+<svg data-v-58923e79="" width="7" height="9" viewBox="0 0 7 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="message-icon"><path d="M3.5 1.5c.877.175 2.5 0 3 0H7v7H6C5 7.833 2 5 1.5 4 1.052 3.105.471 1.81.115.471.058.256.25.086.435.208.934.53 1.574 1.115 3.5 1.5Z" fill="rgba(240, 241, 246, 1)"></path></svg>
 
+<svg data-v-58923e79="" width="7" height="9" viewBox="0 0 7 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="message-icon"><path d="M3.5 1.5c.877.175 2.5 0 3 0H7v7H6C5 7.833 2 5 1.5 4 1.052 3.105.471 1.81.115.471.058.256.25.086.435.208.934.53 1.574 1.115 3.5 1.5Z" fill="#6965f5"></path></svg>
 

@@ -1,5 +1,32 @@
 ubuntu
 
+执行扩容磁盘分区
+https://contabo.com/blog/changing-the-partition-layout-of-your-vps-after-os-installation/?utm_medium=email&utm_source=support
+apt install cloud-utils -y
+mount | grep ' / '
+/dev/sda3 on / type ext4 (rw,relatime,errors=remount-ro)
+growpart /dev/sda 3
+resize2fs /dev/sda3
+
+LINUX 扩容大于2TB盘, 挂载10TB磁盘
+lsblk -f
+fdisk -l
+parted /dev/sdc
+mklabel gpt
+unit TB
+mkpart primary 0.00TB 11.00TB
+print
+quit
+Information: You may need to update /etc/fstab.
+mkfs.ext4 /dev/sdc1
+挂载
+mkdir /data2
+mount /dev/sdc1 /data2
+df -hT
+
+NFS固定端口
+https://cloud.tencent.com/developer/article/2106196
+
 全局菜单
 sudo apt install chrome-gnome-shell gnome-shell-extension-pres
 gedit ~/.config/gtk-3.0/settings.ini
@@ -1267,10 +1294,32 @@ xxx@xxx:/$ sudo vim /etc/fstab # edit file fstab according to the file's origina
 xxx@xxx:/$ sudo mount -a  #check if the disk is mounted correctly.
 
 ufw enable
+ufw default deny
+ufw allow 22/tcp
+ufw allow 22
+ufw allow 80
+ufw allow 443
+ufw reload
 ufw deny out proto tcp to any port 21,22,23,25,53,80,135,139,443,445
 ufw deny out proto tcp to any port 1433,1314,1521,2222,3306,3433,3389,4899,8080,18186
 ufw deny out proto udp to any
+ufw delete deny out proto tcp to any port 21,22,23,25,53,80,135,139,443,445
+
+ufw route allow proto tcp from 172.17.0.0/24 to any port 443
+ufw allow from 172.17.0.0/16
+ufw allow from 172.0.0.0/8
+
 ufw status
+
+wget -O /usr/local/bin/ufw-docker https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+chmod +x /usr/local/bin/ufw-docker
+ufw-docker install
+systemctl restart ufw
+ufw route allow proto tcp from any to 172.17.0.1 port 5432
+ufw route allow proto tcp from any to 172.17.0.1 port 80
+ufw route allow proto tcp from any to 172.17.0.1 port 443
+ufw allow tracker_postgres_1 5432
+
 
 service iptables start
 iptables -I OUTPUT 1 -p tcp -m multiport --dport 21,22,23,25,53,80,135,139,443,445 -j DROP

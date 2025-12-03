@@ -108,6 +108,7 @@ ss参数：
 
 ss实例：
 * `ss -a` 显示所有连接
+* `ss -tuln | grep LISTEN` `ss -tulnp | grep LISTEN` 显示侦听端口
 * `ss -ta` 显示TCP连接
 * `ss -ua` 显示所有UDP连接
 * `ss -s` 显示Sockets摘要
@@ -213,4 +214,9 @@ tcpdump -nn tcp port 80 -w nginx.pcap
 strace -f wrk --latency -c 100 -t 2 --timeout 2 http://192.168.0.30/
 traceroute --tcp -p 80 -n google.com
 
+-c表示发送10个请求，-S表示使用TCP SYN，-p指定端口为80
+hping3 -c 10 -S -p 80 192.168.0.30
+tc -s qdisc show dev eth0
+直接删掉 netem 模块就可以了。执行下面的命令，删除 tc 中的 netem 模块：
+tc qdisc del dev eth0 root netem loss 30%
 

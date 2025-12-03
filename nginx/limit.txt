@@ -1,3 +1,25 @@
+        set $flag 0;
+        # 匹配 referer 为微信域名
+        valid_referers *.servicewechat.com;
+        if ($invalid_referer) {
+            set $flag "${flag}1";
+        }
+        # 通过 user_agent
+        if ($http_user_agent !~* "MicroMessenger") {
+            set $flag "${flag}2";
+        }
+        #逻辑与实现方式
+        if ($flag = "012"){
+            return 403;
+        }
+
+
+    location / {
+        if ($http_user_agent !~* "wxwork") {
+            return 403;
+        }
+    }
+
 http {
 	limit_conn_zone $binary_remote_addr zone=peraddr:10m;
 	limit_req_zone $binary_remote_addr zone=perip:10m rate=1r/s;
