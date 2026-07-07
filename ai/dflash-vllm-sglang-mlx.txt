@@ -1,0 +1,130 @@
+dflash vllm/sglang/mlx
+
+https://github.com/z-lab/dflash
+https://z-lab.ai/projects/dflash/
+https://huggingface.co/collections/z-lab/dflash
+
+brew tap TheTom/tap && brew install vllm-swift
+https://github.com/TheTom/vllm-swift
+
+Backend	Install command
+Transformers	uv pip install -e ".[transformers]"
+SGLang	uv pip install -e ".[sglang]"
+vLLM	See below
+MLX (Apple Silicon)	pip install -e ".[mlx]"
+vLLM: DFlash support requires the nightly build:
+uv pip install -e ".[vllm]"
+uv pip install -U vllm --torch-backend=auto --extra-index-url https://wheels.vllm.ai/nightly
+
+vllm serve Qwen/Qwen3.5-27B \
+  --speculative-config '{"method": "dflash", "model": "z-lab/Qwen3.5-27B-DFlash", "num_speculative_tokens": 15}' \
+  --attention-backend flash_attn \
+  --max-num-batched-tokens 32768
+
+python -m dflash.benchmark --backend vllm \
+    --base-url http://127.0.0.1:8000 --model Qwen/Qwen3.5-27B \
+    --dataset gsm8k --num-prompts 128 --concurrency 1 --enable-thinking
+
+python -m dflash.benchmark --backend mlx \
+    --model Qwen/Qwen3.5-4B --draft-model z-lab/Qwen3.5-4B-DFlash \
+    --dataset gsm8k --max-samples 128 --enable-thinking
+
+
+SGLang
+pip install "git+https://github.com/sgl-project/sglang.git@refs/pull/16818/head#subdirectory=python"
+
+python -m sglang.launch_server \
+    --model-path Qwen/Qwen3-Coder-30B-A3B-Instruct \
+    --speculative-algorithm DFLASH \
+    --speculative-draft-model-path z-lab/Qwen3-Coder-30B-A3B-DFlash \
+    --tp-size 1 \
+    --dtype bfloat16 \
+    --attention-backend fa3 \
+    --mem-fraction-static 0.75 \
+    --trust-remote-code
+
+
+Transformers
+
+Only Qwen3 and LLaMA-3.1 models support the Transformers backend.
+from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer
+
+draft = AutoModel.from_pretrained("z-lab/Qwen3-8B-DFlash-b16", trust_remote_code=True, dtype="auto", device_map="cuda:0").eval()
+target = AutoModelForCausalLM.from_pretrained("Qwen/Qwen3-8B", dtype="auto", device_map="cuda:0").eval()
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-8B")
+
+messages = [{"role": "user", "content": "How many positive whole-number divisors does 196 have?"}]
+input_ids = tokenizer.apply_chat_template(messages, return_tensors="pt", add_generation_prompt=True, enable_thinking=False).to(draft.device)
+
+output = draft.spec_generate(input_ids=input_ids, max_new_tokens=2048, temperature=0.0, target=target, stop_token_ids=[tokenizer.eos_token_id])
+print(tokenizer.decode(output[0], skip_special_tokens=False))
+
+MLX (Apple Silicon)
+
+There have been many great community DFlash implementations on MLX; we provide a simple and efficient one here, tested on an Apple M5 Pro with Qwen3 and Qwen3.5 models.
+from dflash.model_mlx import load, load_draft, stream_generate
+
+model, tokenizer = load("Qwen/Qwen3.5-4B")
+# Experimental: bound the committed draft KV history to a sliding window.
+draft = load_draft("z-lab/Qwen3.5-4B-DFlash", sliding_window_size=None)
+
+messages = [{"role": "user", "content": "How many positive whole-number divisors does 196 have?"}]
+prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=True)
+tps = 0.0
+for r in stream_generate(model, draft, tokenizer, prompt, block_size=16, max_tokens=2048, temperature=0.6):
+    print(r.text, end="", flush=True)
+    tps = r.generation_tps
+print(f"\nThroughput: {tps:.2f} tok/s")
+
+vLLM:
+python -m dflash.benchmark --backend vllm \
+    --base-url http://127.0.0.1:8000 --model Qwen/Qwen3.5-27B \
+    --dataset gsm8k --num-prompts 128 --concurrency 1 --enable-thinking
+
+SGLang:
+python -m dflash.benchmark --backend sglang \
+    --base-url http://127.0.0.1:30000 --model Qwen/Qwen3.5-35B-A3B \
+    --dataset gsm8k --num-prompts 128 --concurrency 1 --enable-thinking
+
+Transformers (Qwen3 and LLaMA only):
+torchrun --nproc_per_node=8 -m dflash.benchmark --backend transformers \
+    --model Qwen/Qwen3-8B --draft-model z-lab/Qwen3-8B-DFlash-b16 \
+    --dataset gsm8k --max-samples 128
+
+MLX:
+python -m dflash.benchmark --backend mlx \
+    --model Qwen/Qwen3.5-4B --draft-model z-lab/Qwen3.5-4B-DFlash \
+    --dataset gsm8k --max-samples 128 --enable-thinking \
+    --draft-sliding-window-size 4096
+
+
+7G
+huggingface-cli download z-lab/Kimi-K2.5-DFlash --local-dir ~/models/Kimi-K2.5-DFlash
+1G
+huggingface-cli download z-lab/Qwen3.6-35B-A3B-DFlash --local-dir ~/models/Qwen3.6-35B-A3B-DFlash
+
+florianleibert/kimi-k26-dflash-mi300x
+z-lab/Qwen3.6-27B-DFlash
+
+
+Serve with vLLM
+vllm serve CoreWorxLab/Qwen3.6-27B-Claude-Opus-Reasoning-Distill-v2-int4-AutoRound \
+    --tensor-parallel-size 1 \
+    --max-model-len 262144 \
+    --gpu-memory-utilization 0.95 \
+    --reasoning-parser qwen3
+
+
+With speculative decoding (Qwen3 MTP)
+vllm serve CoreWorxLab/Qwen3.6-27B-Claude-Opus-Reasoning-Distill-v2-int4-AutoRound \
+    --tensor-parallel-size 1 \
+    --max-model-len 262144 \
+    --gpu-memory-utilization 0.95 \
+    --reasoning-parser qwen3 \
+    --speculative-config '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
+
+
+
+
+
+

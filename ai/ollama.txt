@@ -1,0 +1,253 @@
+ollama
+
+ll ~/.ollama/models/blobs
+默认情况下，Ollama 会在 5 分钟无活动后卸载模型。要使其始终保持加载状态，请执行以下操作。
+launchctl setenv OLLAMA_KEEP_ALIVE "-1"
+export OLLAMA_KEEP_ALIVE="-1"
+
+brew install ollama zeroclaw
+brew services start ollama
+OLLAMA_FLASH_ATTENTION="1" OLLAMA_KV_CACHE_TYPE="q8_0" /opt/homebrew/opt/ollama/bin/ollama serve
+
+ollama run huihui_ai/gemma-4-abliterated:31b-v2
+ollama run huihui_ai/gemma-4-abliterated:e2b-v2
+
+ollama pull llama3.1:8b
+phi3:mini/qwen3:1.5b/qwen3:4b/llama3.1:8b
+deepseek-r1:7b/deepseek-r1:32b 推理
+qwen3:27b/llama3.1:70b（量化版）
+qwen3.5:35b/qwen3-coder:30b/qwen3.5:27b/qwen3.5:9b
+sinhang/qwen3.5-claude-4.6-opus:27b-q5_K_M
+sinhang/qwen3.5-claude-4.6-opus:27b-q8_0
+mdq100/qwen3.5-coder:35b
+vaultbox/qwen3.5-uncensored:35b
+glm-4.7-flash:latest
+huihui_ai/qwen3.5-abliterated:27b
+huihui_ai/qwen3.5-abliterated:9b
+huihui_ai/qwen3.5-abliterated:9b-Qwopus
+deepseek-coder-v2:16b
+nemotron-cascade-2:30b
+glm-4.7-flash:q4_K_M
+
+ollama run huihui_ai/qwen3.5-abliterated:9b-Qwopus
+
+https://ollama.com/library/qwen3.5:35b
+ollama pull qwen3.5:35b
+
+ollama run qwen3-coder:30b
+ollama run qwen3.5:35b "你好" --verbose
+ollama run qwen3.5:9b "你好" --verbose
+ollama run qwen3-coder:30b "你好" --verbose
+ollama run sinhang/qwen3.5-claude-4.6-opus:27b-q5_K_M "你好" --verbose
+ollama run llama3.1:8b "你好" --verbose
+
+ollama list
+ollama rm 
+
+ollama run qwen3-coder:30b "帮我写一个 Python 冒泡排序"
+cat code.py | ollama run qwen2.5-coder:32b "重构这段代码并优化性能"
+/show info
+curl http://localhost:11434/api/tags #查看当前加载的模型
+
+ollama launch codex --model qwen3-coder
+codex --oss
+codex --oss -m gpt-oss:20b
+~/.codex/
+base_url = "http://localhost:11434/v1"
+api_key = "ollama"
+
+ollama launch claude --model qwen3-coder
+export ANTHROPIC_BASE_URL=http://localhost:11434
+export ANTHROPIC_AUTH_TOKEN=ollama
+claude --model qwen3-coder
+
+ollama launch opencode --model qwen3-coder
+ollama launch openclaw --model qwen3-coder
+
+视觉模型: 理解图表、地图和照片
+llama3.2-vision:11b
+gemma3:27b/gemma3:12b/gemma4:26b/gemma4:e4b
+llava-llama3:8b/llava:13b
+OCR
+glm-ocr:bf16
+deepseek-ocr:3b
+
+翻译 translation/translate
+translategemma:27b/translategemma:12b
+
+语音识别 (STT)
+
+
+[ai]
+provider = "ollama"
+model = "llama3.1:8b"
+endpoint = "http://localhost:11434"
+
+[ai.fallback]
+provider = "anthropic"
+model = "claude-sonnet-4-20250514"
+trigger = "complexity_threshold"
+
+[ai.system_prompt] 
+text = """你是一个贴心的家庭助手。态度友好、耐心，表达方式适合各年龄段。 对于作业问题，引导思考而不是直接给答案——帮孩子自己想明白。 在群聊中保持回复简洁。"""
+
+[channels.telegram]
+token = "YOUR_BOT_TOKEN"
+allowed_users = [123456789] 
+
+zeroclaw start
+
+
+opecode
+~/.config/opencode/opencode.json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3:8b": {
+          "_launch": true,
+          "name": "qwen3:8b"
+        },
+        "qwen3:8b-16k": {
+          "_launch": true,
+          "name": "Qwen3 8B(16k)"
+        }
+      }
+    }
+  }
+}
+~/.config/opencode/AGENTS.md
+如无必要，勿增实体。中文回复，言简意赅
+
+codex
+~/.codex/config.toml  
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+personality = "pragmatic"
+
+[model_providers.volcengine]
+name = "volcengine"
+base_url = "http://127.0.0.1:4000/v1"
+env_key = "VOLCENGINE_API_KEY"
+
+[model_providers.bailian]
+name = "bailian"
+base_url = "http://127.0.0.1:4000/v1"
+env_key = "BAILIAN_API_KEY"
+
+[model_providers.deepseek]
+name = "deepseek"
+base_url = "http://127.0.0.1:4000/v1"
+env_key = "DEEPSEEK_API_KEY"
+
+[profiles.volcengine]
+model = "kimi-k2.6"
+model_provider = "volcengine"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+personality = "pragmatic"
+model_reasoning_effort = "high"
+
+[profiles.bailian]
+model = "qwen3.6-plus" #"glm-5"
+model_provider = "bailian"
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+personality = "pragmatic"
+model_reasoning_effort = "high"
+
+[profiles.deepseek]
+model = "deepseek-v4-pro"
+model_provider = "deepseek"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+personality = "pragmatic"
+model_reasoning_effort = "medium"
+enable_thinking = true
+chat_template_kwargs = { enable_thinking = true }
+
+[profiles.deepseek.extra_body]
+enable_thinking = true
+
+
+
+model = "qwen3-coder:30b"
+model_provider = "ollama-qwen"
+
+[model_providers.ollama-qwen]
+name = "Qwen3 Coder 30B"
+base_url = "http://localhost:11434/v1"
+api_key = "ollama"
+
+
+hf download Qwen/Qwen3-VL-Embedding-2B --local-dir ~/models/Qwen3-VL-Embedding-2B
+vi ~/models/Modelfile-Qwen3-VL-Embedding-2B
+FROM ./Qwen3-VL-Embedding-2B
+
+SYSTEM """Qwen3 -VL-Embedding和Qwen3-VL-Reranker模型系列是 Qwen 家族的最新成员，它们基于近期开源且功能强大的 Qwen3-VL 基础模型构建而成。该套件专为多模态信息检索和跨模态理解而设计，可接受包括文本、图像、屏幕截图和视频在内的多种输入，以及包含这些模态混合的输入。"""
+
+PARAMETER temperature 0.7
+
+ollama create qwen3.5-embed:2b -f ~/models/Modelfile-Qwen3-VL-Embedding-2B
+ollama run qwen3.5-embed:2b "你好" --verbose
+ollama rm qwen3.5-embed:2b
+
+ollama create qwen3-coder:30b_Q4_K_M -f ~/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M-Modelfile
+ollama run qwen3-coder:30b_Q4_K_M "你好" --verbose
+
+ollama run qwen3-vl:8b "你是什么模型" --verbose
+ollama run nemotron-cascade-2:30b "你是什么模型" --verbose
+
+
+claude code
+vi ~/.claude/settings.json
+{
+  "language": "chinese",
+  "permissions": {
+    "allow": []
+  }
+}
+vi ~/.claude/CLAUDE.md
+如无必要，勿增实体。中文回复，言简意赅
+
+claude code
+ollama pull nomic-embed-text
+搭建RAG核心（LlamaIndex关键代码）
+
+```python
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
+from llama_index.llms.ollama import Ollama
+from llama_index.embeddings.ollama import OllamaEmbedding
+
+# 配置
+Settings.llm = Ollama(model="gemma4:31b", request_timeout=300.0)
+Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text")
+Settings.chunk_size = 1024  # 按需调整，1024 效果最好
+Settings.chunk_overlap = 200
+
+# 加载你的知识库文件夹（支持 PDF、MD、TXT、DOCX）
+documents =
+SimpleDirectoryReader("./my_knowledge_base").load_data()
+index = VectorStoreIndex.from_documents(documents, show_progress=True)
+
+# 持久化
+index.storage_context.persist(persist_dir="./storage")
+```
+
+
+ollama run huihui_ai/Qwen3.6-abliterated:35b-Claude-4.7
+
+
+
+
+
+
+

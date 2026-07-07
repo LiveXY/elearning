@@ -1,0 +1,391 @@
+llama.cpp
+brew install llama.cpp huggingface-cli
+
+export HF_ENDPOINT=https://hf-mirror.com
+
+llama-cli --version
+硬件识别：GPU name: MTL0 且支持 unified memory（统一内存）。这说明你的 Mac 能直接把海量内存分给显卡用。
+最大可用内存：recommendedMaxWorkingSetSize = 40200.90 MB。这意味着你可以流畅运行最大约 30GB - 35GB 大小的模型（例如量化后的 70B 参数量模型）。
+性能加持：has bfloat = true。M4 芯片支持 BF16 数据格式，这在跑最新的 Qwen2.5 或 Llama 3.1 时，计算速度和精度会比老款 Mac 更出色。
+后端支持：成功加载了 libggml-metal.so。这意味着你的推理将完全由 GPU（Metal） 加速，而不是慢吞吞的 CPU。
+--n-gpu-layers 99 确保模型所有层都跑在 M4 GPU 上
+base_url = http://localhost:8080/v1
+export HF_ENDPOINT=https://hf-mirror.com
+
+mkdir -p ~/models
+hf download unsloth/Qwen3.5-35B-A3B-GGUF --include "*Q5_K_M.gguf" --local-dir ~/models
+llama-server -m ~/models/Qwen3.5-35B-A3B-Q5_K_M.gguf --port 8080 -ngl 99 -c 131072
+
+hf download unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF --include "*Q4_K_M.gguf" --local-dir ~/models
+llama-server -m ~/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf --flash-attn on --n-gpu-layers 99 --ctx-size 131072
+
+Q6_K（高智商版）或 Q4_K_M（极速版）
+hf download unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF --include "*Q6_K.gguf" --local-dir ~/models
+llama-server -m ~/models/Qwen3-Coder-30B-A3B-Instruct-Q6_K.gguf --n-gpu-layers 99 --ctx-size 131072 --temp 0.7 --top-k 20 --top-p 0.8 --repeat-penalty 1.05 --flash-attn on --batch-size 8192 --ubatch-size 2048 --mlock
+
+llama-cli -m ~/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf -p "你好，请自我介绍一下"
+
+
+opencode
+cat ~/.config/opencode/opencode.json
+{
+    "$schema": "https://opencode.ai/config.json",
+    "provider": {
+	"llamacpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama.cpp (local)",
+      "options": {
+        "baseURL": "http://localhost:8080/v1"
+      },
+      "models": {
+        "qwen3-coder:30b": {
+          "_launch": true,
+          "name": "Qwen3 Coder 30B"
+        }
+      }
+    },
+
+        "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3:8b": {
+          "_launch": true,
+          "name": "qwen3:8b"
+        },
+        "qwen3-coder:30b": {
+          "_launch": true,
+          "name": "Qwen3 Coder 30B"
+        }
+      }
+    }
+}
+
+codex
+~/.codex/config.toml  
+
+#model = "gpt-5.3-codex"
+#model_reasoning_effort = "high"
+
+profile = "llama-local"
+
+[profiles.llama-local]
+model = "qwen3-coder:30b"
+model_provider = "ollama-qwen"
+web_search = "disabled"
+
+[model_providers.ollama-qwen]
+name = "Qwen3 Coder 30B"
+#base_url = "http://localhost:11434/v1"
+base_url = "http://127.0.0.1:8080/v1"
+wire_api = "responses"
+
+其他模型:
+CoreWorxLab/Qwen3.6-27B-Claude-Opus-Reasoning-Distill-v2-int4-AutoRound
+TeichAI/Qwen3.6-27B-Claude-Opus-Reasoning-Distill-v2
+HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive
+HauhauCS/Qwen3.5-4B-Uncensored-HauhauCS-Aggressive
+HauhauCS/Qwen3.5-35B-A3B-Uncensored-HauhauCS-Aggressive
+nvidia/NVIDIA-Nemotron-3-Nano-4B-GGUF
+nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+Tesslate/OmniCoder-9B-GGUF
+google/gemma-3-12b-it-qat-q4_0-gguf
+google/gemma-4-31B-it
+google/gemma-4-26B-A4B-it
+google/gemma-4-12B-it
+google/gemma-4-12B-it-qat-q4_0-unquantized
+mlabonne/gemma-3-27b-it-abliterated-GGUF
+unsloth/Qwen3.6-27B-GGUF
+
+unsloth/gemma-3-12b-it-GGUF
+unsloth/gemma-4-E4B-it-GGUF
+unsloth/gemma-4-26B-A4B-it-GGUF
+unsloth/gemma-4-31B-it-GGUF
+unsloth/gemma-4-12b-it-GGUF
+huihui-ai/Huihui-gemma-4-26B-A4B-it-abliterated
+huihui-ai/Huihui-gemma-4-12B-it-qat-q4_0-unquantized-abliterated
+Ex0bit/MYTHOS-26B-A4B-PRISM-PRO-DQ-GGUF
+hesamation/Qwen3.6-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled-GGUF
+
+混元翻译模型2.0版本
+tencent/Hy-MT2-30B-A3B
+tencent/Hy-MT2-7B
+tencent/Hy-MT2-1.8B-GGUF
+tencent/HY-MT1.5-1.8B-GGUF
+tencent/Hy-MT1.5-1.8B-2bit
+
+z-lab/Qwen3.6-27B-DFlash
+ManniX-ITA/Qwen3.6-27B-Omnimerge-v4-GGUF
+dealignai/Gemma-4-31B-JANG_4M-CRACK
+
+OpenMOSS-Team/MOSS-TTS-v1.5
+OpenMOSS-Team/MOSS-Audio-8B-Thinking
+1️⃣ 语音识别（ASR）
+2️⃣ 说话人分离——谁在说话，分得清清楚楚
+3️⃣ 情绪识别——听得懂你是高兴还是烦躁
+4️⃣ 环境音解析——雨声、车流、键盘声都能识别
+5️⃣ 音乐理解——不只是识别歌名，是真的听懂结构
+6️⃣ 带时间戳的 ASR——精确到每个字什么时候说的
+
+语音合成器
+nvidia/kokoro-82M-onnx-opt
+
+ideogram-ai/ideogram-4-fp8
+ideogram-ai/ideogram-4-nf4
+
+microsoft/phi-2
+nex-agi/Nex-N2-mini
+
+
+模型对比
+hf download unsloth/gemma-4-26B-A4B-it-GGUF --include "*Q4_K_M.gguf" --local-dir ~/models
+hf download unsloth/gemma-4-E4B-it-GGUF --include "*Q4_K_XL.gguf" --local-dir ~/models
+
+
+hf download HauhauCS/Nemotron3-Nano-4B-Uncensored-HauhauCS-Aggressive --include "*Q6_K_P.gguf" --local-dir ~/models
+hf download HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive --include "*Q8_0.gguf" --local-dir ~/models
+
+KyleHessling1/Qwopus-GLM-18B-Merged-GGUF
+Jackrong/Qwopus-GLM-18B-Merged-GGUF
+hf download Jackrong/Jackrong/Qwopus-GLM-18B-Merged-GGUF --include "*Q4_K_M.gguf" --local-dir ~/models
+llama-server \
+    -m ~/models/Qwopus-GLM-18B-Merged-Q4_K_M.gguf \
+    --chat-template-file your-qwen35-template.jinja \
+    --ctx-size 65536 \
+    --flash-attn on \
+    --n-gpu-layers 99
+
+Jackrong/Qwopus3.5-27B-v3-GGUF
+hf download Jackrong/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF --include "*Q8_0.gguf" --local-dir ~/models
+hf download Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF --include "*Q4_K_M.gguf" --local-dir ~/models
+
+llama-bench -m ~/models/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2-Q8_0.gguf
+llama-cli -m ~/models/Qwen3.5-4B-Claude-4.6-Opus-Reasoning-Distilled-v2-Q8_0.gguf -p "你好，请自我介绍一下"
+
+llama-bench -m ~/models/Nemotron3-Nano-4B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf
+llama-cli -m ~/models/Nemotron3-Nano-4B-Uncensored-HauhauCS-Aggressive-Q6_K_P.gguf -p "你好，请自我介绍一下"
+
+llama-bench -m ~/models/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q8_0.gguf
+llama-cli -m ~/models/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q8_0.gguf -p "你好，请自我介绍一下"
+
+llama-bench -m ~/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf -p 16384
+llama-cli -m ~/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf -p "你好，请自我介绍一下"
+llama-cli -m ~/models/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-Q4_K_M.gguf -p "你好，请自我介绍一下"
+
+llama-bench -m ~/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf
+llama-cli -m ~/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf -p "你好，请自我介绍一下"
+llama-server -m ~/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf -fa on -ngl 99 -c 65536 --port 262144 -np 1 --port 11434
+
+
+ llama-server -m ~/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf -fa on -ngl 99 -c 65536 --port 11434 -np 1
+llama-server -m ~/models/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-Q4_K_M.gguf -ngl 99 -c 131072 -np 1 -fa on --cache-type-k q4_0 --cache-type-v q4_0 --port 11434
+
+llama-server -m ~/models/ -ngl 99 -c 131072 -np 1 -fa on --cache-type-k q4_0 --cache-type-v q4_0 --host 0.0.0.0
+llama-server -m ~/models/ -ngl 99 -c 262144 -np 1 -fa on --cache-type-k q4_0 --cache-type-v q4_0
+llama-server -hf ~/models/ -ngl 99 -c 262144 -fa on --cache-type-k q4_0 --cache-type-v q4_0 --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.00
+
+
+
+claude code
+vi ~/.claude/settings-local.json
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "",
+    "ANTHROPIC_AUTH_TOKEN": "ollama",
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:11434",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "allow": []
+  },
+  "language": "chinese",
+  "primaryLanguage": "zh-CN",
+  "preferredLanguage": "zh-CN",
+  "verboseThinking": true,
+  "skipDangerousModePermissionPrompt": true
+}
+vi ~/.claude/settings-bailian.json
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "",
+    "ANTHROPIC_BASE_URL": "https://coding.dashscope.aliyuncs.com/apps/anthropic",
+    "ANTHROPIC_MODEL": "glm-5"
+  },
+  "permissions": {
+    "allow": []
+  },
+  "language": "chinese",
+  "primaryLanguage": "zh-CN",
+  "preferredLanguage": "zh-CN",
+  "verboseThinking": true,
+  "skipDangerousModePermissionPrompt": true
+}
+alias cc-local='claude --dangerously-skip-permissions --settings ~/.claude/settings-local.json'
+alias cc-bailian='claude --dangerously-skip-permissions --settings ~/.claude/settings-bailian.json'
+
+vi ~/.claude/CLAUDE.md
+- 如无必要，勿增实体。中文回复，言简意赅
+
+- 三思而后行；在编写代码前，请先阅读现有文件。
+- 输出内容力求简洁，但推理过程务必详尽。
+- 优先选择修改现有文件，而非将其彻底重写。
+- 避免重复阅读已读过的文件。
+- 在宣布任务完成前，请务必对代码进行测试。
+- 避免使用阿谀奉承式的开场白或冗余的收尾套话。
+- 解决方案应保持简洁、直接。
+- 用户的具体指令始终优先于本文件的规定。
+
+- 重构，跑测试，修报错，完成后结束
+
+
+模型量化
+llama-quantize Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf qwen3-coder-30b-a3b-q4_k_m.gguf Q4_K_M
+
+Safetensors
+dealignai/Gemma-4-31B-JANG_4M-CRACK
+
+
+llama-server \
+    --model ~/models/Qwen3.5-35B-A3B-UD-IQ2_M.gguf \
+    --port 8000 --host 127.0.0.1 \
+    --flash-attn on --ctx-size 12288 \
+    --cache-type-k q4_0 --cache-type-v q4_0 \
+    --n-gpu-layers 99 --reasoning off -np 1 -t 4
+llama-server \
+    --model ~/models/Qwen3.5-9B-Q4_K_M.gguf \
+    --port 8000 --host 127.0.0.1 \
+    --flash-attn on --ctx-size 65536 \
+    --cache-type-k q4_0 --cache-type-v q4_0 \
+    --n-gpu-layers 99 --reasoning off -t 4
+
+llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
+openclaw onboard --non-interactive \
+  --auth-choice custom-api-key \
+  --custom-base-url "http://127.0.0.1:8080/v1" \
+  --custom-model-id "ggml-org-gemma-4-26b-a4b-gguf" \
+  --custom-api-key "llama.cpp" \
+  --secret-input-mode plaintext \
+  --custom-compatibility openai \
+  --accept-risk
+
+vi .zeroclaw/config.toml 
+
+[model_providers.llamacpp]
+base_url = "http://127.0.0.1:8082"
+merge_system_into_user = true
+https://github.com/google-gemma/cookbook/tree/main/apps/concurrent
+unsloth/gemma-4-26B-A4B-it-GGUF
+
+uv sync
+
+llama-server -m gemma-4-26B-A4B-it-UD-Q4_K_M.gguf -c 70000 -np 10 --metrics --reasoning off
+
+# Generate SVGs
+bash run.sh --scenario svg --topic "Technology and AI" --tasks 10
+
+# Translate text
+bash run.sh --scenario translate --topic "Gemma 4 is a family of models released by Google DeepMind." --tasks 10
+
+# Code Gallery
+bash run.sh --scenario code --topic "FizzBuzz" --tasks 10
+
+# ASCII Art
+bash run.sh --scenario ascii --topic "animals" --tasks 10
+
+
+llama-server \
+  --model ~/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf \
+  --port 8001 \
+  --alias qwen3.6-35b-a3b \
+  -c 131072 \
+  -n 32768 \
+  --no-context-shift \
+  --temp 0.6 \
+  --top-p 0.95 \
+  --top-k 20 \
+  --repeat-penalty 1.00 \
+  --presence-penalty 0.00 \
+  --fit on \
+  -fa on \
+  -ctk q8_0 -ctv q8_0 \
+  --chat-template-kwargs '{"preserve_thinking": true}'
+
+llama-server --model code/open-source/llama.cpp/models/Qwen3.6-27B-Q8_0.gguf --ctx-size 262144 --parallel 4 --no-kv-unified --cont-batching --batch-size 4096 --ubatch-size 2048 --flash-attn on --n-gpu-layers 99 --port 8080 --temp 0.1 --repeat-penalty 1.1 --repeat-last-n 256
+
+docker run -d -e NVIDIA_VISIBLE_DEVICES=all -e NVIDIA_DRIVER_CAPABILITIES=all -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+  --restart unless-stopped \
+  -p 9001:8000 \
+  --ipc=host \
+  -v ~/.cache/huggingface:/root/.cache/huggingface \
+  vllm/vllm-openai:latest \
+  cyankiwi/Qwen3.6-27B-AWQ-BF16-INT4 \
+  --tensor-parallel-size 2 \
+  --max-num-seqs 8 \
+  --enable-chunked-prefill \
+  --max-num-batched-tokens 16384 \
+  --max-model-len 262144 \
+  --compilation-config '{"cudagraph_mode":"FULL_DECODE_ONLY"}' \
+  --attention-backend=flash_attn \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser qwen3 \
+  --reasoning-config '{"reasoning_start_str":"<think>","reasoning_end_str":"My reasoning budget is exhausted, but I have enough information to answer directly now.</think>"}' \
+  --default-chat-template-kwargs '{"preserve_thinking":true,"enable_thinking":false}' \
+  --gpu-memory-utilization=0.92 \
+  --disable-custom-all-reduce \
+  --enable-prefix-caching \
+  --async-scheduling \
+  --speculative-config '{"method":"mtp","num_speculative_tokens":4}' \
+  -O3 \
+  --no-use-tqdm-on-load \
+  --otlp-traces-endpoint http://10.6.12.25:4317 \
+  --collect-detailed-traces all
+
+./build-rpc-cuda \
+--rpc 10.0.1.1:50052 \
+-m  Qwen3.6-35B-A3B-UD
+Q3_K_XL.gguf \
+-md Qwen3.5-2B-Q4_K_M.gguf \
+--host 10.0.1.2 \
+--port 8080 \
+-n 4096 \
+-c 4096 \
+-fitt 128,512 \
+-dev CUDA0 \
+-devd RPC0 \
+--spec-draft-n-max 16 \
+--spec-draft-n-min 4 \
+--spec-draft-p-min 0.75
+
+/usr/bin/llama-server --jinja \
+-m/home/c/models/Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf \
+--host 192.168.1.3 \
+--fit on
+--flash-attn on \
+--spec-type ngram-mod \
+--spec-ngram-size-n 24 \
+--n-cpu-moe-draft 39 \
+-t 14
+--chat-template-kwargs '{"preserve_thinking":true}' \
+--cache-type-k turbo3 \
+--cache-type-v turbo4 \
+-c 512000 \
+--temp 0.7
+
+QWEN 3.6 + NVIDIA RTX 4070 12GB V RAM  (64GB RAM)
+60 tok/sec, 128k context + Q4_K_M
+llama-server \
+    -m Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf \
+    --alias qwen3.6-35b-128k \
+    --host 0.0.0.0 \
+    --port 8083 \
+    -ngl 999 -ncmoe 25 -fa on \
+    --cache-type-k q8_0 --cache-type-v q8_0 \
+    -c 131072 -np 1 -t 12 \
+    --no-warmup --jinja --metrics
+
+
+

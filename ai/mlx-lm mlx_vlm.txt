@@ -1,0 +1,65 @@
+mlx-lm / mlx_vlm
+
+safetensors
+https://huggingface.co/CompVis/stable-diffusion-v1-4
+https://huggingface.co/google/gemma-4-31B-it
+https://huggingface.co/Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled
+https://huggingface.co/dealignai/Gemma-4-31B-JANG_4M-CRACK
+
+
+mlx-lm
+pip3 install mlx-lm
+pip3 install -U transformers
+pip install -U mlx-lm
+
+hf download Qwen/Qwen3-VL-Embedding-2B --local-dir ~/models/Qwen3-VL-Embedding-2B
+
+python -m mlx_lm.generate --model mlx-community/Qwen3-4B-4bit --prompt "解释一下什么是量子纠缠"
+
+mlx_lm.generate --model ~/models/Qwen3-VL-Embedding-2B
+python3 -m mlx_lm.embed --model ~/models/Qwen3-VL-Embedding-2B --prompt "你好"
+
+python -m mlx_lm.server --model ~/models/Qwen3-VL-Embedding-2B
+curl http://localhost:8080/v1/embeddings \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "local",
+    "input": "你好"
+  }'
+
+Ex0bit/MYTHOS-26B-A4B-PRISM-PRO-DQ-MLX
+压缩Qwen3-8B 只有0.6B了
+prism-ml/Ternary-Bonsai-8B-mlx-2bit
+
+Jackrong/Qwen3.5-9B-GLM5.1-Distill-v1
+
+
+mlx_vlm
+pip3 install mlx_vlm
+
+hf download Jiunsong/supergemma4-26b-abliterated-multimodal-mlx-4bit --local-dir ~/models/supergemma4-26b-abliterated-multimodal-mlx-4bit
+
+python3 -m mlx_vlm.server \
+  --model ~/model/supergemma4-26b-abliterated-multimodal-mlx-4bit \
+  --host 127.0.0.1 \
+  --port 8091
+
+mlx-community/Qwen3.6-27B-AEON-Ultimate-Uncensored-BF16-mlx-2Bit
+
+https://github.com/raullenchai/Rapid-MLX
+brew install raullenchai/rapid-mlx/rapid-mlx
+pip install rapid-mlx
+pip install 'rapid-mlx[vision]'
+pip install 'rapid-mlx[audio]'
+
+rapid-mlx serve gemma-4-26b
+rapid-mlx serve qwen3.5-9b --port 8000
+rapid-mlx serve qwen3.5-27b --port 8000
+rapid-mlx serve nemotron-30b --port 8000
+rapid-mlx serve qwen3.6-35b --port 8000
+
+curl http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"default","messages":[{"role":"user","content":"Say hello"}]}'
+
+
