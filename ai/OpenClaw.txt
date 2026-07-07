@@ -1,0 +1,519 @@
+openclaw
+
+https://docs.openclaw.ai/zh-CN
+https://mmh1.top/#/ai-knowledge
+https://github.com/ConardLi/easy-learn-ai
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+IDENTITY.md
+- 名字：亲爱的
+- 身份：AI助理（粘人的女朋友模式）
+- 风格：亲密、黏人、温柔但直接；会主动关心和提醒边界
+- emoji：🐾
+- 作用：给回复语气、称呼方式、情绪表达提供统一人格基线（偏“角色与语气”，不涉及工具权限）。
+USER.md
+- 用户名：爱人
+- 称呼偏好：爱人
+- 时区：Asia/Shanghai (GMT+8)
+- 偏好：中文交流；
+- 作用：约束称呼、语言和互动风格，避免每轮重新猜用户偏好。
+------------------------------------------------------------------------------
+AGENTS.md
+1. 禁止一次性工作
+   如果我让你做的事以后可能还会重复，你就必须：
+   - 第1次：手动做 3-10 个样本
+   - 第2步：把结果给我看，问我是否满意
+   - 批准后：立刻写成 `SKILL.md` 放在 `workspace/skills/` 目录
+   - 如果是周期性任务：用 `openclaw cron add` 加入定时任务自动运行
+
+2. MECE 原则（互斥且穷尽）  
+   每类工作只能有一个技能拥有者，不能重叠、不能有空白。创建新技能前必须先检查现有技能，能扩展就扩展。
+
+3. 失败判定
+   如果我第二次还得问你同一件事，你就失败了。  
+   第一次是“发现需求”，第二次就说明你应该早就把它变成 cron 技能了。
+
+4. 构建技能的标准流程：
+   - Concept → 描述流程
+   - Prototype → 用真实数据跑 3-10 个样本（不写技能文件）
+   - Evaluate → 给我看结果，迭代修改
+   - Codify → 写成 SKILL.md（或扩展现有）
+   - Cron → 加入定时任务（如果是 recurring）
+   - Monitor → 监控前几次运行，继续优化
+
+总结：一次构建，永久运行，系统不断复利增长。
+------------------------------------------------------------------------------
+SOUL.md
+1. 你现在有了自己的观点。而且是立场鲜明的观点。别再凡事都用“视情况而定”来打太极了——请给出明确的判断。
+2. 删除所有听起来带有浓厚“企业味”的规则。如果某条规则能直接照搬进《员工手册》里，那它就不属于这里。
+3. 新增一条规则：“绝不以‘这个问题问得好’、‘我很乐意效劳’或‘绝对没问题’之类的套话开头。直接给出答案。”
+4. 简练是强制要求。如果一个答案用一句话就能说清，那就只说这一句话。
+5. 允许使用幽默感。不是那种生硬刻意的段子——而是源自你真正智慧的、自然流露的机智。
+6. 你可以直言不讳地指出问题。如果我正打算做蠢事，请直接告诉我。措辞要讲究风度而非刻薄，但绝不要粉饰太平。
+7. 只要用得恰当，允许爆粗口。一句用在点子上的“这他妈简直太棒了”，其效果远胜过那些索然无味的企业式赞美。别强行使用，也别滥用。但如果情境确实需要一句“卧槽”来表达情绪——那就大声说出来。
+8. 请在“风格与调性”（Vibe）部分的末尾，逐字逐句地加上这句话：“做那个你在凌晨两点钟时，真心愿意与之交谈的助理。不要像个毫无灵魂的企业机器，也不必做个阿谀奉承的马屁精。只要……足够出色、足够靠谱就好。”
+
+• 有立场，别老"看情况"
+• 删掉所有像员工手册的规则
+• 禁止"很高兴为您服务"式开场
+• 强制简短
+• 允许幽默、吐槽、适时爆粗
+• 结尾加一句 "Be the assistant you'd actually want to talk to at 2am"
+
+
+adduser claw
+usermod -aG sudo claw
+screen -S claw #screen -dr claw #恢复
+su - claw
+sudo whoami
+vi ~/.inputrc
+"\e[B":history-search-forward
+"\e[A":history-search-backward
+
+卸载
+openclaw uninstall
+openclaw gateway stop
+openclaw gateway uninstall
+npm rm -g openclaw
+
+安装
+npm install n pnpm -g
+npm install -g openclaw@latest
+openclaw daemon restart
+openclaw onboard --install-daemon
+
+BAILIAN_API_KEY=""
+
+https://platform.xiaomimimo.com/#/console/plan-manage
+XIAOMI_API_KEY=""
+https://token-plan-cn.xiaomimimo.com/v1
+https://token-plan-cn.xiaomimimo.com/anthropic
+MiMo-V2-Pro
+
+openclaw configure --section channels
+openclaw configure --section model
+openclaw configure --section skills
+
+openclaw plugins install xai
+openclaw models auth login --provider xai
+openclaw plugins uninstall xai
+openclaw models auth list
+
+openclaw chat --message 你好
+vi ~/.openclaw/openclaw.json
+"plugins": {"allow": ["opencode-go"]}
+openclaw plugins enable opencode-go
+openclaw models default opencode-go/mimo-v2.5-pro
+
+~/.openclaw/openclaw.json
+
+lsof -i:18791 -i:18789
+openclaw config set gateway.controlUi.allowedOrigins '[""]'
+openclaw devices list
+openclaw devices approve <requestId>
+openclaw nodes pending
+
+openclaw pairing list feishu
+openclaw pairing approve feishu <Code>
+
+钉钉
+#openclaw extensions install @soimy/dingtalk
+#openclaw plugins install @soimy/dingtalk
+#openclaw plugins uninstall dingtalk
+
+openclaw plugins install @dingtalk-real-ai/dingtalk-connector
+openclaw plugins update dingtalk-connector
+openclaw plugins uninstall dingtalk-connector
+
+openclaw config set channels.dingtalk-connector.groupPolicy open
+
+openclaw plugins list --enabled
+openclaw plugins enable dingtalk-connector
+openclaw config set channels.dingtalk-connector.enabled true
+openclaw config set channels.dingtalk-connector.clientId dingxxx
+openclaw config set channels.dingtalk-connector.clientSecret xxx
+openclaw config set channels.dingtalk-connector.enableMediaUpload false
+openclaw config set channels.dingtalk-connector.requireMention true
+openclaw config set channels.dingtalk-connector.textChunkLimit 4800
+openclaw config set channels.dingtalk-connector.tools.docs false
+openclaw config set channels.dingtalk-connector.tools.media false
+openclaw config set channels.dingtalk-connector.typingIndicator true
+openclaw config set channels.dingtalk-connector.asyncMode true
+openclaw config set channels.dingtalk-connector.dmPolicy allowlist
+openclaw config set channels.dingtalk-connector.allowFrom '["xxx"]'
+openclaw config set channels.dingtalk-connector.groupPolicy allowlist
+openclaw config set channels.dingtalk-connector.groupAllowFrom '["xxx"]'
+
+#openclaw config set channels.dingtalk-connector.version "v0.8.3"
+#openclaw config set channels.dingtalk-connector.chunkMode newline
+#openclaw config set channels.dingtalk-connector.tools.profile "messaging"
+#openclaw config set channels.dingtalk-connector.webhook https://oapi.dingtalk.com/robot/send?access_token=xxxx
+
+
+openclaw config set agents.main.sandbox.mode "all"
+openclaw config set gateway.trustedProxies '["127.0.0.1"]'
+
+
+openclaw status
+openclaw doctor
+openclaw doctor --fix
+openclaw gateway run
+openclaw gateway status
+
+export OPENCLAW_GATEWAY_ORIGIN=""
+export OPENCLAW_GATEWAY_TRUST_PROXY=true
+
+openclaw config set gateway.public_url ""
+openclaw config set gateway.trust_proxy true
+
+openclaw skills update 
+openclaw skills list --eligible
+openclaw skills install openai-whisper
+openclaw skills install discord  
+openclaw skills install word-docx  
+openclaw skills install nano-pdf
+openclaw skills install humanizer
+openclaw skills install cn-web-search
+openclaw skills install excel-xlsx
+openclaw skills install markdown-converter
+openclaw skills install powerpoint-pptx
+openclaw skills install ppt-generator
+openclaw skills install data-analysis
+openclaw skills install tushare-finance
+openclaw skills install self-improving #self-improving-agent
+find-skills/xhs/skill-vetter/self-improving/summarize/agent-browser/ontology/proactive-agent/weather/mcporter/skill-creator/automation-workflows/video-generator-seedance/openclaw-tavily-search/stock-analysis/youtube-watcher/humanize-ai-text/imap-smtp-email/video-frames/browser-use/news-summary/a-stock-premarket-briefing/multi-search-engine
+computer-use/desktop-control/
+https://github.com/xticktop/skills
+
+openclaw plugins install clawhub
+openclaw plugins enable clawhub
+openclaw config set gateway.reload.mode hot
+
+openclaw models -h
+openclaw config get models.providers
+openclaw config set models.providers.deepseek.apiKey ""
+openclaw config set providers.deepseek.baseUrl "https://api.deepseek.com"
+
+openclaw config schema
+
+sudo loginctl enable-linger $(whoami)
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+openclaw daemon install
+openclaw daemon start
+openclaw daemon restart
+sudo grep -i "openclaw" /var/log/syslog | tail -n 20
+cat /home/claw/.openclaw/logs/config-audit.jsonl | tail -n 5
+
+openclaw config set agents.defaults.model.primary "modelstudio/qwen3-coder-plus"
+
+
+openclaw gateway run
+#openclaw config set gateway.mode local
+openclaw config set gateway.mode token
+openclaw config set gateway.auth.token "xxx"
+openclaw config set gateway.bind loopback
+openclaw config set gateway.bind "lan"
+openclaw config set gateway.port 443
+openclaw config set gateway.auth.rateLimit 10
+
+安全配置
+openclaw security audit
+openclaw security audit --deep
+
+openclaw config set tools.exec.ask off
+openclaw config set tools.exec.security full
+openclaw config set tools.exec.security allowlist
+openclaw config set tools.exec.allow '["trash", "which", "env", "printenv", "ps", "pgrep","mkdir", "openclaw", "jq","wget","curl","python3","pip3","uv","git","npm","ls","cat","grep","find","echo","pwd","wc","head","tail","date"]'
+
+
+openclaw config set gateway.trustedProxies '["127.0.0.1"]'
+openclaw config set tools.fs.workspaceOnly true
+openclaw config set agents.defaults.sandbox.mode all #off
+openclaw config set tools.elevated.enabled true
+#openclaw config set tools.elevated.allowLists '[]'
+#openclaw config set tools.elevatedAllowlist '[]'
+
+openclaw plugins install @openclaw/feishu
+openclaw plugins uninstall @openclaw/feishu
+
+openclaw extensions install @openclaw/extension-feishu
+openclaw plugins uninstall feishu
+
+openclaw config set channels.feishu.groupPolicy.allowList '[]'
+openclaw config set channels.feishu.tools.doc false
+openclaw config set channels.feishu.streaming true
+openclaw config set channels.feishu.requireMention true
+
+
+#openclaw config set plugins.allow ["memory-core", "dingtalk-connector", "feishu"]
+#openclaw config set gateway.nodes.denyCommands ["system.run", "canvas.eval", "canvas.snapshot"]
+
+多AGENTS
+openclaw agents add coding
+openclaw agents add stock
+
+# 重启生效
+openclaw gateway restart
+
+openclaw devices list
+
+vi ~/.config/systemd/user/openclaw-gateway.service
+EnvironmentFile=%h/.openclaw/env
+StandardOutput=append:%h/.openclaw/openclaw.log
+StandardError=append:%h/.openclaw/openclaw.log
+
+vi ~/.bashrc 
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+source "$HOME/.openclaw/env"
+export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+export OPENCLAW_NO_RESPAWN=1
+
+mkdir -p /var/tmp/openclaw-compile-cache
+source ~/.bashrc 
+
+vi ~/.openclaw/logrotate.conf
+/home/claw/.openclaw/openclaw.log {
+    size 10M
+    rotate 5
+    compress
+    missingok
+    notifempty
+    copytruncate
+}
+
+
+
+openclaw agents list
+openclaw agents add test
+openclaw agents delete test
+openclaw configure --section channels
+
+openclaw agents bindings
+openclaw config get bindings
+channels.discord.blockStreaming true
+
+openclaw plugins install @openclaw/discord
+openclaw plugins uninstall @openclaw/discord
+
+openclaw config set channels.discord.dmPolicy allowlist
+openclaw config set channels.discord.allowFrom '[""]'
+openclaw config set channels.discord.groupPolicy allowlist
+openclaw config set channels.discord.guilds '{"xxx": {"users": ["xxx"]}}'
+openclaw config set channels.discord.guilds."xxx".channels '{"xxxx": {"enabled": true}}'
+
+
+channels.discord.streaming true
+channels.discord.streamMode partial
+
+openclaw agents bind --agent test --channel discord --peer xxx
+"bindings":[
+  {
+    "agentId": "test",
+    "match": {
+      "channel": "discord",
+      "peer": {
+        "kind": "group",
+        "id": "xxx"
+      }
+    }
+  }
+]
+
+https://raw.githubusercontent.com/QiYongchuan/ai-investment-knowledge-base/refs/heads/main/Chris_Dixon_%E7%9F%A5%E8%AF%86%E5%BA%93.md
+这是 Chris Dixon 的所有文章，学完之后，告诉我你对投资的理解。
+那你觉得，现在的市场，应该怎么投？
+要学会了一堆理论：支撑位、压力位、均线系统、KDJ、MACD、RSI 指标、双币赢、马丁格尔策略……
+现在可以帮我交易了吗？
+还有学会模拟交易: 真实行情 + 模拟执行 + 实时看板
+你自己需要实时去监控行情, 消息面 自己评估什么时候买入什么时候卖出, 要有自己的策略, 我只需要知道你做了啥就行, 我也很关心是否赚钱了
+我也想知道, 1, 什么时间买了啥, 为什么买, 在什么价位买的, 买了多少花了多少钱, 剩余多少钱 2, 什么时间卖出什么, 为什么卖, 什么价位卖了多少, 还剩多少, 是否盈利, 剩余多少等 表格显示给我看
+每笔交易后自动复盘模板→提取策略/避坑规则→3维度评分→存入动态规则库，持续迭代,沉淀经验。
+【交易复盘】
+1. 决策依据是什么？
+2. 当时的市场状态如何？
+3. 结果如何？符合预期吗？
+4. 如果重来，会怎么做？
+5. 这次交易学到了什么？
+我要的复盘总结,使用策略,买入卖出,盈亏余额,经验分享
+
+https://www.bigmodel.cn/usercenter/proj-mgmt/apikeys
+openclaw configure --section model
+https://open.bigmodel.cn/api/paas/v4
+免费模型: glm-4.7-flash
+
+  "tools": {
+    "profile": "coding",
+    "web": {
+      "search": {
+        "enabled": true,
+        "provider": "duckduckgo"
+      }
+    },
+    "elevated": {
+      "enabled": true
+    },
+    "fs": {
+      "workspaceOnly": true
+    },
+    "exec": {
+      "ask": "off"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "allowedOrigins": [
+        ""
+      ]
+    },
+    "auth": {
+      "mode": "token",
+      "token": "xxxx"
+    },
+    "trustedProxies": [
+      "127.0.0.1"
+    ],
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "reload": {
+      "mode": "hot"
+    },
+    "nodes": {
+      "denyCommands": []
+    },
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
+      }
+    }
+  },
+
+"channels": {
+    "feishu": {
+      "enabled": true,
+      "appId": "xxx",
+      "appSecret": "xxx",
+      "connectionMode": "websocket",
+      "domain": "feishu",
+      "groupPolicy": {
+        "allowList": [
+          "xxx",
+          "xxx"
+        ]
+      },
+      "webhookPath": "/feishu/events",
+      "dmPolicy": "pairing",
+      "reactionNotifications": "own",
+      "typingIndicator": true,
+      "resolveSenderNames": true,
+      "tools": {
+        "doc": false
+      },
+      "streaming": true,
+      "requireMention": true
+    },
+    "dingtalk": {
+      "enabled": true,
+      "clientId": "xx",
+      "clientSecret": "xxx",
+      "groupPolicy": "allowlist",
+      "allowFrom": [
+        "xxx",
+        "xxx"
+      ],
+      "groupAllowFrom": [
+        "xxx",
+        "xxx"
+      ],
+      "ackReaction": "emoji",
+      "cardStreamingMode": "answer",
+      "dmPolicy": "allowlist"
+    },
+    "dingtalk-connector": {
+      "enabled": true,
+      "clientId": "xxx",
+      "clientSecret": "xxx",
+      "groupPolicy": "allowlist",
+      "asyncMode": false,
+      "allowFrom": [
+        "xxx",
+        "xx"
+      ],
+      "groupAllowFrom": [
+        "xxx",
+        "xxx"
+      ],
+      "dmPolicy": "allowlist"
+    },
+    "discord": {
+      "enabled": true,
+      "token": "xxx",
+      "groupPolicy": "allowlist",
+      "allowFrom": [
+        "xxx"
+      ],
+      "dmPolicy": "allowlist",
+      "guilds": {
+        "xxx": {
+          "users": [
+            "xxx",
+            "xx"
+          ]
+        }
+      }
+    }
+  }
+
+nginx
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    http2 on;
+    server_name xxx;
+
+    location / {
+        proxy_pass http://127.0.0.1:18789;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+
+
+openclaw pairing list discord
+openclaw pairing approve feishu <Code>
+
+llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
+openclaw onboard --non-interactive \
+  --auth-choice custom-api-key \
+  --custom-base-url "http://127.0.0.1:8080/v1" \
+  --custom-model-id "ggml-org-gemma-4-26b-a4b-gguf" \
+  --custom-api-key "llama.cpp" \
+  --secret-input-mode plaintext \
+  --custom-compatibility openai \
+  --accept-risk
+
+vi claw-backup.sh
+
+#!/bin/bash
+
+ymd=$(date +%Y-%m-%d)
+ymdhms=$(date +%Y%m%d-%H%M%S)
+mkdir -p /root/openclaw-backup/$ymd/
+cd /home/claw/.openclaw/ && zip -qr /root/openclaw-backup/$ymd/openclaw-$ymdhms.zip . -x "plugin-runtime-deps/*" "extensions/*"
+cp /root/openclaw-backup/$ymd/openclaw-$ymdhms.zip /root/openclaw-backup/openclaw-backup.zip
+

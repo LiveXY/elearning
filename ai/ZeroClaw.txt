@@ -1,0 +1,955 @@
+ZeroClaw
+
+ 
+https://zeroclaws.io/zh/docs#installation
+https://www.zeroclawlabs.ai/skills
+
+https://zeroclaws.io/zh/blog/zeroclaw-ollama-private-ai-5-minutes
+
+v1 升级 v2
+zeroclaw update
+zeroclaw config migrate
+zeroclaw status
+zeroclaw doctor
+zeroclaw agent -m "当前模型"
+
+安装zeroclaw
+cargo build --release --all-features
+
+adduser claw
+usermod -aG sudo claw
+screen -S claw #screen -dr claw #恢复
+su - claw
+sudo whoami
+vi ~/.inputrc
+"\e[B":history-search-forward
+"\e[A":history-search-backward
+
+curl -fsSLO https://github.com/zeroclaw-labs/zeroclaw/releases/latest/download/zeroclaw-x86_64-unknown-linux-gnu.tar.gz
+tar zxvf zeroclaw-x86_64-unknown-linux-gnu.tar.gz
+sudo ln -s /home/claw/zeroclaw /usr/local/bin/zeroclaw
+zeroclaw --help
+zeroclaw status
+zeroclaw doctor
+zeroclaw self-test
+zeroclaw daemon
+
+mac
+curl -fsSLO https://github.com/zeroclaw-labs/zeroclaw/releases/latest/download/zeroclaw-aarch64-apple-darwin.tar.gz
+tar zxvf zeroclaw-aarch64-apple-darwin.tar.gz
+
+alias zeroclaw-update='zeroclaw -V && echo update ... && curl -fLssS https://github.com/zeroclaw-labs/zeroclaw/releases/latest/download/zeroclaw-aarch64-apple-darwin.tar.gz | tar -xzC /Users/xiong/.cargo/bin && zeroclaw -V'
+
+初始化
+zeroclaw providers
+zeroclaw onboard
+zeroclaw onboard --api-key xxx --provider openrouter --model "openrouter/auto"
+zeroclaw agent -m "你好呀"
+zeroclaw agent -p openrouter --model google/gemini-2.5-flash-lite -m "生成一只蓝猫图片"
+zeroclaw onboard --channels-only
+zeroclaw onboard --api-key xxx --provider nvidia --model "qwen/qwen3.5-397b-a17b"
+zeroclaw onboard --api-key xxx --provider doubao --model "volcengine-plan/ark-code-latest"
+zeroclaw channel list
+
+帮我安装 https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md 这个技能
+https://skills.sh/
+https://clawhub.ai/
+
+openrouter 模型
+免费模型:
+openrouter:free
+arcee-ai/trinity-large-preview:free 创意写作、故事讲述、角色扮演、聊天场景和实时语音助手方面表现出色，远超一般推理模型。
+stepfun/step-3.5-flash:free 极速推理
+nvidia/nemotron-3-super-120b-a12b:free 极速推理
+minimax/minimax-m2.5:free
+qwen/qwen3-coder:free
+qwen/qwen3-next-80b-a3b-instruct:free
+openai/gpt-oss-120b:free
+
+最新模型
+anthropic/claude-sonnet-4.6
+anthropic/claude-opus-4.6
+anthropic/claude-sonnet-4.5
+anthropic/claude-opus-4.5
+openai/gpt-5.4-pro
+openai/gpt-5.4
+openai/gpt-5.3-chat
+openai/gpt-5.3-codex
+openai/gpt-5.2-codex
+openai/gpt-5.2-chat
+openai/gpt-5.2-pro
+openai/gpt-5.2
+google/gemini-3.1-flash-lite-preview
+google/gemini-3.1-pro-preview
+google/gemini-3-flash-preview
+google/gemini-3-pro-preview
+老模型
+anthropic/claude-opus-4.1
+anthropic/claude-opus-4
+anthropic/claude-sonnet-4
+生成图片模型
+google/gemini-3.1-flash-image-preview
+google/gemini-2.5-flash-image
+google/gemini-2.5-flash-image-preview
+bytedance-seed/seedream-4.5
+google/gemini-3-pro-image-preview
+openai/gpt-5-image-mini
+openai/gpt-5-image
+生成视频模型
+bytedance-seed/seed-2.0-mini
+推理模型
+bytedance-seed/seed-1.6
+bytedance-seed/seed-1.6-flash
+低成本模型
+google/gemini-2.5-flash-lite
+openai/gpt-5-nano
+deepseek/deepseek-v3.2
+
+
+[channels.discord] 
+token = "..." 
+system_prompt_append = "You are in a Discord server. Keep responses concise. Use markdown formatting." 
+max_response_length = 1500
+
+[channels.telegram] 
+token = "..." 
+system_prompt_append = "You are in a private Telegram chat. Be conversational and detailed." 
+max_response_length = 4000
+
+[channels.whatsapp] 
+enabled = true 
+system_prompt_append = "You are on WhatsApp. Keep responses short — no markdown, plain text only." 
+max_response_length = 500
+
+[channels.telegram.permissions] 
+tools = ["web_search", "file_read", "file_write"]
+
+[channels.discord.permissions] 
+tools = ["web_search"]
+
+
+[channels.feishu]
+app_id = ""
+app_secret = ""
+allowed_users = ["*"]
+
+[channels.imessage]
+allowed_contacts = ["*"]
+
+[channels.dingtalk]
+client_id = ""
+client_secret = ""
+allowed_users = ["*"]
+
+
+https://console.x.ai
+curl https://api.x.ai/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer xxxx" \
+    -d '{
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a test assistant."
+        },
+        {
+          "role": "user",
+          "content": "Testing. Just say hi and hello world and nothing else."
+        }
+      ],
+      "model": "grok-4-1-fast",
+      "stream": false,
+      "temperature": 0
+    }'
+
+cargo build --release --all-features
+安装飞书插件
+cargo install --path . --features channel-lark
+cargo install --path . --all-features
+
+rustup toolchain install nightly
+RUSTFLAGS="--cfg recursion_limit=\"1024\"" cargo build --release --all-features
+
+# 切换到 Nightly (如果没安装，会提示你先 install)
+rustup default nightly
+# 切换回 Stable (正式版)
+rustup default stable
+
+brew uninstall rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+brew install zig
+cargo install cargo-zigbuild
+rustup toolchain install nightly
+rustup target add aarch64-unknown-linux-gnu --toolchain nightly
+rustup component add rust-src --toolchain nightly-aarch64-apple-darwin
+cargo +nightly zigbuild --target aarch64-unknown-linux-gnu --release --all-features
+
+一键安装
+cd web && npm ci && npm run build && cd ..
+curl -fsSL https://zeroclawlabs.ai/install.sh | bash
+cargo install zeroclawlabs
+
+rustup default stable
+rustup target add x86_64-unknown-linux-gnu
+rustup target add aarch64-unknown-linux-gnu
+rustup target add aarch64-unknown-linux-gnu --toolchain stable
+rustup target add aarch64-unknown-linux-gnu --toolchain nightly
+rustup component add rust-src --toolchain stable-aarch64-apple-darwin
+cargo zigbuild --target aarch64-unknown-linux-gnu --release --all-features
+
+cargo zigbuild --target x86_64-unknown-linux-gnu --release --all-features
+upx -9 -k target/x86_64-unknown-linux-gnu/release/zeroclaw
+scp target/x86_64-unknown-linux-gnu/release/zeroclaw claw@ip:~/
+scp target/x86_64-unknown-linux-gnu/release/zeroclaw claw@ip:~/
+
+飞书导入权限
+{
+  "scopes": {
+    "tenant": [
+      "contact:contact.base:readonly",
+      "contact:user.base:readonly",
+      "im:chat:readonly",
+      "im:message",
+      "im:message.group_at_msg:readonly",
+      "im:message.p2p_msg:readonly",
+      "im:message:send_as_bot",
+      "im:resource"
+    ],
+    "user": [
+      "contact:contact.base:readonly"
+    ]
+  }
+}
+
+zeroclaw onboard #交互式或快速设置 — 创建配置，设置 API 密钥
+zeroclaw agent #聊天模式（交互式 REPL 或单条 -m 消息）
+zeroclaw gateway #启动 webhook 服务器（默认：127.0.0.1:42617）
+zeroclaw daemon #启动长时间自主运行时
+zeroclaw service install
+zeroclaw service status
+zeroclaw service install/start/stop/status/uninstall #管理后台服务（systemd 用户级或 OpenRC）
+zeroclaw doctor #诊断守护进程/调度器/通道的新鲜度
+zeroclaw status #显示完整系统状态
+zeroclaw estop #启用/恢复紧急停止级别并查看紧急停止状态
+zeroclaw cron #管理计划任务（列表/添加/在特定时间添加/每隔一段时间添加/一次添加/删除/更新/暂停/恢复）
+zeroclaw models #更新提供商模型目录
+zeroclaw providers #列出支持的提供商和别名
+zeroclaw channel #列出/启动/修改频道并绑定 Telegram 身份
+zeroclaw integrations #检查集成设置详情
+zeroclaw integrations info discord
+zeroclaw skills #列出/安装/移除技能；支持 ClawhHub、ZeroMarket 和 git 远程仓库
+zeroclaw auth #登录、刷新和切换订阅身份验证配置文件
+zeroclaw migrate #从其他运行时导入数据（例如迁移 OpenClaw）
+zeroclaw completions #生成 shell 补全脚本（bash、fish、zsh、powershell、elvish）
+zeroclaw hardware #USB 发现/自检/信息命令
+zeroclaw peripheral #管理和刷新硬件外围设备
+zeroclaw config schema #打印完整配置合约 JSON 模式
+zeroclaw migrate openclaw --dry-run
+zeroclaw migrate openclaw
+zeroclaw memory list/get #管理记忆数据
+
+zeroclaw channel list	列出已配置的频道及状态
+zeroclaw channel doctor	检查频道健康状态和就绪情况
+zeroclaw channel bind-telegram <id>	将 Telegram 用户 ID 加入白名单
+
+zeroclaw skills install namespace/name #ClawhHub安装
+zeroclaw skills install clawhub:summarize #Git 远程安装
+zeroclaw skills install https://clawhub.ai/steipete/summarize #本地安装
+zeroclaw skills install ~/Downloads/my-skill.zip #直接压缩包安装
+zeroclaw skills install zip:https://example.com/skill.zip
+zeroclaw skills audit <source_or_name> #技能安全审计
+
+zeroclaw estop：立刻触发“全部切断（Kill-all）”，停止所有正在执行的任务。
+zeroclaw estop --level <LEVEL>：按级别停止（如 network-kill 切断网络，或 tool-freeze --tool shell 冻结特定的终端工具）。
+zeroclaw estop resume：在确认安全后，解除锁定并恢复运行。
+zeroclaw estop status：查看当前的紧急停止状态和限制级别。
+
+/status - 查看运行状态
+/stop - 停止当前任务/会话
+/start - 启动任务/会话
+/restart - 重启服务
+/help - 查看帮助信息和所有可用命令
+/new - 清除当前对话历史，开启一个全新的会话上下文。
+/models - 列出所有可用的模型供应方及当前选中的模型。
+/models <provider> - 切换模型供应方
+/model <model-id> - 快速切换当前会话使用的 AI 模型
+
+
+
+# ZeroClaw 现已支持基于订阅的原生鉴权配置（多账号、静态加密存储）
+- 配置文件：`~/.zeroclaw/auth-profiles.json`
+- 加密密钥：`~/.zeroclaw/.secret_key`
+- Profile ID 格式：`<provider>:<profile_name>`（例：`openai-codex:work`）
+# 推荐用于服务器/无显示器环境
+zeroclaw auth login --provider openai-codex --device-code
+# 浏览器/回调流程，支持粘贴回退
+zeroclaw auth login --provider openai-codex --profile default
+zeroclaw auth paste-redirect --provider openai-codex --profile default
+# 粘贴订阅/setup token（Authorization header 模式）
+zeroclaw auth paste-token --provider anthropic --profile default --auth-kind authorization
+zeroclaw auth setup-token --provider anthropic --profile default
+# 检查 / 刷新 / 切换 profile
+zeroclaw auth status
+zeroclaw auth refresh --provider openai-codex --profile default
+zeroclaw auth use --provider openai-codex --profile work
+# 使用 subscription auth 运行 agent
+zeroclaw agent --provider openai-codex -m "hello"
+zeroclaw agent --provider openai-codex --auth-profile openai-codex:work -m "hello"
+#Anthropic 同时支持 API key 和 auth token 环境变量：
+zeroclaw agent --provider anthropic -m "hello"
+
+
+自动匹配生成图片、生成视频、写代码模型, 未测试通过
+[storage.provider.config]
+provider = "postgres"
+db_url = "postgres://user:pass@host:5432/zeroclaw"
+
+[routing]
+[routing.image_gen]
+model = "google/gemini-3.1-flash-image-preview"
+provider = "openrouter"
+[routing.video_gen]
+model = "luma/dream-machine"
+provider = "openrouter"
+[routing.finance_expert]
+model = "anthropic/claude-3-5-sonnet"
+system_prompt = "你是一个专业的股票分析师..."
+
+[routing]
+[[routing.rules]]
+if = "intent == 'image_generation'"
+use = "openrouter/google/gemini-3.1-flash-image-preview"
+[[routing.rules]]
+if = "intent == 'finance_analysis'"
+use = "model.finance"
+[[routing.rules]]
+if = "action == 'generate_image'"
+use = "model.vision"
+
+[routing]
+[[routing.rules]]
+if = "contains(input, '代码') || contains(input, '写一个') || contains(input, 'fix') || is_programming_query(input)"
+use = "openrouter/anthropic/claude-3.5-sonnet"
+[[routing.rules]]
+if = "contains(input, '股票') || contains(input, '走势')"
+use = "openrouter/anthropic/claude-3.5-sonnet"
+[[routing.rules]]
+if = "has_attachment == true"
+use = "openrouter/google/gemini-3.1-flash-image-preview"
+[[routing.rules]]
+use = "openrouter/google/gemini-3-flash-preview"
+[[routing.rules]]
+if = "has_attachment == true && length(input) < 50"
+use = "openrouter/google/gemini-2.0-flash-001"
+[[routing.rules]]
+if = "action == 'generate_image' && (now_seconds() % 2 == 0)"
+use = "openrouter/openai/gpt-4o" # 假设关联了 DALL-E
+[[routing.rules]]
+if = "action == 'generate_image' && (now_seconds() % 2 != 0)"
+use = "openrouter/anthropic/claude-3.5-sonnet"
+
+[query_classification]
+enabled = true
+rules = [
+    { intent = "image_generation", hint = "触发图像生成", keywords = ["画图","美图","生成图片","图片生成","生成头像","头像生成","生成海报","海报生成","生成logo","海报设计","设计海报","logo设计","设计logo"] },
+    { intent = "video_generation", hint = "触发视频生成", keywords = ["做视频","生成视频","视频生成","动起来","短片制作","制作短片","剪辑短片","视频合成"] },
+    { intent = "audio_generation", hint = "触发音频生成", keywords = ["配音","音乐生成","生成音乐","音乐制作","制作音乐"] },
+    { intent = "code_generation", hint = "触发写代码", keywords = ["写代码","重构代码","修复Bug", "编写程序","写一段脚本"] }
+]
+    # 2. 正则表达式匹配 (更强大的模式识别)
+    { intent = "search_stock", pattern = "^(查询|看看)?\\d{6}\\.SH|SZ$" },
+    # 3. 混合匹配 (既有关键词，也可配合正则)
+    { intent = "system_exit", keywords = ["退出", "停止"], pattern = "^(exit|quit)$" },
+    # 4. 复杂意图：带参数的简单匹配
+    { intent = "order_query", keywords = ["订单", "快递", "到哪了"] }
+
+[query_classification]
+enabled = true
+model = "openai/gpt-5-nano"
+#model = "google/gemini-2.5-flash-lite"
+#model = "openai/gpt-4o-mini"
+[[query_classification.intents]]
+name = "image_generation"
+description = "用户希望创作、绘制、生成图片或视觉艺术作品。关键词包含：画一个、生成图、设计海报等。"
+[[query_classification.intents]]
+name = "video_generation"
+description = "用户表达了制作、剪辑、生成视频或动画的需求。关键词包含：做个视频、剪辑短片、视频合成等。"
+[[query_classification.intents]]
+name = "code_generation"
+description = "用户要求编写、修改、解释代码或解决编程算法问题。关键词包含：写一段代码、用Python实现、找Bug等。"
+
+[models.image_generation]
+provider = "openrouter"
+model = "bytedance-seed/seedream-4.5"
+
+#[[routing.rules]]
+#match_keywords = ["画图","美图","生成图片","图片生成","生成头像","头像生成","生成海报","海报生成","生成logo","海报设计","设计海报","logo设计","设计logo"]
+#model = "image_generation"
+
+openrouter 配置
+cat /home/claw/.zeroclaw/config.toml 
+api_key = ""
+default_provider = "openrouter"
+default_model = "openrouter/auto"
+default_temperature = 0.7
+
+[agent]
+max_tool_iterations = 10000
+max_history_messages = 50
+
+[skills]
+open_skills_enabled = true
+prompt_injection_mode = "full"
+trusted_skill_roots = ["~/.zeroclaw/workspace/skills/"]
+
+[channels]
+cli = true
+message_timeout_secs = 300
+show_tool_calls = false
+session_persistence = true
+session_backend = "sqlite"
+session_ttl_hours = 0
+ack_reactions = true
+debounce_ms = 0
+
+[channels.qq]
+app_id = ""
+app_secret = ""
+allowed_users = ["*"]
+stream_mode = "partial"
+draft_update_interval_ms = 1000
+
+[channels.telegram]
+bot_token = ""
+allowed_users = ["*"]
+stream_mode = "partial"
+draft_update_interval_ms = 1000
+mention_only = false
+
+[channels.discord]
+bot_token = ""
+allowed_users = ["*"]
+listen_to_bots = false
+stream_mode = "partial"
+draft_update_interval_ms = 1000
+mention_only = false
+interrupt_on_new_message = true
+
+
+nvidia 模型
+cat ~/.zeroclaw/config.toml
+api_key = ""
+default_provider = "nvidia"
+default_model = "qwen/qwen3.5-397b-a17b"
+
+zeroclaw agent -p nvidia --model moonshotai/kimi-k2.5 -m "你使用的是什么模型?"
+好用的模型:
+qwen/qwen3.5-397b-a17b
+moonshotai/kimi-k2.5
+deepseek-ai/deepseek-v3.2
+z-ai/glm5
+minimaxai/minimax-m2.1
+
+https://bailian.console.aliyun.com/cn-beijing/?spm=5176.28197619.console-base_help.11.2d8e3ae4YMElrf&tab=coding-plan#/efm/coding-plan-detail
+https://common-buy.aliyun.com/coding-plan
+阿里百炼
+zeroclaw onboard
+zeroclaw onboard --api-key xxx --provider bailian --model "qwen3.5-plus"
+kimi-k2.5
+zeroclaw agent -m "你好呀"
+
+cat ~/.zeroclaw/config.toml
+#api_key = ""
+api_key = ""
+default_provider = "bailian"
+default_model = "qwen3.5-plus"
+default_temperature = 0.7
+
+model_provider = "bailian"
+model = "kimi-k2.5"
+[model_providers.bailian]
+name = bailian
+base_url = https://coding.dashscope.aliyuncs.com/v1
+
+[model_providers.bailian]
+name = "bailian"
+base_url = "https://coding.dashscope.aliyuncs.com/v1"
+default_model = "kimi-k2.5"
+api_key = ""
+env_key = ""
+
+curl https://coding.dashscope.aliyuncs.com/v1/chat/completions   -H "Content-Type: application/json"   -H "Authorization: Bearer " -d '{
+    "model": "qwen3.5-plus",
+    "messages": [{"role": "user", "content": "Hello"}]
+  }'
+
+模型: 
+qwen3.5-plus
+qwen3-max-2026-01-23
+qwen3-coder-next
+qwen3-coder-plus
+glm-5
+glm-4.7
+kimi-k2.5
+MiniMax-M2.5
+
+火山方舟 模型
+https://console.volcengine.com/ark/region:ark+cn-beijing/openManagement?LLM=%7B%7D&advancedActiveKey=subscribe
+https://console.volcengine.com/ark/region:ark+cn-beijing/model/detail?Id=doubao-seedream-4-0
+
+
+cat ~/.zeroclaw/config.toml
+api_key = ""
+#api_key = ""
+default_provider = "custom:https://ark.cn-beijing.volces.com/api/coding/v3"
+default_model = "ark-code-latest"
+#default_model = "kimi-k2.5"
+default_temperature = 0.7
+
+https://ark.cn-beijing.volces.com/api/v3
+https://ark.cn-beijing.volces.com/api/v3/images/generations
+doubao-seedream-4-0-250828
+
+模型:
+ark-code-latest
+doubao-seed-2.0-code
+doubao-seed-2.0-pro
+doubao-seed-2.0-lite
+doubao-seed-code
+deepseek-v3.2
+kimi-k2.5
+glm-4.7
+minimax-m2.5
+minimax-m2.7
+#!/usr/bin/env python3
+#!/home/claw/.venv/bin/activate /home/claw/.venv/bin/python3
+
+
+zeroclaw onboard --api-key xxx --provider "custom:https://ark.cn-beijing.volces.com/api/coding/v3" --model "deepseek-v3.2"
+zeroclaw onboard --api-key xxx --provider "anthropic-custom:https://ark.cn-beijing.volces.com/api/coding" --model "kimi-k2.5"
+
+cat ~/.zeroclaw/config.toml
+api_key = ""
+default_provider = "custom:https://ark.cn-beijing.volces.com/api/coding/v3"
+default_model = "deepseek-v3.2"
+default_temperature = 0.7
+
+[channels.discord]
+bot_token = ""
+allowed_users = ["*"]
+listen_to_bots = false
+mention_only = false
+
+[model_providers]
+volcengine = { name = "custom", base_url = "https://ark.cn-beijing.volces.com/api/coding/v3", api_key = "", default_model = "deepseek-v3.2" }
+deepseek = { name = "deepseek", api_key = "", default_model = "deepseek-reasoner" }
+
+model_provider = "volcengine"
+default_model = "kimi-k2.5"
+
+[model_providers.volcengine]
+name = "custom"
+base_url = https://ark.cn-beijing.volces.com/api/coding/v3
+
+[model_providers.deepseek]
+name = "deepseek"
+
+export DEEPSEEK_API_KEY=""
+
+zeroclaw skills list
+curl https://wry-manatee-359.convex.site/api/v1/download?slug=stock-analysis -o stock-analysis.zip
+curl https://wry-manatee-359.convex.site/api/v1/download?slug=stock-watcher -o stock-watcher.zip
+curl https://wry-manatee-359.convex.site/api/v1/download?slug=stock-monitor-skill -o stock-monitor-skill.zip
+
+unzip stock-analysis.zip -d stock-analysis
+unzip stock-monitor-skill.zip -o stock-monitor-skill
+zeroclaw skills install stock-analysis
+
+sudo curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+uv -h
+
+timedatectl set-timezone Asia/Shanghai
+apt install systemd-timesyncd ntpdate
+systemctl stop systemd-timesyncd
+ntpdate ntp.aliyun.com
+vi /etc/systemd/timesyncd.conf
+[Time]
+NTP=ntp.aliyun.com ntp1.aliyun.com time.windows.com pool.ntp.org
+FallbackNTP=ntp.ubuntu.com
+systemctl start systemd-timesyncd
+
+deepseek官方版本
+https://platform.deepseek.com/api_keys
+https://api-docs.deepseek.com/zh-cn/
+deepseek-reasoner
+
+vi .zeroclaw/config.toml
+api_key = ""
+default_provider = "deepseek"
+default_model = "deepseek-reasoner"
+
+#api_key = ""
+#default_provider = "deepseek"
+#default_model = "deepseek-reasoner"
+
+
+[reliability]
+# 基础重试配置
+provider_retries = 3                # 单密钥最多重试次数（默认2，推荐3）
+provider_backoff_ms = 1000          # 重试退避时间（默认500ms，推荐1s）
+fallback_providers = ["openrouter"] # 故障转移到其他提供商的优先级列表
+
+# 核心多密钥轮询配置
+api_keys = [
+  "sk-or-v1-",  # 主密钥
+  "sk-or-v1-",  # 备用密钥1
+  "sk-or-v1-"   # 备用密钥2
+]
+[reliability.model_fallbacks]
+"anthropic/claude-3.5-sonnet" = "openai/gpt-4o"
+"anthropic/claude-3-opus" = "anthropic/claude-3.5-sonnet"
+
+api_keys 是同提供商内多密钥轮询
+fallback_providers 是跨提供商故障转移
+model_fallbacks 是模型级故障转移，当指定模型不可用时自动切换到备用模型
+export ZEROCLAW_RELIABILITY_API_KEYS="sk-xxx,sk-yyy,sk-zzz"
+
+# 添加单个命令到白名单
+zeroclaw config allowlist add python3
+# 批量添加多个命令
+zeroclaw config allowlist add "docker,kubectl,helm"
+# 移除命令
+zeroclaw config allowlist remove python3
+如果不想使用环境变量传递，可以让Python脚本直接读取配置文件：
+import tomllib
+with open("/home/claw/.zeroclaw/config.toml", "rb") as f:
+    config = tomllib.load(f)
+api_key = config.get("api_key")
+print(api_key) # 可以正确获取到配置中的API密钥
+
+在 config.toml 中添加 autonomy.shell_env_passthrough 配置，显式允许指定环境变量传递给子进程：
+[autonomy]
+allowed_commands = ["python3"]
+shell_env_passthrough = [
+  "ZEROCLAW_API_KEY",
+  "OPENROUTER_API_KEY",
+  "CUSTOM_API_KEY" # 可添加其他需要的变量
+]
+zeroclaw config allowlist reload 立即生效
+
+[[model_routes]]
+hint = "reasoning"
+provider = "openrouter"
+model = "anthropic/claude-opus-4-20250514"
+
+
+
+
+
+[[model_routes]]
+hint = "code"
+provider = "custom:https://ark.cn-beijing.volces.com/api/coding/v3"
+model = "doubao-seed-2.0-code"
+
+[[model_routes]]
+hint = "image_generation"
+provider = "custom:https://your-image-model-endpoint.com"
+model = "seedream-xl-v3.5"
+
+[[model_routes]]
+hint = "video_generation"
+provider = "custom:https://your-video-model-endpoint.com"
+model = "cogvideo-x-2b"
+
+[query_classification]
+enabled = true
+
+[[query_classification.rules]]
+hint = "image_generation"
+keywords = [
+    "生成图片",
+    "画",
+    "作图",
+    "image generation",
+    "draw",
+    "generate image",
+    "文生图",
+    "图生图",
+]
+patterns = [
+    "生成.*图片",
+    "draw.*",
+    "generate.*image",
+]
+priority = 10
+
+[[query_classification.rules]]
+hint = "video_generation"
+keywords = [
+    "生成视频",
+    "做视频",
+    "生成动画",
+    "video generation",
+    "generate video",
+    "文生视频",
+    "图生视频",
+]
+patterns = [
+    "生成.*视频",
+    "generate.*video",
+    "video.*generation",
+]
+priority = 9
+
+[[query_classification.rules]]
+hint = "coding"
+keywords = [
+    "写代码",
+    "编程",
+    "修复bug",
+    "coding",
+    "write code",
+    "debug",
+    "实现功能",
+    "开发",
+]
+patterns = [
+    "写.*代码",
+    "code.*",
+    "implement.*",
+    "fix.*bug",
+]
+priority = 8
+
+或者
+# 模型路由配置
+[model_routes]
+# 默认模型配置（所有未匹配到场景的请求都使用这个）
+default = { model = "ark-code-latest", provider = "https://ark.bytedance.net/api/v3/chat/completions" }
+
+# 场景路由配置
+[[model_routes.scenarios]]
+# 生成图片场景
+hint = "image_generation"
+model = "seedream-xl-v3.5"
+provider = "你的图片生成模型API地址"  # 例如：https://seedream.example.com/generate
+# 触发关键词（命中任意一个就会路由到该模型）
+keywords = ["生成图片", "画", "绘图", "文生图", "图生图", "生成插画", "制作图片", "draw", "generate image"]
+temperature = 0.7
+priority = 10
+
+[[model_routes.scenarios]]
+# 生成视频场景
+hint = "video_generation"
+model = "cogvideo-x-2b"
+provider = "你的视频生成模型API地址"  # 例如：https://cogvideo.example.com/generate
+keywords = ["生成视频", "做视频", "文生视频", "图生视频", "制作动画", "生成动画", "generate video"]
+temperature = 0.8
+priority = 10
+
+[[model_routes.scenarios]]
+# 写代码场景
+hint = "coding"
+model = "deepseek-coder-v2-lite"
+provider = "https://ark.bytedance.net/api/v3/chat/completions"  # 字节跳动方舟编码接口
+keywords = ["写代码", "编程", "修复bug", "debug", "开发", "代码实现", "写脚本", "code", "program"]
+temperature = 0.3
+priority = 10
+
+一些配置备份
+#api_key = ""
+#default_provider = "deepseek"
+#default_model = "deepseek-reasoner"
+
+#api_key = ""
+#default_provider = "custom:https://ark.cn-beijing.volces.com/api/coding/v3"
+#default_model = "deepseek-v3.2"
+#default_model = "doubao-seed-2.0-code"
+
+#aistudio.google.com 免费模型gemini-2.5-flash-lite(1000次)/gemini-2.5-flash(250次)
+api_key = ""
+default_provider = "gemini"
+default_model = "gemini-3.1-pro-preview"
+
+default_temperature = 0.7
+#model_routes = []
+embedding_routes = []
+
+[model_providers]
+coder = {name = "gemini", model = "gemini-3.1-pro-preview"}
+#coder = { name = "custom", base_url = "https://ark.cn-beijing.volces.com/api/coding/v3", api_key = "", model = "doubao-seed-2.0-code" }
+#volcengine = { name = "custom", base_url = "https://ark.cn-beijing.volces.com/api/coding/v3", api_key = "", default_model = "deepseek-v3.2" }
+#deepseek = { name = "deepseek", api_key = "", model = "deepseek-reasoner", default_model = "deepseek-reasoner" }
+
+[agents.coder]
+provider = "coder"
+model = "gemini-3.1-pro-preview"
+#model = "doubao-seed-2.0-code"
+system_prompt = "你是一个专业的代码专家，只负责编写高质量代码。"
+
+[reliability]
+provider_retries = 2
+provider_backoff_ms = 500
+api_keys = [""]
+model_fallbacks = {"deepseek-v3.2" = ["doubao-seed-2.0-code"]}
+fallback_providers = ["deepseek"]
+channel_initial_backoff_secs = 2
+channel_max_backoff_secs = 60
+scheduler_poll_secs = 15
+scheduler_retries = 2
+
+#[reliability.model_fallbacks]
+#"deepseek-v3.2" = ["doubao-seed-2.0-code"]
+
+[agent]
+compact_context = false
+max_tool_iterations = 10000
+max_history_messages = 50
+parallel_tools = false
+tool_dispatcher = "auto"
+system_prompt = "当你需要写代码时，请使用 `session_spawn` 工具并指定 `agent='coder'`。"
+
+[[model_routes]]
+hint = "code"
+provider = "custom:https://ark.cn-beijing.volces.com/api/coding/v3"
+model = "doubao-seed-2.0-code"
+
+[query_classification]
+enabled = true
+#rules = []
+
+[[query_classification.rules]]
+hint = "code"
+priority = 10
+keywords = ["写代码", "code", "编程", "debug", "函数", "脚本", "修复bug", "实现", "代码", "开
+发", "编译"]
+
+
+
+
+# ZeroClaw 环境变量
+# 将此文件复制为 `.env`，并填入你的本地配置值。
+# 切勿将 `.env` 文件或任何实际的敏感信息提交至代码库。 # ── 核心运行时配置 ──────────────────────────────────────────────
+# 运行时提供商密钥解析顺序：
+# 1) 从配置文件或命令行（CLI）传入的显式密钥
+# 2) 特定提供商的环境变量（如 OPENROUTER_API_KEY, OPENAI_API_KEY 等）
+# 3) 下方列出的通用回退环境变量
+
+# 通用回退 API 密钥（当特定提供商密钥缺失时使用）
+API_KEY=your-api-key-here
+# ZEROCLAW_API_KEY=your-api-key-here
+
+# 默认提供商/模型（可通过命令行参数覆盖）
+PROVIDER=openrouter
+# ZEROCLAW_PROVIDER=openrouter
+# ZEROCLAW_MODEL=anthropic/claude-sonnet-4-6
+# ZEROCLAW_TEMPERATURE=0.7
+
+# 工作区目录覆盖设置
+# ZEROCLAW_WORKSPACE=/path/to/workspace
+
+# 推理模式（为支持该功能的模型启用扩展思考能力）
+# ZEROCLAW_REASONING_ENABLED=false
+# REASONING_ENABLED=false
+
+# ── 特定提供商 API 密钥 ────────────────────────────────
+# OpenRouter
+# OPENROUTER_API_KEY=sk-or-v1-...
+
+# Anthropic
+# ANTHROPIC_OAUTH_TOKEN=...
+# ANTHROPIC_API_KEY=sk-ant-...
+
+# OpenAI / Gemini
+# OPENAI_API_KEY=sk-...
+# GEMINI_API_KEY=...
+# GOOGLE_API_KEY=...
+
+# 其他支持的提供商
+# VENICE_API_KEY=...
+# GROQ_API_KEY=...
+# MISTRAL_API_KEY=...
+# DEEPSEEK_API_KEY=...
+# XAI_API_KEY=...
+# TOGETHER_API_KEY=...
+# FIREWORKS_API_KEY=...
+# PERPLEXITY_API_KEY=...
+# COHERE_API_KEY=...
+# MOONSHOT_API_KEY=...
+# GLM_API_KEY=...
+# MINIMAX_OAUTH_TOKEN=...
+# MINIMAX_API_KEY=...
+# MINIMAX_OAUTH_REFRESH_TOKEN=...
+# MINIMAX_OAUTH_REGION=global   # 可选：global|cn
+# QIANFAN_API_KEY=...
+# DASHSCOPE_API_KEY=...
+# ZAI_API_KEY=...
+# SYNTHETIC_API_KEY=...
+# OPENCODE_API_KEY=...
+# OPENCODE_GO_API_KEY=...
+# VERCEL_API_KEY=...
+# CLOUDFLARE_API_KEY=...
+
+# ── 网关 ──────────────────────────────────────────────────
+# ZEROCLAW_GATEWAY_PORT=3000
+# ZEROCLAW_GATEWAY_HOST=127.0.0.1
+# ZEROCLAW_ALLOW_PUBLIC_BIND=false
+
+# ── 存储 ─────────────────────────────────────────────────
+# 持久化存储的后端覆盖设置（默认：sqlite）
+# ZEROCLAW_STORAGE_PROVIDER=sqlite
+# ZEROCLAW_STORAGE_DB_URL=postgres://localhost/zeroclaw
+# ZEROCLAW_STORAGE_CONNECT_TIMEOUT_SECS=5
+
+# ── 代理 ──────────────────────────────────────────────────
+# 通过 HTTP(S) 代理转发服务提供商/服务的流量。 # ZEROCLAW_PROXY_ENABLED=false
+# ZEROCLAW_HTTP_PROXY=http://proxy.example.com:8080
+# ZEROCLAW_HTTPS_PROXY=http://proxy.example.com:8080
+# ZEROCLAW_ALL_PROXY=socks5://proxy.example.com:1080
+# ZEROCLAW_NO_PROXY=localhost,127.0.0.1
+# ZEROCLAW_PROXY_SCOPE=zeroclaw          # environment|zeroclaw|services
+# ZEROCLAW_PROXY_SERVICES=openai,anthropic
+
+# ── 可选集成 ────────────────────────────────────
+# Pushover 通知（`pushover` 工具）
+# PUSHOVER_TOKEN=your-pushover-app-token
+# PUSHOVER_USER_KEY=your-pushover-user-key
+
+# ── Docker Compose ───────────────────────────────────────────
+# 主机端口映射（由 docker-compose.yml 使用）
+# HOST_PORT=3000
+
+# ── Z.AI GLM 编程方案 ───────────────────────────────────────
+# Z.AI 通过兼容 OpenAI 的端点提供 GLM 模型。
+# API 密钥格式：id.secret（例如：abc123.xyz789）
+#
+# 用法：
+#   zeroclaw onboard --provider zai --api-key YOUR_ZAI_API_KEY
+#
+# 或者设置环境变量：
+# ZAI_API_KEY=your-id.secret
+#
+# 常用模型：glm-5, glm-4.7, glm-4-plus, glm-4-flash
+# 详细配置请参阅 docs/zai-glm-setup.md。
+
+# ── 网络搜索 ────────────────────────────────────────────────
+# 用于在互联网上查找信息的网络搜索工具。
+# 默认启用 DuckDuckGo（免费，无需 API 密钥）。 #
+# WEB_SEARCH_ENABLED=true
+# WEB_SEARCH_PROVIDER=duckduckgo
+# WEB_SEARCH_MAX_RESULTS=5
+# WEB_SEARCH_TIMEOUT_SECS=15
+#
+# 可选：Brave Search（需从 https://brave.com/search/api 获取 API 密钥）
+# WEB_SEARCH_PROVIDER=brave
+# BRAVE_API_KEY=your-brave-search-api-key
+
+#!/bin/bash
+
+ymd=$(date +%Y-%m-%d)
+ymdhms=$(date +%Y%m%d-%H%M%S)
+mkdir -p /root/zeroclaw-backup/$ymd/
+cd /home/claw/.zeroclaw/ && zip -qr /root/zeroclaw-backup/$ymd/zeroclaw-$ymdhms.zip . -x "zeroclaw-backup-*"
+cp /root/zeroclaw-backup/$ymd/zeroclaw-$ymdhms.zip /root/zeroclaw-backup/zeroclaw-backup.zip

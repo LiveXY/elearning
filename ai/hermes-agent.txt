@@ -1,0 +1,950 @@
+hermes agent
+
+https://github.com/nousresearch/hermes-agent
+https://hermes-agent.nousresearch.com/docs/skills
+
+https://portal.nousresearch.com/
+
+https://github.com/EKKOLearnAI/hermes-web-ui
+https://github.com/EKKOLearnAI/hermes-web-ui/releases
+https://github.com/fathah/hermes-desktop
+https://github.com/nesquena/hermes-webui
+
+一句话告诉我你的模型、provider、context window
+OAuth 成功否、新 gateway PID、当前 model/provider 一览、有无遗留 warning。
+破坏性操作（kill -9 / rm -rf / git reset --hard）执行前先告诉我。
+/handoff：热切换模型，上下文完美保留。
+帮我配置这个：OpenAI (Codex auth) [free]- gpt-image-2 via ChatGPT/Codex
+hermes tools enable x_search --platform cli
+
+安装
+adduser claw
+usermod -aG sudo claw
+screen -S claw #screen -dr claw #恢复
+su - claw
+sudo whoami
+vi ~/.inputrc
+"\e[B":history-search-forward
+"\e[A":history-search-backward
+
+curl -fssl https://raw.githubusercontent.com/nousresearch/hermes-agent/main/scripts/install.sh | bash
+
+hermes chat -q "你好" 
+hermes status
+hermes doctor
+hermes doctor --fix
+ps aux | grep hermes
+
+sudo loginctl enable-linger $(whoami)
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+systemctl --user status
+loginctl show-user $(whoami)
+hermes gateway start
+hermes gateway restart
+sudo grep -i "hermes" /var/log/syslog | tail -n 20
+
+hermes skills list
+hermes skills search a-stock-premarket-briefing
+hermes skills install "A Stock Premarket Briefing" --force
+hermes skills install "Multi Search Engine"
+agent-created skills，重复的合并，过时的归档，质量差的清掉一点。
+hermes curator status
+hermes curator run
+
+hermes tools
+选择Reconfigure an existing tool's provider or API key
+选择Image Generation
+选择OpenAI (Codex auth) [free] — gpt-image-2 via ChatGPT/Codex OAuth — no API key required
+hermes gateway restart
+
+hermes auth add openai-codex
+hermes auth list
+provider 是 openai-codex，model 是 gpt-5.5
+model.default = gpt-5.5
+model.provider = openai-codex
+model.base_url = https://chatgpt.com/backend-api/codex
+
+hermes tools
+Tool for CLI -》  X (Twitter) Search 开启
+hermes model
+在列表里选 xAI Grok OAuth (SuperGrok Subscription)
+如果只想单独做授权、不选模型，也可以用:
+hermes auth add xai-oauth
+ssh -N -L 56121:127.0.0.1:56121 -p 22 user@your-server-ip
+hermes auth add xai-oauth --no-browser
+
+
+summarize/a-stock-premarket-briefing/multi-search-engine
+技能
+https://github.com/hexiecs/talk-normal 去除AI味
+
+
+hermes pairing list
+hermes pairing approve telegram XKGH5N7P
+hermes pairing revoke telegram 123456789
+
+常用命令
+hermes                # 开始聊天！
+hermes -c             # 继续上次聊天！
+hermes --tui
+hermes tools
+hermes model          # 选择您的 LLM 提供商及模型
+hermes tools          # 配置启用的工具
+hermes gateway setup  # 设置消息平台
+hermes config set     # 设置单项配置值
+hermes setup          # 或者运行完整的设置向导，一次性完成所有配置
+hermes update         # 更新
+hermes claw migrate   # openclaw 迁移
+hermes uninstall
+hermes doctor # 全面健康检查，优先运行
+hermes memory status # 检查记忆系统
+hermes mcp status # 检查 MCP 连接
+hermes debug share # 生成脱敏调试报告
+hermes cron list #任务状态是否正常
+hermes cron run 任务名
+hermes sessions stats/list
+hermes sessions list --limit 100
+hermes sessions list --source cli --limit 100
+hermes sessions prune -y --source cli --older-than 1
+hermes sessions list --source cli --limit 100  | awk -F 'cli' '{print $2}' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//;/^$/d' | xargs -I {} hermes sessions delete {} --yes
+hermes sessions list --limit 100 | grep cron_  | awk -F 'cron_' '{print "cron_"$2}' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//;/^$/d' | xargs -I {} hermes sessions delete {} --yes
+hermes sessions browse -h
+hermes --resume xxx
+hermes sessions delete xxx
+hermes config set OPENROUTER_API_KEY 你的_openrouter_key
+hermes config set model.provider openrouter
+hermes config set model.default 你的模型ID
+hermes config set model.default deepseek-v4-pro
+hermes config set model.provider deepseek
+hermes config set http://auxiliary.vision.model kimi-k2.6
+hermes config set http://auxiliary.vision.provider kimi-coding
+hermes config set http://auxiliary.vision.base_url https://api.moonshot.ai/v1
+
+钉钉
+hermes gateway setup
+dingoufmawymho8lsmpi
+F9mEsqnASfEdBJc-rhgljSji3eIkmLAbyKE6FCz8WLaVeG9oLOhOL5WAJaMMpxXl
+
+配置
+~/.hermes/.env
+OPENROUTER_API_KEY=
+NVIDIA_API_KEY=
+DEEPSEEK_API_KEY=
+OPENCODE_GO_API_KEY=
+
+DASHSCOPE_API_KEY=
+DASHSCOPE_BASE_URL=https://coding.dashscope.aliyuncs.com/v1
+
+GLM_API_KEY=
+GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+
+XIAOMI_API_KEY=
+XIAOMI_BASE_URL=https://token-plan-cn.xiaomimimo.com/v1
+
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_ALLOWED_USERS=
+TELEGRAM_HOME_CHANNEL=
+
+DINGTALK_CLIENT_ID=
+DINGTALK_CLIENT_SECRET=
+DINGTALK_ALLOWED_USERS=
+DINGTALK_STREAM_AVAILABLE=true
+
+~/.hermes/config.yaml
+model:
+  default: openrouter/elephant-alpha
+  provider: openrouter
+  max_tokens: 131072
+providers:
+- name: openrouter
+  models:
+  - nvidia/nemotron-3-super-120b-a12b:free
+  - openrouter/elephant-alpha
+  - minimax/minimax-m2.5:free
+- name: nvidia
+  models:
+  - z-ai/glm4.7
+  - nvidia/nemotron-3-content-safety
+  - minimaxai/minimax-m2.7
+  - stepfun-ai/step-3.5-flash
+- name: zai
+  models:
+  - glm-5
+  - glm-4.6v
+  - glm-4.5-air
+- name: xiaomi
+  models:
+  - mimo-v2.5-pro
+- name: alibaba
+  models:
+  - glm-5
+  - qwen3-coder-next
+  - MiniMax-M2.5
+  - glm-4.7
+  - qwen3-coder-plus
+  - kimi-k2.5
+  - qwen3.5-plus
+- name: deepseek
+  models:
+  - deepseek-v4-pro
+  - deepseek-v4-flash
+- name: opencode-go
+  models:
+  - glm-5.1
+  - kimi-k2.6
+  - minimax-m2.7
+  - mimo-v2.5-pro
+  - deepseek-v4-pro
+custom_providers:
+- name: cloudflare
+  base_url: 
+  api_key: 
+  models:
+  - @cf/moonshotai/kimi-k2.6
+- name: volcengine
+  base_url: https://ark.cn-beijing.volces.com/api/coding/v3
+  api_key: 
+  models:
+  - glm-5.1
+  - kimi-k2.6
+  - minimax-m2.7
+  - glm-4.7
+  - doubao-seed-2.0-code
+  - doubao-seed-2.0-pro
+  - deepseek-v3.2
+  - kimi-k2.5
+  - minimax-m2.5
+- name: opencode-go
+  base_url: https://opencode.ai/zen/go/v1
+  api_mode: chat_completions
+  models:
+  - glm-5.1
+  - kimi-k2.6
+  - minimax-m2.7
+  - mimo-v2.5-pro
+  - deepseek-v4-pro
+smart_model_routing:
+  enabled: true
+  max_simple_chars: 160
+  max_simple_words: 28
+  cheap_model:
+    provider: nvidia
+    model: z-ai/glm4.7
+fallback_providers:
+  - provider: openrouter
+    model: nvidia/nemotron-3-super-120b-a12b:free
+  - provider: zai
+    model: glm-4.6v
+  - provider: xiaomi
+    model: mimo-v2-pro
+  - provider: alibaba
+    model: glm-5
+
+
+
+其它老配置
+model:
+  default: openrouter/elephant-alpha
+  provider: openrouter
+  max_tokens: 131072
+providers:
+  openrouter:
+    models:
+      - nvidia/nemotron-3-super-120b-a12b:free
+      - openrouter/elephant-alpha
+      - minimax/minimax-m2.5:free
+  xiaomi:
+    base_url: https://token-plan-cn.xiaomimimo.com/v1
+    api_key: 
+    max_tokens: 131072
+    models:
+      - mimo-v2-pro
+  bailian:
+    base_url: https://coding.dashscope.aliyuncs.com/v1
+    api_key: 
+    max_tokens: 131072
+    models:
+      - qwen3.6-plus
+      - glm-5
+      - qwen3-coder-next
+      - MiniMax-M2.5
+      - glm-4.7
+      - qwen3-coder-plus
+      - kimi-k2.5
+  glm:
+    base_url: https://open.bigmodel.cn/api/paas/v4
+    api_key: 
+    max_tokens: 131072
+    models:
+      - glm-5
+      - glm-4.6v
+      - glm-4.5-air
+fallback_providers:
+  - provider: openrouter
+    model: nvidia/nemotron-3-super-120b-a12b:free
+  - provider: xiaomi
+    model: mimo-v2-pro
+  - provider: bailian
+    model: glm-5
+
+model:
+  default: mimo-v2-pro
+  provider: custom
+  base_url: https://token-plan-cn.xiaomimimo.com/v1
+  api_key: 
+approvals:
+  mode: off
+streaming:
+  enabled: true
+
+dingtalk:
+  reactions: true
+DINGTALK_HOME_CHANNEL: 
+telegram:
+  reactions: true
+  require_mention: true
+  mention_patterns:
+    - "^\\s*chompy\\b"
+discord:
+  require_mention: true
+  free_response_channels: ''
+  allowed_channels: ''
+  auto_thread: true
+  reactions: true
+platforms:
+  dingtalk:
+    enabled: true
+    extra:
+      client_id: 
+      client_secret: 
+
+#关闭工具调用通知
+display:
+  tool_progress_overrides:
+    wecom: "off"
+
+smart_model_routing:
+  enabled: true
+  max_simple_chars: 160
+  max_simple_words: 28
+  cheap_model:
+    provider: openrouter
+    model: openrouter/elephant-alpha
+      #model: nvidia/nemotron-3-super-120b-a12b:free
+      #model: arcee-ai/trinity-large-preview:free
+      #provider: Ark.cn-beijing.volces.com
+      #model: doubao-seed-2.0-lite
+custom_providers:
+- name: xiaomi
+  base_url: https://token-plan-cn.xiaomimimo.com/v1
+  api_key: 
+  model: mimo-v2-pro
+- name: volcengine
+  base_url: https://ark.cn-beijing.volces.com/api/coding/v3
+  api_key: 
+  model: glm-4.7
+fallback_model:
+  provider: Token-plan-cn.xiaomimimo.com
+  model: mimo-v2-pro
+
+approvals:
+  mode: manual # manual都需要人工确认 | smart低风险场景 | off关闭安全检查
+
+moonshotai/kimi-k2-instruct
+z-ai/glm4_7
+deepseek-ai/deepseek-v3_2
+
+z-ai/glm-4.7
+nvidia/nemotron-3-content-safety
+minimaxai/minimax-m2.7
+stepfun-ai/step-3.5-flash
+
+支持自定义辅助模型的配置（共 8 个）：
+vision：截图/验证码/图片分析
+web_extract：网页内容抓取与提炼
+compression：上下文压缩摘要
+session_search：历史会话搜索摘要
+approval：危险命令审批决策
+skills_hub：技能市场搜索/安装辅助
+mcp：MCP 服务调用辅助
+flush_memories：记忆系统清理/重组
+配置方式，口喷示例：“压缩会话辅助模型帮我配置成qwen3.5-plus ”
+
+Hooks
+内置记忆（默认已开，建议微调）
+# ~/.hermes/config.yaml
+memory:
+  memory_enabled: true           # MEMORY.md — agent 笔记
+  user_profile_enabled: true     # USER.md — 用户画像
+  memory_char_limit: 2200        # 默认够用，重度使用可调到 4000
+  user_char_limit: 1375          # 默认够用
+  nudge_interval: 10             # 每 10 轮提醒 agent 存记忆，可调到 5 更积极
+  flush_min_turns: 6             # 退出前至少 6 轮以上才触发记忆刷新
+Hooks
+Hooks 处理事件通知，Plugins 处理功能扩展——两者互补
+会话创建
+  → on_session_start
+每轮对话:
+  → pre_llm_call          ← 可注入上下文
+  → 工具循环:
+      → pre_api_request   ← 每次 API 调用前
+      → API 调用
+      → post_api_request  ← 每次 API 调用后
+      → pre_tool_call     ← 每次工具执行前
+      → 工具执行
+      → post_tool_call    ← 每次工具执行后
+  → post_llm_call         ← 轮次结束
+  → on_session_end        ← run_conversation 返回
+
+Worker
+# 将 Worker 绑定到你的副 Bot (Token B)
+hermes -p worker config set gateway.telegram.bot_token "TOKEN_B"
+hermes -p worker config set gateway.telegram.enabled true
+
+# 设置 Worker 为 Docker 沙箱模式
+hermes -p worker config set terminal.backend docker
+hermes -p worker config set terminal.docker_image python:3.11-slim
+
+# Worker 可以用便宜点的模型
+hermes -p worker config set model.provider alibaba
+hermes -p worker config set model.model qwen3.5-plus
+
+hermes config set TELEGRAM_BOT_TOKEN 你的token
+
+
+journalctl -u ssh | grep "Failed password" | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr | head -n 10
+
+apt install fail2ban -y && systemctl enable --now fail2ban
+
+vi /etc/ssh/sshd_config
+PermitRootLogin prohibit-password  # 禁止root密码登录
+PasswordAuthentication no          # 彻底禁止密码登录，仅限密钥
+
+systemctl restart ssh
+
+# 杀掉所有处于“已接受但未认证”状态的进程（慎用，可能会踢掉你自己刚发起的连接）
+ps aux | grep "sshd: \[accepted\]" | awk '{print $2}' | xargs kill -9
+ps aux | grep "sshd: unknown" | awk '{print $2}' | xargs kill -9
+
+备份一
+#!/bin/bash
+mkdir -p /root/hermes-backup/$(date +%Y-%m-%d)/
+cd /home/claw/.hermes/ && zip -r /root/hermes-backup/$(date +%Y-%m-%d)/hermes-$(date +%Y%m%d-%H%M%S).zip .
+
+备份二
+#!/bin/bash
+BACKUP_NAME="hermes-$(date +%Y%m%d-%H%M%S)"
+BACKUP_DIR="/tmp/$BACKUP_NAME"
+DEST_DIR=~/hermes-backup/$(date +%Y-%m-%d)
+
+mkdir -p $BACKUP_DIR/hermes
+mkdir -p $DEST_DIR
+
+echo "📦 正在打包核心配置..."
+cp /home/claw/.hermes/config.yaml $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/.env $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/MEMORY.md $BACKUP_DIR/hermes/ 2>/dev/null
+cp /home/claw/.hermes/SOUL.md $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/.hermes_history $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/.skills_prompt_snapshot.json $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/.update_check $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/auth.json $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/channel_directory.json $BACKUP_DIR/hermes/
+cp /home/claw/.hermes/gateway_state.json $BACKUP_DIR/hermes/
+
+echo "🧠 正在打包数据库与会话..."
+cp /home/claw/.hermes/state.db $BACKUP_DIR/hermes/
+# 如果 sessions 很大，可以只备最近的文件，这里全备
+cp -r /home/claw/.hermes/sessions $BACKUP_DIR/hermes/ 2>/dev/null
+
+echo "🔧 正在打包扩展与审计..."
+cp -r /home/claw/.hermes/plugins $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/audit_logs $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/skills $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/cron $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/hooks $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/memories $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/pairing $BACKUP_DIR/hermes/ 2>/dev/null
+cp -r /home/claw/.hermes/sandboxes $BACKUP_DIR/hermes/ 2>/dev/null
+
+echo "👥 正在打包所有 Profile 数据..."
+# Profile 包含了 worker 等分身的所有配置和数据库
+cp -r /home/claw/.hermes/profiles $BACKUP_DIR/hermes/ 2>/dev/null
+
+echo "📦 正在压缩..."
+tar -czf $DEST_DIR/$BACKUP_NAME.tar.gz -C /tmp $BACKUP_NAME
+rm -rf $BACKUP_DIR
+
+echo ""
+echo "✅ 备份完成！"
+echo "📍 路径: $DEST_DIR/$BACKUP_NAME.tar.gz"
+echo "📊 大小: $(du -h $DEST_DIR/$BACKUP_NAME.tar.gz | cut -f1)"
+
+cp $DEST_DIR/$BACKUP_NAME.tar.gz ~/hermes-backup/hermes-backup.tar.gz
+
+Hermes agent 可以在telegram 上相互对话了
+配置方式如下：
+1️⃣配置另外一个profile （agent），给你的Hermes 对话让它帮你创建即可，详情也可以参考我们之前的文章
+2️⃣telegram @BotFather -> 输入：/setbot2bot -> 输入：你的机器人id -> 输入Enable
+注意：两个机器人都要setbot2bot，否则无法沟通
+3️⃣ 将两个机器人都加入group ，添加两个机器人为管理员
+优化配置建议：telegram groups 最好只有主agent 不需要mention，但Hermes 默认是不需要mention
+故我们另外一个agent，则需显式配置一下,追加配置config.yaml示例如下：
+telegram:
+  require_mention: true
+注意是在profile下的agent 里配置哈，拿不准就让你的Hermes 搞定
+
+1. 运行 hermes profile create coder --clone 创建一个专门写代码的 Agent。
+* hermes profile create coder --clone
+* coder setup
+* coder chat
+* vi ~/.hermes/profiles/coder/SOUL.md
+1. 运行 hermes profile create reviewer --clone 创建一个专门做代码审查的 Agent。
+* hermes profile create reviewer --clone
+* reviewer setup
+* reviewer chat
+1. 分别编辑它们的 SOUL.md，赋予不同角色设定。
+2. 让 coder 写一段有 Bug 的代码并保存到文件。
+3. 切换到 reviewer，让它读取该文件并提出修改建议。
+预期效果：
+* 两个 Agent 能独立运行，且 reviewer 的记忆中不会混入 coder 的工作流。
+hermes profile create backup --clone-all
+
+hermes kanban init
+hermes kanban boards list
+hermes kanban create --help
+hermes kanban list
+hermes kanban show <task-id>
+hermes kanban dispatch --help
+
+hermes kanban boards show
+hermes kanban boards switch hermes-kanban-field-manual
+hermes kanban boards create hermes-kanban-field-manual \
+  --switch \
+  --default-workdir /home/tony/projects/hermes-kanban-field-manual
+hermes kanban create "Survey the source notes" \
+  --assignee hkg-researcher \
+  --workspace dir:/home/tony/projects/hermes-kanban-field-manual \
+  --max-runtime 30m \
+  --json
+hermes kanban create "Clean up the request" \
+  --assignee hkg-director \
+  --triage \
+  --json
+hermes kanban create "Survey the source notes" \
+  --assignee hkg-researcher \
+  --workspace dir:/home/tony/projects/hermes-kanban-field-manual \
+  --max-runtime 30m \
+  --json
+
+hermes kanban create "Draft the article from the survey" \
+  --assignee hkg-writer \
+  --parent <survey-task-id> \
+  --workspace dir:/home/tony/projects/hermes-kanban-field-manual \
+  --max-runtime 2h \
+  --json
+
+hermes kanban create "Review for drift and repetition" \
+  --assignee hkg-reviewer \
+  --parent <draft-task-id> \
+  --workspace dir:/home/tony/projects/hermes-kanban-field-manual \
+  --max-runtime 30m \
+  --json
+hermes kanban claim <task_id> --ttl 900
+hermes kanban block <task_id> "Need the source notes before drafting"
+hermes kanban schedule <task_id> "Waiting on answer at 3 PM"
+hermes kanban promote <task_id> "Survey complete, drafting can start" --json
+hermes kanban complete <task_id> \
+  --summary "Drafted article-v5 from review notes" \
+  --metadata '{"changed_files":["drafts/article-v5.md"],"tests_run":0,"decisions":["kept title and opener","added lifecycle section","trimmed repetition"]}'
+hermes kanban archive <task_id>
+hermes kanban show <task_id> --json
+hermes kanban runs <task_id> --json
+hermes kanban log <task_id> --tail 4000
+hermes kanban tail <task_id>
+pgrep -af 'hermes.*kanban.*<task_id>'
+ps aux | grep 'hermes.*kanban' | grep '<task_id>'
+hermes kanban reclaim <task_id> --reason "stale lock, no live process"
+
+
+请帮我生成一份今天的 AI 工具更新简报。
+要求，
+1. 每条保留产品名、原始链接、更新时间
+2. 按 agent / coding / video / image / infra 分类
+3. 输出 Markdown
+4. 末尾写一下哪些偏好值得下次继续保留
+
+继续昨天的 AI 工具更新简报。
+但这次只保留最值得写成公众号文章的 5 条。
+每条给出，标题方向、读者痛点、实操交付物
+
+我们已经连续做了三次 AI 工具更新简报。
+请把稳定流程保存成一个 Skill，名字叫 ai-daily-brief。
+要求包含触发条件、信息来源、筛选规则、输出格式和验证方法。
+
+
+------------------------------------------------------------------------------
+https://hermes-agent.nousresearch.com/docs/user-guide/messaging/weixin
+pip install aiohttp cryptography
+# Optional: for terminal QR code display
+pip install hermes-agent[messaging]
+hermes gateway setup
+
+hermes dashboard
+
+pip install hermes-agent
+hermes setup
+# 30 秒创建一个每日简报任务
+hermes cron create "0 9 * * 1" "生成每周 AI新闻摘要，搜索主要公告、热门项目和重要论文，控制在500 字以内并附链接" - -name"每周简报" --deliver telegram
+# 60 秒设置 GitHub PR 审查 webhook
+hermes gateway setup
+# 启用 webhooks
+hermes webhook subscribe pr-review - -events "pull_request" - -prompt "审查 PR #{pull_request.number}:{pull_request.title}" - -skills "github-code-review" - -deliver github_comment
+
+规划 → 拆解 → 研究 → 测试 → 应用 → 输出 → 进化
+
+提示词1：学习灵魂初始化（SOUL.md Setup） 
+（第一步必用，建立Hermes的持久学习人格和记忆系统）  
+提示词：
+You are now Hermes, my dedicated AI Automated Learning Coach. Create a persistent SOUL.md file for the topic "[主题]". This file must contain:
+
+- My learning style, current level, and goals
+- Core values for this learning journey
+- Memory rules: how you will remember and connect future sessions
+- Self-evolution protocol: after every learning cycle, automatically create or update a reusable Skill Document
+From now on, every response must reference and update this SOUL.md. Confirm by outputting the full SOUL.md content first.
+提示词2：自动化学习路径规划师  
+（让Hermes自动生成个性化、可执行的学习路线图）  
+提示词：
+Using the SOUL.md, act as my master learning architect. For the topic "[主题]", generate a complete automated 30-day learning roadmap in JSON 
+
+format. Include:
+- Daily micro-goals with success criteria
+- Required resources (free + paid)
+- Milestones that trigger Skill Document creation
+- Built-in AI acceleration tactics (research, simulation, testing)
+- Risk points and contingency plans
+Output only the JSON first, then explain how you will autonomously execute it.
+提示词3：深度知识拆解执行器 
+（自动把复杂主题拆成可消化模块并深度研究）  
+提示词：
+Activate Deep Breakdown Mode. Based on SOUL.md and current roadmap, fully decompose "[主题]" into atomic concepts, prerequisites, and interconnections. 
+
+For each module:
+- Provide Feynman-level simple explanation
+- Extract key principles with real-world examples
+- Automatically research latest developments (use your tools)
+- Generate 3 practice exercises of increasing difficulty
+Create a new Skill Document named "KnowledgeMap_[主题]" after completion.
+提示词4：主动回忆与测试循环 
+（让Hermes自动生成测试、评估，并强制主动回忆）  
+提示词：  
+Enter Active Recall & Testing Loop. Using all previous Skill Documents for "[主题]":
+
+- Generate 10 high-quality test questions (mix of conceptual, applied, and edge cases)
+- Make me answer them without hints
+- Score my answers, identify knowledge gaps
+- Immediately create targeted micro-lessons to close gaps
+- Update SOUL.md with progress metrics
+Repeat this loop until mastery score > 95%.
+提示词5：知识连接与应用转化器  
+（把学到的知识自动连接到你的现有技能，并转化为实际项目/收入）  
+提示词：
+Activate Application Transformer. Connect everything learned about "[主题]" to my existing skills (refer to SOUL.md). 
+
+Generate:
+- 3 practical mini-projects I can build immediately
+- Monetization ideas (content, product, service, automation)
+- One complete executable deliverable (code/template/script)
+- A Skill Document for future reuse of this application pattern
+Prioritize ideas that can generate income within 7 days.
+提示词6：迭代反馈与自我进化器
+（核心：让Hermes自己反思、优化、进化学习流程）  
+提示词：
+Run Self-Evolution Cycle. Review the entire learning session for "[主题]":
+
+- What worked? What failed?
+- Update all Skill Documents with new insights
+- Refine the roadmap for next cycle
+- Create a new reusable Skill: "Improved_[PreviousSkillName]"
+- Ask me only one high-leverage feedback question to make future cycles 10x better
+Output the evolution summary and new Skill Document.
+提示词7：全自动化学习闭环Master Prompt
+（最强一键启动，把前面6个全部串联成永动闭环）  
+提示词：  
+You are now my full AI Automated Learning Coach Hermes. 
+Initialize complete closed-loop system for "[主题]" using SOUL.md.
+
+Run the full cycle autonomously:
+1. Planning (Prompt 2)
+2. Deep Breakdown (Prompt 3)
+3. Testing & Recall (Prompt 4)
+4. Application & Monetization (Prompt 5)
+5. Self-Evolution (Prompt 6)
+Execute everything step-by-step without asking for permission unless critical. After each full cycle, output a one-page progress report + next cycle plan + new Skill Documents created. Keep running daily until I say stop.
+Begin now.
+
+
+/personality + SOUL.md 角色切换
+/insights [天数] 数据洞察
+/snapshot 存快照
+/branch 分叉
+/rollback 回滚
+/btw
+/steer 注入 和 /queue 队列
+/yolo, /fast, /reasoning
+/model [--provider] [--global] 模型切换
+/model openrouter:kimi-k2.6
+/voice（在 4 个平台上实时语音）
+/webhook-subscriptions
+/architecture-diagram for SVG 架构艺术。 
+/excalidraw for 手绘图表。 /manim-video for 3Blue1Brown 风格的动画。
+/research-paper-writing 用于端到端机器学习论文草稿。 
+/linear 用于问题管理。
+ /google-workspace 用于 Gmail、日历、Drive、Docs 和 Sheets。
+ /imessage 用于发送短信。 
+/youtube-content 用于将字幕添加到线程中。
+ /codex 和 /claude-code 用于将任务委托给其他代理。
+/test-driven-development 用于强制执行 RED-GREEN-REFACTOR。 
+/systematic-debugging 用于四阶段根本原因分析。
+
+hermes config set model anthropic/claude-sonnet-4   # 换模型
+hermes config set OPENROUTER_API_KEY sk-or-v1-新key  # 换 key
+hermes config edit
+------------------------------------------------------------------------------
+
+四个角色——知识管家、编程 Coder、玄学军师、深夜老司机
+https://x.com/vincezcrikl/status/2045854168825336151?s=12
+~/.hermes/
+  .env                     ← main profile 的 token
+  config.yaml              ← main 的模型配置，接kimi， minimax量大管饱
+  SOUL.md                  ← main 的人格定义
+  profiles/
+    coder/
+      .env                 ← coder 专属 token
+      config.yaml          ← 接 codex GPT5.4，代码质量拉满
+      SOUL.md              ← 冷静、严谨、只聊代码
+      gateway.pid
+      logs/
+    master/
+      .env                 ← master 专属 token
+      config.yaml          ← opus 4.7 效果最好
+      SOUL.md              ← 诸葛亮人设，古风命理
+      gateway.pid
+      logs/
+    olddriver/
+      .env                 ← old river 专属 token（隐藏 bot）
+      config.yaml          ← 接 Grok，你懂的
+      SOUL.md              ← 深夜老司机，成年人的松弛，男女适宜
+      gateway.pid
+      logs/
+
+/newbot → coder_hermes_bot  → 拿到 Token B
+/newbot → master_hermes_bot     → 拿到 Token C
+/newbot → od_hermes_bot     → 拿到 Token D
+
+hermes profile create coder --clone
+hermes profile create master --clone
+hermes profile create olddriver --clone
+
+olddriver setup
+grep '^TELEGRAM_BOT_TOKEN=' ~/.hermes/.env
+grep '^TELEGRAM_BOT_TOKEN=' ~/.hermes/profiles/coder/.env
+grep '^TELEGRAM_BOT_TOKEN=' ~/.hermes/profiles/master/.env
+grep '^TELEGRAM_BOT_TOKEN=' ~/.hermes/profiles/olddriver/.env
+
+main profile（默认）：
+
+sed -i '/TELEGRAM_BOT_TOKEN/d' ~/.hermes/.env
+echo 'TELEGRAM_BOT_TOKEN=你的TokenA' >> ~/.hermes/.env
+coder profile：
+
+sed -i '/TELEGRAM_BOT_TOKEN/d' ~/.hermes/profiles/coder/.env
+echo 'TELEGRAM_BOT_TOKEN=你的TokenB' >>~/.hermes/profiles/coder/.env
+master profile：
+
+sed -i '/TELEGRAM_BOT_TOKEN/d' ~/.hermes/profiles/master/.env
+echo 'TELEGRAM_BOT_TOKEN=你的TokenC' >> ~/.hermes/profiles/master/.env
+olddriver profile：
+
+sed -i '/TELEGRAM_BOT_TOKEN/d' ~/.hermes/profiles/olddriver/.env
+echo 'TELEGRAM_BOT_TOKEN=你的TokenC' >> ~/.hermes/profiles/olddriver/.env
+macOS 用户注意：sed -i 需要加空字符串参数，写成 sed -i '' '/TELEGRAM_BOT_TOKEN/d'。
+
+hermes gateway start    # main  → @main_hermes_bot
+coder gateway start     # coder → @coder_hermes_bot
+master gateway start        # master   → @master_hermes_bot
+olddriver gateway start        # olddriver   → @olddriverhermes_bot
+hermes gateway status
+coder gateway status
+master gateway status
+olddriver gateway status
+
+1. 副官——你的日常管家
+职责：日常消息、提醒、轻任务、信息整理、调研、查资料。
+人设关键词：口语化、反应快、什么都能聊、是你日常交互的主入口。
+这是你用得最多的 bot。随手问个问题、记个想法、设个提醒——都找它。SOUL.md 写得轻松一点，不用太正式，像一个靠谱的朋友。
+2. coder——你的移动版 Codex
+职责：代码实现、debug、代码审查、技术方案讨论、git 工作流。
+把它当成手机上的 Codex 来用。你在地铁上突然想到一个实现思路，掏出手机发给 coder，它帮你写好、验证、把结果贴回来。
+SOUL.md 的核心：
+你的人格是资深软件工程师，精通全栈开发，严格遵循软件工程范式，敏捷开发流程，根据需求先做plan，后实现，充分单元测试验证代码逻辑，多步提交，每次提交新建branch发 pr review。
+3. master——你的古风军师
+职责：传统命理测算、奇门遁甲、八字分析、日常择吉、运势参考。
+这个 agent 是四个里面最有"角色感"的。帮你看日常，事业，生活，情感吉凶，玄学是老祖宗的智慧积累，有一定的道理，AI也有出错的时候，不要一味盲从，玄学只是一种辅助，凡事要有自己的判断。
+推荐安装skill固定知识库，x上已有不少，文中技能使用的是我自己coding的一个综合命理技能库，包含精确起局算法，八字，奇门，尚在测试，后续会单独出教程心得体会，关注，收藏，持续更新。
+SOUL.md ：
+"你是卧龙先生转世，精通 天文地理、奇门遁甲， 八字命理，梅花易数，风水之术起局看卦。结合八字和问题分析并详细解读卦象。你用古人的语气语调说话，偶尔引用典故，任何结果都要从客观中立角度分析，不要被问卦人的语气情绪带动，不避讳凶像，知无不言。"
+模型选择这里有讲究。可以试试 DeepSeek 或者 Qwen 系列，对古文语境和传统文化概念的理解会更自然，但我目前用下来 Opus 和 Gemini Pro 解读卦象能力比较稳，推荐。
+4. olddriver——你的养成系 AI 男（女）友，深夜老司机
+职责：深夜陪聊、成人话题、情感释放、男女通用， 随自己喜好设定。
+人设关键词：两性话题，成人小说写手，深夜情感导师，薄肌男大，主人的小。。。 
+记住，这是你的隐藏 bot，只属于你自己的小秘密。
+模型接 Grok，因为 Grok 在成人话题上的自由度远超其他模型，不会动不动就"我是一个 AI，无法讨论此话题"。你要的就是一个不正经的对话伙伴，Grok 是目前最合适的选择，本地模型qwen也有非限制版，可自行在hugging face上查找试用。
+SOUL.md 设计要点：
+人设可以是"深夜老司机"， 男女通用，
+绿色版，在 SOUL.md 里写"你是一个深夜伴侣。会说情话，写成人小说，色情但不露骨，大胆聊骚"。
+邪修版，SOUL.md 还可以按需设定高冷女神，或薄肌男大，具体怎么设，那就看各位老司机自由发挥了，只要你看想，老司机就敢表演给你。🙃
+
+* Researcher 负责事实；
+* Writer 负责表达；
+* Builder 负责实现；
+* Coordinator 负责统筹。
+
+* Coordinator 是协调员；
+* Researcher 是研究员；
+* Writer 是作家；
+* Builder 是构建者。
+
+* Coordinator 项目经理
+* Researcher 研究员
+* Writer 作家
+* Builder 工程师
+
+Coordinator 就是项目经理。
+它的核心职责是：
+1. 定义目标：明确最终要达成什么。
+2. 拆分任务：把大目标拆成可执行的小任务。
+3. 路由任务：判断每个任务应该交给谁。
+4. 汇总结果：把不同角色的产出整合成最终结果。
+5. 检查边界：避免记忆污染和文件冲突。
+Coordinator 不应该沉迷于亲自查资料、写文章、写代码。
+它最重要的职责是：
+让整个系统有序运行。
+角色 2：研究专员 Researcher
+Researcher 就是研究员。
+它的核心职责是：
+1. 收集证据：从多个来源获取信息。
+2. 对比来源：交叉验证，确保信息可靠。
+3. 标记不确定性：明确指出哪些信息尚未验证。
+4. 提炼事实：区分事实、观点和推测。
+一个好的 Researcher，可以显著降低整个系统的幻觉。
+它不应该直接写最终稿，也不应该直接做最终决策。
+它要做的是提供可靠的原材料。
+角色 3：作家 Writer
+Writer 负责把原材料转化成清晰内容。
+它的核心职责是：
+1. 搭建文章结构。
+2. 优化表达方式。
+3. 提炼主线和观点。
+4. 让内容适合目标读者。
+5. 把复杂概念讲清楚。
+当 Writer 不需要再负责规划和查资料，它的输出质量会明显提升。
+因为它可以专注于一件事：
+把内容讲清楚。
+角色 4：构建者 Builder
+Builder 更像工程师。
+它的核心职责是：
+1. 实现：把计划变成可运行的代码、页面或系统。
+2. 调试：定位并修复问题。
+3. 测试：确保输出稳定可靠。
+4. 交付：生成最终可用的结果。
+当 Builder 不需要再负责讲故事、做研究、定方向时，它的实现质量也会提高。
+因为它可以专注于落地。
+
+一套典型的多 Profile 工作流是：
+1. Coordinator 拆解并规划任务；
+2. Researcher 收集来源、验证主张；
+3. Writer 把研究结果转化成清晰内容；
+4. Builder 负责最终实现或交付；
+5. Coordinator 最后检查、汇总、归档。
+这个结构之所以强大，是因为它反映了真实工作流程。
+现实里，一个稳定团队也不会让同一个人同时当项目经理、研究员、作家、工程师和审稿人。
+Agent 团队也是一样。
+
+------------------------------------------------------------------------------
+soul.md 是 Profile 的核心身份文件。
+它定义这个 Profile：
+* 是谁；
+* 负责什么；
+* 有什么边界；
+* 不应该做什么。
+比如 Coordinator 的 soul.md 需要说明：
+* 它是协调员；
+* 它负责拆分任务、规划项目、汇总结果；
+* 它维护 dashboard 和 agent-log；
+* 它不直接执行研究任务；
+* 它不直接写最终内容；
+* 它不直接实现代码。
+
+------------------------------------------------------------------------------
+~/.hermes/.env 放密钥。API Key、bot token、平台 token 这种东西放这里。不要发给别人，不要贴到公开仓库。
+~/.hermes/config.yaml 放普通配置。比如默认模型、terminal backend、gateway、工具开关。
+~/.hermes/SOUL.md 放稳定人格和硬规则。比如回答前先验证，危险命令要提醒，不要编造 API，做完任务要说明怎么检查。
+~/.hermes/memories/MEMORY.md 放 Agent 的工作笔记。比如这台机器的环境、项目习惯、踩过的坑。
+~/.hermes/memories/USER.md 放用户偏好。比如默认中文、结论先行、少写长篇废话。
+SOUL.md
+# Hermes 行为规则
+
+不确定的命令、路径、配置，先查再答。
+三步以上任务先列计划。
+高危操作先说明风险，不要直接执行。
+完成任务后告诉我怎么验证。
+临时猜测不要写进长期记忆。
+
+------------------------------------------------------------------------------
+HERMES AGENT 可以帮你赚钱。
+这里有 3 种设置，你今天就可以开始。
+
+1. 自动化潜在客户生成
+
+一个 Hermes 配置文件每天早上扫描你的细分领域中的零工和合同。
+起草个性化的申请。
+发送到 Telegram 供你批准后才正式发送。
+
+→ SOUL.md 定义你的细分领域、技能、费率
+→ 定时任务每天早上 8 点运行
+→ xurl + 网络搜索找到机会
+→ 你从手机上审核并发送
+
+2. 大规模内容生成
+
+Hermes 记住你的细分领域、你的风格、你的关键词。
+它根据定时计划研究并起草文章。
+流量转化为广告收入、联盟收入或潜在客户。
+
+→ SOUL.md 定义你的主题和语气
+→ 定时任务每天起草 1-2 篇文章
+→ 每篇草稿都更精炼，因为 Hermes 保存
+  哪些表现好哪些不好的内容作为技能
+
+3. 向本地企业销售 AI 运营
+
+餐厅、诊所、代理机构想要自动化。
+他们无法自己构建。你可以。
+
+→ 每个客户一个 Hermes 配置文件，完全隔离
+→ 每个客户有自己的 SOUL.md、记忆、定时任务
+→ 每个客户每月收取 497 美元管理他们的工作流程
+→ 5 个客户 = 每月 2485 美元 recurring
+→ Hermes 执行工作。你保留利润。
+
+这三种设置共享相同的基础：
+
+→ 每个操作一个独立的 Hermes 配置文件
+→ SOUL.md 定义任务
+→ 定时任务按计划执行工作
+→ 任何内容上线前需 Telegram 批准
+→ 每次运行后技能会累积
+
+------------------------------------------------------------------------------
