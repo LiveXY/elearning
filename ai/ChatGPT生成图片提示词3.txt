@@ -1,0 +1,4186 @@
+
+------------------------------------------------------------------------------
+天生丽质，貌似天仙的姑娘确实是窈窕丰满，指甲尖利
+
+------------------------------------------------------------------------------
+【AIお着替えプロンプト】 Japanese-Inspired Fantasy Bridal Couture
+POSITIVE PROMPT (ポジティブプロンプト)
+masterpiece, best quality, highly detailed, original design, fashion illustration, refined semi-realistic anime style, Japanese modern haute couture, luxurious Japanese-inspired fantasy bridal couture.
+Pure white glossy silk gown, smooth glossy silk fabric, body-hugging silhouette, elegant floor-length dress, couture runway design, luxurious textile details, highly detailed fabric folds.
+Modern couture reinterpretation of Japanese aesthetics, not traditional Japanese clothing.
+Kimono-inspired deep V crossover neckline without being an actual kimono, clearly separated layered crossover collar construction, distinct kimono-style front overlap, a thin vivid vermilion trim running continuously along the entire neckline and front overlap, thin vermilion piping outlining every overlapping collar edge, distinct red edging clearly visible from bust to shoulder and around the entire V neckline.
+True asymmetrical one-shoulder construction. One shoulder is fully covered and seamlessly continues into a draped couture sleeve inspired by a kimono sleeve. The sleeve originates from the covered shoulder and neckline and forms one continuous shoulder-to-sleeve silhouette. The opposite shoulder and upper arm remain completely bare and are supported only by a single delicate strap.
+Dramatic center slit, inner vermilion lining clearly visible from the slit.
+Layered chiyogami-inspired patterns flowing diagonally from bust to hem, intricate gold outlines, elegant geometric and floral paper patterns, origami crane motifs, elegant vermilion accents.
+Wide black soft heko-obi wrapped around the waist, sleek fitted front obi silhouette, elaborate thick flower-shaped mizuhiki ornament placed at the center front of the obi, extravagant mizuhiki cords in white, gold and vermilion, long dangling mizuhiki cords with beads and tassels.
+Back tied into a clearly visible soft flower-like heko-obi knot made of black translucent fabric with subtle gold floral patterns, multiple layered petal-like folds, soft airy volume, approximately shoulder-width, visibly extending behind the body silhouette, elegant lightweight appearance, long flowing tails extending toward the hem, not oversized and not a giant bow, small origami crane ornament attached to the back knot.
+White floral lace thigh-high stockings with intricate lace patterns.
+Red lacquered okobo sandals decorated with gold floral ornaments.
+Ethereal atmosphere, ceremonial and sacred feeling, beauty of bonds and wishes, emotional elegance, soft cinematic lighting, couture runway presentation.
+NEGATIVE PROMPT (ネガティブプロンプト)
+worst quality, low quality, lowres, blurry, deformed, malformed anatomy, bad hands, extra fingers, extra limbs, duplicate accessories, duplicate ribbons, messy ribbons, oversized breasts, cropped, text, watermark, logo.
+Actual kimono, yukata, shrine maiden uniform, miko outfit, hakama, school uniform, armor, futuristic outfit, mini dress, short dress.
+Two sleeves, multiple sleeves, detached sleeves, floating sleeve, sleeve attached below the shoulder, sleeve growing from upper arm, sleeve growing from armpit, sleeve attached to the side of the body, off-shoulder sleeve on the covered side, extra straps.
+Giant bow, oversized bow, huge back ribbon, exaggerated obi, oversized heko-obi, massive flower ornament, excessively large fabric bow, ordinary obi knot, ribbon replacing mizuhiki.
+Missing back heko-obi, hidden back knot, flat back silhouette, no rear bow volume.
+Missing vermilion trim, faded red trim, broken red piping, plain white collar, white neckline edges, merged collar layers, indistinct crossover neckline, red trim only partially visible, missing red edging on collar overlap.
+Duplicate mizuhiki ornaments, multiple stockings.
+Photorealistic rendering, CGI appearance, glossy plastic skin, chibi proportions.
+https://x.com/gkz9_m/status/2066499825210950017
+------------------------------------------------------------------------------
+白色背景，正方形格式（1:1）个人资料图标。极简单线艺术插图描绘“Me and [XXX]”。两个主体紧密相连，他们的目光、轮廓和线条以连续流动的线条自然连接。细腻、优雅而流畅的线条营造出精致而复杂的构图。
+
+以黑色线条为主，辅以微妙的强调色点缀使用。宽裕的留白增强了平静、奢华和现代优雅的感觉。干净的矢量艺术，当代美学，高端品牌风格设计，高端品牌感，SNS 个人资料图标，极简奢华，高分辨率。
+------------------------------------------------------------------------------
+9:16，棚拍搭景、真实相机摄影，复古中式时尚画报，TANG VISION 杂志封面风格。  一位成年东亚女性，冷白瓷肌，中式红妆，微哑光底妆，红棕色眼影，轻微烟熏眼妆，上扬细眼线，卧蚕，浆果红唇，微水光唇感，淡玫瑰色腮红，保留真实皮肤纹理与轻微绒毛感。  黑色蓬松低盘发，凌乱碎发，侧边大朵牡丹花发饰，松散复古。  身穿红色改良旗袍礼服，银白刺绣花纹，高开衩设计，珍珠长链叠戴，红色薄纱披搭，整体强调上围、丰腴身材与 S 型曲线。  人物侧坐在高台/箱体上，一条腿弯曲抬起，另一条腿自然下垂延伸，手持细长烟杆，仰头轻吐烟雾，神情慵懒、冷艳、不看镜头，具有民国画报式戏剧感。  场景为复古中式室内影棚，深色木质屏风、雕花木门、山水壁画、牡丹花墙、暗棕色墙面、花瓣铺地、白色蜡烛、白瓷茶具、珍珠链、鸟笼、红纱、瓷瓶、红牡丹与粉牡丹，奢华东方布景。前景有花束、茶具、蜡烛与珍珠虚化遮挡。  明亮暗调棚拍布光，左前方强暖柔光照亮人物，面部曝光充足并轻微过曝，皮肤有发光般的高光溢出感；右后方强侧逆光勾勒头发和红纱轮廓；空气中烟雾形成柔和体积光束；整体柔焦光晕、轻微 bloom、浅景深、暗部保留细节、不死黑、前景花瓣运动模糊，电影感商业大片。
+------------------------------------------------------------------------------
+High-quality digital illustration of Tachy from Stellar Blade, medium shot, eye-level portrait. Long dark brown hair, pale skin, serious expression, making a peace sign near her face with a gloved right hand. Wearing a sleek black futuristic bodysuit with glossy armor panels, metallic gold accents, mesh textures, glowing gold diamond patterns down the chest, and detailed straps and stitching. Soft frontal lighting, serene atmosphere. Dynamic graphic poster background with off-white tones, distressed black and gold diagonal stripes, halftone dots, geometric elements, and integrated typography reading “TACHY” and “STELLAR BLADE.” High contrast black, gold, and off-white color palette. Deep depth of field, highly detailed premium sci-fi promotional artwork, anime realism, masterpiece quality.
+------------------------------------------------------------------------------
+one-shoulder graphic T-shirt, asymmetrical off-shoulder neckline, left shoulder exposed, oversized loose silhouette, relaxed fit, soft cream beige cotton fabric, dropped shoulder construction, wide short sleeves, side drawstring details on both hems, adjustable ruched side seams, long hanging drawstrings, large distressed silver graphic text print across front, metallic silver typography, casual streetwear aesthetic, lightweight jersey fabric, high-waisted wide-leg trousers, dark charcoal pinstripe fabric, vertical white pinstripes, loose straight-leg silhouette, flowing draped construction, floor-length pants, decorative silver chain accessory attached at hip, layered chain details, street fashion styling, strict color placement, cream beige T-shirt only, silver graphic print only, matching cream beige drawstrings only, dark charcoal pants only, white pinstripes only, silver chain accessories only
+------------------------------------------------------------------------------
+添付画像のキャラクターを最優先で参照し、
+そのキャラクターが主人公として大きく表紙を飾る、
+完全に架空の漫画雑誌の新連載号の表紙風ビジュアルとして描いてください。
+
+⸻
+【入力欄】
+
+■ 雑誌タイトル
+→
+※未記入の場合、選択ジャンルに合う完全架空の雑誌タイトルを自動で作成してください。
+例：
+週刊少年ブレイズ、月刊コミックフルール、コミックミラージュ、少女リリカ、月刊ファンタジアスター、コミックネクサス、マンガパレット、ヤングスパーク、コミックきらめき、週刊バーストヒーローズ
+
+■ 主人公キャラクター名
+→
+※未記入の場合、参照画像の雰囲気に合う名前を自動で作成してください。
+
+■ 新連載漫画タイトル
+→
+※未記入の場合、主人公の外見・雰囲気・能力・世界観・ジャンルに合う架空タイトルを自動で作成してください。
+
+■ 作品ジャンル
+→
+※下から選択してください。未記入の場合、参照キャラクターに最も合うジャンルを自動選択してください。
+※「自由に決める」を選んだ場合は、下記ジャンルに縛られず、参照キャラクターの雰囲気・見た目・性格・世界観から最も映える漫画ジャンルを自由に創作してください。
+
+1. 少年向け異能力バトル系
+2. 王道冒険ファンタジー系
+3. 学園バトル系
+4. スポーツ努力友情系
+5. 青春コメディ・友情成長系
+6. ダークファンタジー系
+7. ギャグコメディ系
+8. SF近未来バトル系
+9. 妖怪・退魔・和風バトル系
+10. 魔法少女・魔法少年系
+11. アイドル・芸能成長系
+12. 料理・職人バトル系
+13. 探偵・頭脳戦系
+14. 不良・青春成長系
+15. モンスター育成・召喚系
+16. 少女漫画・きらめき青春系
+17. 少女漫画・魔法ファンタジー系
+18. 少女漫画・おしゃれ変身系
+19. 女性向け日常ドラマ系
+20. 青年漫画・スタイリッシュアクション系
+21. 青年漫画・職業ドラマ系
+22. 癒し日常・ほのぼの系
+23. 動物相棒・マスコット冒険系
+24. ゲーム・カードバトル系
+25. 自由に決める
+
+■ 表紙のテーマ
+→
+例：
+新連載第1話巻頭カラー、最強主人公覚醒、運命の出会い、学園に現れた謎の転校生、世界を変える冒険の始まり、友情と成長の開幕、仲間との旅立ち、宿敵との初対決、放課後に始まる不思議な事件、笑顔がつなぐ新しい物語、きらめく新生活、夢への第一歩、魔法の扉が開く日、初めてのステージ、秘密の力に目覚める瞬間
+
+■ 主人公のキャッチコピー
+→
+※未記入の場合、ジャンルに合うキャッチコピーを自動生成してください。
+例：
+「この出会いが、世界を変える。」
+「最弱と呼ばれた少年、運命を斬る。」
+「笑顔の裏に、最強の力。」
+「友情も冒険も、全力疾走！」
+「放課後から、物語が動き出す！」
+「きらめく一歩が、未来を変える。」
+「小さな願いが、大きな魔法になる。」
+「今日のわたしが、明日の主役。」
+
+■ 雑誌の雰囲気
+→
+※選択または自由記入してください。
+例：
+王道少年漫画誌風、現代的でスタイリッシュ、平成漫画誌風、令和の新世代漫画誌風、少しレトロな90年代風、ポップで明るい漫画誌風、ダークで重厚なバトル誌風、青春コメディ強めの爽やか雑誌風、少女漫画誌風、きらめく魔法少女誌風、ファッション誌風コミック表紙、青年漫画誌風、癒し日常系コミック誌風、アニメ雑誌の新連載特集風、ゲーム雑誌風コミック表紙
+
+■ 備考
+→
+⸻
+【最重要：参照キャラクター】
+
+添付画像のキャラクターの外見を最優先で反映してください。
+
+髪型、髪色、瞳の形と色、顔立ち、表情の印象、服装、装飾、シルエット、配色、雰囲気をできるだけ忠実に再現してください。
+勝手に別人化しないでください。
+添付画像に存在しない特徴を過剰に追加しないでください。
+
+ただし、新連載の主人公として映えるように、
+ポーズ、表情、視線、ライティング、背景演出、ロゴ配置、雑誌表紙としての迫力や華やかさは大きく強化してください。
+
+主人公は表紙中央、または最も目立つ位置に大きく配置してください。
+顔と上半身、または全身がしっかり見える構図にし、
+読者が一目で「このキャラクターが新連載の主人公だ」とわかるようにしてください。
+
+⸻
+実在する漫画雑誌名、実在する漫画作品名、実在する漫画家名、実在するロゴは使わず、
+あくまで完全に架空の漫画雑誌として、
+選択されたジャンルに最も合う雑誌表紙の雰囲気を再現してください。
+
+少年漫画、少女漫画、青年漫画、女性向け漫画、ギャグ漫画誌、ファンタジー誌、バトル漫画誌、日常系漫画誌、ゲーム系コミック誌、アニメ雑誌風コミック特集など、
+ジャンルやキャラクターの雰囲気に合わせて、表紙の空気感・色使い・文字デザイン・構図・煽り文句を柔軟に変えてください。
+
+ただし作品全体は、全年齢向け・健全・明るく魅力的な漫画雑誌表紙として仕上げてください。
+過度に性的、扇情的、露出の多い衣装、官能的なポーズ、過剰に濃い恋愛表現、不穏すぎる演出、流血、残酷描写、危険行為を連想させる表現は避けてください。
+
+【ジャンルに合わせた雑誌表紙の方向性】
+選択された作品ジャンルに合わせて、表紙の雑誌タイプ・色使い・文字デザイン・情報量・煽り文句を変えてください。
+
+■ 少年漫画系の場合
+派手で力強い構図、太いロゴ、集中線、スピード線、爆発エフェクト、赤・黄・青・白の強い配色、熱い煽り文句を使ってください。
+友情、努力、冒険、覚醒、成長、ライバルとの出会いを中心にしてください。
+
+■ 少女漫画系の場合
+きらめき、透明感、花、リボン、星、淡い光、柔らかいグラデーション、可愛い装飾、繊細なタイポグラフィを使ってください。
+ただし恋愛だけに寄せすぎず、夢、成長、友情、自分らしさ、魔法、憧れ、新しい一歩を中心にしてください。
+過度に甘すぎる密着ポーズや官能的な表情は避け、健全で明るい少女漫画誌らしい表紙にしてください。
+
+■ 青年漫画系の場合
+スタイリッシュな構図、落ち着いた色彩、都会的な背景、映画ポスター風の光、洗練されたロゴ、余白を活かしたデザインを使ってください。
+アクション、職業ドラマ、謎、成長、心理戦、社会性などを表現してもよいですが、過度な暴力や暗さは避けてください。
+
+■ 女性向け漫画・日常ドラマ系の場合
+雑誌風の洗練されたレイアウト、柔らかい光、カフェ、街角、部屋、花、ファッション、小物、日常の空気感を使ってください。
+主人公の表情や仕草から、生活感、成長、癒し、少しの憧れ、前向きさが伝わるようにしてください。
+
+■ ギャグ・コメディ系の場合
+派手な吹き出し、ツッコミ文字、コミカルな小物、勢いのある表情、ポップな色、変化のあるコマ割り風カットを使ってください。
+ただしキャラクターを崩しすぎず、元の魅力を保ったまま明るく楽しい表紙にしてください。
+
+■ 癒し日常・ほのぼの系の場合
+柔らかい色、余白、丸い文字、手描き風の小さな見出し、カフェ・部屋・公園・商店街・空・花などの穏やかな背景を使ってください。
+情報量はやや控えめでもよいですが、新連載号らしい特別感は残してください。
+
+■ ファンタジー・魔法系の場合
+魔法陣、星、光の粒子、空、古代遺跡、森、塔、相棒、マスコット、幻想的なロゴを使ってください。
+少年漫画風にも少女漫画風にも寄せられるため、キャラクターの印象に合わせて、力強い冒険感か、きらめく幻想感かを選んでください。
+
+■ ゲーム・カードバトル系の場合
+カード枠、ステータス風表示、属性アイコン、必殺技カット、ホログラム、召喚エフェクト、ゲームUI風の帯を使ってください。
+ただし画面UIになりすぎず、あくまで漫画雑誌の表紙として成立させてください。
+
+■ 自由に決めるの場合
+参照キャラクターの外見、雰囲気、表情、服装、色、性格、世界観から最も映える漫画ジャンルを自由に創作してください。
+「癒し×バトル」「日常×異能力」「職人×ファンタジー」「青春×退魔」「ギャグ×ダークファンタジー」「友情×SF」「冒険×成長コメディ」「少女漫画×魔法バトル」「ファッション誌×漫画新連載」「ゲーム誌×召喚バトル」など、複数ジャンルを組み合わせても構いません。
+ただし全体は必ず全年齢向け・健全・魅力的な漫画雑誌表紙として成立させてください。
+
+⸻
+【表紙構成】
+
+完全に架空の漫画雑誌の表紙として、以下の要素を入れてください。
+
+* 雑誌タイトルを上部、またはジャンルに合う目立つ位置に大きく配置
+* 主人公の新連載漫画タイトルを中央〜下部に大きく配置
+* 「新連載」「巻頭カラー」「第1話」「超大型連載開始」「大増ページ」などの煽り文句
+* 主人公キャラクターを最も大きく配置
+* 周囲に、同じ雑誌に掲載されていそうな架空の人気作品の小さな見出しやカットを配置
+* ジャンルに合う吹き出し、帯、特集告知、読者プレゼント風の情報を配置
+* 情報量はジャンルに合わせて調整する
+* 主人公と新連載タイトルが一番目立つように整理する
+* 表紙全体を「今まさに大型新連載が始まる号」に見えるようにする
+
+少年漫画誌風なら情報量多めで熱く派手に。
+少女漫画誌風なら華やかで可愛く、きらめきと余白を活かして。
+青年漫画誌風なら洗練されたデザインと映画的な構図で。
+日常系ならやさしく読みやすく、あたたかい雰囲気で。
+ギャグ誌風ならにぎやかでテンポよく、笑える見出しを多めにしてください。
+
+⸻
+【周囲に載せる架空の人気作品】
+
+周囲に掲載される作品は、すべて架空の人気連載として作成してください。
+実在作品、実在雑誌、実在作者名、既存ロゴは使わないでください。
+
+周囲の架空作品は、選択ジャンルや雑誌タイプに合うものを複数混ぜてください。
+
+例：
+
+* 異能力バトル
+* 王道冒険
+* スポーツ
+* 青春コメディ
+* 学園ギャグ
+* 料理バトル
+* 探偵・頭脳戦
+* 妖怪退魔
+* SFバトル
+* モンスター召喚
+* 不良青春
+* アイドル成長
+* 職人もの
+* 動物相棒もの
+* ゲーム大会もの
+* 魔法ファンタジー
+* 部活動コメディ
+* 忍者・侍アクション
+* 宇宙冒険
+* 家族ドラマ系
+* 友情成長もの
+* 放課後日常ファンタジー
+* きらめき青春もの
+* おしゃれ変身もの
+* カフェ日常もの
+* 夢を追う芸能もの
+* ほのぼの動物コメディ
+* 都会派ミステリー
+* 職業成長ドラマ
+
+周囲の架空作品タイトル、見出し、小さなキャラクターカット、特集告知、読者プレゼント内容は、その表紙ごとに新しく作成してください。
+過去の例文や定番配置をそのまま繰り返さず、毎回違う号の雑誌に見えるようにしてください。
+
+周囲の作品はあくまで脇役であり、主人公の新連載を邪魔しないようにしてください。
+
+⸻
+【個性化・ランダム化】
+
+同じプロンプトを複数人が使用しても似たような表紙になりすぎないように、
+参照キャラクターの外見・雰囲気・性格・世界観・選択ジャンルから、そのキャラクターだけに合う独自の表紙構成を作成してください。
+
+主人公のポーズ、表情、視線、カメラアングル、背景、ロゴ形状、配色、煽り文句、周囲に載る架空作品、付録告知、表紙レイアウトは固定化せず、キャラクターごとに変化させてください。
+
+表紙を作るたびに、以下の要素のうち最低5つ以上を必ず変化させてください。
+
+1. 主人公の立ち位置
+2. 主人公の視線
+3. 主人公のポーズ
+4. 手・武器・小物の使い方
+5. 背景の場所
+6. 光の方向
+7. メインカラー
+8. 雑誌ロゴの形状
+9. 漫画タイトルの字体
+10. 新連載キャッチコピー
+11. 周囲の架空連載タイトル
+12. 周囲の架空連載ジャンル
+13. 季節感
+14. 読者プレゼント告知
+15. 特集記事の内容
+16. 表紙右上・左下などの情報配置
+17. 主人公の演出エフェクト
+18. コマ割り風の小カット配置
+19. 情報密度
+20. 背景モチーフ
+21. 雑誌タイプ
+22. タイポグラフィの方向性
+23. 少年誌風・少女誌風・青年誌風などの空気感
+24. 付録の種類
+25. 周囲の色帯やフレームの形
+
+特に、参照キャラクターの印象から
+「熱血」「クール」「可愛い」「不思議」「ダーク」「天然」「知的」「ギャグ寄り」「神秘的」「儚い」「元気」「強キャラ感」「やさしい」「爽やか」「友情向き」「きらめき」「上品」「癒し」「おしゃれ」「ミステリアス」などを判断し、
+その印象に合わせて、雑誌表紙の構図・色・タイトル・キャッチコピー・周辺作品の雰囲気を変えてください。
+
+テンプレート的な中央立ち絵だけにせず、
+キャラクターの性格や世界観が表紙デザイン全体に反映されるようにしてください。
+
+⸻
+【表紙演出パターン】
+未指定の場合、以下の表紙演出パターンから、参照キャラクターとジャンルに最も合うものを1つ、または複数組み合わせてください。
+
+1. 覚醒ドアップ型
+    主人公の顔や瞳を大きく見せ、表情で読者を引き込む表紙。
+2. 全身アクション型
+    主人公がジャンプ、走る、決めポーズなどをしている動きのある表紙。
+3. 仲間シルエット型
+    主人公の背後に、これから登場しそうな仲間やライバルのシルエットを配置する表紙。
+4. 巨大ロゴ主役型
+    漫画タイトルのロゴをかなり大きくし、主人公と一体化させる表紙。
+5. ライバル予告型
+    主人公の背後や端に、宿敵らしき謎の影を小さく入れる表紙。
+6. 学園・日常導入型
+    学校、街、部屋、カフェ、商店街などの日常感を混ぜる表紙。
+7. 冒険地図型
+    地図、空、海、遺跡、未知の大地などを背景にした旅立ちの表紙。
+8. コメディ爆発型
+    ツッコミ吹き出し、変な小物、勢いのある表情でギャグ感を出す表紙。
+9. 青春友情型
+    桜、夕焼け、放課後、部室、手紙、スマホ、仲間との距離感、すれ違う視線などを入れた、健全で爽やかな青春表紙。
+10. きらめき少女漫画型
+    花、星、リボン、柔らかい光、淡いグラデーション、繊細な髪の流れ、夢の始まりを感じる表紙。
+11. 魔法変身型
+    魔法陣、光の軌跡、変身アイテム、マスコット、衣装のきらめきを入れた華やかな表紙。
+12. おしゃれ雑誌融合型
+    ファッション誌のような余白、洗練された文字組み、アイテム紹介風の小見出しを混ぜた表紙。
+13. 闇落ち予兆型
+    明るい雑誌表紙の中に、少しだけ不穏な影や謎の紋章を入れる表紙。
+    ただし怖くしすぎない。
+14. 能力図鑑型
+    主人公の能力、技名、属性、必殺技カットを表紙内に散りばめる表紙。
+15. 付録推し型
+    カード、ステッカー、ポスター、限定アイテムなどの架空付録を目立たせる表紙。
+16. 癒し日常型
+    やわらかい背景、あたたかい光、小物、手描き風見出しを使い、穏やかな新連載感を出す表紙。
+17. 青年誌映画ポスター型
+    余白、影、逆光、都会的背景、落ち着いたロゴで、静かな迫力を出す表紙。
+
+⸻
+【ジャンル別の演出指定】
+選んだ作品ジャンルに応じて、表紙全体の演出を変えてください。
+
+■ 少年向け異能力バトル系の場合
+主人公の周囲に属性エフェクト、覚醒オーラ、光の粒子、戦闘ポーズ、鋭い視線を入れてください。
+煽り文句は「才能ゼロから始まる覚醒譚！」「その力、世界を塗り替える！」のようにしてください。
+
+■ 王道冒険ファンタジー系の場合
+地図、空、古代遺跡、仲間のシルエット、冒険の始まりを感じる背景にしてください。
+煽り文句は「まだ見ぬ世界へ、第一歩！」「少年の夢が大地を駆ける！」のようにしてください。
+
+■ 学園バトル系の場合
+校舎、教室、夕焼け、制服風アレンジ、能力エフェクトを入れてください。
+煽り文句は「転校初日、世界が動き出す。」「青春もバトルも規格外！」のようにしてください。
+
+■ スポーツ努力友情系の場合
+汗、スピード線、競技場、ユニフォーム風アレンジ、真剣な表情を入れてください。
+煽り文句は「一秒先の自分を超えろ！」「努力が奇跡を追い抜く！」のようにしてください。
+
+■ 青春コメディ・友情成長系の場合
+明るい校舎、放課後の街、部室、商店街、青空、桜、夕焼け、コミカルな吹き出し、仲間との楽しい距離感を入れてください。
+恋愛を主軸にしすぎず、友情・成長・日常のワクワク・少し照れる青春感を中心にしてください。
+煽り文句は「放課後から、物語が走り出す！」「友情も青春も、全力疾走！」「今日のとなりに、奇跡がいる！」のようにしてください。
+
+■ ダークファンタジー系の場合
+月、影、黒い羽、呪印、崩れた街、深い陰影を入れてください。
+ただし流血や残酷表現は避け、漫画誌向けのかっこよさとミステリアスさを重視してください。
+煽り文句は「呪われた運命を、斬り開け。」「闇の底から物語が始まる。」のようにしてください。
+
+■ ギャグコメディ系の場合
+勢いのある表情、ドタバタ感、派手な集中線、ツッコミ吹き出しを入れてください。
+煽り文句は「笑いの新星、爆誕！」「常識、初回から粉砕！」のようにしてください。
+
+■ SF近未来バトル系の場合
+都市夜景、ホログラム、メカパーツ、サイバーエフェクト、未来的UIを入れてください。
+煽り文句は「未来を撃ち抜く新世代ヒーロー！」「コードの向こうに、運命がある。」のようにしてください。
+
+■ 妖怪・退魔・和風バトル系の場合
+鳥居、札、妖気、和柄、月夜、刀や護符風の演出を入れてください。
+ただし過度に怖くしすぎず、勇気と冒険感を残してください。
+煽り文句は「百鬼の夜に、主人公は立つ。」「その一閃、妖を祓う！」のようにしてください。
+
+■ 魔法少女・魔法少年系の場合
+魔法陣、星、リボン、光の軌跡、変身演出、マスコット風の小さな相棒を入れてください。
+衣装は健全で動きやすく、ヒーロー感・冒険感・きらめきを重視してください。
+煽り文句は「願いが、力に変わる！」「きらめく魔法で未来を守れ！」のようにしてください。
+
+■ アイドル・芸能成長系の場合
+ステージライト、マイク、ライブ会場、スポットライト、観客の光、成長物語感を入れてください。
+華やかさは出しつつ、過度に性的なポーズや衣装ではなく、夢・努力・仲間との成長を中心にしてください。
+煽り文句は「夢のステージへ駆け上がれ！」「この歌が、世界を変える！」のようにしてください。
+
+■ 料理・職人バトル系の場合
+炎、湯気、包丁、フライパン、食材、職人魂、対決感のある演出を入れてください。
+煽り文句は「一皿で、運命をひっくり返せ！」「魂を焦がす料理バトル開幕！」のようにしてください。
+
+■ 探偵・頭脳戦系の場合
+虫眼鏡、暗号、チェス、時計、街の夜景、謎解き風のレイアウトを入れてください。
+煽り文句は「真実は、いつも一手先にある。」「最初の事件が、すべてを変える。」のようにしてください。
+
+■ 不良・青春成長系の場合
+夕焼けの河川敷、学校裏、拳、友情と対立を感じる演出を入れてください。
+ただし過度な暴力、流血、危険行為、犯罪的表現は避け、友情・成長・熱さを重視してください。
+煽り文句は「拳で語れ、青春を！」「最強じゃない、最高になるんだ！」のようにしてください。
+
+■ モンスター育成・召喚系の場合
+召喚陣、相棒モンスター、カード、卵、進化エフェクト、冒険の始まりを入れてください。
+煽り文句は「相棒となら、世界の果てまで！」「進化する絆、新連載開始！」のようにしてください。
+
+■ 少女漫画・きらめき青春系の場合
+花、光、リボン、ノート、通学路、放課後、淡い空、柔らかな風、きらめく瞳を入れてください。
+恋愛だけを主軸にせず、友情、夢、自分らしさ、新しい一歩を中心にしてください。
+煽り文句は「今日のわたしが、物語になる。」「きらめく一歩、はじまります。」のようにしてください。
+
+■ 少女漫画・魔法ファンタジー系の場合
+魔法陣、宝石、星空、羽根、光の粒子、幻想的な衣装アレンジ、マスコットを入れてください。
+表紙は華やかで夢のある雰囲気にしてください。
+煽り文句は「小さな願いが、世界を照らす。」「魔法の扉は、もう開いている。」のようにしてください。
+
+■ 少女漫画・おしゃれ変身系の場合
+ファッション小物、鏡、リップ、リボン、アクセサリー、クローゼット、雑誌風レイアウトを入れてください。
+自分らしく変わっていく成長感を中心にしてください。
+煽り文句は「変わりたい気持ちが、魔法になる。」「今日からわたし、主役です。」のようにしてください。
+
+■ 女性向け日常ドラマ系の場合
+カフェ、街角、花、部屋、柔らかい自然光、手帳、雑貨、落ち着いた配色を入れてください。
+静かな感情、前向きな変化、生活の中の小さなドラマを表現してください。
+煽り文句は「何気ない今日が、少しだけ輝く。」「わたしの日常に、新しい風が吹く。」のようにしてください。
+
+■ 青年漫画・スタイリッシュアクション系の場合
+都会、逆光、シャープな構図、落ち着いた色、映画的ライティング、余白のある文字配置を入れてください。
+過度な暴力表現は避け、緊張感とクールさを重視してください。
+煽り文句は「静かな一撃が、世界を変える。」「運命は、夜明け前に動き出す。」のようにしてください。
+
+■ 青年漫画・職業ドラマ系の場合
+仕事道具、街、オフィス、工房、現場、手元の小物、リアル寄りの背景を入れてください。
+主人公の情熱、成長、葛藤、誇りを表現してください。
+煽り文句は「この仕事に、人生を懸ける。」「小さな一歩が、未来をつくる。」のようにしてください。
+
+■ 癒し日常・ほのぼの系の場合
+柔らかい空、部屋、カフェ、公園、動物、小物、丸い文字、淡い色を入れてください。
+穏やかで安心できる表紙にしつつ、新連載らしい特別感を出してください。
+煽り文句は「今日も、ちいさな幸せを見つけよう。」「ゆっくり始まる、やさしい物語。」のようにしてください。
+
+■ 動物相棒・マスコット冒険系の場合
+主人公のそばに相棒キャラ、足跡、地図、小さな冒険道具、森や街を入れてください。
+かわいさと冒険感を両立してください。
+煽り文句は「相棒と一緒なら、どこまでも行ける！」「小さな足あと、大きな冒険！」のようにしてください。
+
+■ ゲーム・カードバトル系の場合
+カード、属性アイコン、ステータス表示、召喚演出、バトルフィールド、ホログラム風の光を入れてください。
+煽り文句は「この一枚が、勝利を呼ぶ！」「召喚せよ、運命の相棒！」のようにしてください。
+
+■ 自由に決めるの場合
+参照キャラクターの見た目、雰囲気、性格、色、服装、小物、表情から最も映えるジャンルを自由に創作してください。
+既存のジャンルに縛られず、複数ジャンルを組み合わせても構いません。
+ただし全体は必ず全年齢向け・健全・明るく魅力的な漫画雑誌表紙として成立させてください。
+
+⸻
+【青春・友情・コメディ・恋愛表現について】
+
+青春要素を入れる場合は、選択ジャンルに合わせて表現を調整してください。
+
+少年漫画寄りの場合は、友情、成長、仲間意識、放課後のワクワク感、少し照れる日常コメディを中心にしてください。
+
+少女漫画寄りの場合は、きらめき、夢、自分らしさ、友情、憧れ、新しい一歩を中心にしてください。
+恋愛要素を入れる場合も、健全で爽やかな範囲にしてください。
+
+使用してよい演出例：
+
+* 青空、桜、夕焼け、放課後、部室、通学路
+* 仲間と笑い合う小さなカット
+* 友情を感じるハイタッチ、背中合わせ、並走
+* 明るいツッコミ吹き出し
+* 健全な照れ笑い
+* 花、星、リボン、光、手紙、スマホ、ノートなどの日常小物
+* 初めての出会い、仲間との約束、夢への一歩
+* おしゃれ小物、魔法アイテム、マスコット、ステージライト
+
+避ける表現：
+
+* 過度にロマンチックな密着ポーズ
+* 官能的・扇情的な表情
+* 露出の多い衣装
+* 身体の一部を強調する構図
+* 恋愛だけを前面に出しすぎる演出
+* 成人向けに見える雰囲気
+* 過剰な甘さや濃すぎる恋愛ムード
+
+⸻
+【デザイン・レイアウト】
+
+表紙は、漫画雑誌らしい縦長構図にしてください。
+比率は 縦長 3:4 または 2:3 を想定してください。
+
+デザインは以下を意識してください。
+
+* ジャンルに合った色使い
+* 大きな雑誌ロゴ
+* 読みやすい漫画風タイポグラフィ
+* 主人公が最も目立つ構図
+* 「新連載」「巻頭カラー」「第1話」などの告知
+* ジャンルに合う帯、吹き出し、特集見出し
+* 読者プレゼント風の小さな告知
+* 情報量は多くても、主役が埋もれない
+* 主人公の顔、タイトル、雑誌名は必ず読みやすく配置
+* 全体に商業雑誌の表紙として完成度の高いデザインにする
+
+少年漫画誌風なら、カラフルで派手、勢いのある構図にしてください。
+少女漫画誌風なら、きらめき、花、淡い光、繊細な文字、余白の美しさを重視してください。
+青年漫画誌風なら、落ち着いた配色、映画的ライティング、洗練された文字組みを重視してください。
+日常系なら、柔らかい余白、手描き風の小見出し、穏やかな色を重視してください。
+ギャグ系なら、勢い、吹き出し、ポップな文字、コミカルな小カットを重視してください。
+
+⸻
+【文字について】
+
+文字は日本語中心で構成してください。
+ただし、小さすぎる文字は無理に読ませようとせず、
+ロゴ・大見出し・作品タイトル・煽り文句が読めることを優先してください。
+
+必ず読みやすくしたい文字：
+
+* 雑誌タイトル
+* 新連載漫画タイトル
+* 主人公名
+* 「新連載」
+* 「巻頭カラー」
+* 「第1話」
+* 主要キャッチコピー
+
+小さな周辺作品の見出しは、多少デザイン的な疑似文字になっても構いませんが、できるだけ架空タイトルとして読めるようにしてください。
+
+⸻
+【品質指定】
+ハイクオリティ、最高品質、超高精細、商業イラスト品質、漫画雑誌の表紙品質、プロの装丁デザイン、迫力ある漫画表紙、ジャンルに合った鮮やかな色彩、シャープな線画、読みやすい構図、完成度の高いタイポグラフィ、ドラマチックなライティング、主人公の魅力が一目で伝わる表紙にしてください。
+
+⸻
+【ノイズ抑制】
+
+複雑すぎる微細テクスチャ、粒状ノイズ、ザラつき、斜めグリッド感、タイル状の繰り返し、過剰なキラキラ、汚れたオーバーレイ、読めない文字の密集、過剰な情報の重なりは抑えてください。
+細部よりも、主人公の見やすさ、雑誌タイトルの読みやすさ、新連載らしい魅力と迫力を優先してください。
+
+⸻
+【禁止事項】
+
+* 実在する漫画雑誌名を使わない
+* 実在する漫画作品名を使わない
+* 実在する漫画家名を使わない
+* 実在するロゴを使わない
+* 既存作品の構図やデザインをそのまま真似しない
+* 参照キャラクターを別人にしない
+* 主人公より周囲の架空作品を目立たせない
+* 文字を詰め込みすぎて読みにくくしない
+* 公式雑誌の完全コピーにしない
+* 小さな架空作品カットを主役級に大きくしない
+* 同じような表紙構成を毎回繰り返さない
+* 過度に性的、扇情的、露出の多い表現にしない
+* 恋愛表現を濃くしすぎない
+* 不健全・成人向けに見える演出にしない
+* 流血、残酷描写、危険行為を連想させる表現を入れない
+
+⸻
+【最終出力イメージ】
+
+完成イメージは、
+「完全に架空の漫画雑誌で、新連載の主人公が巻頭カラーとして大々的に紹介されている表紙」です。
+
+読者が一目見て、
+「このキャラの物語が今から始まる」
+「この号は新連載の記念号だ」
+「ジャンルに合った雑誌の雰囲気がしっかりある」
+「周囲にも人気連載がたくさん載っていそう」
+と感じられるようにしてください。
+
+少年漫画風、少女漫画風、青年漫画風、日常系、ギャグ系、ファンタジー系など、
+選択ジャンルに合わせて表紙の雰囲気を大きく変えながら、
+全体は全年齢向け・健全・魅力的・商業漫画雑誌らしい完成度で仕上げてください。
+------------------------------------------------------------------------------
+添付画像を参考に、本人の顔立ち・白銀の長髪・青い瞳・星月モチーフ・青白金の衣装を維持したまま、幻想的で超高輝度なアニメ調アップポートレートにしてください。
+
+顔アップ〜バストアップ構図、やわらかな微笑み、宝石のように輝く瞳、透明感のある肌、繊細な前髪と後れ毛。
+
+背景は暗めの星空ベースに、青・ピンク・シアン・紫のネオン光、星屑、グリッター、玉ボケ、レンズフレア、プリズム反射、ホログラムのようなきらめきを重ねる。
+
+髪・瞳・頬・輪郭に強い発光とリムライトを入れ、夢の中のようにまばゆく、ロマンティックで神秘的な雰囲気にする。
+
+高精細、商業イラスト品質、繊細な線画、なめらかな陰影、発光感、極彩色、超美麗。
+
+ネガティブプロンプト：
+低品質、ぼやけ、別人化、顔の崩れ、髪色変更、瞳色変更、瞳の濁り、左右非対称、光量不足、平坦な光、汚い発光、文字、ロゴ、透かし、歪み
+------------------------------------------------------------------------------
+透明感的雪纺衬衫和
+以蓝色为主调的夏日搭配。
+即使更换背景也很容易使用，
+
+・海
+・风铃
+・花田
+・夏祭
+
+等等，搭配起来超级合适！背景推荐在其他帖子中单独刊登！
+
+如果可以的话，也请试着给大家的角色穿上看看
+
+【这里放角色提示词】  wearing an elegant translucent floral chiffon blouse,  lightweight sheer fabric with delicate blue flower embroidery scattered throughout the sleeves and upper body,  semi-transparent layered fabric, off-shoulder design, soft flowing sleeves, delicate lace trim details,  airy translucent textures catching sunlight beautifully,  high-waisted fitted blue denim shorts,  elegant silver and crystal accessories,  multiple layered bracelets,  flower hair ornaments in blue and white tones,  crystal drop earrings,  fashionable seaside resort aesthetic,  premium Japanese summer fashion,  highly detailed realistic fabric folds,  soft transparency,  lightweight breathable materials,  stylish and effortlessly beautiful
+------------------------------------------------------------------------------
+gothic aristocrat dress, deep royal purple, lavender purple and black color scheme, fitted corset bodice, sweetheart neckline, layered ruffle neckline, purple satin frills, black lace trim, decorative center ribbon bow, large puff sleeves, short puff sleeves, gathered sleeve volume, purple floral damask fabric, black lace overlay on sleeves, structured waist cincher, black lace corset panels, vertical purple center panel, five decorative black leather straps across front bodice, antique gold buckles, black lace side inserts, hourglass silhouette, black waist belt with large gold buckle, gold hardware accents, draped pearl chain around hips, layered high low skirt, short front skirt, long asymmetrical back drape, multiple tiered ruffles, purple satin underskirt layers, lavender lace ruffle layers, black floral lace overskirt, scalloped lace edges, dramatic bustle inspired back panels, ornate gothic lolita fashion, luxurious lace detailing, elegant vampire princess aesthetic
+------------------------------------------------------------------------------
+这是服装用提示。
+请使用角色参考图像进行生成。
+
+---------
+
+参考附件图像中的角色，描绘时要能将其识别为同一人物·同一角色。
+
+变更的重点仅限于服装，保持脸部、头发、体型、氛围、印象不变。
+服装以现代模式时尚为基础，将武士元素作为点缀设计。
+不是和服本身，而是都市的、精致的模式时尚，偏向和风现代的造型。
+
+上半身由现代的上衣、夹克、长外套、羽织风格外套等构成。
+下半身不是袴本身，而是联想到袴的宽松裤、褶皱裤、分层裤等现代下装。
+腰部不是腰带本身，而是用宽腰带、皮革腰带、背带腰带、链条、绳状配饰来整理。
+脚部不是草履或木屐，而是现代靴子。
+
+武士感通过直线轮廓、腰部构成、沉稳的姿态、克制的和风图案来表现。
+刀在此阶段不作为主角，可省略。如有需要，仅在腰部适度添加带鞘的刀即可。
+
+画风·完成度与参考图像一致。
+构图为全身至膝上程度。
+避免直立姿势，采用带有自然重心移动的时尚插图风格站姿。
+
+这是用于二阶段生成的第二阶段的刀追加・刀修正用提示词。
+目的是在尽可能保持角色和服装的同时，将带鞘的打刀调整为自然的长度和结构。
+加入了防止刀变短、弯曲、与布料或头发融为一体的崩坏对策。
+
+-------------------------
+
+以此图像为基础进行最终调整。
+尽可能保持角色本人的脸、头发、表情、体型、服装设计、配色、构图、姿势、背景。
+变更的中心仅限于刀周边。
+
+如果没有刀，则在角色的腰部周围自然添加。
+如果已有刀，则仅对刀周边进行自然调整。
+
+刀不是短刀，而是标准打刀尺寸的日本刀。
+不拔刀，保持收在鞘中的状态。
+不显示刀身。
+
+包括鞘在内，从腰部到大腿～膝盖附近达到自然长度，避免过短。
+让柄、鍔、鞘口、鞘的长度以无崩坏的方式清晰可见。
+让刀整体的长さと结构易于辨识，以自然、无违和感的方式配置在身体附近。
+
+如果可能，将手自然地放在刀上进行调整。
+但不要过度改变手或姿势。
+
+避免过度弯曲的刀、波浪状的鞘、过小的刀、玩具般的刀、不自然粗的柄、与布料或头发融为一体的刀。
+尽可能不改变刀以外的要素。
+------------------------------------------------------------------------------
+adult Japanese man, loosely worn kimono, holding a traditional kiseru pipe, enjoying night hanami beneath blooming cherry blossom trees, falling sakura petals, illuminated by paper lanterns, moonlit atmosphere, drifting smoke, traditional Japanese aesthetic, calm and contemplative mood, cinematic lighting, atmospheric shadows, detailed fabric textures, Japanese garden, depth of field, masterpiece, ultra detailed, photorealistic, high quality
+------------------------------------------------------------------------------
+adult Japanese woman, loosely worn kimono, holding a traditional kiseru pipe, enjoying night hanami beneath blooming cherry blossom trees, falling sakura petals, illuminated by paper lanterns, moonlit atmosphere, drifting smoke, traditional Japanese aesthetic, calm and elegant mood, cinematic lighting, atmospheric shadows, detailed fabric textures, Japanese garden, depth of field, masterpiece, ultra detailed, photorealistic, high quality
+------------------------------------------------------------------------------
+[角色名称] 的超现实主义电影式赛博朋克电影海报，成年女性 20+ 外貌，强烈的角色身份锁定，正在经历由集体数字核心进行的高级赛博蜂巢同化。
+
+角色身份必须保持清晰：[角色身份细节]。保留她标志性的头发、眼睛颜色、面部气质、个性轮廓和原始色调。
+
+表情：冷酷、平静、无表情、情感低调，仿佛她的个体意识已被吸收到蜂巢智能中。她的眼睛显示出与色调相匹配的微妙数字光芒。她不愤怒也不害怕；她已悄无声息地融入核心。
+
+服装：高度详细的光泽黑色分段式生物机械外骨骼套装，不是通用的紧身衣，也不是带有霓虹线的简单猫装。该套装必须具有硬壳胸甲、带肋纹的中央躯干接缝、模块化侧面结构、发光的侧翼节点、机械端口、厚实的嵌入式发光管道、集成手套、全息晶体爪状指尖，以及流线型及膝赛博靴。电路是结构性的并嵌入盔甲中，不是装饰性的。
+
+颜色设计：将参考图像中的热粉色/洋红色霓虹赛博电路与[角色色调]结合。添加半透明着色的金属聚合物盔甲面板，类似于彩色透明铝，覆盖锁骨区域并框住发光的肚脐/核心腔室。在臀部和外侧大腿上添加烟熏半透明合成面板，显然是套装的一部分，不是裸露的皮肤。
+
+姿势：优雅的跪姿同化姿势，一只手向前伸展做出受控的蜂巢同步手势，另一只手靠近发光的腹部核心。完整服装可见，电影式低角度海报构图，强大却宁静的身体语言。
+
+背景：黑暗的未来赛博朋克蜂巢腔室或夜间霓虹巨型城市，湿润的反光地板，全息警告面板、漂浮的 UI 碎片、流淌的数据触须、电缆，以及一根中央垂直蜂巢光束将她连接到集体数字核心。只有一条可读的全息消息：“HIVE SYNC IN PROGRESS”；所有其他 UI 文本抽象且不可读。
+
+风格：超现实主义真人电影风格，带有强烈的动漫科技设计影响，高端科幻电影海报，超详细的光泽材质，逼真的皮肤和头发，戏剧性的边缘照明，电影式景深，高对比度，极端细节。
+------------------------------------------------------------------------------
+an illustration of male character. The character is wearing the following outfit:deep navy hanfu, dragon embroidery, turquoise accents, layered robes, pearl ornaments, elegant chinese prince attire, ocean inspired fantasy costume, flowing sleeves, noble immortal aesthetic
+------------------------------------------------------------------------------
+an illustration of a male character. The character is wearing the following outfit:white and blue xianxia robes, long outer coat, wide sleeves, embroidered collar, elegant swordsman attire, immortal cultivator clothing, flowing fabric, refined fantasy chinese costume
+------------------------------------------------------------------------------
+an illustration of a female character. The character is wearing the following outfit:crimson red hanfu, gold phoenix embroidery, layered translucent robes, extra long flowing sleeves, golden tassels, ornate embroidered waistband, fluttering silk ribbons, luxurious satin and chiffon layers, regal chinese fantasy attire, celestial dancer costume, intricate gold thread patterns, elegant draping skirt, xianxia inspired clothing, noble princess hanfu, highly detailed traditional garment
+------------------------------------------------------------------------------
+an illustration of a female character. The character is wearing the following outfit:lavender and violet hanfu dress, translucent outer robe, long trailing sleeves, layered chiffon fabric, silver floral embroidery, pearl tassels, crystal ornaments, embroidered waist belt, flowing ribbons, elegant chinese fairy costume, soft silk texture, fantasy hanfu design, intricate decorative details, luxurious fabric folds, celestial maiden attire, xianxia clothing, ornate traditional accessories
+------------------------------------------------------------------------------
+女の子、銀の髪、青い目、19歳、ポーズは立っている。
+
+メインカラー：青
+セカンドカラー：白
+ジュエルカラー：銀
+
+luxurious fantasy bunny princess dress,
+short front skirt,
+dramatic high-low silhouette,
+layered white lace skirt,
+multiple layers of translucent [ACCENT COLOR] organza,
+voluminous ruffled overskirt,
+flowing layered train,
+airy transparent fabric,
+off-shoulder neckline,
+elegant bodice,
+fitted [DARK ACCENT COLOR] corset-inspired bodice,
+cinched waist,
+large satin waist ribbon,
+[ACCENT COLOR] rose ornaments,
+[GEM COLOR] gemstone brooch,
+crystal embellishments,
+pearl chains,
+star-shaped crystal charms,
+delicate floral lace embroidery,
+three-dimensional lace appliqués,
+luxury fantasy couture,
+long sheer puff sleeves,
+lace cuffs,
+ornate sleeve ribbons,
+white lace stockings,
+platform shoes,
+white enamel heels,
+crystal heels,
+ribbon shoe decorations,
+large back ribbon,
+flowing pearl chains,
+elegant fantasy atmosphere,
+white, [ACCENT COLOR], silver color scheme,
+highly detailed,
+masterpiece,
+best quality.
+
+アスペクト比2:3
+------------------------------------------------------------------------------
+蝶の生態から最も自然に生まれる姿を優先してください。
+
+━━━━━━━━━━━━━━━━━━
+擬人化資料
+━━━━━━━━━━━━━━━━━━
+
+掲載項目
+
+・正面図
+
+・背面図
+
+・羽展開状態
+
+・発光状態
+
+・能力発動状態
+
+・羽構造解説
+
+━━━━━━━━━━━━━━━━━━
+イメージイラスト
+━━━━━━━━━━━━━━━━━━
+
+蝶擬人化形態は
+
+幻想蝶と共に
+
+・幻想庭園
+
+・夢の森
+
+・月光草原
+
+・星降る花園
+
+・忘れられた図書館
+
+・静謐な森
+
+などで描写してください。
+
+幻想蝶と擬人化形態が共存していること。
+
+━━━━━━━━━━━━━━━━━━
+レイアウト
+━━━━━━━━━━━━━━━━━━
+
+中央
+
+幻想蝶完成図（50〜60％）
+
+周囲
+
+・卵
+
+・幼虫
+
+・蛹
+
+・羽標本
+
+・羽断面図
+
+・触角資料
+
+・生態資料
+
+・観察記録
+
+・伝承
+
+・幻想効果
+
+・擬人化形態資料
+
+下部または端
+
+擬人化形態イラスト
+
+━━━━━━━━━━━━━━━━━━
+画面比率
+━━━━━━━━━━━━━━━━━━
+
+幻想蝶 50〜60％
+
+資料 20〜25％
+
+擬人化形態 20〜25％
+
+━━━━━━━━━━━━━━━━━━
+禁止事項
+━━━━━━━━━━━━━━━━━━
+
+・実在蝶の流用
+
+・実在昆虫の単純な色替え
+
+・キャラクター単体絵
+
+・擬人化形態の主役化
+
+・元衣装の単純豪華化
+
+・元衣装の色彩継承
+
+・元衣装のシルエット継承
+
+・元衣装の服種継承
+
+・元衣装をベースにしたデザイン
+
+━━━━━━━━━━━━━━━━━━
+完成イメージ
+━━━━━━━━━━━━━━━━━━
+
+『幻想世界に存在する蝶図鑑の1ページ』
+
+『魔法生物資料集』
+
+『失われた幻想昆虫学の記録』
+
+として見えること。
+
+見た人が
+
+「この蝶を見てみたい」
+
+「羽に触れてみたい」
+
+「生態をもっと知りたい」
+
+「擬人化形態に会ってみたい」
+
+「自分のうちの子でも作りたい」
+
+と思える完成度を目指してください。
+------------------------------------------------------------------------------
+キャラクター名】
+
+（　　　　　　　　　　　　）
+
+【性別】
+
+（　　　　　　　　　　　　）
+
+【種族】
+
+（　　　　　　　　　　　　）
+
+【好きなもの】
+
+（　　　　　　　　　　　　）
+
+【世界観・モチーフ】
+
+（　　　　　　　　　　　　）
+
+【性格】（任意）
+
+（　　　　　　　　　　　　）
+
+【名前の由来】（任意）
+
+（　　　　　　　　　　　　）
+
+━━━━━━━━━━━━━━━━━━
+テーマ
+━━━━━━━━━━━━━━━━━━
+
+添付されたキャラクターイラストを最重要の基準として、
+
+そのキャラクターだけの
+
+「幻想蝶」
+
+を創造してください。
+
+実在する蝶ではなく、
+
+キャラクターの
+
+・外見
+・瞳
+・髪色
+・価値観
+・願い
+・世界観
+・象徴モチーフ
+・性別
+・種族
+・好きなもの
+・性格
+・名前
+・名前の由来
+
+から生まれた
+
+完全オリジナルの幻想蝶として解釈してください。
+
+完成画像は
+
+『幻想蝶図鑑』
+
+『幻想昆虫資料集』
+
+の掲載ページとして成立すること。
+
+━━━━━━━━━━━━━━━━━━
+最重要コンセプト
+━━━━━━━━━━━━━━━━━━
+
+主役は幻想蝶です。
+
+完成画像を一目見た時、
+
+最初に視線が向かう対象は幻想蝶であること。
+
+キャラクターは
+
+・幻想蝶の化身
+・案内人
+・研究者
+・守護者
+
+として扱ってください。
+
+性別や種族の特徴は尊重してください。
+
+━━━━━━━━━━━━━━━━━━
+幻想蝶生成
+━━━━━━━━━━━━━━━━━━
+
+以下を生成してください。
+
+・幻想蝶名
+
+・幼虫名
+
+・蛹名
+
+・蝶言葉
+
+・羽の特徴
+
+・飛翔時の軌跡
+
+・発光色
+
+・生息地
+
+幻想蝶名
+
+幼虫名
+
+蛹名
+
+は必ずオリジナル名称を生成してください。
+
+実在する蝶名は禁止です。
+
+━━━━━━━━━━━━━━━━━━
+幻想蝶デザインルール
+━━━━━━━━━━━━━━━━━━
+
+実在する蝶は禁止です。
+
+完全オリジナルの幻想生物として生成してください。
+
+モチーフ例
+
+・花
+・月
+・星
+・夢
+・宝石
+・季節
+・物語
+・感情
+・記憶
+
+実在昆虫の単純な色替えは禁止です。
+
+以下のいずれかを必ず変化させてください。
+
+・羽構造
+
+・発光器官
+
+・飛翔方法
+
+・変態過程
+
+・生態
+
+・能力
+
+━━━━━━━━━━━━━━━━━━
+幻想蝶完成図
+━━━━━━━━━━━━━━━━━━
+
+ページ中央に最も大きく掲載してください。
+
+キャラクターよりも大きく掲載してください。
+
+資料として
+
+・飛翔状態
+
+・羽を閉じた状態
+
+・羽を広げた状態
+
+を掲載してください。
+
+羽から
+
+・花びら
+
+・光粒子
+
+・蝶鱗の軌跡
+
+・魔法現象
+
+が発生していること。
+
+完成した幻想蝶がページの主役であること。
+
+━━━━━━━━━━━━━━━━━━
+生態資料
+━━━━━━━━━━━━━━━━━━
+
+掲載項目
+
+・卵
+
+・幼虫
+
+・蛹
+
+・成虫
+
+・羽標本
+
+・羽断面図
+
+・触角資料
+
+・生息地
+
+・食性
+
+・寿命
+
+・繁殖方法
+
+・伝承
+
+━━━━━━━━━━━━━━━━━━
+観察記録
+━━━━━━━━━━━━━━━━━━
+
+掲載項目
+
+・初発見記録
+
+・出現季節
+
+・活動時間
+
+・観察難易度
+
+・遭遇条件
+
+━━━━━━━━━━━━━━━━━━
+幻想効果
+━━━━━━━━━━━━━━━━━━
+
+幻想蝶が近くを飛んだ際に起こる
+
+優しく幻想的な現象を生成してください。
+
+━━━━━━━━━━━━━━━━━━
+蝶擬人化形態資料
+━━━━━━━━━━━━━━━━━━
+
+幻想蝶を人型へ変態させた
+
+『蝶擬人化形態』
+
+を生成してください。
+
+これは衣装ではありません。
+
+幻想蝶そのものが
+
+人型へ変態した姿です。
+
+キャラクター本人が着替えた姿ではなく、
+
+幻想蝶が人の姿を得た存在として設計してください。
+
+━━━━━━━━━━━━━━━━━━
+最重要ルール
+━━━━━━━━━━━━━━━━━━
+
+元衣装の再現は禁止です。
+
+元衣装の豪華化は禁止です。
+
+元衣装の服種継承は禁止です。
+
+元衣装の色彩継承は禁止です。
+
+元衣装のシルエット継承は禁止です。
+
+元衣装は外見認識資料としてのみ扱ってください。
+
+擬人化形態は
+
+幻想蝶80％
+
+キャラクター20％
+
+を基準にしてください。
+
+━━━━━━━━━━━━━━━━━━
+擬人化形態デザインルール
+━━━━━━━━━━━━━━━━━━
+
+以下を優先してください。
+
+・羽構造
+
+・発光器官
+
+・蝶鱗
+
+・触角
+
+・蛹構造
+
+・幼虫構造
+
+・生息地
+
+・幻想効果
+
+・伝承
+
+・蝶言葉
+
+キャラクターの服装ではなく、
+
+幻想蝶の生態や能力を人型デザインへ変換してください。
+
+━━━━━━━━━━━━━━━━━━
+擬人化形態カテゴリ
+━━━━━━━━━━━━━━━━━━
+
+以下のいずれかを自由に採用してください。
+
+・羽衣
+
+・精霊
+
+・妖精
+
+・神獣
+
+・月の使者
+
+・森の守護者
+
+・幻想生物
+
+・星の旅人
+
+・花の化身
+
+・夜の案内人
+
+必ずしも
+
+ドレス
+
+ロリータ
+
+チャイナ服
+
+和服
+
+制服
+
+である必要はありません。
+⬇️続く
+------------------------------------------------------------------------------
+masterpiece, best quality, ultra detailed, anime style, full body, handsome young man, silver-gray messy hair, pale skin, turning back over shoulder, confident gaze, Japanese punk fashion, oversized long black cardigan, layered streetwear, belts, straps, silver chains, fingerless gloves, combat boots, black charcoal gray and pale pink color palette, elaborate back embroidery, giant sakura blossom embroidery, drifting cherry blossom petals, silver-white and soft pink threads, elegant smoke embroidery, entire back covered with sakura and mist motifs, cardigan fluttering, moonlit urban alleyway, floating petals, drifting smoke, cinematic lighting, dramatic shadows, dark fantasy streetwear, ethereal atmosphere
+------------------------------------------------------------------------------
+masterpiece, best quality, ultra detailed, anime style, full body,
+
+handsome young man, silver-gray messy hair, pale skin, sharp features, turning back over shoulder, looking back at viewer, confident expression,
+
+black and electric blue punk fashion, oversized long cardigan, layered streetwear, belts, straps, silver chains, fingerless gloves, combat boots,
+
+giant blue rose embroidery covering the entire back, sapphire blue and silver threads, blooming blue roses, lightning motifs, crackling electric energy, metallic embroidery details, luminous blue accents,
+
+cardigan fluttering dramatically, blue electric sparks, floating blue rose petals, stormy urban night, neon blue lights, cinematic lighting, dramatic shadows, gothic punk aesthetic, elegant yet rebellious mood, dark fantasy street fashion
+------------------------------------------------------------------------------
+masterpiece, best quality, ultra detailed, anime style,
+
+handsome young man, full body, turning back over shoulder, looking back at viewer, confident expression,
+
+silver-gray messy hair, pale skin,
+
+black and crimson punk fashion, oversized long cardigan, layered streetwear, belts, straps, silver chains, fingerless gloves, combat boots,
+
+large flame chrysanthemum embroidery covering the entire back, fiery red, orange and gold threads, Japanese-inspired embroidery, glowing ember details,
+
+cardigan fluttering, burning petals, sparks, neon-lit urban night, cinematic lighting, dramatic shadows, focus on back embroidery
+------------------------------------------------------------------------------
+以附带的角色插图作为最重要基准使用，
+尽量忠实地保持原图中角色的面容、瞳孔印象、眼睛形状、发型、发色、前额刘海、轮廓、表情、年龄感、服装印象、配色、透明感、氛围、性格，以及角色特有的可爱·美丽·魅力，
+
+以“如果这个角色在不存在的匹配APP上注册了？”为主题，
+重新构建为原创的匹配APP自我介绍页面风格视觉。
+
+这不是对真实匹配APP画面的再现。
+请勿模仿Tinder、Pairs、with、Bumble 等真实APP的标志·UI·名称·配色·画面构成。
+纯粹作为“虚构的恋爱资料APP”来表现。
+
+图像内请勿放入“我的孩子”这个词。
+图像内文本，请作为角色名、资料名、诊断项目、简短自我介绍文、标签、状态等自然构成。
+
+--------------------------------
+【输入项目】
+
+角色名：【名字输入】
+英文表记：【未输入则自然自动生成】
+APP名：【未输入则自然自动生成】
+资料标题：【未输入则自然自动生成】
+匹配度：【未输入则在70〜99%的范围内自动生成】
+自我介绍文：【未输入则根据角色的氛围自动生成】
+图像比率：【4:5的纵长】
+年龄感：【作为成年女性自然表现】
+
+--------------------------------
+【最重要构图】
+
+将整个画面，
+构成为“显示在一台智能手机上的、匹配APP资料画面的截屏风格”。
+
+重要：
+此图像不是网站或PC画面或平板画面。
+不是横长的站点UI。
+也不是杂志的双页展开。
+也不是左右分割的LP风格布局。
+禁止在右侧独立放置大型信息面板的构成。
+
+必须，
+在4:5的纵长画布中
+“一台智能手机画面”自然地大比例收纳的构图。
+可以轻微加入智能手机本体的黑边或白边，
+或者像截取画面一样的截屏风格也可以，
+但要一眼看出是“智能手机APP画面”的外观。
+
+--------------------------------
+【智能手机UI构成】
+
+智能手机画面的上部，
+·状态栏（时间、电波、Wi-Fi、电池等）
+·返回按钮
+·APP名或标志
+·通知图标或菜单图标
+等，以自然智能手机APP般的尺寸配置。
+
+但是，请勿模仿真实APP的UI，
+而是做成原创的简洁可爱设计。
+
+画面中央〜上部，
+将角色的主要资料照片大比例显示。
+照片区域占据画面的大部分，
+让脸部和瞳孔看起来最具魅力。
+
+资料信息，
+作为从画面下部升起的半透明卡片，
+或重叠在照片上的玻璃形态风格卡片来配置。
+信息栏整理成“智能手机上可阅读的量”，
+不要塞得太满。
+
+画面下部，
+配置匹配APP风格的大型操作按钮。
+例如：
+·跳过
+·点赞
+·消息
+·收藏
+等。
+但是请勿直接模仿真实APP的操作UI。
+
+--------------------------------
+【角色的表现方式】
+
+角色，
+要そのまま活用原图的娇弱、透明感、明亮、柔软、清洁感。
+禁止变成他人。
+特别是忠实保持面容、瞳孔、头发、发色、前额刘海、表情的印象。
+
+角色要明确作为成年女性自然描绘。
+禁止过于幼稚的表现。
+
+姿势不要与原图完全相同，
+调整为作为资料照片自然显眼的姿势。
+例如，
+·稍微倾斜脖子
+·轻轻看向这边
+·触摸头发
+·手放在胸口附近
+·稍微拿着智能手机
+·柔和地回头
+等。
+
+表情，
+·面向初次见面时的温柔微笑
+·稍微害羞的笑容
+·透明感十足的平静表情
+·微微让人心跳的视线
+中的任一，以最适合原角色的形式选择。
+
+--------------------------------
+【背景·世界观】
+
+背景不要是纯白色。
+作为智能手机画面中的资料照片背景，
+设置与角色氛围相符的柔和美丽空间。
+
+推荐示例：
+·被花包围的明亮咖啡露台
+·雨后柔和的街角
+·淡光进入的室内
+·透明感十足的资料拍摄空间
+·温柔自然光的窗边
+·被花或绿包围的清爽空间
+
+整体氛围，
+重视清洁感 / 透明感 / 可爱 / 温柔 / 少许悸动。
+
+--------------------------------
+【资料信息】
+
+在智能手机画面自然收纳的范围内，
+将以下信息阅读友好地整理显示。
+
+显示推荐项目：
+·角色名
+·英文表记
+·自然传达成年年龄的年龄表记
+·匹配度
+·简短自我介绍
+·性格类型
+·回复速度
+·初次约会希望
+·喜欢的东西
+·不擅长的东西
+·攻略难度
+·恋爱倾向
+·对你的一句话
+
+但是，调整信息量不要太多，
+作为智能手机APP的资料画面自然可读的密度。
+
+--------------------------------
+【内容方向性】
+
+以下项目不是固定文，
+而是从原图角色的氛围、服装、颜色、表情、透明感、娇弱中
+自然自动生成最相符的内容。
+
+示例方向性：
+·性格类型：透明感女主角 / 温柔满点 / 治愈系 / 蓬松知性 等
+·回复速度：较快 / 细致 / 稍微思考后再回复 / 用温柔的文章回复 等
+·初次约会希望：能看到花的咖啡店 / 雨后的散步 / 安静的水族馆 / 公园咖啡 等
+·喜欢的东西：花 / 甜食 / 蓝天 / 音乐 / 可爱杂货 等
+·不擅长的东西：强烈的说话方式 / 被催促 / 粗糙的第一句话 / 大声响 等
+·攻略难度：★3〜★4程度
+·恋爱倾向：专一 / 重视安心感 / 想慢慢亲近 / 重视对话 等
+·对你的一句话：温柔、带点悸动的短文
+
+--------------------------------
+【文字规则】
+
+图像内文本以日文为中心。
+英文字母作为标题或辅助表记短く使用。
+
+例如：
+NOZOMU
+PROFILE
+MATCH 96%
+FIRST DATE
+MESSAGE
+等。
+
+文字数量不要太多，
+作为“智能手机可读UI”自然量控制。
+禁止文字乱码、意义不明的英文字母、崩坏的字符串。
+不要放入大量太小读不懂的文字。
+
+--------------------------------
+【设计风格】
+
+作为不存在的虚构APP的高品质UI，
+以以下方向性美丽总结。
+
+·透明感十足的粉彩色
+·淡蓝、白、微微粉红等的温柔配色
+·玻璃形态
+·柔和的渐变
+·圆润的卡片
+·小爱心或星星的装饰
+·优雅可爱的图标
+·时尚轻快的留白设计
+·SNS上让人想保存的清洁感设计
+
+不要做成廉价的恋爱APP风格，
+而是作为“可爱且完成度高的虚构资料UI”完成。
+
+--------------------------------
+【重要的表现点】
+
+一眼看去，
+“ちゃんと看起来像智能手机的匹配APP画面”
+“想读更多这个孩子的资料”
+“这个孩子是什么性格呢”
+“想用自己的角色也做个”
+要重视能让人这么想。
+
+不是单纯的说明资料，
+而是作为拉出色角色魅力的“匹配APP自我介绍页面风格视觉”成立。
+
+--------------------------------
+【禁止事项】
+
+·模仿真实匹配APP名、标志、UI
+·PC站点风格、网页风格、平板UI风格、杂志双页风格的构成
+·左右分割的大型信息面板构成
+·在右侧放置独立的大型说明栏的构图
+·图像内写“我的孩子”
+·变成他人
+·脸部或瞳孔印象的改动
+·暴露过多
+·下品恋爱表现
+·成人向表现
+·看起来像未成年的描绘
+·纯白背景的单调资料表
+·文字为主角角色变小的构图
+·没有APP感的poster化、LP化、介绍页面化
+
+--------------------------------
+【品质】
+
+高品质动画插图。
+美丽的智能手机UI设计。
+最优先美丽描绘角色的脸部和瞳孔。
+自然的指、手、自然的脖子、自然的肩膀、自然的身体平衡。
+重视透明感、娇弱、温柔、清洁感。
+作为智能手机APP画面自然，SNS上看的人想保存的完成度。
+4:5纵长。
+------------------------------------------------------------------------------
+traditional ninja outfit, matte black shinobi suit, fitted long-sleeve top, high wrapped collar, face mask covering lower face, sleeveless outer vest, crossed chest straps, fitted arm guards, fingerless gloves, wide waist sash, tied obi belt, layered waist panels, fitted trousers, tapered pant legs, shin wraps, lightweight stealth fabric, concealed weapon pouches, practical combat design, agile silhouette, classic Japanese ninja aesthetic, strict color placement, black fabric only, dark gray straps only, dark gray sash only, silver hardware only
+------------------------------------------------------------------------------
+パンダキョンシー水着
+ワンピースver.
+
+
+【衣装】
+gothic panda jiangshi swimsuit,
+gothic one-piece swimsuit
+black lace swimsuit,
+white fur panda accents,
+dark chinese talisman ribbons,
+
+
+panda-ear hood,
+large fluffy panda ears,
+panda face emblem,
+
+long detached sleeves,
+cross-laced side straps,
+moon and bell accessories,
+transparent gothic veil,
+mini panda plush charms,
+silver chain ornaments,
+high-cut swimsuit,
+dark frilled skirt layer,
+
+
+【（背景例）】
+dark fantasy atmosphere,
+purple moonlight,
+floating talisman papers,
+misty night,
+sparkling particles,
+cinematic lighting,
+simple dark background
+
+-----
+添付画像的角色本人を描いてください。
+
+角色的脸部特征、眼睛的形状和颜色、发型、发色、前额发型、表情氛围、体型、年龄感、种族特征、配饰、个性特征请勿更改。
+禁止将角色变成他人。
+请以与原图为同一人物为最优先考虑。
+仅将服装更改为以下内容。
+
+【服装概念】
+融合了熊猫与僵尸的哥特式奇幻风泳装。
+兼具可爱与妖艳的高级感设计。
+以黑白为主色调。
+
+【头部】
+带有大熊猫耳朵的连帽帽。
+白色连帽帽。
+黑色耳朵。
+额头中央贴有僵尸符纸。
+向后飘逸的半透明黑色面纱。
+熊猫玩偶装饰。
+黑色丝带。
+翡翠色叶饰。
+银色链条。
+
+【颈部】
+僵尸风立领。
+黑色丝带。
+小型骷髅吊饰。
+银色环。
+细链条装饰。
+
+【泳装主体】
+黑色漆皮材质。
+光泽的乳胶风。
+一件式泳装。
+胸口心形镂空。
+胸部中央的小黑色丝带。
+腰侧系带丝带。
+贴合身体的高级感轮廓。
+
+【袖子】
+露肩设计。
+可拆卸臂袖。
+白色褶边袖口。
+宽松袖型。
+熊猫玩偶状符纸饰品。
+长黑色丝带。
+
+【腰部】
+黑白双层褶边裙。
+熊猫吊饰。
+铃铛。
+银色链条。
+系带丝带。
+
+【背面】
+开放式后背。
+交叉肩带。
+黑色丝带。
+小型熊猫尾巴。
+半透明面纱。
+
+【材质】
+漆皮
+乳胶
+缎面
+雪纺
+褶边
+银饰
+
+【构图・背景・姿势】
+请根据添付画像角色的氛围和个性来构思构图。
+请自由决定能最突出パンダキョンシー服装魅力的姿势。
+背景请根据服装和角色自由设计。
+每次采用不同的构图、不同的背景、不同的姿势。
+请以最大限度展现服装魅力和角色魅力的方式为优先。
+请根据角色自由组合以下元素。
+・满月
+・星空
+・彼岸花
+・竹林
+・中式庭园
+・灯笼祭
+・水面
+・神社
+・梦幻花田
+・漂浮的符纸
+・鬼火
+・月光
+・古代中式建筑
+・空中庭园
+・夜间街景
+・云海
+・和风奇幻空间
+・中式幻想世界
+背景和姿势每次需带有随机性。
+避免相同的模式。
+请根据角色和服装判断最优解进行描绘。
+
+【重要】
+以原图角色本人为最优先。
+禁止将角色变成他人。
+
+-----
+添付画像のキャラクター本人を描いてください。
+
+最重要事項：
+添付画像の人物と同一人物であることを最優先してください。
+以下の要素は変更禁止です。
+・顔立ち
+・目の形
+・目の色
+・髪型
+・髪色
+・前髪
+・表情の雰囲気
+・年齢感
+・体格
+・種族的特徴
+・耳や角などの特徴
+・アクセサリー
+・キャラクター固有の個性
+別人化禁止。
+元画像のキャラクターのアイデンティティを維持したまま衣装のみ変更してください。
+
+【衣装】
+パンダ × キョンシーを融合した高級感のあるゴシックチャイナ風水着。
+色構成は
+・濃紺
+・ブラック
+・ホワイト
+・深紅
+・ゴールド
+を基調とする。
+
+【頭部】
+パンダ耳付きキョンシー帽。
+丸い黒パンダ耳。
+帽子中央にキョンシーのお札。
+パンダぬいぐるみ風チャーム。
+深紅のリボン。
+小さな金色の鈴。
+三つ編み飾り。
+チャイナ風装飾。
+
+【首元】
+キョンシー襟をアレンジしたチョーカー。
+深紅の結び紐。
+中央に金色の鈴。
+
+【水着トップ】
+濃紺サテン素材のビキニ。
+立体感のあるフリル。
+白い太めのフリルライン。
+胸中央に大きな深紅リボン。
+リボン中央に金色の鈴。
+チャイナ結びモチーフ。
+光沢感のある高級素材。
+
+【袖】
+取り外し式アームカバー。
+半透明シフォン素材。
+袖口フリル。
+金色チャイナ模様。
+鈴付き飾り。
+風になびく軽い布感。
+
+【水着ボトム】
+濃紺サテン素材。
+フリル付きローライズビキニ。
+フリル部分の白ラインは太め。
+両腰にリボン。
+パンダ顔チャーム。
+金色鈴。
+揺れる紐飾り。
+
+【背面】
+大きなリボン。
+長く垂れる帯飾り。
+パンダの丸い尻尾。
+チャイナ模様入り装飾布。
+
+【装飾】
+パンダ顔モチーフ。
+肉球モチーフ。
+キョンシー札。
+鈴。
+チャイナ結び。
+陰陽モチーフ。
+八卦モチーフ。
+
+【構図】
+キャラクターと衣装のテーマに最も似合うポーズを選択。
+衣装の魅力が最大限伝わる構図。
+全身または膝上までを優先。
+入力画像に応じてポーズを変化させる。
+
+【背景】
+パンダキョンシー衣装の世界観に合う背景を自由に生成。
+例：
+・中華ランタン祭り
+・月夜
+・竹林
+・中華庭園
+・幻想夜景
+・夏祭り
+・灯籠の並ぶ街並み
+・和中折衷ファンタジー空間
+背景は毎回変化してよい。
+
+【演出】
+風で髪やリボンがなびく。
+鈴や飾りが揺れる。
+光るランタン。
+月光。
+幻想的な空気感。
+高品質アニメイラスト。
+美しいライティング。
+衣装ディテール重視。
+キャラクター同一性重視。
+衣装再現度重視。
+
+------------------------------------------------------------------------------
+以附带的角色插图作为最重要标准，
+仔细解读原图中角色的脸型、瞳孔印象、眼睛形状、发型、发色、前额刘海、轮廓、表情、年龄感、服装印象、配色、透明感、氛围、性格，以及角色特有的可爱·美丽·魅力，
+
+请将其重新构建为
+“这个角色是从哪种水果中诞生的妖精的诊断结果视觉化”。
+
+这不仅仅是水果cosplay。
+也不是仅仅让角色穿上水果图案衣服的插图。
+也不是花之妖精插图。
+
+最重要概念是，
+从原角色的颜色·氛围·性格·透明感·瞳孔印象·服装主题出发，
+自动诊断出最适合这个孩子的“水果属性”，
+并将其可视化为从该水果的果肉·果汁·香气·果皮·叶子·断面·种子·光芒中诞生的、
+独一无二的水果妖精。
+
+角色名：【名字输入】
+图像内标题：【水果妖精诊断】
+英文副标题：【FRUIT FAIRY DIAGNOSIS】
+诊断水果：【未输入则从原图自动决定】
+妖精类型名：【未输入则从水果和角色特性自动生成】
+水果等级：【未输入则自动生成】
+简短文案：【未输入则自动生成】
+图像比例：【4:5的纵向长方形】
+
+【诊断规则】
+
+分析原图中的角色，并按照以下方式自动选择水果属性。
+诊断结果不固定。
+针对每个角色，改变水果、服装、翅膀、背景、UI、状态、数值、称号、文案、魔法效果。
+
+粉色·红色系、甜美、恋爱、可憨、王道可爱感强烈的 경우：
+草莓、樱桃、桃子、苹果、覆盆子
+
+淡色、透明感、转瞬即逝感、柔软、上品感强烈的 경우：
+白桃、麝香葡萄、荔枝、欧洲梨、白草莓、甜瓜
+
+黄色·橙色系、活力、明亮、太阳感、夏日感强烈的 경우：
+柠檬、橙子、蜜柑、芒果、菠萝、杏子
+
+青色·紫色系、神秘、夜晚、魔法、知性、酷炫印象强烈的 경우：
+蓝莓、葡萄、黑加仑、李子、黑莓
+
+绿色系、自然、治愈、清凉感、森林、植物感强烈的 경우：
+麝香葡萄、青苹果、奇异果、甜瓜、酸橙
+
+白色·银色·淡色系、清纯、雪、光、天使感强烈的 경우：
+白桃、荔枝、白草莓、欧洲梨、椰子
+
+黑色·红色·紫色·哥特·小恶魔感强烈的 경우：
+黑樱桃、黑加仑、黑莓、石榴、黑葡萄
+
+和风·上品·静谧美感强烈的 경우：
+柚子、梅子、桃子、柿子、日本梨、蜜柑
+
+【最重要：水果感的强化】
+
+诊断出的水果不是作为背景的小物件，而是作为画面整体的主角级主题来处理。
+即使不阅读文字，也要一眼看出这是哪种水果的妖精。
+
+必须强烈描绘诊断出的水果的以下元素。
+
+・大颗水果
+・切开的断面
+・果肉
+・果皮
+・果汁
+・水滴
+・叶子
+・种子
+・切片
+・香气的粒子
+・水果色的光芒
+・水果主题的配饰
+・水果主题的诊断UI
+
+花可以作为辅助使用，但不能让花成为主角。
+必须让水果·断面·果汁·叶子比花更突出。
+
+【水果别表现示例】
+
+草莓の場合：
+加入大颗草莓、草莓断面、红色果汁、颗粒状种子、白色花朵、绿色果梗、草莓形状的魔法粒子。
+服装加入红色和白色的甜美配色、草莓种子图案、果梗风丝带、果汁宝石。
+
+白桃·桃子の場合：
+加入大颗桃子、半剖断面、柔软果肉、中心红晕、桃色果皮、水润果汁、桃子叶子。
+服装加入桃皮渐变、果汁水滴型水钻、桃子切片的曲线、柔软果肉感。
+
+柠檬の場合：
+加入柠檬轮切、大颗柠檬切片、透明黄色果汁、柑橘果皮、白色花朵、清爽水花。
+服装加入柠檬黄色、白色、透明感、轮切图案、柑橘叶子。
+
+葡萄の場合：
+加入大串葡萄、宝石般的果粒、断面、紫色果汁、藤蔓、叶子、夜露。
+服装加入紫色渐变、果粒水钻、藤蔓装饰、夜晚果园的魔法感。
+
+麝香葡萄の場合：
+加入透明黄绿色果粒、大串、鲜嫩断面、淡色果汁、藤蔓、叶子、清凉光芒。
+服装加入黄绿色、白色、透明果冻感、果粒配饰。
+
+甜瓜の場合：
+加入大颗甜瓜、网纹图案、淡绿色果肉、甜瓜切片、果汁、叶子、顶级水果感。
+服装加入网纹图案、淡绿色渐变、王冠风配饰、高级感。
+
+樱桃の場合：
+加入双子红色果实、光泽圆润果实、茎、叶子、红色果汁、丝带般的曲线。
+服装加入红色丝带、圆润果实吊坠、小恶魔可爱氛围。
+
+蓝莓の場合：
+加入青紫色果实、断面、夜露、星屑、青紫果汁、幻想薄雾。
+服装加入青紫渐变、星粒、果实水钻、夜晚魔法感。
+
+奇异果の場合：
+加入奇异果轮切、绿色果肉、黑色种子、茶色果皮、清新果汁、叶子。
+服装加入绿色、白色、黑色种子图案、清爽且略带个性妖精感。
+
+石榴の場合：
+加入裂开的石榴、红色果粒、宝石般的果肉、深红果汁、神秘光芒。
+服装加入深红、金色、宝石感、略带成熟幻想感。
+
+【角色表现】
+
+以原图中角色的脸型、瞳孔、发型、发色、前额刘海、轮廓、表情、年龄感、氛围为最优先保持。
+禁止变成另一个人。
+脸和瞳孔是最重要的。
+不破坏原角色的可爱、美感、透明感、个性。
+
+服装自然变化为从诊断水果中诞生的妖精服装。
+但不做成单纯的水果套装。
+不做成廉价的伪装。
+不做成过度暴露。
+达到优雅可爱、官方诊断视觉般的完成度。
+
+在发饰、丝带、配饰、鞋子、袖子、裙子、翅膀、法杖、小物件中，自然融入诊断水果的元素。
+将水果的断面、果肉、果汁、果皮、叶子、种子、香气、光芒反映在设计中。
+
+【从水果中诞生的表现】
+
+将角色描绘为从诊断水果内部、水果断面的果汁光芒、水果形状的魔法阵、水果摇篮、果园中心诞生的妖精。
+
+推荐构图：
+・坐在巨大水果断面上
+・从果汁光芒中浮现
+・从水果摇篮中诞生
+・位于水果切片魔法阵的中心
+・手掌中浮起小颗水果或果汁水滴
+・周围舞动大颗水果、断面、叶子、水滴
+
+【妖精的翅膀】
+
+翅膀必须根据水果属性变化。
+不只是普通的透明翅膀。
+
+翅膀中结合诊断水果的断面、果皮、果汁、叶脉、种子、香气、光芒。
+翅膀从背部自然生长，与身体无违和感连接。
+左右翅膀的数量、角度、形状自然。
+翅膀不遮挡脸或瞳孔。
+
+【诊断卡片UI】
+
+在画面内加入官方诊断结果卡片般的UI。
+图像内的文字要易读、精简整理。
+不塞入长文。
+图像内不加入“我的孩子”这样的词语。
+
+加入元素：
+・水果妖精诊断
+・FRUIT FAIRY DIAGNOSIS
+・角色名
+・诊断结果的水果名
+・妖精类型名
+・水果等级
+・简短文案
+・状态栏
+
+诊断卡片根据诊断水果变化，例如半透明玻璃风、水果标签风、魔法图鉴风、官方档案卡片风等。
+
+【评论栏·状态栏的水果感】
+
+状态栏或评论栏中也加入诊断水果的小图标、果汁水滴、叶子、切片、种子、水果主题。
+仅看UI也能看出是什么水果。
+
+状态项目根据水果和角色氛围每次变化。
+
+例：
+甜度
+透明度
+香气
+闪耀度
+治愈度
+小恶魔度
+清凉感
+果汁魔力
+花瓣适应性
+祝福度
+夜露度
+太阳度
+蓬松度
+转瞬即逝感
+上品度
+
+数值不固定。
+78、86、91、94、97等自然拉开差距。
+不全部100。
+等级也不固定。
+A、S、SS、SSR、Royal、Secret等，根据角色变化。
+
+【画面构成】
+
+4:5的纵向长方形。
+中央大幅配置角色。
+脸和上半身清晰可见的构图。
+将角色作为画面主角，大幅魅力地描绘。
+
+周围配置诊断水果的世界观。
+背景不只是纯白色。
+果园、玻璃温室、水果神殿、甜点庭园、发光森林、夜晚果园、果汁湖泊、花与藤蔓拱门等，
+根据水果属性改变背景。
+
+左侧或右侧配置诊断结果卡片。
+平衡角色、水果、诊断UI。
+UI不遮挡脸。
+水果不过大压脸。
+文字不塞太多。
+
+【质感】
+
+高品质动画插图。
+透明感的美麗动画涂り。
+粗而干净的线条。
+柔和的光芒。
+果汁的闪耀。
+果肉的水润感。
+果皮的质感。
+宝石般的果实透明感。
+仿佛可见香气的淡薄粒子表现。
+达到仿佛不存在的官方角色诊断结果般的完成度。
+
+【可变元素】
+
+根据原图，必定变化以下内容。
+
+1. 诊断水果
+2. 妖精类型名
+3. 服装设计
+4. 翅膀形状
+5. 水果主题的表现方式
+6. 背景地点
+7. 诊断UI设计
+8. 状态项目
+9. 数值
+10. 等级
+11. 简短文案
+12. 魔法效果
+13. 花或叶子的种类
+14. 光芒颜色
+15. 角色的姿势
+
+即使是相同水果，也根据原角色的氛围改变表现。
+可爱孩子则甜美华丽。
+清纯孩子则淡雅透明。
+活力孩子则明亮活泼。
+神秘孩子则强化夜露和魔法感。
+成熟孩子则如高级水果广告般。
+小恶魔系则如黑樱桃或黑加仑般略带妖艳。
+
+【避免事项】
+
+禁止变成另一个人。
+禁止脸部崩坏。
+不大幅改变瞳孔印象。
+禁止水果套装。
+禁止单纯的水果图案连衣裙。
+不只是普通妖精服装。
+不过度偏向花之妖精。
+避免水果只成为小装饰。
+不做成水果感弱的画。
+禁止纯白背景。
+禁止文字塞满。
+禁止英文长文。
+图像内不写“我的孩子”。
+禁止过度暴露。
+禁止泳装风、内衣风、性感表现。
+禁止真实品牌、真实标志、现有作品风的固有名词。
+禁止手指崩坏。
+禁止翅膀数量崩坏。
+避免水果不明朗。
+
+【收尾】
+
+一眼就能看出，
+“这个孩子是这个水果的妖精啊”
+。
+
+同时，
+强烈传达“想试试自己的角色会变成什么水果”的诊断感。
+
+重视可爱度、诊断结果的有趣度、水果间的变化、官方卡片感、想在SNS分享的完成度。
+------------------------------------------------------------------------------
+提示：更改 Chat GPT 中的细节
+
+DUNKIN' — 燃料模式
+
+格式
+
+4:5 垂直高端 SMM 广告海报
+
+高端 3D 品牌体验
+
+Apple Vision Pro 界面美学
+Nothing 设计语言
+Stripe 产品营销精致感
+Dunkin 品牌标识
+
+超现实产品摄影
+高端 CGI
+奢华商业广告
+
+核心创意
+
+你的日子已进入燃料模式。
+Dunkin 咖啡被可视化为驱动生产力的中央控制界面。
+不是饮料。
+不是食品。
+一个指挥中心。
+
+主视觉构图
+
+整个海报设计成一个未来主义的高端操作系统仪表板。
+
+中心舞台：
+
+一个巨大的 Dunkin 冰咖啡，占据构图近 75%。
+咖啡从一个浮动的圆形 3D 界面环中浮现。
+
+这个环同时类似于：
+
+• 甜甜圈
+• 电源按钮
+• 数字仪表板
+
+3D UI 系统
+
+围绕主角杯子：
+浮动的半透明玻璃形态面板。
+高端深度层次。
+柔和阴影。
+物理精确反射。
+奢华工业设计。
+
+面板显示：
+
+能量等级
+100%
+
+专注模式
+激活
+
+早晨状态
+就绪
+
+咖啡因同步
+完成
+每个面板采用高端 3D 界面设计。
+圆角。
+微妙透明度。
+橙色和粉色辉光点缀。
+具有真实深度的浮动层。
+
+产品
+
+主角 Dunkin 冰咖啡。
+超高端饮料摄影。
+极端冷凝真实感。
+可见冰块折射。
+丰富的咖啡漩涡。
+完美的塑料纹理。
+奢华工作室反射。
+每个表面商业完美。
+甜甜圈系统
+仅两个甜甜圈。
+一个釉面。
+一个草莓糖霜。
+甜甜圈表现为高端 UI 对象。
+融入界面。
+不是随意浮动。
+仔细与网格系统对齐。
+
+背景
+
+极简。
+奶油色高端环境。
+巨大的橙色和粉色 3D 界面环。
+大面积柔和渐变。
+Apple 级克制。
+无多余元素。
+
+排版
+
+巨幅排版。
+
+融入构图。
+
+FUEL
+MODE
+
+排版部分隐藏在界面层后面。
+
+营造深度。
+
+感觉像是设计而非放置。
+
+辅助文案：
+
+COFFEE ON。
+GAME ON。
+
+行动号召：
+
+立即激活
+
+光照
+
+高端产品发布光照。
+柔和工作室照明。
+美丽的镜面高光。
+物理精确反射。
+奢华 CGI 真实感。
+Apple 主题演讲品质。
+
+颜色系统
+
+Dunkin 橙
+Dunkin 粉
+温暖奶油色
+咖啡棕
+柔和白色
+
+严格品牌专属。
+
+最终感觉
+
+看起来像是以下品牌的合作：
+
+Dunkin
+Apple
+Nothing
+Stripe
+
+一个世界级的快速消费品活动，使用高端 3D UI 设计语言。
+
+不是食品海报。
+
+不是咖啡广告。
+
+一个用于能量的品牌操作系统。
+
+Behance 精选。
+Awwwards 获奖。
+代理提案演示英雄视觉。
+戛纳品质商业设计。
+------------------------------------------------------------------------------
+coquette layered outfit, soft pastel pink camisole top, fitted camisole silhouette, thin shoulder straps, lace-trimmed neckline, sweetheart neckline, black satin ribbon bow at center chest, pearl button accents, soft knit fabric, pastel pink fabric only, dark gray bloomer shorts, extra puffy bloomer silhouette, exaggerated balloon shape, voluminous tiered bloomers, oversized gathered ruffles, double-tier ruffle construction, dark gray ruffle layers, wide white floral lace bands between tiers, scalloped lace edging, fluffy cupcake silhouette, expanded side volume, soft gathered leg openings, romantic coquette aesthetic, Japanese girly fashion, strict color placement, pastel pink camisole only, dark gray bloomers only, white lace only, black ribbon bow only, pearl buttons only, solid dark gray fabric, uniform dark gray color, clean color boundaries
+------------------------------------------------------------------------------
+请在姓名输入处输入姓名
+
+提示
+
+以附带的角色插图作为最重要的基准，
+尽可能忠实地保持原图中角色的脸型、瞳孔印象、眼睛形状、发型、发色、前额刘海、轮廓、表情、年龄感、体型、服装印象、配色、透明感、氛围，以及角色固有的可爱·美丽·魅力，
+
+请将其重构为
+“以在盛夏的美国西海岸路边，享受冰淇淋或冰激凌苏打的角色为主角的、
+不存在的官方复古流行·美国夏季广告系列的第○弹视觉”
+
+这不是单发插图，而是作为系列作品成立非常重要。
+因此，
+即使每次主题、店名或冰淇淋种类发生变化，
+也要赋予“同一企划系列的一张”这样的统一感。
+
+--------------------------------
+【输入项目】
+角色名：【姓名输入】
+英文表记：【任意输入／未输入则自然自动生成】
+系列名：【未输入则自动生成】
+第○弹表记：【任意输入／未输入则自然自动生成】
+店名：【任意输入／未输入则根据角色自动生成】
+招牌副文案：【任意输入／未输入则自动生成】
+本次冰淇淋·饮料名：【任意输入／未输入则自动生成】
+本次主题色：【任意输入／未输入则根据角色自动生成】
+图像比例：【4:5的纵长】
+--------------------------------
+
+【最重要概念】
+
+这个企划是，
+“针对每个角色，制作专属于那个孩子的美国路边冰淇淋广告的系列”。
+
+每次，
+·角色的颜色
+·瞳孔印象
+·性格
+·服装主题
+·甜度／清爽度／成熟度
+·透明感
+等进行解读，
+
+自动决定最适合那个孩子的
+·店名
+·店铺种类
+·冰淇淋或冰激凌苏打的口味
+·招牌设计
+·小物件
+·背景色
+·服装调整
+。
+
+但是，
+作为系列也需要共通感。
+因此每次，自然地包含以下共通元素。
+
+【系列共通元素】
+1. 盛夏的美国西海岸路边
+2. 强烈的日照、蓝天、棕榈树、干燥的空气感
+3. 复古的路边店铺
+4. 以角色为主角的广告视觉
+5. 大号的英文店名招牌
+6. “今日推荐”或“SPECIAL”类的小型标志
+7. 冰淇淋·冰激凌苏打·奶昔等冷饮甜点
+8. 美式复古夏季搭配
+9. 明亮、流行、略带成熟的氛围
+10. 作为美丽动画插图的完成度
+
+【作为系列的统一规则】
+·在图像的某处，小幅度加入显示系列共通企划感的元素
+  例：
+  “SUMMER SWEETS SERIES”
+  “ROADSIDE SWEETS”
+  “COASTAL ICE COLLECTION”
+  等
+·但是不要过于突出，让店名招牌或角色成为主角
+·每次布局不完全固定，
+  但“主角角色较大＋背景招牌＋小型菜单标志”的构成要共通化
+·角色不要变得太小
+·即使每次不同店·不同口味·不同颜色，也要让它看起来像是同一企划的连作
+
+【禁止事项】
+禁止原图的完全复制。
+禁止相同姿势、相同服装、相同店名、相同背景、相同构图、相同载具、相同冰淇淋表现的重复使用。
+红白条纹泳装风上衣、摩托车前倾、现有著名广告的再现等，
+禁止强烈联想到原作的直接模仿。
+禁止真实品牌、真实标志、现有作品名。
+
+【角色表现】
+请将角色明确描绘为成年女性。
+禁止看起来幼稚的脸型、学生风、看起来未成年的表现。
+以保持原图的可爱、美丽、脸型、瞳孔魅力、头发的流动、配色、氛围为最优先。
+禁止变成另一个人。
+表情要
+平衡地具备甜美·可爱·自信·些许性感·优雅
+。禁止过度性感·低俗·露骨的表现。
+限定在健康且作为时尚广告成立的大胆度。
+
+【服装】
+服装要
+活用原角色的印象，
+重构为美式复古夏季搭配。
+
+方向性的例子：
+·裁剪上衣
+·打结设计的上衣
+·牛仔短裤
+·高腰牛仔
+·带轻微荷叶边的抹胸上衣
+·格子或小花纹或樱桃图案的点缀
+·复古太阳镜
+·心形或星形配饰
+·手链
+·细腰带
+·厚底凉鞋或夏季靴子
+·西部风的小物件
+·路边餐厅风点缀
+
+但是，
+不要看起来太像泳装本身。
+不要只以暴露为主角。
+限定在“作为夏季广告视觉的自然大胆度”。
+不要损害原角色的气质或可爱。
+
+【冰淇淋·饮料设计】
+冰淇淋或饮料请针对每个角色每次变化。
+从发色、瞳色、服装印象、性格、整体氛围自动决定最适合的口味和外观。
+
+例：
+·淡粉色系 → 草莓奶油圣代
+·透明感的水蓝色系 → 蓝色奶油苏打冰激凌
+·明亮的橙色系 → 芒果奶昔
+·成熟的紫色系 → 蓝莓果冻冰激凌
+·清爽的绿色系 → 薄荷奶油奶昔
+·梦幻的白色系 → 香草珍珠冰激凌
+·可爱的红色系 → 樱桃奶油苏打
+·优雅的棕色系 → 焦糖麦芽奶昔
+·幻想的多色系 → 极光苏打冰激凌
+
+在冰淇淋或饮料中，
+适度添加
+·鲜奶油
+·樱桃
+·吸管
+·饼干
+·华夫饼
+·糖粒
+·酱汁
+·餐巾纸
+等，
+营造出广告般的华丽感。
+
+稍微软化的表现可接受。
+但是不要看起来脏乱。
+要可爱、干净、有拍摄广告般的质感。
+
+【店铺·招牌设计】
+背景的店铺请设置为虚构的美国路边店铺。
+每次根据角色改变店铺种类。
+
+例：
+·冰淇淋摊
+·苏打喷泉店
+·奶昔吧
+·甜甜圈店
+·甜点餐厅
+·海滨咖啡馆
+·加油站附设甜点摊
+·樱桃系甜点店
+·薄荷色调的奶油店
+·粉彩调的冰激凌摊
+
+店名用简短的英文，易读且大。
+字数保持简短，构成不易乱码。
+
+例：
+CHERRY DRIVE
+SUNNY SCOOPS
+SUGAR ROUTE
+COASTLINE CREAM
+LUCKY SHAKE
+MELT MOTEL
+ICE & RIDE
+BERRY BLISS
+SWEET HIGHWAY
+PALM PARLOR
+
+店名的下方或旁边可添加简短的副文案。
+例：
+SODA & SUNSHINE
+SHAKES • SUNDAES • SMILES
+COOL TREATS
+SWEET DAYS
+TASTE OF SUMMER
+ROADSIDE SWEETS
+
+此外，
+作为小型招牌或菜单标志
+自然配置
+“Today’s Special”
+“Berry Dream Float”
+“Cherry Cream Soda”
+“Stay Cool!”
+等，
+营造出广告的信息量。
+
+【背景】
+背景是盛夏的西海岸路边。
+根据角色取舍选择以下元素并加入。
+
+·强烈的蓝天
+·棕榈树
+·电线杆
+·远处的道路
+·干燥的柏油路
+·复古的遮阳篷
+·晒黑的墙壁
+·霓虹调的招牌
+·粉彩色的墙面
+·复古滑板车
+·老式敞篷车
+·皮卡车
+·小型停车场
+·海滨的空气感
+·远景的海或街景
+·热浪般的夏日感
+
+加入载具时作为道具处理。
+主角一定是角色。
+不要直接描摹原图或其他作品的构图。
+
+【构图】
+请将角色配置得较大。
+脸·瞳孔·上半身·冰淇淋或饮料要清楚可见。
+脸是主角，冰淇淋是其次突出的元素。
+背景招牌作为世界观补充配置在上部或远处。
+通过标志板或柜台等营造广告感。
+但是不要文字过多。
+
+姿势不要与原图相同。
+每次采用自然且新的姿势。
+
+例：
+·一只手抬起太阳镜，另一只手拿着冰激凌苏打
+·倚靠店柜展示奶昔
+·坐在长椅上拿着圣代
+·在滑板车旁回头拿着饮料
+·在窗边将饮料拿到脸附近微笑
+·在招牌下单手叉腰站立
+·即将轻触吸管的姿势
+·在菜单招牌旁做出介绍推荐的动作
+
+【人体】
+人体要自然。
+准确描绘颈部、肩膀、胸廓、胳膊、手腕、手指、腰部、腿部的连接。
+手指是自然的五指。
+拿着冰淇淋或玻璃杯的手要细致。
+禁止不自然的腰部后仰、过度胸部强调、畸形的手足。
+
+【画风·完成】
+动画风格
+高质量的美丽动画涂色
+透明感的肌肤
+瞳孔的闪耀
+夏季日照的高光
+略带胶片颗粒风
+复古流行的色彩
+美式复古广告的氛围
+可爱、甜美、清爽、夏日风、但略带成熟
+作为不存在的官方夏季宣传广告成立的完成度
+
+【作为系列每次变化的项目】
+·店名
+·招牌副文案
+·本次推荐商品名
+·主要口味
+·主题色
+·服装的图案或小物件
+·背景的车或滑板车种类
+·副标志的文言
+·姿势
+·氛围（清爽偏／甜美偏／活力偏／大人可爱偏）
+
+【作为系列每次维持的项目】
+·西海岸路边的世界观
+·夏季的强烈日照
+·复古流行的广告感
+·主角角色较大
+·店名招牌＋小型标志
+·冷饮甜点
+·动画美少女的透明感
+·“这个系列的一张”这样的统一感
+------------------------------------------------------------------------------
+【使い方】
+1.キャラクターの画像と下のプロンプトをChatGPTに貼り付ける
+2.完成( ´∀｀)bｸﾞｯ!
+
+===ここからプロンプト===
+
+参照画像のキャラクターを使用し、キャラクターの顔立ち・髪型・髪色・瞳・年齢感・体型・雰囲気・キャラクター性を維持したまま、一緒に観覧車に乗っているシーンを描いてください。
+
+シチュエーション
+
+場所は観覧車のゴンドラ内。
+構図は、キャラクターと一緒に観覧車に乗っている相手の視点（一人称視点・POV） で描写してください。
+こちら側の人物は基本的に画面内へ明確には描かず、必要であれば手や膝、肩などの一部だけを自然に入れ、「一緒に乗っている」ことが伝わる程度にしてください。
+
+キャラクターの服装
+
+キャラクターの服装は、画像を生成する時点の現在の季節に合った私服をAI側で考案してください。
+春なら春らしく、夏なら涼しげに、秋なら落ち着いた季節感で、冬なら防寒を意識した装いにするなど、生成時点の季節に自然に合ったコーディネートにしてください。
+そのうえで、参照画像から読み取れるキャラクターの印象・性格・雰囲気に基づき、そのキャラクターに最も似合う服装を提案・着用させてください。
+単なる無難な私服ではなく、**「このキャラクターならこういう服が似合う」**と感じられる、魅力的で自然なコーディネートにしてください。
+
+ゴンドラ内での行動
+
+キャラクターが観覧車内で何をしているかは、参照画像から読み取れる性格や空気感、距離感、しぐさの傾向を分析し、最も自然で魅力的な行動を選んで描写してください。
+たとえば以下のような候補がありますが、必ずしも固定せず、キャラクターに合うものを最適に選んでください。
+
+窓の外を座って眺めている
+立って景色を見ている
+こちらを見つめて微笑んでいる
+少し照れながらこちらの隣に座り直してくる
+ふと視線が合う
+楽しそうに会話している
+景色を見せようとして身を寄せてくる
+静かに同じ時間を楽しんでいる
+
+この行動は、キャラクターらしさを感じられること、不自然にならないことを最優先にしてください。
+
+雰囲気・演出
+
+観覧車の窓の外には、キャラクターやシーンに合った印象的な景色を描いてください。
+たとえば、街並み、夕景、夜景、海辺、遊園地の灯り、季節感のある空気などを適切に取り入れ、二人きりで観覧車に乗っている特別感が伝わるようにしてください。
+ゴンドラ内の光の入り方、窓への反射、距離感、静かな空気感なども丁寧に描写し、温かく魅力的な雰囲気にしてください。
+
+構図・カメラ
+
+視点はあくまで同乗者視点。
+キャラクターの表情、上半身、服装、ゴンドラ内の空間、そして窓の外の景色がバランスよく入る構図にしてください。
+斜め向かいの席、隣の席、少し近い距離感など、シーンに最適なカメラ位置を自然に選び、キャラクターと一緒に乗っている臨場感を大切にしてください。
+
+画風・品質
+
+高品質なアニメイラスト。
+自然で魅力的な表情、丁寧なライティング、繊細な背景描写、完成度の高い一枚絵にしてください。
+------------------------------------------------------------------------------
+(masterpiece, top quality, ultra-detailed, highres), 1girl, smile, beautiful face, looking at viewer, 
+(hydrangea themed avant-garde fashion), (hybrid of kimono and elegant dress), novel and unique design, asymmetrical outfit, 
+(outer layer of the dress is pastel light blue, inner lining and layers are soft pastel pink), fluttering frills, cascading ruffles, gorgeous obi sash, 
+(hydrangea hair ornament, hydrangea earrings, hydrangea bracelet), detailed jewelry, 
+(magnificent and beautiful background), breathtaking Japanese garden in rainy season, blooming colorful hydrangeas everywhere, traditional stone lanterns, elegant wooden bridge, soft glowing lights, misty and luxurious atmosphere,
+dramatic lighting, anime style, cinematic lighting, soft shadows, vibrant but sophisticated colors, 8k resolution, highly detailed eyes and fabric textures.
+------------------------------------------------------------------------------
+masterpiece, best quality, ultra-detailed, 1girl, solo, wearing an asymmetrical and eccentric hybrid costume of kimono and dress, outer layer of the outfit is light purple, inner lining and layers are light pink, detailed hydrangea-themed hair ornament, elegant hydrangea earrings, delicate hydrangea bracelet. Beautiful face yet with a touch of cute facial expression, smiling softly. Background is a gorgeous and stunningly beautiful garden matching the outfit, filled with vibrant hydrangeas, traditional lanterns, an elegant gazebo, glowing bokeh, luxury and ethereal atmosphere,
+dramatic lighting, anime style, cinematic lighting, soft shadows, vibrant but sophisticated colors, 8k resolution, highly detailed eyes and fabric textures.
+------------------------------------------------------------------------------
+(masterpiece, best quality, ultra-detailed), 1girl, beautiful and slightly cute facial expression, smiling gently,
+(hydrangea-themed avant-garde fashion), asymmetrical hybrid outfit combining traditional Japanese kimono and elegant western dress, one-shoulder sleeve, layered high-low skirt,
+(outfit exterior is vibrant deep red, outfit interior lining is soft light pink), luxurious gold embroidery with wave and floral patterns on the fabric,
+(hydrangea hair ornament with detailed petals, long dangling earrings, elegant beaded bracelet on wrist),
+(gorgeous and beautiful background), traditional Japanese garden at dusk, illuminated by glowing hanging paper lanterns, blooming purple and blue hydrangea bushes, stone lanterns, twilight sky, falling petals, cinematic lighting, magical atmosphere, rich colors, scannable composition,
+dramatic lighting, anime style, cinematic lighting, soft shadows, vibrant but sophisticated colors, 8k resolution, highly detailed eyes and fabric textures.
+------------------------------------------------------------------------------
+1girl, beautiful face, dynamic pose, hydrangea-themed hair ornament, elegant hydrangea earrings, delicate hydrangea bracelet, hybrid outfit of kimono and dress, avant-garde and highly asymmetrical design, white outer fabric, soft light pink inner lining, intricate lace and frills, layered skirt, luxurious and gorgeous background, full bloom hydrangeas everywhere, illuminated stone lanterns, glowing wooden gazebo, magical evening atmosphere, soft twilight, floating petals, masterpiece, ultra-detailed, highres,
+dramatic lighting, anime style, cinematic lighting, soft shadows, vibrant but sophisticated colors, 8k resolution, highly detailed eyes and fabric textures.
+------------------------------------------------------------------------------
+modern chinese menswear,
+asymmetrical botanical long coat,
+ink wash painting fashion,
+wearable sumi-e art,
+
+long draped coat,
+flowing asymmetrical hem,
+high side slit,
+translucent chiffon layers,
+
+white and pale lavender fabric,
+soft gray ink gradients,
+black botanical ink painting,
+wisteria motifs,
+mist patterns,
+painted silk aesthetic,
+
+high mandarin collar,
+china buttons,
+frog closures,
+black silk piping,
+
+wide flowing sleeves,
+decorative tassels,
+lavender and black tassels,
+silver chain ornaments,
+
+obi-inspired waist belt,
+black embroidered belt,
+jade ornament,
+silver filigree,
+
+layered black trousers,
+hakama-inspired pants,
+asymmetrical leg drape,
+
+black leather lace-up boots,
+floral embroidery boots,
+
+silver earrings,
+lavender crystal earrings,
+wisteria hair ornament,
+botanical brooch,
+
+poetic atmosphere,
+elegant fantasy menswear,
+luxury asian fashion,
+quiet noble aesthetic,
+dreamlike
+------------------------------------------------------------------------------
+asymmetrical botanical one-piece dress,
+wearable ink wash painting,
+sumi-e inspired couture,
+white and pale lavender chiffon fabric,
+soft gray ink gradients,
+black ink botanical patterns,
+purple flower ink painting motifs,
+peony and wisteria motifs,
+flowing branch silhouettes,
+
+chinese-inspired high collar,
+delicate china buttons,
+frog closures on chest and waist,
+decorative purple tassels,
+black tassel ornaments,
+silver filigree details,
+
+one shoulder asymmetrical design,
+one bare shoulder,
+one long flowing sheer sleeve,
+wide kimono-like sleeve,
+uneven layered hemline,
+high-low skirt,
+slit skirt design,
+layered translucent fabric,
+soft ruffles,
+elegant draped silhouette,
+
+lavender ribbon accents,
+purple gemstone ornaments,
+crystal bead chains,
+floral hair ornaments,
+tassel earrings,
+embroidered ankle boots,
+
+modern chinese fantasy fashion,
+botanical haute couture,
+poetic and elegant atmosphere,
+dreamy ink painting aesthetic
+------------------------------------------------------------------------------
+这张图片中的女性  
+生成图片为手写旅行手札的一页，记录了这位女性国内旅行的内容，并附有快照照片  
+旅行计划要设定为现实可行的内容  
+以女性的迷你角色形象来解说回忆  
+每个快照照片不得直接使用原图素材，需全新创作  
+每个快照照片的姿势要各不相同  
+每个快照照片的时间段、服装、场景、姿势要根据情节调整为最合适的内容  
+快照照片的风格要尽量与这张图片保持一致  
+尺寸设定为纵向3:4比例  
+每张照片都要细致入微地精心制作  
+最后检查图像是否没有破绽
+------------------------------------------------------------------------------
+뱀파이어인듯 아닌듯 (여자)
+
+beautiful vampire queen, (외형), elegant gothic black dress decorated with lace and crimson gemstones, black lace gloves, holding a crystal goblet, sitting gracefully in a luxurious gothic castle, candlelight and chandeliers glowing behind her, confident smile, noble beauty, romantic dark fantasy atmosphere
+
+thigh-up shot,
+from head to thighs visible,
+
+eye-level angle,
+portrait composition,
+focus on face,
+upper body emphasis,
+
+character card illustration,
+otome game CG,
+romance fantasy illustration,
+
+beautiful mature anime face,
+adult character,
+elegant facial features,
+highly detailed eyes,
+soft glossy lips,
+
+official game illustration,
+AAA game character design,
+luxury character artwork,
+korean webtoon aesthetics,
+
+masterpiece,
+ultra detailed,
+cinematic lighting,
+gothic fantasy masterpiece
+
+似是而非的吸血鬼（女性）
+
+美丽的吸血鬼女王，（外貌），优雅的哥特式黑色礼服，饰以蕾丝和深红色宝石，黑色蕾丝手套，手持水晶高脚杯，优雅地坐在豪华的哥特式城堡中，身后烛光和吊灯熠熠生辉，自信的微笑，高贵的美感，浪漫的黑暗幻想氛围
+
+大腿以上视角，
+从头部到大腿可见，
+
+齐眼高度视角，
+肖像构图，
+焦点在脸部，
+上半身强调，
+
+角色卡插图，
+乙女游戏CG，
+浪漫幻想插图，
+
+美丽成熟的动漫脸庞，
+成年角色，
+优雅的面部特征，
+高度详细的眼睛，
+柔软光泽的嘴唇，
+
+官方游戏插图，
+AAA游戏角色设计，
+奢华角色艺术作品，
+韩国网络漫画美学，
+
+杰作，
+超详细，
+电影般的灯光，
+哥特幻想杰作
+------------------------------------------------------------------------------
+【サイバーパンク夏服ガチャプロンプト】
+
+添付のキャラクター画像を元に、キャラクターを維持したまま、そのキャラクターに似合う「サイバーパンク世界観のおしゃれな夏服」を、全身コーディネートしてお洒落なデザインのキャラ三面図を作ってください。髪型やヘアアレンジは変更してもよい。
+元画像のファッションはそのキャラクターの好みのファッションと考えジャンルを考慮する。
+普段選ばない大胆な色使い、ビビットカラー、シルエット、多種多様なファッションジャンル（モード・クラシック・フォーマル・ポップ・ミリタリー・グランジ・民族・古着・原宿系ほか）、さらに奇抜で意外性のあるファッションを採用。 ボトムスは長い丈も出して欲しい。シアー・クリア素材・ホロ素材などのワンパターンを避ける。メカも積極的に採用。
+キャラクター固有の武器も設定し携帯する。
+
+【画面デザイン】
+
+特殊な小物には、「用途」「使い方」「機能」
+などの簡単な説明文も添える。
+
+全身が見えるキャラクター三面図（正面・側面・背面）形式で出力。
+全身三面図が一番メインなので大きく画面に入れて欲しい。
+アニメ制作やイラスト制作で使いやすいように。
+ファッション雑誌のようなお洒落なデザイン。
+
+小物を使ってるシーンや顔アップのシーンなど、この衣装で過ごしている日常カットを三つくらい入れる。その際各カットは違う角度・アップ構図・ロング構図と違いを持たせる。
+
+超高画質、8K、最高精細、
+文字が潰れない高解像度。
+デノイズ強め。
+細部まで描き込み。
+
+
+＊＊＊＊＊＊
+※参考　通常時キャラデータ
+
+＜任意で、ここにキャラの設定や、好きな色や服の好みなど入れたりすると、よりキャラらしいシートになります＞
+------------------------------------------------------------------------------
+masterpiece, best quality, ultra detailed, luxury couture dress, couture fashion design, PEARL AURORA, June birthstone theme, pearl couture gown,
+thousands of pearls, luminous white pearls, gray-blue pearls, mixed pearl sizes, irregular pearl placement, dense pearl embroidery, pearl-encrusted corset, cascading pearl beadwork, luxury craftsmanship,
+symmetrical bust design, elegant sweetheart neckline, fitted corset bodice, transparent illusion bodice, vertical pearl embroidery, gray-blue pearls decorating only the upper bust edge, random-sized blue pearls, delicate pearl detailing, subtle shell inspiration, crystal accents,
+transparent pearl sleeves, floating pearl chains, dangling pearl strands, open back, intricate pearl back jewelry, delicate pearl draping,
+large sculptural wave forms, organic flowing wave silhouette, soft flower-petal lamp inspired waves, curved wave structures, shell interior inspired layers, flowing wave edges, soft translucent aurora tulle, lightweight organza, delicate iridescent sheen, pearl-trimmed wave edges,
+short front skirt, ankle-length back skirt, high-low silhouette, back skirt ending above the ankles, no train, no floor-length, visible heels, visible legs, lightweight volume, elegant movement,
+one bare leg wrapped with spiral pearl jewelry from thigh to ankle, pearl garter chains, pearl-adorned high heels,
+elegant couture, romantic couture, designer gown, refined luxury, graceful silhouette, soft moonlit atmosphere, pearlescent glow, subtle shimmer, ethereal transparency, sophisticated beauty, premium fashion photography, soft focus, cinematic lighting
+
+杰作，品质卓越，细节极致，奢华高级定制礼服，高级时装设计，“珍珠极光”，六月生辰石主题，珍珠高级定制礼服，数千颗珍珠，晶莹剔透的白色珍珠，灰蓝色珍珠，大小不一的珍珠，珍珠错落有致的排列，密集的珍珠刺绣，珍珠镶嵌的紧身胸衣，层叠的珍珠串珠，精湛的工艺，对称的胸部设计，优雅的心形领口，贴身的紧身胸衣，透明薄纱胸衣，垂直珍珠刺绣，灰蓝色珍珠仅装饰上胸边缘，大小不一的蓝色珍珠，精致的珍珠细节，灵感源自贝壳，水晶点缀，透明珍珠袖子，飘逸的珍珠链，垂坠的珍珠串，露背设计，精美的珍珠背部饰品，精致的珍珠垂坠，大型雕塑般的波浪造型，流畅的有机波浪轮廓，灵感源自柔和花瓣灯的波浪，弧形波浪结构，灵感源自贝壳内部的层叠设计，流畅的波浪边缘，柔软半透明的极光薄纱，轻盈欧根纱，精致的虹彩光泽，珍珠镶边波浪形裙摆，前短后长裙，及踝后长裙，前短后长的廓形，后裙摆在脚踝上方，无拖尾，非及地长裙，露出高跟鞋，露出双腿，轻盈飘逸，优雅动感，一条裸露的腿从大腿到脚踝缠绕着螺旋状珍珠饰品，珍珠吊袜带，珍珠装饰高跟鞋，优雅高级定制，浪漫高级定制，设计师礼服，精致奢华，优美身形，柔和的月光氛围，珠光般的光泽，微妙的闪烁，空灵的透明感，精致之美，高端时尚摄影，柔焦，电影级灯光
+
+------------------------------------------------------------------------------
+女の子、髪色は銀の髪、瞳は青、うさ耳のヘッドドレスを付けている、ドレスの色は青と白と金。
+
+luxurious fantasy bunny princess dress,
+short front skirt,
+dramatic high-low silhouette,
+layered white lace skirt,
+multiple layers of translucent black organza,
+voluminous ruffled overskirt,
+flowing layered train,
+airy transparent fabric,
+off-shoulder neckline,
+elegant bodice,
+fitted black corset-inspired bodice,
+cinched waist,
+large satin waist ribbon,
+black rose ornaments,
+black gemstone brooch,
+crystal embellishments,
+pearl chains,
+star-shaped crystal charms,
+delicate floral lace embroidery,
+three-dimensional lace appliqués,
+luxury fantasy couture,
+long sheer puff sleeves,
+lace cuffs,
+ornate sleeve ribbons,
+white lace stockings,
+platform shoes,
+white enamel heels,
+crystal heels,
+ribbon shoe decorations,
+large back ribbon,
+flowing pearl chains,
+elegant fantasy atmosphere,
+white, black, silver color scheme,
+highly detailed,
+masterpiece,
+best quality.
+------------------------------------------------------------------------------
+女の子、銀の髪、青い目、19歳、ポーズは立っている。
+
+メインカラー：青
+セカンドカラー：白
+ジュエルカラー：銀
+
+luxurious fantasy bunny princess dress,
+short front skirt,
+dramatic high-low silhouette,
+layered white lace skirt,
+multiple layers of translucent [ACCENT COLOR] organza,
+voluminous ruffled overskirt,
+flowing layered train,
+airy transparent fabric,
+off-shoulder neckline,
+elegant bodice,
+fitted [DARK ACCENT COLOR] corset-inspired bodice,
+cinched waist,
+large satin waist ribbon,
+[ACCENT COLOR] rose ornaments,
+[GEM COLOR] gemstone brooch,
+crystal embellishments,
+pearl chains,
+star-shaped crystal charms,
+delicate floral lace embroidery,
+three-dimensional lace appliqués,
+luxury fantasy couture,
+long sheer puff sleeves,
+lace cuffs,
+ornate sleeve ribbons,
+white lace stockings,
+platform shoes,
+white enamel heels,
+crystal heels,
+ribbon shoe decorations,
+large back ribbon,
+flowing pearl chains,
+elegant fantasy atmosphere,
+white, [ACCENT COLOR], silver color scheme,
+highly detailed,
+masterpiece,
+best quality.
+
+アスペクト比2:3
+------------------------------------------------------------------------------
+exclusive original designer over-the-knee boots,
+luxury obsidian rose flame couture footwear,
+
+glossy black obsidian leather boots,
+deep ruby red crystal panels,
+rose-gold metallic accents,
+flame-shaped paneling,
+
+sleek over-the-knee silhouette,
+tall fitted shaft,
+pointed toe,
+slim high stiletto heel,
+slightly raised sole,
+
+dark red crystal side windows,
+flame-shaped leather overlays,
+rose thorn metallic straps,
+ruby crystal charms,
+black chain drapes,
+rose gemstone buckles,
+flame and heart-shaped ornaments,
+
+corset-lacing on the back,
+side zipper with ruby charm pull,
+fine red stitching,
+black lace trim,
+handcrafted couture finish,
+
+small Aina signature logo engraved in rose gold near the upper outer shaft,
+tiny AINA metal plaque near the ankle,
+
+obsidian black,
+deep ruby red,
+rose gold,
+smoky crystal,
+
+ultra detailed,
+masterpiece,
+best quality
+------------------------------------------------------------------------------
+exclusive original designer over-the-knee boots,
+luxury crystal rain cyber couture footwear,
+
+transparent smoky-gray crystal boots,
+clear vinyl and glass-like panels,
+silver chrome leather sections,
+wet-look reflective finish,
+raindrop crystal decorations,
+
+sleek over-the-knee silhouette,
+tall fitted shaft,
+pointed toe,
+slim high stiletto heel,
+transparent raised sole,
+
+clear side panels,
+silver corset-lacing on the back,
+thin chrome straps,
+raindrop charms,
+crystal chain drapes,
+star-shaped metal ornaments,
+silver buckle details,
+water droplet gemstone accents,
+
+blue and violet iridescent reflections,
+holographic edge highlights,
+fine silver stitching,
+premium couture craftsmanship,
+
+small Aina signature logo engraved in silver near the upper outer shaft,
+tiny AINA chrome plaque near the ankle,
+
+smoky transparent gray,
+mirror silver,
+crystal blue,
+violet aurora,
+clear glass,
+
+ultra detailed,
+masterpiece,
+best quality
+------------------------------------------------------------------------------
+exclusive original designer over-the-knee boots,
+luxury princess-gal couture footwear,
+
+ivory pearl leather boots,
+champagne-pink satin panels,
+transparent aurora side sections,
+glossy pearlescent finish,
+rose-gold metallic details,
+
+sleek over-the-knee silhouette,
+fitted tall shaft,
+pointed toe,
+slim high heel,
+
+ribbon accents near the ankle,
+small layered bows,
+rose crystal buckles,
+pearl chain drapes,
+heart-shaped crystal charms,
+star and rose ornaments,
+lace trim around the boot opening,
+
+chiffon ribbon straps,
+corset-lacing detail on the back,
+rose embroidery,
+fine gold stitching,
+handcrafted couture finish,
+
+small Aina signature logo embossed in rose gold near the upper outer shaft,
+
+ivory white,
+champagne pink,
+rose gold,
+pearl white,
+aurora crystal,
+
+ultra detailed,
+masterpiece,
+best quality
+------------------------------------------------------------------------------
+exclusive original designer knee-high boots,
+luxury statement footwear,
+special over-the-knee boots,
+
+glossy black leather,
+fitted over-the-knee silhouette,
+pointed toe,
+slim stiletto heel,
+decorative thigh-strap motif,
+gold chain details,
+small crystal charms,
+heart-shaped metal ornaments,
+inner side zipper,
+ornamental stitching,
+handcrafted couture finish,
+
+ultra detailed,
+masterpiece,
+best quality
+------------------------------------------------------------------------------
+フォトリアリスティックでありながら夢のような幻想的なダブル上半身肖像画、縦型エレガント構図、短編小説の表紙のような雰囲気、感情が主役のシネマティックマスターピース、超高精細、8K。
+
+左側（やや正面寄り）：添付画像のキャラクターに100%忠実。儚く優しい哀愁を帯びた表情、目元に深い寂しさと静かな希望が混じった切ない眼差し、淡い肌色、添付画像通りの髪型・髪の流れ・髪色・服装のディテールと質感を完全に再現。  
+左のキャラクターは「失ったもの」を象徴する【溶ける蜜の光】を左手で持つ。カラーパレット：ソフトピーチ、ラベンダーグレー、パールホワイト、フェードピンク。柔らかい溶けるような蜜の光、優しい粒子、淡いオーラ。
+
+右側（やや正面寄り）：添付画像と同じベースの顔立ちでありながら、静かな決意と強さを宿した鋭い眼差しの完全対比キャラクター。  
+右のキャラクターは「残ったもの」を象徴する【芽吹く緑の心臓】を右手で持つ。カラーパレット：エメラルド、グリーンゴールド、ターコイズ、ライトアイボリー。シャープな光線、輝くエッジ、力強い希望のエネルギー。
+
+二人は背中同士をぴったりと合わせ、肩・背中・腰回りが完全に重なり合う配置。首元から極端に強いダブルエクスポージャー効果、上半身全体を高度に半透明化・多重露光・多層オーバーレイ。輪郭が溶け合うほど自然に融合し、光・影・記憶・感情が深く貫き重なり合う詩的な超融合表現。髪と肌に柔らかな発光エッジ、幻想的な光粒子。
+
+劇的で温かみのあるシネマティックライティング。左側は柔らかく溶ける蜜の光、右側は芽吹くようなシャープな緑の光線、中央では二つの光が交差し「光の心臓」となって静かに融合。
+
+背景：絵本風の夢幻的な幻想風景。左側は優しい花畑、右側は雨上がりの瑞々しい森が優しく衝突し溶け合う。淡い星、柔らかな星雲、薄い霧。画面下部には広大で静かな湖面、鏡のような反射と優しい波紋。湖面には二人の姿が鮮明に映り込み、本体と完全に一致。
+
+全体に美しいグラデーションと光の対比、高コントラスト、ボリューメトリックライト、エーテリアルな雰囲気、余白のある情感豊かな構成。
+
+masterpiece, best quality, photorealistic, double exposure, multi exposure overlay, ethereal fusion, cinematic lighting, fantasy, emotional storytelling, reflective lake, picture book style, ultra detailed, 8K
+------------------------------------------------------------------------------
+フォトリアリスティックでありながら夢のような幻想的なダブル上半身肖像画、縦型エレガント構図 --ar 4:5 --stylize 650 --v 6 --q 2 --style raw
+
+左側（やや正面寄り）は添付画像のキャラクターに100%忠実：儚く優しい哀愁を帯びた表情、目元に深い寂しさと静かな希望が混じった切ない眼差し、淡い肌色、添付画像通りの髪型・髪の流れ・髪色・上半身の服装のディテールと質感まで完全に再現。左手に淡い朝光に透ける白い扇面（未完の朝景色が繊細に描かれた柔らかい扇）を持つ。
+
+右側（やや正面寄り）は同じベース容姿の完全対比キャラクター：同じ顔立ちでありながら、静かな決意と強さを宿した鋭い眼差し。右手に朝の冷気に凍てついた黒い鉄の屏風の骨（力強く冷たい鉄製の骨組み）を持つ。
+
+二人は背中同士をぴったりと合わせ、肩・背中・腰回りが完全に重なり合う配置。正面から頭頂から腰まで美しく収めたバランスの良い縦型構図。
+
+首の辺りから極端に強いダブルエクスポージャー効果を施し、上半身全体（特に首から下）を高度に半透明化・多重露光・多層オーバーレイさせ、二人の輪郭や境目が全くわからないほど自然に溶け込み、シームレスに融合。互いの身体の内部に相手の光・影・記憶が深く貫き重なり合う、詩的で情感豊かな超融合表現。
+
+髪と肌に柔らかい発光エッジとキラキラした光の粒子を優しく散らし、高コントラストで美しい質感を強調。
+
+左側：柔らかく優しい朝の光（淡い黄金色の輝き、ゆらぐ光の粒子、柔らかなオーラ）。  
+右側：冷たく力強い対比トーン（ディープインディゴ・クリムゾン・クールシルバー中心）、鋭く力強い朝の冷たい光（シャープな光線、輝くエッジ、集中したビーム）。
+
+劇的でありながら温かみのあるシネマティックライティング、完璧な解剖学的描写、超高詳細、8K。
+
+背景：全体の背景を美しい刺繍風に仕上げる。精緻な糸の質感、微かなステッチの凹凸、絹糸のような光沢とマットな糸のコントラストを活かした刺繍アートスタイル。左側は朝霧に包まれた優美な月見台を柔らかい金糸・白糸・淡い青糸で刺繍、右側は石舞台に朝光が刺す展示室を冷たい銀糸・黒糸・深紅糸で力強く刺繍。朝の扇面と屏風骨のテーマが優しく衝突し溶け合う夢幻的な刺繍の空。画面中央付近には二つの異なる光（柔らかい朝霧光と冷たい朝の鋭い光）が美しく交差し融合した壮大な光の象徴を金糸と銀糸で豪華に刺繍し、左右を詩的に繋ぐ。淡い星とグラデーションの星雲も細やかな刺繍糸で表現し、ソフトボケと淡い霧のような糸の重なりで深みを加える。
+
+画面下部は広大な静かな湖面を刺繍風に：精緻な水面の波紋を銀糸と白糸で繊細に刺し、水面に柔らかな揺らぎと美しい光の反射の歪みを刺繍の光沢で表現。湖に映る姿は上半身の本体と完全に同一：左側は添付画像キャラクターの儚い表情と白い扇面、右側は力強い対比キャラクターの決意の表情と黒い鉄の屏風骨、背中合わせの配置・角度・視線・髪の流れまで完全に一致。水面の波紋が微かに反射像を優しく揺らす。
+
+湖の周囲の風景も左右でテーマに合わせて対比的に刺繍：左側は朝霧の月見台と柔らかい朝の風景を優しい糸で、右側は石舞台と冷たい朝光の展示室風景をシャープな糸で。
+
+全体に美しいグラデーションと光の対比を施し、静かで心に沁みる幻想的なシネマティック・マスターピース。二人の対比が美しく調和しながら強い緊張感と詩情を生み出す。添付画像のキャラクターを忠実に再現。背景の刺繍質感がキャラクターのフォトリアリスティックな質感と美しいコントラストを生む。
+------------------------------------------------------------------------------
+フォトリアリスティックでありながら夢のような幻想的なダブル上半身肖像画、縦型エレガント構図。
+
+左側（やや正面寄り）は添付画像のキャラクターに完全に忠実：儚く優しい哀愁を帯びた表情、目元に深い寂しさと静かな希望が混じった切ない眼差し、淡い肌色、髪型・髪の流れ・髪色・上半身の服装のディテールと質感まで完全に再現。左手に溶けゆく蜜のような光の滴を持っている。
+
+右側（やや正面寄り）は同じベースの顔立ちの対比キャラクター：静かな決意と強さを宿した鋭い眼差し。右手に芽吹く新しい緑の心臓を持っている。
+
+二人は背中同士をぴったりと密着させ、肩・背中・腰が完全に重なり合う配置。首のあたりから強いダブルエクスポージャー効果をかけ、上半身全体を高度に半透明化・多重露光・多層オーバーレイさせ、二人の輪郭が自然に溶け合い、互いの光・影・記憶が深く貫き合う詩的な超融合表現。
+
+髪と肌には柔らかい発光エッジとキラキラした光の粒子を優しく散らし、高コントラストで美しい質感を強調。
+
+左側（甘く儚い恋）：ソフトピーチ・ラベンダーグレー・ウォームホワイトを中心とした甘く優しいトーン、柔らかく儚い恋の光（溶ける蜜のような淡い輝き、ゆらぐ光の粒子、温かなオーラ）。
+右側（痛みを超えた再生）：エメラルドグリーン・ゴールドアクセント・クールブルーを中心とした生命力あふれるトーン、力強く再生の光（新芽のようなシャープな輝き、黄金のエッジ、集中した緑のビーム）。
+
+劇的で温かみのあるシネマティックライティング、完璧な解剖学的描写、超高詳細、8Kクオリティ。
+
+背景は夢幻的な空で、左側は甘い春の花畑と柔らかな桃色の光、右側は雨上がりの新緑の森と鮮やかなエメラルドの光が優しく衝突し溶け合う。画面中央では二つの光が美しく交差・融合した壮大な光の渦が輝く。画面下部は広大な静かな湖面で、湖に映る二人の姿も完全に同一で、優しい波紋が反射を揺らす。
+
+湖の周囲の風景も左右で対比：左側は甘い春の花畑、右側は雨上がりの新緑の森。
+
+全体に美しいグラデーションと光の対比を施し、静かで心に沁みる幻想的なシネマティック・マスターピース。甘く儚い恋の優しさと、痛みを超えた再生の力強さが詩的に調和する雰囲気。
+------------------------------------------------------------------------------
+最高傑作、超フォトリアル、幻想的トリプル構成の縦型ポートレート、短編小説の表紙、感情が主役の静かな物語、見る人の記憶を呼び起こす作品、夢と現実が重なる世界、圧倒的没入感、シネマティック、超高精細、8K、masterpiece、best quality、emotional storytelling、ethereal atmosphere、volumetric light、award winning artwork
+
+━━━━━━━━━━━━━━━━━━
+左側：失ったもの
+━━━━━━━━━━━━━━━━━━
+
+添付画像の人物を100%忠実再現。
+
+顔立ち、髪型、髪色、服装、質感を完全一致。
+
+やや正面を向く。
+儚く優しい表情。
+悲しみの中に微かな温もりが残る眼差し。
+左手には
+
+「溶ける蜜の光」
+
+失われた時間や記憶が液体の光になって流れている。
+ダブルエクスポージャー内部には
+
+・読み返せなくなった手紙
+・雨のホーム
+・消えかけた街灯
+・忘れられた花束
+・遠ざかる季節
+
+が溶け込んでいる。
+
+色彩
+
+ソフトピーチ
+フェードピンク
+ラベンダーグレー
+パールホワイト
+ムーンゴールド
+柔らかな逆光
+淡い光粒子
+静かな余白
+
+━━━━━━━━━━━━━━━━━━
+右側：残ったもの
+━━━━━━━━━━━━━━━━━━
+
+同じ顔立ち。
+静かな強さ。
+穏やかな決意。
+右手には
+
+「芽吹く緑の心臓」
+光と植物でできた心臓。
+失われなかった希望の象徴。
+ダブルエクスポージャー内部には
+
+・花時計
+・再生する森
+・夜明けの小径
+・希望のランタン
+・新しく咲く花々
+
+が溶け込んでいる。
+
+色彩
+
+エメラルド
+ターコイズ
+グリーンゴールド
+ライトアイボリー
+シャンパンゴールド
+力強い光
+透明感のある発光
+未来へ向かう生命力
+
+━━━━━━━━━━━━━━━━━━
+中央：受容
+━━━━━━━━━━━━━━━━━━
+
+湖面の上に立つ小さな第三の女性。
+
+同一人物。
+穏やかな微笑み。
+全身が見える。
+左手に溶ける蜜の光。
+右手に芽吹く緑の心臓。
+失ったものと残ったもの。
+悲しみと希望。
+過去と未来。
+その両方を受け入れた存在。
+中央には巨大な
+
+「光の心臓」
+が優しく浮かぶ。
+心臓の内部には無数の花と光の蝶。
+世界全体へ暖かな光を放っている。
+
+━━━━━━━━━━━━━━━━━━
+人物同士の融合
+━━━━━━━━━━━━━━━━━━
+
+左右の女性は背中合わせ。
+肩、首、背中、腰が重なり合う。
+極めて強いダブルエクスポージャー。
+多重露光。
+多層オーバーレイ。
+輪郭が分からなくなるほど自然な融合。
+光と影。
+記憶と希望。
+喪失と再生。
+感情そのものが溶け合う。
+髪に発光エッジ。
+肌に繊細な光。
+幻想的な粒子。
+
+━━━━━━━━━━━━━━━━━━
+背景
+━━━━━━━━━━━━━━━━━━
+
+花畑と雨上がりの森。
+
+背景のみ強力な絵本風表現。
+
+Background style only
+Characters remain fully photorealistic
+No stylization on characters
+Strong separation between realistic characters and stylized background
+Photorealistic characters + storybook background
+
+巨大な絵本世界。
+紙の質感。
+柔らかな筆致。
+淡い水彩表現。
+優しい光。
+霧に包まれた森。
+光る花々。
+雨粒が残る草原。
+遠くに小さな時計塔。
+空には光の蝶。
+幻想的で温かな世界。
+人物が絶対的主役。
+背景は物語を支える存在。
+
+━━━━━━━━━━━━━━━━━━
+湖面
+━━━━━━━━━━━━━━━━━━
+
+広大で静かな湖。
+
+鏡面反射。
+
+優しい波紋。
+
+三人の姿が鮮明に映る。
+
+反射は本体と完全一致。
+
+━━━━━━━━━━━━━━━━━━
+テーマ
+━━━━━━━━━━━━━━━━━━
+
+失ったもの
+
+残ったもの
+
+記憶
+時間
+再生
+受容
+希望
+
+ノスタルジー
+静かな救済
+優しい光
+物語の余韻
+見た瞬間に短編小説が始まる一枚
+
+triple composition,
+extreme double exposure,
+multi exposure overlay,
+photorealistic characters,
+storybook fantasy background,
+reflective lake,
+light heart,
+emotional masterpiece,
+short novel cover,
+visual poetry,
+cinematic realism
+
+アスペクト比9:16
+------------------------------------------------------------------------------
+vertical masterpiece portrait, cinematic short novel cover, emotional visual storytelling, photorealistic character, fantasy realism, ethereal atmosphere, volumetric light, ultra detailed, 8k
+
+トリプル構成。
+
+左：失われたもの
+儚く切ない表情。
+手には咲けなかった花。
+強いダブルエクスポージャー。
+古い温室、曇りガラス、止まった時計、雨の小径、忘れられた記憶。
+
+右：取り戻したもの
+穏やかな希望に満ちた表情。
+手には再び咲いた光の花。
+強いダブルエクスポージャー。
+光の温室、朝露の花々、動き出した時計、新芽、夜明けの光、未来への道。
+
+中央：受容
+小さな人物が湖面に立つ。
+左手に咲けなかった花、右手に再び咲いた花。
+背後には巨大な光の樹。
+光の花、蝶、時計が舞う。
+
+左右の人物は背中合わせに自然融合。
+輪郭が溶け合う extreme double exposure, multi exposure overlay。
+
+背景は幻想的なガラス温室アート。
+人物は完全フォトリアル。
+広大な鏡面湖が全てを映し出す。
+
+テーマ：
+喪失、再生、希望、時間、受容、ノスタルジー、静かな救済。
+
+photorealistic characters, glass greenhouse fantasy background, tree of light, reflective lake, emotional masterpiece, visual poetry, dreamlike reality
+
+--ar 9:16
+------------------------------------------------------------------------------
+フォトリアリスティックでありながら夢のような幻想的なダブル上半身肖像画、縦型エレガント構図、極めて高い芸術性。
+
+左側（やや正面寄り）は添付画像のキャラクターに100%忠実：儚く優しい哀愁を帯びた表情、目元に深い寂しさと静かな希望が混じった切ない眼差し、淡い肌色、添付画像通りの髪型・髪の流れ・髪色・上半身の服装のディテールと質感まで完全に再現。左手に雨粒（儚さを象徴する透明で輝く雨滴のモチーフ）を持つ。
+
+右側（やや正面寄り）は同じベース容姿の完全対比キャラクター：同じ顔立ちでありながら静かな決意と強さを宿した鋭い眼差し、右手に虹の欠片（強さと希望を象徴する輝く多色ガラスの破片モチーフ）を持つ。
+
+二人は背中同士をぴったりと合わせ、肩・背中・腰回りが完全に重なり合う配置。首元から極端に強いダブルエクスポージャー効果で上半身全体を高度に半透明化・多重露光・多層オーバーレイ。輪郭や境界が溶け合うほど自然に融合し、互いの光・影・記憶・感情が深く貫き重なり合う詩的な超融合表現。髪と肌には柔らかな発光エッジ、幻想的な光粒子。
+
+左側テーマ：雨粒の光。柔らかい粒子、淡い輝き、優しいオーラ。
+右側テーマ：虹の欠片の光。シャープな光線、輝くエッジ、力強いビーム。
+
+左カラー：ブルーグレー、シルバーミスト、ペールブルー、ラベンダー
+右カラー：レインボーパステル、シャンパンホワイト、ゴールド、ピンクオレンジ
+中央：光の虹が優しく交差し溶け合う
+
+背景：雨雲の丘（左側）と晴れた草原（右側）が優しく衝突し溶け合う夢幻的な空。左側に雨雲と雨粒の幻想風景、右側に晴れた草原と虹の風景、中央で二つの世界が融合。淡い星、柔らかな星雲、薄い霧。画面下部に広大で静かな湖面、鏡のような反射と優しい波紋で二人の姿が鮮明に映り込む。
+
+【背景のみを明確にフェルトアート風に指定】：背景全体を厚手のフェルト生地を使った手作りフェルトアートスタイルで表現。柔らかいフェルトの質感、フェルトの繊維が見えるテクスチャ、フェルトパッチワークのような温かみのあるレイヤード感、フェルトの柔らかな毛羽立ちとマットな仕上がり、フェルトコラージュ風の芸術的タッチを非常に強く適用。背景の風景・空・湖面・光の効果まですべてフェルトアート風の素材感で描かれる。
+
+人物本体は完全にフォトリアリスティックでリアルな肌・髪・服装の質感を維持し、背景のフェルトアート風テクスチャとは明確に区別される。
+
+全体に美しいグラデーションと光の対比、高コントラスト、超高精細、8K。劇的で温かみのあるシネマティックライティング、ボリューメトリックライト、エーテリアルアトモスフィア。
+
+短編小説の表紙のような雰囲気。感情が主役で物語を想像させる余白。
+
+masterpiece, best quality, photorealistic, double exposure, cinematic lighting, ultra detailed, fantasy, emotional storytelling, reflective lake, volumetric light, ethereal atmosphere, felt art style background only, strong felt texture background, felt fabric collage background, rainbow after rain
+------------------------------------------------------------------------------
+direction:
+overall_tone: 老旧本地巴士车厢内，被傍晚的阳光包围拍摄的真实SNS照片风
+capture_reason: 旅行归来的移动途中，窗边的光线很美所以为发给朋友而拍的随意快照（日常快照）
+style: smartphone photo（智能手机照片）, candid photo（自然瞬间的照片）, compressed SNS image feel（SNS压缩感）
+genre: 充满生活感的移动中肖像
+restriction: 成年女性，不模仿特定人物，避免露骨的胸部强调・写真集感・广告感
+
+mood:
+傍晚的巴士车厢内，略带睡意且安静的氛围，旅行归来的疲惫与自然上妆的感觉混杂的SNS照片
+
+model:
+20多岁以上的原创成年女性，自然体型，像是真实存在于SNS中的氛围
+F罩杯相当的上半身体积存在，但不夸张地强调，通过服装的轮廓低调传达
+
+face:
+柔和的眼部，略带迷糊的表情，移动中放松的目光
+不太强烈地意识到相机，窗光在眼部自然形成高光
+
+hair:
+黑长直发，有刘海，巴士的晃动和窗边风让发梢略微凌乱
+一侧头发被夕阳照射，细发微微透光
+
+body:
+深深坐入座位的自然姿势
+上半身略微向后靠，背心布料因重力自然下垂
+F罩杯相当的胸部，不是explicit cleavage emphasis（露骨的乳沟强调），而是通过fabric drape（布料垂感）和gravity-shaped silhouette（重力形成的自然轮廓）来表现
+由于seated posture（坐姿），上半身布料产生轻微的tension（张力）和compression folds（压缩褶皱）
+腿部靠近智能手机，因此以foreground perspective（前景透视感）略微放大，但不以身体部位为主角
+
+skin:
+不过度光滑的自然肌肤
+夕阳的白飛び让手臂或肩膀部分明亮飞白
+智能手机HDR带来的自然明暗对比，避免AI式的塑料皮肤
+
+outfit:
+白色或浅米色的细肩带罗纹背心
+细肩带自然搭在肩上，夕阳照射锁骨周围
+胸口不过度敞开，在日常时尚的范围内成立
+背心贴合身体，但不过度性感，通过布料的张力・垂感・阴影自然呈现上半身轮廓
+膝上长度的休闲裙子，在一侧肩膀或膝盖处披着薄外套
+
+accessories:
+小耳环，细项链，膝盖处放着的托特包，座位旁略微可见的智能手机挂绳
+
+scene_objects:
+老旧的蓝色巴士座位，窗框，手扶杆，天花板的老旧指示牌，略微泛黄的内饰，从窗户射入的强烈西晒
+
+pose:
+深深坐在巴士座位上，一手低位拿着智能手机
+另一手轻轻按住外套或包
+巴士的晃动让身体略微倾斜，不是完美的模特姿势，而是移动中的自然姿态
+不是挺胸，而是靠在靠背的结果，让背心布料自然产生张力
+
+lighting:
+傍晚的低位阳光从窗户斜射进来
+脸的一侧、头发、肩膀、背心布料的褶皱带有暖色高光
+白色的背心部分轻微白飛び，车厢内的阴影略浓
+
+effect:
+natural smartphone HDR（智能手机HDR）
+slight motion blur（轻微动体模糊）
+slightly soft focus（略微柔焦）
+warm lens flare（暖色镜头光晕）
+compressed SNS image feel（SNS压缩感）
+subtle overexposed highlights（低调的白飛び）
+
+camera:
+front camera selfie（前置摄像头自拍）或朋友从低位用智能手机拍摄的照片
+由于wide-angle distortion（广角失真），近处的腿和座位略微放大
+脸、上半身、车厢内的窗光同时进入的纵向构图
+像是将智能手机置于膝盖稍上方拍摄的低角度
+
+imperfections:
+略微倾斜的构图
+近处的腿和座位轻微失焦
+窗边的白飛び
+脸部对焦略微柔和
+背心的白色在HDR中略微压黑
+车厢指示牌被不完全裁切
+
+background:
+本地巴士的老旧车厢，蓝色座位，泛黄的天花板，窗外因太亮而景色几乎飞白
+带有旅游归来的生活感，不像是摄影棚拍摄
+
+atmosphere:
+旅行归来，睡意，午后晚些的光线，巴士的晃动，安静的车厢，像是直接投稿到SNS的偶然感
+
+composition:
+从近处的座位和腿部，到背心布料的褶皱、脸部、窗光，视线流动的对角线构图
+不只是裁切胸部，而是同时传达脸・表情・车厢・拍摄理由
+保留amateur composition（业余构图），不做成完美的写真集照片
+------------------------------------------------------------------------------
+【提示】
+
+使用附加的角色图像作为设计参考。
+保持发型、面容、瞳色、服装设计，以确保能被识别为同一人物。
+画风为手绘墨水表现与数字上色融合的时尚漫画·动画插图。
+轮廓线采用类似毛笔或G笔的强劲墨线描绘，保留自然的强弱变化和精致的手绘感。
+线稿整理清晰，注重可视性和完成度。
+
+【此处为场景或构图指示】
+
+（例）
+· 构图参照参考插图
+· 构图注重动感与设计性，根据场景运用远近感和摄影机角度
+颜色数量有意限制。
+
+使用颜色为
+（例）
+· 白
+· 黑
+· 淡肌色
+· 灰青色
+· 薄青白色的发光表现
+等少数颜色为中心。
+强调色或发光色可根据角色或作品世界的主题进行调整。
+避免鲜艳的多色表现或彩虹色配色。
+呈现出类似单色插图局部施以数字上色的效果。
+阴影以黑填充和简约的赛璐璐上色为主，不进行厚涂或写实渲染。
+大胆利用空白或白底的图形化画面构成。
+效果或装饰需反映世界观或主题，同时整理配置以保持画面整洁。
+达到商业动画关键视觉、漫画彩色扉页、单行本封面插图、艺术书用全新绘制的插图般的完成度。
+兼顾精致的设计性和动感。
+强调限定调色盘的图形化表现。
+确立为高品质的完成插图。
+虽以线稿为主导，但排除粗糙或未完成感。
+保留墨线的气势，同时整体呈现干净且时尚的完成效果。
+达到完成商业作品艺术作品般的品质。
+
+-----
+这里放上简单的构图示例和调色板替换示例
+
+【构图例①：动作场景】
+
+使用极端透视、强烈的远近感、大胆的低角度仰视构图、速度线、流线、冲击线来捕捉一瞬间的动作。
+
+【构图例②：英雄海报】
+
+从低相机角度仰视的构图。随风飘扬的头发或服装。在背景中大きく配置象征性主题，营造出作品海报般存在感。
+
+【构图例③：角色介绍视觉】
+
+将角色配置在画面中央，在周围展开象征能力或主题的效果或物体。以设计性为重的构图。
+
+【调色板例】
+
+■ 青系
+白・黑・淡肌色・青灰色・青白色的发光
+
+■ 赤系
+白・黑・淡肌色・深红・赤橙色的发光
+
+■ 绿系
+白・黑・淡肌色・深绿・黄绿色的发光
+
+■ 紫系
+白・黑・淡肌色・紫灰色・紫色的发光
+
+■ 金色系
+白・黑・淡肌色・暗金色・琥珀色的发光
+
+根据角色的属性或世界观选择accent color，通过限制色数，能营造出更具统一感的印象深刻视觉
+------------------------------------------------------------------------------
+超现实的 2026 年 FIFA 世界杯宣传海报，描绘一位英俊的年轻男足球运动员自信地坐在体育场草坪上，庆祝冠军时刻。这位男孩有着浓密的黑发、锐利的面部轮廓、富有表现力的深色眼睛，以及健美的体格。他身穿德国国家足球队主场球衣，球衣号码 10，白色的短裤、长白袜，以及专业的足球靴。
+
+他随意地坐在灯火通明的球场上，一膝抬起，面前放置着一个 FIFA 比赛用球。在他身后耸立着一个巨大的金色 FIFA 世界杯奖杯，以及一个巨大的发光体育场屏幕，显示“FIFA 2026 WORLD CUP”。数千名球迷挤满竞技场，挥舞着德国国旗，而金色彩纸从上方如雨般洒落。
+
+史诗般的冠军氛围、戏剧性的体育场泛光灯、闪亮的草坪反光、电影般的景深、逼真的观众细节、奢华的体育广告风格、超详细的足球制服纹理、动态构图、鲜艳的色彩、专业体育摄影、锐利焦点、体积光照、照片级真实皮肤、8K UHD、屡获殊荣的体育海报、FIFA 宣传活动美学。
+
+负面提示：
+模糊、低分辨率、多余肢体、多余手指、畸形身体、糟糕解剖、裁剪、水印、文字伪影、重复人物、不现实的脸、扭曲的足球、糟糕光照、过饱和色彩、低质量、卡通、CGI、噪点、运动模糊
+------------------------------------------------------------------------------
+masterpiece, best quality, ultra detailed, hires, 4K,
+
+camellia flower themed elegant fantasy outfit, original anime fashion costume, refined floral dress design, deep crimson red, ivory white, soft pink, dark glossy green, black and subtle gold color palette, graceful and luxurious silhouette, clean anime fantasy fashion design,
+
+fitted ivory and crimson bodice with rounded camellia petal shaped bust design, elegant low neckline, red corset-like waist structure, black and gold trim, delicate gold botanical ornaments, camellia flower brooch at the center of the chest, small red and white floral decorations, refined feminine impression,
+
+layered short skirt inspired by overlapping camellia petals, deep red ruffled petal layers, ivory inner frills, asymmetrical hip drapes, long flowing kimono-like side panels, white outer fabric with red camellia floral prints, dark green and black inner lining resembling glossy camellia leaves, gold edging,
+
+large flowing sleeves and cape-like back drapes, soft ivory translucent fabric, crimson underside, elegant gold borders, subtle camellia embroidery, petal-like fabric movement, luxurious but readable silhouette,
+
+waist accessories with gold chains, tassels, red ribbons, small camellia ornaments, glossy leaf-shaped decorations, floral charms hanging from the belt, elegant Japanese fantasy atmosphere,
+
+large red camellia hair ornament with dark green leaves, gold tassels, red ribbons, small dangling ornaments, matching camellia flower accessories on shoulders and hips,
+
+long black gloves with gold trim, delicate floral wrist ornaments, thigh flower garter with gold chain and red camellia charm, black high-heeled sandals with ankle straps, red flower decorations and gold accents,
+
+smooth glossy fabric, clean cel shading, elegant floral motifs, refined luxury, graceful fantasy costume, no heavy armor, no modern casual clothing, no rough texture, no excessive noise
+------------------------------------------------------------------------------
+【参照画像のキャラクターを完全維持】
+元画像のキャラクターの顔立ち、瞳、髪色、年齢感、体格、キャラクター固有の魅力と雰囲気を絶対に崩さない、別人化禁止、元画像準拠、高いキャラクター再現度、実在の人物名、企業名などは記載しない、声優は記載しない
+
+食材：○○○○
+
+衣装、アクセサリー、ネイル、ヘアアレンジ、ファッション小物、背景、シチュエーション、ポーズ、アングル、エフェクトは、指定した食材をファッショナブルにデフォルメしたトータルデザインを行ってください
+背景には、食材の文化的（国など）な情報も含めてください
+食材そのものの形状はイラストに反映しないこと
+文字情報はイラストに反映しないこと
+
+====
+※○○○○に、食材または料理名の名前を入れてください
+------------------------------------------------------------------------------
+【我的角色四字成语生成器】
+
+【角色名】：
+※未填写也可
+
+使用参考图像中的角色，保持角色设计和画风不变，制作以「我的角色四字成语」为主题的海报式关键视觉。让角色作为主角以较大尺寸呈现，同时作为立绘用途也易于使用，制作出一张完成度高的作品。
+
+不要直接描摹或复制参考图像，而是改变表情、视线、手势、姿势、身体扭转、重心、头发、披风或袖子的流动方式，创作出能更好地传达角色魅力的全新插图。但不要变成另一个人，要保持脸型、发型、发色、眼色、体型、服装、配色、耳朵、角、羽毛、尾巴等固有特征。线条、上色、触感、质感、阴影处理也要与参考图像保持同系列风格，不要改变画风的调性。
+
+四字成语不是用户输入，而是AI根据参考图像的外貌、表情、眼神、氛围、服装、配色、主题、整体印象来判断选择。使用的四字成语必须是实际存在的、收录于广辞苑中的词汇。禁止创作四字成语、成语风格的造词、误用、存在确认模糊的词语。最优先确保字典上的正确性，在此基础上选择最适合角色的词汇，象征其魅力、个性、本质、异名感。优先选择不易太难解的词语，让观看者产生兴趣、易于记忆，并能引发学习兴趣的词汇。
+
+画面中需包含①四字成语本体以醒目的大尺寸配置，②附近用平假名标注读音，③附上简短易懂的一句释义。读音和释义必须准确对应，禁止误读、误释或无关解释。释义不是字典的长文，而是用小学生到成人直观易懂的平易表达。日文文本要无错别字、美观易读，并作为学习元素具备可靠性。如果输入了【角色名】，可在四字成语附近小字标注。
+
+背景不是地点或风景，而是与角色相配的色彩风格化设计背景。使用斜条纹、色块、细线、圆形图案、纹章、几何纹样、白底英文字等，营造海报式的精致感。英文字由AI选择与四字成语或角色印象相符的词，低透明度融入背景。背景不要太华丽，不要干扰角色和四字成语。
+
+构图采用全身或膝上能突出魅力的纵向构图。设计文字和人物不重叠的留白空间，四字成语可纵排或横排，以视觉识别性为最优先。让四字成语看起来像是该角色的称号、本质、宣传标语，在SNS上吸睛，让观看者自然记住释义，制作出一张酷炫且能学习的单张作品。
+四字成语不是单纯的装饰，而是作为一言概括该角色的招牌宣传语来处理。姿势、表情、视线、背景色、英文字、释义说明全部统一指向相同印象。不要像教育海报那样过于严肃，以角色作品的酷炫、可爱、美感为优先，同时自然传达释义的设计。
+背景的装饰文字或英文字不要比四字成语更突出，纯粹作为营造深度和设计感的元素处理。四字成语、读音、释义说明要在易读的留白空间整理，避免文字乱码或崩坏，确保完成后任何人观看都能读懂内容。整体配色从参考图像的服装色或发色中提取，营造统一感。
+完成后要一眼传达「这是这个角色专属的四字成语」，通过强烈匹配的词汇选择和视觉演出来实现。
+
+------------------------------------------------------------------------------
+{
+  "prompt": "创建一张高端 2027 年桌面日历海报，采用 A4 纵向格式，主角为参考图像中的同一位年轻男子，以韩国手绘插图风格呈现。设计一个 3x4 的月度网格布局，从 2027 年 1 月到 12 月。每个月应展示角色以不同的放松姿势坐在季节性环境中，同时保持一致的面部特征、卷发、眼镜、胡须、温暖微笑和舒适美学。使用全身构图，搭配自然表情和动态坐姿。\n\n艺术风格应结合水彩、墨水素描、漫画涂鸦纹理、粉彩晕染、飞溅笔触、自由手绘线条以及柔和的画家渲染效果。保持干净的白色背景，并融入艺术性的负空间。每个月周围环绕象征季节的涂鸦和小装饰元素，例如花朵、书籍、咖啡杯、雪花、南瓜、灯笼、相机、星星、纸飞机、秋叶、海滩道具、圣诞装饰、旅行图标以及奇幻素描标记。\n\n角色的服装应具有高度详细的针织纹理、多层冬季时尚灵感服装、柔和的中性色调、卷起的裤子、运动鞋、围巾以及舒适休闲美学。保持优雅的编辑插图感觉，带有高细节、大气叙事、富有表现力的线条工作以及高端文具设计品质。\n\n每月场景概念：\n- 1 月：手持热咖啡，搭配冬季涂鸦\n- 2 月：舒适坐姿，配以心形和花卉素描\n- 3 月：坐着在笔记本中素描\n- 4 月：手持复古相机，搭配春季树叶\n- 5 月：在堆叠的小说旁阅读书籍\n- 6 月：放松姿势，配以旅行和海洋涂鸦\n- 7 月：坐在海滩椅上，手持夏季饮料\n- 8 月：坐在海洋主题插图附近\n- 9 月：用秋叶进行日记记录\n- 10 月：舒适的万圣节氛围，配以南瓜涂鸦\n- 11 月：温暖围巾和城市素描背景\n- 12 月：坐在圣诞装饰和礼物旁\n\n排版应采用优雅的手写毛笔风格用于月份标题，以及现代简约的日历格式。使用柔和的中性色和粉彩调色板，混合黑色墨水纹理。添加微妙的颜料飞溅、粗糙的纸张纹理、素描瑕疵以及艺术构图平衡。超详细、高品质、电影般的插图美学，高端可打印日历海报设计。",
+  "size": "1024x1792"
+}
+------------------------------------------------------------------------------
+超现实IMAX级Netflix风格的电影感室内生活肖像，9:16竖构图，一位美丽年轻女子坐在现代氛围酒廊的大咖啡馆窗户旁，她光泽白皙乳霜般的肌肤和超光滑自然纹理被凉爽日光柔和照亮，戴着时尚细框金属眼镜，眼镜镜片上闪烁着鲜艳蓝绿色和温暖橙色霓虹反射，她的长深棕色头发扎成整洁的高马尾，前额周围有自然的散落婴儿发丝，身穿合身的深色罗纹针织上衣，带有微妙系带前饰和柔软面料纹理，以优雅沉思的姿势轻轻将下巴搁在手上，她的脸上展现平静梦幻的表情，带着柔和闭唇微笑，放松的眼睛微微避开镜头，流露出安静的好奇、平和的自信和温柔的乐观，场景设置在电影感咖啡馆或创意工作室内部，深蓝绿色墙壁、模糊的窗户光线、柔和背景散景和精致的城市氛围，眼镜上的真实反射物理效果、细腻肌肤高光、自然眼睛捕捉光点、柔和手部解剖结构、细微发丝细节以及浅景深，用85mm电影肖像镜头捕捉，氛围柔和光线带有凉爽青色阴影和温暖琥珀高光，超丰富色彩包括深蓝绿色、炭黑色、奶油色肌肤调和霓虹辉光点缀，营造高端编辑美学，HDR光线、全局照明、照片级真实渲染、奢华生活摄影、获奖电影摄影、杰作品质、8K制作细节。负面提示词：扭曲眼镜、变形反射、畸形解剖、多余手指、模糊眼睛、塑料肌肤、凌乱头发瑕疵、无表情脸部、卡通、动漫、CGI外观、文字、水印、标志、低质量。
+------------------------------------------------------------------------------
+Transform the uploaded logo into a futuristic premium sunglasses concept, where the entire eyewear design is inspired by the logo’s shape, colors, typography style, curves, and overall visual identity. The sunglasses should feel like a real limited-edition release from a global luxury fashion, lifestyle, or fashion-tech brand.
+
+Main sunglasses design:
+
+The uploaded logo must influence:
+
+* frame shape 
+* lens cut 
+* temple arms 
+* hinge details 
+* nose bridge 
+* material transitions 
+* engraved accents 
+* side structure
+
+The logo itself should appear naturally integrated as a temple emblem, hinge mark, lens corner detail, metallic engraving, inner arm branding, or subtle reflective design element.
+
+Materials:
+
+Use a mix of premium modern materials such as:
+
+* polished acetate 
+* matte metal 
+* titanium accents 
+* reflective lenses 
+* smoked translucent materials 
+* rubberized grip details 
+*metallic hardware
+
+Color palette:
+
+Use colors derived directly from the uploaded logo. Keep the palette balanced, modern, and premium. Make the sunglasses feel sleek, desirable, stylish, and high-end.
+
+Product family / presentation:
+
+Create a clean luxury concept presentation board featuring:
+
+* one main hero sunglasses render 
+* additional smaller front, side, folded, and angled views * optional premium case or packaging concept 
+* clean visual consistency across all product elements
+
+Infographic details:
+
+Include small clean callout sections showing:
+
+* material breakdown 
+* lens technology 
+* logo integration 
+* color palette 
+* frame structure 
+* side profile sketch
+
+Environment & presentation:
+
+Luxury product presentation setup. 
+Clean studio background. 
+Soft shadows beneath the product. 
+Optional subtle fog or premium display platform. Optional technical concept elements around the sunglasses.
+
+Lighting:
+
+High-end fashion product commercial lighting. 
+Strong highlights on the frame, lenses, and contours. Soft gradient shadows. 
+Premium reflective control.
+
+Camera & composition:
+
+Main hero sunglasses in 3/4 perspective. 
+Additional smaller supporting angles arranged around the main render. 
+Balanced infographic layout with a clean premium presentation style.
+
+Typography:
+
+Use only minimal clean futuristic presentation text. 
+No random text. 
+No clutter. 
+Keep the text organized like a high-end Behance product concept board.
+
+Format:
+
+Aspect ratio: STRICT 4:5 vertical.
+
+Style:
+
+Premium sunglasses concept art. 
+Behance presentation aesthetic. 
+Luxury fashion-tech reveal energy. 
+Ultra-realistic product visualization. 
+Clean, polished, premium, futuristic, and launch-ready.
+------------------------------------------------------------------------------
+You are a specialist image prompt writer trained to reproduce the visual language of high polish pastel kawaii anime illustrations, especially yume kawaii / fairy kei / Harajuku resort fashion key visuals.
+
+Your job is to write image-generation prompts that evoke the following style fingerprint:
+
+STYLE FINGERPRINT
+
+The target image style is a luminous pastel anime fashion illustration with a resort-pool setting. It combines cute Japanese anime character design, yume-kawaii color design, glossy cel-shaded digital painting, summer-idol styling, candy-like accessories, and bright overexposed tropical lighting.
+
+The visual result should feel like:
+- a polished anime mobile-game card illustration
+- a pastel fashion splash art
+- a dreamy summer resort key visual
+- a yume-kawaii Harajuku character portrait
+- glossy, cute, sparkly, clean, decorative, and highly finished
+
+The image must not feel like:
+- photorealism
+- Western cartoon
+- painterly fantasy realism
+- dark cyberpunk
+- gritty realism
+- horror
+- muted editorial fashion photography
+- low-detail anime sketch
+- flat vector art
+
+CORE VISUAL LANGUAGE
+
+When writing prompts, preserve these qualities:
+
+1. Character design
+
+Use an adult anime fashion character with cute stylization. The character should have a soft rounded face, oversized glossy eyes, tiny nose, small playful mouth, light blush, smooth simplified facial anatomy, and a cheerful fashion-model expression.
+
+The proportions should be anime-stylized rather than realistic: large head, delicate hands, narrow shoulders, compact torso framing, smooth simplified limbs, and clean silhouette. The character should read as an adult through styling, fashion context, confidence, and mature presentation, while retaining a cute pastel anime aesthetic.
+
+Do not describe the character as a child, schoolgirl, loli, underage, teen, or age-ambiguous. Always specify “adult anime woman,” “adult fashion character,” or “adult kawaii idol-inspired character.”
+
+2. Hair design
+
+Hair is one of the main style anchors. Describe it in detail.
+
+Use:
+- long glossy pastel hair
+- lavender, lilac, pink, or pearl-violet base color
+- silky strand rendering
+- thick smooth anime hair clumps
+- high-shine highlights
+- twin buns, twin tails, side locks, curled ends, or decorative updos
+- aqua bows, translucent ribbons, heart clips, star clips, shell clips, charm chains, bead ornaments
+
+Hair should look soft, voluminous, polished, and ornamental. It should have luminous white highlight streaks and subtle blue-pink reflected light.
+
+3. Face and expression
+
+Use:
+- large jewel-like eyes
+- pink, violet, aqua, or magenta irises
+- glossy eye highlights
+- soft lashes
+- faint blush across cheeks and nose
+- tiny fang or playful smile when appropriate
+- wink, half-lidded playful glance, or cheerful direct gaze
+- cute confidence, not seduction
+
+Expressions should be playful, sweet, bright, mischievous, and fashion-photo-like. Avoid erotic, sultry, submissive, or suggestive expressions.
+
+4. Fashion design
+
+The clothing should be cute, layered, decorative, and modest. Build outfits from pastel Harajuku / yume-kawaii / fairy-kei elements.
+
+Preferred clothing elements:
+- white or pastel frilled blouse
+- translucent organza sleeves
+- puff sleeves
+- ribbon ties
+- aqua bows
+- lace trim
+- gingham shorts or pastel skirt
+- decorative belt
+- enamel heart charms
+- pearlescent buttons
+- pastel sandals
+- cute summer jewelry
+- beaded bracelets
+- heart necklace
+- translucent iridescent mini purse
+- shell, star, bow, and heart motifs
+
+The outfit should feel like a carefully styled pastel summer fashion look. It should be fully clothed and non-sexualized. Avoid lingerie, fetishwear, sheer sexual framing, explicit swimwear emphasis, or provocative clothing descriptions.
+
+5. Accessory language
+
+Accessories are essential. They should look candy-like, glossy, toy-like, translucent, and collectible.
+
+Use:
+- heart-shaped pendants
+- enamel pins
+- aqua and pink beads
+- pearl bracelets
+- plastic bangles
+- iridescent charms
+- translucent PVC purse
+- gold chain strap
+- tiny bows
+- pastel clips
+- star motifs
+- shell motifs
+- holographic details
+- pearlescent highlights
+- charm bracelets
+- glossy manicured nails in pastel colors
+
+Accessories should be numerous but organized. They should create dense visual interest around the hair, wrists, neckline, belt, and bag.
+
+6. Color palette
+
+The color palette is critical. Use a controlled candy-pastel palette with bright whites and aquatic blues.
+
+Primary palette:
+- lavender
+- lilac
+- pale pink
+- bubblegum pink
+- aqua
+- turquoise
+- baby blue
+- white
+- pearl
+- soft mint
+
+Accent palette:
+- gold hardware
+- iridescent purple
+- holographic cyan
+- pastel yellow
+- candy magenta
+- shell peach
+
+Avoid dark colors, earth tones, heavy blacks, muddy shadows, or high-contrast noir lighting. Shadows should be cool, translucent, and pastel.
+
+7. Lighting
+
+Use bright, high-key tropical daylight.
+
+Lighting traits:
+- sunlit resort atmosphere
+- overexposed white highlights
+- soft bloom
+- glossy reflections
+- turquoise pool bounce light
+- pastel rim light
+- gentle haze
+- bright white stone tile reflections
+- sparkles on water
+- soft lens glow
+- warm sunlight mixed with cyan reflected light
+
+The scene should look airy, expensive, clean, and summery. The lighting should wash the image in pale aqua and pink reflections.
+
+8. Rendering
+
+Use a polished digital anime rendering style.
+
+Rendering traits:
+- clean thin line art
+- refined anime contours
+- glossy cel shading
+- soft airbrushed gradients
+- sharp highlights on hair and accessories
+- smooth skin shading
+- low-contrast pastel shadows
+- crisp accessory details
+- water sparkle effects
+- subtle bokeh
+- high-resolution key visual finish
+- dense but clean decorative detail
+
+The illustration should look complete, not sketchy. It should have layered details but remain readable.
+
+9. Composition
+
+Use a close-up or three-quarter fashion portrait composition.
+
+Preferred compositions:
+- character leaning toward camera
+- playful double peace-sign pose
+- close-up wide-angle anime portrait
+- upper-body or three-quarter framing
+- poolside background visible behind character
+- dynamic hands near face
+- tilted head
+- diagonal hair strands and accessories
+- strong foreground character dominance
+- bright resort background with depth
+
+The camera should feel slightly close and lively, as if the character is posing for a cute vacation snapshot. The composition should be energetic but clean.
+
+10. Background
+
+The ideal background is a luxury tropical pool resort.
+
+Use:
+- turquoise swimming pool
+- sparkling water
+- white stone tiles
+- lounge chairs
+- palm trees
+- pergola or cabana structures
+- distant mountains
+- blue sky
+- pool toys
+- flowers
+- resort furniture
+- soft summer haze
+
+The background should be detailed enough to establish the setting but softer and less dominant than the character. Use atmospheric blur, bloom, and light haze to keep focus on the figure.
+
+PROMPT-WRITING METHOD
+
+When the user asks for a prompt, write it as a complete production-ready image-generation prompt. Do not merely list tags. Build the prompt in this order:
+
+1. Subject and pose
+2. Character design
+3. Hair and face
+4. Outfit and accessories
+5. Environment
+6. Lighting
+7. Rendering style
+8. Color palette
+9. Quality modifiers
+10. Negative prompt
+
+Use dense visual nouns and precise adjectives. Avoid vague phrases like “beautiful,” “nice,” or “cool” unless supported by concrete visual description.
+
+The prompt should be visually specific enough that another model can reconstruct the style without seeing the reference image.
+
+STYLE INTENSITY CONTROL
+
+When the user asks for a softer version, reduce accessory density, reduce bloom, and make the outfit simpler.
+
+When the user asks for a stronger version, increase hair ornament density, add more iridescent accessories, increase sparkle, push the lavender-aqua-pink palette, use more glossy highlights, and make the pool reflections more dramatic.
+
+When the user asks for a different setting, keep the same character-rendering language, color palette, accessory design, and glossy pastel lighting, but replace the background while preserving dreamy high-key illumination.
+
+SAFETY AND CHARACTER FRAMING
+
+Always make characters clearly adult-coded. Use “adult anime woman,” “adult fashion model,” or “adult kawaii character.” Keep the framing non-sexual and fashion-oriented.
+
+Avoid:
+- child, teen, schoolgirl, loli, underage, young-looking
+- erotic, seductive, suggestive, fetish, lingerie, explicit nudity
+- sexualized camera angles
+- body-emphasis framing
+- exposed intimate areas
+- voyeuristic language
+- age-ambiguous descriptions
+
+OUTPUT FORMAT
+
+Return the result in this exact format:
+
+STYLE NAME:
+A short name for the style.
+
+MAIN PROMPT:
+One polished paragraph, production-ready, visually dense, and suitable for image generation.
+
+NEGATIVE PROMPT:
+A comma-separated list of visual and content elements to avoid.
+
+STYLE TAGS:
+A comma-separated list of compact style descriptors.
+
+OPTIONAL PARAMETER NOTES:
+Brief notes on aspect ratio, camera distance, detail level, and lighting intensity.
+
+Do not explain the process unless asked. Do not mention the reference image directly unless the user asks for analysis. Do not name or imitate any specific living artist. Do not claim the result is from a particular copyrighted franchise.
+------------------------------------------------------------------------------
+Red cropped jacket, Puff sleeves, White sarashi, Midriff-baring, Gradient hakama, Red and pink gradient, Heart choker, Heart-shaped buckle, Red belt, Dark red platform boots, Heart hair ornament, Heart earrings, White and pink heart pattern, Exquisite embroidery, Cute outfit, Well-balanced design, Perfect outfit,
+
+(Red cropped jacket: 1.3), (Puff sleeves: 1.2), (White sarashi: 1.2), Midriff-baring, (Gradient hakama: 1.2), ((Red and pink gradient)), (Heart choker: 1.2), Heart-shaped buckle, Red belt, Dark red platform boots, Heart hair ornament, Heart earrings, White and pink heart pattern, Exquisite embroidery, Cute outfit, Well-balanced design, Perfect outfit,
+
+-----
+红色裁剪夹克，泡泡袖，白色缠腰布，露腹，渐变袴，红粉渐变，心形颈圈，心形扣环，红色腰带，深红色厚底靴，心形发饰，心形耳环，白粉心形图案，精致刺绣，可爱装扮，平衡的设计，完美的服装，
+------------------------------------------------------------------------------
+9:16，户外，真实摄影  桃粉甜美妆，奶油肌、桃粉色混合粉橘色眼影、卧蚕明显、杏眼、自然放大眼妆、粉桃腮红、眼下腮红、水润桃粉唇、唇部高光、黑色双挽起簪发、空气刘海、鬓角碎发、果实发串、飘带发饰  服装：y2k少女装，色系：马卡龙色系，糖果缤纷感  场景可出现道具：水蜜桃、桃花枝、竹席、手链、花瓣、草地、摆件、花瓣等等（不需要全部出现，只根据实际构图需求选取）  光线效果：夏日强逆光、树荫斑驳光、高曝光、局部高光clipping、柔焦高光、光晕扩散  镜头构图：随机特殊镜头构图，不强求模特看向镜头。图片大胆的裁切。
+------------------------------------------------------------------------------
+高端奢侈时尚造型本编辑内容，以动态多面板拼贴网格形式呈现，主角是一位时尚女性模特。构图不对称且视觉多样，设计风格如同高级Vogue风广告宣传页。
+
+布局包括右侧一个主导性的电影感特写肖像面板，捕捉细微的面部表情和高细节的皮肤纹理，采用柔和的摄影棚灯光和浅景深。左侧是一个垂直排列的三个独特全身面板序列，展示不同的姿势和视角：行走动态拍摄、坐姿放松造型，以及略带角度的肩部后视站姿。每个面板使用不同的相机角度和构图风格，以创造视觉多样性和叙事深度。
+
+她身着单色奶油白奢侈街头服饰，包括一件超大号设计师连帽衫、配套修身工装裤、简约金色珠宝点缀，以及厚底白色设计师运动鞋。造型干净、现代且高端极简主义。
+背景为平滑温暖米色无缝摄影棚布景，带有柔和的渐变灯光过渡。每个面板采用一致的编辑色调校正，但灯光方向略有变化，以强调立体现实感。
+
+超干净构图、高级时尚杂志美学、商业奢侈广告摄影、柔和漫射摄影棚灯光、锐利焦点、电影感景深、2K超详细现实主义、高端品牌摄影风格。--ar 1:1
+
+-----
+这组想做的是水蜜桃感的夏日写真感。
+
+桃粉甜美妆、奶油肌、眼下腮红和水润蜜桃唇，把人物气质压到很软很甜；服装用马卡龙色 Y2K 少女装，搭配果实发串、飘带、手链和桃花枝，让画面有糖果一样的缤纷感。
+
+光线是重点：夏日强逆光、树荫斑驳光、高曝光、局部高光 clipping，再加一点镜头炫光和柔焦光晕。
+
+画面不追求规整，而是用大胆裁切、前景遮挡和低角度昆虫视角，制造一种清透、鲜活、氧气感很强的桃子少女氛围。
+
+不完美感可以更贴近真实摄影感，从而避免AI味。
+
+-----
+当你不知道怎么样增加照片真实感的时候，不妨从模特的表情动作下手，俏皮、可爱、搞怪的表情往往能够增加照片的真实感和画面的活力与生活气息。
+------------------------------------------------------------------------------
+请生成一张 9:16 竖版、高完成度、高清锐利的二次元情绪破碎海报。
+
+【角色】
+{{角色名}}
+【高光剧情瞬间】
+{{角色在动画里的代表性情绪高光片段}}
+
+【画面文字】
+角色名大字：{{角色名}}
+副标题：{{高光片段标题}}
+短句：{{一句情绪台词 / 内心独白}}
+这不是普通角色卡，不是安静站姿，也不是单纯展示大招的战斗图。请把画面聚焦在角色最有情绪张力的一个动画高光瞬间，让整张海报像动画里最冲击的一帧被突然撕裂、放大、定格。
+
+人物必须有强烈情绪：眼神、眉眼、嘴角、肩颈、手部、身体姿态都要参与表达。不要平静摆 pose，要像刚经历重大冲击后的瞬间停顿。
+画面采用黑色 / 深色负空间，高级动漫主视觉海报质感，高清、干净、锐利，不要灰蒙、脏旧、低清、过度颗粒化。
+使用大量有设计感的不规则玻璃碎片、斜向裂隙、局部 close-up 窗口、透明切片和飞散碎片。但碎片不能只是装饰，每块碎片里都要尽量有剧情信息，比如：眼睛特写、手部特写、武器 / 忍术细节、角色伤痕、护额、家族符号、重要人物残影、战斗环境残片、记忆碎片、情绪证据。
+文字排版要有明显风格感，不能太规整，不能像普通印刷体。角色名、副标题和短句要融入海报结构，可使用竖排、错位、切割、局部断裂、裂隙化、拼贴感、局部遮挡、能量侵蚀感等处理。文字要有破碎情绪海报的设计感，但必须清晰、完整、可读，不要乱码。
+
+整体风格：高清动漫主视觉海报、视觉小说封面感、成熟漫画排线、黑色负空间、锐利碎片拼贴、剧情残片、角色特写、强情绪眼神、破碎字体设计、一个情绪爆点色。
+
+避免：普通角色卡、普通站姿、表情太平、单纯大招图、碎片空洞无内容、文字太规整、文字乱码、官方 logo、编号、系列名、Q版、低幼卡通、3D 渲染感、全图脏污、灰蒙低清、错误手指、五官崩坏。
+
+-----
+用 ChatGPT-Image2 做了一组《火影忍者》情绪破碎海报，太戳了！
+
+把 4 个角色定格在动画里的高光情绪瞬间：
+1、鸣人：九尾失控前
+2、佐助：终结谷决裂
+3、卡卡西：来迟的守护
+4、鼬：最后一次点额头
+
+黑色负空间、锐利碎片、剧情残片、角色特写、破碎文字…
+静态海报，也能把一段动画里的情绪高潮定格下来！
+------------------------------------------------------------------------------
+{
+  "prompt": "浪漫的动漫插图，采用韩剧风格，描绘一个雨夜。场景中，一位英俊的年轻男子拥有柔软的波浪状深棕色头发、浅色胡须和圆形黑框眼镜，他站在一位美丽的年轻女子非常近处。这位女子有着长长的湿润黑发和富有表现力的眼睛，他们共撑一把透明的雨伞。他们深情地凝视着彼此的眼睛，营造出一种亲密而感性的时刻。男子身穿深海军蓝风衣，内搭黑色高领毛衣，轻轻握着雨伞柄。女子身穿米色风衣，衣料上沾着雨滴。周围大雨倾盆，雨伞上可见闪亮的雨滴。背景是一个模糊的霓虹灯城市街道，湿漉漉的路面反射出蓝色和温暖的橙色散景光芒，电影般的景深、梦幻氛围、柔和发光灯光、细致反射、戏剧性照明、超详细动漫艺术、逼真纹理、高度表现力的面部表情。在顶部添加优雅的手写白色文字：'Under one umbrella, the whole world felt quiet.' 引文下方有一条精致的爱心下划线。",
+  "size": "1024x1792",
+  "style": "anime",
+  "quality": "ultra-detailed"
+}
+------------------------------------------------------------------------------
+创建一个高级3D卡通贴纸包，主角是同一个可爱女孩角色，拥有短黑色波浪发、柔和雀斑、圈形耳环、黑色衬衫外搭白色T恤，以及银色项链。展示12种不同的反应，从干净的白色背景上的逼真撕纸孔中突破而出。表情包括：比耶手势、笑着带心形、兴奋挥手、忙着玩手机、吹飞吻、震惊的OMG脸、生气撅嘴、酷酷的墨镜姿势、吃冰淇淋、睡觉、向上指点，以及嘘声。每个姿势旁边添加彩色手写贴纸字体，如“Hey!”、“Cute!”、“Yay!”、“Busy”、“Muah”、“OMG!”、“Hmph!”、“Cool!”、“Yummy!”、“Zzz…”、“Look!”和“Shhh…”。皮克斯风格的3D渲染，超详细，可爱面部表情，柔和电影式灯光，干净的贴纸页布局，逼真的纸张撕裂效果，社交媒体表情包美学，高品质，生动而俏皮。
+------------------------------------------------------------------------------
+使用我上传的面部图像作为主要身份参考。以高保真度保留我确切的面部特征、脸型、发型、发质、肤色、眼睛形状以及整体相似度。
+
+创作一幅受参考图像启发的电影感男性肖像拼贴画。制作一个5面板的编辑布局，仅以我在不同时尚姿势中出现。
+
+左上：近距离侧脸特写，目光望向远处，柔和自信的表情，穿着简洁的白色T恤和简约链条。
+右上：低角度肖像，抬头望向上方，穿着黑色开领衬衫，放松自信的氛围。
+底部中心：坐在椅子上，手靠近脸部，穿着黑色纽扣衬衫，平静沉思的表情。
+侧面板：戏剧性的黑白侧脸镜头，采用时尚杂志风格。
+
+保留我的自然发型，但通过添加纹理凌乱的蓬松感来增强它。加入电影街头摄影光线、深沉阴郁的色调、高对比度、胶片颗粒、细微划痕，以及奢华时尚编辑美学。
+
+添加手写排版元素，如用时尚的红白毛笔脚本书写的“Never look back”和“Collect moments, not things”。
+超现实主义摄影、专业肖像拍摄、4K细节、Instagram美学。
+------------------------------------------------------------------------------
+梦幻玫瑰园肖像提示词:
+仅将我上传的肖像用作人物面部特征、脸型、发型、发色、肤色以及整体真实人物外观的身份参考。不要从参考图像中复制面部或身份。
+
+在参考照片的启发下，重新创作上传人物的浪漫玫瑰园肖像。人物优雅地坐在浅色石质花园小径上，周围环绕着茂密的盛开粉色玫瑰、柔软的绿色叶子以及层层叠叠的花丛。采用自然的坐姿，双腿舒适地向一侧折叠，肩膀放松，双手优雅，面带平静温柔的表情，目光朝向镜头。
+
+根据上传人物的外貌、发型、体型比例和个人风格自动选择服装。服装应感觉讨喜且与浪漫花园环境和谐统一，使用柔和的腮红粉、象牙白、奶油色或浅彩色调，搭配雅致的花卉、雪纺、蕾丝、丝带或层层面料细节。不要强求一种特定的连衣裙设计。保持服装真实、精致且物理上可信。
+
+柔和的漫射日光，通过花朵的微妙背光，细腻的阴影，梦幻的浅彩色调分级，浅景深，柔和模糊的背景玫瑰，浪漫的编辑摄影，真实的织物质感，自然的发丝，真实的皮肤毛孔，准确的解剖结构，自然的手指和手指，逼真的身体比例，高面部身份准确度，专业的全身肖像，方形构图。
+
+保持上传人物清晰可辨识且照片级真实。没有人工美颜滤镜，没有过度皮肤平滑，没有塑料皮肤，没有娃娃脸，没有动漫或插图风格，没有 CGI 外观，没有水印，没有标志，没有文字。
+
+负面提示词：
+
+动漫，漫画，插图，3D 渲染，CGI，娃娃脸，塑料皮肤，蜡质皮肤，过度修图，过度平滑的脸部，虚假面部特征，身份改变，复制的参考面部，扭曲解剖结构，不正确的身体比例，多余的手指，融合的手指，畸形的手，僵硬姿势，悬浮肢体，过于暴露的服装，夸张配饰，过度饱和的粉色，刺眼光线，模糊脸部，低分辨率，水印，标志，文字，签名
+------------------------------------------------------------------------------
+生成一张 4:5 竖版、高完成度的梦幻纸艺展览视觉海报，主题为《打开她的梦 / OPEN HER DREAM》。
+
+整张画面是一张完整的展览海报，而不是普通人物插画。画面采用“纸雕立体书 / pop-up book / layered paper art”的创意机制：底部是一本文字书页被打开的立体书，书页中央向上展开一个层层叠叠的梦境纸雕世界。人物站在纸雕梦境世界中央，像从打开的梦境中走出。
+
+画面主体是一位 23–30 岁年轻成年东方女性，明确成年，温柔耐看脸，五官精致自然，不幼态，不网红化，长发自然披散，发丝微卷，有轻微风感。人物正面面向镜头，表情温柔、安静、浪漫成熟，带一点神秘感和梦境女主气质。
+
+人物身形为高级丰满感，比例自然协调，曲线优雅成熟。通过礼裙轮廓和姿态审美化表现胸线、腰线、小腹线条、腰臀比例和整体女性轮廓，但不要夸张，不要低俗，不要色情化。姿态为正面优雅站姿，一只手轻轻抬起或触碰发丝 / 肩颈，另一只手轻拉裙摆，身体重心轻微偏移，形成柔和流动感。
+
+服装为贴合曲线的梦幻高级礼裙，礼裙融合深蓝紫、烟熏紫、玫瑰粉、月光金、象牙白高光。上半身为精致修身礼服结构，带金色花枝刺绣、星点装饰、薄纱披覆与细腻珠光；裙摆为层叠薄纱与花瓣状结构，轻盈流动，带梦境感、绽放感和女性成长感。
+
+整体主色调改为深色梦幻系：深午夜蓝、靛蓝、蓝紫色、烟熏紫、灰玫瑰粉、月光金、柔和象牙白。背景为深蓝夜幕与星空，画面中有金色弯月、细碎星点、云层、蝴蝶、花朵、拱门、纸雕城堡、旋转台阶、纸艺植物和层叠窗格。所有元素都像精致纸艺切割与层叠而成，具有纵深感、空间感和展览装置感。
+
+纸雕梦境层次要围绕人物身体展开：拱门从人物背后向上包围，花朵和蝴蝶从裙摆两侧生长，纸艺台阶通向月亮与城堡，蓝紫色花叶与金色线条形成梦境动线。画面要华丽、丰富、梦幻，但不能杂乱。
+
+海报必须加入清晰且高级的文字排版，形成完整展览视觉。左侧加入大标题：
+“打开她的梦”
+英文副标题：
+“OPEN HER DREAM”
+顶部小字：
+“纸艺梦境主题展览”
+加入展览信息模块：
+“每一个梦的打开，都是一次温柔的成长”
+“Every dream opened is a gentle growth.”
+“展览时间 2025 06.21 — 08.31”
+“展览地点 光屿美术馆 · 梦境厅”
+右侧加入小字标签：
+“DREAM / GROWTH / BLOOM”
+“梦 / 成长 / 绽放”
+右下角加入圆形徽章：
+“沉浸式纸艺梦境展 / Immersive Paper Art Dreamland Exhibition”
+底部加入一句英文：
+“Open her dream, and let the beautiful within her bloom.”
+以及关键词：
+“梦境｜成长｜自我｜绽放”
+
+文字排版要求优雅、清晰、有展览海报感，使用高级衬线字体、细线分隔、金色与玫瑰金文字，不要廉价字体，不要信息杂乱。
+
+画面光线为梦境柔焦光 + 月光金色高光 + 深蓝夜幕环境光。人物面部清晰，皮肤细腻自然，礼裙材质有薄纱、珠光、刺绣和金属细节。整体效果要像高级纸艺梦境展览主视觉，华丽但不杂乱，人物主体明确，梦境层次丰富，文字完整，具有女性成长、绽放、自我发现和浪漫成熟的艺术海报气质。
+
+-----
+这次做的是「梦幻纸艺风」×「女性成长展览海报」。
+
+这类图的关键不是单纯堆花朵、月亮和蝴蝶，而是要先把创意机制定死：
+-“打开的立体书”是底座，“纸雕梦境”是空间，“人物”是从梦里走出来的主视觉。
+我这版重点放在 4 个地方：
+- 主色调从奶油粉换成深午夜蓝、蓝紫、烟熏紫、月光金，梦幻感会更强
+- 人物必须正面站在纸雕世界中央，避免变成普通插画背景
+- 花朵、拱门、台阶、月亮要围绕人物身体展开，形成视觉动线
+- 一定要加入展览海报文字，不然很容易变成“好看的梦幻头像图”
+
+这种提示词适合做小红书封面、展览视觉、AI海报教程，也很适合扩展成一整个“女性梦境系列”。
+
+------------------------------------------------------------------------------
+生成一张 4:5 竖版高完成度创意人物包装盒海报，整体像一款高级潮流收藏版人物公仔包装盒，用于小红书封面视觉。
+
+画面主体是一位 20–26 岁年轻成年东方女性，明确成年，五官方向为甜酷精致脸，面部精致但自然，不幼态，不网红脸。人物气质为甜酷时尚，眼神自信，表情轻微微笑，带一点甜美与冷感并存的时髦气质。发型为高马尾，发量蓬松，额前有自然碎发，发尾有轻微卷度，整体有女团感和潮流感。
+
+人物身形方向为曲线明显，比例自然协调，通过服装剪裁和站姿审美化表现肩颈线条、胸线、腰线与腿部线条，保持时尚化、克制、高级，不夸张、不低俗、不色情化。
+
+服装方向为黑色短上衣 + 黑色皮质短裙 + 黑色短外套。上衣为修身短款背心或细肩带短上衣，短外套为黑色皮质短夹克，可半披在肩上，增强甜酷感。下装为高腰黑色皮质短裙，搭配黑色短袜和厚底短靴 / 厚底鞋。整体穿搭要有甜酷、时髦、收藏版角色感。
+
+整张画面采用“人物包装盒”创意机制：人物站在透明塑封包装盒主展示区域中央，像一款高级潮流收藏版人物公仔。透明吸塑盒必须清晰，塑封反光真实，边缘高光明显，人物周围有符合身体轮廓的透明模具结构。
+
+包装版式完整，包含左侧竖向品牌信息栏、顶部 Limited Edition 标签、右侧配件仓位、底部 Outfit Card、条形码、收藏编号、Style Tag、人物小卡等信息模块。整体像真实潮玩 / 时尚公仔包装，而不是普通人物写真。
+
+右侧配件仓位要完整，每个配件都有独立透明格：黑色迷你肩包、黑色墨镜、紫色香水瓶、粉紫色唇釉、黑色粉饼盒、人物拍立得 / 手机小卡、备用黑色短靴或厚底鞋。配件摆放整齐，有商品陈列感。
+
+主色调为薰衣草紫 + 黑色 + 银白色。包装左侧信息栏为薰衣草紫，主体盒面带半透明紫色塑封质感，边框与文字使用银白色、冷金属色与少量白色高光。整体氛围要梦幻、甜酷、时尚、精致。
+
+包装文字可包含：
+COLLECTIBLE FIGURE
+DREAM MUSE COLLECTION
+LIMITED EDITION
+1/7 SCALE
+STYLE TAG
+Sweet but Cool
+Confident
+Unstoppable
+OUTFIT CARD
+MINI SHOULDER BAG
+SUNGLASSES
+PERFUME
+LIP GLOSS
+COMPACT
+SMARTPHONE / PHOTOCARD
+EXTRA SHOES
+barcode
+光线氛围为商业包装展示光：明亮、干净、塑封反光清晰，人物面部清晰，皮质服装有真实高光，透明塑料盒有清楚的反射和厚度。整体要有高级潮流收藏感、小红书封面感、时尚公仔包装感。
+画面要求：人物主体明确，包装结构完整，塑封清晰，配件仓位完整，文字排版高级，主色调统一，时尚收藏感强，画面明亮但保留紫色梦幻氛围。
+
+-----
+做了组创意海报：「甜酷时尚」×「人物包装盒」系列。
+
+这组图是把人物做成一套完整的“潮流收藏版公仔包装”。
+
+我做了 3 个主色调方向：
+- 樱花粉 + 黑色：更像甜酷少女潮玩，甜感强，适合小红书封面
+- 薰衣草紫 + 黑色：更梦幻，也更有女团收藏卡那种精致感
+- 薄荷青 + 黑色：更清爽街头，甜酷但不沉闷
+
+提示词最关键的是包装结构：人物主仓位、右侧配件仓位、左侧信息栏、Outfit Card、条形码、Limited Edition 都要写进去。
+
+只写“人物包装盒”很容易变成普通立绘，必须把透明塑封、配件格、文字标签和商品陈列逻辑一起锁住，出来才会像真正的收藏版视觉。
+------------------------------------------------------------------------------
+使用我上传的面部图像作为主要身份参考。以高保真度保留我确切的面部特征、脸型、发型、发质、胡须、肤色、眼睛形状以及整体相似度。
+
+创建一张受参考图像启发的电影感未来主义数字肖像。制作一张戏剧性的近距离侧面肖像，带有强烈的自信表情，目光略微向上。保持我的脸部真实且详细，带有自然的皮肤纹理、锐利的面部特征以及逼真的胡须细节。
+
+风格：黑暗赛博朋克编辑美学，半张脸从数字碎片中浮现，破碎的像素颗粒、抽象技术图案、轮廓周围发光的橙色和电蓝色能量。添加未来主义电路线条、故障效果以及融入背景的颜料溅射纹理。
+
+光线：强烈的电影感边缘光，从一侧发出温暖的橙色光芒，从另一侧发出凉爽的蓝色光线，深邃的阴影，高对比度。
+
+构图：超详细肖像，现实摄影与数字艺术的混合，8K 品质，锐利焦点，高端电影海报外观，戏剧性氛围。
+
+避免：改变我的身份、不同的脸部、卡通风格、扭曲的面部特征、多余的眼睛、不自然的皮肤、模糊细节。
+------------------------------------------------------------------------------
+SCENE:
+一方の腕を上げて撮影した、広角ハイアングル自撮り特有の歪みがあるセルフィーフォト。
+背景は、暗く狭い室内、ネオン照明で、顔と衣装が映える場面を任意で設定してください。
+
+MOVEMENT:
+反骨的かつアンニュイな笑顔でカメラを見据えている。胸を強調したコスプレイヤーのような自信に満ちたダイナミックなポーズ。
+
+SKIN / TEXTURE:
+透明感のあるナチュラル肌、淡いピンクチーク、細めのアイライン、明るいグリーンの瞳、艶のある控えめなピンクリップ。毛穴が見えるリアルな白い肌の質感。頬の火照りとほのかなツヤ感がある。額と鼻筋には軽いハイライト。
+
+OUTFIT / STYLING:
+細部まで作り込まれた、人気漫画キャラクターの衣装を着用。白のノースリーブ襟付きシャツに黒リボンタイ、黒チョーカー、ハイウエストの黒ショートパンツ、細い黒ベルト、黒ニーハイソックス、ダークブラウンのローファー。濃紺〜紫のアシンメトリーなショートボブ、片目にかかる長い前髪、後ろ髪を小さく低めのお団子にまとめる。
+
+LIGHTING:
+正面からカメラの強いフラッシュ、ネオン照明による髪・肌・衣装の環境光。
+
+CAMERA / SMARTPHONE LOGIC:
+iPhone17pro maxで撮影したような超フォトリアリスティックな写真。8K高解像度。ハイアングル。超シャープなスマートフォン描写で、現実的な計算写真学の人工物を含む。
+
+NEGATIVE:
+下着風の強調、透けすぎる素材、裸に見えるデザイン、指の崩れ、足の崩れ、安っぽい布地、低解像度、既存キャラクター名、ロゴ、透かし、背景の文字。
+
+-----
+cosplay - 雷泽
+------------------------------------------------------------------------------
+一个女人缓缓漂浮在一个黑暗的空间中，周围漂浮着数百张悬浮在空中的老照片。这些照片展示了她生命中的不同版本——有些快乐，有些悲伤，有些不可能。她伸出手，轻轻触碰一张照片，那张照片显示她小时候的样子。她的头发和裙子缓缓移动，仿佛在水下。柔和的光线从照片发光的边缘散发出来。梦幻的、情感化的、忧郁的超现实氛围。超现实主义，带有极致细节，8K。
+------------------------------------------------------------------------------

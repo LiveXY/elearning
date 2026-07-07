@@ -1,0 +1,978 @@
+skills
+
+https://skills.sh 
+https://clawhub.ai 
+https://skillsmp.com/zh 
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+语音模型
+4o-transcribe-mini
+豆包-ASR
+Scribe V2
+Qwen3-ASR
+https://github.com/mylxsw/typeflux
+OCR
+https://github.com/datalab-to/chandra
+https://www.datalab.to/playground/documents/new
+https://github.com/hiroi-sora/Umi-OCR
+TTS文本转语音
+https://github.com/neuphonic/neutts
+https://github.com/supertone-inc/supertonic
+Agents 支持同时运行Claude Code / Codex
+https://github.com/hanshuaikang/nezha
+https://github.com/warpdotdev/warp
+编排工具
+https://github.com/kdlbs/kandev
+cli 文件管理 rust
+https://github.com/sxyazi/yazi
+消息推送工具
+https://github.com/Finb/Bark
+https://bark.day.app/#/
+curl https://api.day.app/your_key/推送内容?group=分组&copy=复制
+打字
+https://github.com/xiaolai/type-review
+邮件系统
+https://github.com/knadh/listmonk
+去水印
+https://github.com/wiltodelta/remove-ai-watermarks
+remove-ai-watermarks all image.png -o clean.png
+remove-ai-watermarks batch ./images/ --mode all
+简历生成器
+https://github.com/JOYCEQL/magic-resume
+图片处理RUST
+https://github.com/silvia-odwyer/photon
+调味剂
+https://github.com/Leonxlnx/taste-skill
+生成图片
+https://github.com/boona13/image-extender
+https://github.com/lawrencewzen/imgen
+24/7 不间断录屏、录音、记键盘、记 app 切换，完了用自然语言搜"我刚才看了啥"、"过去 5 分钟的对话总结"，甚至能绑 Linear 自动建任务
+https://github.com/screenpipe/screenpipe
+------------------------------------------------------------------------------
+AI图片视频
+https://github.com/dexhunter/seedance2-skill
+https://github.com/cclank/lanshu-awesome-ai-video-kit
+https://github.com/freestylefly/awesome-gpt-image-2
+https://github.com/EvoLinkAI/awesome-gpt-image-2-prompts
+https://github.com/YouMind-OpenLab/awesome-gpt-image-2
+https://github.com/wuyoscar/gpt_image_2_skill
+https://github.com/wuyoscar/GPT-Image2-Skill
+https://x.com/canghe/status/2048306517976514786?s=12
+https://github.com/x007xyz/flycut-caption
+
+https://github.com/kadevin/ilab-gpt-conjure
+
+https://cchistory.mariozechner.at/
+https://github.com/badlogic/cchistory
+npm install -g @mariozechner/cchistory
+https://github.com/badlogic/lemmy/tree/main/apps/claude-trace
+
+提示词技能
+https://github.com/yaojingang/yao-open-prompts
+https://github.com/multica-ai/andrej-karpathy-skills
+
+https://github.com/google-gemma/gemma-skills
+
+https://github.com/TanShilongMario/InkPainting
+水墨画绘制工具
+
+倪海厦中医课程资料
+https://github.com/JuneYaooo/nihaisha-nishi-tcm
+视频号下载
+https://github.com/ltaoo/wx_channels_download
+
+数据库工具MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, ClickHouse, SQL Server
+https://github.com/t8y2/dbx
+https://github.com/dbkangaroo/kangaroo
+文档、图、关系、向量检索和实时 API 收进同一套 SurrealQL 里
+https://github.com/surrealdb/surrealdb
+
+中国软件著作权申请材料 生成器
+https://github.com/Fokkyp/SoftwareCopyright-Skill
+把任何CLI工具（git、ffmpeg、curl、kubectl等）包装成Agent能直接调用的接口
+https://github.com/HKUDS/CLI-Anything
+icns 生成工具
+https://github.com/TeamDev-IP/MoBrowser-App-Icon-Maker
+
+查询自己的电脑都能运行哪些本地AI模型：
+https://whatcani.run
+https://canirun.ai
+https://caniusellm.com
+https://onyx.app/llm-hardware-requirements
+https://localllmbench.com/benchmarks/
+
+hack安全
+https://github.com/Z4nzu/hackingtool
+https://github.com/HunxByts/GhostTrack
+https://github.com/garinasset/leak-check
+https://github.com/apurvsinghgautam/robin
+https://github.com/reconurge/flowsint
+
+网安技能库/漏洞赏金和红队渗透
+https://github.com/Hi-FullHouse/CyberSecurity-Skills
+https://github.com/elementalsouls/Claude-BugHunter
+https://github.com/Zcentury/Venom
+https://github.com/Tencent/VulnGym
+
+无头浏览器
+https://github.com/lightpanda-io/browser
+https://github.com/jo-inc/camofox-browser
+https://github.com/h4ckf0r0day/obscura
+https://github.com/CloakHQ/CloakBrowser
+https://github.com/feder-cr/invisible_playwright
+https://github.com/browser-use/terminal
+https://github.com/epiral/bb-browser
+
+https://github.com/nanobrowser/nanobrowser
+
+codex代码性能测试
+https://github.com/Kappaemme-git/codex-complexity-optimizer
+
+2api/newapi代理
+https://github.com/Wei-Shaw/sub2api
+https://github.com/mnfst/manifest
+https://github.com/QuantumNous/new-api
+https://github.com/songquanpeng/one-api
+https://github.com/MartialBE/one-hub
+https://github.com/justlovemaki/AIClient-2-API
+https://github.com/GALIAIS/Notion2API
+https://github.com/432539/gpt2api
+https://github.com/james-6-23/codex2api
+https://github.com/CJackHwang/ds2api
+https://github.com/kittors/CliRelay
+https://github.com/AmazingAng/auth2api
+https://github.com/Sophomoresty/gemini-web2api
+
+https://github.com/esengine/deepseek-reasonix
+https://github.com/decolua/9router
+
+https://github.com/farion1231/cc-switch
+https://github.com/router-for-me/CLIProxyAPI
+
+https://github.com/ajsai47/backdoor
+
+https://github.com/refactoringhq/tolaria
+
+爬虫
+https://github.com/D4Vinci/Scrapling
+https://dokobot.ai/zh-CN
+npm i -g @dokobot/cli
+省TOKEN
+https://github.com/rtk-ai/rtk
+https://github.com/mksglu/context-mode
+https://github.com/tirth8205/code-review-graph
+https://github.com/Mibayy/token-savior
+https://github.com/JuliusBrussee/caveman
+https://github.com/drona23/claude-token-efficient
+https://github.com/ooples/token-optimizer-mcp
+https://github.com/nadimtuhin/claude-token-optimizer
+https://github.com/alexgreensh/token-optimizer
+https://github.com/zilliztech/claude-context
+音乐下载器
+https://github.com/MrsEWE44/musicDownload
+
+211 个即插即用的 AI 专家角色
+https://github.com/jnMetaCode/agency-agents-zh
+https://github.com/msitarzewski/agency-agents
+https://github.com/Donchitos/Claude-Code-Game-Studios
+https://github.com/lsdefine/GenericAgent
+https://github.com/Stanshy/AgentHub
+
+sandbox
+https://github.com/TencentCloud/CubeSandbox
+https://github.com/kubernetes-sigs/agent-sandbox
+
+eSIM管理工具
+https://github.com/Silentely/eSIM-Tools
+https://github.com/estkme-group/openeuicc
+
+激活小红书内容写作模式
+房屋设计
+https://www.drafted.ai/
+对聊天记录进行训练 蒸馏任何人
+https://github.com/titanwings/colleague-skill
+https://github.com/kangarooking/cangjie-skill
+
+诊断工具箱
+https://github.com/dontbesilent2025/dbskill
+开源的AI视频平台替代方案——免费的AI图像和视频生成工作室，拥有200多个模型（Flux、Midjourney、Kling、Sora、Veo）。无内容过滤器。可自行托管，采用MIT许可证。
+https://github.com/Anil-matcha/Open-Generative-AI
+https://github.com/nexu-io/html-video
+加字幕
+https://github.com/limin112/video-subtitle
+一站式全自动字幕生成软件，下载、转录、翻译、压制全流程覆盖，无需人工介入
+https://github.com/corvo007/MioSub
+微信、X、小红书的书签数据
+https://github.com/chenxiachan/xhs-claude-skills
+https://github.com/chenxiachan/xhs-claude-skills
+https://github.com/zhuyansen/wx-favorites-report
+设计design
+https://github.com/ZeroZ-lab/cc-design
+https://github.com/cathrynlavery/diagram-design
+https://github.com/alchaincyf/huashu-design
+https://github.com/iamzifei/james-design
+https://d2lang.com/
+https://github.com/terrastruct/d2
+https://github.com/hugohe3/ppt-master
+https://github.com/Jane-xiaoer/claude-design-principles
+https://github.com/elder-plinius/CL4R1T4S/blob/main/ANTHROPIC/Claude-Design-Sys-Prompt.txt
+https://github.com/nexu-io/open-design
+https://github.com/pbakaus/impeccable
+https://github.com/yzfly/awesome-design-html
+
+CL4R1T4S已经收录了几乎所有主流AI的隐藏指令——OpenAI、Anthropic、xAI、Cursor、Devin、Manus
+https://github.com/elder-plinius/CL4R1T4S
+https://github.com/elder-plinius/CL4R1T4S/tree/main/ANTHROPIC
+Paper排版
+https://github.com/tw93/kami 好的内容配得上好的论文
+单页文档、长文档、信函、作品集、简历、幻灯片、股权报告、更新日志和落地页，支持英文和中文。包含十四种内嵌 SVG 图表类型
+npx skills add tw93/kami -a claude-code -g -y
+/plugin marketplace add tw93/kami
+/plugin install kami@kami
+https://github.com/tw93/Kaku 一款专为人工智能编码而设计的快速、开箱即用的终端
+https://github.com/tw93/Waza 你已知的工程习惯，转化为Claude可以掌握的技能
+https://github.com/tw93/Pake 只需一条命令，即可将任何网页转换为桌面应用程序
+https://github.com/tw93/MiaoYan 轻量级 Markdown 应用，助你写出精彩句子
+解法 → 让NotebookLM当"老师"，Claude当"助手"：
+→ NotebookLM存语料+检索（Google免费算力，不花钱）
+→ Claude只看NotebookLM返回的几百字蒸馏答案做推理
+→ 47篇论文原文一个字都不进Claude的context
+实测数据（Opus 4.7，5轮深度问答）：
+→ 本文做法：贵档合计 $0.55，每轮约 $0.11
+→ 传统塞prompt：同session最优情况 $9.59 → 差17倍
+→ 跨session场景差86倍
+→ 语料翻倍差距继续线性拉开
+安装方式 → 用 @icebear0828 写的notebooklm-client接入Claude Code，Agent可以通过命令行直接访问NotebookLM
+三个落地场景：
+→ 学术调研 → 几十篇论文灌一次用一学期，问"哪两篇结论冲突"带引用秒出
+→ 打新股 → 500页招股书不进Claude，8个杀手问题批量跑完，4小时/家压缩到20分钟
+→ 个人知识库 → Obsidian/Notion全量导出，跨文件语义检索"我对X的观点三年变了没"
+代价：慢3倍（NotebookLM单次查询中位45秒）。在乎响应速度的不适合
+注意 → notebooklm-client是逆向工程产物，Google随时可能改后端。storage_state.json里是你的Google活session，注意保管
+https://github.com/icebear0828/notebooklm-client
+https://github.com/teng-lin/notebooklm-py
+https://github.com/PleasePrompto/notebooklm-skill
+ADS
+https://github.com/AgriciDaniel/claude-ads
+SEO
+https://github.com/TheCraigHewitt/seomachine
+https://github.com/AgriciDaniel/claude-seo
+https://github.com/nowork-studio/toprank
+封面生成 + 公众号排版 + X 排版
+https://github.com/eternityspring/article-tools
+开源项目 ElatoAI 给了一条更轻量的路：用一块 ESP32 微控制器，接入 OpenAI Realtime API，就能把你的玩具升级成随时在线的 AI 伙伴。
+https://github.com/akdeb/ElatoAI
+https://pan.quark.cn/s/c7b6691bdf5d#/list/share
+给Codex做了个skill，让GPT模仿Opus的说话风格
+https://github.com/0xsakura666/opus-style-output
+MAC防火墙: https://github.com/objective-see/lulu
+小说
+https://github.com/ExplosiveCoderflome/AI-Novel-Writing-Assistant
+论文的自动化
+https://github.com/aiming-lab/AutoResearchClaw
+学术研究技能：研究 → 写作 → 审阅 → 修改 → 定稿
+https://github.com/Imbad0202/academic-research-skills
+/plugin marketplace add Imbad0202/academic-research-skills
+/plugin install academic-research-skills
+https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills
+语音交互、语音中断和 Live2D 面部识别功能
+https://github.com/Open-LLM-VTuber/Open-LLM-VTuber
+律师 合同审查
+https://github.com/zubair-trabzada/ai-legal-claude
+3D
+https://github.com/pascalorg/editor
+https://editor.pascal.app/
+https://github.com/OpenGeometry-io/OpenGeometry
+https://opengeometry.io/
+https://github.com/microsoft/TRELLIS.2
+https://github.com/lightningpixel/modly
+
+跨设备文件分享
+https://github.com/schollz/croc
+https://infinitedigits.co/croc/
+语音输入
+https://github.com/appergb/openless
+https://github.com/mylxsw/typeflux
+https://github.com/voquill/voquill
+语音转录
+https://github.com/kaixxx/noScribe
+https://www.any2text.online/zh
+
+语音识别
+https://github.com/QuentinFuxa/WhisperLiveKit
+语音听写
+https://github.com/benmaster82/writher
+faster-whisper
+视频转录
+https://github.com/wendy7756/AI-Video-Transcriber
+预索引的代码知识图谱
+https://github.com/colbymchenry/codegraph
+
+edgetunnel2
+https://github.com/cmliu/edgetunnel
+https://edt-pages.github.io/admin/
+https://blog.cmliussss.com/p/edt2/
+
+pi‑captcha
+https://github.com/wenlng/pi-captcha
+
+------------------------------------------------------------------------------
+文件类型检测
+pip install magika
+支持 CLI / Python / JS / Rust/ GO
+https://github.com/google/magika
+
+------------------------------------------------------------------------------
+Claude 看这个 YouTuber 的内容生产流程，90 天 4 个频道赚了 3 万美元。方法不复杂，但有一步大多数人跳过了。
+
+四步：
+1. 限定时间窗 + 领域，一次出 20 个选题
+2. 选一个，让 AI 做深度研究（收集信息，不是直接写）
+3. 结构化 prompt 写稿
+4. Humanize——去掉 AI 指纹
+
+第 2 步是关键。大部分人拿到选题直接让 AI 写，跳过了研究。AI 什么都"知道"，但你不告诉它去搜特定信息，它就随便编。
+
+第 4 步是生存必需。YouTube 已经有 AI 检测系统，被判定 inauthentic content 直接去广告化或封号。X 迟早也会有。
+
+这个流程不只适用于视频。文字内容一样：选题→研究→写→去 AI 味。我刚把自己的内容管线按这个思路重构了一遍。
+------------------------------------------------------------------------------
+交易
+https://github.com/shiyu-coder/Kronos
+https://x.com/nftcps/status/2041085365902266756?s=12
+https://github.com/NoFxAiOS/nofx
+https://github.com/freqtrade/freqtrade
+https://github.com/hummingbot/hummingbot
+https://github.com/nautechsystems/nautilus_trader
+https://github.com/ccxt/ccxt
+https://github.com/Polymarket/py-clob-client
+https://github.com/Jon-Becker/prediction-market-analysis
+https://github.com/pmxt-dev/pmxt
+https://github.com/Kirubel125/Kalshi-Claw
+https://github.com/sansan0/TrendRadar
+https://github.com/ginobefun/BestBlogs
+https://github.com/justlovemaki/CloudFlare-AI-Insight-Daily
+https://github.com/financial-datasets/mcp-server
+https://github.com/doge-8/BTC5m-Dash
+只需对你的最新版 Agent Trade Kit 说：结合 OI 和情绪雷达，帮我看看 OKX 哪些币可能异动？
+*图中异动指数参考维度：OI（持仓量）变化 · 价格波动 · 情绪热度 · 资金费率异常 · 成交量
+https://github.com/brokermr810/QuantDinger
+https://github.com/Open-Trader/opentrader
+
+https://agents.asksurf.ai/
+npx skills add asksurf-ai/surf-skills --skill surf
+https://github.com/asksurf-ai/surf-skills
+
+https://github.com/Open-Dev-Society/OpenStock
+https://www.okx.com/zh-hans/agent-tradekit
+https://www.binance.com/zh-CN/skills
+https://www.bitget.com/zh-CN/activity-hub/agent-hub
+
+https://github.com/mvanhorn/last30days-skill
+https://github.com/ZhuLinsen/daily_stock_analysis
+https://github.com/virattt/ai-hedge-fund 蒸馏名人
+https://github.com/TauricResearch/TradingAgents
+https://github.com/hsliuping/TradingAgents-CN
+https://github.com/virattt/dexter
+https://github.com/ZhuLinsen/daily_stock_analysis
+https://github.com/microsoft/qlib
+https://github.com/vnpy/vnpy
+https://github.com/ranaroussi/yfinance
+https://github.com/pydantic/pydantic-ai
+https://github.com/n8n-io/n8n
+https://github.com/Polymarket/agents
+https://github.com/asksurf-ai/surf-skills
+https://github.com/tinyhumansai/openhuman #个人 AI 超级智能。私密、简单且极其强大
+
+截屏
+https://github.com/sw33tLie/macshot
+https://github.com/duongductrong/Snapzy
+
+图形化调查工具：FlowSINT
+把域名、IP、钱包、NFT、社交账号，全拉进一张关系图。
+https://github.com/reconurge/flowsint
+
+副业
+https://github.com/hua1995116/indiehackers-steps
+https://github.com/easychen/opc-methodology
+https://github.com/XiaomingX/ai-money-maker-handbook
+https://github.com/easychen/howto-make-more-money
+https://github.com/mezod/awesome-indie
+https://github.com/1c7/chinese-independent-developer
+https://github.com/FujiwaraChoki/MoneyPrinterV2
+https://github.com/nayafia/lemonade-stand
+
+媒体自动化 生产视频
+https://github.com/yoqu/lingji-cut
+https://github.com/linyqh/NarratoAI
+https://github.com/harry0703/MoneyPrinterTurbo
+https://github.com/jianchang512/pyvideotrans
+https://github.com/Huanshere/VideoLingo
+https://github.com/chatfire-AI/huobao-drama 火宝短剧生成
+https://github.com/HBAI-Ltd/Toonflow-app
+https://github.com/white0dew/XiaohongshuSkills
+https://github.com/dreammis/social-auto-upload
+https://github.com/geekjourneyx/md2wechat-skill
+https://github.com/JimLiu/baoyu-skills
+https://github.com/AUTOMATIC1111/stable-diffusion-webui
+https://github.com/haidang1810/md2html
+
+AI 整理知识库/任意文件夹变成智能知识图谱
+https://github.com/safishamsi/graphify
+pip install graphify && graphify install
+https://github.com/Yrzhe/pagefly
+CPU text-to-speech
+https://github.com/kyutai-labs/pocket-tts
+MOSS-TTS-Nano
+https://github.com/OpenMOSS/MOSS-TTS-Nano
+TTS
+https://github.com/OpenBMB/VoxCPM
+https://github.com/k2-fsa/OmniVoice
+YouTube 视频秒变多语言AI 配音 + 零样本声音克隆杀手级开源神器
+https://github.com/abus-aikorea/voice-pro
+图生视频
+https://huggingface.co/spaces/victor/LongCat-Video-Avatar-1.5
+视频生成 集导演、编剧、制片人和视频生成器于一体
+https://github.com/HKUDS/ViMax
+长视频生成
+https://github.com/NVlabs/LongLive
+录屏工具
+https://github.com/webadderallorg/Recordly
+
+记忆
+https://github.com/thedotmack/claude-mem
+https://github.com/rohitg00/agentmemory
+https://github.com/voidcraft-dev/memory-forge-rs
+
+算命技能:
+https://github.com/jinchenma94/bazi-skill
+https://github.com/ruijayfeng/ziwei
+https://github.com/DestinyLinker/MingLi-Bench
+全自动AI写作助手，把“策略→发布”做成一条链路
+https://github.com/AJaySi/AI-Writer
+音频转写/录音转文字
+https://github.com/microsoft/VibeVoice
+语音 AI 实时 TTS，300ms 就出声一口气生成 90 分钟、多说话人对话长音频转录还能标谁什么时候说的啥
+https://github.com/GravityPoet/ChordVox
+ePub、PDF、纯文本等，一键转高质量音频，还能自动生成同步字幕
+https://github.com/denizsafak/abogen
+
+TTS播客、有声书、游戏配音、短视频旁白——开源方案已经够用了。
+https://github.com/OpenBMB/VoxCPM
+一键生成完整短视频
+https://github.com/AIDC-AI/Pixelle-Video
+https://github.com/heygen-com/hyperframes
+把电子书一键变成高质量有声书的 AI 工具
+https://github.com/DrewThomasson/ebook2audiobook
+白板
+https://github.com/plait-board/drawnix
+一键把任意网站“克隆”为 React 应用，复杂页面也扛得住
+https://github.com/firecrawl/open-lovable
+一个免费工具，输入任意网站URL，自动生成符合Google Stitch规范的DESIGN.md文件。
+https://designmd.me/
+https://designmd.me/discover
+https://github.com/VoltAgent/awesome-design-md
+这个叫WeClone的开源工具，简单一句话就是可以把你的微信、QQ或者Telegram聊天记录导进去，就能练出一个跟你说话一模一样的AI
+https://github.com/xming521/WeClone
+10-30秒就能完美克隆任意声音（音色、说话风格、情感全都有）
+https://github.com/fishaudio/fish-speech
+https://github.com/RVC-Boss/GPT-SoVITS
+跑在 CPU 上，实时语音克隆
+https://github.com/OpenMOSS/MOSS-TTS-Nano
+https://x.ai/news/grok-custom-voices
+https://github.com/myshell-ai/OpenVoice
+https://github.com/debpalash/OmniVoice-Studio
+Voicebox 这个开源语音合成工具
+https://github.com/jamiepine/voicebox
+Midjourney平替
+https://github.com/lllyasviel/Fooocus
+专业AI艺术家真正在用的图像生成器
+https://github.com/Comfy-Org/ComfyUI
+Figma平替
+https://github.com/penpot/penpot
+Notion平替
+https://github.com/AppFlowy-IO/AppFlowy
+Zapier平替
+https://github.com/n8n-io/n8n
+Calendly平替
+https://github.com/calcom/cal.diy
+Firebase平替
+https://github.com/supabase/supabase
+Cursor平替
+https://github.com/cline/cline
+
+这个技能画出来的架构图的质量是真的太高了
+https://tanstarter.dev/
+https://github.com/Cocoon-AI/architecture-diagram-generator
+
+https://github.com/bwjoke/BTC-Trading-Since-2020
+https://github.com/SimoneAvogadro/android-reverse-engineering-skill
+
+------------------------------------------------------------------------------
+https://github.com/qingchencloud/clawpanel
+
+https://github.com/antirez/ds4
+
+------------------------------------------------------------------------------
+帮我安装 https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md 这个技能
+https://skills.sh/
+https://clawhub.ai/
+
+mkdir find-skills && cd find-skills
+wget https://raw.githubusercontent.com/vercel-labs/skills/refs/heads/main/skills/find-skills/SKILL.md
+cd ../ && zeroclaw skills install find-skills
+
+https://raw.githubusercontent.com/openclaw/openclaw/refs/heads/main/skills/summarize/SKILL.md
+
+Agent Reach：全网信息源一站式接入
+https://github.com/Panniantong/Agent-Reach
+做竞品调研、内容聚合、跨平台信息监控的人。
+Tavily Web Search：专为 AI 优化的搜索引擎
+https://clawhub.ai/matthew77/liang-tavily-search
+需要 Agent 自主查资料、做技术选型、快速了解一个陌生话题的场景。
+YouTube Watcher：长视频知识提取器
+https://clawhub.ai/michaelgathara/youtube-watcher
+学习型用户，尤其是需要大量消化英文视频内容的技术人员和内容创作者。
+steipete/summarize
+biostartechnology/humanizer
+Markdown 一键发 X 长文
+https://github.com/joeseesun/qiaomu-x-article-publisher
+宝玉老师 Skill 合集：一个人的内容工
+https://github.com/jimliu/baoyu-skills
+自媒体创作者、需要频繁产出图文内容的运营人员。
+用前端技术做演示文稿
+https://github.com/zarazhangrui/frontend-slides
+Remotion Best Practices：用代码做视频
+https://github.com/remotion-dev/skills/tree/main/skills/remotion
+Get 笔记：用嘴记笔记
+https://clawhub.ai/iswalle/getnote
+开发与设计：让代码写得更好看、更规范
+https://github.com/anthropics/skills/tree/main/skills/frontend-design
+Code Review：给代码上一道质量关卡
+https://clawhub.ai/wpank/code-review
+https://github.com/alibaba/open-code-review
+Superpowers：让 Claude Code 真正跑项目
+https://github.com/obra/superpowers
+Skill 开发与自我进化：让 AI 自己变强
+https://github.com/anthropics/skills/tree/main/skills/skill-creator
+Skill Vetter：装 Skill 之前先过一道安全检查
+https://clawhub.ai/spclaudehome/skill-vetter
+https://github.com/nvidia/skillspector
+Self-Improving Agent：让 Agent 越用越聪明
+https://clawhub.ai/xiucheng/xiucheng-self-improving-agent
+
+https://clawhub.ai/ivangdavila/excel-xlsx
+self-imporving-agent（自我迭代）
+skill-creator（技能创造）
+find-skills（发现新技能）
+skills-vetter（保证技能安全）
+automation-workflows（把技能串起来当工作流）
+https://github.com/firecrawl/firecrawl
+媒体爬虫 https://github.com/NanmiCoder/MediaCrawler
+1. Multi-Search-Engine 同时用 17 个搜索引擎搜索，结果更全面。不需要 API，新手友好
+https://wry-manatee-359.convex.site/api/v1/download?slug=multi-search-engine
+2. Brave Search / Tavily 联网搜索、实时信息获取。付费），每月Tavily 1000 次免费调用
+3. snews-aggregator-skill 岚叔的日报skill，现已覆盖全球 28 个主流高价值信息渠道，随取随用.内置多套场景预设（综合早报、财经早报、科技早报、吃瓜早报、AI深度日报）
+5. Summarize（文档摘要）提取任何文档的核心要点。
+6. Capability Evolver这是让龙虾成长的 Skills。
+7. Self-Improve-Agent记忆系统，自我优化
+8. Find-Skills让龙虾自己搜索合适的技能并安装。
+11. Skill-Vetter技能安全审计。
+12. Humanizer去除 AI 生成文本的痕迹，使文本更自然、更像人类写作。
+nano-banana-pro-prompts-recommend-skill 
+baoyu-article-illustrator（配图技能）自动为文章生成配图。
+Seedance Prompt Skill 一句话生成 Seedance 2.0 视频提示词。
+Markdown / PDF Parser 文档处理、格式转换。
+https://github.com/microsoft/markitdown
+pip install 'markitdown[all]'
+markitdown report.pdf > report.md
+https://github.com/opendatalab/MinerU
+https://github.com/wxyhgk/retain-pdf
+https://github.com/firecrawl/pdf-inspector
+https://github.com/PDFCraftTool/pdfcraft
+PDF 解析器 RUST
+https://github.com/run-llama/liteparse
+
+换脸face
+https://github.com/VisoMasterFusion/VisoMaster-Fusion
+
+Google Search Console SEO 优化。
+组合 1：公众号文章全自动生产线
+搜索热点（Multi-Search-Engine）
+    ↓
+提取要点（Summarize）
+    ↓
+生成文章（Write）
+    ↓
+配图（Article-Illustrator）
+    ↓
+润色（Humanizer）
+    ↓
+发布（Feishu-Doc）
+从选题到发布，全程自动化
+组合 2：竞品监控日报
+抓取竞品动态（Agent-Reach）
+    ↓
+提取关键信息（Summarize）
+    ↓
+数据分析（GA4 + GSC）
+    ↓
+生成报告（Markdown）
+    ↓
+推送到飞书（Feishu-Bot）
+https://github.com/ythx-101/x-tweet-fetcher
+https://github.com/wlzh/skills/tree/main/wespy-fetcher 抓取公众号文章
+微信公众号文章批量下载
+https://github.com/wechat-article/wechat-article-exporter
+https://github.com/affaan-m/everything-claude-code/blob/main/README.zh-CN.md
+agent-browser —— 让龙虾替你操作网页
+npx skills add vercel-labs/agent-browser@agent-browser
+OpenCLI —— 18个平台一句话操作 把评论、关注、搜索这些手动操作，全部做成命令行接口。覆盖B站、某乎、小红书、X、Reddit、GitHub等18个平台。还能自迭代，把新的网页也做成CLI。
+npx skills add joeseesun/opencli-skill@opencli
+skill-vetter —— 装新技能前先安检
+self-improving-agent —— 让龙虾学会复盘
+npx skills add charon-fan/agent-playbook@self-improving-agent
+
+阅读 https://mem9.ai/SKILL.md ，按照说明为 OpenClaw 安装并配置 mem9
+Rust 写的终端模糊搜索 https://github.com/Squirreljetpack/matchmaker
+视频转文字: https://github.com/wendy7756/AI-Video-Transcriber
+生成精美的架构图、流程图、时序图、数据流图和状态生命周期图
+https://github.com/tt-a1i/archify
+无脸视频工具: https://github.com/elebumm/RedditVideoMakerBot
+智能闲鱼客服机器人:https://github.com/shaxiu/XianyuAutoAgent
+https://github.com/GuDong2003/xianyu-auto-reply-fix
+https://github.com/Usagi-org/ai-goofish-monitor
+WeFlow - 一个本地的微信聊天记录导出和年度报告应用 有风险
+https://github.com/hicccc77/WeFlow
+本地化的聊天记录分析工具，通过 AI Agent 回顾你的社交记忆。
+https://github.com/hellodigua/ChatLab
+目前已支持： WhatsApp、LINE、QQ、Discord、Instagram、Telegram的聊天记录分析，即将支持： iMessage、Messenger、Kakao Talk。
+
+https://github.com/forrestchang/andrej-karpathy-skills
+https://github.com/mattpocock/skills/
+https://github.com/addyosmani/agent-skills
+你在做什么	命令	关键原则
+明确要构建什么	/spec	规范先于代码
+计划如何建造它	/plan	小的、原子性的任务
+逐步构建	/build	一次切一片
+证明它有效	/test	测试就是证明
+合并前审核	/review	改善代码健康状况
+简化代码	/code-simplify	清晰胜于巧妙
+交付生产	/ship	速度越快越安全
+https://github.com/multica-ai/andrej-karpathy-skills
+https://github.com/garrytan/gbrain
+https://github.com/garrytan/gstack
+https://github.com/tanweai/pua
+PDF转成干净到爆的Markdown
+https://github.com/opendataloader-project/opendataloader-pdf
+https://github.com/notoriouslab/doc-cleaner
+https://clawhub.ai/steipete/weather
+https://clawhub.ai/steipete/nano-pdf
+https://clawhub.ai/biostartechnology/humanizer
+https://github.com/op7418/Humanizer-zh
+https://github.com/blader/humanizer
+https://clawhub.ai/steipete/nano-banana-pro
+https://clawhub.ai/steipete/obsidian
+https://clawhub.ai/steipete/openai-whisper
+https://clawhub.ai/steipete/openai-whisper-api
+https://clawhub.ai/steipete/sag 文本转语音非本地
+https://fuym.cn/
+https://clawhub.ai/araa47/local-whisper
+https://clawhub.ai/fei-moss/moss-trade-bot-factory
+https://clawhub.ai/THIRTYFANG/stock-monitor-skill
+https://clawhub.ai/udiedrichsen/stock-analysis
+https://clawhub.ai/joelchance/polymarket-trade
+https://clawhub.ai/deanpress/polymarket-odds
+https://clawhub.ai/StanleyChanH/tushare-finance
+https://clawhub.ai/mbpz/akshare-stock
+https://clawhub.ai/Financial-AI-Analyst/mx-stocks-screener
+https://clawhub.ai/CNyezi/a-stock-analysis
+https://clawhub.ai/matagul/desktop-control
+https://clawhub.ai/steipete/video-frames
+https://clawhub.ai/ivangdavila/word-docx
+https://clawhub.ai/steipete/markdown-converter
+https://github.com/markdown-viewer/skills
+https://github.com/prathamreet/featherMD
+https://clawhub.ai/ivangdavila/excel-xlsx
+https://clawhub.ai/awspace/pdf
+https://clawhub.ai/Xejrax/pdf-extract
+https://clawhub.ai/byungkyu/microsoft-excel
+https://clawhub.ai/wwlyzzyorg/ppt-generator
+https://github.com/hugohe3/ppt-master
+https://github.com/lewislulu/html-ppt-skill
+https://github.com/op7418/guizang-ppt-skill
+https://github.com/GordenSun/GordenPPTSkill
+https://github.com/GordenSun/GordenSuperPPTSkills
+
+PowerPointer这个开源工具可以帮你自动生成完整的PPT
+https://github.com/CyberTimon/Powerpointer-For-Local-LLMs
+https://github.com/openslide/openslide
+https://clawhub.ai/Michael-laffin/pdf-text-extractor
+https://clawhub.ai/ivangdavila/office
+https://clawhub.ai/ivangdavila/image
+https://clawhub.ai/Xejrax/image-ocr
+https://github.com/riddleling/iOS-OCR-Server
+https://github.com/iOfficeAI/OfficeCLI
+
+视频/音频下载工具 支持 YouTube、TikTok、Instagram、Twitter/X、Bilibili 等 1000+ 主流网站
+https://github.com/averygan/reclip
+https://github.com/Neet-Nestor/Telegram-Media-Downloader
+
+https://clawhub.ai/hi-yu/xhs 小红书全能助手 — 文案生成、封面制作、内容发布与管理
+https://github.com/op7418/guizang-social-card-skill
+https://clawhub.ai/kenxcomp/ai-news-collectors AI 新闻聚合与热度排序工具
+https://github.com/jiji262/douyin-downloader 抖音下载
+
+https://r.jina.ai/https://x.com/CG_BRC20
+
+loop
+https://github.com/snarktank/ralph
+https://github.com/Th0rgal/open-ralph-wiggum
+视频剪辑
+https://github.com/browser-use/video-use
+Seedance 2.0 生成视频
+https://github.com/cclank/lanshu-waytovideo
+新闻聚合
+https://github.com/cclank/news-aggregator-skill
+https://github.com/rookie-ricardo/erduo-skills/blob/main/skills/daily-news-report/SKILL.md
+https://github.com/Thysrael/Horizon
+https://thysrael.github.io/Horizon/
+
+飞书多机器人
+https://github.com/cclank/feishu-multi-agent
+微信CLI
+https://github.com/WecomTeam/wecom-cli
+https://github.com/larksuite/cli
+https://github.com/Aojianlong/lark-cli-multi-account
+https://github.com/DingTalk-Real-AI/dingtalk-workspace-cli
+语音转文字
+https://github.com/GravityPoet/ChordVox
+https://github.com/Vaibhavs10/insanely-fast-whisper
+https://github.com/OpenWhispr/openwhispr
+最好的中文语音转文字模型是什么？ 
+新加了几个开源模型测试:
+MiMo-V2.5-ASR
+- Qwen3-ASR-1.7B (开源第三， 最好的小STT模型，接近4o-transcribe-mini, 总榜第七）
+- GLM-ASR-Nano 第八  
+- Fun-ASR-Nano第九
+- Voxtral-Mini-4B-Realtime 第十. 
+- 曾经开启这一领域的Whisper-Large-v3-turbo 暂时垫底
+
+即梦的CLI和Skill 把下面指令发给Claude Code安装。
+curl -s https://jimeng.jianying.com/cli | bash
+然后用dreamina login登录
+
+https://github.com/superagent-ai/grok-cli
+
+https://github.com/runesleo/claude-video-kit
+https://github.com/nexu-io/nexu
+https://github.com/MeiGen-AI/InfiniteTalk
+https://github.com/harry0703/MoneyPrinterTurbo
+https://github.com/yikart/AiToEarn
+https://github.com/songguoxs/seedance-prompt-skill
+https://www.topview.ai/topview-skill
+https://x.com/servasyy_ai/status/2036096858834288973
+https://github.com/abus-aikorea/voice-pro
+① 小红书图片卡片生成器
+输入一篇文章，自动拆成 1-10 张精美图片卡片。
+• 12种风格：可爱/清新/极简/复古/黑板/像素风/notion风...
+• 6种布局：稀疏/平衡/密集/清单/对比/流程
+• 一键出图，直接发小红书
+② 信息图生成器（21×21 = 441种组合！）
+21种布局 × 21种视觉风格，自动推荐最佳组合。
+• 布局：金字塔/漏斗/思维导图/时间线/韦恩图/鱼骨图/冰山模型/四象限...
+• 风格：手绘/黏土动画/日系可爱/赛博朋克/像素风/乐高积木/宜家说明书风...
+• 做出来的图可以直接发公众号/报告/PPT
+③ SVG 图表生成器
+说一句"画一下 OAuth 2.0 的认证流程"，它就能自动生成专业级 SVG 图表。
+• 支持流程图/时序图/架构图/类图/示意图
+• 自动适配深色模式
+• 不是调图片生成模型，是 Claude 手写 SVG 代码，精度极高
+④ 文章封面图生成器
+5维系统：类型×配色×渲染×文字×情绪，77种组合自动选。
+适合写公众号、博客的人
+• 支持自定义宽高比
+⑤ PPT 幻灯片生成器
+输入一篇 Markdown，自动生成一套完整幻灯片图片。
+• 16种风格预设（蓝图/黑板/商务/像素/水彩/幻想动画...）
+• 支持指定受众（小白/专家/高管）
+• 可以只生成大纲，也可以全套出图
+这个包最厉害的地方不是单个技能，而是它把"内容创作"这件事拆成了一个完整的流水线——从文字→卡片→信息图→封面→PPT，全链路覆盖。做自媒体的朋友装上这个，效率直接翻倍。
+https://github.com/jimliu/baoyu-skills
+做短视频最痛苦的环节之一就是从长视频里挑精华片段，手动剪辑耗时耗力。刷到一个自动化pipeline，能把YouTube长视频直接拆成竖屏短视频，适配TikTok、YouTube Shorts、Instagram Reels。
+1️⃣ 核心流程：下载YouTube视频 → Whisper语音识别提取音频 → Gemini AI分析内容找到高光片段 → FFmpeg自动剪辑 → Remotion渲染成1080x1920竖屏格式
+2️⃣ 支持批量处理整个频道的视频，不用一条一条喂。还能断点续传，跑到一半挂了可以接着来
+3️⃣ 最多10个片段并行处理，Whisper模型从tiny到large可选（精度和速度自己权衡），静音检测阈值也能调
+4️⃣ 技术栈：Bun + TypeScript，依赖FFmpeg和Google Gemini API。唯一必须配的就是Gemini API Key
+https://github.com/ayush-that/jiang-clips
+
+从任何网站获取信息。它支持 Twitter/X、Reddit、YouTube、HackerNews、Bilibili、知乎、小红书等 55 多个网站
+https://github.com/nashsu/opencli-rs
+https://github.com/nashsu/opencli-rs-skill
+https://github.com/jackwener/opencli
+https://github.com/nashsu/AutoCLI-skill
+https://github.com/nashsu/AutoCLI
+炫酷的图表
+https://github.com/Lum1104/Understand-Anything
+
+法律平台
+https://github.com/willchen96/mike
+https://github.com/LawRefBook/Laws
+
+阿里云盘、百度网盘、115 网盘
+https://github.com/gaozhangmin/aliyunpan
+提取信息QA对
+https://github.com/lijigang/ljg-skills
+
+https://github.com/RyanCodrai/turbovec
+
+https://github.com/songguoxs/seedance-prompt-skill
+
+https://github.com/slowmist/openclaw-security-practice-guide
+https://github.com/slowmist/slowmist-agent-security
+
+https://github.com/MiniMax-AI/skills/
+
+https://clawhub.ai/wwb-daniel/windows-ui-automation
+
+https://clawhub.ai/ram-raghav-s/computer-use 
+https://github.com/agent-sh/computer-use-linux
+pip install computer-use-linux
+computer-use-linux --atspi --wayland
+https://clawhub.ai/quanru/midscene-computer-automation  #WIN/MAC
+
+魔因漫创是一款面向 AI 影视创作者的生产级工具，覆盖从剧本到成片的完整创作链路：
+📝 剧本 → 🎭 角色 → 🌄 场景 → 🎬 导演 → ⭐ S级（Seedance 2.0）
+https://github.com/MemeCalculate/moyin-creator
+------------------------------------------------------------------------------
+Agents
+https://github.com/wearescientist/agents/blob/main/AGENTS.md?plain=1
+https://github.com/666ghj/MiroFish
+https://github.com/tt-a1i/hive
+https://github.com/microsoft/clarity-agent
+https://github.com/Alishahryar1/free-claude-code
+
+多Agents协作
+https://github.com/multica-ai/multica
+https://github.com/Narcooo/inkos
+
+翻译
+https://github.com/fishjar/kiss-translator
+https://github.com/STranslate/STranslate
+
+wiki
+https://github.com/nashsu/llm_wiki
+
+------------------------------------------------------------------------------
+安装方法：
+Claude Code输入"请帮我安装这个skill" + 链接
+重启后用 /skills 查看
+------------------------------------------------------------------------------
+https://skills.sh/
+https://skill.guoyu.me/
+https://github.com/guo-yu/skills
+https://github.com/joeseesun/music-genre-finder
+https://github.com/leviathofnoesia/AgentCompiler
+
+https://clawhub.ai/
+
+------------------------------------------------------------------------------
+https://github.com/garrytan/gstack
+https://github.com/EveryInc/compound-engineering-plugin
+https://github.com/obra/superpowers
+/plugin install superpowers
+/brainstorm、/write-plan、/execute-plan 三连击，直接把 Claude 从聊天机器人变成正经的开发工作流。如果你是认真写代码的，这个是降维打击。支持cc, cx, oc
+* 一个是Superpower的brainstorming，他会把你的提示词拆解成更细致的小问题，并在创作前把这些问题抛给你，让你做出决策，从而大大优化了上下文的质量。
+* 另外一个是Superpower的TDD（Test Driven Development），用这个Skill之前，我常常被AI指挥着去手动测试它写出来的充满bug的代码，用了它之后，就是AI指挥AI去debug了，省了很多脑细胞。
+所以，如果你像我一样还是个Claude Code新手，建议无脑安装Superpowers插件，这个插件包括了Brainstorming和TDD在内的7个优质的Skills ：
+oc安装:
+Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md
+------------------------------------------------------------------------------
+
+https://github.com/op7418/Video-Wrapper-Skills
+为访谈视频添加综艺风格视觉特效的 Claude Skill。AI 分析字幕内容生成建议，用户审批后自动渲染，支持 4 种视觉主题。
+
+Humanizer - 去AI痕迹写作
+24种AI痕迹检查清单
+让AI写的内容真正像人写的
+https://github.com/blader/humanizer
+https://github.com/hardikpandya/stop-slop
+
+UI/UX Pro Max - 提升AI审美
+告别AI模板，接近成熟产品质感
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+
+Find-Skills - 技能搜索助手
+Vercel官方，10万skill生态精准搜索
+https://github.com/vercel-labs/skills
+
+https://github.com/anthropics/skills
+https://github.com/anthropics/skills/tree/main/skills/canvas-design
+Logo设计师,一键生成PNG、SVG以及各种各样的布局和尺寸
+
+社交媒体发布技能
+https://github.com/jihe520/social-push
+把这篇文章发到小红书,推特、知乎、微信公众号
+
+看YouTube/Twitter/Reddit/小红书/哔哩哔哩/
+https://github.com/Panniantong/Agent-Reach
+帮我安装 Agent Reach
+
+
+https://github.com/ComposioHQ/awesome-claude-skills
+https://github.com/BehiSecc/awesome-claude-skills
+https://github.com/VoltAgent/awesome-agent-skills
+https://github.com/travisvn/awesome-claude-skills
+https://github.com/K-Dense-AI/claude-scientific-skills
+https://github.com/czlonkowski/n8n-skills
+https://github.com/huggingface/skills
+
+阅读和搜索Twitter、Reddit、YouTube、GitHub、Bilibili、小红书
+https://github.com/Panniantong/Agent-Reach
+
+
+→ 产品发现：快速挖痛点、验证 Idea，避开 90% 失败的副业坑
+→ 产品战略：一键写商业模式、定价、愿景，锁定高回报赛道
+→ 执行落地：PRD、OKR、路线图、用户故事全自动生成，想法秒变可卖产品
+→ 市场调研：用户画像 + TAM/SAM/SOM，精准找到肯花钱的客户
+→ 数据分析：A/B 测试、留存拆解，实时优化付费率和复购
+→ 市场进入： 增长循环，低成本冷启动第一批用户
+→ 营销增长：北极星指标 + 定位，直接出爆款推广文案
+→ 工具包：简历审核、合同模板、NDA，随时接 PM 私活赚钱专为 Claude Code / Cowork 打造，也完美兼容 Gemini CLI、Cursor、Codex CLI、Kiro。
+https://github.com/phuryn/pm-skills
+
+本地跑的 AI 研究助手——自动搜资料、写总结、标引用
+https://github.com/LearningCircuit/local-deep-research
+
+* 写文档：需要表达清楚、结构稳定，可以用擅长写作和总结的模型。
+* 做图 / 设计：需要视觉理解、布局审美，适合多模态或设计能力更强的模型。
+* 数据分析：需要稳定处理表格、解释结果，可以用推理不错但成本较低的模型。
+* 信息爬取：很多时候是批处理和抽取，不一定需要最强模型，便宜快的模型更合适。
+* 整理学习笔记：需要分类、提炼重点、保留原意，可以用稳定便宜的模型。
+* 生成 X 长文：需要结构、语气、节奏和观点判断，可以用写作能力更强的模型。
+* 
+references/ 放长文档、风格参考、平台尺寸、详细案例。
+scripts/ 放可执行代码。比如检查图片尺寸、批量重命名文件、导出多平台版本、整理表格。这些确定性操作用脚本比让模型每次现场生成更稳定。
+assets/ 放模板、schema、图片、示例文件、输出样式。
+* 把这个想法展开成一篇长推
+* 帮我写一篇 X 长文
+* 这个观点能不能写成一条长内容
+* 按我的语气扩写为文章
+
+* 帮我做一张封面图
+* 给这篇文章配个图
+* 按这个标题做一张科技感海报
+* 做一张适合小红书的封面
+
+* 封面图生成 Skill：准备 5 个标题、5 种内容类型、几张参考图。
+* X 长文 Skill：准备 5 条原始想法、目标读者、理想成稿风格。
+* 学习笔记整理 Skill：准备几份课堂笔记、摘抄、截图 OCR 文本。
+* 简历重写 Skill：准备不同岗位 JD、原始简历、理想修改方向。
+* 周报总结 Skill：准备一周零散记录、会议纪要、完成事项。
+
+
+
+
+

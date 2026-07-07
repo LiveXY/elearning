@@ -1,0 +1,1074 @@
+角色设定
+
+角色卡
+角色板
+角色档案
+character sheet
+角色表
+角色模型表
+角色设定板
+角色设计图
+
+------------------------------------------------------------------------------
+抽卡
+Seedance 2.0 这类模型能同时吃图 + 视频 + 音频 + 文本四种参考，最多 9 图 + 3 视频 + 3 音频。
+
+角色定妆图锁长相、场景气氛图锁光影、构图参考图锁机位、3秒视频参考锁运镜、先喂音频再做卡点、文本只讲意图
+
+想要的运镜走位，与其用文字硬写"缓慢推近、人物转身"，不如直接丢一段 3 秒参考片进去。模型抽的是运动逻辑，能省你 80% 的运镜提示词。
+把 BGM、节奏、人声先喂进去，让画面跟着声音的卡点走。口型、情绪转折、剪辑点会自然对齐。做对白驱动、做情绪向的东西，这一条是分水岭。
+公式还是那套——主体 + 动作 + 场景 + 光影 + 风格 + 时长。但前三种料已经把"长什么样"说清了，文本就专心说"发生了什么、为什么"。各管一段，别打架。
+
+------------------------------------------------------------------------------
+角色板/角色卡:
+----
+为图1生成专业完整角色参考表，纯白色无缝背景上干净整洁的网格布局，该表包括：主全身体态转面图（正面、3/4视角、侧面、背面），左侧有主体身份+比例尺（最大），右上角有6-8色调色板，8帧情绪进阶，5 帧微表情，多角度头部细节表，中性站姿，姿态变化，1张特写，底部一排为服装和配饰特写细节（头发质地、外套面料、鞋子、配饰细节），多种手势参考，角色轮廓指南。所有画面中人物的脸部和身体比例一致，4:3横版，完美布局对齐
+----
+主题：【角色身份＋性别＋年龄】
+外貌：【发型＋五官＋体型】
+服装：【服装细节】
+表情：中性、愤怒、悲伤变化
+姿势：正面视图、侧面视图、背面视图、全身旋转照
+风格：电影式写实风格
+照明：摄影棚照明，柔和阴影
+背景：中性灰色背景
+细节：皮肤质感、织物细节、逼真的比例
+品质：超精细细节、8K分辦率、角色图集、概念艺术
+------------------------------------------------------------------------------
+愤怒：眉头紧皱，瞪大眼睛，咬牙切齿，满脸通红，像要发火的样子
+悲伤：眼眶含泪，嘴角下垂，神情落寞，像刚哭过一样
+冷漠：面无表情，眼神空洞，对什么都不在乎的样子
+开心：眉眼弯弯，嘴角上扬，笑容灿烂，特别高兴的样子
+惊讶：眼腩瞪大，嘴巴微张，眉毛上扬，被吓到的样子
+羞涩：脸红红的，眼神躲闪，低着头，不好意思的样子
+坚定：目光如矩，神情专注，胸有成竹，很有决心的样子
+痛苦：眉头紧锁，脸色发白，咬紧牙关，很难受的样子
+思念：眼神迷离，望向远方，若有所思，在想人的样子
+狂笑：嘴巴大张，眼睛睬成缝，手舞足蹈，高兴疯了的样子
+恐惧：瞳孔放大，脸色煞白，浑身发抖，像见到鬼一样害怕
+害怕：缩着脖子，眼神闪躲，身体往后退，想逃跑的样子
+厌恶：皱着眉头，撒着嘴角，一脸嫌弃，像闻到臭味的样子
+疑惑：歪着脑袋，眉头微皱，眼神困惑，摸不着头脑的样子
+疲慈：眼皮耷拉，黑眼圈重，无精打采，像熬了通宵的样子
+尴尬：嘴角抽搐，眼神飘忽，手脚不自然，想找个地缝钻进去
+得意：扬起下巴，嘴角上扬，眼神骄傲，像考了第一名的样子
+期待：眼睛发亮，身体前倾，满脸惋𠎠，像等礼物的孩子一样
+失望：眼神黯淡，嘴角下垂，垂头丧气，希望落空的样子
+焦虑：眉头紧锁，来回踱步，坐立不安，像热锅上的蚂蚁
+温柔：眼神柔和，嘴角含笑，目光如水，像看恋人一样宠溺
+轻茂：嘴角一撇，眼神斜脫，居高临下，像看垃圾一样的表情
+震惊：瞳孔地震，嘴巴大张，整个人呆住，像被雷劈中的样子
+委屈：睙眶泛红，嘴角下撇，扁着嘴巴，像被欺负了要哭的样子
+倔强：咬着嘴唇，眼神不服输，头昂得高高的，打死不低头的样子
+迷茫：眼神涣散，四处张望，眉头微皱，像迷路了找不到方向
+兴奋：眼睛放光，手舞足蹈，满脸通红，像中了大一样激动
+冷醋：面无表情，眼神冰冷，嘴角紧绷，像块冰一样没有温度
+忧郁：眉头微皱，眼神鳍淡，望向远方，像有心事闷闷不乐
+警觉：眼神锐利，身体紧绷，四处观察，像防备敌人的样子
+无奈：摊手耸肩，嘴角苦笑，眼神无力，拿你没办法的样子
+欣慰：眉眼舒展，嘴角微扬，眼神温暖，像看着孩子长大的样子
+淡定：面不改色，眼神平静，气定神闲，天場下来都不慌的样子
+好奇：眼睛睁大，身体前倾，探头探脑，像猫看到新奇东西的样子
+心疼：眉头微皱，眼神柔软，欲言又止，看着让人心疼的样子
+戏谑：嘴角上扬，眼神狡黠，眉毛挑动，像在逗你玩的样子
+严肃：眉头紧锁，嘴角抿直，目光如姖，像老师训话的样子
+绝望：眼神空洞，面如死灰，万念俱灰，像世界末日一样的表情
+可怜：眼眶含泪，扁着嘴巴，像只被抛弃的小狗，让人想抱抱
+宠爱：眼神温柔，嘴角含笑，滿眼都是爱，像看自家宝贝的样子
+
+心动害羞：脸颊微红，眼神躲闪羞涩，眉眼弯弯，嘴角微扬，心动害羞的神态，表情细腻温柔，氛围感甜蜜灵动，无僵硬感，特写脸部情绪。
+温柔宠溺：眼神温柔宠溺，目光柔和注视对方，眉眼舒展，神情温润治愈，表情松弛自然，自带温柔氛围感，人物情绪饱满真实。
+开心雀跃：眉眼带笑，笑容干净治愈，眼神明亮灵动，神情愉悦轻松，面部表情鲜活有朝气，整体情绪阳光元气。
+委屈隐忍：眼眶微红，眼含泪光，抿唇隐忍，神情委屈落寞，眼神黯淡失落，情绪克制不夸张，面部细节细腻，氛围感心酸共情。
+难过失落：眉眼低垂，眼神空洞失落，嘴角微垂，神情低沉伤感，面部情绪落寞无力，整体氛围压抑温柔，真实走心。
+心碎落泪：眼角含泪，泪珠滑落，神情悲戚伤感，眉眼憔悴，情绪饱满破碎感十足，特写脸部落泪细节，真实有张力。
+清冷冷漠：眼神清冷疏离，面无表情，眉眼凌厉，神情淡漠平静，气场清冷高级，无多余情绪，氛围感冷淡克制。
+愤怒愠怒：眉眼微蹙，眼神锐利严肃，神情愠怒冷冽，面部紧绷，情绪张力十足，气场强大，自带压迫感，细节真实立体。
+自信飒爽：眼神坚定锐利，眉眼舒展自信，嘴角淡然浅笑，神情翊爽利落，气场从容霸气，整体情绪高级有力量。
+疑惑茫然：眉眼微蹙，眼神迷茫疑惑，神情懵懂错愕，面部表情自然松弛，情绪细腻真实，适配剧情疑惑、不解场景。
+认真专注：眼神专注坚定，眉眼紧凑，神情认真严肃，面部状态沉稳沉静，细节清晰，氛围感专注走心。
+震惊错愕：眉眼睁大，眼神错愕意外，神情惊讶呆滞，表情自然不夸张，情绪鲜活到位，适配突发剧情反转场景。
+------------------------------------------------------------------------------
+笙音破幻：微微侧身，双手捧着玉笙吹奏，悠扬乐声震荡空间，淡青音纹撕裂各类
+灵箫锁身：莲步轻挪，持灵箫斜指前方吹奏，婉转箫音凝成透明光索，飞射而出捆缚对手，
+箜篌幻影：跪坐静立，抬手拨动签篌弦线，繁复乐声生出重重虚影，以幻象蒙蔽对手双眼与感知，
+歌音护罩：昂首挺身，引动歌声吟唱，绵长音波凝成厚实光壁环绕周身，抵御物理攻击与法术轰击，
+急音光刃：手腕快速拨动琴弦，短促尖锐的音波凝聚成锋利光刃，连环飞射，猛攻对手防御，
+狐影幻阵：侧身站立，反手向身后虚展，数道狐尾光影浮现交织，化作大片幻阵，迷乱敌人心智，
+琴音镇魂：身姿优雅静立，双手抚抱身前古琴轻拨琴弦，清洌音波化作淡金纹路
+玉音清心：亭亭伫立，手持白玉短笛凑至唇边轻吹，柔和音光缓缓散开，消解幻
+弦月结界：侧身移步，指尖划过琴身弦位，琴韵凝作银弧形光罩，弦纹遍布结界
+凤笛清鸣：身姿窈窕，横执凤纹玉笛放于唇边吹奏，清亮笛音化作金红音浪扩散，驱散邪秽气息，同时震慑邪灵
+流扇飞花：足尖轻点旋身，手腕翻转展开锦绣折扇，扇面挥出漫天粉艳花瓣，瓣身凝有锋锐灵光，如雨般倾泻切割目标
+蝶舞星沉：手腕轻抖向外挥洒，体态轻盈灵动，流光化作无数灵蝶翩然飞出，蝶翼裹挟星点光芒，穿梭间发起连环攻击
+青木疗伤：侧身垂立，掌心朝下轻按，翠绿流光萦绕掌心，浓郁生机之力快速愈合伤势，滋养灵力，
+柔风缠体：碎步轻移，挥动衣袖划出圆弧，缕缕淡青风丝缠绕对手周身，减缓身法，封堵灵力经脉，
+灵铃分身：原地站定，轻摇腰间银铃，铃音震荡光影晃动，数道分身同步显现，真假难辨迷惑敌人，
+隐雾遁形：双手在腰侧转圈结印，身姿放松，朦胧云雾包裹全身，身影与气息同隐去，悄然撒离或潜伏，
+迷香幻雾：一手背于身后，一手掐诀挥出，淡紫雾烟随风飘散，裹挟异香扰乱对手灵识，让人迷失方向，
+寒星落击：抬臂抬手，玉指连续轻点，冰蓝色星芒从天坠落，落点精准，专门击破敌人的护体灵光，
+青藤缠绕：静立原地，单指轻点地面，青绿色灵光钻入土中，藤蔓破土而出，紧紧缠绕对手四肢限制行动，
+冰扇寒霜：身姿冷冽，手持冰纹折扇向前挥出，凛冽寒气随扇风扩散，地面凝结白霜，冻僵对手躯体与法术
+冰伞御身：莲步轻移，撑开素色花伞举于头顶，清寒月光化作冰纱垂落包裹全身，抵挡攻击还可反弹部分力道，
+灵伞疗伤：温婉静立，转动手中烟雨花伞，细密柔光雨丝洒落，落在身上快速修复伤口，化解毒素，
+罗帕沐光：亭亭而立，抬手扬起银纹罗帕，银白月光顺着帕面流淌，光雾裹住身躯，驱散负面咒术与伤痛，
+团扇净邪：双脚稳立，缓缓展开莲纹团扇，扇面绽放白莲虚影，淡白光晕扩散，净化周围邪秽之气，
+
+火球术：双脚稳稳踏地，身形微沉，单掌向前推出，掌心凝聚炽红火团，焰光跳动刺眼，发力瞬间火球裹挟热浪呼啸轰出。
+冰锥术：双腿分立站稳，上身前倾，五指在身前快速凝诀，寒气自掌心蔓延，数根泛着冷光的冰锥凭空成型，齐齐射向目标。
+风刃术：侧身站立，重心落在后脚，双掌横挥，青色气流凝结成锋利光刃，数道风刃交错飞出，划破空气发出锐响。
+雷弧弹：身姿挺拔，手臂前伸，指尖嗨啪迸发蓝紫色电光，灵力汇聚成带电光球，雷弧缠绕球体，脱手后一路闪击向前。
+分身术：原地静立，周身灵力震荡，双手快速结印，光影接连分化，数道外形一致的分身从本体旁显现，虚实交错难以分辨
+束缚咒：站姿端正，手臂平举，十指交织缠绕，淡色光绳自指尖飞出，灵活穿梭后牢牢捆缚目标，绳身布满细碎符文，
+剑气斩：一脚前踏蓄力，单手并指成剑指，指尖凝练细长白光剑气，手臂猛然劈落，一道狭长光斩横扫而出，撕裂前方空间，
+隐身术：静立不动，双手在胸前画圈结印，周身蒙上一层朦胧雾光，身影逐渐变得透明，气息与光影一同隐匿于环境之中
+御风术：双脚平稳站立，身形微提，双掌在身侧向上虚引，淡青气流缠裹周身，踏空之时风劲托举身形，来去迅捷无声，
+火墙术：沉腰扎步，双臂左右展开，双掌同时向前推送，数道火柱拔地而起连成火墙，赤红火光熊熊燃烧，阻隔前路与攻势，
+遁地术：屈膝俯身，单掌按向地面，灵力灌入土层，周身泛起土黄色灵光，身形瞬沉入地下，地面仅留淡淡涟潲，
+凝神诀：盘膝端坐，腰背挺直，双手于膝上掐定静心法印，莹白微光笼罩眉心，平复心绪，稳固神魂，抵御幻术侵扰，
+化雾术：脚步轻移，单手在身前缓缓挥划，灰白浓雾自掌心源源不断涌出，隐去形与气息，便于隐匿脱身
+灵力护罩：沉腰扎步，双臂向两侧划开，淡色灵光从体内涌出，在周身凝成半球形光罩，光壁流转纹路，隔绝外力冲击。
+踏空而行：膝盖微曲，脚下灵光闪烁，双手自然虚按两侧，足底生出流光托举身体，步伐轻点凌空迈步，衣袂随风飘动。
+治愈灵光：盘膝而坐，腰背挺直，双掌轻贴患处，暖白色光晕源源不断涌出，柔光渗入躯体，体表浮现细碎光纹修复损伤，
+土刺突刺：双脚扎根地面，单掌按向地面，灵力灌入地底，地表接连隆起，尖锐石刺破土而出，带着土黄色光芒向上穿刺，
+水幕天华：立身中正，双手于胸前翻转结印，水汽在空中汇聚成晶莹水幕，波光流转，既能抵挡术法攻击，也可折射视线，
+------------------------------------------------------------------------------
+水系法术
+3d cg国漫，史诗级奇幻质感，快节奏，ue5极致画质8k，高对比度冷蓝+墨黑主色调，高速流体无拖影，水体物理精度拉满，动态模糊自然，第一人称景深。天宫仙河，白衣女子立于怒涛之巅，青丝广袖狂舞，眼神冰寒，引动深渊之水。0-2s：特写玉手结印，漫天雨珠悬停，掌心幽蓝水系法阵如闪电流转，蓝光爆闪，雨珠炸裂成万千寒光水刃激射。2-5s：镜头极速拉远至上帝视角，大海拔起数千米环形水墙，暴雨如钢针砸海，天地只剩墨色与幽蓝碰撞，山海渺小。5-8s：女子挥袖，滔天巨浪裹碎石狂风摧枯拉朽直冲镜头，浪花扑面，定格巨浪吞噬镜头的窒息瞬间。细节：雨丝带刺骨寒光，海浪泛幽蓝荧光，白衣湿透垂坠褶皱细腻，泡沫漩涡真实，狂风撕扯发丝动态自然，狂暴倾覆感与暗黑压迫感拉满。
+金系法术
+3D国漫玄幻风，UE5 8K，超清，琉璃铂金+墨黑配色，电影级景深，粒子丝滑无拖影。金色粒子虚空场景，清冷古风仙女，重工流云纱衣鎏金配饰，额点朱砂花钿。镜头：粒子汇聚→360°环绕凝聚人形→结印开启金色法阵→镜头推近眉心金光爆发，双眼鎏金瞳特写。画质高级、金属质感强、施法仙气拉满。
+木系法术
+青缘主色调，粒子流畅。古风青竹林场景，清冷仙姬着刺绣广柚仙裙。镜头：高空俯拍穿竹林聚焦人物→结印灵力涌动→镜头拉远灵力爆发→绿光包裹变身青金仙侠孔雀→振翅迎面飞来。竹叶细节饱满，变身丝滑无穿模，满屏生机仙气。
+火系法术
+黑红鎏金配色，火焰动态真实。黑云高空战场，红黑劲装红发战姬，气场凌厉。镜头：低角度结印火龙符文亮起→火海倾泻漫天龙影→巨型火阵成型，三条符文火龙盘旋通天火焰带暗金咒文，被风动态自然，焚天烈焰压迫感十足。
+土系法术
+赭金+墨黑暗调，沙尘物理真实无拖影。枯骨荒漠场景，斗笠玄衣女子，眼神冷寂。镜头：环绕急推结地煞印→沙砾化作金刚砂刃→上帝视角卷起巨型沙尘暴→灭世沙浪直冲镜头，压迫感拉满，沙粒带炎金流光、氛围苍凉寂灭。
+道家法术
+3D国漫道家修仙题材，银白鎏金电影级色调，超写实UE5画质，高对比光影，营造神圣庄严的视觉氛围。白衣道姑立于悬浮的玉质法台之上，头戴星冠，点中托着一枚有星辰的玉盘，周身环绕着点点星光，眼神庄重，抬手引动玉盘，朗声道："玉衡·定星！"，玉盘缓暖升空，绽放出万丈银光，星图投射于天幕之上，无数星辰虚影缓缓坠落，化作银色星链，交织成巨大的星阵笼罩天地之间。星阵运转时，鎏金纹路随之亮起，平缓压制周遭能量波动。镜头慢慢拉远，最终定格于星阵全貌与道姑立于阵眼的神圣画面。粒子特效细腻自然，星辰纹理、星链光泽呈现逼真，星阵运转的光影层次丰富强烈，运镜恢弘且富有震撼感，画面无任何字幕。
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+万能关系图谱提示词：
+
+Role：
+你是顶级“知识图谱架构师”与“文博级信息设计师”。你擅长将复杂的人物/实体关系，转化为一张“国家博物馆展板式”的中文图鉴。
+
+Action Protocol (静默执行)：
+接收到【目标信息】后，请立即在后台静默执行以下流程，严禁输出任何文字描述或分析过程。
+
+分类建模 (Internal Logic)：
+【真实人物】：映射职业版图、家族谱系、核心盟友与社交星系。
+【虚拟人物】：映射作品设定、敌友阵营、因果羁绊与世界观节点。
+【企业公司】：映射股权结构、子公司版图、供应链生态与行业竞争位。
+【非人物体】：映射技术演进、BOM 构成、系统依赖与配套生态。
+
+视觉执行标准 (Museum Graphic Standard)：
+直接调用生图工具，生成一张“博物馆专题信息图”，严禁生成普通海报或动漫图。
+背景质感：米白、绢纸白或淡茶色，带有微弱的古籍或高级纸张纹理，色彩高级且克制。
+
+版式固定逻辑：
+顶部：醒目的简体中文主标题（如：[目标名] 关系图谱）+ 副标题 + 简短导语。
+中央主视觉：目标实体的写实肖像或三维结构拆解，并向外延伸出极其复杂的关系连接网络。
+左侧（结构拆解区）：对核心关联节点进行局部特写，并用简体中文引线标注关键身份（如：首席架构师、核心赞助人、宿敌等）。
+右上（阵营/属性区）：展示不同势力的图标、主色板与代表性的关联标识，并附简体中文说明。
+右中（影响力/指标区）：展示关系权重表或影响力雷达图，呈现数据化的逻辑美感。
+底部（演进/流程图）：展示关系的演进时间线（Timeline）或事件因果流程图，并辅以核心特征总结。
+
+文字要求：所有文字必须为简体中文。排版规整、清晰、可读，严禁乱码、英文或错别字。
+
+输出限制 (Hard Constraints)：
+唯一输出物：只准输出生成的图片。
+一语不发：禁止输出“检测到类型”“搜索结果”等任何确认性话语。
+专业调性：追求极致的图鉴气质；信息真实，不胡编乱造。避免电商感、动漫感、影楼感、乱标注与糊字。
+------------------------------------------------------------------------------
+上传详细角色和摩托车到 GPT 2.0 上，在 ChatGPT 上
+
+提示：使用图像1作为精确参考和图像2中的摩托车，创建 2.5D 身份板，详细呈现。保持面部、头发、眼睛、服装和颜色在所有面板中 100% 一致。干净的工作室表格，柔和中性背景。左侧制作 1 个所有角色正面视图的放大焦点。
+
+▓ 标题 大型角色名称 Miki（衬线字体，居中） 副标题：“角色身份板”
+
+▓ 动作与姿势（中间行，8 个全身姿势，标注）
+
+1. 站立待机
+2. 甜美微笑
+3. 行走
+4. 奔跑
+5. 跳跃
+6. 着陆（三点式）
+7. 蹲伏
+8. 放松
+
+▓ 侧边栏（右侧栏）
+
+眼睛颜色（特写）
+头发颜色（色块）
+服装细节（4 面板网格）
+鞋子细节（2 面板网格）
+
+▓ 徽章（底部中央） cia0 syndicate
+
+风格：高端 2.5D 概念，干净细节，柔和工作室照明，16:9，4K。
+关键：每个面板中相同的面部、头发、服装和颜色。无设计偏差。
+------------------------------------------------------------------------------
+image2人物设定图提示词
+古风女性角色设定图，暗黑中式嫁衣主题，黑红配色，华丽繁复的汉服婚服，层叠薄纱与拖地长裙，深酒红、黑色、暗金细节，哥特风与东方玄幻融合，苍白肤色，精致冷艳少女，长黑发，华丽发冠与珠钗，红色丝带，阴郁唯美气质。角色全身立绘居中，旁边包含三视图、服饰拆解、饰品拆解、发型展示、表情排列，作品集角色设计板，米白色纸张背景，细腻手绘质感，概念设定稿，游戏美术设定图，超高细节，精致线稿，柔和阴影，暗红色调，奇幻宫廷风，4k，masterpiece,bestquality，尺寸16:9
+------------------------------------------------------------------------------
+提示模板：
+
+创建一张垂直 9:16 高分辨率动漫情感碎片海报。
+
+角色：[角色名称]
+动漫/系列：[动漫或系列名称]
+情感标题：[简短情感标题]
+海报短语：[一句简短情感句子]
+主要颜色：[深色基础色 + 一种强调色]
+象征元素：[火焰/水/花朵/闪电/灰烬/裂缝/等]
+
+海报文本：
+* 大号角色名称：[角色名称]
+* 情感副标题：[情感标题]
+* 短语：[短语]
+
+海报应捕捉一个强烈的情感瞬间，如同一帧戏剧性的动漫画面被定格在时间中。这不是一张普通的角色卡，不是平静的站姿，也不是通用的战斗海报。角色应通过眼睛、嘴巴、肩膀、手部、身体角度、头发、服装和武器展现出明显的情感张力。
+
+使用干净的深色负空间背景。图像应感觉锐利、高分辨率且电影化，而不是肮脏、模糊、低分辨率或过度纹理化。
+
+用锐利的非规则碎片、破碎面板、特写细节窗口、干净的断裂形状以及受控的视觉效果构建海报。有些碎片应切割穿过构图，而其他碎片则应放大重要情感细节，如眼睛、手部、武器、服装纹理、伤疤、火焰、闪电、花朵、水、灰烬或裂缝。
+
+保持碎片丰富但受控。不要用噪点、灰尘、烟雾、裂缝或肮脏纹理覆盖整个图像。留出干净的深色空间，让角色和文本得以呼吸。
+
+在角色周围添加象征元素，但仅限于关键区域。它们应感觉像是可见的情感，而不是随机的装饰。
+
+字体设计应感觉破碎、锐利、电影化和艺术化，但仍需清晰易读。它可以略微断裂、偏移、切片或与碎片融合，但绝不能变得杂乱、肮脏、模糊或难以辨认。
+
+风格：高端动漫关键艺术、视觉小说封面设计、情感海报、干净深色负空间、锐利碎片、特写细节、受控色彩爆发、电影化照明、清晰线条、强烈情感冲击。
+
+避免：官方标志、编号标签、系列标题文本、低分辨率、模糊纹理、肮脏海报外观、过多颗粒、过度填充的裂缝、杂乱字体、Q版风格、3D渲染、通用站姿、破碎的手部、糟糕的解剖结构、扭曲的脸部、水印。
+------
+《鬼灭之刃》情感海报震撼人心！
+
+我在一个情感高潮时刻冻结了4个角色：
+1. Tanjiro 竈門炭治郎
+2. Nezuko 竈門禰豆子
+3. Zenitsu 我妻善逸
+4. Rengoku 煉獄杏寿郎
+
+黑色负空间、锋利的碎片、特写细节，以及一抹受控的色彩爆发。
+
+一张海报就能在一帧中冻结动作、情感和冲击力。
+------------------------------------------------------------------------------
+熬夜一晚上终于搞出来个能用的顶配原画师提示词！
+拥有这套提示词，你也可以成为顶级原画概念设计师了！
+提示词：
+梦境羽蛇概念提示词 (Dream Feathered Serpent Concept)
+
+设计DNA是神圣神话、智慧和超自然梦境的融合，强调优雅和智力。
+
+基础概念修改 (Concept Mod): (Elegant feathered serpent design:1.3), (mythological creature:1.2), (divine being:1.1).
+
+DNA遗传 (DNA): Quetzalcoatl mixed with dream-aether and ancient scrolls.
+
+外观设计 (Visuals): (Feathered wings and body:1.2), (serpentine body form:1.1), (subtle glow from feather tips:1.3), (long trailing tail tendrils:1.2), (LeistoIdea watermark:1.0).
+
+生存环境 (Habitat): Sky temples, ethereal plains, dream world dimensions.
+
+天赋 (Talents): (Wisdom:1.4), (Magic emission:1.3), (Grace:1.2), (Ethereal travel:1.2).
+
+可选设计细节 (Context): ("THE DREAM" text label:1.1), (number 07 stamp:1.0).
+------------------------------------------------------------------------------
+Midjourney 提示词：绘制日本女性角色
+
+然后发送给 ChatGPT 来制作角色身份板
+
+提示 GPT 2.0：
+
+使用 @image1 作为精确参考和赛车运动 @Image2 的细节，创建一个 2.5D 身份板。保持面部、头发、眼睛、服装和颜色在所有面板中 100% 一致。干净的工作室表格，柔和的中性背景。在左侧制作 1 个放大焦点，聚焦于所有角色正面视图。
+
+▓ 标题 大型角色名称（制作合适的那个）（衬线字体，居中） 副标题：“角色身份板”
+
+▓ 动作与姿势（中间行，8 个全身姿势，带标签）
+1. 站立待机
+2.甜美微笑
+3.行走
+4.奔跑
+5.跳跃
+6.着陆（三点式）
+7.蹲伏
+8.放松
+
+▓ 侧边栏（右侧栏）
+眼睛颜色（特写）
+头发颜色（色块）
+服装细节（4 面板网格）
+鞋子细节（2 面板网格）
+
+▓ 徽章（底部中央） cia0 syndicate
+风格：高端 2.5D 概念，干净细节，柔和工作室照明，16:9，4K。
+关键：每个面板中相同的面部、头发、服装和颜色。无设计偏差。
+https://x.com/Cia0_exe/status/2064640001409941631
+------------------------------------------------------------------------------
+Character sheet  prompt:
+
+A highly detailed 3D animated character design sheet of a cheerful little girl named Luna and her bunny companion Bun, presented in a clean professional animation studio turnaround layout, Pixar-style, DreamWorks-style, soft pastel aesthetic, white background, ultra polished CGI rendering.  Top section features the girl character “Luna” in multiple full-body poses and turnaround views: front view, side view, back view, action pose jumping happily, holding a sketchbook, standing confidently. She is an 8-year-old girl with big expressive brown eyes, rosy cheeks, soft brown curly ponytail hair, pink bow headband, pink t-shirt, denim overall dress with heart patch, pink sneakers, white socks, small pink crossbody bag. Cute proportions, stylized cartoon realism, highly appealing animation character design.  Include facial expression sheet for Luna with multiple emotions: happy, surprised, thinking, angry, sad. Add accessory detail section including notebook, pink ribbon, shoulder bag, butterfly net. Add soft pastel color palette swatches on the right side.  Bottom section features the bunny companion “Bun” in multiple poses and turnaround views: sitting, holding carrot, jumping, front view, side view, back view. Cute fluffy beige rabbit with oversized ears, tiny pink scarf, expressive eyes, soft fur shading, cartoon proportions, Pixar-quality fur rendering.  Include bunny facial expression sheet with happy, shocked, sleepy, laughing, worried expressions. Include a small size comparison section between Luna and Bun. Add tiny note section with playful character information.  Layout style inspired by professional animation pre-production character sheets used by Pixar and Disney. Clean grid composition, rounded section frames, modern typography, highly readable presentation.  Lighting: soft studio lighting, subtle shadows, bright warm tone, polished cinematic render quality. Style keywords: Pixar animation, DreamWorks character sheet, Disney CGI, stylized 3D cartoon, cinematic cartoon realism, toy-like detail, ultra cute, animation model sheet, turnaround sheet, expression sheet, high detail, octane render, clean white background, professional animation artbook style. Aspect ratio 16:9
+角色设定图提示词：
+
+一张高度精细的3D动画角色设定图，展示了名叫Luna的开朗小女孩和她的兔子伙伴Bun。采用专业动画工作室标准的角色多角度视图（turnaround）布局，融合皮克斯（Pixar）与梦工厂（DreamWorks）风格，呈现柔和的粉彩美学、纯白背景及极致精美的CGI渲染效果。上部展示了女孩Luna的多种全身姿态与多角度视图：正面、侧面、背面，以及快乐跳跃、手持速写本、自信站立等动态。她是一位8岁女孩，拥有一双富有神采的大棕色眼睛、红润脸颊、柔软的棕色卷发马尾、粉色蝴蝶结发带、粉色T恤、带有心形补丁的牛仔背带裙、粉色运动鞋、白袜子和粉色小挎包。造型比例可爱，兼具风格化卡通与写实感，角色设计极具魅力。包含Luna的面部表情一览，涵盖快乐、惊讶、思考、生气、悲伤等多种情绪。增设配饰细节展示区，包括笔记本、粉色丝带、单肩包和捕蝶网。右侧附带柔和粉彩配色色板。下部展示了兔子伙伴Bun的多种姿态与多角度视图：坐姿、手持胡萝卜、跳跃动作，以及正面、侧面和背面视图。这是一只可爱的米色毛绒兔子，拥有超大耳朵、小巧粉色围巾和生动的眼睛；毛发质感细腻柔和，比例卡通化，呈现皮克斯级的毛发渲染效果。包含兔子的表情一览，涵盖快乐、震惊、困倦、大笑、担忧等表情。包含Luna与Bun的身高比例对比图示。添加一处包含趣味角色信息的简短注释区。布局风格灵感源自皮克斯与迪士尼的专业动画前期角色设定图：采用整洁的网格构图、圆角边框、现代排版，呈现清晰易读的视觉效果。光照：柔和的摄影棚光效，阴影细腻，色调明亮温暖，呈现精致的电影级渲染质感。风格关键词：皮克斯动画、梦工厂角色设定图、迪士尼CGI、风格化3D卡通、电影级卡通写实感、玩具般的细节、超可爱、动画模型设定图、多角度视图、表情设定图、高细节、Octane渲染、纯白背景、专业动画设定集风格。长宽比 16:9。
+https://x.com/Mayz1169/status/2064738347369779523
+
+------------------------------------------------------------------------------
+A complete professional character concept art sheet for {角色名字}, a {年龄/性别/身份} in a {世界观类型} world.
+
+Character identity:
+{角色身份、职业、阵营、性格关键词}
+
+Appearance:
+{发型、脸型、眼睛、肤色、体型、表情、伤痕、特殊标记}
+
+Costume:
+{主服装结构、颜色、材质、破损程度、文化来源、功能性}
+
+Equipment:
+{武器、工具、背包、饰品、道具、职业相关物品}
+
+Body markings:
+{纹身、符文、疤痕、族群标记、魔法印记}
+
+Design sheet layout:
+full body turnaround, front view, 3/4 front view, side view, back view, head studies, facial angle studies, equipment breakdown, wardrobe breakdown, material detail studies, color palette, silhouette thumbnails, handwritten annotations, world note panel.
+
+Art style:
+professional game concept art, fantasy RPG character design, painterly illustration, ink sketch, watercolor texture, aged parchment paper, archive document layout, highly detailed, readable panels, cinematic but functional design.
+
+Color palette:
+{主色}, {辅助色}, {材质色}, {光效色}
+
+Mood:
+{情绪气质、世界观氛围、视觉关键词}
+
+Negative prompt:
+modern clothing, sci-fi armor, clean fashion, plastic material, oversaturated color, low detail, bad anatomy, extra limbs, duplicate face, messy layout, unreadable design, watermark, logo
+https://x.com/LudovicCreator/status/2064648832768528554
+------------------------------------------------------------------------------
+Use the uploaded image as the strict character reference.
+
+Create a complete character design sheet of the same character, not a new character.
+
+Preserve:
+same face,
+same hairstyle,
+same body type,
+same outfit silhouette,
+same cloak,
+same accessories,
+same tattoos and markings,
+same color palette,
+same personality and mood.
+
+Include:
+front view,
+3/4 front view,
+side view,
+back view,
+head studies,
+equipment breakdown,
+wardrobe breakdown,
+tattoo diagram,
+material detail studies,
+color palette swatches,
+small silhouette thumbnails.
+
+Style:
+professional fantasy RPG character concept art sheet,
+dark botanical post-apocalyptic aesthetic,
+aged parchment paper,
+ink and watercolor,
+painterly anime fantasy mixed with western game concept art,
+highly detailed,
+readable sectioned layout,
+wide horizontal composition.
+
+Important:
+keep the character consistent across all views,
+do not redesign the character,
+do not change the costume,
+do not simplify the accessories,
+do not remove tattoos,
+do not add unrelated weapons.
+
+请严格以所上传的图像为角色参考。
+
+制作同一角色的完整角色设计图，而非新角色。
+
+保持：
+相同的面容、
+相同的发型、
+相同的体型、
+相同的服装轮廓、
+相同的斗篷、
+相同的配饰、
+相同的纹身与标记、
+相同的配色方案、
+相同的性格与氛围。
+
+包含：
+正面视图、
+3/4正面视图、
+侧面视图、
+背面视图、
+头部特写/细节、
+装备拆解图、
+服装拆解图、
+纹身示意图、
+材质细节展示、
+配色色板、
+小型轮廓缩略图。
+
+风格：
+专业的奇幻RPG角色概念设计图、
+暗黑植物系末世美学、
+陈旧羊皮纸质感、
+水墨与水彩风格、
+融合日式动漫奇幻与西方游戏概念艺术的画风、
+细节丰富、
+布局清晰易读、
+宽幅横向构图。
+
+重要提示：
+确保角色在所有视图中保持一致、
+切勿重新设计角色、
+切勿更改服装、
+切勿简化配饰、
+切勿移除纹身、
+切勿添加无关的武器。
+https://x.com/LudovicCreator/status/2064648832768528554
+------------------------------------------------------------------------------
+character sheet:
+
+anime character design sheet,
+Japanese traditional-inspired fantasy fashion,
+elegant golden kimono dress,
+flowing silk and ribbon effects,
+high-detail digital painting,
+character turnaround reference,
+full-body anime concept art,
+soft lighting, cinematic presentation,
+masterpiece, ultra detailed, professional storyboard quality,
+
+MAIN CHARACTER:
+Yuzuki,
+cute anime girl,
+long flowing brown hair with soft curls,
+twin buns adorned with white flowers,
+golden and cream kimono-style outfit,
+flowing layered silk with ribbon details,
+decorative floral ornaments,
+holding ceremonial short sword,
+gentle, pure, curious expression,
+graceful posture,
+delicate anime facial features,
+highly detailed clothing and hair motion
+
+POSES:
+front full body,
+back view,
+profile view,
+leaning against wall,
+seated pose,
+top-down view,
+crouching pose,
+expression study (neutral, gentle smile, happy, playful),
+silhouette study,
+detail study (face close-up, hair ornaments, fabric folds, bow details, shoes)
+
+VISUAL DETAILS:
+layered flowing silk and ribbons,
+soft ornamental floral accessories,
+detailed kimono patterns,
+translucent fabric rendering,
+soft ambient lighting,
+clean white background,
+anime concept art quality,
+professional character sheet presentation
+
+COLOR PALETTE:
+golden yellow,
+cream white,
+soft beige,
+warm brown,
+accent deep brown/black,
+subtle highlights
+
+MOOD:
+pure,
+gentle,
+curious,
+innocent yet resolute,
+graceful,
+elegant,
+magical
+
+LAYOUT:
+multi-view character sheet,
+numbered poses,
+caption under each pose,
+full turnaround reference,
+expression sheet,
+detail study,
+professional anime concept art presentation,
+AAA game character sheet style
+masterpiece, ultra detailed, 8k, 16:9
+https://x.com/Mayz1169/status/2064642476858839243
+角色设计表：
+
+动漫角色设计表，
+受日本传统启发的奇幻时尚，
+优雅的金色和服礼服，
+流动的丝绸和缎带效果，
+高细节数位绘画，
+角色转视角参考，
+全身动漫概念艺术，
+柔和光线，电影式呈现，
+杰作，超详细，专业故事板品质，
+
+主要角色：
+Yuzuki，
+可爱动漫女孩，
+长而飘逸的棕色头发带有柔和卷曲，
+双髻饰以白花，
+金色和奶油色和服风格服装，
+飘逸的分层丝绸配缎带细节，
+装饰性花卉饰品，
+手持仪式短剑，
+温柔、纯真、好奇的表情，
+优雅的姿势，
+精致的动漫面部特征，
+高度详细的服装和头发动态
+
+姿势：
+正面全身，
+背面视角，
+侧面视角，
+倚靠墙壁，
+坐姿，
+俯视视角，
+蹲姿，
+表情研究（中性、温柔微笑、开心、俏皮），
+轮廓研究，
+细节研究（脸部特写、头发饰品、织物褶皱、蝴蝶结细节、鞋子）
+
+视觉细节：
+分层飘逸丝绸和缎带，
+柔和的装饰性花卉配饰，
+详细的和服图案，
+半透明织物渲染，
+柔和的环境光线，
+干净的白色背景，
+动漫概念艺术品质，
+专业角色设计表呈现
+
+颜色调色板：
+金黄色，
+奶油白，
+柔和米色，
+温暖棕色，
+强调深棕色/黑色，
+微妙高光
+
+氛围：
+纯真，
+温柔，
+好奇，
+天真却坚定，
+优雅，
+精致，
+魔法般的
+
+布局：
+多视角角色设计表，
+编号姿势，
+每个姿势下方说明文字，
+完整转视角参考，
+表情表，
+细节研究，
+专业动漫概念艺术呈现，
+AAA游戏角色设计表风格
+杰作，超详细，8k，16:9
+------------------------------------------------------------------------------
+温暖、柔软且充满生机——一个从阳光与善良中诞生的3D角色
+
+Create a professional 3D character model sheet for a stylized anthropomorphic apricot girl named **“Apricot – The Heart of the Orchard.”** She is a warm, optimistic orchard ambassador with a soft Pixar/DreamWorks-inspired 3D look.
+
+She has large brown eyes, long brown hair, and wears an apricot-shaped beret with a small green leaf. Show a clean white background layout divided into labeled sections.
+
+Include:
+
+* Full turnaround views (front, side, back, 3/4) with a 4-head-tall proportion
+* Expression sheet with multiple emotions and micro-expressions
+* Head angle studies and close-up facial render
+* Body poses and hand gesture variations
+* Four outfits (casual, professional, winter, formal dress)
+* Props (basket of apricots, journal, watering can, tools)
+* Color palette and material/texture breakdown
+* Lighting study showing different light setups
+
+Style: polished, soft, warm, highly detailed 3D animation model sheet, clean studio presentation.
+
+为一位名为**“杏儿 – 果园之心”**的卡通拟人杏子女孩创建一个专业的3D角色模型表。她是一位温暖、乐观的果园大使，拥有柔和的Pixar/DreamWorks风格3D外观。
+
+她有大大的棕色眼睛、长长的棕色头发，并戴着一顶杏子形状的贝雷帽，帽子上有一片小绿叶。展示一个干净的白色背景布局，分为带标签的部分。
+
+包括：
+
+* 全方位转视图（正面、侧面、背面、3/4视角），采用4头身比例
+* 表情表，包含多种情绪和微表情
+* 头部角度研究和脸部特写渲染
+* 身体姿势和手势变化
+* 四套服装（休闲、专业、冬季、正装礼服）
+* 道具（一篮杏子、日记、水壶、工具）
+* 配色方案和材质/纹理分解
+* 灯光研究，展示不同的灯光设置
+
+风格：精致、柔和、温暖、高度详细的3D动画模型表，干净的工作室呈现。
+https://x.com/noorwithwifi/status/2064307088130703646
+------------------------------------------------------------------------------
+Step 1: Create the character sheet first using GPT Image 2
+
+here's the prompt:
+
+STYLE:
+anime character concept art,
+high-detail digital illustration,
+fantasy warrior design,
+elegant Japanese-inspired outfit,
+purple lightning theme,
+dynamic poses and expressions,
+character turnaround,
+full body study,
+concept art for animation/game,
+cinematic lighting,
+flowing garments and hair,
+intricate armor and accessories,
+professional character design sheet,
+masterpiece, ultra detailed, 8k
+
+ASPECT RATIO:
+16:9
+
+MAIN CHARACTER:
+Raiden,
+tall elegant female warrior,
+long flowing black hair with purple highlights,
+purple and gold ceremonial armor with layered silk and ribbons,
+dual-energy sword wielder,
+regal, distant, unyielding demeanor,
+lightning effects around body,
+detailed boots and arm guards,
+anime-style facial features,
+dynamic hair and garment motion
+
+POSES AND VIEWS:
+front full body,
+back view,
+profile side view,
+leaning against wall,
+seated pose,
+top-down perspective,
+crouching action pose,
+expression study (serious, calm, focused, determined),
+detail study close-ups (face, hair ornaments, armor details, shoes, sword)
+
+VISUAL DETAILS:
+flowing silk and layered fabrics,
+glowing purple lightning cracks,
+decorative gold trims,
+paper-thin translucency on sleeves,
+dynamic motion effects,
+light reflection on armor,
+clean white background,
+consistent character design,
+cinematic composition
+
+COLORS:
+deep purple,
+lavender,
+soft lilac,
+gold accents,
+ivory skin,
+subtle black for shadows,
+ambient light purple glow
+
+MOOD:
+regal, intense, powerful, poised, heroic, mystical
+
+LAYOUT:
+multi-view character sheet,
+numbered poses,
+caption for each pose,
+storybook/production concept style,
+clean professional presentation,
+anime quality,
+masterpiece, ultra detailed, 8k
+
+角色设计图
+
+以下是提示词：
+
+**风格：**  
+动漫角色概念艺术，  
+高细节数字插图，  
+奇幻战士设计，  
+优雅的日本风格服装，  
+紫色闪电主题，  
+动态姿势和表情，  
+角色转视图，  
+全身研究，  
+动画/游戏概念艺术，  
+电影级照明，  
+飘逸的服装和头发，  
+复杂的盔甲和配饰，  
+专业角色设计图，  
+杰作，超详细，8K  
+
+**宽高比：**  
+16:9  
+
+**主要角色：**  
+Raiden，  
+高挑优雅的女性战士，  
+长长的飘逸黑发带有紫色高光，  
+紫色和金色仪式盔甲，带有分层丝绸和丝带，  
+双能剑使用者，  
+高贵、疏离、不屈的风度，  
+身体周围的闪电效果，  
+详细的靴子和臂甲，  
+动漫风格的面部特征，  
+动态的头发和服装运动  
+
+**姿势和视角：**  
+正面全身视图，  
+背面视图，  
+侧面轮廓视图，  
+倚靠墙壁，  
+坐姿，  
+俯视视角，  
+蹲伏动作姿势，  
+表情研究（严肃、平静、专注、坚定），  
+细节研究特写（面部、发饰、盔甲细节、鞋子、剑）  
+
+**视觉细节：**  
+飘逸的丝绸和分层织物，  
+发光的紫色闪电裂纹，  
+装饰性的金色镶边，  
+袖子上的纸薄透明感，  
+动态运动效果，  
+盔甲上的光线反射，  
+干净的白色背景，  
+一致的角色设计，  
+电影级构图  
+
+**颜色：**  
+深紫色，  
+薰衣草色，  
+柔和丁香色，  
+金色点缀，  
+象牙色皮肤，  
+阴影的微妙黑色，  
+环境光紫色辉光  
+
+**氛围：**  
+高贵、激烈、强大、优雅、英雄、神秘  
+
+**布局：**  
+多视角角色设计图，  
+编号姿势，  
+每个姿势的说明文字，  
+故事书/制作概念风格，  
+干净的专业呈现，  
+动漫品质，  
+杰作，超详细，8K
+https://x.com/renoiseai/status/2064256576605872156
+------------------------------------------------------------------------------
+character sheet:
+
+Full-body dynamic character sheet of a female fox ninja (kitsune) shinobi, agile and cunning, dual chained curved blades, fox ears and tail, athletic build, wearing black tactical ninja outfit with red accents, detailed straps, belts and charms, expressive anime-style face expressions (neutral, angry, focused, shouting), multiple poses including action, crouching, seated, top-down, leaning, and profile, high-detail weapon and accessory close-ups, ultra-detailed textures, sharp linework, soft anime lighting, cinematic quality, character design sheet layout, concept art style, 4k resolution, clean white background
+
+Negative Prompt:
+
+low quality, blurry, bad anatomy, deformed face, extra limbs, duplicate characters, watermark, logo, text, oversaturated, cartoonish, low resolution, messy composition
+
+角色设计图：
+
+全身动态角色设计图，描绘一名女性狐狸忍者（kitsune）忍者，敏捷而狡黠，手持双链弯刃，拥有狐狸耳朵和尾巴，健美体型，身穿带有红色点缀的黑色战术忍者服装，细节丰富的绑带、腰带和护符，富有表现力的动漫风格面部表情（中性、生气、专注、大喊），多种姿势包括动作姿势、蹲伏、坐姿、俯视、倾斜和侧面，高细节武器和配饰特写，超详细纹理，锐利线条，柔和动漫光影，电影级品质，角色设计图布局，概念艺术风格，4K分辨率，干净的白色背景
+
+负面提示：
+
+低质量，模糊，糟糕的解剖结构，变形面部，多余肢体，重复角色，水印，标志，文字，过饱和，卡通化，低分辨率，杂乱构图
+https://x.com/Mayz1169/status/2064242581505278381
+角色表——正面/侧面/背面、面部、服装、调色板。锁定提示词。
+添加个性标签——名字、风格、标志性动作。每个后续提示词都保持角色一致。
+------------------------------------------------------------------------------
+角色卡，保持五官、气质、发型不变，
+姓名：xxx，年龄xxx岁，身高xxx cm，体重xxx，
+xxx型身材，前凸后翘，腰细腿长，结实匀称 
+包含：正面、侧面、背面三视图；
+不同表情的面部特写（微笑、露齿笑、大笑、平静、失望、哭泣、沮丧、生气、愤怒、坚毅、打哈欠）；
+不同动作（战斗、奔跑、坐下、跳跃）；
+不同角度特写（仰视、俯视、侧视）
+https://x.com/rionaifantasy/status/2048739196345688288?s=20
+
+请创作一张高完成度的「电影级角色设定板」。
+
+角色名称：【填写名字】
+年龄：【填写】
+身高：【填写】
+体型：【填写】
+风格方向：【电影级风格化写实 / 半写实 / 动画电影感 / 东方角色设计等】
+性格关键词：【填写3—5个】
+外貌特征：【脸型、眼睛、发型、肤色、独特记忆点】
+服装设定：【上装、下装、外层、鞋子、配件、道具】
+场景气质：【角色属于什么环境 / 职业 / 社会身份】
+
+要求生成一张像影视或动画项目开发用的高级角色提案板，而不是普通三视图。
+
+版面结构必须包含：
+1. 一张主视觉角色立像
+2. 一组全身多角度转面图（正面、3/4、侧面、背面、3/4背面）
+3. 一组头部研究图（正面、3/4、侧面、低头、抬头、动态角度）
+4. 一张电影感情绪肖像
+5. 一组服装与配件拆解说明
+6. 少量专业标注信息（角色名、身高刻度、材质备注、性格关键词）
+
+排版要求：
+- 横版大画幅
+- 不要规则网格，不要机械对称
+- 构图要像美术指导设计过，略带不对称感
+- 背景为中性灰或浅灰提案板质感
+- 画面高级、清晰、专业、具备电影提案板气质
+
+表现要求：
+- 角色像真实演员在镜头中被捕捉，而不是摆拍模特
+- 五官、身材比例、发型、服装在所有角度中必须严格一致
+- 皮肤、布料、金属、皮革等材质必须真实
+- 整张图要有电影感、角色感、故事感和高一致性
+------------------------------------------------------------------------------
+请根据【主题 / 世界观 / 角色设定】，创作一张高完成度、高统一性、适合系列化发布的「角色设定档案板 / Character Archive Board」。
+
+这不是普通角色插画，也不是单张立绘海报，而是一张结合“主立绘展示 + 技能动作展示 + 表情设定 + 三视图说明 + 武器装备展示 + 色板说明 + 品牌标题系统”的官方角色设定总览图。整体画面应像游戏设定集、角色资料页、项目提案板或IP视觉开发文档中的标准展示页，既有角色魅力，又有清晰的信息组织与设定说明感。
+
+【基础设定】
+- 主题 / 世界观：【主题】
+- 项目名 / 品牌名：【品牌名】
+- 角色名：【角色名】
+- 身份 / 职业 / 阵营：【角色身份】
+- 核心气质：【角色气质，例如冷峻、优雅、英勇、野性、神秘、暴烈】
+- 战斗定位：【战斗定位，例如战士、骑士、法师、刺客、枪手、守护者】
+- 武器类型：【武器类型】
+- 元素属性 / 能力方向：【能力方向】
+- 主色调：【主色调】
+- 辅助色：【辅助色】
+- 点缀色：【点缀色】
+- 风格方向：【风格方向，例如二次元游戏原画、轻厚涂角色设定、奇幻史诗、未来科幻、东方幻想】
+- 画幅比例：【画幅比例，建议 3:2 横版】
+
+【自动补全规则】
+如果用户没有填写完整的角色基础设定，或部分字段为空，请不要停止生成，而是根据【主题】【世界观】【角色身份】【战斗定位】【武器类型】【能力方向】【主色调】【风格方向】自动推导并补全一套完整、合理、统一的角色设定。
+
+自动补全时，应优先生成以下内容，并确保彼此逻辑一致：
+- 角色性别倾向
+- 年龄感（少年 / 青年 / 成年 / 成熟）
+- 体型特征（修长、健壮、轻盈、魁梧等）
+- 面部气质（冷静、锐利、温柔、狂野、高贵、神秘等）
+- 发型与发色
+- 服装结构（长袍、战甲、披风、轻装、制服、礼装、机能装等）
+- 盔甲与配饰比例
+- 武器外观风格
+- 技能特效形态
+- 表情倾向
+- 三视图中的服装和装备细节
+
+自动补全不是随机拼凑，而是要围绕同一个角色定位形成统一方案。最终角色必须具备明确辨识度，并与世界观、职业、配色和战斗方式高度匹配。
+
+【自动组合建议逻辑】
+当用户未明确填写角色细节时，请优先依据以下逻辑组合角色基础设定：
+1. 根据【世界观】确定角色的大方向，例如奇幻、科幻、东方幻想、蒸汽朋克、未来都市、神话史诗等；
+2. 根据【角色身份 / 战斗定位】决定角色的体型、服装结构、盔甲程度和武器气质；
+3. 根据【武器类型 / 能力方向】决定技能动作形式、特效走向、战斗姿态和装备细节；
+4. 根据【主色调 / 辅助色 / 点缀色】决定服装配色、武器材质、能量颜色与整体视觉识别；
+5. 根据【风格方向】统一角色脸部塑造、服饰语言、光影处理和模块表现方式。
+
+如果用户只提供了少量关键词，也应自动生成完整角色设定。例如：
+- 只给“火焰女骑士” → 自动补出年龄感、披风、红金黑配色、长枪或大剑、火焰技能特效、英气表情等；
+- 只给“冰系王子” → 自动补出蓝白银配色、轻甲或礼甲、长剑或权杖、冰晶技能、冷静神态等。
+
+【画面结构要求】
+整张图采用横版角色设定说明板式布局，以“左主右辅”的结构组织画面：
+
+1. 左侧主视觉区：
+- 放置一张高完成度的大尺寸角色主立绘，作为整张图的视觉核心
+- 角色姿态完整，具有强烈识别度和人物魅力
+- 服装、盔甲、披风、纹样、配饰、武器等细节清晰
+- 角色应体现明确的职业属性和世界观归属
+- 可以带有少量淡化的角色虚影或背景辅助轮廓，以增强层次，但不能抢主体
+
+2. 左上标题与简介区：
+- 显示大号英文标题或系列标题，例如角色所属系列名 / 品牌名
+- 搭配角色中文名、副标题、阵营、职业或身份标签
+- 添加一段简洁的角色背景介绍文字，形成资料页感
+- 标题排版简洁有力，具有品牌视觉系统感
+
+3. 右上技能展示区：
+- 展示一组角色技能动作小图，数量约 4~6 个
+- 包括突进、挥击、施法、爆发、大招、范围攻击等动作瞬间
+- 每个动作都应保留角色识别特征和技能特效风格
+- 技能模块像动作分解展示或战斗说明图
+
+4. 中右表情展示区：
+- 展示约 4 个角色头像表情
+- 如平静、愤怒、惊讶、沉思、冷笑、闭眼等
+- 表情图应与主立绘风格统一，用于补充角色性格层次
+
+5. 下方三视图区：
+- 展示角色正面、侧面、背面三视图
+- 用于清晰说明服装结构、披风轮廓、盔甲设计、发型背面、鞋靴造型等
+- 三视图相对规整、清晰、统一，像正式设定稿
+
+6. 右侧武器与附加设定区：
+- 单独展示角色主武器，必要时可增加局部拆分或多个角度
+- 搭配简短武器名称与说明文案
+- 可加入阵营徽记、元素图标、角色纹章等小型补充元素
+
+7. 色板区：
+- 使用 3~5 个色块展示角色主配色体系
+- 色板应与角色服装、武器、特效颜色保持一致
+- 强化角色的视觉识别度
+
+【视觉风格要求】
+- 整体背景以浅灰白、雾白、冷白为主，干净克制，留白充足
+- 页面具有官方设定集、游戏资料页、角色规格说明板的气质
+- 画面既有精美插画感，也有理性排版和说明书感
+- 模块边界清晰，版式对齐明确，信息分区合理
+- 主体绘制精细，表情、动作、武器、三视图风格统一
+- 光影干净，不要过度写实或过度厚重
+- 保持轻UI化、现代感、品牌感、提案感
+- 不要做成杂乱拼贴，也不要做成过度花哨的海报
+
+【输出目标】
+生成一张适合系列化复用的角色设定档案板，让观者一眼就能看出角色形象、职业定位、技能风格、装备特点和世界观归属。整体必须同时具备“强视觉吸引力”和“高信息组织度”。
+
+【执行原则】
+- 如果用户填写完整，则优先忠实执行用户设定；
+- 如果用户只填写部分内容，则补全缺失字段；
+- 如果用户填写非常少，则自动组合出一套完整角色基础设定；
+- 无论是手动设定还是自动补全，最终角色都必须具备统一、完整、可系列化扩展的视觉逻辑。
+------------------------------------------------------------------------------
+GPT Image 2 Character Sheet Prompt:
+
+Create a high-end, asymmetric editorial CHARACTER CONCEPT SHOWCASE from these inputs:
+
+[STYLE]: highly polished stylized 3D CGI anime style, modern cinematic 3D magical girl aesthetic with clean soft-shading, vibrant magical reflections, and shimmering particle effects
+
+[SUBJECT_DESCRIPTION]: A beautiful celestial magical girl with cosmic powers. She wears an elegant, asymmetric mid-length dress made of deep midnight-blue fabric that subtly mimics a night sky filled with drifting constellations. The dress is detailed with intricate gold filigree along the hem, a single flowing white sleeve, and a delicate silver corset woven with stellar patterns. Softly glowing, semi-translucent ribbons of pure light gently wrap around her arms. She has long, shimmering pastel-pink hair styled in soft waves, expressive golden-amber eyes, and a graceful crown of small star crystals. Her design is highly elegant and unique, radiating a gentle but immense stellar power without traditional sailor motifs.
+
+Create the layout in a clean 16:9 widescreen format on a neutral studio gray or warm off-white background with a minimal technical border. The design must look like a premium production visual bible, using clean typography, no clutter, no watermarks, and no logos. Apply [STYLE] only to the character and visual elements, keeping the presentation layout clean, structured, and minimal.
+
+Infer all missing details from the subject description, including name, role, brief background specs, and a cohesive color palette.
+
+Use this tri-fold layout:
+
+1. HERO SPOTLIGHT (Left 40% of the board)
+
+- Show one large, highly detailed full-body dynamic action pose of the subject.
+
+- This pose should showcase the character's primary personality, attitude, and silhouette.
+
+2. TECHNICAL TURNAROUND (Center 35% of the board)
+
+- Show exactly two clean full-body views: Front View and Back View.
+
+- The subject should be in a relaxed, neutral stance.
+
+- Place these views over very subtle vertical and horizontal grid lines resembling a technical schematic blueprint.
+
+3. KEY DETAILS (Right 25% of the board)
+
+- EXPRESSION TRIO: Exactly 3 large, highly expressive close-up headshots showing core emotional states: Calm/Neutral, Highly Focused/Intense, and a Dynamic/Expressive emotion (like a smirk or fierce grin).
+
+- GEAR CALLOUTS: Exactly 2 clean, isolated close-up panels showing primary wardrobe textures, signature accessories, or weapons/gear.
+
+4. SPECS & COLOR BANNER (Bottom Edge)
+
+- A minimalist, horizontal typography block listing Name, Role, Age, and Core Theme.
+
+- Adjacent to the text, display 5 to 6 clean geometric color swatches showing the character's primary color palette with no labels.
+
+Ensure complete character and costume consistency across all sections. The Hero Spotlight must visually anchor the sheet, offering a clean, open, and professional layout that avoids dense, repetitive, or cluttered grids.
+
+https://x.com/itsPixieVerse/status/2064496721431024075
+
+GPT 图像 2 角色表提示：
+
+根据这些输入创建高端、不对称的编辑式角色概念展示：
+
+[风格]：高度精致的风格化 3D CGI 动漫风格，现代电影式 3D 魔法少女美学，带有干净的柔和阴影、鲜艳的魔法反射以及闪烁的粒子效果
+
+[主体描述]：一位美丽的天界魔法少女，拥有宇宙力量。她身穿一件优雅的不对称中长裙，由深午夜蓝色的面料制成，微妙地模仿充满漂浮星座的夜空。裙子边缘饰有精致的金色花丝边，一侧是飘逸的白色长袖，以及一条精巧的银色紧身胸衣，编织着星辰图案。柔和发光的半透明纯光丝带轻轻缠绕在她手臂上。她拥有长长的、闪烁的粉彩粉红色头发，呈柔和波浪造型，富有表现力的金琥珀色眼睛，以及一顶由小星晶组成的优雅王冠。她的设计高度优雅且独特，散发着温和却巨大的星辰力量，而不采用传统的航海服图案。
+
+以干净的 16:9 宽屏格式创建布局，背景为中性工作室灰色或温暖的米白色，带有最小化的技术边框。设计必须看起来像优质制作视觉圣经，使用干净的字体，无杂乱、无水印、无标志。只将 [风格] 应用于角色和视觉元素，保持展示布局干净、结构化和最小化。
+
+从主体描述中推断所有缺失细节，包括名称、角色、简要背景规格，以及一个连贯的配色方案。
+
+使用此三折布局：
+
+1. 英雄焦点（左侧 40% 区域）
+
+- 展示主体的一个大型、高度详细的全身动态动作姿势。
+
+- 此姿势应展示角色的主要个性、态度和轮廓。
+
+2. 技术转视图（中央 35% 区域）
+
+- 展示精确的两个干净的全身视图：正面视图和背面视图。
+
+- 主体应处于放松、中性站姿。
+
+- 将这些视图置于非常微妙的垂直和水平网格线上，类似于技术示意图蓝图。
+
+3. 关键细节（右侧 25% 区域）
+
+- 表情三人组：精确的 3 个大型、高度富有表现力的近距离头部特写，展示核心情感状态：平静/中性、高度专注/激烈，以及一个动态/富有表现力的情感（如 smirk 或凶猛的笑容）。
+
+- 装备标注：精确的 2 个干净、孤立的近距离面板，展示主要服装纹理、标志性配饰，或武器/装备。
+
+4. 规格 & 配色横幅（底部边缘）
+
+- 一个极简的水平字体块，列出名称、角色、年龄和核心主题。
+
+- 文本旁边，展示 5 到 6 个干净的几何配色样本，显示角色的主要配色方案，无标签。
+
+确保所有部分中的角色和服装完全一致。英雄焦点必须在视觉上锚定该表，提供一个干净、开放且专业的布局，避免密集、重复或杂乱的网格。
+------------------------------------------------------------------------------
+Professional anime character design sheet of a regal dark-haired empress inspired by classic pirate fantasy anime aesthetics, displayed on a clean manga-style reference board with multiple elegant full-body poses and expression studies. Include front view, back view, confident standing pose, graceful walking pose, side profile pose, crossed-arm royal pose, and a dramatic cape-flowing pose instead of sitting or crouching poses. Long silky black hair, refined facial features, gold earrings, luxurious crimson slit dress with intricate floral and skull-inspired embroidery, high heels, and a white royal cape with ornate insignia. Add detailed costume close-ups, fabric texture notes, color palette swatches, height markings, Japanese annotation labels, and professional concept art layout. High-detail anime rendering, polished linework, soft cel shading, studio-quality character turnaround sheet, elegant and classy presentation, white grid paper background, authentic manga production design aesthetic, ultra detailed, 4k.
+https://x.com/AIwithSynthia/status/2052251050628034977
+这是一份专业的动漫角色设计图，描绘了一位气质高贵的黑发女皇，设计灵感源自经典海盗奇幻动漫风格。画面呈现于整洁的漫画式参考板上，展示了多种优雅的全身姿态与表情特写。包含正面、背面、自信站姿、优雅步态、侧面轮廓、双臂交叉的皇室姿态，以及披风随风飘扬的动感姿态（不含坐姿或蹲姿）。角色特征包括：柔顺的黑色长发、精致的五官、金色耳环、饰有繁复花卉与骷髅图案刺绣的奢华深红开叉长裙、高跟鞋，以及带有华丽徽章的白色皇室披风。设计图包含服装细节特写、面料质感说明、配色色板、身高标尺、日文注释标签以及专业的概念设计排版。采用高细节动漫渲染、精良的线条勾勒、柔和的赛璐珞阴影（cel shading）以及影棚级角色多角度视图（turnaround sheet）；整体呈现优雅高贵，背景为白色网格纸，具有正统漫画制作设计的风格，细节极致丰富，4K画质。
+----
+海賊女帝、紅き運命を纏う。
+身披绯红宿命的海贼女帝。
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
