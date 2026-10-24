@@ -2661,7 +2661,7 @@ https://docs.pritunl.com/docs/connecting
 https://github.com/clockworkpi
 
 在线运行PYTHON代码
-https://trinket.io/
+https://coddy.tech/playground/python
 https://tool.lu/coderunner/
 https://c.runoob.com/compile/6
 http://www.pythontip.com/coding/run
